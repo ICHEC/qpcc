@@ -1,8 +1,0 @@
-.DS_Store
-scratch.md
-_site/
-_draft/
-.jekyll-cache/
-Gemfile.lock
-_build/
-_build/*
