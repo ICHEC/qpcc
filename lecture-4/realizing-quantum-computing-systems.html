@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Lecture 4: Realizing Quantum Computing Systems &#8212; Lecture Notes from ICHEC</title>
   
@@ -29,40 +28,44 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/style.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../_static/style.css?v=b2431316" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=afe5de03"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-4/realizing-quantum-computing-systems';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -161,7 +164,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -372,7 +386,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lecture-4-realizing-quantum-computing-systems">
-<span id="lecture-4"></span><h1>Lecture 4: Realizing Quantum Computing Systems<a class="headerlink" href="#lecture-4-realizing-quantum-computing-systems" title="Permalink to this heading">#</a></h1>
+<span id="lecture-4"></span><h1>Lecture 4: Realizing Quantum Computing Systems<a class="headerlink" href="#lecture-4-realizing-quantum-computing-systems" title="Link to this heading">#</a></h1>
 <div class="tip admonition">
 <p class="admonition-title">Learning Outcomes</p>
 <p>Discuss the types of Quantum Computing Hardware and the Physical components that they are made up of as well as the guiding principle behind their operation.</p>
@@ -383,7 +397,7 @@ document.write(`
 </div>
 <img alt="../_images/stack-4.png" class="align-center" src="../_images/stack-4.png" />
 <section id="why-do-we-need-quantum-computing">
-<h2>Why do we need Quantum Computing?<a class="headerlink" href="#why-do-we-need-quantum-computing" title="Permalink to this heading">#</a></h2>
+<h2>Why do we need Quantum Computing?<a class="headerlink" href="#why-do-we-need-quantum-computing" title="Link to this heading">#</a></h2>
 <p>First let us answer the question of Why we need quantum computers, There are broadly two reasons why Quantum Computing promises to be useful to us in the future of computing.</p>
 <ul class="simple">
 <li><p>The first reason is that there exist a class of problems which are very difficult to solve on Classical Computers but can be efficiently calculated on a Quantum Computer. These include certain Optimization problems, Chemical Simulations and some search problems, Quantum computers can theoretically solve these problems in exponentially fewer computational steps in comparison to their classical counterpart.</p></li>
@@ -391,13 +405,13 @@ document.write(`
 </ul>
 </section>
 <section id="qubits">
-<h2>Qubits<a class="headerlink" href="#qubits" title="Permalink to this heading">#</a></h2>
+<h2>Qubits<a class="headerlink" href="#qubits" title="Link to this heading">#</a></h2>
 <section id="a-new-paradigm-for-computation">
-<h3>A new paradigm for computation<a class="headerlink" href="#a-new-paradigm-for-computation" title="Permalink to this heading">#</a></h3>
+<h3>A new paradigm for computation<a class="headerlink" href="#a-new-paradigm-for-computation" title="Link to this heading">#</a></h3>
 <p>Qubits are the fundamental unit of information in Quantum Computing systems they play a role similar to that of bits in Classical Computing. However, there are some key differences between the properties of Bits and Qubits. Bits always correspond to distinct energy values or levels whereas Qubits do not possess a definite energy value until they are measured before which they exist in a superposition of states, this superposition allows us to process multiple states in a single round of computation which is one of the key sources of speedup in Quantum Computing systems. Let us look at some other Quantum Properties which make Quantum systems different from their Classical counterparts</p>
 </section>
 <section id="quantum-properties">
-<h3>Quantum Properties<a class="headerlink" href="#quantum-properties" title="Permalink to this heading">#</a></h3>
+<h3>Quantum Properties<a class="headerlink" href="#quantum-properties" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Superposition : It is the ability for a Quantum Particle to exist in a state which has probability of being measured in either of the basis states which are labelled as 0 or <a class="reference external" href="http://1.In">1.In</a> the previous module we showed light polarized in the + state is measured as 0 or 1 with equal probability, this state is an equal superposition of both the basis states.</p></li>
 <li><p>Entanglement : A8 feature of Quantum particles which allows us to interact them in a way such that the measurement on one particle influences the state of the other particle, Classically, this would be equivalent to there being 2 coins such that when you flip one coin as heads the other automatically also goes to the state heads. Entanglement is leveraged specifically for Quantum Communication and Crytography.</p></li>
@@ -406,23 +420,23 @@ document.write(`
 </section>
 </section>
 <section id="classical-vs-quantum-logic">
-<h2>Classical vs Quantum Logic<a class="headerlink" href="#classical-vs-quantum-logic" title="Permalink to this heading">#</a></h2>
+<h2>Classical vs Quantum Logic<a class="headerlink" href="#classical-vs-quantum-logic" title="Link to this heading">#</a></h2>
 <p>Similar to how Classical Gates are used to build Classical Computing operations we have a set of Quantum Gate operations which take a qubit or a set of qubits as input and returns a modified version of the state as output. In the previous lecture we discussed the existence of Universal Gate set which means that there always exists is a set of gates that can be used to construct any logical operation that we require, the Pauli operations along with the CNOT gate is one example of such a gate set.</p>
 <p>All Quantum gates are required to be reversible in nature which means that there always exists an operation which can reverse the action of a previous gate or a set of gates. This, is however not true for the Quantum Measurement operation which was introduced in the provious module, this operation measures a Quantum state and returns a Classical measurement value as it’s outcome while also collapsing the qubit to the corresponding Quantum state, thisoperation is not reversible and the state that existed before the measurement cannot be recovered. There are several properties of Qubit that you could measure. All Quantum gates are required to be reversible in nature which means that there always exists an operation which can reverse the action of a previous gate or a set of gates.</p>
 <img alt="../_images/Quantum-Gates.png" class="align-center" src="../_images/Quantum-Gates.png" />
 </section>
 <section id="quantum-circuits">
-<h2>Quantum Circuits<a class="headerlink" href="#quantum-circuits" title="Permalink to this heading">#</a></h2>
+<h2>Quantum Circuits<a class="headerlink" href="#quantum-circuits" title="Link to this heading">#</a></h2>
 <p>A sequence of Quantum Gates and Operations in a particular order is known as a Quantum Circuit, Quantum Circuits are different from Classical circuits in a few key ways. Quantum Circuits are made up of  Quantum Gates, Operations and Measurements, There are also extra qubits which are added to the system called Auxillary Qubits which are sometimes required for operations of the algorithms and are also required for Error Correction, we will discuss Error Correction in more detail later in this lecture. Furthermore, unlike Classical Circuits in which a gate can be applied between any two bits, Quantum Hardware often restricts the connections that can be made between qubits, in most systems only neighboring qubits of the system can be operated on using gates. The underlying connectivity of the physical qubits is known as topology, since topology gives us an idea of the allowed interactions within a Quantum Circuit it needs to be taken into consideration while building efficient Quantum Circuits</p>
 </section>
 <section id="quantum-computation-workflow">
-<h2>Quantum Computation Workflow<a class="headerlink" href="#quantum-computation-workflow" title="Permalink to this heading">#</a></h2>
+<h2>Quantum Computation Workflow<a class="headerlink" href="#quantum-computation-workflow" title="Link to this heading">#</a></h2>
 <p>Let’s take a look at how the workflow of a Quantum Computation is different from the Classical Computation we’re familiar with, In the classical workflow we get the data from the given problem statement which acts as the input to the Classical algorithm which gives us the required output.</p>
 <img alt="../_images/worflow.png" class="align-center" src="../_images/worflow.png" />
 <p>The Quantum version of the workflow follows a similar set of steps with a few additional Quantum specific operations in the middle, The first step of generating data from the Classical Problem statement remains the same, however this classical data cannot directly be input into a Quantum Algorithm it needs to be converted into a set of Quantum states this process of conversion of Classical data into a set of input Quantum States is known as Data Encoding, the type of data encoding often depends on the type of quantum Algorithm we choose, we can store multiple copies of these intial Quantum states in a Quantum memory so that we don’t require to reinitialize the input state each time we want to run the circuit, these input states are provided to the Quantum algorithm,  Quantum Computers can physically be implemented using various different architectures which we will discuss in the coming few slides, based on the type of Computing architecture we’re working on the abstract Quantum Algorithm needs to be compiled into a physical Quantum circuit which is then implemented on the hardware, the ouput from the Quantumm circuit often requires a certain amount of Classical post processing to get the required output.</p>
 </section>
 <section id="building-quantum-computers">
-<h2>Building Quantum Computers<a class="headerlink" href="#building-quantum-computers" title="Permalink to this heading">#</a></h2>
+<h2>Building Quantum Computers<a class="headerlink" href="#building-quantum-computers" title="Link to this heading">#</a></h2>
 <p>Broadly, the Quantum Computing systems that are being developed today can be classified into two categories Circuit Based or Gate Based devices and  Analog Quantum Simulation, there are further segregation within each of these types which we’ll delve into in the upcoming slides,we have also shown some of the industry providers who are working towards building each of these types of hardware.</p>
 <ul class="simple">
 <li><p>Circuit-Based/ Gate-Based</p>
@@ -449,14 +463,14 @@ document.write(`
 </li>
 </ul>
 <section id="circuit-based-quantum-computing">
-<h3>Circuit-based Quantum Computing<a class="headerlink" href="#circuit-based-quantum-computing" title="Permalink to this heading">#</a></h3>
+<h3>Circuit-based Quantum Computing<a class="headerlink" href="#circuit-based-quantum-computing" title="Link to this heading">#</a></h3>
 <p>Circuit Based Quantum Computing refers to the model of hardware in which complex Quantum operations are built by combining and using a primitive set of Quantum gates, most of our discussion upto this point has been oriented towards this model of computing, There are different physical mechanisms to implement qubits as well as the gate operations to build the circuits.</p>
 <p>Let us go through some of these architectures and how they implement Qubits and the Quantum operations :</p>
 <p>Superconducting loops: Also known as Transmon Qubits use electronic circuits consisting of superconducting elements and Josephson junctions and are controlled using microwave pulses which controls the phase of the qubits</p>
 <p>Trapped Ion : Computers use Ions or charged particles which are suspended in free space as the qubits and uses Lasers to drive the computation by performing gates</p>
 <p>Photonics, Diamond Vacancies Silicon Quantum Dots and Topological qubits are some other architectures which are also currently being worked on. Each technology comes with it’s share of advantages in terms of Scalability, Operation temperature and Coherence times and therefore each of them are ideal for different use cases and applications.</p>
 <section id="performance-metrics-for-qubits">
-<h4>Performance Metrics for Qubits<a class="headerlink" href="#performance-metrics-for-qubits" title="Permalink to this heading">#</a></h4>
+<h4>Performance Metrics for Qubits<a class="headerlink" href="#performance-metrics-for-qubits" title="Link to this heading">#</a></h4>
 <p>Mentioned below are some of the key metrics used to determine the performance of a Qubit based system</p>
 <ul class="simple">
 <li><p>Scalability refers to the maximum number of qubits that can be operated by a given Quantum system, more qubits usually refers to a greater amount of computational power although the fidelity/ coherence time of the qubit also plays an important role in determining which system is stronger.</p></li>
@@ -469,7 +483,7 @@ document.write(`
 </section>
 </section>
 <section id="analog-quantum-simulators">
-<h3>Analog Quantum Simulators<a class="headerlink" href="#analog-quantum-simulators" title="Permalink to this heading">#</a></h3>
+<h3>Analog Quantum Simulators<a class="headerlink" href="#analog-quantum-simulators" title="Link to this heading">#</a></h3>
 <img alt="../_images/analog.png" class="align-center" src="../_images/analog.png" />
 <p>The second type of Quantum Computing systems are known as Analog Quantum Simulators unlike the Gate Based model, which use discrete operations called gates to implement operations on the qubits,These systems use the continuous time evolution of a Quantum systems to perform the required Quantum Operations. The systems in considerations are usually lattice based systems since they are particularly useful in encoding Combinatorial problems. Let us look at the two types of Analog Quantum Simulators on offer namely :</p>
 <ul class="simple">
@@ -477,19 +491,19 @@ document.write(`
 <li><p>Quantum Annealers</p></li>
 </ul>
 <section id="array-based-quantum-simulators">
-<h4>Array based Quantum Simulators<a class="headerlink" href="#array-based-quantum-simulators" title="Permalink to this heading">#</a></h4>
+<h4>Array based Quantum Simulators<a class="headerlink" href="#array-based-quantum-simulators" title="Link to this heading">#</a></h4>
 <img alt="../_images/array.png" class="align-center" src="../_images/array.png" />
 <p>Array based Quantum Simulators are built by arranging neutral atoms in an array and controlling them with the help of lasers, the lasers are tuned to change the environment within which the atoms are allowed to evolve which allows us to perform various Quantum Operations on the system, Array based simulators are particularly useful for Quantum Simulation tasks since in real world situations the interactions that exist between Quantum systems are not restricted to 1 qubit or 2 qubit gates although it’s always  theoretically possible to simulate a more complex multi qubit interaction by breaking it into several single and 2 qubit gates on a Gate based Computer this can often be a challenging task in practice, array based simulators on the other hand allow you to implement the interactions directly without having to break it down into it’s components.</p>
 </section>
 <section id="quantum-annealers">
-<h4>Quantum Annealers<a class="headerlink" href="#quantum-annealers" title="Permalink to this heading">#</a></h4>
+<h4>Quantum Annealers<a class="headerlink" href="#quantum-annealers" title="Link to this heading">#</a></h4>
 <img alt="../_images/annealer.png" class="align-center" src="../_images/annealer.png" />
 <p>Quantum Annealers are designed and built to tackle Combinatorial Optimization problems they also usually have an array based structure, let’s say you are given a certain optimization task, Your first step would be to formulate the problem in terms of a set of equations with a given set of variables, next you would attempt to convert the set of equations into a corresponding graph problem, you would then map the Graph problem onto the Quantum Annealer and let the system evolve slowly which is called Adiabtic evolution until it reaches a stable point, this stable point corresponds to the minima of your function, The Quantum Tunneling effect we introduced earlier provides additional speedup in this process.</p>
 </section>
 </section>
 </section>
 <section id="challenges-in-building-quantum-computers">
-<h2>Challenges in building Quantum Computers<a class="headerlink" href="#challenges-in-building-quantum-computers" title="Permalink to this heading">#</a></h2>
+<h2>Challenges in building Quantum Computers<a class="headerlink" href="#challenges-in-building-quantum-computers" title="Link to this heading">#</a></h2>
 <p>There are two key challenges for building Quantum Computers</p>
 <ul class="simple">
 <li><p>Noise : The qubits interact with environment and other qubits in the system which causes error in Quantum operations as well as state preparation.</p></li>
@@ -501,13 +515,13 @@ Number of qubits ~ 1 million
 Quantum Memory</p>
 <p>Let us now look at some of the mechanisms Scientists and Engineers apply to improve the operation of their systems namely, Improving Temperture Control, Error Correction &amp; Mitigation and QRAM</p>
 <section id="temperature-control">
-<h3>Temperature control<a class="headerlink" href="#temperature-control" title="Permalink to this heading">#</a></h3>
+<h3>Temperature control<a class="headerlink" href="#temperature-control" title="Link to this heading">#</a></h3>
 <p>Refrigeration of Quantum Computers is one of the key mechanisms employed to tackle the Quantum noise, the amount of environmental interaction and crosstalk that occurs in a Quantum system is directly proportional to the Temperature of the system, the Qubits, Quantum Gates and Measuring apparatus is typically stored within a refrigeration enclosure shielded from the effects of Enivronmental noise, optimal and low cost refrigeration is very important to the development of  Quantum computers.</p>
 <p>Most Quantum systems operate in the temperature range from a few mK to a few Kelvin, although as we discussed earlier, the Operating temperature is dependent on what type of Qubit technology you are dealing with, there are certain technologies which do not require extensive refrigeration and can operate at room temperatures</p>
 <p>Engineers employ techniques such Helium 3/Helium4 dilution and Laser Doppler cooling to keep the Quantum systems cold and minimize the effect of noise</p>
 </section>
 <section id="error-correction-mitigation">
-<h3>Error Correction &amp; Mitigation<a class="headerlink" href="#error-correction-mitigation" title="Permalink to this heading">#</a></h3>
+<h3>Error Correction &amp; Mitigation<a class="headerlink" href="#error-correction-mitigation" title="Link to this heading">#</a></h3>
 <img alt="../_images/error-correction.png" class="align-center" src="../_images/error-correction.png" />
 <p>Despite the refrigeration ,Quantum noise manages to creep into the systems Scientists take inspiration from Classical computing to develop a technique known as Quantum Error correction. They are fundamentally broken down into two categories, 1) Hardware Based Error Correction Schemes and Software based error mitigation schemes, However, there are some additional complexities that need to be taken care of when building Quantum Error correcting schemes in comparison  to their classical counterparts, Unlike Classical schemes where you can measure the bits to fix the error in them  we cannot do the same with Qubitss  since it will lead to the superposition collapsing, due to  complexity Quantum Error schemes can be broken down into two parts, the first step is detection in which we identify whether an error has occurred without actually measuring the qubits and then the error elimination step which fixes the identified error. **
 The Error correction schemes allow us to detect and eliminate the errors that have occurred on the system by introducing redundancy in the system, this would imply that we are encoding or storing the information of a single qubit into multiple qubits so that even if there is noise that impacts some of the qubits we are still able to the recover the initial information from the rest of the system, clearly these are changes that need to be made at a hardware level and additional redundancy qubits will be required to be added to the system.</p>
@@ -515,27 +529,27 @@ The Error correction schemes allow us to detect and eliminate the errors that ha
 <p>Error mitigation schemes are software Post-processing techniques that try to mitigate the level of noise by using mathematical modelling and regression to extrapolate from the results what the outcomes of the system would have been under ideal conditions without the existence of noise.</p>
 </section>
 <section id="quantum-ram">
-<h3>Quantum RAM<a class="headerlink" href="#quantum-ram" title="Permalink to this heading">#</a></h3>
+<h3>Quantum RAM<a class="headerlink" href="#quantum-ram" title="Link to this heading">#</a></h3>
 <p>As discussed in the Quantum Workflow it can be useful to have a Quantum Memory to avoid the process of reinitializing the state each time we want to run the circuit, because of the probabilistic nature of Quantum operations very often we may have to run the circuit multiple times and being able to load states from a Quantum Memory would help us speed up  certain Quantum Algorithms. However,as discussed in the previous section, the influence of noise on the circuit makes it very difficult to implement a stable Quantum Memory, breakthroughs in the development of Quantum memory will severely improve the time it takes to perform Quantum Algorithms however physical implementations are still at a very nascent stage.</p>
 </section>
 </section>
 <section id="quantum-roadmap">
-<h2>Quantum Roadmap<a class="headerlink" href="#quantum-roadmap" title="Permalink to this heading">#</a></h2>
+<h2>Quantum Roadmap<a class="headerlink" href="#quantum-roadmap" title="Link to this heading">#</a></h2>
 <section id="scaling-quantum-hardware">
-<h3>Scaling Quantum hardware<a class="headerlink" href="#scaling-quantum-hardware" title="Permalink to this heading">#</a></h3>
+<h3>Scaling Quantum hardware<a class="headerlink" href="#scaling-quantum-hardware" title="Link to this heading">#</a></h3>
 <img alt="../_images/scaling.png" class="align-center" src="../_images/scaling.png" />
 <p>This roadmap shows some of the key milestones we are working towards while building Quantum Computers, we are currently  at the dot on the top left of the graph in a phase called Noisy Intermediate Scale Quantum Computing or NISQ for short, Solutions in the domains of  Quantum Chemistry, Optimization problems and for Machine learning which use noise resistant algorithms are currently being explored  As we improve the systems with the various technologies we just mentioned we will start moving towards towards the bottom right portion of the graph with more qubits and lower error rates until we reach the second red dot which is called the Fault-Tolerant threshold this paradigm will expand the prospective use cases and application of Quantum Computers.</p>
 </section>
 </section>
 <section id="appendix">
-<h2>Appendix<a class="headerlink" href="#appendix" title="Permalink to this heading">#</a></h2>
+<h2>Appendix<a class="headerlink" href="#appendix" title="Link to this heading">#</a></h2>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Future updates and Scratchpad</p>
 </div>
 </section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
 </section>
 </section>
 

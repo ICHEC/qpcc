@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Lecture 6: Landscape of Quantum SDK’s and Tools &#8212; Lecture Notes from ICHEC</title>
   
@@ -29,40 +28,46 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/style.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../_static/style.css?v=b2431316" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=afe5de03"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script src="https://unpkg.com/mermaid@10.2.0/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-6/landscape-of-sdks-tools';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -161,7 +166,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -350,7 +366,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lecture-6-landscape-of-quantum-sdks-and-tools">
-<span id="lecture-6"></span><h1>Lecture 6: Landscape of Quantum SDK’s and Tools<a class="headerlink" href="#lecture-6-landscape-of-quantum-sdks-and-tools" title="Permalink to this heading">#</a></h1>
+<span id="lecture-6"></span><h1>Lecture 6: Landscape of Quantum SDK’s and Tools<a class="headerlink" href="#lecture-6-landscape-of-quantum-sdks-and-tools" title="Link to this heading">#</a></h1>
 <div class="tip admonition">
 <p class="admonition-title">Learning Outcome</p>
 <p>In this lecture, we discuss the Software and Tools for Quantum Programming. We will begin by mapping out the components of the quantum stack that we wish to investigate. In particular we will discuss the high level and low level quantum computing software components in the quantum computing software layer. This is followed by a discussion on how we can build a quantum programming stack by bringing components from the software and hardware layers as needed.​ Through the lecture, we will -</p>
@@ -361,12 +377,12 @@ document.write(`
 </div>
 <img alt="../_images/quant.png" class="align-center" src="../_images/quant.png" />
 <section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h2>
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
 <p>Software Development Kit (SDK) is a very common acronym used to collectively represent softwares one requires to write program that either are in specific language, or suited for specific domain of tasks, such as web development, system programming, or app development for a given operating system. Our domain of interest is Quantum programming, where we wish to write programs that implement quantum algorithms.</p>
 <p>Just like the SDKs (which you know now :-D) we will run through some of the <em>software</em> terminologies along with the introduction and discussion of the programming tools for running quantum algorithms.</p>
 </section>
 <section id="softwares-and-tools-for-quantum-programming">
-<h2>Softwares and Tools for Quantum Programming<a class="headerlink" href="#softwares-and-tools-for-quantum-programming" title="Permalink to this heading">#</a></h2>
+<h2>Softwares and Tools for Quantum Programming<a class="headerlink" href="#softwares-and-tools-for-quantum-programming" title="Link to this heading">#</a></h2>
 <p>Some of the most common terms in softwares and programming in general are the following</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Programming_language">Programming Language</a> is a system of notation for writing computer program, and is usually described in terms of its syntax (grammer) and semantics (meaning). Unlike human languages, here you need to be precise, as computers don’t take kindly on incorrect codes :-D .</p></li>
@@ -376,12 +392,23 @@ document.write(`
 <li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Solution_stack">Software Stack</a> is basically a set of software subsystems or components needed to create a complete platform to build and run a certain type of program. For example, to write a simple python code and execute it, you need (i) a python interpreter, (ii) a convenient text editor to write python code, (iii) a file manager to save and organize file, and (iv) a terminal to sometime configure, install or manage python interpreter. So the collection of these four will be required to develop python software. Such collection is often referred to as <strong>full-stack</strong>.</p></li>
 </ul>
 <p>Then we’ll introduce the notion of the quantum programming stack, which overlaps the lower two layers of the Quantum Stack. This encapsulates the idea that these two layers are tightly connected and in order to build a functioning quantum programming stack, one must carefully select the compatible components from the two constituting layers. Alternatively a number of big vendors provide pre-integrated quantum programming stacks as a service, deployed in a cloud environment, some components of which could also be used locally. Another approach are the so called Quantum Orchestrators which are very similar to the QPSaaS, but they are generally provided by smaller, independent quantum software companies. The Quantum Orchestrators are generally bespoke and more flexible and could be deployed either on-prem or in the cloud. ​</p>
-</section>
+<div class="mermaid">
+             graph LR;
+    linkStyle default fill-opacity:0.0,stroke-width:0px,stroke-opacity:0.0
+    subgraph qp [Quantum Programming Stack]
+    subgraph soft [Quantum Software]
+    1(High level) --- 2(Low level)
+    end
+    subgraph hard [Quantum Hardware]
+    3(Circuit Based) --- 4(Anolog)   
+    end
+end
+        </div></section>
 <section id="high-level-quantum-software">
-<h2>High-Level Quantum Software<a class="headerlink" href="#high-level-quantum-software" title="Permalink to this heading">#</a></h2>
+<h2>High-Level Quantum Software<a class="headerlink" href="#high-level-quantum-software" title="Link to this heading">#</a></h2>
 <p>### Quantum programming languages</p>
 <section id="generic-quantum-languages-libraries">
-<h3>Generic quantum languages &amp; libraries<a class="headerlink" href="#generic-quantum-languages-libraries" title="Permalink to this heading">#</a></h3>
+<h3>Generic quantum languages &amp; libraries<a class="headerlink" href="#generic-quantum-languages-libraries" title="Link to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Qiskit</span>
 <span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># this constructs a quantum circuit object named qc.</span>
 <span class="c1"># quantum circuit object has methods, that can add different gates to the circuit.</span>
@@ -393,11 +420,11 @@ document.write(`
 </div>
 </section>
 <section id="specialised-quantum-languages-libraries">
-<h3>Specialised quantum languages &amp; libraries<a class="headerlink" href="#specialised-quantum-languages-libraries" title="Permalink to this heading">#</a></h3>
+<h3>Specialised quantum languages &amp; libraries<a class="headerlink" href="#specialised-quantum-languages-libraries" title="Link to this heading">#</a></h3>
 </section>
 </section>
 <section id="low-level-quantum-software">
-<h2>Low-Level Quantum Software<a class="headerlink" href="#low-level-quantum-software" title="Permalink to this heading">#</a></h2>
+<h2>Low-Level Quantum Software<a class="headerlink" href="#low-level-quantum-software" title="Link to this heading">#</a></h2>
 <div class="highlight-openqasm notranslate"><div class="highlight"><pre><span></span>OPENQASM 2.0;
 include &quot;qelib1.inc&quot;;
 
@@ -412,13 +439,13 @@ measure q[1] -&gt; c[1];
 </div>
 </section>
 <section id="quantum-programming-stacks-as-a-service">
-<h2>Quantum Programming Stacks as a Service<a class="headerlink" href="#quantum-programming-stacks-as-a-service" title="Permalink to this heading">#</a></h2>
+<h2>Quantum Programming Stacks as a Service<a class="headerlink" href="#quantum-programming-stacks-as-a-service" title="Link to this heading">#</a></h2>
 </section>
 <section id="quantum-workflows-orchestrators">
-<h2>Quantum Workflows &amp; Orchestrators<a class="headerlink" href="#quantum-workflows-orchestrators" title="Permalink to this heading">#</a></h2>
+<h2>Quantum Workflows &amp; Orchestrators<a class="headerlink" href="#quantum-workflows-orchestrators" title="Link to this heading">#</a></h2>
 </section>
 <section id="custom-quantum-software-stacks">
-<h2>Custom Quantum Software Stacks<a class="headerlink" href="#custom-quantum-software-stacks" title="Permalink to this heading">#</a></h2>
+<h2>Custom Quantum Software Stacks<a class="headerlink" href="#custom-quantum-software-stacks" title="Link to this heading">#</a></h2>
 </section>
 </section>
 

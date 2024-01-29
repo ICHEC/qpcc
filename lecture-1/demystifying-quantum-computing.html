@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Lecture 1: Demystifying Quantum Computing &#8212; Lecture Notes from ICHEC</title>
   
@@ -29,40 +28,44 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/style.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../_static/style.css?v=b2431316" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=afe5de03"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-1/demystifying-quantum-computing';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -161,7 +164,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -355,7 +369,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lecture-1-demystifying-quantum-computing">
-<span id="lecture-1"></span><h1>Lecture 1: Demystifying Quantum Computing<a class="headerlink" href="#lecture-1-demystifying-quantum-computing" title="Permalink to this heading">#</a></h1>
+<span id="lecture-1"></span><h1>Lecture 1: Demystifying Quantum Computing<a class="headerlink" href="#lecture-1-demystifying-quantum-computing" title="Link to this heading">#</a></h1>
 <div class="tip admonition">
 <p class="admonition-title">Learning outcomes</p>
 <p>This is an introductory module, which sets the stage for the remaining course by discussing some very elementary question into computing, and delves into quantum computing. As we go through the sections below, we will -</p>
@@ -367,9 +381,9 @@ document.write(`
 </div>
 <img alt="../_images/quant.png" class="align-center" src="../_images/quant.png" />
 <section id="the-era-of-high-performance-computing">
-<h2>The Era of High-Performance Computing<a class="headerlink" href="#the-era-of-high-performance-computing" title="Permalink to this heading">#</a></h2>
+<h2>The Era of High-Performance Computing<a class="headerlink" href="#the-era-of-high-performance-computing" title="Link to this heading">#</a></h2>
 <section id="generations-of-computing">
-<h3>Generations of Computing<a class="headerlink" href="#generations-of-computing" title="Permalink to this heading">#</a></h3>
+<h3>Generations of Computing<a class="headerlink" href="#generations-of-computing" title="Link to this heading">#</a></h3>
 <p>The current form of Classical Computation started in the first half of the 20th century, where vacuum tubes used voltages differences and were used to control the electron flows and implement logical operations for early digital computations. This led to innovations towards electronics where semiconductor-based transistors had the ability to have smaller form factor, more reliable, faster and energy-efficient electronic devices.</p>
 <p>The third generation came about when semiconductor-based devices could be packaged into dense electronic circuits, in which a large number of tiny transistors could be integrated into discrete electronic components for specific functionalities.</p>
 <p>With the fourth revolution, very-large-scale integration capabilities and micro and nano-fabrication technologies allowed the revolution where a wide range of powerful, application specific, parallel, field-based or energy-efficient microprocessors have been created. These microprocessors have led to the development of smart devices that are deployed out in the field as sensors, in our mobile devices, work stations or more aggregated compute systems such as HPC clusters or public cloud systems</p>
@@ -385,7 +399,7 @@ document.write(`
 <li><p>And in this new paradigm, data is no longer represented in binary states (i.e. either zero or one), but as a probability-based combination of different possible states (for example, as a zero and one at the same time with certain probabilities). This brings in a huge change in the way data is represented as well as processed in quantum computing compared to classical computing – but more on this later in this session and rest of the course – particularly, the one on bits to qubits.</p></li>
 </ol>
 <section id="scales-of-computing">
-<h4>Scales of Computing<a class="headerlink" href="#scales-of-computing" title="Permalink to this heading">#</a></h4>
+<h4>Scales of Computing<a class="headerlink" href="#scales-of-computing" title="Link to this heading">#</a></h4>
 <p>From another perspective, we can see the trends in how capabilities of computing systems have also evolved. The currently familiar form of digital computers were initially targeted at personal computing (of course if we acknowledge and park the mainframe computations for the moment).​</p>
 <p>These desktop-based computers originated with limited single-core processor capabilities, and then evolved into multi-core processors on which computations in an application are parallelized at the logic/algorithmic level as well as at the instruction level to exploit parallel execution on several hardware or virtual cores on processors. ​Depending on the systems, current multi-core systems have 4, 8 or even dozens of cores on a single processor these days.​ This led to the parallelization of many applications delivering performance through shorter time-to-solution or in the form of high-throughput computing.​
 ​
@@ -396,7 +410,7 @@ A complementary approach to parallelization using multiple cores evolved into th
 </section>
 </section>
 <section id="what-can-hpc-do">
-<h3>What can HPC do?<a class="headerlink" href="#what-can-hpc-do" title="Permalink to this heading">#</a></h3>
+<h3>What can HPC do?<a class="headerlink" href="#what-can-hpc-do" title="Link to this heading">#</a></h3>
 <p>Now, before going further to quantum computing or its applications, we take a moment to acknowledge where classical high-performance computing currently plays a role across different domains and problems.​</p>
 <p>The digital transformation of many sectors, businesses and solutions has moved to a data-centric scenario where the huge variety and volume of heterogeneous datasets from different sources​ -</p>
 <ul class="simple">
@@ -412,7 +426,7 @@ A complementary approach to parallelization using multiple cores evolved into th
 <p>Another factor that HPC enables is increasing the accuracy and precision of these modelling, simulation and analysis exercises – instead of approximating the complexity and simplifying the computations due to limitations in time or computing resources.​</p>
 <p>Thus, HPC has enabled a wide variety of sectors and businesses to do more complex modelling, simulation and analysis with improved accuracy, precision and time-to-solution.​</p>
 <section id="where-does-quantum-computing-fit">
-<h4>Where does Quantum Computing fit?<a class="headerlink" href="#where-does-quantum-computing-fit" title="Permalink to this heading">#</a></h4>
+<h4>Where does Quantum Computing fit?<a class="headerlink" href="#where-does-quantum-computing-fit" title="Link to this heading">#</a></h4>
 <p>Now that we have touched on the role and applications of high-performance computing, and pointed out where many of our sectors and organisations are most likely already using it to build and power digital solutions,​</p>
 <p>we now move on to addressed where quantum computing fits in this context, and why we look towards this emerging computing paradigm.​</p>
 <p>​The primary reasons why computational technology developers and its end-users are looking at the next generation of methodologies and platforms is that currently there are a number of challenges and limitations that classical high-performance computing is hitting​</p>
@@ -431,7 +445,7 @@ A complementary approach to parallelization using multiple cores evolved into th
 <p>This is where the underlying principles for making quantum computing feasible, by leveraging its fundamental computational power, and engineering quantum computing devices emerged.​</p>
 </section>
 <section id="how-does-quantum-computing-work">
-<h4>How does Quantum Computing work??<a class="headerlink" href="#how-does-quantum-computing-work" title="Permalink to this heading">#</a></h4>
+<h4>How does Quantum Computing work??<a class="headerlink" href="#how-does-quantum-computing-work" title="Link to this heading">#</a></h4>
 <p>One of the key methods my which individual processors have been classically made more powerful has been through reducing their scale and size.​Chipmakers have incrementally gone down in the sizes of transistors that are used to build processors from 10 nanometers to 7 nanometers to now 5 and 3 nanometers.​</p>
 <p>​In simplistic terms, a transistor is a device to control the flow of electrons, and using that ability to represent binary states (simplistically, a flow in a certain direction may represent zero, while in the opposite may represent one). ​Typically within a transistor, the source and drain are two ends, while a gate is used to control the flow of electrons between the source and drain.​</p>
 <p>​As transistor sizes are reduced to pack more of them into processors, the physical sizes of the transistors, particularly, the dimensions of source, drain, gate also reduce in size.​</p>
@@ -455,7 +469,7 @@ A complementary approach to parallelization using multiple cores evolved into th
 </section>
 </section>
 <section id="where-is-quantum-computing-positioned">
-<h3>Where is Quantum Computing Positioned<a class="headerlink" href="#where-is-quantum-computing-positioned" title="Permalink to this heading">#</a></h3>
+<h3>Where is Quantum Computing Positioned<a class="headerlink" href="#where-is-quantum-computing-positioned" title="Link to this heading">#</a></h3>
 <p>Looking ahead, given that we are in the second revolution of quantum technologies and at the early stages of developing the quantum computing technologies, where should we position it alongside the existing classical computing technologies?​</p>
 <p>Well, as we have already mentioned quantum computing is an emerging methodology and technology that is aimed as an accelerator in high-performance computing platforms and systems.​</p>
 <p>Currently, it is understood to be suitable for very specific types of computations which it can do much better than their classical HPC counterpart implementations.​</p>
@@ -472,16 +486,16 @@ A complementary approach to parallelization using multiple cores evolved into th
 <p>Therefore, when looking for candidate computations or use-cases, look for specific parts that need more accuracy in exploring large parameter spaces, probabilistic systems when complex correlations, representing systems or problems with higher precision.​</p>
 </section>
 <section id="the-quantum-computing-ecosystem">
-<h3>The Quantum Computing Ecosystem<a class="headerlink" href="#the-quantum-computing-ecosystem" title="Permalink to this heading">#</a></h3>
+<h3>The Quantum Computing Ecosystem<a class="headerlink" href="#the-quantum-computing-ecosystem" title="Link to this heading">#</a></h3>
 </section>
 <section id="appendix">
-<h3>Appendix<a class="headerlink" href="#appendix" title="Permalink to this heading">#</a></h3>
+<h3>Appendix<a class="headerlink" href="#appendix" title="Link to this heading">#</a></h3>
 <blockquote>
 <div><p>Future updates and Scratchpad</p>
 </div></blockquote>
 </section>
 <section id="references">
-<h3>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h3>
+<h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
 </section>
 </section>
 </section>

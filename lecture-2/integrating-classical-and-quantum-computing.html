@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Lecture 2: Integrating Classical and Quantum Computing &#8212; Lecture Notes from ICHEC</title>
   
@@ -29,40 +28,44 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/style.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../_static/style.css?v=b2431316" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=afe5de03"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-2/integrating-classical-and-quantum-computing';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -161,7 +164,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -336,7 +350,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-does-the-quantum-computing-ecosystem-look">How does the quantum computing ecosystem look</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#whatr-does-qpcc-offer-you">Whatr does QPCC offer you</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix">Appendix</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#future-updates-and-scratchpad">Future updates and Scratchpad</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
 </li>
@@ -352,7 +365,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lecture-2-integrating-classical-and-quantum-computing">
-<span id="lecture-2"></span><h1>Lecture 2: Integrating Classical and Quantum Computing<a class="headerlink" href="#lecture-2-integrating-classical-and-quantum-computing" title="Permalink to this heading">#</a></h1>
+<span id="lecture-2"></span><h1>Lecture 2: Integrating Classical and Quantum Computing<a class="headerlink" href="#lecture-2-integrating-classical-and-quantum-computing" title="Link to this heading">#</a></h1>
 <div class="tip admonition">
 <p class="admonition-title">Learning outcomes</p>
 <ol class="arabic simple">
@@ -362,9 +375,9 @@ document.write(`
 </ol>
 </div>
 <section id="why-imtegrate-classical-quantum-computing">
-<h2>Why imtegrate classical &amp; Quantum Computing<a class="headerlink" href="#why-imtegrate-classical-quantum-computing" title="Permalink to this heading">#</a></h2>
+<h2>Why imtegrate classical &amp; Quantum Computing<a class="headerlink" href="#why-imtegrate-classical-quantum-computing" title="Link to this heading">#</a></h2>
 <section id="classical-high-performance-computing">
-<h3>Classical High-Performance Computing<a class="headerlink" href="#classical-high-performance-computing" title="Permalink to this heading">#</a></h3>
+<h3>Classical High-Performance Computing<a class="headerlink" href="#classical-high-performance-computing" title="Link to this heading">#</a></h3>
 <p>In the simplest of cases, applications to process data or perform modelling or analysis, are typically represented as a computer program which is executed on a Central Processing Unit (CPU). For simple cases, the CPU can be imagined to have one worker that executes the program instructions in a serial fashion to produce the desired output.
 As the complexity of applications and their logics increased, opportunities arose to do what is called parallel computing – this involves executing multiple parts of a program simultaneously on multiple workers within Processing Units. For example, the program or parts of the instructions (known as kernels) within the program, may have to be executed to process different input data sets which are independent of each other – so, these could be done in parallel. This is typically referred to as data parallelism.
 Another example is where for the same input data, different kernels within a program may be executed independent of each other and hence in parallel. This is referred to as task parallelism.
@@ -376,7 +389,7 @@ Consequently, while the general purpose CPUs are responsible for executing an ap
 Over time, interoperability and unification of these software tools and libraries was achieved – as a result of which now-a-days many programming libraries have the ability to target different processor types under the hood, thereby reducing the difficulty of end-users, application developers and computational scientists.</p>
 </section>
 <section id="co-existence-of-classical-quantum-computing">
-<h3>Co-existence of Classical &amp; Quantum Computing<a class="headerlink" href="#co-existence-of-classical-quantum-computing" title="Permalink to this heading">#</a></h3>
+<h3>Co-existence of Classical &amp; Quantum Computing<a class="headerlink" href="#co-existence-of-classical-quantum-computing" title="Link to this heading">#</a></h3>
 <p>Now, given the history and trajectory of how such special-purpose accelerators such as GPUs and FPGAs were developed and have been integrated into the general-purpose CPUs ecosystem (both at hardware and software levels), it is essential for us to take a moment and observe where quantum computing systems and quantum processing units QPUs are currently placed, and how they will and should function alongside these classical processors.</p>
 <p>In our earlier lecture on “Demystifying quantum computing”, we had introduced that quantum computing is an emerging methodology and technology, and is understood to be suitable for very specific types of computations.
 Therefore, similar to GPUs and FPGAs, quantum computers and QPUs will be used as accelerators and be driven by a general purpose CPU-based computer whether on a desktop or within HPC systems.</p>
@@ -394,7 +407,7 @@ the computing community driven by the HPC experts and organisations, is driving 
 <p>And, the importance of doing this as a part of existing HPC software methods and tools through extensions is under discussion and being acknowledged by the scientific and enterprise communities, so that quantum computers can be seamlessly used within and by existing classical high-performance computing systems and its users. We will discuss this in a bit more detail later during this lecture.</p>
 </section>
 <section id="quantum-computation-workflow">
-<h3>Quantum Computation Workflow<a class="headerlink" href="#quantum-computation-workflow" title="Permalink to this heading">#</a></h3>
+<h3>Quantum Computation Workflow<a class="headerlink" href="#quantum-computation-workflow" title="Link to this heading">#</a></h3>
 <p>Before going forward with some specific examples of potential hybrid high-performance quantum computing applications, let us look deeper into the quantum computing part of an application workflow.</p>
 <p>Presently, all data is generated and stored in classical format – that is in binary as bits. This is represented by the first letter in this map where C represents generation of classical data.
 This classical data is then processed by classical computing systems in classical formats. This is represented by the second letter in the map where C represents classical nature of the processing/computing system.
@@ -419,7 +432,7 @@ Also, at present due to the low-level of programming abstraction that we discuss
 <p>More details on these will be discussed in other QPCC lectures</p>
 </section>
 <section id="quantum-computing-as-an-accelerator">
-<h3>Quantum computing as an accelerator<a class="headerlink" href="#quantum-computing-as-an-accelerator" title="Permalink to this heading">#</a></h3>
+<h3>Quantum computing as an accelerator<a class="headerlink" href="#quantum-computing-as-an-accelerator" title="Link to this heading">#</a></h3>
 <p>Now, having looked a bit more into the detail of what a quantum computing workflow generally involves, let us fit this into the larger picture that we had discussed earlier.</p>
 <p>For classical computing using CPUs, GPUs and FPGAs, the classical application program natively takes classical data as input and produces classical data as output.
 When using quantum computing systems and QPUs as accelerators alongside the classical computing systems and processors, the result is that the entire quantum workflow that we discussed earlier needs to be implemented in order to offload an application kernel and its data from the classical computer that has to be accelerated by the quantum computer.</p>
@@ -427,22 +440,22 @@ When using quantum computing systems and QPUs as accelerators alongside the clas
 <p>In the meantime, let us have a look at some application examples from a few select sectors to understand why integrated hybrid high-performance quantum computing could be beneficial and impactful.</p>
 </section>
 <section id="where-does-quantum-computing-fit">
-<h3>Where does Quantum Computing fit?<a class="headerlink" href="#where-does-quantum-computing-fit" title="Permalink to this heading">#</a></h3>
+<h3>Where does Quantum Computing fit?<a class="headerlink" href="#where-does-quantum-computing-fit" title="Link to this heading">#</a></h3>
 </section>
 <section id="how-does-the-quantum-computing-ecosystem-look">
-<h3>How does the quantum computing ecosystem look<a class="headerlink" href="#how-does-the-quantum-computing-ecosystem-look" title="Permalink to this heading">#</a></h3>
+<h3>How does the quantum computing ecosystem look<a class="headerlink" href="#how-does-the-quantum-computing-ecosystem-look" title="Link to this heading">#</a></h3>
 </section>
 <section id="whatr-does-qpcc-offer-you">
-<h3>Whatr does QPCC offer you<a class="headerlink" href="#whatr-does-qpcc-offer-you" title="Permalink to this heading">#</a></h3>
+<h3>Whatr does QPCC offer you<a class="headerlink" href="#whatr-does-qpcc-offer-you" title="Link to this heading">#</a></h3>
 </section>
 <section id="appendix">
-<h3>Appendix<a class="headerlink" href="#appendix" title="Permalink to this heading">#</a></h3>
-</section>
-<section id="future-updates-and-scratchpad">
-<h3>Future updates and Scratchpad<a class="headerlink" href="#future-updates-and-scratchpad" title="Permalink to this heading">#</a></h3>
+<h3>Appendix<a class="headerlink" href="#appendix" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><h3 class="rubric" id="future-updates-and-scratchpad">Future updates and Scratchpad</h3>
+</div></blockquote>
 </section>
 <section id="references">
-<h3>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h3>
+<h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
 </section>
 </section>
 </section>
@@ -520,7 +533,6 @@ When using quantum computing systems and QPUs as accelerators alongside the clas
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-does-the-quantum-computing-ecosystem-look">How does the quantum computing ecosystem look</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#whatr-does-qpcc-offer-you">Whatr does QPCC offer you</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix">Appendix</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#future-updates-and-scratchpad">Future updates and Scratchpad</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
 </li>

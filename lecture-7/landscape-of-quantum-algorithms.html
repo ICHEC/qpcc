@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Lecture 7: Landscape of quantum algorithms &#8212; Lecture Notes from ICHEC</title>
   
@@ -29,40 +28,44 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/style.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../_static/style.css?v=b2431316" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=afe5de03"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-7/landscape-of-quantum-algorithms';</script>
@@ -162,7 +165,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -379,7 +393,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lecture-7-landscape-of-quantum-algorithms">
-<span id="lecture-7"></span><h1>Lecture 7: Landscape of quantum algorithms<a class="headerlink" href="#lecture-7-landscape-of-quantum-algorithms" title="Permalink to this heading">#</a></h1>
+<span id="lecture-7"></span><h1>Lecture 7: Landscape of quantum algorithms<a class="headerlink" href="#lecture-7-landscape-of-quantum-algorithms" title="Link to this heading">#</a></h1>
 <div class="tip admonition">
 <p class="admonition-title">Learning Outcomes</p>
 <p>In this lecture we will be taking a look at the landscape of quantum algorithms, and talk about two of the layers of the quantum stack shown in the right, namely the applications and quantum algorithms. The learning outcomes of this lecture will be the following :</p>
@@ -391,10 +405,10 @@ document.write(`
 </div>
 <img alt="../_images/quant.png" class="align-center" src="../_images/quant.png" />
 <section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h2>
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
 </section>
 <section id="quantum-stack">
-<h2>Quantum stack<a class="headerlink" href="#quantum-stack" title="Permalink to this heading">#</a></h2>
+<h2>Quantum stack<a class="headerlink" href="#quantum-stack" title="Link to this heading">#</a></h2>
 <p>In the table below one can see some of the problems that can be solved with quantum algorithms (left) and also the type of the quantum algorithms suitable for solving them (right).</p>
 <table class="table">
 <thead>
@@ -410,7 +424,7 @@ document.write(`
 </table>
 </section>
 <section id="why-do-we-need-quantum-computers">
-<h2>Why do we need quantum computers?<a class="headerlink" href="#why-do-we-need-quantum-computers" title="Permalink to this heading">#</a></h2>
+<h2>Why do we need quantum computers?<a class="headerlink" href="#why-do-we-need-quantum-computers" title="Link to this heading">#</a></h2>
 <p>Let’s start with a quick recap of why we need quantum computers:</p>
 <ul class="simple">
 <li><p>One example of an application of QC is the Benzene molecule, which is a quantum system that is studied frequently in the oil gas and fuel industry. The Benzene molecule can be fully simulated with a 84 qubit quantum computer. This is something impossible to simulate even with the current best high-performance classical computers.</p></li>
@@ -423,7 +437,7 @@ document.write(`
 </ul>
 </section>
 <section id="what-is-an-algorithm">
-<h2>What is an algorithm?<a class="headerlink" href="#what-is-an-algorithm" title="Permalink to this heading">#</a></h2>
+<h2>What is an algorithm?<a class="headerlink" href="#what-is-an-algorithm" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>An algorithm is a set of instructions that takes in some input and produces some output.</p></li>
 <li><p>A classic algorithm is based on the moving around of 0s and 1s, what we call classical hardware.</p></li>
@@ -431,7 +445,7 @@ document.write(`
 </ul>
 <img alt="../_images/maps.png" class="align-center" src="../_images/maps.png" />
 <section id="what-is-a-quantum-algorithm">
-<h3>What is a quantum algorithm?<a class="headerlink" href="#what-is-a-quantum-algorithm" title="Permalink to this heading">#</a></h3>
+<h3>What is a quantum algorithm?<a class="headerlink" href="#what-is-a-quantum-algorithm" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The definition of quantum algorithm is the same as the classical except for the fact that it is implemented using a quantum computing paradigm.</p></li>
 <li><p>Operating on quantum hardware allows the algorithm to take advantage of quantum mechanical properties such as superposition, entanglement or interference.</p></li>
@@ -444,7 +458,7 @@ document.write(`
 <img alt="../_images/outcome.jpg" class="align-center" src="../_images/outcome.jpg" />
 </section>
 <section id="computational-complexity">
-<h3>Computational complexity<a class="headerlink" href="#computational-complexity" title="Permalink to this heading">#</a></h3>
+<h3>Computational complexity<a class="headerlink" href="#computational-complexity" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Time and memory space are the two fundamental variables we are concerned with when comparing classical and quantum algorithms.</p></li>
 <li><p>These two metrics are encapsulated in the subject of computational complexity.</p></li>
@@ -457,7 +471,7 @@ document.write(`
 </ul>
 </section>
 <section id="grovers-algorithm">
-<h3>Grover’s algorithm<a class="headerlink" href="#grovers-algorithm" title="Permalink to this heading">#</a></h3>
+<h3>Grover’s algorithm<a class="headerlink" href="#grovers-algorithm" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Grover’s algorithm was one of the earliest quantum algorihtms. It allows us to find elements in an unstructured database. What is more, Grover’s algorithm is capable of doing this with a quadratic speedup over its classical counterpart, as we can see in the image below, with N being the number of elements in the database.</p></li>
 </ul>
@@ -474,7 +488,7 @@ document.write(`
 </ul>
 </section>
 <section id="shors-algorithm">
-<h3>Shor’s algorithm<a class="headerlink" href="#shors-algorithm" title="Permalink to this heading">#</a></h3>
+<h3>Shor’s algorithm<a class="headerlink" href="#shors-algorithm" title="Link to this heading">#</a></h3>
 <ul>
 <li><p>Shor’s algorithm is one the most important quantum algorithms, as it allows to break RSA-encryption, as it is capable of performing integer factorisation.</p></li>
 <li><p>Factorising large numbers is computationally very expensive. Shor’s algorithm is exponentially faster that any classical counterpart</p></li>
@@ -489,7 +503,7 @@ document.write(`
 </ul>
 </section>
 <section id="solving-problems-with-early-algorithms">
-<h3>Solving problems with early algorithms<a class="headerlink" href="#solving-problems-with-early-algorithms" title="Permalink to this heading">#</a></h3>
+<h3>Solving problems with early algorithms<a class="headerlink" href="#solving-problems-with-early-algorithms" title="Link to this heading">#</a></h3>
 <ul>
 <li><p>Most of the early quantum algorithms are based on the following techniques:</p>
 <ol class="arabic simple">
@@ -502,7 +516,7 @@ document.write(`
 </ul>
 </section>
 <section id="drawbacks-of-early-quantum-algorithms">
-<h3>Drawbacks of early quantum algorithms<a class="headerlink" href="#drawbacks-of-early-quantum-algorithms" title="Permalink to this heading">#</a></h3>
+<h3>Drawbacks of early quantum algorithms<a class="headerlink" href="#drawbacks-of-early-quantum-algorithms" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The early quantum algorithms that we have just seen are not really used in practice.</p></li>
 <li><p>This is due to the presence of decoherence and errors in the qubits of actual devices. As the number of qubits increase, the errors increase in our quantum algorithm. As an example, as we consider larger and larger lists, the number of qubits needed for Grover search algorithm would increase, increasing as well the errors of the circuit.</p></li>
@@ -513,7 +527,7 @@ document.write(`
 </section>
 </section>
 <section id="nisq-era-and-algorithms">
-<h2>NISQ era and algorithms<a class="headerlink" href="#nisq-era-and-algorithms" title="Permalink to this heading">#</a></h2>
+<h2>NISQ era and algorithms<a class="headerlink" href="#nisq-era-and-algorithms" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>NISQ stands for Noisy Intermediate Scale Quantum. This describes the current state of quantum hardware, with approximately 100 qubits, subject to noise.</p></li>
 <li><p>To work with this circuit, shallow quantum algorithms with low number of qubits are needed. In most of the cases, this algorithms are embbeded to a classical algorithm, resulting on <em>hybrid classical-quantum algorithms</em>.</p></li>
@@ -521,7 +535,7 @@ document.write(`
 </ul>
 <img alt="../_images/nisq_algorithm.jpg" class="align-center" src="../_images/nisq_algorithm.jpg" />
 <section id="variational-quantum-algorithms">
-<h3>Variational quantum algorithms<a class="headerlink" href="#variational-quantum-algorithms" title="Permalink to this heading">#</a></h3>
+<h3>Variational quantum algorithms<a class="headerlink" href="#variational-quantum-algorithms" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>One can think as VQC’s as trainable quantum circuits. Different problems will require different gates and parameter structure.</p></li>
 <li><p>In order to train the variational parameters, we will measure the output of the circuit, sent it to a cost function (which is problem-dependant) and perform an optimisation step (like stochastic gradient descent) to update the parameters. We can repeat this process until we get a set of parameters that make the circuit output the desired solution.</p></li>
@@ -533,17 +547,17 @@ document.write(`
 </ul>
 </section>
 <section id="map-of-nisq-algorithms">
-<h3>Map of NISQ algorithms<a class="headerlink" href="#map-of-nisq-algorithms" title="Permalink to this heading">#</a></h3>
+<h3>Map of NISQ algorithms<a class="headerlink" href="#map-of-nisq-algorithms" title="Link to this heading">#</a></h3>
 <p>In the diagram below we can see some of the applications of NISQ algorithms. We will cover the different areas of application (simulation, optimisation and machine learning) in the following sections.</p>
 <img alt="../_images/nisq_applications.jpg" class="align-center" src="../_images/nisq_applications.jpg" />
 </section>
 <section id="quantum-algorithms-and-applications">
-<h3>Quantum algorithms and applications<a class="headerlink" href="#quantum-algorithms-and-applications" title="Permalink to this heading">#</a></h3>
+<h3>Quantum algorithms and applications<a class="headerlink" href="#quantum-algorithms-and-applications" title="Link to this heading">#</a></h3>
 <p>In the diagram below we can see another diagram showing the problems solved by NISQ algorithms and the sectors in which these algorithms are useful. As examples, the maximum-cut proble is frequent in the tech sector, like in the study of networks. On the other hand fluid dynamics is present in aerospace engineer, or the travelling salesman problem in logistics.</p>
 <img alt="../_images/nisq_applications_2.jpg" class="align-center" src="../_images/nisq_applications_2.jpg" />
 </section>
 <section id="simulation">
-<h3>Simulation<a class="headerlink" href="#simulation" title="Permalink to this heading">#</a></h3>
+<h3>Simulation<a class="headerlink" href="#simulation" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Simulation of quantum systems aims to predict the behaviour of a complex physical system such as a molecule. It remains extremely difficult for a classical computer to simulate this kind of systems.</p></li>
 </ul>
@@ -555,7 +569,7 @@ document.write(`
 <img alt="../_images/simulation_2.jpg" class="align-center" src="../_images/simulation_2.jpg" />
 </section>
 <section id="advantage-of-nisq-simulation-algorithms">
-<h3>Advantage of NISQ simulation algorithms<a class="headerlink" href="#advantage-of-nisq-simulation-algorithms" title="Permalink to this heading">#</a></h3>
+<h3>Advantage of NISQ simulation algorithms<a class="headerlink" href="#advantage-of-nisq-simulation-algorithms" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Quantum systems like molecules are easy to simulate with other quantum systems (qubits are quantum systems!), as they maintain the same properties and follow the same physical laws.</p></li>
 <li><p>As quantum systems are very complex, they are impossible to simulate classically due to memory constraints when the system size exceeds <span class="math notranslate nohighlight">\(N=50\)</span>.</p></li>
@@ -563,7 +577,7 @@ document.write(`
 </ul>
 </section>
 <section id="simulation-map">
-<h3>Simulation map<a class="headerlink" href="#simulation-map" title="Permalink to this heading">#</a></h3>
+<h3>Simulation map<a class="headerlink" href="#simulation-map" title="Link to this heading">#</a></h3>
 <img alt="../_images/simulation_map.jpg" class="align-center" src="../_images/simulation_map.jpg" />
 <ul class="simple">
 <li><p>Above is shown the mapping between quantum simulation algorithms and some of their applications in specific industries.</p></li>
@@ -573,7 +587,7 @@ document.write(`
 </ul>
 </section>
 <section id="the-variational-quantum-eigensolver">
-<h3>The variational quantum eigensolver<a class="headerlink" href="#the-variational-quantum-eigensolver" title="Permalink to this heading">#</a></h3>
+<h3>The variational quantum eigensolver<a class="headerlink" href="#the-variational-quantum-eigensolver" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Looking back at the Benzene molecule we saw at the beginning of the lecture, let’s see how we can use the VQE to find its minimum energy state in a process called eigensolving.</p></li>
 <li><p>We can encode the Benzene molecule in a Hamiltonian in which we can the apply the VQE to.</p></li>
@@ -582,14 +596,14 @@ document.write(`
 <img alt="../_images/vqe.jpg" class="align-center" src="../_images/vqe.jpg" />
 </section>
 <section id="pfas-molecule-destruction">
-<h3>PFAS molecule destruction<a class="headerlink" href="#pfas-molecule-destruction" title="Permalink to this heading">#</a></h3>
+<h3>PFAS molecule destruction<a class="headerlink" href="#pfas-molecule-destruction" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>An important use-case of the VQE is the study of PFAS (per-and polyfluoroalkyl) molecule destruction. These molecules are used as heat, water and oil resistant coatings in many areas.</p></li>
 <li><p>These molecules are present in many materials, and have the inconvenient that are toxic to human bodies and they can easily contaminate water. Thus, there is an interest in chemical degradation and destruction of these molecules. In order to break these molecules we need to be able to simulate their energies, something that can be done with the VQE.</p></li>
 </ul>
 </section>
 <section id="optimisation">
-<h3>Optimisation<a class="headerlink" href="#optimisation" title="Permalink to this heading">#</a></h3>
+<h3>Optimisation<a class="headerlink" href="#optimisation" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Optimisation is a branch of mathematics and computer science that deals with finding the best solution (maximum or minimum) of some problem, by performing iterations of a given algorithm.</p></li>
 <li><p>One may want to minimise quantities like energy use or manufacturing time, or maximise profit for example.</p></li>
@@ -599,7 +613,7 @@ document.write(`
 <img alt="../_images/optimisation.jpg" class="align-center" src="../_images/optimisation.jpg" />
 </section>
 <section id="optimisation-map">
-<h3>Optimisation map<a class="headerlink" href="#optimisation-map" title="Permalink to this heading">#</a></h3>
+<h3>Optimisation map<a class="headerlink" href="#optimisation-map" title="Link to this heading">#</a></h3>
 <img alt="../_images/optimisation_map.jpg" class="align-center" src="../_images/optimisation_map.jpg" />
 <ul class="simple">
 <li><p>Above is shown the mapping between quantum optimisation algorithms and some of their applications in different industries.</p></li>
@@ -608,7 +622,7 @@ document.write(`
 </ul>
 </section>
 <section id="max-cut-problem">
-<h3>Max-cut problem<a class="headerlink" href="#max-cut-problem" title="Permalink to this heading">#</a></h3>
+<h3>Max-cut problem<a class="headerlink" href="#max-cut-problem" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>A graph is a structure made up of various nodes that have weighted connections (edges) between them. They can be used to model different problems and scenarios. For example social media users can be modelled using a graph, where its edges represent the influence between different users.</p></li>
 <li><p>The Max-cut problem aims to do a binary partition of the nodes of the graph so that the sum of the weights of the connections between the two sets is maximised. In the image below we can see how the graph’s nodes were divided in two sets: one conatining nodes 0,3 and the other containing nodes 1,2.</p></li>
@@ -620,7 +634,7 @@ document.write(`
 </ul>
 </section>
 <section id="travelling-salesman-problem">
-<h3>Travelling-salesman problem<a class="headerlink" href="#travelling-salesman-problem" title="Permalink to this heading">#</a></h3>
+<h3>Travelling-salesman problem<a class="headerlink" href="#travelling-salesman-problem" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The travelling-salesman problem is another famous optimisation problem. Given a list of cities represented with nodes on a graph, and its distances represented by the weighted edges, the objective of this problem is to find the shortest possible route, so that each city is visited just once, and the starting and ending point of the route is the same.</p></li>
 <li><p>Similarly to Max-cut, this problem can be easily mapped to an Ising hamiltonian and optimised in a quantum computer. In the image below we can see the graph representing the problem (left) and the shortest optimal route (right).</p></li>
@@ -631,7 +645,7 @@ document.write(`
 </ul>
 </section>
 <section id="optimisation-using-annealing">
-<h3>Optimisation using annealing<a class="headerlink" href="#optimisation-using-annealing" title="Permalink to this heading">#</a></h3>
+<h3>Optimisation using annealing<a class="headerlink" href="#optimisation-using-annealing" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Until now we have mainly focused on VQCs, a type of quantum algorithm that is meant to be implemented on a gate-based quantum computer. However, there exist other types of quantum computer architectures that are good when it comes to solve optimisation problems.</p></li>
 <li><p>One of these architectures is what is called quantum annealing. This type of quantum computers are only capable of solving problems that can be encoded as Ising Hamiltonians.</p></li>
@@ -644,14 +658,14 @@ document.write(`
 </section>
 </section>
 <section id="machine-learning">
-<h2>Machine learning<a class="headerlink" href="#machine-learning" title="Permalink to this heading">#</a></h2>
+<h2>Machine learning<a class="headerlink" href="#machine-learning" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>The primary goal of machine learning is to develop models that can generalize well to new, unseen data, allowing them to make accurate predictions or decisions in various situations.</p></li>
 <li><p>A simple example of a machine learning task is image classification. In the image below we can see bees and ants. One machine learning model (which is well trained), would be capable of distinguishing between the bees and ants in the image.</p></li>
 </ul>
 <img alt="../_images/machine_learning.png" class="align-center" src="../_images/machine_learning.png" />
 <section id="advantage-of-nisq-machine-learning-algorithms">
-<h3>Advantage of NISQ machine learning algorithms<a class="headerlink" href="#advantage-of-nisq-machine-learning-algorithms" title="Permalink to this heading">#</a></h3>
+<h3>Advantage of NISQ machine learning algorithms<a class="headerlink" href="#advantage-of-nisq-machine-learning-algorithms" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>We can find different computational bottlenecks in a classical machine learning workflow. One example of this is matrix-vector multiplication, a seemingly simple operation which consumes a lot of computation power when the matrices are very large.</p></li>
 </ul>
@@ -662,7 +676,7 @@ document.write(`
 </ul>
 </section>
 <section id="machine-learning-map">
-<h3>Machine learning map<a class="headerlink" href="#machine-learning-map" title="Permalink to this heading">#</a></h3>
+<h3>Machine learning map<a class="headerlink" href="#machine-learning-map" title="Link to this heading">#</a></h3>
 <img alt="../_images/machine_learning_map.jpg" class="align-center" src="../_images/machine_learning_map.jpg" />
 <ul class="simple">
 <li><p>Above is shown the mapping between quantum machine learning algorithms and some of their applications in different industries.</p></li>
@@ -671,7 +685,7 @@ document.write(`
 </ul>
 </section>
 <section id="classical-neural-networks">
-<h3>Classical neural networks<a class="headerlink" href="#classical-neural-networks" title="Permalink to this heading">#</a></h3>
+<h3>Classical neural networks<a class="headerlink" href="#classical-neural-networks" title="Link to this heading">#</a></h3>
 <img alt="../_images/neural_network.jpg" class="align-center" src="../_images/neural_network.jpg" />
 <ul class="simple">
 <li><p>A classical neural network is composed of multiple layers of transformations, governed by certain weights and parameters, which are represented in nodes in the image.</p></li>
@@ -680,7 +694,7 @@ document.write(`
 </ul>
 </section>
 <section id="quantum-neural-network">
-<h3>Quantum neural network<a class="headerlink" href="#quantum-neural-network" title="Permalink to this heading">#</a></h3>
+<h3>Quantum neural network<a class="headerlink" href="#quantum-neural-network" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>A quantum neural network is a neural network where one of more of the layers is a VQC.</p></li>
 <li><p>As we seen in the previous section, each layer of the network is governed by a set of parameters. When a layer is a VQC, these parameters will be the variational parameters appearing in the quantum circuit, that will be optimised during the training phase.</p></li>
@@ -689,7 +703,7 @@ document.write(`
 <img alt="../_images/quantum_neural_network.jpg" class="align-center" src="../_images/quantum_neural_network.jpg" />
 </section>
 <section id="quantum-tranfer-learning">
-<h3>Quantum tranfer learning<a class="headerlink" href="#quantum-tranfer-learning" title="Permalink to this heading">#</a></h3>
+<h3>Quantum tranfer learning<a class="headerlink" href="#quantum-tranfer-learning" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Quantum transfer learning is a technique that falls within the field of quantum neural networks.</p></li>
 <li><p>This technique involves using a pre-trained classical neural network, and substituting one of the layers of the networks by a VQC, as we can see in the image.</p></li>
@@ -698,7 +712,7 @@ document.write(`
 <img alt="../_images/quantum_transfer_learning.jpg" class="align-center" src="../_images/quantum_transfer_learning.jpg" />
 </section>
 <section id="quantum-machine-learning-example">
-<h3>Quantum machine learning example<a class="headerlink" href="#quantum-machine-learning-example" title="Permalink to this heading">#</a></h3>
+<h3>Quantum machine learning example<a class="headerlink" href="#quantum-machine-learning-example" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Let’s return to the image processing task on bees and ants that we saw before to see an example of application of quantum machine learning.</p></li>
 <li><p>As we see in the diagram, we input an image encoded in 512 pixeles to a pre-trained neural network on image classification.</p></li>
@@ -707,7 +721,7 @@ document.write(`
 <img alt="../_images/quantum_machine_learning_example.jpg" class="align-center" src="../_images/quantum_machine_learning_example.jpg" />
 </section>
 <section id="anomaly-detection-with-qgans">
-<h3>Anomaly detection with qGANs<a class="headerlink" href="#anomaly-detection-with-qgans" title="Permalink to this heading">#</a></h3>
+<h3>Anomaly detection with qGANs<a class="headerlink" href="#anomaly-detection-with-qgans" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>As we have seen before, GANs have seen great success in anomaly detection.</p></li>
 <li><p>A GAN consists of two neural networks, a generator and a discriminator. The generator aims to to create a dataset which is indistinguishable from the training data provided, and the discriminator aims to succesfully distinguish between these two datasets.</p></li>
@@ -718,7 +732,7 @@ document.write(`
 </section>
 </section>
 <section id="wrap-up">
-<h2>Wrap-up<a class="headerlink" href="#wrap-up" title="Permalink to this heading">#</a></h2>
+<h2>Wrap-up<a class="headerlink" href="#wrap-up" title="Link to this heading">#</a></h2>
 <p>Learning outcomes achieved:</p>
 <ul class="simple">
 <li><p>Introduction to early quantum algorithms</p>
