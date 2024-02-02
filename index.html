@@ -35,7 +35,7 @@
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="_static/style.css?v=b2431316" />
+    <link rel="stylesheet" type="text/css" href="_static/style.css?v=b0ea452a" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
@@ -66,6 +66,8 @@ const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
+    <script src="https://unpkg.com/mermaid@10.2.0/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -358,8 +360,43 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="qpcc-lectures-overview">
 <h1>QPCC Lectures Overview<a class="headerlink" href="#qpcc-lectures-overview" title="Link to this heading">#</a></h1>
 <p>The Quantum Programming Certification Course (QPCC) is offered from ICHEC aimed at providing exposure into quantum computing with minimal technical prerequisits. It is evolving, and we are added more modules with time to make it more comprehensive and inclusive of the skills and knowledge of the quantum computing ecosystem. Below are the list of modules currently offered.</p>
-<hr class="docutils" />
-<section id="list-of-lectures">
+<div class="mermaid">
+            %%{init: {'theme':'base', 'fontSize': '24', 'securityLevel': &quot;loose&quot;}}%%
+mindmap
+  root((QPCC))
+    lec1(&quot;Lecture 1 - **Demystifying Quantum Computing**&quot;)
+    ::icon(fa fa-book)
+        (Introduction)
+        (Basics)
+    lec2(Lecture 2 - **Integrating Classical and Quantum Computing**)
+    ::icon(fa fa-book)
+        (Classical computing)
+        (Role and Position of Quantum computing in HPC)
+    lec3(Lecture 3 - **From Bits to Qubits**)
+    ::icon(fa fa-book)
+        (Gentle intro into Quantum computing)
+        (Building blocks)
+            (States &amp; Gates)
+            (Quantum concenpts)
+    lec4(Lecture 4 - **Realizing Quantum Computing Systems**)
+    ::icon(fa fa-book)
+        (Quantum Circuits)
+        (Quantum workflow)
+        (Types of Quantum computing)
+        (Performance metrics)
+    lec5(Lecture 5 - **Accessing Quantum Computing Systems**)
+    ::icon(fa fa-book)
+    lec6(Lecture 6 - **Landscape of Quantum SDK's and Tools**)
+    ::icon(fa fa-book)
+        (High &amp; Low levels in Quantum computing)
+        (Quantum Softwares)
+        (Specialised Quantum languages &amp; Libraries)
+    lec7(Lecture 7 - **Landscape of Quantum algorithms**)
+    ::icon(fa fa-book)
+        (Computational complexity)
+        (Quantum Algorithms)
+        (Examples and interface with machine learning)
+        </div><section id="list-of-lectures">
 <h2>List of Lectures<a class="headerlink" href="#list-of-lectures" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="lecture-1/demystifying-quantum-computing.html"><span class="std std-doc">Lecture 1 - Demystifying Quantum Computing</span></a></p></li>
