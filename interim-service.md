@@ -1,5 +1,5 @@
 
-# New Platform for Interim National HPC Service
+# Interim National HPC Service
 
 This page describes the nature of the service being put in place to enable researchers maintain access to HPC resources as well as the high level migration plan in operation to migrate researchers to the new system.
 

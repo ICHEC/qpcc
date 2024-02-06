@@ -5,7 +5,7 @@ title: ICHEC DOCS
 The National HPC Service is going through a major upgrade, as the current machine `kay` has reached `end of life`. Until the new machine is procured and setup (which will happen around mid 2025), ICHEC has secured access to [Meluxina](https://luxembourg.public.lu/en/invest/innovation/meluxina-supercomputer.html) systems for our usage for the bridging time between 2024-2025 when our own system CASPIR comes online.
 
 
-# Documentation for the Interim Service
+# ICHEC National Service Documentation
 
 
 
