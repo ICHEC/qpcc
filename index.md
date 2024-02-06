@@ -1,72 +1,57 @@
 ---
-title: Quantum Programming Certification Course (QPCC)
-layout: home
+title: ICHEC DOCS
 ---
-# QPCC Lectures Overview
 
-The Quantum Programming Certification Course (QPCC) is offered from ICHEC aimed at providing exposure into quantum computing with minimal technical prerequisits. It is evolving, and we are added more modules with time to make it more comprehensive and inclusive of the skills and knowledge of the quantum computing ecosystem. Below are the list of modules currently offered.
+The National HPC Service is going through a major upgrade, as the current machine `kay` has reached `end of life`. Until the new machine is procured and setup (which will happen around mid 2025), ICHEC has secured access to [Meluxina](https://luxembourg.public.lu/en/invest/innovation/meluxina-supercomputer.html) systems for our usage for the bridging time between 2024-2025 when our own system CASPIR comes online.
+
+
+# Documentation for the Interim Service
+
+
 
 
 ```{mermaid}
 %%{init: {'theme':'base', 'fontSize': '24', 'securityLevel': "loose"}}%%
 mindmap
-  root((QPCC))
-    lec1("Lecture 1 - **Demystifying Quantum Computing**")
+  root((National HPC))
+    lec1("General HPC info")
     ::icon(fa fa-book)
         (Introduction)
         (Basics)
-    lec2(Lecture 2 - **Integrating Classical and Quantum Computing**)
+        (Usage Policy)
+    lec2("Interim Service")
     ::icon(fa fa-book)
-        (Classical computing)
-        (Role and Position of Quantum computing in HPC)
-    lec3(Lecture 3 - **From Bits to Qubits**)
+        (Meluxina System)
+        (Comparison to kay)
+        (Using Meluxina)
+    lec3("Programming tips")
     ::icon(fa fa-book)
-        (Gentle intro into Quantum computing)
-        (Building blocks)
-            (States & Gates)
-            (Quantum concenpts)
-    lec4(Lecture 4 - **Realizing Quantum Computing Systems**)
+        (Do's and Do not's)
+    lec4(National Service fingerprints)
     ::icon(fa fa-book)
-        (Quantum Circuits)
-        (Quantum workflow)
-        (Types of Quantum computing)
-        (Performance metrics)
-    lec5(Lecture 5 - **Accessing Quantum Computing Systems**)
+        (Activities)
+        (Projects)
+        (Security)
+        (Publications)
+    lec5(Kay Usage and statistics)
     ::icon(fa fa-book)
-    lec6(Lecture 6 - **Landscape of Quantum SDK's and Tools**)
+    lec6(User Support)
     ::icon(fa fa-book)
-        (High & Low levels in Quantum computing)
-        (Quantum Softwares)
-        (Specialised Quantum languages & Libraries)
-    lec7(Lecture 7 - **Landscape of Quantum algorithms**)
+        (Helpdesk)
+        (Staff Expertise)
+        (Code development and optimization)
+    lec7(Software Catalogue)
     ::icon(fa fa-book)
-        (Computational complexity)
-        (Quantum Algorithms)
-        (Examples and interface with machine learning)
+        (Software access and Licenses)
+        (Compilation and usage support)
+        (Releases)
 ```
-
-## List of Lectures
-- [Lecture 1 - Demystifying Quantum Computing](lecture-1/demystifying-quantum-computing.md)
-- [Lecture 2 - Integrating Classical and Quantum Computing](lecture-2/integrating-classical-and-quantum-computing.md)
-- [Lecture 3 - From Bits to Qubits](lecture-3/from-bits-to-qubits.md)
-- [Lecture 4 - Realizing Quantum Computing Systems](lecture-4/realizing-quantum-computing-systems.md)
-- [Lecture 5 - Accessing Quantum Computing Systems](lecture-5/accessing-quantum-computing-systems.md)
-- [Lecture 6 - Landscape of Quantum SDK's and Tools](lecture-6/landscape-of-sdks-tools.md)
-- [Lecture 7 - Landscape of Quantum algorithms](lecture-7/landscape-of-quantum-algorithms.md)
-
-
 
 ---
 
-## Contact
-For QPCC related queries, contact us or the instructors at following -
+## Contact us
+For any help, contact us at following -
 
 | Name                 | Email                           |
 |----------------------|:-------------------------------:|
-| QPCC team            | <qpcc@ichec.ie>                 |
-| Emil Dimitrov        | <emil.dimitrov@ichec.ie>        |
-| Karthik Krishnakumar | <karthik.krishnakumar@ichec.ie> |
-| Pablo Lauret         | <pablo.lauret@ichec.ie>         |
-| Pablo Suárez Vieites | <pablo.suarez@ichec.ie>         |
-| Rajarshi Tiwari      | <rajarshi.tiwari@ichec.ie>      |
-| Venkatesh Kannan     | <venkatesh.kannan@ichec.ie>     |
+| Helpdesk Portal      | <support@ichec.ie>              |
