@@ -7,5 +7,7 @@ root: index
 chapters:
 - file: national-hpc-service
 - file: interim-service
+- file: slurm
+- file: national-service-projects
 - file: README
 - file: contact-us
