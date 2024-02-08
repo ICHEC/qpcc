@@ -1,7 +1,7 @@
 (target)=interim-service
 # Interim National HPC Service
 
-This page describes the nature of the service being put in place to enable researchers maintain access to HPC resources as well as the high level migration plan in operation to migrate researchers to the new system.
+This page describes the nature of the service being put in place to enable researchers maintain access to HPC resources following the closure of the Kay supercomputer. It also highlights the differences between the two systems and services as well as the high level migration plan in operation to migrate researchers to the new system.
 
 ```{dropdown} Background
 ICHEC first presented its plan for the provision of compute sources from foreign sites (to be procured on a commercial basis) at its Board meeting of September 2022. These arrangements were deemed essential to ensure continuity of service to the research community.
