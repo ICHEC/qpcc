@@ -78,7 +78,7 @@ Below is a {ref}`Table <kay-lxp-comp>` of comparison between kay and meluxina ma
 |Standard CPU nodes|Intel CPUs 40core per node|Amd CPUs 128core per node|
 |Standard GPU nodes|2 x (NVidia V100 cards, 16GB) per node| 4 x (Nvidia A100 cards, 40GB) per node|
 |Large Memory Nodes|||
-|Hyperthreading| No |On demad per job|
+|Hyperthreading| No |On by default, changable per job|
 |login access|`ssh user@kay.ichec.ie`|`ssh -p 8822 user@login.lxp.lu`|
 |queue manager|Slurm [See link](https://www.ichec.ie/academic/national-hpc/kay-documentation/slurm-workload-manager)|Slurm [See link](https://docs.lxp.lu/first-steps/handling_jobs/)|
 |Resource Consumption unit|CPU core hour|CPU/GPU Node hour|
