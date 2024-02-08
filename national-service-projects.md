@@ -113,7 +113,23 @@ All the applications submitted through the National Service are subject to a tec
 - Simulation's plan is in agreement with ICHEC scheduling policies
 - Any special requirement is needed
 
-`techn eval`
+```{mermaid}
+flowchart TD
+subgraph within 1 week;
+    Asub[Application Submitted] --> Aa[Application Assignment] --> Ts[Technical Evaluation]
+end
+cc[Class C]
+subgraph "class A: max 12 week, class B: max 8 week";
+    scc[Science Council Chair] <--> rev[Reviewers]
+    scc <--> ichec[ICHEC]
+    cab[Class A, B] --> scc
+end
+Ts --> cc & cab
+cc --Approved--> pa[Project Activated]
+ichec --Approved--> pa
+cc --Rejected--> Asub
+ichec --Rejected--> Asub
+```
 
 After the technical evaluation, Class C applicants are notified and their respective projects are activated. In the case of Class A and B applications, after the technical evaluation, projects are sent out for peer review by the [Science Council](https://www.ichec.ie/about/governance/science-council), usually by two national reviewers (Class B) or one national and one international reviewer (Class A) in order to evaluate the scientific merit of the proposal and applicant track record. Once both reviewer's reports are received, the decision is communicated to the applicant. This process might take between 4-8 weeks for Class B projects and up to 12 weeks for Class A projects 
 
