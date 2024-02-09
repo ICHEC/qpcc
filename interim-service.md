@@ -59,11 +59,17 @@ Here we provide some quick references for users transitioning to meluxina, pleas
 ```
 
 ```{admonition} Quick Summary
-- Similar to kay, there is a login node for meluxina `login.lxp.lu` where you `ssh` to. One noteworthy difference is that meluxina has the default ssh port 22 closed, and uses port 8822 for ssh. So you ssh command would be `ssh -p 8822 username@login.lxp.lu` .
+- Similar to kay, there is a login node for meluxina `login.lxp.lu` where you `ssh` to. One noteworthy difference is that meluxina uses port 8822 for ssh instead of the default port 22. So your ssh command would be `ssh -p 8822 username@login.lxp.lu` . If your ssh session to meluxina does not connect or hangs, it is likely that you are not specifying the correct port (8822) or that your local firewall is preventing outbound connections to this port.
 
-- You are assigned a user name when your account is created on meluxina, so it's good idea to use $USER variable in your script rather than using your username.
+- The meluxina login nodes do not have access to the centrally installed applications or modules and so to see what modules are available or to load modules and build your software you will need to launch an interactive slurm job.
 
-- You might need to rethink in terms of taskfarming or resource management, if your HPC runs were optimized for 40 core nodes. For most people, this will not be an issue, but if it is, please do [contact us](./contact-us).
+- You are assigned a (different) user name when your account is created on meluxina, so it's good idea to use $USER variable in your script rather than using your username.
+
+- Resources are allocated based on node hours and each node has considerably more CPU cores and/or GPUs than kay. As a result, each node hour used is considerably more expensive (and powerful) than kay and so it is important that you fully use all cores or GPUs on the node. You might need to rethink in terms of domain decomposition, taskfarming or other hardcoded compute or memory sizing when transferring scripts from kay. Please [contact us](./contact-us) for help with performance optimisation.
+
+- Extensive documentation is available on [Meluxina Documentation Site](https://docs.lxp.lu/)
+
+- After initial onboarding, all technical support on meluxina should be via the [ICHEC Helpdesk](./contact-us).
 
 ```
 
@@ -75,14 +81,16 @@ Below is a {ref}`Table <kay-lxp-comp>` of comparison between kay and meluxina ma
 :name: kay-lxp-comp
 |Specs/features|kay|meluxina|
 |:---:|:---:|:---:|
-|Standard CPU nodes|Intel CPUs 40core per node|Amd CPUs 128core per node|
+|Standard CPU nodes|Intel CPUs 40core, 192GB RAM, 400 GB SSD per node|Amd CPUs 128core, 512 GB RAM, No local disk per node|
 |Standard GPU nodes|2 x (NVidia V100 cards, 16GB) per node| 4 x (Nvidia A100 cards, 40GB) per node|
-|Large Memory Nodes|||
+|Large Memory Nodes|Intel CPUs 40 core, 1.5 TiB RAM|AMD CPUs 128core, 4TiB RAM|
 |Hyperthreading| No |On by default, changable per job|
 |login access|`ssh user@kay.ichec.ie`|`ssh -p 8822 user@login.lxp.lu`|
 |queue manager|Slurm [See link](https://www.ichec.ie/academic/national-hpc/kay-documentation/slurm-workload-manager)|Slurm [See link](https://docs.lxp.lu/first-steps/handling_jobs/)|
 |Resource Consumption unit|CPU core hour|CPU/GPU Node hour|
-|Popular slurm partitions|DevQ, ProdQ, LongQ, GpuQ, ...|cpu, gpu, fpga, largemem|
+|Slurm partitions|DevQ, ProdQ, LongQ, GpuQ, ...|cpu, gpu, fpga, largemem|
+|Internet connectivity|No internet connection from compute nodes|Internet accessible from compute nodes|
+|Resource usage/allocation command|mybalance / quota|myquota|
 ```
 
 
