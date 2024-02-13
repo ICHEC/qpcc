@@ -436,7 +436,7 @@ document.write(`
 <li><p>Circuit-Based/ Gate-Based</p>
 <ul>
 <li><p>IBM (Superconducting Qubits)</p></li>
-<li><p>IONQ ( Ion trapped Qubits)</p></li>
+<li><p>IONQ (Ion-trapped Qubits)</p></li>
 <li><p>Xanadu (Photonics)</p></li>
 </ul>
 </li>
@@ -457,18 +457,19 @@ document.write(`
 </li>
 </ul>
 <div class="mermaid">
-            %%{init: {'theme':'base', 'fontSize': '24', 'securityLevel': &quot;loose&quot;}}%%
-root((Types of Quantum Computing))
-    (Circuit/Gate Based )
-        (&quot;IBM (Superconducting Qubits)&quot;)
-        (&quot;IONQ ( Ion trapped Qubits)&quot;)
-        (&quot;Xanadu (Photonics)&quot;)
-    (Quantum Analog Computers)
-        (&quot;Quantum Array Simulators&quot;)
-            (&quot;QuEra (Neutral Atom Array)&quot;)
-            (&quot;Pasqal (Neutral Atom Array)&quot;)
-        (&quot;Quantum Annealing&quot;)
-            ()&quot;Dwave (Superconducting Qubit Array)&quot;)
+            %%{init: {'theme':'base', 'fontSize': '10', 'securityLevel': &quot;loose&quot;}}%%
+mindmap
+    root(&quot;**Types of Quantum Computing**&quot;)
+        qcg(&quot;**Circuit/Gate Based**&quot;)
+            (&quot;IBM (Superconducting Qubits)&quot;)
+            (&quot;IONQ (Ion-trapped Qubits)&quot;)
+            (&quot;Xanadu (Photonics)&quot;)
+        qac(&quot;**Quantum Analog Computers**&quot;)
+            (&quot;Quantum Array Simulators&quot;)
+                (&quot;QuEra (Neutral Atom Array)&quot;)
+                (&quot;Pasqal (Neutral Atom Array)&quot;)
+            (&quot;Quantum Annealing&quot;)
+                (&quot;Dwave (Superconducting Qubit Array)&quot;)
         </div><section id="circuit-based-quantum-computing">
 <h3>Circuit-based Quantum Computing<a class="headerlink" href="#circuit-based-quantum-computing" title="Link to this heading">#</a></h3>
 <p>Circuit Based Quantum Computing refers to the model of hardware in which complex Quantum operations are built by combining and using a primitive set of Quantum gates, most of our discussion upto this point has been oriented towards this model of computing, There are different physical mechanisms to implement qubits as well as the gate operations to build the circuits.</p>
