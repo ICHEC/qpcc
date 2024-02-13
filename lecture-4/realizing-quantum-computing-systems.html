@@ -58,6 +58,8 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="https://unpkg.com/mermaid@10.2.0/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-4/realizing-quantum-computing-systems';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -429,7 +431,7 @@ document.write(`
 </section>
 <section id="building-quantum-computers">
 <h2>Building Quantum Computers<a class="headerlink" href="#building-quantum-computers" title="Link to this heading">#</a></h2>
-<p>Broadly, the Quantum Computing systems that are being developed today can be classified into two categories Circuit Based or Gate Based devices and  Analog Quantum Simulation, there are further segregation within each of these types which we’ll delve into in the upcoming slides,we have also shown some of the industry providers who are working towards building each of these types of hardware.</p>
+<p>Broadly, the Quantum Computing systems that are being developed today can be classified into two categories Circuit Based or Gate Based devices and  Analog Quantum Simulation, there are further segregation within each of these types which we’ll delve into in the upcoming slides, we have also shown some of the industry providers who are working towards building each of these types of hardware.</p>
 <ul class="simple">
 <li><p>Circuit-Based/ Gate-Based</p>
 <ul>
@@ -454,7 +456,20 @@ document.write(`
 </ul>
 </li>
 </ul>
-<section id="circuit-based-quantum-computing">
+<div class="mermaid">
+            %%{init: {'theme':'base', 'fontSize': '24', 'securityLevel': &quot;loose&quot;}}%%
+root((Types of Quantum Computing))
+    (Circuit/Gate Based )
+        (&quot;IBM (Superconducting Qubits)&quot;)
+        (&quot;IONQ ( Ion trapped Qubits)&quot;)
+        (&quot;Xanadu (Photonics)&quot;)
+    (Quantum Analog Computers)
+        (&quot;Quantum Array Simulators&quot;)
+            (&quot;QuEra (Neutral Atom Array)&quot;)
+            (&quot;Pasqal (Neutral Atom Array)&quot;)
+        (&quot;Quantum Annealing&quot;)
+            ()&quot;Dwave (Superconducting Qubit Array)&quot;)
+        </div><section id="circuit-based-quantum-computing">
 <h3>Circuit-based Quantum Computing<a class="headerlink" href="#circuit-based-quantum-computing" title="Link to this heading">#</a></h3>
 <p>Circuit Based Quantum Computing refers to the model of hardware in which complex Quantum operations are built by combining and using a primitive set of Quantum gates, most of our discussion upto this point has been oriented towards this model of computing, There are different physical mechanisms to implement qubits as well as the gate operations to build the circuits.</p>
 <p>Let us go through some of these architectures and how they implement Qubits and the Quantum operations :</p>
