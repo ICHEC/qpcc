@@ -334,6 +334,11 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#executing-quantum-programs">Executing Quantum Programs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-classical-programs">What are Classical Programs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-quantum-programs">What are Quantum Programs</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -353,6 +358,87 @@ document.write(`
 </div>
 <section id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>In this lecture we touch upon various ways in which you can access quantum computing systems.</p>
+<p>Hello, and welcome to QPCC. In this module we will discuss how to access quantum computing systems. We will begin by going over the different ways in which quantum programs can be executed, namely in a remote or local environment and also on a quantum software simulator or on actual quantum hardware. This prefaces how a user might want to access a quantum system according to their circumstances. We will then discuss how to access quantum systems, in particular by looking at local systems, commercial quantum computing and publicly-funded quantum systems. ​</p>
+<p>​</p>
+<p>Our learning outcomes for the module are to understand the difference between quantum hardware and software simulators, the accessing of quantum computers and the current landscape of public and commercial quantum computing systems.​</p>
+</section>
+<section id="executing-quantum-programs">
+<h2>Executing Quantum Programs<a class="headerlink" href="#executing-quantum-programs" title="Link to this heading">#</a></h2>
+<p>In lecture 3, we learnt about some building blocks of quantum operations similar to classical one, known normally as gates. We learnt the quantum versions of <code class="docutils literal notranslate"><span class="pre">gates</span></code> similar to classical one. One can buid a <code class="docutils literal notranslate"><span class="pre">quantum</span> <span class="pre">program</span></code> using a combination of these quantum gates. Building a useful combination that can provide solution to a given problem requires a combination of art and craft, which is essentially programming.</p>
+<p>Here in the similar spirit, we go through a discussion on classical programming, to set the stage for learning quantum programming. Consider the following simple example -</p>
+<section id="what-are-classical-programs">
+<h3>What are Classical Programs<a class="headerlink" href="#what-are-classical-programs" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">30000</span><span class="p">)</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Histogram of x&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/8d5bcd45b360a3f12dc83ac01a5cec63ad81f27e0106ddc1c18f031f4c66f45d.png" src="../_images/8d5bcd45b360a3f12dc83ac01a5cec63ad81f27e0106ddc1c18f031f4c66f45d.png" />
+</div>
+</div>
+<p>A classical program is a set of instructions for a classical computer to execute. ​Classical programs are not written in a way that takes advantage of quantum hardware, but rather with classical hardware in mind.​</p>
+<p>Take for example the following program which is written in the programming language Python and uses the popular scientific library Numpy. Here we generate a set of random integers between zero and fifteen inclusive, a random number generator program. And we can see the result plotted in this histogram. We should note that no quantum computing paradigms or hardware are used in the execution of this program. This program is entirely executed using classical paradigms of computation on classical hardware. And this will be the distinguishing factor between a classical and a quantum program.​</p>
+</section>
+<section id="what-are-quantum-programs">
+<h3>What are Quantum Programs<a class="headerlink" href="#what-are-quantum-programs" title="Link to this heading">#</a></h3>
+<p>So what is a quantum program?​</p>
+<ul class="simple">
+<li><p>A quantum program is a set of instructions for a quantum computer to execute​</p></li>
+<li><p>A quantum program generally takes advantage of the various benefits a quantum computer maintains in contrast to classical computers, although this is not strictly necessary. ​</p></li>
+</ul>
+<p>Here we see a similar random number generator to the previous classical version, however there are some differences. Although we attain essentially the same result, a set of random numbers between zero and sixteen, the programs are executed in a different manner and use different techniques to achieve this result. The quantum program uses  the quantum mechanical properties of superposition and measurement to attain random numbers so long as it is executed on quantum hardware, while the classical uses pseudo-random methods of number generation. The quantum program can also be executed on a classical software simulator and this case would inherit the pseudo-random nature of the classical machine. ​​</p>
+<p>We also see that the quantum program can be represented by a quantum circuit as shown on the left. The quantum program shown here is again written in python and uses the popular Qiskit library.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">qiskit</span>
+<span class="n">size</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">qiskit</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">measure_all</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>### Executing Quantum Programs on Quantum Hardware</p>
+<ul class="simple">
+<li><p>Advantages</p>
+<ul>
+<li><p>Access the full potential of QC</p>
+<ul>
+<li><p>Superposition</p></li>
+<li><p>Entanglement</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Disadvantages</p>
+<ul>
+<li><p>Current Hardware constraints</p>
+<ul>
+<li><p>Noise</p></li>
+<li><p>Low number of Qubits</p></li>
+<li><p>Low circuit depths</p></li>
+</ul>
+</li>
+<li><p>Remote access only</p></li>
+<li><p>Availability</p></li>
+</ul>
+</li>
+</ul>
+<p>The previous slide begs the question, if we can simulate quantum programs on classical machine then what is the point in using quantum hardware. Lets take a look at some advantages and disadvantages of using quantum hardware.​</p>
+<p>​​</p>
+<div class="tip admonition">
+<p class="admonition-title">Noise</p>
+<p>Physical qubits experience noise and decoherence, resulting in computational errors. This problem also amplifies as we attempt to use more qubits and so ​this limits the number of qubits you can use​, and the circuit depth of the program you are implementing​.</p>
+</div>
+</section>
 </section>
 </section>
 
@@ -421,6 +507,11 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#executing-quantum-programs">Executing Quantum Programs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-classical-programs">What are Classical Programs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-quantum-programs">What are Quantum Programs</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
