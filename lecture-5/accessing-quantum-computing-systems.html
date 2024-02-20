@@ -58,6 +58,8 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="https://unpkg.com/mermaid@10.2.0/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-5/accessing-quantum-computing-systems';</script>
@@ -339,6 +341,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#executing-quantum-programs">Executing Quantum Programs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-classical-programs">What are Classical Programs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-quantum-programs">What are Quantum Programs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#executing-quantum-programs-on-quantum-hardware">Executing quantum programs on quantum hardware</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qc-hardware-vs-software-simulators">QC hardware vs software simulators</a></li>
 </ul>
             </nav>
         </div>
@@ -365,68 +369,104 @@ document.write(`
 </section>
 <section id="executing-quantum-programs">
 <h2>Executing Quantum Programs<a class="headerlink" href="#executing-quantum-programs" title="Link to this heading">#</a></h2>
-<p>In lecture 3, we learnt about some building blocks of quantum operations similar to classical one, known normally as gates. We learnt the quantum versions of <code class="docutils literal notranslate"><span class="pre">gates</span></code> similar to classical one. One can buid a <code class="docutils literal notranslate"><span class="pre">quantum</span> <span class="pre">program</span></code> using a combination of these quantum gates. Building a useful combination that can provide solution to a given problem requires a combination of art and craft, which is essentially programming.</p>
-<p>Here in the similar spirit, we go through a discussion on classical programming, to set the stage for learning quantum programming. Consider the following simple example -</p>
+<p>In lecture 3, we learnt about some building blocks of quantum operations similar to classical one, known normally as gates. We learnt the quantum versions of <code class="docutils literal notranslate"><span class="pre">gates</span></code> similar to classical one. One can buid a <code class="docutils literal notranslate"><span class="pre">quantum</span> <span class="pre">program</span></code> using a combination of these quantum gates. Building a useful combination that can provide solution to a given problem requires a combination of art and craft, which is essentially programming. Here in the similar spirit, we go through a discussion on classical programming, to set the stage for learning quantum programming.</p>
 </section>
 <section id="what-are-classical-programs">
 <h2>What are Classical Programs<a class="headerlink" href="#what-are-classical-programs" title="Link to this heading">#</a></h2>
+<p>A classical program is a set of instructions for a classical computer to execute. ​Classical programs are not written in a way that takes advantage of quantum hardware, but rather with classical hardware in mind.​</p>
+<p>Consider the following simple example -</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>              <span class="c1"># import numpy library</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span> <span class="c1"># import the plotting library</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">30000</span><span class="p">)</span>
-<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Histogram of x&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">30000</span><span class="p">)</span>     <span class="c1"># generate the random numbers</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>           <span class="c1"># plot the histogram</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>                 <span class="c1"># set the x-label  |</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Histogram of x&quot;</span><span class="p">)</span>    <span class="c1"># set the y-label  | The &#39;plot&#39; thickens :-) </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>                      <span class="c1"># display the plot |</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/0d01c6d0cf961cf93decde8e3f9af00f19128c1aa0a46e9c5ec2441b58e8b326.png" src="../_images/0d01c6d0cf961cf93decde8e3f9af00f19128c1aa0a46e9c5ec2441b58e8b326.png" />
+<img alt="../_images/6458c5f88a64c0d95086e5f1ed2e699bbd0cfc38b9b00c8f9159f46477937265.png" src="../_images/6458c5f88a64c0d95086e5f1ed2e699bbd0cfc38b9b00c8f9159f46477937265.png" />
 </div>
 </div>
-<p>A classical program is a set of instructions for a classical computer to execute. ​Classical programs are not written in a way that takes advantage of quantum hardware, but rather with classical hardware in mind.​</p>
-<p>Take for example the following program which is written in the programming language Python and uses the popular scientific library Numpy. Here we generate a set of random integers between zero and fifteen inclusive, a random number generator program. And we can see the result plotted in this histogram. We should note that no quantum computing paradigms or hardware are used in the execution of this program. This program is entirely executed using classical paradigms of computation on classical hardware. And this will be the distinguishing factor between a classical and a quantum program.​</p>
+<p>The small piece of code above is a <code class="docutils literal notranslate"><span class="pre">program</span></code> written in Python programming language and uses the popular scientific library <code class="docutils literal notranslate"><span class="pre">Numpy</span></code>. The first line imports the module<a class="footnote-reference brackets" href="#lib" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>/library, and the second line imports the famous plotting library <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.
+We then call the numpy function for 30000 samples of random numbers through <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">np.random.random(30000)</span></code>, that are uniformly distributed. Next four lines set the instructions to plot the distribution of these numbers. And we can see the result plotted below the input code block.
+Although the underlying programs in the plotting library matplotlib and the random number genenerator from numpy are far from simple, for our purpose within the above code-block, they serve a simple purpose, of writing a two step process -</p>
+<ol class="arabic simple">
+<li><p>Generate a set of random numbers, and</p></li>
+<li><p>Plot their distribution.</p></li>
+</ol>
+<p>The two libraries that we used, contain the heavy load of complex algorithms to do a high-level task. Both of these libraries are written for our usual classical computer, and execute classical algorithm on a classical computer.</p>
 </section>
 <section id="what-are-quantum-programs">
 <h2>What are Quantum Programs<a class="headerlink" href="#what-are-quantum-programs" title="Link to this heading">#</a></h2>
-<p>So what is a quantum program?​</p>
+<p>So what is a quantum program?​ Typically, a quantum program -</p>
 <ul class="simple">
-<li><p>A quantum program is a set of instructions for a quantum computer to execute​</p></li>
-<li><p>A quantum program generally takes advantage of the various benefits a quantum computer maintains in contrast to classical computers, although this is not strictly necessary. ​</p></li>
+<li><p>is a set of instructions for a quantum computer to execute​, and</p></li>
+<li><p>generally takes advantage of one or more of the following:</p>
+<ul>
+<li><p>quantum mechanical concepts</p></li>
+<li><p>quantum gates</p></li>
+<li><p>quantum simulation/dynamics</p></li>
 </ul>
-<p>Here we see a similar random number generator to the previous classical version, however there are some differences. Although we attain essentially the same result, a set of random numbers between zero and sixteen, the programs are executed in a different manner and use different techniques to achieve this result. The quantum program uses  the quantum mechanical properties of superposition and measurement to attain random numbers so long as it is executed on quantum hardware, while the classical uses pseudo-random methods of number generation. The quantum program can also be executed on a classical software simulator and this case would inherit the pseudo-random nature of the classical machine. ​​</p>
-<p>We also see that the quantum program can be represented by a quantum circuit as shown on the left. The quantum program shown here is again written in python and uses the popular Qiskit library.</p>
+</li>
+</ul>
+<p>Here we see a similar random number generator to the previous classical version, however there are some differences. Although we attain essentially the same result, a set of random numbers between zero and sixteen, the programs are executed in a different manner and use different techniques to achieve this result.</p>
+<p>The quantum program uses the quantum mechanical properties of superposition and measurement to attain random numbers so long as it is executed on quantum hardware, while the classical one uses pseudo-random methods of number generation algorithms. The quantum program can also be executed on a classical software simulator and this case would inherit the pseudo-random nature of the classical machine. ​​</p>
+<p>Below we show how a quantum program can be represented by a quantum circuit. It is written in python and uses the popular Qiskit library.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">qiskit</span>
-<span class="n">size</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="n">qc</span> <span class="o">=</span> <span class="n">qiskit</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">qiskit</span>                   <span class="c1"># import qiskit library</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span> <span class="c1"># plotting library</span>
+<span class="n">size</span> <span class="o">=</span> <span class="mi">4</span>                        <span class="c1"># number of qubits to use</span>
+
+<span class="n">qc</span> <span class="o">=</span> <span class="n">qiskit</span><span class="o">.</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span> <span class="c1"># Build the quantum circuit</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>                  <span class="c1"># Loop for adding Hadamard gate</span>
     <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">measure_all</span><span class="p">()</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>                  <span class="c1"># Loop for adding measurement</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.8</span><span class="p">)</span>       <span class="c1"># Marmalade is served :-)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><pre style="word-wrap: normal;white-space: pre;background: #fff0;line-height: 1.1;font-family: &quot;Courier New&quot;,Courier,monospace">        ┌───┐ ░ ┌─┐         
-   q_0: ┤ H ├─░─┤M├─────────
-        ├───┤ ░ └╥┘┌─┐      
-   q_1: ┤ H ├─░──╫─┤M├──────
-        ├───┤ ░  ║ └╥┘┌─┐   
-   q_2: ┤ H ├─░──╫──╫─┤M├───
-        ├───┤ ░  ║  ║ └╥┘┌─┐
-   q_3: ┤ H ├─░──╫──╫──╫─┤M├
-        └───┘ ░  ║  ║  ║ └╥┘
-   c: 4/═════════╬══╬══╬══╬═
-                 ║  ║  ║  ║ 
-meas: 4/═════════╩══╩══╩══╩═
-                 0  1  2  3 </pre></div></div>
+<img alt="../_images/e790c5bda33d97d63ee6d0033c2be3ab5700fe91457e5f74509fd40cd62c899c.png" src="../_images/e790c5bda33d97d63ee6d0033c2be3ab5700fe91457e5f74509fd40cd62c899c.png" />
 </div>
-<p>## Executing quantum programs on quantum hardware</p>
+</div>
+<p>In the above code, we import the <code class="docutils literal notranslate"><span class="pre">qiskit</span></code> library along with matplotlib, and construct a quantum circuit with 4 qubits and 4 classical bits, through <code class="docutils literal notranslate"><span class="pre">qc</span> <span class="pre">=</span> <span class="pre">qiskit.QuantumCircuit(size,</span> <span class="pre">size)</span></code> . Next we add <strong>Hadamard gates</strong> at each qubits through a for loop.
+Next we add measurement instruction for each qubit <span class="math notranslate nohighlight">\(i\)</span> and to store the output in corresponding <span class="math notranslate nohighlight">\(i\)</span>th classical bit. The last line draws the circuit.</p>
+<p>Now this build circuit can be executed on a quantum device, or a classical backend simulator, which pretends to be a quantum device. We run it through following -</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit_aer</span> <span class="kn">import</span> <span class="n">Aer</span>                       <span class="c1"># import the Aer simulation backend</span>
+<span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="n">plot_histogram</span>  <span class="c1"># import plotting function</span>
+
+<span class="n">sim</span> <span class="o">=</span> <span class="n">Aer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;aer_simulator&#39;</span><span class="p">)</span>           <span class="c1"># define a simulator object from Aer</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>                   <span class="c1"># run circuit via simulated experiment</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>                            <span class="c1"># extract result from job</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>                     <span class="c1"># get the measured values on state</span>
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">counts</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>           <span class="c1"># dinner is ready :-) </span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/22e8b3af56ab9a264ab2f67bf7e2e924d43ac7f4f8fd14989c06d7a6ab880db3.png" src="../_images/22e8b3af56ab9a264ab2f67bf7e2e924d43ac7f4f8fd14989c06d7a6ab880db3.png" />
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">Aer</span></code> module is part of qiskit software ecosystem, and provides us with a few backend software simulators for quantum computing. The line <code class="docutils literal notranslate"><span class="pre">sim</span> <span class="pre">=</span> <span class="pre">Aer.get_backend('aer_simulator')</span></code> defines a simulator object based on Aer’s ‘aer_simulator backend’.
+This object can now run a job of executing a quantum program. It’s done via <code class="docutils literal notranslate"><span class="pre">job</span> <span class="pre">=</span> <span class="pre">sim.run(qc,</span> <span class="pre">shots=10000)</span></code> where <code class="docutils literal notranslate"><span class="pre">sim.run</span></code> is the function that runs the circuit <code class="docutils literal notranslate"><span class="pre">qc</span></code> with 10000 ‘shots’. The result and the execution details are saved in <code class="docutils literal notranslate"><span class="pre">job</span></code> variable.
+Next we extract the results through <code class="docutils literal notranslate"><span class="pre">job.result()</span></code> function, and subsequently get the measuring counts, which we plot.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The counts are essentially random, and because of the structure of the circuit, they are supposed to by uniformly random.</p>
+<p>Any idea why they are supposed to be uniformly random?</p>
+</div>
+</section>
+<section id="executing-quantum-programs-on-quantum-hardware">
+<h2>Executing quantum programs on quantum hardware<a class="headerlink" href="#executing-quantum-programs-on-quantum-hardware" title="Link to this heading">#</a></h2>
 <p>Below are some comparative comments on the pros and cons of real quantum hardware.</p>
 <div class="mermaid">
             mindmap
@@ -442,37 +482,81 @@ meas: 4/═════════╩══╩══╩══╩═
                 Low circuit depths
             Remote access only
             Availability
-        </div><ul class="simple">
-<li><p>Advantages</p>
-<ul>
-<li><p>Access the full potential of QC</p>
-<ul>
-<li><p>Superposition</p></li>
-<li><p>Entanglement</p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Disadvantages</p>
-<ul>
-<li><p>Current Hardware constraints</p>
-<ul>
-<li><p>Noise</p></li>
-<li><p>Low number of Qubits</p></li>
-<li><p>Low circuit depths</p></li>
-</ul>
-</li>
-<li><p>Remote access only</p></li>
-<li><p>Availability</p></li>
-</ul>
-</li>
-</ul>
-<p>The previous slide begs the question, if we can simulate quantum programs on classical machine then what is the point in using quantum hardware. Lets take a look at some advantages and disadvantages of using quantum hardware.​</p>
-<p>​​</p>
+        </div><p>The previous slide begs the question, if we can simulate quantum programs on classical machine then what is the point in using quantum hardware. Lets take a look at some advantages and disadvantages of using quantum hardware.​
+​​</p>
 <div class="tip admonition">
 <p class="admonition-title">Noise</p>
 <p>Physical qubits experience noise and decoherence, resulting in computational errors. This problem also amplifies as we attempt to use more qubits and so ​this limits the number of qubits you can use​, and the circuit depth of the program you are implementing​.</p>
 </div>
+</section>
+<section id="qc-hardware-vs-software-simulators">
+<h2>QC hardware vs software simulators<a class="headerlink" href="#qc-hardware-vs-software-simulators" title="Link to this heading">#</a></h2>
+<p>​</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p></p></th>
+<th class="head text-left"><p>Quantum Computing ​Hardware​</p></th>
+<th class="head text-left"><p>Quantum Computing Software ​Simulators​</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Comparison ​to Reality ​</p></td>
+<td class="text-left"><p>Actual Qubits​</p></td>
+<td class="text-left"><p>Software objects mimicking qubits​</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>Quantum entanglement and superposition​</p></td>
+<td class="text-left"><p>Classical backends, heavy on resources​</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p>Simulated quantum behavior​</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Noise​</p></td>
+<td class="text-left"><p>Inherently exists, need to employ error mitigation/correction​</p></td>
+<td class="text-left"><p>Controllable​</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p>Helps understand &amp; improve Real QC​</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Cost​</p></td>
+<td class="text-left"><p>Very expensive​</p></td>
+<td class="text-left"><p>Mostly free &amp; open source​</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p>Require heavy maintenance​</p></td>
+<td class="text-left"><p>Easily setup on laptop/desktops/servers​</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Access and Control​</p></td>
+<td class="text-left"><p>Very limited public access​</p></td>
+<td class="text-left"><p>Widely accessible, easy to install​</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p>Little control on runtime​</p></td>
+<td class="text-left"><p>Debug, analyze, develop easily​</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>You can’t really debug on QC</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Scalability​</p></td>
+<td class="text-left"><p>Limited qubits​</p></td>
+<td class="text-left"><p>Due to classical backends, actual computation cost grows exponentially ​</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>Future research will open new possibilities</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="lib" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>In Python, library containing organized sets of functions and utilities are called modules.</p>
+</aside>
+</aside>
 </section>
 </section>
 
@@ -544,6 +628,8 @@ meas: 4/═════════╩══╩══╩══╩═
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#executing-quantum-programs">Executing Quantum Programs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-classical-programs">What are Classical Programs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-quantum-programs">What are Quantum Programs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#executing-quantum-programs-on-quantum-hardware">Executing quantum programs on quantum hardware</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qc-hardware-vs-software-simulators">QC hardware vs software simulators</a></li>
 </ul>
   </nav></div>
 
