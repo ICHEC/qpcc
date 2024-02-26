@@ -345,6 +345,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qc-hardware-vs-software-simulators">QC hardware vs software simulators</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#executing-quantum-program-on-qcss">Executing quantum program on QCSS</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#executing-quantum-programs-locally">Executing quantum programs locally</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-qc-software-simulators">Types of QC software simulators</a></li>
 </ul>
             </nav>
         </div>
@@ -391,7 +392,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/2560b1e16e5b3a82af26741e5ce2cd03ab6191524c41237186187dbf40a437c8.png" src="../_images/2560b1e16e5b3a82af26741e5ce2cd03ab6191524c41237186187dbf40a437c8.png" />
+<img alt="../_images/9c710edb2d4ea11575def376ee6c1938d34ef55947c42773125be3574138affc.png" src="../_images/9c710edb2d4ea11575def376ee6c1938d34ef55947c42773125be3574138affc.png" />
 </div>
 </div>
 <p>The small piece of code above is a <code class="docutils literal notranslate"><span class="pre">program</span></code> written in Python programming language and uses the popular scientific library <code class="docutils literal notranslate"><span class="pre">Numpy</span></code>. The first line imports the module<a class="footnote-reference brackets" href="#lib" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>/library, and the second line imports the famous plotting library <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.
@@ -455,7 +456,7 @@ Next we add measurement instruction for each qubit <span class="math notranslate
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/b839eb6778d07c37c7873ea3002d692b8631fa7cb4fca4eab31650a760206e6b.png" src="../_images/b839eb6778d07c37c7873ea3002d692b8631fa7cb4fca4eab31650a760206e6b.png" />
+<img alt="../_images/d58fb1eec77e43fbe707ca979cc7a15180d140e4b3c9b77b34bdc2c008feca2a.png" src="../_images/d58fb1eec77e43fbe707ca979cc7a15180d140e4b3c9b77b34bdc2c008feca2a.png" />
 </div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">Aer</span></code> module is part of qiskit software ecosystem, and provides us with a few backend software simulators for quantum computing. The line <code class="docutils literal notranslate"><span class="pre">sim</span> <span class="pre">=</span> <span class="pre">Aer.get_backend('aer_simulator')</span></code> defines a simulator object based on Aer’s ‘aer_simulator backend’.
@@ -626,6 +627,38 @@ For example, many types of quantum computers require refrigeration to cold tempe
 </ul>
 <p><a class="reference external" href="https://vincentlauzon.com/2018/03/21/quantum-computing-how-does-it-scale/">How quantum computing scales</a>​
 ​</p>
+</section>
+<section id="types-of-qc-software-simulators">
+<h2>Types of QC software simulators<a class="headerlink" href="#types-of-qc-software-simulators" title="Link to this heading">#</a></h2>
+<p>Lets now discuss some different types of quantum software simulators. They can differ in terms of both their front-end and backend. However, the differentiation in the front end is more within the classical programming era, as it refers to elements such as UI, and the underlying language. The more interesting aspect is at the backend, which usually is the mathematical machinery that actually simulates the quantum system representing the circuit/system.There are many, but here we will discuss two in in particular.</p>
+<p>These are <strong>state-vector simulators</strong> and <strong>tensor network simulators</strong><a class="footnote-reference brackets" href="#tnsim" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>. The state-vector simulator performs the quantum computation in question exactly as it is while the tensor network simulator simplifies the calculation at the cost of accuracy. This creates some relative advantages and disadvantages between these two types of simulators. The state-vector simulator holds memory of each possible qubit state, and updates them all at each time step in the computation. It has problems with memory capacity and compute time growing exponentially with the number of qubits. It can also model both ideal and noisy qubits. The tensor network simulator simulates only states you predictably need by using tensor network contractions, this reduces memory and compute requirements allowing the simulation of 100s or 1000s of qubits.​</p>
+<p>The following table of comparison summarises the two -</p>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row docutils">
+<div class="sd-col sd-d-flex-column sd-border-1 docutils">
+<h3 class="rubric" id="statevector-simulatores">Statevector simulatores</h3>
+<p><img alt="" src="../_images/sv-sim.png" /></p>
+<ul class="simple">
+<li><p>Maintains full <span class="math notranslate nohighlight">\(2^n\)</span> qubit vector state in memory.</p></li>
+<li><p>Updates all states at every timestep, probability sample <span class="math notranslate nohighlight">\(n\)</span> of the states for measurement
+Memory Capacity and time grow exponentially with the number of qubits, so</p></li>
+<li><p>Limited to approximately 50 qubits on a supercomputer</p></li>
+<li><p>Can model both ideal and noisy qubits.</p></li>
+</ul>
+</div>
+<div class="sd-col sd-d-flex-column sd-border-1 docutils">
+<h3 class="rubric" id="tensor-network-simulators">Tensor Network Simulators</h3>
+<p><img alt="" src="https://quantum-journal.org/wp-content/uploads/2021/03/logo-2048x1024.jpg" /></p>
+<ul class="simple">
+<li><p>It only simulates the states you need.</p></li>
+<li><p>It Uses tensor network contractions to dramatically reduce the memory for simulating circuits.</p></li>
+<li><p>It Can simulate 100s or 1000s of qubits for many pactical quantum circuits.</p></li>
+<li><p>It Can model both ideal and nosiy qubits.</p></li>
+<li><p>It only offers advantage in weakly entangled systems.</p></li>
+</ul>
+</div>
+</div>
+</div>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="../_images/c05e680c7ed0fc54d745f325e23dcd2b55b00021bfd707a9ad4f663053d44a52.png" src="../_images/c05e680c7ed0fc54d745f325e23dcd2b55b00021bfd707a9ad4f663053d44a52.png" />
@@ -636,6 +669,10 @@ For example, many types of quantum computers require refrigeration to cold tempe
 <aside class="footnote brackets" id="lib" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
 <p>In Python, library containing organized sets of functions and utilities are called modules.</p>
+</aside>
+<aside class="footnote brackets" id="tnsim" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>Hyper-optimized tensor network contraction, (Quantum, <strong>5</strong>, 410, 2021)[<a class="reference external" href="https://doi.org/10.22331/q-2021-03-15-410">https://doi.org/10.22331/q-2021-03-15-410</a>)</p>
 </aside>
 </aside>
 </section>
@@ -713,6 +750,7 @@ For example, many types of quantum computers require refrigeration to cold tempe
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qc-hardware-vs-software-simulators">QC hardware vs software simulators</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#executing-quantum-program-on-qcss">Executing quantum program on QCSS</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#executing-quantum-programs-locally">Executing quantum programs locally</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-qc-software-simulators">Types of QC software simulators</a></li>
 </ul>
   </nav></div>
 
