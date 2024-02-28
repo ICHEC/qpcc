@@ -350,6 +350,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-qcss">Accessing QCSS</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tightly-integrated-quantum-systems">Tightly-Integrated quantum systems</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ibm-quantum">IBM Quantum</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xanadu">Xanadu</a></li>
 </ul>
 </li>
 </ul>
@@ -399,7 +400,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/aa86ed869a1f8e4654d53f06368747ff61b1a5a7de1b13e4ee5a2cffd6efc5ea.png" src="../_images/aa86ed869a1f8e4654d53f06368747ff61b1a5a7de1b13e4ee5a2cffd6efc5ea.png" />
+<img alt="../_images/8aa9c7f8393e4e9ccb33802b7e2ef53cd6bde799e91d42c9817b554edf2e19d0.png" src="../_images/8aa9c7f8393e4e9ccb33802b7e2ef53cd6bde799e91d42c9817b554edf2e19d0.png" />
 </div>
 </div>
 <p>The small piece of code above is a <code class="docutils literal notranslate"><span class="pre">program</span></code> written in Python programming language and uses the popular scientific library <code class="docutils literal notranslate"><span class="pre">Numpy</span></code>. The first line imports the module<a class="footnote-reference brackets" href="#lib" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>/library, and the second line imports the famous plotting library <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.
@@ -463,7 +464,7 @@ Next we add measurement instruction for each qubit <span class="math notranslate
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/bed344ab98546cb5a01420034507ee284251d7edf861a4eb64ad4818a611b653.png" src="../_images/bed344ab98546cb5a01420034507ee284251d7edf861a4eb64ad4818a611b653.png" />
+<img alt="../_images/3ad8e9d78f7aa5ade65fa1b971387722d711b2eb055a0ac097e22d2f0006b2b1.png" src="../_images/3ad8e9d78f7aa5ade65fa1b971387722d711b2eb055a0ac097e22d2f0006b2b1.png" />
 </div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">Aer</span></code> module is part of qiskit software ecosystem, and provides us with a few backend software simulators for quantum computing. The line <code class="docutils literal notranslate"><span class="pre">sim</span> <span class="pre">=</span> <span class="pre">Aer.get_backend('aer_simulator')</span></code> defines a simulator object based on Aer’s ‘aer_simulator backend’.
@@ -676,14 +677,6 @@ Memory Capacity and time grow exponentially with the number of qubits, so</p></l
 <section id="accessing-qcss">
 <h2>Accessing QCSS<a class="headerlink" href="#accessing-qcss" title="Link to this heading">#</a></h2>
 <p>Lets now take a look at the various simulators available. We can roughly split these into two-categories. Those which are used as part of a broader software stack such as Qiskit’s <code class="docutils literal notranslate"><span class="pre">aer</span></code> backend and standalone simulators such as the Intel Quantum Simulator. We will see these appear later when investigating how to access different quantum systems.​</p>
-<p>Project Specific / Full Stack?​</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Qiskit Aer Backend, part of Qiskit, written in ..., type of simulator​
-Pennylane Lightning, C++, full-state, etc​
-</pre></div>
-</div>
-<p>Standalone​
-IQS Intel Quantum Simulator​
-Qulacs, C++​</p>
 <div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
 <div class="sd-row docutils">
 <div class="sd-col sd-d-flex-row docutils">
@@ -723,31 +716,68 @@ Qulacs, C++​</p>
 <li><p>Xanadu​</p></li>
 </ul>
 <p>These providers create both the hardware and software layer while also providing environments in which quantum algorithms can be used to create applications. If you wish to access these systems, you need only visit each providers website, create your own personal account and download any relevant material or use their respective cloud services. Generally you can also install and use their software packages and use your personal computer to simulate quantum hardware. ​</p>
-<img alt="../_images/qstack.png" class="align-center" src="../_images/qstack.png" />
 <img alt="../_images/q-stack.svg" class="drawio" src="../_images/q-stack.svg" /><section id="ibm-quantum">
 <h3>IBM Quantum<a class="headerlink" href="#ibm-quantum" title="Link to this heading">#</a></h3>
-<p>Lets take a deeper look at IBM Quantum and what they offer. Firstly, we have Qiskit the quantum computing software library which serves as a complete quantum computing software library. Using Qiskit, one can develop quantum circuit based algorithms an applications, simulate these programs on Qiskits Aer backend simulator or run the program on IBMs quantum hardware. OpenQASM serves as Qiskits Quantum Assembly language, which is an intermediate between the qiskit and the classical or quantum hardware. IBM also offer a quantum computing cloud environment called IBM quantum lab, in which you can develop and run qiskit based programs on simulators or quantum hardware. IBM also offer a unique Quantum Composer tool, which allows you to build quantum algorithms using a quantum circuit interface interface. You can easily install qiskit and run simulations on your local machine. Or you can sign up for free for an IBM quantum account and gain access to quantum hardware, the quantum lab and the quantum composer.  ​</p>
-<ul class="simple">
-<li><p>Change cloud services layer​</p></li>
-<li><p>Current capabilities​</p>
-<ul>
-<li><p>Software Stack:​</p>
-<ul>
-<li><p>Qiskit​</p></li>
-<li><p>Qiskit runtime​</p></li>
-<li><p>Qiskit serverless​</p></li>
-<li><p>OpenQASM​</p></li>
-<li><p>IBM Quantum Lab​</p></li>
-<li><p>IBM Quantum Composer​</p></li>
-</ul>
-</li>
-<li><p>Hardware Stack: Superconducting Qubits​</p></li>
-<li><p>Number of Qubits: 127​</p></li>
-<li><p>Quantum simulators – up to XXX qubits​</p></li>
-<li><p>IBM Quantum Eagle​</p></li>
-</ul>
-</li>
-</ul>
+<p>IBM Quantum is one the popular emerging provider for software and hardware stacks for quantum computing. Lets take a closer look at IBM Quantum and what they offer.</p>
+<p>Firstly, we have <a class="reference external" href="https://www.ibm.com/quantum/qiskit">Qiskit</a>, the quantum computing software library which serves as a complete quantum computing software library. Using Qiskit, one can develop quantum circuit based algorithms an applications, simulate these programs on Qiskits Aer backend simulator or run the program on IBMs quantum hardware. The maximum qubit IBM had reached till last year was 433, <a class="reference external" href="https://www.allaboutcircuits.com/news/exclusive-ibm-shares-details-of-its-400-plus-qubit-quantum-processor/">Osprey</a> quantum processor. <a class="reference external" href="https://openqasm.com/">OpenQASM</a> serves as Qiskit’s Quantum Assembly language, which is an intermediate between the qiskit and the classical or quantum hardware. Secondly, IBM also offer a quantum computing cloud environment called IBM quantum lab, in which you can develop and run qiskit based programs on simulators or quantum hardware.</p>
+<img alt="../_images/ibm-q.svg" class="drawio" src="../_images/ibm-q.svg" /><p>IBM also offer a unique Quantum Composer tool, which allows you to build quantum algorithms using a quantum circuit interface interface. You can easily install qiskit and run simulations on your local machine. Or you can sign up for free for an IBM quantum account and gain access to quantum hardware, the quantum lab and the quantum composer.  ​</p>
+<div class="mermaid">
+            mindmap
+Current capabilities​
+    Software Stack:​
+        Qiskit​
+        Qiskit runtime​
+        Qiskit serverless​
+        OpenQASM​
+        IBM Quantum Lab​
+        IBM Quantum Composer​
+    Hardware Stack: Superconducting Qubits​
+        Number of Qubits: 433
+        Quantum simulators – up to XXX qubits​
+    IBM Quantum Eagle​
+        </div><p>Here we see a preview of the Quantum Lab, IBMs cloud computing service. On the right, we see a programming tool in which code can be written and ran. On the left we a directory containing tutorials and whatever files you create. ​</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+IBM Quantum Lab</div>
+<iframe src="https://docs.quantum.ibm.com/lab" style="width:100%; height:420px;border=3em">
+</iframe>
+</div>
+</div>
+<p>Here is the quantum composer. You can see in the centre the quantum circuit builder, where you can place qubits and gates to your liking and then perform measurements on the circuit. The results are diagrammatically shown in the bottom left aswell as on the Q-sphere on the bottom right. Qiskit code that represents the circuit is generated in the right panel.​</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+IBM Quantum Composer</div>
+<iframe src="https://quantum.ibm.com/composer/files/new" style="width:100%; height:420px;border=3em">
+</iframe>
+</div>
+</div>
+</section>
+<section id="xanadu">
+<h3>Xanadu<a class="headerlink" href="#xanadu" title="Link to this heading">#</a></h3>
+<p>Lets now move on to <a class="reference external" href="https://www.xanadu.ai/">Xanadu</a>. Xanadu provides photonics based quantum computing hardware, and has pretty impressive and actively maintained software stack. Pennylane is Xanadu’s programming platform, and software library. Using Pennylane we can develop circuit based algorithms and applications and run these programs on the lightning simulator or Xanadu’s quantum photonics hardware like borealis. Xanadu also offers a cloud computing service in which we can similarly develop and run quantum programs.​</p>
+<div class="mermaid">
+            mindmap
+Current capabilities​
+    Software Stack:​
+    Strawberry Fields: Photonic Circuit Programming​
+    Pennylane: QML Programming​
+    The Walrus: Hafnians, Hermite polynomials, and Gaussian boson sampling​
+    Hardware Stack:  Photonic Qubits​
+    Number of Qubits: 24​
+    Xanadu​
+    Pennylane​
+    Strawberry Fields​
+    The Walrus​
+        </div><img alt="../_images/xanadu-cl.svg" class="drawio align-center" src="../_images/xanadu-cl.svg" /><div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Xanadu</div>
+<p class="sd-card-text"><a class="reference external" href="https://codebook.xanadu.ai/">Link to Xanadu codebook</a></p>
+</div>
+</div>
+<img alt="../_images/xanadu-getstart.png" class="align-center" src="../_images/xanadu-getstart.png" />
 <hr class="footnotes docutils" />
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="lib" role="doc-footnote">
@@ -839,6 +869,7 @@ Qulacs, C++​</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-qcss">Accessing QCSS</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tightly-integrated-quantum-systems">Tightly-Integrated quantum systems</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ibm-quantum">IBM Quantum</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xanadu">Xanadu</a></li>
 </ul>
 </li>
 </ul>
