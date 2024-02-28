@@ -400,7 +400,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8aa9c7f8393e4e9ccb33802b7e2ef53cd6bde799e91d42c9817b554edf2e19d0.png" src="../_images/8aa9c7f8393e4e9ccb33802b7e2ef53cd6bde799e91d42c9817b554edf2e19d0.png" />
+<img alt="../_images/1157f0e5940dca6f41bf06b2ce4c1d670932ce0f4684cb18b7fed212cee9024f.png" src="../_images/1157f0e5940dca6f41bf06b2ce4c1d670932ce0f4684cb18b7fed212cee9024f.png" />
 </div>
 </div>
 <p>The small piece of code above is a <code class="docutils literal notranslate"><span class="pre">program</span></code> written in Python programming language and uses the popular scientific library <code class="docutils literal notranslate"><span class="pre">Numpy</span></code>. The first line imports the module<a class="footnote-reference brackets" href="#lib" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>/library, and the second line imports the famous plotting library <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.
@@ -464,7 +464,7 @@ Next we add measurement instruction for each qubit <span class="math notranslate
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3ad8e9d78f7aa5ade65fa1b971387722d711b2eb055a0ac097e22d2f0006b2b1.png" src="../_images/3ad8e9d78f7aa5ade65fa1b971387722d711b2eb055a0ac097e22d2f0006b2b1.png" />
+<img alt="../_images/34415ce129e7092c41d5e33d80b11a4a3fdf768855624cb041a35d8606dd77aa.png" src="../_images/34415ce129e7092c41d5e33d80b11a4a3fdf768855624cb041a35d8606dd77aa.png" />
 </div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">Aer</span></code> module is part of qiskit software ecosystem, and provides us with a few backend software simulators for quantum computing. The line <code class="docutils literal notranslate"><span class="pre">sim</span> <span class="pre">=</span> <span class="pre">Aer.get_backend('aer_simulator')</span></code> defines a simulator object based on Aer’s ‘aer_simulator backend’.
@@ -718,9 +718,9 @@ Memory Capacity and time grow exponentially with the number of qubits, so</p></l
 <p>These providers create both the hardware and software layer while also providing environments in which quantum algorithms can be used to create applications. If you wish to access these systems, you need only visit each providers website, create your own personal account and download any relevant material or use their respective cloud services. Generally you can also install and use their software packages and use your personal computer to simulate quantum hardware. ​</p>
 <img alt="../_images/q-stack.svg" class="drawio" src="../_images/q-stack.svg" /><section id="ibm-quantum">
 <h3>IBM Quantum<a class="headerlink" href="#ibm-quantum" title="Link to this heading">#</a></h3>
-<p>IBM Quantum is one the popular emerging provider for software and hardware stacks for quantum computing. Lets take a closer look at IBM Quantum and what they offer.</p>
+<img alt="../_images/ibm-q.svg" class="drawio align-center" src="../_images/ibm-q.svg" /><p>IBM Quantum is one the popular emerging provider for software and hardware stacks for quantum computing. Lets take a closer look at IBM Quantum and what they offer.</p>
 <p>Firstly, we have <a class="reference external" href="https://www.ibm.com/quantum/qiskit">Qiskit</a>, the quantum computing software library which serves as a complete quantum computing software library. Using Qiskit, one can develop quantum circuit based algorithms an applications, simulate these programs on Qiskits Aer backend simulator or run the program on IBMs quantum hardware. The maximum qubit IBM had reached till last year was 433, <a class="reference external" href="https://www.allaboutcircuits.com/news/exclusive-ibm-shares-details-of-its-400-plus-qubit-quantum-processor/">Osprey</a> quantum processor. <a class="reference external" href="https://openqasm.com/">OpenQASM</a> serves as Qiskit’s Quantum Assembly language, which is an intermediate between the qiskit and the classical or quantum hardware. Secondly, IBM also offer a quantum computing cloud environment called IBM quantum lab, in which you can develop and run qiskit based programs on simulators or quantum hardware.</p>
-<img alt="../_images/ibm-q.svg" class="drawio" src="../_images/ibm-q.svg" /><p>IBM also offer a unique Quantum Composer tool, which allows you to build quantum algorithms using a quantum circuit interface interface. You can easily install qiskit and run simulations on your local machine. Or you can sign up for free for an IBM quantum account and gain access to quantum hardware, the quantum lab and the quantum composer.  ​</p>
+<p>IBM also offer a unique Quantum Composer tool, which allows you to build quantum algorithms using a quantum circuit interface interface. You can easily install qiskit and run simulations on your local machine. Or you can sign up for free for an IBM quantum account and gain access to quantum hardware, the quantum lab and the quantum composer.  ​</p>
 <div class="mermaid">
             mindmap
 Current capabilities​
@@ -756,28 +756,31 @@ IBM Quantum Composer</div>
 </section>
 <section id="xanadu">
 <h3>Xanadu<a class="headerlink" href="#xanadu" title="Link to this heading">#</a></h3>
-<p>Lets now move on to <a class="reference external" href="https://www.xanadu.ai/">Xanadu</a>. Xanadu provides photonics based quantum computing hardware, and has pretty impressive and actively maintained software stack. Pennylane is Xanadu’s programming platform, and software library. Using Pennylane we can develop circuit based algorithms and applications and run these programs on the lightning simulator or Xanadu’s quantum photonics hardware like borealis. Xanadu also offers a cloud computing service in which we can similarly develop and run quantum programs.​</p>
+<img alt="../_images/xanadu-cl.svg" class="drawio align-center" src="../_images/xanadu-cl.svg" /><p>Lets now move on to <a class="reference external" href="https://www.xanadu.ai/">Xanadu</a>. Xanadu provides photonics based quantum computing hardware, and has pretty impressive and actively maintained software stack. Pennylane is Xanadu’s programming platform, and software library. Using Pennylane we can develop circuit based algorithms and applications and run these programs on the lightning simulator or Xanadu’s quantum photonics hardware like borealis. Xanadu also offers a cloud computing service in which we can similarly develop and run quantum programs.​</p>
 <div class="mermaid">
             mindmap
 Current capabilities​
     Software Stack:​
     Strawberry Fields: Photonic Circuit Programming​
     Pennylane: QML Programming​
-    The Walrus: Hafnians, Hermite polynomials, and Gaussian boson sampling​
+    The Walrus
+        Hafnians
+        Hermite polynomials, and
+        Gaussian boson sampling​
     Hardware Stack:  Photonic Qubits​
     Number of Qubits: 24​
     Xanadu​
     Pennylane​
     Strawberry Fields​
     The Walrus​
-        </div><img alt="../_images/xanadu-cl.svg" class="drawio align-center" src="../_images/xanadu-cl.svg" /><div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+        </div><div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
 <div class="sd-card-body docutils">
 <div class="sd-card-title sd-font-weight-bold docutils">
 Xanadu</div>
-<p class="sd-card-text"><a class="reference external" href="https://codebook.xanadu.ai/">Link to Xanadu codebook</a></p>
-</div>
-</div>
+<p class="sd-card-text">Here is the link to <a class="reference external" href="https://codebook.xanadu.ai/">Xanadu codebook</a>. Please also checkout the tutorial page for <a class="reference external" href="https://pennylane.ai/search/?categories=getting%20started">pennylane</a>, whose screenshot is shown below -</p>
 <img alt="../_images/xanadu-getstart.png" class="align-center" src="../_images/xanadu-getstart.png" />
+</div>
+</div>
 <hr class="footnotes docutils" />
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="lib" role="doc-footnote">
