@@ -351,6 +351,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tightly-integrated-quantum-systems">Tightly-Integrated quantum systems</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ibm-quantum">IBM Quantum</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xanadu">Xanadu</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-wave-leap-ide">D-Wave Leap IDE</a></li>
 </ul>
 </li>
 </ul>
@@ -400,7 +401,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/1157f0e5940dca6f41bf06b2ce4c1d670932ce0f4684cb18b7fed212cee9024f.png" src="../_images/1157f0e5940dca6f41bf06b2ce4c1d670932ce0f4684cb18b7fed212cee9024f.png" />
+<img alt="../_images/ac8b58975c4d7af5e18b85321fe49ccfbd9f472076f42969e2bbbbce9e716d40.png" src="../_images/ac8b58975c4d7af5e18b85321fe49ccfbd9f472076f42969e2bbbbce9e716d40.png" />
 </div>
 </div>
 <p>The small piece of code above is a <code class="docutils literal notranslate"><span class="pre">program</span></code> written in Python programming language and uses the popular scientific library <code class="docutils literal notranslate"><span class="pre">Numpy</span></code>. The first line imports the module<a class="footnote-reference brackets" href="#lib" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>/library, and the second line imports the famous plotting library <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.
@@ -464,7 +465,7 @@ Next we add measurement instruction for each qubit <span class="math notranslate
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/34415ce129e7092c41d5e33d80b11a4a3fdf768855624cb041a35d8606dd77aa.png" src="../_images/34415ce129e7092c41d5e33d80b11a4a3fdf768855624cb041a35d8606dd77aa.png" />
+<img alt="../_images/339475c1ac80fd24d5f4e8670f198d2e8133d323827961e0e7fb9d1730d858ef.png" src="../_images/339475c1ac80fd24d5f4e8670f198d2e8133d323827961e0e7fb9d1730d858ef.png" />
 </div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">Aer</span></code> module is part of qiskit software ecosystem, and provides us with a few backend software simulators for quantum computing. The line <code class="docutils literal notranslate"><span class="pre">sim</span> <span class="pre">=</span> <span class="pre">Aer.get_backend('aer_simulator')</span></code> defines a simulator object based on Aer’s ‘aer_simulator backend’.
@@ -768,7 +769,7 @@ Current capabilities​
         Hermite polynomials, and
         Gaussian boson sampling​
     Hardware Stack:  Photonic Qubits​
-    Number of Qubits: 24​
+    Number of Qubits: 216
     Xanadu​
     Pennylane​
     Strawberry Fields​
@@ -781,7 +782,14 @@ Xanadu</div>
 <img alt="../_images/xanadu-getstart.png" class="align-center" src="../_images/xanadu-getstart.png" />
 </div>
 </div>
-<hr class="footnotes docutils" />
+</section>
+<section id="d-wave-leap-ide">
+<h3>D-Wave Leap IDE<a class="headerlink" href="#d-wave-leap-ide" title="Link to this heading">#</a></h3>
+<img alt="../_images/dwave-diag.svg" class="drawio align-center" src="../_images/dwave-diag.svg" /><p>We see a similar structure to IBM and Xanadu with D-Wave with some differences. Most notably that D-Wave uses quantum annealing based programming, with Ocean, and quantum annealing hardware. D-Wave also offers unique hybrid Classical-Quantum Solvers. Classical simulation can also be performed on D-Waves so-called classical solvers. D-Wave also offers an online cloud-computing service akin to IBM and Xanadu called the Leap IDE.  ​</p>
+<p>To checkout the D-wave’s cloud setup, click this <a class="reference external" href="https://www.dwavesys.com/solutions-and-products/cloud-platform/">link</a>, and to signup for the cloud services, check <a class="reference external" href="https://cloud.dwavesys.com/leap/signup/%E2%80%8B">link</a>. Following video gives an intro to D-wave’s quantum computing setup.</p>
+<div class="video_wrapper" style="padding-bottom: 56.250000%; padding-top: 30px; position: relative; width: 100%">
+<iframe allowfullscreen="true" src="https://www.youtube.com/embed/eFIk7wpU5vA" style="border: 0; height: 100%; left: 0; position: absolute; top: 0; width: 100%">
+</iframe></div><hr class="footnotes docutils" />
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="lib" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
@@ -873,6 +881,7 @@ Xanadu</div>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tightly-integrated-quantum-systems">Tightly-Integrated quantum systems</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ibm-quantum">IBM Quantum</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xanadu">Xanadu</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-wave-leap-ide">D-Wave Leap IDE</a></li>
 </ul>
 </li>
 </ul>
