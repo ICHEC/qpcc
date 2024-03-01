@@ -352,6 +352,17 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ibm-quantum">IBM Quantum</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xanadu">Xanadu</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-wave-leap-ide">D-Wave Leap IDE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#heterogenous-quantum-systems">Heterogenous Quantum Systems</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#heterogenous-cloud-quantum-systems">Heterogenous cloud quantum systems</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#amazon-braket">Amazon Braket</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qcware-forge">QCWare Forge</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#microsoft-azure-quantum">Microsoft Azure Quantum</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#google-quantum-computing-service">Google Quantum Computing Service</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ionq">IonQ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#publicly-funded-quantum-systems">Publicly Funded Quantum Systems</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#national-quantum-computing-systems">National Quantum Computing Systems</a></li>
 </ul>
 </li>
 </ul>
@@ -401,7 +412,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ac8b58975c4d7af5e18b85321fe49ccfbd9f472076f42969e2bbbbce9e716d40.png" src="../_images/ac8b58975c4d7af5e18b85321fe49ccfbd9f472076f42969e2bbbbce9e716d40.png" />
+<img alt="../_images/916aa5b1452a2a94460427c069da114a1fc2daf3df3acd90cf1299791455b022.png" src="../_images/916aa5b1452a2a94460427c069da114a1fc2daf3df3acd90cf1299791455b022.png" />
 </div>
 </div>
 <p>The small piece of code above is a <code class="docutils literal notranslate"><span class="pre">program</span></code> written in Python programming language and uses the popular scientific library <code class="docutils literal notranslate"><span class="pre">Numpy</span></code>. The first line imports the module<a class="footnote-reference brackets" href="#lib" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>/library, and the second line imports the famous plotting library <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.
@@ -465,7 +476,7 @@ Next we add measurement instruction for each qubit <span class="math notranslate
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/339475c1ac80fd24d5f4e8670f198d2e8133d323827961e0e7fb9d1730d858ef.png" src="../_images/339475c1ac80fd24d5f4e8670f198d2e8133d323827961e0e7fb9d1730d858ef.png" />
+<img alt="../_images/ed43618a05538393aef1b24660e59889276a61f6e6838135e7071a1b83e9ae16.png" src="../_images/ed43618a05538393aef1b24660e59889276a61f6e6838135e7071a1b83e9ae16.png" />
 </div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">Aer</span></code> module is part of qiskit software ecosystem, and provides us with a few backend software simulators for quantum computing. The line <code class="docutils literal notranslate"><span class="pre">sim</span> <span class="pre">=</span> <span class="pre">Aer.get_backend('aer_simulator')</span></code> defines a simulator object based on Aer’s ‘aer_simulator backend’.
@@ -785,11 +796,137 @@ Xanadu</div>
 </section>
 <section id="d-wave-leap-ide">
 <h3>D-Wave Leap IDE<a class="headerlink" href="#d-wave-leap-ide" title="Link to this heading">#</a></h3>
-<img alt="../_images/dwave-diag.svg" class="drawio align-center" src="../_images/dwave-diag.svg" /><p>We see a similar structure to IBM and Xanadu with D-Wave with some differences. Most notably that D-Wave uses quantum annealing based programming, with Ocean, and quantum annealing hardware. D-Wave also offers unique hybrid Classical-Quantum Solvers. Classical simulation can also be performed on D-Waves so-called classical solvers. D-Wave also offers an online cloud-computing service akin to IBM and Xanadu called the Leap IDE.  ​</p>
+<img alt="../_images/dwave-diag.svg" class="drawio align-center" src="../_images/dwave-diag.svg" /><p>We see a similar structure to IBM and Xanadu with D-Wave with some differences. Most notably that D-Wave uses <strong>quantum annealing</strong> based programming, with Ocean, and quantum annealing hardware. Ocean is D-wave’s software suit. D-Wave also offers unique hybrid Classical-Quantum Solvers. Classical simulation can also be performed on D-Waves so-called classical solvers. D-Wave also offers an online cloud-computing service akin to IBM and Xanadu called the Leap IDE.  ​</p>
 <p>To checkout the D-wave’s cloud setup, click this <a class="reference external" href="https://www.dwavesys.com/solutions-and-products/cloud-platform/">link</a>, and to signup for the cloud services, check <a class="reference external" href="https://cloud.dwavesys.com/leap/signup/%E2%80%8B">link</a>. Following video gives an intro to D-wave’s quantum computing setup.</p>
 <div class="video_wrapper" style="padding-bottom: 56.250000%; padding-top: 30px; position: relative; width: 100%">
 <iframe allowfullscreen="true" src="https://www.youtube.com/embed/eFIk7wpU5vA" style="border: 0; height: 100%; left: 0; position: absolute; top: 0; width: 100%">
-</iframe></div><hr class="footnotes docutils" />
+</iframe></div><p>D-Wave maintains the lead in the industry for their use of quantum annealing hardware<a class="footnote-reference brackets" href="#warn" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.</p>
+</section>
+<section id="heterogenous-quantum-systems">
+<h3>Heterogenous Quantum Systems<a class="headerlink" href="#heterogenous-quantum-systems" title="Link to this heading">#</a></h3>
+</section>
+<section id="heterogenous-cloud-quantum-systems">
+<h3>Heterogenous cloud quantum systems<a class="headerlink" href="#heterogenous-cloud-quantum-systems" title="Link to this heading">#</a></h3>
+<img alt="../_images/hetero-cloud.svg" class="drawio align-center" src="../_images/hetero-cloud.svg" /><p>We will now move on to Heterogenous Cloud Quantum Systems and these are quantum programming online environments in which the elements of the quantum stack are developed by multiple different providers. For example, in this diagram the applications are sourced from provider A, the algorithms from C and the harwdware and software from provider B. The stack is then implemented in a cloud system usually provided by another party.​</p>
+<p>The notable providers for heterogenous systems are following -</p>
+<ul class="simple">
+<li><p>Amazon Braket​</p></li>
+<li><p>Microsoft Azure Quantum​</p></li>
+<li><p>Google Quantum Computing Service​</p></li>
+<li><p>QCWare Forge - <a class="reference external" href="https://forge.qcware.com/%E2%80%8B">https://forge.qcware.com/​</a></p></li>
+<li><p>IonQ</p></li>
+</ul>
+</section>
+<section id="amazon-braket">
+<h3>Amazon Braket<a class="headerlink" href="#amazon-braket" title="Link to this heading">#</a></h3>
+<p>One example of a heterogenous quantum cloud system is <strong>Amazon’s Braket</strong>. Amazon Braket offers the use of it’s own quantum computing langauge and simulators which are confusingly also called Braket, and it also offers hardware access to many different systems including Rigetti, IonQ, D-Wave, Xanadu, and Oxford Quantum Circuits.</p>
+<img alt="../_images/braket.svg" class="drawio align-center" src="../_images/braket.svg" /><ul class="simple">
+<li><p>Other languages​</p></li>
+<li><p>Horizontal flow​</p></li>
+<li><p>Remote access to quantum hardware​</p></li>
+<li><p>Amazon high perf simulators​</p></li>
+</ul>
+</section>
+<section id="qcware-forge">
+<h3>QCWare Forge<a class="headerlink" href="#qcware-forge" title="Link to this heading">#</a></h3>
+<p>QCWare Forge is next on the list of Heterogenous providers, and they offer the use of their own QCWare language and simulators. They also offer classical and quantum hardware access to the providers listed in the figure below.</p>
+<img alt="../_images/qcware.svg" class="drawio align-center" src="../_images/qcware.svg" /><p>More details on their <code class="docutils literal notranslate"><span class="pre">qcware</span></code> software can be found <a class="reference external" href="https://qcware.readthedocs.io/en/latest/index.html">here</a>. This library can be installed via <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">qcware</span></code>, however you need to register with the vendor to get the API_KEY to be able to use the library.</p>
+<ul class="simple">
+<li><p>Current Capabilities</p>
+<ul>
+<li><p>Software Stack: qcware</p></li>
+<li><p>Hardware Stack:</p>
+<ul>
+<li><p>IonQ</p></li>
+<li><p>IBM</p></li>
+<li><p>Riggetti</p></li>
+<li><p>D-Wave</p></li>
+</ul>
+</li>
+<li><p>Simulators: qcware</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="microsoft-azure-quantum">
+<h3>Microsoft Azure Quantum<a class="headerlink" href="#microsoft-azure-quantum" title="Link to this heading">#</a></h3>
+<p>Microsoft also offers a heterogenous cloud system in which you can use their <code class="docutils literal notranslate"><span class="pre">Q#</span></code> language and simulators. THey also offer access to Toshiba’s GPUs for classical simulation. The quantum hardware access includes Quantinuum, Pasqal, Quantum Circuit Inc, IonQ and Rigetti.</p>
+<img alt="../_images/ms-az-q.svg" class="drawio align-center" src="../_images/ms-az-q.svg" /><ul class="simple">
+<li><p>Current capabilities​</p>
+<ul>
+<li><p>Software Stack: Azure QDK​</p>
+<ul>
+<li><p>Q#​</p></li>
+</ul>
+</li>
+<li><p>Hardware Stack:​</p>
+<ul>
+<li><p>Topological Qubit QC in development​</p></li>
+<li><p>Third-Party Providers​</p>
+<ul>
+<li><p>IONQ: Ion Trap 11 Fully-Connected Qubits​</p></li>
+<li><p>Quantinuum: Ion Trap with ? qubits​</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Number of Qubits: 11​</p></li>
+<li><p>Simulators: …​</p></li>
+<li><p>Future Roadmap: Old <a class="reference external" href="https://www.zdnet.com/article/microsofts-quantum-cloud-computing-plans-take-another-big-step-forward/">Article​</a></p></li>
+<li><p>URL: <a class="reference external" href="https://learn.microsoft.com/en-us/azure/quantum/overview-azure-quantum">Azure Quantum Overview</a></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="google-quantum-computing-service">
+<h3>Google Quantum Computing Service<a class="headerlink" href="#google-quantum-computing-service" title="Link to this heading">#</a></h3>
+<p>Google similarly offers a heterogenous cloud quantum system called Google Quantum AI. Google’s Cirq quantum programming language can be used as well as their simulators and quantum hardware, the most powerful being Sycamore. While Google is relatively more self contained then the other hetorogenous cloud providers, they also offer Quantum HArdware Access to AQT, IonQ, Microsoft Azure Quantum, Pasqal, and Rigetti. ​</p>
+<img alt="../_images/google-q-ai.svg" class="drawio align-center" src="../_images/google-q-ai.svg" /><ul class="simple">
+<li><p>Current capabilities​</p>
+<ul>
+<li><p>Software Stack:</p>
+<ul>
+<li><p>Programming Framework: Cirq​</p></li>
+<li><p>Quantum Computing Service allows access to NISQ devices​</p></li>
+<li><p>Libraries &amp; Extensions:​</p>
+<ul>
+<li><p>Open Fermion: Electronic Structure Package​</p></li>
+<li><p>Qism: Simulators for Quantum Circuits​</p></li>
+<li><p>Tensorflow Quantum: Library for Hybrid Quantum-Classical Machine Learning​</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Hardware Stack: Sycamore Superconducting Qubit Processor​</p></li>
+<li><p>Number of Qubits: Sycamore 54 Qubits​</p></li>
+<li><p>Future Roadmap:</p></li>
+<li><p>URL: <a class="reference external" href="https://quantumai.google/">Google Quantum AI Lab​</a></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="ionq">
+<h3>IonQ<a class="headerlink" href="#ionq" title="Link to this heading">#</a></h3>
+<p>IonQ offers a heterogenous cloud quantum system named IonQ Quantum Cloud. IonQ offers a unique language agnostic serviice, which can manipulate their Quantum Simulators and hardware. They alos provide use of various quantum software listed on the right.​</p>
+<img alt="../_images/ionq.svg" class="drawio align-center" src="../_images/ionq.svg" /></section>
+</section>
+<section id="publicly-funded-quantum-systems">
+<h2>Publicly Funded Quantum Systems<a class="headerlink" href="#publicly-funded-quantum-systems" title="Link to this heading">#</a></h2>
+<section id="national-quantum-computing-systems">
+<h3>National Quantum Computing Systems<a class="headerlink" href="#national-quantum-computing-systems" title="Link to this heading">#</a></h3>
+<p>The last section we will cover is Publicly-Funded quantum systems. Firstly lets take a look at Irish National systems, most notably provided by the Irish Centre for High-End Computing which offers various bespoke quantum systems including Atos QLM, Intel Quantum Simualtors, Qulacs, Pennylane, Qiskit, and Tket.</p>
+<img alt="../_images/ichec-qlp.svg" class="drawio align-center" src="../_images/ichec-qlp.svg" /><ul class="simple">
+<li><p>The Quantum computing in Ireland initiative was also recently launched. ​</p></li>
+</ul>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Quantum Computing in Ireland (QCoIr) Project</div>
+<iframe src="https://www.tyndall.ie/news/11m-qcolr-project-launches-ireland-into-the-forefront-of-quantum-computing-research/" style="width:100%; height:420px;border=3em">
+</iframe>
+</div>
+</div>
+<hr class="footnotes docutils" />
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="lib" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
@@ -798,6 +935,10 @@ Xanadu</div>
 <aside class="footnote brackets" id="tnsim" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
 <p>Hyper-optimized tensor network contraction, <a class="reference external" href="https://doi.org/10.22331/q-2021-03-15-410">Quantum, <strong>5</strong>, 410, 2021</a></p>
+</aside>
+<aside class="footnote brackets" id="warn" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
+<p>Statements like these are very time-dependent, and should be treated as such.</p>
 </aside>
 </aside>
 </section>
@@ -882,6 +1023,17 @@ Xanadu</div>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ibm-quantum">IBM Quantum</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xanadu">Xanadu</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-wave-leap-ide">D-Wave Leap IDE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#heterogenous-quantum-systems">Heterogenous Quantum Systems</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#heterogenous-cloud-quantum-systems">Heterogenous cloud quantum systems</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#amazon-braket">Amazon Braket</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qcware-forge">QCWare Forge</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#microsoft-azure-quantum">Microsoft Azure Quantum</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#google-quantum-computing-service">Google Quantum Computing Service</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ionq">IonQ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#publicly-funded-quantum-systems">Publicly Funded Quantum Systems</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#national-quantum-computing-systems">National Quantum Computing Systems</a></li>
 </ul>
 </li>
 </ul>
