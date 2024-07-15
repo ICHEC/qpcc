@@ -72,8 +72,6 @@ For QPCC related queries, contact us or the instructors at following -
 | QPCC team            | <qpcc@ichec.ie>                 |
 | Emil Dimitrov        | <emil.dimitrov@ichec.ie>        |
 | Karthik Krishnakumar | <karthik.krishnakumar@ichec.ie> |
-| Pablo Lauret         | <pablo.lauret@ichec.ie>         |
-| Pablo Suárez Vieites | <pablo.suarez@ichec.ie>         |
 | Rajarshi Tiwari      | <rajarshi.tiwari@ichec.ie>      |
 | Venkatesh Kannan     | <venkatesh.kannan@ichec.ie>     |
 
