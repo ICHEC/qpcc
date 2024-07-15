@@ -75,17 +75,33 @@ Formally speaking, the principle states that in all linear systems, the net resp
 
 Once we go through the mathematical structure in the coming sections, it will become clear that the superposition principle issentially is a consequence of **linearity** in the system, or linear behaviour.
 
+In quantum mechanics, the superposition applies to states. What that means is, that if a system can exist in say two states $A$ and $B$, then it can also exist in a superposition of $A$ and $B$. In the section below we will learn how to interpret such a thing mathematically, but for now we can intuitively speculate, that a superposition of two states should have properties resembling both the states even though the two state might be very different.
 
-In quantum mechanics, 
+>> Figure for illustration
+ 
 ### Role of interference
+The notion of intereference is quantum systems is very similar to what it means in waves. When two waves are combined, their instantaneous intensities or displacements are added. The intensity or displacement of the resulting wave can be greater or lower depending on their `relative phase`.
+
+![](https://upload.wikimedia.org/wikipedia/commons/5/5d/Waventerference.gif)
+
+In case of quantum system, as we will see, probability amplitudes take the role of intensity or displacements.
 
 ### Principles of measurement
+In quantum mechanics, a measurement is testing or manipulation of a physical system that yields a numerical result.
+This in principle doesn't look much different than a measurement of a classical system. However, in the quantum realm,
+the process of `measureing` something also changes the underlying system.
+
+
 ### No-cloning
+
+
 ### Entanglement
 ### Tunnelling 
 
 ## Mathematica Structure
 
+Here we discuss in bravity the necessary mathematical structures upon which the formulation of quantum mechanics relies on.
+It progressively goes as follows -
 ```{mermaid}
 mindmap
 root(Mathematical Framework)
@@ -104,9 +120,33 @@ root(Mathematical Framework)
     Representation theory
 ```
 
+#### Scalar vs Vector
+
+Any quantity that can be described by a single numerical value, usually with real, and sometimes with complex numbers is a scalar.
+The common examples of scalars are volume, density, speed, energy, mass and time.
+
+Quantities require multiples of numerical values, with each value describing some aspect of the quantities, are called vectors. The number of these values is called the `dimension` of the vector. Common examples of vector quantities from physics include position, velocity, momentum, and force.
+
+Both scalars and vectors are represented usually with real numbers, and often with complex numbers. So the notions of `addition`, `subtraction`, `multiplication` and `division`,
+through which we manipulate numbers, are suitably extended on scalars and vectors.
+
+#### Scalars
+Scalars are expressed in terms of single number, so their algebra is essentially the same as algebra of real/complex numbers they are expressed in.
+
+#### Vectors
+Vectors are expressed in terms of multiple numbers. So it's not straight forward as to how to extend their algebra from the component numbers. We see below how this is done.
+
 ### Vector Space, Hilbert Space
 
-#### Scalar vs Vector
+A Vector space is a mathematical structure, that constitutes the necessary components to manipulate vectors in sensible way. Before we define it, we need to understand a few definitions, namely `Set`, `Binary operations`, `Group` and `Field` -
+
+#### Set
+In Mathematics, a set is defined as a unique collection of well defined objects.^[1] 
+
+
+#### Group
+A group
+
 
 #### States as Vector (Bra and Ket)
 
@@ -122,3 +162,4 @@ root(Mathematical Framework)
 ### Representation theory
 
 
+[^1]: See the [Wikipedia article on set](https://en.wikipedia.org/wiki/Set_(mathematics)) for more details.
