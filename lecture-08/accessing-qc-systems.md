@@ -408,19 +408,21 @@ Current capabilities​
     IBM Quantum Eagle​
 ```
 
-Here we see a preview of the Quantum Lab, IBMs cloud computing service. On the right, we see a programming tool in which code can be written and ran. On the left we a directory containing tutorials and whatever files you create. ​
+Here we see a preview of the (Initially called IBM Quantum Lab, and renamed, restructured into) [IBM Quantum Platform](https://quantum.ibm.com) is IBM's cloud computing service. Earlier, they provided jupyter notebook running facility through the browser, but that service has been discontinued.
 
-```{card} IBM Quantum Lab
-<iframe src="https://docs.quantum.ibm.com/lab" style="width:100%; height:420px;border=3em">
-</iframe>
+``````{card} IBM Quantum Platform
+```{image} ./ibm-q-platform.png
+:align: center
 ```
+``````
 
-Here is the quantum composer. You can see in the centre the quantum circuit builder, where you can place qubits and gates to your liking and then perform measurements on the circuit. The results are diagrammatically shown in the bottom left aswell as on the Q-sphere on the bottom right. Qiskit code that represents the circuit is generated in the right panel.​
+Here is the screenshot of the [IBM quantum composer](https://quantum.ibm.com/composer/files/new). You can see in the centre the quantum circuit builder, where you can place qubits and gates to your liking and then perform measurements on the circuit. The results are diagrammatically shown in the bottom left aswell as on the Q-sphere on the bottom right. Qiskit code that represents the circuit is generated in the right panel.​
 
-```{card} IBM Quantum Composer
-<iframe src="https://quantum.ibm.com/composer/files/new" style="width:100%; height:420px;border=3em">
-</iframe>
+``````{card}
+```{image} ./ibm-composer.png
+:align: center
 ```
+``````
 
 ### Xanadu
 
