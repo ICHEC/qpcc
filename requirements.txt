@@ -2,6 +2,7 @@ jupyter-book
 jupytercards
 jupyterquiz
 matplotlib
+matplotlib-venn
 numpy
 sphinxcontrib.mermaid
 sphinxcontrib.youtube
