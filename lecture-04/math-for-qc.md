@@ -1,6 +1,16 @@
 ---
 title: Mathematical framework for Quantum Computing
-layout: post
+jupytext:
+    formats: md:myst
+    text_representation:
+        extension: .md
+        format_name: myst
+kernelspec:
+    display_name: Python 3
+    language: python
+    name: python3
+mystnb:
+    render_markdown_format: myst
 ---
 
 (lecture-4)=
@@ -63,6 +73,7 @@ of some kind. For the moment we call it an abstract vector, as we don't know it'
 
 So, for the moment, we say that the state of a quantum system is represented by an abstract vector. In due course we will learn several synonyms for this abstract vector defining the state of a quantum system.
 
+---
 
 ### Superposition principle
 
@@ -98,6 +109,7 @@ the process of `measureing` something also changes the underlying system.
 ### Entanglement
 ### Tunnelling 
 
+---
 ## Mathematica Structure
 
 Here we discuss in bravity the necessary mathematical structures upon which the formulation of quantum mechanics relies on.
@@ -141,14 +153,147 @@ Vectors are expressed in terms of multiple numbers. So it's not straight forward
 A Vector space is a mathematical structure, that constitutes the necessary components to manipulate vectors in sensible way. Before we define it, we need to understand a few definitions, namely `Set`, `Binary operations`, `Group` and `Field` -
 
 #### Set
-In Mathematics, a set is defined as a unique collection of well defined objects.^[1] 
+Learning the notion of sets, and their manipulation provide not only training in fundamentals of logic of categorisation, organisation, it is crucial building block of most of mathematics.
+
+In Mathematics, a set is defined as a unique collection of well defined objects[^1], and the object in the collection are called elements of the set.
+
+For example,
+
+- $A=\{a, e, i, o, u\}$ is a set of vovels in english language.
+- $\mathbb{Z} = \{0, \pm1, \pm2, \pm3,\dots\}$ is the set of integers.
+
+It's important to imphesise the important of uniqueness in a set. It means in that in a set, a member exists only once. Thus $A=\{a, e, i, o, u\}$ is a well defined set, while $A=\{a, e, i, o, u, a, i\}$ is not, as $a, i$ are put twice. So a set is different than a mere list, which can have multiple occurrance of an object.
+
+Secondly, the order of elements in a set have no meaning, so $\{a, e, i, o, u\}$ and say, $\{i, o, a, u, e\}$ are same sets, just expressed differently.
+
+You can manipulate a set, by adding or removing elements from it. A set with no elements is called `Null set`, denoted by $\emptyset$.
+
+**Subsets**
+Imagine we have two sets, A and B, and it is such that, every element of A is also element of B, then we say that A is a subset of B. It is denoted as $A\subset B$. We also in this case, call B as **superset** of A.
+
+
+```{figure} https://upload.wikimedia.org/wikipedia/commons/b/b0/Venn_A_subset_B.svg
+:align: center
+:width: 400px
+
+A is subset of B, and B is superset of A
+```
+
+```{figure} https://upload.wikimedia.org/wikipedia/commons/a/a0/NumberSetinC.svg
+:align: center
+:width: 400px
+
+Visualisation of the set of numbers, $\mathbb{N, Z, Q, R, C}$
+```
+
+```{code-cell}
+:align: center
+:tags: ["remove-input"]
+# Library
+from matplotlib import pyplot as plt
+from matplotlib_venn import venn2
+ 
+# Basic Venn
+v = venn2((10, 12, 10), ("A", "B", "AB"), alpha = 0.5)
+ 
+# Change Backgroud
+plt.gca().set_facecolor('white')
+plt.gca().set_axis_on()
+ 
+# Show it
+plt.show()
+```
+
+
+We defined what a set is, and introduced a notion of comparison by defining what a subset, and superset is. There is a lot more one can do with the notion of sets, to manipulate them, to the extent that it looks like everyday algebra.
+
+- **Universal set:** For a given consideration of problem, a universal set $U$ is set of all elements considered, and fixed, so that every set defined for the problem, is a subset of $U$.
+
+- **Complement:** Compliment of a set A, denoted by $A'$, or sometimes $A^c$ is defined with respect to the universal set, is set of all elements of $U$ that are not in A.
+
+- **Union:** A union of two sets, say A and B, denoted as $A\cup B$ is defined as the set of all elements that belong to either A, or B, or both. For example, if $A=\{1,2,3,4\}$ and $B=\{1,3,5,7\}$, then $A\cup B = \{1, 2, 3, 4, 5, 7\}$.
+
+- **Intersection:** An intersection of two sets, say A and B, denoted as $A\cap B$ is defined as set of all elements that belong to both A and B.
+
+- **Difference:** The set difference of A from B, denote as $A-B$, is set of all elements of A that are not elements of B.
+
+- **Cartesian Product:** A cartesian product of two sets, say A and B, denoted by $A\times B$ is the set of all ordered pairs $(a, b)$ such that $a$ belongs to A, and $b$ belongs to B.
+
+> Add illustration
+
+
+#### Binary operations
+
+Binary operations, as the name suggests are operations that take two objects and combine them to give (usually) one unique object.
+
+In mathematics, binary operation is defined on a set, that takes two elements of the set, and returns one element of a  set.
+
+Formally, a binary operation on a set A is a mapping of elements of $A\times A$ to A, expressed as
+
+$$
+o : A\times A \longrightarrow A
+$$
+
+For the binary operation to be well defined, the operation $o$ should be such that *every* pair of elements from A, should map to a unique element in A. That is, if $a, b$ are two arbitrary elements of A, then there exists a $c$ in A, that $o(a, b) = c$. $o(a, b)$ or $a~o~b$ is denoted as result of the binary operation.
+
+**Commutativity** A binary operation is said to be commutative, if the result of combining does not depend on which is combined to the other i.e., if $a o b = b o a$ for every $a, b$ in the set A.
+
+Examples:
+
+- On the set of real numbers $\mathbb{R}$, the usual addition $o(a,b) = a + b$, and the usual multiplication $o(a,b) = ab$ are most common examples of binary operations.
+
 
 
 #### Group
-A group
+When we have a set, it let's us categorize, and organize the elements. Having binary operations defined on a set tells us how a pair of elements of the set result in another element, in effect how combining elements gives us different elements.
+
+The binary operations defined on a set, give new structure to the set. A group is one such structure.
+
+A group is a set $A$ with an operation $o$, expressed as $(A, o)$, such that the operation satifies following conditions -
+
+1. **Associativity** A binary operation is called associative, if $a o (b o c) = (a o b) o c$ for every elements $a, b, c$ in $A$.
+2. **Existence of Identity** There exist an element $e$ in $A$ such that for every element $a\in A$, $e o a = a$, i.e., combining any element with $e$ results in the same element.
+3. **Existence of Inverse** For every element $a\in A$, there exists another element, say $a'$ such that $a' o a = e$, i.e, combining the two results in indentity element.
+
+The inverse of an element $a$ is often denoted by $a^{-1}$. There are certain consequence, that result directly out of the above two assumptions. Consider the identity in the group $(A, o)$: we said for identity, $e o a = a$, and why not $a o e = a$? 
+
+The two expressions are in general different, and can potentially, mean existence of two types of identity elements, say `left identity` and `right identity`. However one can prove based on the purely logic, and the knowledge that $(A, o)$ is a group, that the left and right identities, are the same element.
+
+The same question can be posed for the existence of the inverse. The left and the right inverses of an element (can be proven) are the same.
+
+The inverse of the inverse of the element $a$, is the element itself, i.e., $(a^{-1})^{-1} = a$
+
+**Examples:**
+
+- The set of integers with arithmatic addition $(\mathbb{Z}, +)$ forms a group.
+```{admonition}
+:class: note
+The arithmatic operation `+` is a binary operation, as adding any two integers results in another, unique integer. Since the order of adding two integers, does not matter, the operation is obviously commutative.
+
+Next, we know that addition of three numbers is associative (otherwise grocery shopping to stock markets, everything would have been a mess! :-D ).
+
+Zero, is the identity element in the set of integers.
+
+For every number, it's negative is the additive inverse.
+```
+
+- What about the set of rational numbers, real numbers and complex numbers. Do any of these form a group with arithmatic addition `+`, or multiplication `*` ?
+
+
+
+#### **Field**
+In mathematics, a field is defined as a set $F$ with two binary operations, say `+` and `.` such that following conditions are satisfied -
+1. The binary operations `+` and `.` are commutative, i.e., $a + b = b + a$, and $a\cdot b = b\cdot a$ for every $a, b\in F$.
+2. $(F, +)$ is a group. Let's call `0` it's identity for `+`.
+3. $(F^*, \cdot)$ is also a group, where $F^* = F - \{0\}$ is set with identity of `+` removed from it. Let's call the identity for this as `1`.
+4. The operation `.` distributes over `+`, i.e., $a\cdot (b + c) = (a\cdot b) + (a\cdot c)$ for every $a, b, c \in F$.
+
 
 
 #### States as Vector (Bra and Ket)
+
+[youtube](https://youtube.com/clip/Ugkxh9W3xafNSWAP-VU9LCrRXkx9kgUH0mY8?si=MVsRsDUeJld5fV9_)
+
 
 ### Linear combination
 - Linear independence
