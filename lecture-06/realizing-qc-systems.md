@@ -115,9 +115,62 @@ Trapped Ion : Computers use Ions or charged particles which are suspended in fre
 
 
 
-Photonics, Diamond Vacancies Silicon Quantum Dots and Topological qubits are some other architectures which are also currently being worked on. Each technology comes with it’s share of advantages in terms of Scalability, Operation temperature and Coherence times and therefore each of them are ideal for different use cases and applications.
+Photonics, Diamond Vacancies, Silicon Quantum Dots and Topological qubits are some other architectures which are also currently being worked on. Each technology comes with it’s share of advantages in terms of Scalability, Operation temperature and Coherence times and therefore each of them are ideal for different use cases and applications.
+#### Superconducting Qubits
+A Superconductor is a special type of material that has zero electrical resistance. The qubits are implemented using superconducting loops and circuits. Here, the two states are not |0> and |1> but the ground and excited states respectively, and are denoted by |g> and |e> respectively.
 
-#### Performance Metrics for Qubits
+There are many different types of superconductors
+
+- Transmon Qubits: Transmons are a widely used type of superconducting qubits. They are based on a nonlinear oscillator design and can have longer coherence times (the time during which quantum information is preserved) compared to some other qubit types.
+- Xmon Qubits: Xmons are a variation of transmon qubits designed with a different geometry that improves qubit-qubit connectivity, making them suitable for building larger quantum processors.
+- Flux Qubits: Flux qubits use the superconducting properties of Josephson junctions to encode quantum information. They can have strong interactions with other qubits, which is useful for certain quantum operations.
+
+```{image} ./images/superconducting.png
+:align: center
+```
+#### Trapped-Ion Qubits
+Here, ions are trapped in electromagnetic fields. The qubits are usually encoded in the internal state of individual atoms. From these ions, there are 2 types of qubits which we can form
+
+- Hyperfine qubits: The energy level of both ions is degenerate which in simple terms means they are the same
+- Optical qubits: Formed by one ground state and one excited state of two ions respectively.
+Lasers are used for manipulation of the qubits like performing entanglement, gate operations, etc.
+```{image} ./images/trapped-ion.png
+:align: center
+```
+#### Neutral Atom Qubits
+Parallel to trapped ions, here, we have neutral atoms which are trapped inside the electromagnetic field. There are different trapping techniques such as the optical trap, magnetic trap, magneto-optical trap, etc. The qubits are encoded in the internal state of the individual atoms. Lasers are used for the manipulation of the qubits and also for gate operations.
+```{image} ./images/neutral-atom.png
+:align: center
+```
+#### Quantum Dot Qubits
+Quantum Dots are tiny semiconductor nanocrystals that can trap individual electrons or other charge carriers. The qubit state depends on the individual electrons trapped inside the dot and the state is represented by its spin. The manipulation of these qubits is done by microwave pulses or by applying electric or magnetic fields externally.
+```{image} ./images/quantum-dot.png
+:align: center
+```
+
+#### Photonics Qubits
+Here we use photons as qubits and thus are also known as photonic qubits. The quantum state can be polarization, frequency, or phases of the qubits. the superposition and entanglement are created using wave plates whereas the qubit manipulation is done by optical instruments like beam splitter, phase shifters, etc. For gate implementation, normal quantum gates are used.
+```{image} ./images/photonics.png
+:align: center
+```
+#### Color center qubits
+Color centers are defects in the solid state. Defects result from missing or substituted atoms in the crystal lattice. The qubits are embedded into these defects. The quantum states of color centers are often encoded in their electronic and nuclear spin states. The ground and excited states of color centers can be used to represent qubit states. The qubits are manipulated using laser lights to create superposition and entanglement.
+```{image} ./images/color-centre.png
+:align: center
+```
+#### NMR based qubits
+These use the principles of NMR(Nuclear Magnetic Resonance) for quantum computation. NMR is a phenomenon that occurs when the nuclei of certain atoms, such as hydrogen, respond to a magnetic field by emitting or absorbing radiofrequency electromagnetic radiation. Here, qubits are typically encoded in the nuclear spins of certain atoms in a molecule. The manipulation is done using radiofrequency pulses.
+```{image} ./images/NMR.png
+:align: center
+```
+#### Topological qubits
+#### Electron-on-Helium
+Electrons are trapped on the surface of Superfluid helium and serve as qubits. Superfluid helium is a state of helium that exhibits unique properties due to its extremely low temperature. It lacks viscosity and can flow without friction. On the surface of superfluid helium, a two-dimensional layer forms, creating a quantum well where electrons can be trapped. This confines the electron and keeps the electron localized in a small region and allows for precise control over its quantum properties. Manipulations are done by external magnetic and electric fields.
+```{image} ./images/electron-on-helium.png
+:align: center
+```
+
+### Performance Metrics for Qubits
 
 Mentioned below are some of the key metrics used to determine the performance of a Qubit based system
 
