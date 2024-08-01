@@ -112,7 +112,7 @@ the process of `measureing` something also changes the underlying system.
 ---
 ## Mathematica Structure
 
-Here we discuss in bravity the necessary mathematical structures upon which the formulation of quantum mechanics relies on.
+Here we discuss in bravety the necessary mathematical structures upon which the formulation of quantum mechanics relies on.
 It progressively goes as follows -
 ```{mermaid}
 mindmap
@@ -150,7 +150,7 @@ Vectors are expressed in terms of multiple numbers. So it's not straight forward
 
 ### Vector Space, Hilbert Space
 
-A Vector space is a mathematical structure, that constitutes the necessary components to manipulate vectors in sensible way. Before we define it, we need to understand a few definitions, namely `Set`, `Binary operations`, `Group` and `Field` -
+A Vector space is a mathematical structure, that constitutes the necessary components to manipulate vectors in sensible way. Before we define it, we need to understand a few definitions, namely `Set`, `map`, `Binary operations`, `Group` and `Field` -
 
 #### Set
 Learning the notion of sets, and their manipulation provide not only training in fundamentals of logic of categorisation, organisation, it is crucial building block of most of mathematics.
@@ -165,6 +165,8 @@ For example,
 It's important to imphesise the important of uniqueness in a set. It means in that in a set, a member exists only once. Thus $A=\{a, e, i, o, u\}$ is a well defined set, while $A=\{a, e, i, o, u, a, i\}$ is not, as $a, i$ are put twice. So a set is different than a mere list, which can have multiple occurrance of an object.
 
 Secondly, the order of elements in a set have no meaning, so $\{a, e, i, o, u\}$ and say, $\{i, o, a, u, e\}$ are same sets, just expressed differently.
+
+A set can be finite, or infinite, that is, the number of elements in a set can be finite, or infinite.
 
 You can manipulate a set, by adding or removing elements from it. A set with no elements is called `Null set`, denoted by $\emptyset$.
 
@@ -183,7 +185,7 @@ A is subset of B, and B is superset of A
 :align: center
 :width: 400px
 
-Visualisation of the set of numbers, $\mathbb{N, Z, Q, R, C}$
+Visualisation of the set of numbers, natural numbers $\mathbb{N}$, integers $\mathbb{Z}$, rational numbers $\mathbb{Q}$, real numbers $\mathbb{R}$, and complex numbers $\mathbb{C}$. We have following $\mathbb{N}\subset \mathbb{Z}\subset \mathbb{Q}\subset \mathbb{R}\subset \mathbb{C}$
 ```
 
 ```{code-cell}
@@ -222,6 +224,48 @@ We defined what a set is, and introduced a notion of comparison by defining what
 > Add illustration
 
 
+#### Map
+In mathematics, a map is somethings that defines a symbolic relation from elements of a set **X** to elements of another set **Y**, such that each element of **X** gets associated to an element of **Y**. The set **X** whose elemets get `mapped to` is called the **domain of the map** and the set **Y** the elements of which they get `mapped from` is called the **range or codomain of the map**.
+
+Symbolically, a map is expressed as follows
+
+- We say that $f$ is a map from X to Y by $f: X\longrightarrow Y$
+- For an element $x$ in X, the element in Y it maps to, is expressed as $f(x)$.
+- The element $f(x)$ belongs to Y, and is called the **image** of $x$.
+
+```{figure} https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Function_color_example_3.svg/1024px-Function_color_example_3.svg.png
+:align: center
+:width: 70%
+```
+
+- The map, mapping, correspondence are synonyms. Usually, if the set is of numbers, they are also called functions.
+
+- A map between two sets let's us see a holistic relation between them.
+
+- If distinct elements of the domain set X get mapped to distinct elements of the codomain set Y, the map is called **injective, or one-to-one**. For example, consider the set of integers $\mathbb{Z}$, and a map $f: \mathbb{Z} \longrightarrow \mathbb{Z} $ such that $f(x) = 3 x$. This is an injective map from $\mathbb{Z}$ to itself.
+
+- A map in which each element of the codomain set is image of some element in domain set, is called **surjective or on-to** map.
+
+- A map that is both injective, and surjective, is called a **bijective map**. Bijective maps play an important role in mathematics.
+
+```{figure} https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Bijection.svg/1024px-Bijection.svg.png
+:align: center
+:width: 70%
+```
+
+- Maps can be combined. Instead of exploring general consequences, consider two bijective maps $f, g$ from a set X to itself. If $f$ maps an arbitrary element $a$ in X to $b=f(a)$, and $g$ maps $b$ to $c=g(b)$, then the the **combination, or composition** of the two maps $fog$ maps $a$ to $fog(a) = f(g(a))$.
+
+```{mermaid}
+:align: center
+graph LR
+a(["X"])
+b(["X"])
+c(["X"])
+a --f--> b --g--> c
+a --fog--> c
+```
+
+
 #### Binary operations
 
 Binary operations, as the name suggests are operations that take two objects and combine them to give (usually) one unique object.
@@ -241,7 +285,7 @@ For the binary operation to be well defined, the operation $o$ should be such th
 Examples:
 
 - On the set of real numbers $\mathbb{R}$, the usual addition $o(a,b) = a + b$, and the usual multiplication $o(a,b) = ab$ are most common examples of binary operations.
-
+- Consider a given set X, and a set S of all possible bijective maps from X to X, then the composition of maps `o` is a binary operation.
 
 
 #### Group
@@ -265,21 +309,76 @@ The inverse of the inverse of the element $a$, is the element itself, i.e., $(a^
 
 **Examples:**
 
-- The set of integers with arithmatic addition $(\mathbb{Z}, +)$ forms a group.
-```{admonition}
-:class: note
+```{admonition} The set of integers with arithmatic addition $(\mathbb{Z}, +)$ forms a group.
+:class: information
 The arithmatic operation `+` is a binary operation, as adding any two integers results in another, unique integer. Since the order of adding two integers, does not matter, the operation is obviously commutative.
 
-Next, we know that addition of three numbers is associative (otherwise grocery shopping to stock markets, everything would have been a mess! :-D ).
+Next, we know that addition of three numbers is associative (otherwise grocery shopping to stock markets, everything would have been a mess! 😀).
 
-Zero, is the identity element in the set of integers.
+Zero is clearly the identity element in the set of integers.
 
 For every number, it's negative is the additive inverse.
 ```
 
-- What about the set of rational numbers, real numbers and complex numbers. Do any of these form a group with arithmatic addition `+`, or multiplication `*` ?
+- What about the set of rational numbers, real numbers and complex numbers. Do any of these form a group with arithmatic addition `+`, or multiplication `*` ? Following table gives a summary of answers, try to figure out why.
+
+| Set A      | (A, `+`)|(A, `.`)|($A^*$, `.`)|
+|--          |--       |--      |--          |
+|$\mathbb{Z}$|Group    |No      |No          |
+|$\mathbb{Q}$|Group    |No      |Yes         |
+|$\mathbb{R}$|Group    |No      |Yes         |
+|$\mathbb{C}$|Group    |No      |Yes         |
+
+Here $A^* = A - {0}$, is the set with additive identity element removed from $A$.
+
+The above defines what a group is, and based on the above example it may look like that a group is just a formal abstract version of what we already know about numbers from our school algebra/arithmatic knowlege. However this abstraction leads to generalization of the arithmatic operation to sets of other objects. See the following examples -
+
+```{admonition} Permutation Group
+:class: information
+A permutation is an arrangement of elements of a set. As we know, a set does not have a notion order of elements. But if the order of the elements mattered, each permutation, seen as ordered sequence of elements, will look different, as in figure below.
+
+```{figure} https://upload.wikimedia.org/wikipedia/commons/4/4c/Permutations_RGB.svg
+:align: center
+:name: rgb
+
+Each row represents an arrangement of the three balls of colour red, green and blue. There are 6 such arrangements.
+```
+
+To abstractify, instead of ball of three colours, consider a set of 3 objects, and without loss of generality we can call them $a, b, c$. Now consider a set of each permutations of the three elements.
+The table below shows all possible arrangements of the three objects $a, b, c$ symbolically represented as $p_0, p_1, p_2...$.
+
+||$p_0$|$p_1$|$p_2$|$p_3$|$p_4$|$p_5$|
+|---     |--- |--- |--- |--- |--- |--|
+|Sequence|(abc)|(acb)|(bac)|(bca)|(cab)|(cba)|
+|Mapping |(123)|(132)|(213)|(231)|(312)|(321)|
+
+If we choose a reference arrangement to be $(a,b,c)$, then, $p_0$ is a map that maps (abc) to it itself, $p_1$ maps (abc) to (acb), and so on.
+Basically, $p_0, p_1, ...$ are bijective maps which map (abc) to different arrangements. Below is a table that show how resulting maps of combining two maps.
+
+They can be computed as following -
+
+$$
+\begin{align}
+p_1 p_1(abc) &= p_1(acb) = (abc) = p_0(abc) \implies p_1p_1 = p_0\\
+p_1 p_2(abc) &= p_1(bac) = (bac) = p_3(abc) \implies p_1p_2 = p_3\\
+p_1 p_3(abc) &= p_1(bac) = (bac) = p_2(abc) \implies p_1p_3 = p_2\\
+\dots &= \dots
+\end{align}
+$$
 
 
+|$o$  |$p_0$|$p_1$|$p_2$|$p_3$|$p_4$|$p_5$|
+|--   |--   |--   |--   |--   |--   |--   |
+|$p_0$|$\mathbf{p_0}$|$p_1$|$p_2$|$p_3$|$p_4$|$p_5$|
+|$p_1$|$p_1$|$\mathbf{p_0}$|$p_3$|$p_2$|$p_5$|$p_4$|
+|$p_2$|$p_2$|$p_4$|$\mathbf{p_0}$|$p_5$|$p_1$|$p_3$|
+|$p_3$|$p_3$|$p_5$|$p_1$|$p_4$|$\mathbf{p_0}$|$p_2$|
+|$p_4$|$p_4$|$p_2$|$p_5$|$\mathbf{p_0}$|$p_3$|$p_1$|
+|$p_5$|$p_5$|$p_3$|$p_4$|$p_1$|$p_2$|$\mathbf{p_0}$|
+
+If we consider the set $P=\{p_0\, p_1, ..., p_5\}$, then the above composition $o$ is a binary operation, and $(P, o)$ forms a group. Here $p_0$, is the identity, as combining it with any other map gives the same map. Each element has an inverse, $p_0, p_1, p_2, p_5$ are inverses of their own, and $p_3$ and $p_4$ are inverses of each other.
+
+This is called permutation group. We showed the example of three objects, but the group generalises to any number of objects. For $n$ object, the set of bijective maps has $!n$ elements.
 
 #### **Field**
 In mathematics, a field is defined as a set $F$ with two binary operations, say `+` and `.` such that following conditions are satisfied -
@@ -288,6 +387,32 @@ In mathematics, a field is defined as a set $F$ with two binary operations, say 
 3. $(F^*, \cdot)$ is also a group, where $F^* = F - \{0\}$ is set with identity of `+` removed from it. Let's call the identity for this as `1`.
 4. The operation `.` distributes over `+`, i.e., $a\cdot (b + c) = (a\cdot b) + (a\cdot c)$ for every $a, b, c \in F$.
 
+
+
+**Examples:**
+
+- The set of rational ($\mathbb{Q}$), real ($\mathbb{R}$), and complex numbers ($\mathbb{C}$), all from respective fields with usual arithmatic addition `+` and multiplication `.`. $(\mathbb{Q}, +, \cdot)$, $(\mathbb{R}, +, \cdot)$, $(\mathbb{C}, +, \cdot)$ are all fields, with 0 as additive identity, and 1 as multiplicative identity.
+
+
+## Vector Space
+All the above mathematical definitions, going through which can be perhaps excruciating, let us define what we need for the underlying math of quantum computing: A vector space, and a Hilbert space. We will see, that these two are nearly same structures, with one difference.
+
+A vector space is a mathematical structure, that consists of two sets, which have the following substructures:
+- The first set, say **V**, whose elements are called vectors, is a commutative group $(\mathbf{V}, +_v)$ with `addition` $+_v$
+- The second set, say F, whose elements are called scalars, is a Field $(F, +_f, \cdot_f)$ with `addition` $+_f$ and `multiplication` $\cdot_f$.
+- A binary operation $\cdot : F\times V \longrightarrow V$ called scalar multiplication. This operation combines a scalar and a vector, and gives us a vector. It lets manipulate vectors through scalars, and satisfies following -
+    - Associativity: For any arbitrary $a, b$ in F, and any arbitrary $\mathbf{v}$ in **V**,
+    $$a \cdot (b\cdot\mathbf{v}) = (a\cdot_f b)\mathbf{v}$$
+    This means multiplying a vector successively by two scalars gives the same vector, as when multiplying the field multiplication of those two scalars to the vector.
+
+    - Distribution: The scalar multiplication distributes over addition of vectors, and addition of scalars. That is, for any arbitrary scalars $a, b$ in F and any arbitrary vectors $\mathbf{u, v}$ in **V**, the following holds
+    
+    $$
+    \begin{align*}
+    a\cdot(\mathbf{u} +_v \mathbf{v}) &= (a\cdot\mathbf{u}) +_v (a\cdot\mathbf{v})\\
+    (a +_f b)\cdot \mathbf{v} &= (a\cdot\mathbf{v}) +_v (b\cdot\mathbf{v})
+    \end{align*}
+    $$
 
 
 #### States as Vector (Bra and Ket)
