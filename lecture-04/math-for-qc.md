@@ -142,24 +142,20 @@ Quantities require multiples of numerical values, with each value describing som
 Both scalars and vectors are represented usually with real numbers, and often with complex numbers. So the notions of `addition`, `subtraction`, `multiplication` and `division`,
 through which we manipulate numbers, are suitably extended on scalars and vectors.
 
-#### Scalars
-Scalars are expressed in terms of single number, so their algebra is essentially the same as algebra of real/complex numbers they are expressed in.
+**Scalars**: are expressed in terms of single number, so their algebra is essentially the same as algebra of real/complex numbers they are expressed in.
 
-#### Vectors
-Vectors are expressed in terms of multiple numbers. So it's not straight forward as to how to extend their algebra from the component numbers. We see below how this is done.
+**Vectors**: are expressed in terms of multiple numbers. So it's not straight forward as to how to extend their algebra from the component numbers. We see below how this is done.
 
-### Vector Space, Hilbert Space
+**Vector Space, Hilbert Space**: A Vector space is a mathematical structure, that constitutes the necessary components to manipulate vectors in sensible way. Before we define it, we need to understand a few definitions, namely `Set`, `map`, `Binary operations`, `Group` and `Field` -
 
-A Vector space is a mathematical structure, that constitutes the necessary components to manipulate vectors in sensible way. Before we define it, we need to understand a few definitions, namely `Set`, `map`, `Binary operations`, `Group` and `Field` -
-
-#### Set
+### Set
 Learning the notion of sets, and their manipulation provide not only training in fundamentals of logic of categorisation, organisation, it is crucial building block of most of mathematics.
 
 In Mathematics, a set is defined as a unique collection of well defined objects[^1], and the object in the collection are called elements of the set.
 
 For example,
 
-- $A=\{a, e, i, o, u\}$ is a set of vovels in english language.
+- $A=\{a, e, i, o, u\}$ is a set of vowels in english language.
 - $\mathbb{Z} = \{0, \pm1, \pm2, \pm3,\dots\}$ is the set of integers.
 
 It's important to imphesise the important of uniqueness in a set. It means in that in a set, a member exists only once. Thus $A=\{a, e, i, o, u\}$ is a well defined set, while $A=\{a, e, i, o, u, a, i\}$ is not, as $a, i$ are put twice. So a set is different than a mere list, which can have multiple occurrance of an object.
@@ -170,8 +166,22 @@ A set can be finite, or infinite, that is, the number of elements in a set can b
 
 You can manipulate a set, by adding or removing elements from it. A set with no elements is called `Null set`, denoted by $\emptyset$.
 
-**Subsets**
+Sets can be finite and infinite. We all know what being finite is, so a finite set is a set with finite number of elements which one could count.
+Infinite is a slightly tricky concept in mathematics. To start with, an infinite set is a set that **is not** finite.
+
+The set of natural numbers $\mathbb{N} = \{1, 2, 3, \dots\}$ plays a central role in the categorisation of sets. First, it let's us define countability. So a set in which you could count the number of elements one by one, is called countable. If the counting finishes after finite number, the set is finite and countable. If you can count, and the counting can not finish in finite time, the set is said to be countably infinite. By definition or axiom, the set of natural number is countably infinite. **Uncountable** sets on the other hand, are the ones that are inifinite, and contains too many elements to be even countable.
+
+We use the term **cardinality** for representing a measure of number of elements in a set. The cardinality of a finite set is the number of elements in it. For infinite sets, the cardinality is symbolic and is established by comparison of two sets and defining map among them.
+
+
+
+#### Subsets
 Imagine we have two sets, A and B, and it is such that, every element of A is also element of B, then we say that A is a subset of B. It is denoted as $A\subset B$. We also in this case, call B as **superset** of A.
+
+Naturally, every set is subset and superset of itself. We a call a set A to be a **proper subset** of B, if every element of A is in B, but at least one element exists in B that is not in A. In this case, B is called a **proper superset** of A.
+
+For finite sets, their proper subsets have strictly lower number of element than the set itself. However for infinite sets, a proper subset may
+have same cardinality as the set itself.
 
 
 ```{figure} https://upload.wikimedia.org/wikipedia/commons/b/b0/Venn_A_subset_B.svg
@@ -224,7 +234,7 @@ We defined what a set is, and introduced a notion of comparison by defining what
 > Add illustration
 
 
-#### Map
+### Map
 In mathematics, a map is somethings that defines a symbolic relation from elements of a set **X** to elements of another set **Y**, such that each element of **X** gets associated to an element of **Y**. The set **X** whose elemets get `mapped to` is called the **domain of the map** and the set **Y** the elements of which they get `mapped from` is called the **range or codomain of the map**.
 
 Symbolically, a map is expressed as follows
@@ -253,6 +263,34 @@ Symbolically, a map is expressed as follows
 :width: 70%
 ```
 
+- Recall the uncountable sets. Using concept of map we can more clearly define it as follows - A set X is uncountable if and only if there exists no injective map from the set X to set of natural numbers $\mathbb{N}$.
+
+- Consider the set of integers $\mathbb{Z}=\{\dots, -2, -1, 0, 1, 2, \dots\}$ and a map $f:\mathbb{Z}\longrightarrow \mathbb{Z};\quad f(n)=3n$. The range of this set is a proper subset of $\mathbb{Z}$, as the range only contains numbers that are multiple of 3. However, since the map is injective, this means that the subset has the same cardinality as $\mathbb{Z}$.
+
+$$
+\begin{align}
+    \begin{Bmatrix}
+    \vdots \\
+    -2\\
+    -1\\
+    0\\
+    1\\
+    2\\
+    \vdots
+    \end{Bmatrix} \underrightarrow{~~~~~~f~~~~~~}
+    \begin{Bmatrix}
+    \vdots \\
+    -6\\
+    -3\\
+    0\\
+    3\\
+    6\\
+    \vdots
+    \end{Bmatrix}
+\end{align}
+$$ 
+
+
 - Maps can be combined. Instead of exploring general consequences, consider two bijective maps $f, g$ from a set X to itself. If $f$ maps an arbitrary element $a$ in X to $b=f(a)$, and $g$ maps $b$ to $c=g(b)$, then the the **combination, or composition** of the two maps $fog$ maps $a$ to $fog(a) = f(g(a))$.
 
 ```{mermaid}
@@ -266,7 +304,7 @@ a --fog--> c
 ```
 
 
-#### Binary operations
+### Binary operations
 
 Binary operations, as the name suggests are operations that take two objects and combine them to give (usually) one unique object.
 
@@ -288,7 +326,7 @@ Examples:
 - Consider a given set X, and a set S of all possible bijective maps from X to X, then the composition of maps `o` is a binary operation.
 
 
-#### Group
+### Group
 When we have a set, it let's us categorize, and organize the elements. Having binary operations defined on a set tells us how a pair of elements of the set result in another element, in effect how combining elements gives us different elements.
 
 The binary operations defined on a set, give new structure to the set. A group is one such structure.
@@ -299,13 +337,19 @@ A group is a set $A$ with an operation $o$, expressed as $(A, o)$, such that the
 2. **Existence of Identity** There exist an element $e$ in $A$ such that for every element $a\in A$, $e o a = a$, i.e., combining any element with $e$ results in the same element.
 3. **Existence of Inverse** For every element $a\in A$, there exists another element, say $a'$ such that $a' o a = e$, i.e, combining the two results in indentity element.
 
-The inverse of an element $a$ is often denoted by $a^{-1}$. There are certain consequence, that result directly out of the above two assumptions. Consider the identity in the group $(A, o)$: we said for identity, $e o a = a$, and why not $a o e = a$? 
+The inverse of an element $a$ is often denoted by $a^{-1}$. There are certain consequence, that result directly out of the above three assumptions. Consider the identity in the group $(A, o)$: we said for identity, $e o a = a$, and why not $a o e = a$? 
 
 The two expressions are in general different, and can potentially, mean existence of two types of identity elements, say `left identity` and `right identity`. However one can prove based on the purely logic, and the knowledge that $(A, o)$ is a group, that the left and right identities, are the same element.
 
 The same question can be posed for the existence of the inverse. The left and the right inverses of an element (can be proven) are the same.
 
 The inverse of the inverse of the element $a$, is the element itself, i.e., $(a^{-1})^{-1} = a$
+
+#### Subgroups
+Just like sets have subsets, groups have subgroups. A subgroup of a group $(G, o)$ is a subset $S\subset G$, that forms group under the binary operation $o$ of the group constrained within $S$. So in order for a subset to be a subgroup, following must be satisfied
+- The binary operation $o$ defined on the set $G$, is also a binary operation on the subset $S$.
+- The identity of $o$, say $e$ belongs to $S$, and for every $a$ in $S$, $a^{-1}$ also belongs to $S$
+
 
 **Examples:**
 
@@ -366,6 +410,7 @@ p_1 p_3(abc) &= p_1(bac) = (bac) = p_2(abc) \implies p_1p_3 = p_2\\
 \end{align}
 $$
 
+Below is the operation table for composition $o$. Row and column numbers correspond to first and second operand respectively (row $o$ column).
 
 |$o$  |$p_0$|$p_1$|$p_2$|$p_3$|$p_4$|$p_5$|
 |--   |--   |--   |--   |--   |--   |--   |
@@ -376,11 +421,32 @@ $$
 |$p_4$|$p_4$|$p_2$|$p_5$|$\mathbf{p_0}$|$p_3$|$p_1$|
 |$p_5$|$p_5$|$p_3$|$p_4$|$p_1$|$p_2$|$\mathbf{p_0}$|
 
+
 If we consider the set $P=\{p_0\, p_1, ..., p_5\}$, then the above composition $o$ is a binary operation, and $(P, o)$ forms a group. Here $p_0$, is the identity, as combining it with any other map gives the same map. Each element has an inverse, $p_0, p_1, p_2, p_5$ are inverses of their own, and $p_3$ and $p_4$ are inverses of each other.
 
-This is called permutation group. We showed the example of three objects, but the group generalises to any number of objects. For $n$ object, the set of bijective maps has $!n$ elements.
+This is called permutation group. We showed the example of three objects, but the group generalises to any number of objects. For $n$ object, the set of bijective maps has $n!$ elements.
 
-#### **Field**
+```{admonition} Group of modular arithmatic
+:class: information
+
+Modular arithmatic is a system of arithmatic, where numbers wrap around after reaching a certain value. A common example is arithmatic of `12-hour clock`. In general, consider a positive integer $m > 1$. Now any arbitrary integer $a\in \mathbb{Z}$, we can write $a = qm + r$ where $q, r$ are some integers. There is unique pair $q, r$ such that $q$ is largest, and $0\le r\lt m$, in which case we know $q$ and $r$ as quotient and remainder when $a$ is divided by $m$. Since in this unique representation $r$ can have only $m$ possible values in set $Z_m = \{0, 1, 2, \dots, m-1\}$.
+
+On this set, we define modular addition $\oplus$, to distinguish with usual addition `+` as follows:
+
+For any two arbitrary $a, b$ in $Z_m$, $a \oplus b = c$ where $a + b = qm + c$, i.e, $c$ is obtained by computing the remainder when $a+b$ is divided by $m$.
+
+Then $(Z_m, \oplus)$ forms a group, because of following -
+- $\oplus$ is a binary operation, moreover, it is also commutative.
+- 0 is the identity, for any $a\oplus 0 = a$.
+- For any $a$ in $Z_m$, $0\le a\lt m$, there exists $m-a$, such that $a\oplus (m-a) = 0$, so $m-a$ is the inverse of $a$.
+
+```
+
+**Illustration:** Consider $(Z_{8}, \oplus)$, where $Z_8 = \{0, 1, 2, 3, 4, 5, 6, 7\}$, then under modular arithmatic, $2\oplus 3 = 5$, but $4\oplus 4 = 0$ and $4\oplus 7 = 3$
+
+
+
+### Field
 In mathematics, a field is defined as a set $F$ with two binary operations, say `+` and `.` such that following conditions are satisfied -
 1. The binary operations `+` and `.` are commutative, i.e., $a + b = b + a$, and $a\cdot b = b\cdot a$ for every $a, b\in F$.
 2. $(F, +)$ is a group. Let's call `0` it's identity for `+`.
@@ -393,42 +459,96 @@ In mathematics, a field is defined as a set $F$ with two binary operations, say 
 
 - The set of rational ($\mathbb{Q}$), real ($\mathbb{R}$), and complex numbers ($\mathbb{C}$), all from respective fields with usual arithmatic addition `+` and multiplication `.`. $(\mathbb{Q}, +, \cdot)$, $(\mathbb{R}, +, \cdot)$, $(\mathbb{C}, +, \cdot)$ are all fields, with 0 as additive identity, and 1 as multiplicative identity.
 
+- There are examples of fields of finite set, but their discussion takes us (more than usual) different direction than we intend this lecture notes to. For most of the discussion, even the group aspect might be generally needed, the field of number relevant for us will be that of $(\mathbb{R}, +, \cdot)$ and $(\mathbb{C}, +, \cdot)$.
+
+- Recall the modular arithmatic, where $(Z_m, \oplus)$ formed a group for any arbitrary positive integer $m$. Now consider a modular version of the usual arithmatic multiplication, $\odot$, defined as follows. If $a, b$ are two arbitrary integers in $Z_m$, then $a\odot b = c$ where $c$ is the remainder you get when you divide $ab$ with $m$. Does the $(Z_m, \oplus, \odot)$
+    - Clearly, $\odot: Z_m\times Z_m \longrightarrow Z_m$ is a binary operation.
+    - 1 is the multiplicative identity, as $1 \odot a = a$ for every $a$ in $Z_m$.
+    - However, unless $m$ is prime, we have issues with the structure of identity and inverse.
+    - Does every element has an inverse? Imagine $a, b$ in $Z_m$ are inverses of each other, then $a\odot b = 1$, which means $ab$ is of the form $ab = qm + 1$, which means $b= {qm + 1\over a}$
+
+```{admonition} Polynomials
+:class: tip
+
+We need the structure of a field, i.e., set with atleast two binary operations to construct expressions that we call polynomials.
+```
 
 ## Vector Space
 All the above mathematical definitions, going through which can be perhaps excruciating, let us define what we need for the underlying math of quantum computing: A vector space, and a Hilbert space. We will see, that these two are nearly same structures, with one difference.
 
 A vector space is a mathematical structure, that consists of two sets, which have the following substructures:
-- The first set, say **V**, whose elements are called vectors, is a commutative group $(\mathbf{V}, +_v)$ with `addition` $+_v$
-- The second set, say F, whose elements are called scalars, is a Field $(F, +_f, \cdot_f)$ with `addition` $+_f$ and `multiplication` $\cdot_f$.
+- The first set, say **V**, whose elements are called vectors, is a commutative group $(\mathbf{V}, +_v)$ with `addition` $+_v$. Let's call $0_v$ the zero vector as the identity of this group.
+
+- The second set, say F, whose elements are called scalars, is a Field $(F, +_f, \cdot_f)$ with `addition` $+_f$ and `multiplication` $\cdot_f$. Let's call the $0$ and $1$ additive and multiplicative identity of the field.
 - A binary operation $\cdot : F\times V \longrightarrow V$ called scalar multiplication. This operation combines a scalar and a vector, and gives us a vector. It lets manipulate vectors through scalars, and satisfies following -
-    - Associativity: For any arbitrary $a, b$ in F, and any arbitrary $\mathbf{v}$ in **V**,
-    $$a \cdot (b\cdot\mathbf{v}) = (a\cdot_f b)\mathbf{v}$$
-    This means multiplying a vector successively by two scalars gives the same vector, as when multiplying the field multiplication of those two scalars to the vector.
 
-    - Distribution: The scalar multiplication distributes over addition of vectors, and addition of scalars. That is, for any arbitrary scalars $a, b$ in F and any arbitrary vectors $\mathbf{u, v}$ in **V**, the following holds
+1. **Associativity**:
+For any arbitrary $a, b$ in F, and any arbitrary $\mathbf{v}$ in **V**,
     
-    $$
-    \begin{align*}
-    a\cdot(\mathbf{u} +_v \mathbf{v}) &= (a\cdot\mathbf{u}) +_v (a\cdot\mathbf{v})\\
-    (a +_f b)\cdot \mathbf{v} &= (a\cdot\mathbf{v}) +_v (b\cdot\mathbf{v})
-    \end{align*}
-    $$
+$$a \cdot (b\cdot\mathbf{v}) = (a\cdot_f b)\mathbf{v}$$
 
+This means multiplying a vector successively by two scalars gives the same vector, as when multiplying the field multiplication of those two scalars to the vector.
+
+2. **Distribution**:
+The scalar multiplication distributes over addition of vectors, and addition of scalars. That is, for any arbitrary scalars $a, b$ in F and any arbitrary vectors $\mathbf{u, v}$ in **V**, the following holds
+
+$$
+\begin{align*}
+a\cdot(\mathbf{u} +_v \mathbf{v}) &= (a\cdot\mathbf{u}) +_v (a\cdot\mathbf{v})\\
+(a +_f b)\cdot \mathbf{v} &= (a\cdot\mathbf{v}) +_v (b\cdot\mathbf{v})
+\end{align*}
+$$
+
+- Multiplying any scalar with zero vector gives zero vector, $a\cdot 0_v = 0_v$, and multiplying zero scalar 0, with any vector gives zero vector, $0\cdot v = 0_v$.
+
+Because of associativity, and distribution of scalars with vectors, we often use the same symbol for addition (`+` for $+_v$ and $+_f$) and scalar multiplications ($\cdot$ for $\cdot_f$).
+
+Let us take a moment to appreciate what makes the structure of vector space rich.
+We have a set **V** of vectors elements, and set **F** of scalar elements. If one of the sets is infinite, the vector space automatically becomes infinite. (Guess Why?)
+
+
+**Examples:**
+
+Consider the set of points on 3D space, they are represented by the cartesian product of the set of real numbers
+
+$$
+\mathbb{R}^3 = \mathbb{R}\times \mathbb{R}\times \mathbb{R} = {(x, y, z): x, y, z\in \mathbb{R}}
+$$
+
+If we define vector addition of two arbitrary points $\mathbf{r_1}=(x_1, y_1, z_1)$, and $\mathbf{r_2}=(x_2, y_2, z_2)$ as 
+
+$$
+\mathbf{r_1} + \mathbf{r_2} = (x_1 + x_2, y_1 + y_2, z_1 + z_2)
+$$
+
+then $\mathbb{R}^3$ forms a vector space over the field of real numbers $(\mathbb{R}, +, \cdot)$.
+
+### Linear combination
+The scalar multiplication
+
+Consider an arbitrarily chosen set of $n$ vectors $v_1, v_2, v_3, \dots, v_n$ in **V**, and scalars $a_1, a_2, a_3, \dots, a_n$, then the following is called a linear combination of the vectors
+
+$$
+v = \sum_{i=1}^n a_i v_i = a_1 v_1 + a_2 v_2 + \dots a_n v_n
+$$
+
+
+#### Linear independence
+
+### Inner Product
+#### Overlap of vectors
+#### Orthogonality
+
+### Linear Operators
+- Commutativity
+- Special operators: Unitary, Hermitian, ...
+- Probability conservation
 
 #### States as Vector (Bra and Ket)
 
 [youtube](https://youtube.com/clip/Ugkxh9W3xafNSWAP-VU9LCrRXkx9kgUH0mY8?si=MVsRsDUeJld5fV9_)
 
 
-### Linear combination
-- Linear independence
-### Inner Product
-- Overlap of vectors
-- Orthogonality
-### Linear Operators
-- Commutativity
-- Special operators: Unitary, Hermitian, ...
-- Probability conservation
 ### Representation theory
 
 
