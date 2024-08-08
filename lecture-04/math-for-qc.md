@@ -155,7 +155,7 @@ In Mathematics, a set is defined as a unique collection of well defined objects[
 
 For example,
 
-- $A=\{a, e, i, o, u\}$ is a set of vovels in english language.
+- $A=\{a, e, i, o, u\}$ is a set of vowels in english language.
 - $\mathbb{Z} = \{0, \pm1, \pm2, \pm3,\dots\}$ is the set of integers.
 
 It's important to imphesise the important of uniqueness in a set. It means in that in a set, a member exists only once. Thus $A=\{a, e, i, o, u\}$ is a well defined set, while $A=\{a, e, i, o, u, a, i\}$ is not, as $a, i$ are put twice. So a set is different than a mere list, which can have multiple occurrance of an object.
@@ -337,7 +337,7 @@ A group is a set $A$ with an operation $o$, expressed as $(A, o)$, such that the
 2. **Existence of Identity** There exist an element $e$ in $A$ such that for every element $a\in A$, $e o a = a$, i.e., combining any element with $e$ results in the same element.
 3. **Existence of Inverse** For every element $a\in A$, there exists another element, say $a'$ such that $a' o a = e$, i.e, combining the two results in indentity element.
 
-The inverse of an element $a$ is often denoted by $a^{-1}$. There are certain consequence, that result directly out of the above two assumptions. Consider the identity in the group $(A, o)$: we said for identity, $e o a = a$, and why not $a o e = a$? 
+The inverse of an element $a$ is often denoted by $a^{-1}$. There are certain consequence, that result directly out of the above three assumptions. Consider the identity in the group $(A, o)$: we said for identity, $e o a = a$, and why not $a o e = a$? 
 
 The two expressions are in general different, and can potentially, mean existence of two types of identity elements, say `left identity` and `right identity`. However one can prove based on the purely logic, and the knowledge that $(A, o)$ is a group, that the left and right identities, are the same element.
 
@@ -445,6 +445,7 @@ Then $(Z_m, \oplus)$ forms a group, because of following -
 **Illustration:** Consider $(Z_{8}, \oplus)$, where $Z_8 = \{0, 1, 2, 3, 4, 5, 6, 7\}$, then under modular arithmatic, $2\oplus 3 = 5$, but $4\oplus 4 = 0$ and $4\oplus 7 = 3$
 
 
+
 ### Field
 In mathematics, a field is defined as a set $F$ with two binary operations, say `+` and `.` such that following conditions are satisfied -
 1. The binary operations `+` and `.` are commutative, i.e., $a + b = b + a$, and $a\cdot b = b\cdot a$ for every $a, b\in F$.
@@ -466,41 +467,88 @@ In mathematics, a field is defined as a set $F$ with two binary operations, say 
     - However, unless $m$ is prime, we have issues with the structure of identity and inverse.
     - Does every element has an inverse? Imagine $a, b$ in $Z_m$ are inverses of each other, then $a\odot b = 1$, which means $ab$ is of the form $ab = qm + 1$, which means $b= {qm + 1\over a}$
 
+```{admonition} Polynomials
+:class: tip
+
+We need the structure of a field, i.e., set with atleast two binary operations to construct expressions that we call polynomials.
+```
+
 ## Vector Space
 All the above mathematical definitions, going through which can be perhaps excruciating, let us define what we need for the underlying math of quantum computing: A vector space, and a Hilbert space. We will see, that these two are nearly same structures, with one difference.
 
 A vector space is a mathematical structure, that consists of two sets, which have the following substructures:
-- The first set, say **V**, whose elements are called vectors, is a commutative group $(\mathbf{V}, +_v)$ with `addition` $+_v$
-- The second set, say F, whose elements are called scalars, is a Field $(F, +_f, \cdot_f)$ with `addition` $+_f$ and `multiplication` $\cdot_f$.
+- The first set, say **V**, whose elements are called vectors, is a commutative group $(\mathbf{V}, +_v)$ with `addition` $+_v$. Let's call $0_v$ the zero vector as the identity of this group.
+
+- The second set, say F, whose elements are called scalars, is a Field $(F, +_f, \cdot_f)$ with `addition` $+_f$ and `multiplication` $\cdot_f$. Let's call the $0$ and $1$ additive and multiplicative identity of the field.
 - A binary operation $\cdot : F\times V \longrightarrow V$ called scalar multiplication. This operation combines a scalar and a vector, and gives us a vector. It lets manipulate vectors through scalars, and satisfies following -
-    - Associativity: For any arbitrary $a, b$ in F, and any arbitrary $\mathbf{v}$ in **V**,
-    $$a \cdot (b\cdot\mathbf{v}) = (a\cdot_f b)\mathbf{v}$$
-    This means multiplying a vector successively by two scalars gives the same vector, as when multiplying the field multiplication of those two scalars to the vector.
 
-    - Distribution: The scalar multiplication distributes over addition of vectors, and addition of scalars. That is, for any arbitrary scalars $a, b$ in F and any arbitrary vectors $\mathbf{u, v}$ in **V**, the following holds
+1. **Associativity**:
+For any arbitrary $a, b$ in F, and any arbitrary $\mathbf{v}$ in **V**,
     
-    $$
-    \begin{align*}
-    a\cdot(\mathbf{u} +_v \mathbf{v}) &= (a\cdot\mathbf{u}) +_v (a\cdot\mathbf{v})\\
-    (a +_f b)\cdot \mathbf{v} &= (a\cdot\mathbf{v}) +_v (b\cdot\mathbf{v})
-    \end{align*}
-    $$
+$$a \cdot (b\cdot\mathbf{v}) = (a\cdot_f b)\mathbf{v}$$
 
+This means multiplying a vector successively by two scalars gives the same vector, as when multiplying the field multiplication of those two scalars to the vector.
+
+2. **Distribution**:
+The scalar multiplication distributes over addition of vectors, and addition of scalars. That is, for any arbitrary scalars $a, b$ in F and any arbitrary vectors $\mathbf{u, v}$ in **V**, the following holds
+
+$$
+\begin{align*}
+a\cdot(\mathbf{u} +_v \mathbf{v}) &= (a\cdot\mathbf{u}) +_v (a\cdot\mathbf{v})\\
+(a +_f b)\cdot \mathbf{v} &= (a\cdot\mathbf{v}) +_v (b\cdot\mathbf{v})
+\end{align*}
+$$
+
+- Multiplying any scalar with zero vector gives zero vector, $a\cdot 0_v = 0_v$, and multiplying zero scalar 0, with any vector gives zero vector, $0\cdot v = 0_v$.
+
+Because of associativity, and distribution of scalars with vectors, we often use the same symbol for addition (`+` for $+_v$ and $+_f$) and scalar multiplications ($\cdot$ for $\cdot_f$).
+
+Let us take a moment to appreciate what makes the structure of vector space rich.
+We have a set **V** of vectors elements, and set **F** of scalar elements. If one of the sets is infinite, the vector space automatically becomes infinite. (Guess Why?)
+
+
+**Examples:**
+
+Consider the set of points on 3D space, they are represented by the cartesian product of the set of real numbers
+
+$$
+\mathbb{R}^3 = \mathbb{R}\times \mathbb{R}\times \mathbb{R} = {(x, y, z): x, y, z\in \mathbb{R}}
+$$
+
+If we define vector addition of two arbitrary points $\mathbf{r_1}=(x_1, y_1, z_1)$, and $\mathbf{r_2}=(x_2, y_2, z_2)$ as 
+
+$$
+\mathbf{r_1} + \mathbf{r_2} = (x_1 + x_2, y_1 + y_2, z_1 + z_2)
+$$
+
+then $\mathbb{R}^3$ forms a vector space over the field of real numbers $(\mathbb{R}, +, \cdot)$.
+
+### Linear combination
+The scalar multiplication
+
+Consider an arbitrarily chosen set of $n$ vectors $v_1, v_2, v_3, \dots, v_n$ in **V**, and scalars $a_1, a_2, a_3, \dots, a_n$, then the following is called a linear combination of the vectors
+
+$$
+v = \sum_{i=1}^n a_i v_i = a_1 v_1 + a_2 v_2 + \dots a_n v_n
+$$
+
+
+#### Linear independence
+
+### Inner Product
+#### Overlap of vectors
+#### Orthogonality
+
+### Linear Operators
+- Commutativity
+- Special operators: Unitary, Hermitian, ...
+- Probability conservation
 
 #### States as Vector (Bra and Ket)
 
 [youtube](https://youtube.com/clip/Ugkxh9W3xafNSWAP-VU9LCrRXkx9kgUH0mY8?si=MVsRsDUeJld5fV9_)
 
 
-### Linear combination
-- Linear independence
-### Inner Product
-- Overlap of vectors
-- Orthogonality
-### Linear Operators
-- Commutativity
-- Special operators: Unitary, Hermitian, ...
-- Probability conservation
 ### Representation theory
 
 
