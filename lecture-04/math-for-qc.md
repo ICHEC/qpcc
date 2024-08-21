@@ -523,15 +523,65 @@ $$
 
 then $\mathbb{R}^3$ forms a vector space over the field of real numbers $(\mathbb{R}, +, \cdot)$.
 
-### Linear combination
-The scalar multiplication
+Consider a toy example of 'constructing a vector space'. Let there be a set of just two non-zero vectors $\mathbf{V} = \{0, \mathbf{a_{\uparrow}}, \mathbf{a_{\downarrow}}\}$, where 0 is zero vector with respect to some addition operator '+' which we define below. To define addition as binary operation, we have the following by definition of zero, or identity.
 
-Consider an arbitrarily chosen set of $n$ vectors $v_1, v_2, v_3, \dots, v_n$ in **V**, and scalars $a_1, a_2, a_3, \dots, a_n$, then the following is called a linear combination of the vectors
+$$
+\mathbf{a_{\uparrow}} + 0 = 0 + \mathbf{a_{\uparrow}} = \mathbf{a_{\uparrow}}\\
+\mathbf{a_{\downarrow}} + 0 = 0 + \mathbf{a_{\downarrow}} = \mathbf{a_{\downarrow}}
+$$
+
+But what about $\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}}$ ? It's value can neither be $\mathbf{a_{\uparrow}}$, nor $\mathbf{a_{\downarrow}}$ as in either case, the other element becomes the identity, or 0.
+
+$$
+\text{If}\quad\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}} = \mathbf{a_{\uparrow}} \implies \mathbf{a_{\downarrow}} = 0\quad\text{but we assumed it to be non-zero.}
+$$
+
+Thus the only option **within the set** is $\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}} = 0$, which makes the two vectors inverse of each other. Now, what do we assign to $\mathbf{a_{\uparrow}} + \mathbf{a_{\uparrow}}$, and $\mathbf{a_{\downarrow}} + \mathbf{a_{\downarrow}}$? We can't have $\mathbf{a_{\uparrow}} + \mathbf{a_{\uparrow}} = 0$ as this will make $\mathbf{a_{\uparrow}} = 0$, and same argument holds for $\mathbf{a_{\downarrow}}$. So the only option plaussible is $\mathbf{a_{\uparrow}} + \mathbf{a_{\uparrow}} = \mathbf{a_{\downarrow}}$, and $\mathbf{a_{\downarrow}} + \mathbf{a_{\downarrow}} = \mathbf{a_{\uparrow}}$.
+
+This gives the structure of this three element group, where combining any non-zero element with itself gives the other element, and both non-zero elements are inverses of each other.
+
+Other option, which gives us more to play with in context of vector space is, to assume that $\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}}$ should exist as separate vector in **V**.
+Moreover, if $\mathbf{a_{\uparrow}}$ and $\mathbf{a_{\downarrow}}$ aren't inverses of each other like above, they should have separate inverses. This means that the set **V** should be extended to atleast
+
+$$
+\mathbf{V} \to \{0, \mathbf{a_{\uparrow}}, -\mathbf{a_{\uparrow}}, \mathbf{a_{\downarrow}}, -\mathbf{a_{\downarrow}}, \mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}}, -(\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}})\}
+$$
+
+With introduction of more elements, we have to again make sure that the binary operation is well defined, i.e., addition of any two element results an element in the set. Consider now the $\mathbf{a_{\uparrow}} + (\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}})$, just like previous exercise, its value can not be either of $\mathbf{a_{\uparrow}}, \mathbf{a_{\downarrow}}$ or $\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}}$, otherwise either of these will result in a contradiction.
+
+So, $\mathbf{a_{\uparrow}} + (\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}})$, and it's inverse must now exist as seperate vector. We can simplify the expression $\mathbf{a_{\uparrow}} + (\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}})$ = $(\mathbf{a_{\uparrow}} + \mathbf{a_{\uparrow}}) + \mathbf{a_{\downarrow}}$ = $2\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}}$, where $2\mathbf{a_{\uparrow}}$ symbolically means $\mathbf{a_{\uparrow}} + \mathbf{a_{\uparrow}}$. We can easily see that 
+
+- This process of extending is actually endless
+- If we keep doing this over and over again, the new elements added are expressed as some 'combination' of the originally assumed two non-zero vectors.
+- We have deceptively used the notion of actual numbers to express new vectors.
+- The fully extended set looks like
+
+$$
+\mathbf{V} \to \{
+    0, \mathbf{a_{\uparrow}}, -\mathbf{a_{\uparrow}}, \mathbf{a_{\downarrow}}, -\mathbf{a_{\downarrow}}, \mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}}, -(\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}}),
+    2\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}},-(2\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}}),\\
+    \mathbf{a_{\uparrow}} + 2\mathbf{a_{\downarrow}},-(\mathbf{a_{\uparrow}} + 2\mathbf{a_{\downarrow}}),
+    3\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}},-(3\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}}),
+    \mathbf{a_{\uparrow}} + 3\mathbf{a_{\downarrow}},-(\mathbf{a_{\uparrow}} + 3\mathbf{a_{\downarrow}}),\\
+    2\mathbf{a_{\uparrow}} + 3\mathbf{a_{\downarrow}},-(2\mathbf{a_{\uparrow}} + 3\mathbf{a_{\downarrow}}),
+    3\mathbf{a_{\uparrow}} +2\mathbf{a_{\downarrow}},-(3\mathbf{a_{\uparrow}} + 2\mathbf{a_{\downarrow}}),
+    \dots
+\}
+$$
+
+In a more compact form (albeit terse looking) the set looks like $\mathbf{V} = \{n_1\mathbf{a_{\uparrow}} + n_2\mathbf{a_{\downarrow}}: \text{where}\quad n_1, n_2 \in \mathbb{Z}\}$, i.e., every element in the set is of the form $n_1\mathbf{a_{\uparrow}} + n_2\mathbf{a_{\downarrow}}$ for some integers $n_1, n_2$.
+
+So we had to issentially grow the initial set to contain infinitely many element to make sure the binary operation was within the set, which makes $(\mathbf{V}, +)$ a group. While extending the set, we used integers to express derived vectors as combinations of $\mathbf{a_{\uparrow}}, \mathbf{a_{\downarrow}}$. This is basically trying to use the integers as scalar field. We know that the set of integers does not form a field, so we have to also generalise the numbers from integers to atleast rational number, or for comfort real or complex numbers.
+
+### Linear combination
+We saw from the above example, how a finite set object can be extended to an infinite set with a vector space by using combinations of those finite elements.
+These combinations are called linear combination of vectors. More formally, consider an arbitrarily chosen set of $n$ vectors $v_1, v_2, v_3, \dots, v_n$ in **V**, and scalars $a_1, a_2, a_3, \dots, a_n$, then the following is called a linear combination of the vectors
 
 $$
 v = \sum_{i=1}^n a_i v_i = a_1 v_1 + a_2 v_2 + \dots a_n v_n
 $$
 
+Let's try to make some interpretations on this linear combination. Given a vector $\mathbf{v}$ and a non-zero scalars $a, b$, $\mathbf{v}$ and $a\mathbf{v}$, $b\mathbf{v}$, and $(a+b)\mathbf{v}$ are all different vectors.
 
 #### Linear independence
 
