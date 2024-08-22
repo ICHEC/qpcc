@@ -137,14 +137,14 @@ root(Mathematical Framework)
 Any quantity that can be described by a single numerical value, usually with real, and sometimes with complex numbers is a scalar.
 The common examples of scalars are volume, density, speed, energy, mass and time.
 
-Quantities require multiples of numerical values, with each value describing some aspect of the quantities, are called vectors. The number of these values is called the `dimension` of the vector. Common examples of vector quantities from physics include position, velocity, momentum, and force.
+Quantities require multiples of numerical values, with each value describing some aspect or attribute of the quantities, are called vectors. The number of these values is called the `dimension` of the vector. Common examples of vector quantities from physics include position, velocity, momentum, and force. They all have two common attributes, (i) a **magnitude**, and (ii) a **direction** associated with them.
 
 Both scalars and vectors are represented usually with real numbers, and often with complex numbers. So the notions of `addition`, `subtraction`, `multiplication` and `division`,
 through which we manipulate numbers, are suitably extended on scalars and vectors.
 
 **Scalars**: are expressed in terms of single number, so their algebra is essentially the same as algebra of real/complex numbers they are expressed in.
 
-**Vectors**: are expressed in terms of multiple numbers. So it's not straight forward as to how to extend their algebra from the component numbers. We see below how this is done.
+**Vectors**: are expressed in terms of multiple numbers. So it's not straight forward as to how to manipulate vectors, based on scalars, or formally extend their algebra from the component numbers. We see below how this is done.
 
 **Vector Space, Hilbert Space**: A Vector space is a mathematical structure, that constitutes the necessary components to manipulate vectors in sensible way. Before we define it, we need to understand a few definitions, namely `Set`, `map`, `Binary operations`, `Group` and `Field` -
 
@@ -573,26 +573,83 @@ In a more compact form (albeit terse looking) the set looks like $\mathbf{V} = \
 
 So we had to issentially grow the initial set to contain infinitely many element to make sure the binary operation was within the set, which makes $(\mathbf{V}, +)$ a group. While extending the set, we used integers to express derived vectors as combinations of $\mathbf{a_{\uparrow}}, \mathbf{a_{\downarrow}}$. This is basically trying to use the integers as scalar field. We know that the set of integers does not form a field, so we have to also generalise the numbers from integers to atleast rational number, or for comfort real or complex numbers.
 
+#### Vector Sub-space
+Just like Groups have subgroup, vector space had vector subspace. Given a vector space **(V, +)**, with a field $F(+, .)$, a sub-space is a subset **S** of **V**, such that **(S, +)**, forms a vector space with a field $F(+, .)$. Since here all the operations, field are defined for the parent set **V**, to form a sub-space, all one needs to ensure is that those operations done on elements of **S** keep the results within **S**.
+
 ### Linear combination
 We saw from the above example, how a finite set object can be extended to an infinite set with a vector space by using combinations of those finite elements.
-These combinations are called linear combination of vectors. More formally, consider an arbitrarily chosen set of $n$ vectors $v_1, v_2, v_3, \dots, v_n$ in **V**, and scalars $a_1, a_2, a_3, \dots, a_n$, then the following is called a linear combination of the vectors
+These combinations are called linear combination of vectors, as they are expressed as sum of terms, each of those terms being vector, with scalar multiplied to. More formally, consider an arbitrarily chosen set of $n$ vectors $v_1, v_2, v_3, \dots, v_n$ in **V**, and scalars $a_1, a_2, a_3, \dots, a_n$, then the following is called a linear combination of the vectors
 
 $$
-v = \sum_{i=1}^n a_i v_i = a_1 v_1 + a_2 v_2 + \dots a_n v_n
+v = \sum_{i=1}^n a_i \mathbf{v_i} = a_1 \mathbf{v_1} + a_2 \mathbf{v_2} + \dots a_n \mathbf{v_n}
 $$
 
-Let's try to make some interpretations on this linear combination. Given a vector $\mathbf{v}$ and a non-zero scalars $a, b$, $\mathbf{v}$ and $a\mathbf{v}$, $b\mathbf{v}$, and $(a+b)\mathbf{v}$ are all different vectors.
+and the scalars $a_i$ are called **coefficients** of corresponding vectors $\mathbf{v_i}$.
+
+Let's try to make some interpretations on this linear combination, and here we recall that in physics we usually called single valued objects as scalars, and multi-valued objects as vectors. Thus a number is enough to represent scalar, while a vector having multiple attributes, requires multiple numbers.
+
+Given a vector $\mathbf{v}$ and a non-zero scalars $a$ and $b$, $\mathbf{v}$, $a\mathbf{v}$, $b\mathbf{v}$, and $(a+b)\mathbf{v}$ are all different vectors, yet they have something in common, the $\mathbf{v}$ itself. One can say, that all these, share some attributes. Recalling that a vector defined in usual sense in physics has a magnitude, and a direction, and magnitude is scalar while the direction is a multi attribute object, we can interpret the following -
+
+- Multiplying a vector with a scalar, changes it's `magnitude`.
+- $\mathbf{v}$, $a\mathbf{v}$, $b\mathbf{v}$, $(a+b)\mathbf{v}$ all have the same `direction`.
+
+Given a vector space **(V, +)**, with a field $F(+, .)$, and a non-zero vector $\mathbf{v}$, we can imagine a set of all vectors that can be created by multiplying scalars to $\mathbf{v}$. This is called a **linear span of the vector** $\mathbf{v}$
+
+$$
+F\mathbf{v} = \{a\mathbf{v}: \text{For every}\quad a\in F\}
+$$
+
+Clearly, $F\mathbf{v}$ is a subset of **V**, and its easy to see that it forms a vector sub-space.
 
 #### Linear independence
 
-### Inner Product
-#### Overlap of vectors
-#### Orthogonality
+Consider the following equation: $a\mathbf{u} + b\mathbf{v} = 0$, where $a, b$ are some arbitraty scalars and $\mathbf{u}, \mathbf{v}$ are two arbitray vectors, and speculate it's implication.
+
+The left part of the expression is a vector that is linear combination of $\mathbf{u}$ and $\mathbf{v}$, and equating to zero means that the sum is zero vector. But then we can say the following -
+
+- $a\mathbf{u}$ and $b\mathbf{v}$ are inverses of each other.
+- If $a \ne 0$, then $\mathbf{u} = (-a^{-1}b)\mathbf{v}$, which means $\mathbf{u}$ shares the same direction as $\mathbf{v}$.
+- If $b \ne 0$, then $\mathbf{v} = (-b^{-1}a)\mathbf{u}$, which also means $\mathbf{u}$ shares the same direction as $\mathbf{v}$.
+- The set of their span are identical $F\mathbf{u} = F\mathbf{v}$ (try to see why).
+
+```{admonition}
+:class: tip
+
+Thus if a linear combination of two vectors can be set to zero, with atleast one coefficient being non-zero, then the two vectors share the same direction.
+```
+
+What happens, if this cannot happen? That is, for the above two vectors, $\mathbf{u}$ and $\mathbf{v}$ there is no $a, b$ with atleast one of them being non-zero, such that $a\mathbf{u} + b\mathbf{v} = 0$ ? 
+
+Then the vector's don't share directions. A logically equivalent, but more intuitive way of saying the above is if two vectors don't share direction, or can't be written as scalar multiple of each other, then $a\mathbf{u} + b\mathbf{v} = 0$ implies that $a=b=0$.
+
+Let's extend this line of thinking, and imagine we have two vectors $\mathbf{v_1}$, $\mathbf{v_2}$ that don't share direction. We can construct the span of these two vectors
+
+$$
+F\mathbf{v_1, v_2} = {a_1\mathbf{v_1}+a_2\mathbf{v_2}: \text{For every} a_1, a_2 \in F}
+$$
+
+It's also easy to see that this is a sup-space.
+
+This situation, generalised to arbitrary number of vectors is defined as **linear independence**. Formally, a set of vectors $n$ vectors $\mathbf{v_1}$, $\mathbf{v_2}$, $\dots$, $\mathbf{v_n}$ are called linearly independent, if and only if
+
+$$
+\sum_{i=1}^n a_i \mathbf{v_i} = a_1 \mathbf{v_1} + a_2 \mathbf{v_2} + \dots a_n \mathbf{v_n} = 0;\implies a_1 = a_2 = \dots a_n = 0
+$$
+
+
+### Basis
 
 ### Linear Operators
 - Commutativity
 - Special operators: Unitary, Hermitian, ...
 - Probability conservation
+
+
+
+### Inner Product
+#### Overlap of vectors
+#### Orthogonality
+
 
 #### States as Vector (Bra and Ket)
 
