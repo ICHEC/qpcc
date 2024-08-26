@@ -1,10 +1,10 @@
 ---
-title: Quantum Programming Certification Course (QPCC)
+title: Quantum Programming Foundations Course CT4106
 layout: home
 ---
 # QPCC Lectures Overview
 
-The Quantum Programming Certification Course (QPCC) is offered from ICHEC aimed at providing exposure into quantum computing with minimal technical prerequisits. It is evolving, and we are added more modules with time to make it more comprehensive and inclusive of the skills and knowledge of the quantum computing ecosystem. Below are the list of modules currently offered.
+The Quantum Programming Foundations Course (CT4106) is offered from ICHEC aimed at providing exposure into quantum computing with minimal technical prerequisits. It is evolving, and we intend to add more modules with time to make it more comprehensive and inclusive of the skills and knowledge of the quantum computing ecosystem. Below are the list of modules currently offered. This page serves as the landing page for the lecture notes for each of the vidoe lectures in CT4106.
 
 
 ```{mermaid}
@@ -65,11 +65,10 @@ mindmap
 ---
 
 ## Contact
-For QPCC related queries, contact us or the instructors at following -
+For course related queries, contact us or the instructors at following -
 
 | Name                 | Email                           |
 |---                   |:---:                            |
-| QPCC team            | <qpcc@ichec.ie>                 |
 | Emil Dimitrov        | <emil.dimitrov@ichec.ie>        |
 | Karthik Krishnakumar | <karthik.krishnakumar@ichec.ie> |
 | Rajarshi Tiwari      | <rajarshi.tiwari@ichec.ie>      |
