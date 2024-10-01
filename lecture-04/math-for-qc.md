@@ -162,11 +162,24 @@ It's important to imphesise the important of uniqueness in a set. It means in th
 
 Secondly, the order of elements in a set have no meaning, so $\{a, e, i, o, u\}$ and say, $\{i, o, a, u, e\}$ are same sets, just expressed differently.
 
+A set is expressed with mainly two ways:
+1. **Roster method**: This is the method where we list all the elements of the set, in no particular order, and put them in curly braces. The set of vowels, $\{a, e, i, o, u\}$ is one such examples. It is the simplest method, but becomes inconvenient for sets with large number of elements, or infinite number of elements.
+
+2. **Set builder/logical method**: In this method, instead of trying to list elements one by one, we name a representative element, and describe it's specific properties that make it a member of the set. For example, see below, and example of set builder method.
+
+$$
+B = \{a| a\in \mathbb{Z}, \text{ and } a \text{ is even}\}
+$$
+
+The above is seen or read as "B equals a set of all '$a$' such that $a$ is an integer, and $a$ is even". Equivalently, B is set of all even integers. The roster version of this would be $B = \{\dots, -3, -2, -1, 0, 1, 2, 3, \dots\}$.
+
+
 A set can be finite, or infinite, that is, the number of elements in a set can be finite, or infinite.
 
 You can manipulate a set, by adding or removing elements from it. A set with no elements is called `Null set`, denoted by $\emptyset$.
 
 Sets can be finite and infinite. We all know what being finite is, so a finite set is a set with finite number of elements which one could count.
+
 Infinite is a slightly tricky concept in mathematics. To start with, an infinite set is a set that **is not** finite.
 
 The set of natural numbers $\mathbb{N} = \{1, 2, 3, \dots\}$ plays a central role in the categorisation of sets. First, it let's us define countability. So a set in which you could count the number of elements one by one, is called countable. If the counting finishes after finite number, the set is finite and countable. If you can count, and the counting can not finish in finite time, the set is said to be countably infinite. By definition or axiom, the set of natural number is countably infinite. **Uncountable** sets on the other hand, are the ones that are inifinite, and contains too many elements to be even countable.
@@ -221,9 +234,19 @@ We defined what a set is, and introduced a notion of comparison by defining what
 
 - **Universal set:** For a given consideration of problem, a universal set $U$ is set of all elements considered, and fixed, so that every set defined for the problem, is a subset of $U$.
 
+
 - **Complement:** Compliment of a set A, denoted by $A'$, or sometimes $A^c$ is defined with respect to the universal set, is set of all elements of $U$ that are not in A.
 
-- **Union:** A union of two sets, say A and B, denoted as $A\cup B$ is defined as the set of all elements that belong to either A, or B, or both. For example, if $A=\{1,2,3,4\}$ and $B=\{1,3,5,7\}$, then $A\cup B = \{1, 2, 3, 4, 5, 7\}$.
+``````{sidebar}
+```{figure} ./set-union-inters-diff.jpg
+Set Union, intersection and set difference.
+```
+``````
+
+
+- **Union:** A union of two sets, say A and B, denoted as $A\cup B$ is defined as the set of all elements that belong to either A, or B, or both. For example, if $A=\{1,2,3,4\}$ and $B=\{1,3,5,7\}$, then 
+
+$$A\cup B = \{1, 2, 3, 4, 5, 7\}$$
 
 - **Intersection:** An intersection of two sets, say A and B, denoted as $A\cap B$ is defined as set of all elements that belong to both A and B.
 
@@ -231,7 +254,13 @@ We defined what a set is, and introduced a notion of comparison by defining what
 
 - **Cartesian Product:** A cartesian product of two sets, say A and B, denoted by $A\times B$ is the set of all ordered pairs $(a, b)$ such that $a$ belongs to A, and $b$ belongs to B.
 
-> Add illustration
+For examples, if $A=\{a, b, c\}$ and $B=\{x, y, z\}$ then 
+
+$$
+A\times B = \{(a, x), (a, y), (a, z),
+(b, x), (b, y), (b, z),
+(c, x), (c, y), (c, z)\}
+$$
 
 
 ### Map
@@ -789,21 +818,53 @@ $$
 
 Is the matrix representation of the linear map L, and if we express an arbitrary vector $\mathbf{v} = \sum_i a_i \mathbf{v_i}$, as coordinate vector $\mathbf{a} = (a_1, a_2, \dots, a_n)^T$, then the coordinates of the $\mathbf{La}$ are the same as the coefficients of the vector obtained by applying the linear map, when expressed in the basis B.
 
-This is how matrices representation of linear operators naturally emerges.
+This is how matrices representation of linear operators naturally emerges. To see more clearly, let's compute $L({\bf v})$ in terms of basis.
+
+$$
+L({\bf v}) = L\left(
+    \sum_j a_j {\bf v_j}
+\right)
+=\sum_j a_j L({\bf v_j})=
+\sum_j a_j \left(
+    \sum_i l_{ij} {\bf v_i}
+\right)
+=\sum_i \left(
+    \sum_j l_{ij} a_j
+\right){\bf v_i}
+=\sum_i ({\bf La})_i {\bf v_i}
+$$
+
+Thus the image $L({\bf v})$ of an arbitrary vector ${\bf v}=\sum_i a_j {\bf v_j}$ expressed in the same basis ${\bf v_j}$ has coefficients $({\bf La})_i$, or, equivalently the 'coordinates' ${\bf a}=(a_1, a_2, \dots, a_n)^T$ is mapped to coordinates $({\bf La})_i$, wchih are result of matrix multiplication ${\bf La}$.
+
+- So once we choose the basis, we can express abstract vectors as regular array of numbers, and linear operators as matrices.
+
+- This helps us encode abstract problems of vector space to matrix-vector manipulations, which are naturally done efficiently on computers.
+- This is why we map states and operators to regular vectors and matrices in Quantum Physics and quantum computing.
 
 
-- Commutativity
-- Special operators: Unitary, Hermitian, ...
+## Inner product space
+
+### Hilbert space
+
+#### Orthogonality, normality
+#### Overlap of vectors
+#### Orthogonality
+
+#### Orthonormal basis
+
+### Dirac Notation
+
+## Special operators
+
+### Hermitian operators
+
+### Unitary opertors
 - Probability conservation
 
 
 
-### Inner Product
-#### Overlap of vectors
-#### Orthogonality
-
-
-#### States as Vector (Bra and Ket)
+## States and Operators
+### Connection with Experiment
 
 [youtube](https://youtube.com/clip/Ugkxh9W3xafNSWAP-VU9LCrRXkx9kgUH0mY8?si=MVsRsDUeJld5fV9_)
 
