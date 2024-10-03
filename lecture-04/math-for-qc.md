@@ -952,9 +952,16 @@ S_\infty = 1 -\frac 13 + \frac 15 - \frac 17+\dots = \frac{\pi}{4}
 $$
 This illustrates, that an infinite summation of rational numbers is actually not rational, but an irrational number. This is what completeness is about. In a complete metric space, the limit of an infinite sequence lies in the set. Thus, $\mathbb{Q}$ is not complete, though the set of real numbers $\mathbb{R}$ is complete.
 
+```{figure} https://upload.wikimedia.org/wikipedia/commons/8/89/Completeness_in_Hilbert_space.png
+
+An infinite series of sum of vectors results in a well defined net displacement vector.
+```
+
 In case of vectors in a vector space, this translates to the property that linear combination of infinitely many vectors is still a vector in the vector space. Having this property insures we do not end up in an unphysical state outside the vector space.
 
 #### Orthogonality, normality
+
+
 #### Overlap of vectors
 #### Orthogonality
 
