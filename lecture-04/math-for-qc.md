@@ -844,9 +844,124 @@ Thus the image $L({\bf v})$ of an arbitrary vector ${\bf v}=\sum_i a_j {\bf v_j}
 
 ## Inner product space
 
+We now know what a vector space $V(F)$ is. We call the elements of $V$ as vector, as in general we expect these elements to have some notion of magnitude and direction.
+
+For vector spaces that are defined over the field of real $\mathbb{R}$ or complex $\mathbb{C}$ numbers, one can define more concrete geometric attributes. This is formally done by defining an **Inner Product** on the vector space. For the discussion onwards, we will assume the field to be of either real, or complex numbers $F=\mathbb{R, C}$.
+
+An inner product, is a map $\langle , \rangle: V\times V \longrightarrow F$ that satisfies the following conditions.
+
+For any arbitrary vectors $v_1, v_2, v_3 \in V$, and arbitrary scalars $a_1, a_2, a_3 \in F$  -
+
+1. **Conjugate symmetry:** $\langle v_1, v_2\rangle = \langle v_2, v_1\rangle^*$, where $^*$ denotes complex conjugate of the complex number. If the $F=\mathbb{R}$, then this becomes symmetry.
+
+2. **Linearity:** Given that it is a function of two vectors, and is conjugate symmetric (point 1 above), it should have some level of linearity. Formally, it should be linear in the second argument, and conjugate linear in first argument, i.e.,
+
+$$
+\langle {\color{red} v_1}, a_2 v_2 + a_3 v_3\rangle = a_2 \langle {\color{red} v_1}, v_2 \rangle + a_3 \langle {\color{red} v_1}, v_3 \rangle
+\\
+\langle a_1 v_1 + a_2 v_2, {\color{red} v_3} \rangle = a_1^* \langle v_1, {\color{red} v_3} \rangle + a_2^* \langle v_2, {\color{red} v_3} \rangle
+$$
+
+3. **Positive definiteness:** Note, that conjugate symmetry dictates that $\langle v, v\rangle = \langle v, v \rangle^*$, so the inner product of a vector with itself is a real number. We further say, that for every $v\in V$, the inner product of a vector with itself is non-negative, i.e, $\langle v, v\rangle \ge 0$. Moreover, $\langle v, v\rangle = 0$ if and only if $v=0$, i.e, a non-zero vector's inner product with itself is always a positive non-zero number.
+
+The inner product can be defined in two ways in terms of linearity, (i) as above, where in condition 2, we imposed linearity in second argument, and conjugate linearity in first argument, and (ii) where we impose linearity in the first argument
+
+```{admonition} Inner product space
+:class: tip
+
+A vector space that has an inner product defined on it, is called an **Inner product space**.
+```
+
+#### Norm of a vector
+
+As we saw in the definitio of inner product, $\langle v, v\rangle$ is a positive definite number, and depends only on single vector $v$, so it can be used to define the length or size of a vector.
+
+The **norm** of a vector is defined as $|v|=\sqrt{\langle v, v\rangle}$. The larger this value, he bigger the size of the vector. Let's see how scalar multiple affects the size of a vector. Consider a scalar $a\ne 0$, then the norm of $av$ is 
+
+$$
+|av| = \sqrt{\langle av, av\rangle} = \sqrt{a^*\langle v, av\rangle} = \sqrt{a^* a\langle v, v\rangle} =\sqrt{|a|^2\langle v, v\rangle} = |a||v|
+$$
+where $|a|$ is magnitude of the scalar $a$. So the scalar multiplication to a vector multiplies to the norm of the vector.
+
+#### Caucy-Schwarz inequality
+
+It is a theorem, that states that the absolute value of the inner product of two vectors in a vector space is always less than or equal to the product of their norm.
+
+$$
+|\langle v_1, v_2\rangle|\le |v_1||v_2|,\quad \text{or equivalently}\quad {\langle v_1, v_2 \rangle\over |v_1||v_2|} \le 1
+$$
+
+Since this ratio of inner product and product of norms of the two vector is bounded below 1, we can interpret this ratio to be cosine of an angle, and call this angle as the angle between two vectors.
+
+$$
+\cos{\theta} = {\langle v_1, v_2 \rangle\over |v_1||v_2|}, \quad\text{or equivalently}\quad
+\theta = \cos^{-1}{\langle v_1, v_2 \rangle\over |v_1||v_2|}
+$$
+
+With this interpretation, the inner product tells us how 'close' two vectors are in direction.
+
 ### Hilbert space
+With the inner product defined on the vector space, we can extend the notion of distance between two vectors. For this we need a function of two vectors to act as distance, but just any function wouldn't do. This function has to generalise the concept of distance in real life, for it to make sense.
+
+In mathematics, such a function is called a metric. A metric, or distance function defined on a set $V$ is a map $d: V\times V\longrightarrow R^{+}$, where $R^{+}$ is the set of non-negative real numbers, and satisfies following conditions -
+
+1. **Positive definiteness:** For any arbitrary $v_1, v_2 \in V$, $d(v_1, v_2)\ge 0$, and $d(v_1, v_2)=0$ if and only if $v_1 = v_2$.
+2. **Symmetry:** the distance function is symmetric, i.e., $d(v_1, v_2) = d(v_2, v_1)$
+3. **Triangular inequality:** For any three elements/vectors $v_1, v_2, v_3 \in V$, the sum of the distance between the first two vectors is always more than or equal to the distance between the first and third vector, i.e., we have
+$$
+d(v_1, v_2) + d(v_2, v_3) \ge d(v_1, v_3)
+$$
+
+Any set with a metric defined on it, is called a **metric space**. It's elements can be thought of as point in a geometrical sense, as there is a well defined distance between each of them.
+
+With this notion added, the vectors can be seen as 'points' in a vector space. The inner product space has a naturally defined notion of distance through the inner product itself, and that is
+
+$$
+d(v_1, v_2) = |v_1 - v_2| = \sqrt{\langle v_1 - v_2, v_1 - v_2\rangle }
+= \sqrt{|v_1|^2 + |v_2|^2 + \langle v_1, v_2\rangle +\langle v_1, v_2\rangle^*}
+$$
+
+It is easy to check that the above defined distance satisfies the three condition for being a metric.
+
+With this distance defined on it, we have a **Hilbert space**. Formally,
+
+```{admonition} Hilbert Space
+:class: tip
+
+Hilbert Space is a vector space equipped with an inner product that induces a metric/distance function for which the space is a complete metric space.
+```
+
+Now what is a complete metric space, or equivalently completeness?
+We will not go into details of this, but rather illustrate the concept of completeness.
+We know that vector addition is a binary operation, and similarly usual addition is a binary operation. And by definition, adding two numbers or vectors gives another number/vector. 
+
+Within the set of rational numbers $\mathbb{Q}$, if we have a sequence of $n$ rational numbers, say $a_1, a_2, \dots, a_n$ then because of associativity,
+their sum $S_n$ defined as
+
+$S_n = \sum_{l=1}^n a_l = a_1 + a_2 + \dots, a_n$
+
+is also a rational number and belongs to the same set $\mathbb{Q}$. But what happens when $n$ is not finite, but infinite. In this case, question arises, as to whether the sum 'converges' to a specific finite number, or 'diverges' to infinity. Within the set of rational numbers, there is an issue even with the converged scenario. For example, consider the sequence $a_n = (-1)^{n-1}\frac{1}{2n+1}$ then the sum of the $n$ terms is
+
+$$
+S_n = 1 -\frac 13 + \frac 15 - \frac 17+\dots + (-1)^{n-1}\frac{1}{2n+1}
+$$
+
+So far, the sum is rational number. However in the limit of $n\to \infty$, this sum is known to be equal to $\frac{\pi}{4}$, which is an irrational number
+$$
+S_\infty = 1 -\frac 13 + \frac 15 - \frac 17+\dots = \frac{\pi}{4}
+$$
+This illustrates, that an infinite summation of rational numbers is actually not rational, but an irrational number. This is what completeness is about. In a complete metric space, the limit of an infinite sequence lies in the set. Thus, $\mathbb{Q}$ is not complete, though the set of real numbers $\mathbb{R}$ is complete.
+
+```{figure} https://upload.wikimedia.org/wikipedia/commons/8/89/Completeness_in_Hilbert_space.png
+
+An infinite series of sum of vectors results in a well defined net displacement vector.
+```
+
+In case of vectors in a vector space, this translates to the property that linear combination of infinitely many vectors is still a vector in the vector space. Having this property insures we do not end up in an unphysical state outside the vector space.
 
 #### Orthogonality, normality
+
+
 #### Overlap of vectors
 #### Orthogonality
 
