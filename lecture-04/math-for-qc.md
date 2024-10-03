@@ -912,6 +912,47 @@ $$
 d(v_1, v_2) + d(v_2, v_3) \ge d(v_1, v_3)
 $$
 
+Any set with a metric defined on it, is called a **metric space**. It's elements can be thought of as point in a geometrical sense, as there is a well defined distance between each of them.
+
+With this notion added, the vectors can be seen as 'points' in a vector space. The inner product space has a naturally defined notion of distance through the inner product itself, and that is
+
+$$
+d(v_1, v_2) = |v_1 - v_2| = \sqrt{\langle v_1 - v_2, v_1 - v_2\rangle }
+= \sqrt{|v_1|^2 + |v_2|^2 + \langle v_1, v_2\rangle +\langle v_1, v_2\rangle^*}
+$$
+
+It is easy to check that the above defined distance satisfies the three condition for being a metric.
+
+With this distance defined on it, we have a **Hilbert space**. Formally,
+
+```{admonition} Hilbert Space
+:class: tip
+
+Hilbert Space is a vector space equipped with an inner product that induces a metric/distance function for which the space is a complete metric space.
+```
+
+Now what is a complete metric space, or equivalently completeness?
+We will not go into details of this, but rather illustrate the concept of completeness.
+We know that vector addition is a binary operation, and similarly usual addition is a binary operation. And by definition, adding two numbers or vectors gives another number/vector. 
+
+Within the set of rational numbers $\mathbb{Q}$, if we have a sequence of $n$ rational numbers, say $a_1, a_2, \dots, a_n$ then because of associativity,
+their sum $S_n$ defined as
+
+$S_n = \sum_{l=1}^n a_l = a_1 + a_2 + \dots, a_n$
+
+is also a rational number and belongs to the same set $\mathbb{Q}$. But what happens when $n$ is not finite, but infinite. In this case, question arises, as to whether the sum 'converges' to a specific finite number, or 'diverges' to infinity. Within the set of rational numbers, there is an issue even with the converged scenario. For example, consider the sequence $a_n = (-1)^{n-1}\frac{1}{2n+1}$ then the sum of the $n$ terms is
+
+$$
+S_n = 1 -\frac 13 + \frac 15 - \frac 17+\dots + (-1)^{n-1}\frac{1}{2n+1}
+$$
+
+So far, the sum is rational number. However in the limit of $n\to \infty$, this sum is known to be equal to $\frac{\pi}{4}$, which is an irrational number
+$$
+S_\infty = 1 -\frac 13 + \frac 15 - \frac 17+\dots = \frac{\pi}{4}
+$$
+This illustrates, that an infinite summation of rational numbers is actually not rational, but an irrational number. This is what completeness is about. In a complete metric space, the limit of an infinite sequence lies in the set. Thus, $\mathbb{Q}$ is not complete, though the set of real numbers $\mathbb{R}$ is complete.
+
+In case of vectors in a vector space, this translates to the property that linear combination of infinitely many vectors is still a vector in the vector space. Having this property insures we do not end up in an unphysical state outside the vector space.
 
 #### Orthogonality, normality
 #### Overlap of vectors
