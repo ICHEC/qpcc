@@ -959,7 +959,11 @@ An infinite series of sum of vectors results in a well defined net displacement 
 
 In case of vectors in a vector space, this translates to the property that linear combination of infinitely many vectors is still a vector in the vector space. Having this property insures we do not end up in an unphysical state outside the vector space.
 
-#### Orthogonality, normality
+#### Normality
+Normality, or a vector being normal is just size of vector being of unit size. A vector $v$ is called normal if $|v|=1$. This notion is the same as those of unit vectors in coordinate geometry. When we work with a basis, it is eiser to express coordinates if the basis vectors are normal.
+
+#### Orthogonality
+
 
 
 #### Overlap of vectors
