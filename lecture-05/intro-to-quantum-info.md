@@ -51,37 +51,42 @@ It will be good idea to have looked through or read the following references bef
 ```{admonition} References
 :class: information
 
+**Recommended Reading**
+
+1. Basics of Quantum Information
+    - [IBM tutorial](https://learning.quantum.ibm.com/course/basics-of-quantum-information)
+
+2. Quantum internet: A vision for the road ahead
+    - [Science Review, semi-technical](https://www.science.org/doi/10.1126/science.aam9288)
+
+3. DIKW pyramid:
+    - Wiki page https://en.wikipedia.org/wiki/DIKW_pyramid
+
+4. An Introduction to Public Key Cryptography
+    - [Semi-technical article](https://betterprogramming.pub/an-introduction-to-public-key-cryptography-3ea0cf7bf4ba)
+
+5. Quantum random number generation
+    - [Article, NPJ Quantum Inf **2**, 16021, 2016](https://www.nature.com/articles/npjqi201621)
+
+6. NIST Releases First 3 Finalized Post-Quantum Encryption Standards
+    - [NIST press release, 13 Aug, 2024](https://www.nist.gov/news-events/news/2024/08/nist-releases-first-3-finalized-post-quantum-encryption-standards)
+
+
+**Advance Reading**
+
 1. Quantum Communications—Michal Hajdušek and Rodney Van Meter
     - [Arxiv book](https://arxiv.org/abs/2311.02367)
 
 2. Quantum Information Theory – Lecture Notes—Christoph Dittel
     - [Arxiv Lecture notes](https://arxiv.org/abs/2311.12442)
 
-3. Basics of Quantum Information
-    - [IBM tutorial](https://learning.quantum.ibm.com/course/basics-of-quantum-information)
-
-4. Quantum internet: A vision for the road ahead
-    - [Science Review, semi-technical](https://www.science.org/doi/10.1126/science.aam9288)
-
-5. DIKW pyramid:
-    - Wiki page https://en.wikipedia.org/wiki/DIKW_pyramid
-
-6. Information Science in Theory and Practice
+3. Information Science in Theory and Practice
     - [Book by Alina Vickery and Brian C. Vickery, (1987)](https://dokumen.pub/information-science-in-theory-and-practice-3nbsped-3598116586-9783598116582.html)
 
-7. The Mathematical Theory of Communication
+4. The Mathematical Theory of Communication
     - Book by *Shannon, C., & Weaver, W.* (1948), University of Illinois Press.
 
-8. An Introduction to Public Key Cryptography
-    - [Semi-technical article](https://betterprogramming.pub/an-introduction-to-public-key-cryptography-3ea0cf7bf4ba)
-
-9. Quantum random number generation
-    - [Article, NPJ Quantum Inf **2**, 16021, 2016](https://www.nature.com/articles/npjqi201621)
-
-10. NIST Releases First 3 Finalized Post-Quantum Encryption Standards
-    - [NIST press release, 13 Aug, 2024](https://www.nist.gov/news-events/news/2024/08/nist-releases-first-3-finalized-post-quantum-encryption-standards)
-
-11. Homomorphic Encryption Standardization
+5. Homomorphic Encryption Standardization
     - [Website on Homomorphic Encryption Standardization](https://homomorphicencryption.org/)
 
 ```
