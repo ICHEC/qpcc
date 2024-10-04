@@ -950,6 +950,7 @@ So far, the sum is rational number. However in the limit of $n\to \infty$, this 
 $$
 S_\infty = 1 -\frac 13 + \frac 15 - \frac 17+\dots = \frac{\pi}{4}
 $$
+
 This illustrates, that an infinite summation of rational numbers is actually not rational, but an irrational number. This is what completeness is about. In a complete metric space, the limit of an infinite sequence lies in the set. Thus, $\mathbb{Q}$ is not complete, though the set of real numbers $\mathbb{R}$ is complete.
 
 ```{figure} https://upload.wikimedia.org/wikipedia/commons/8/89/Completeness_in_Hilbert_space.png
@@ -960,9 +961,23 @@ An infinite series of sum of vectors results in a well defined net displacement 
 In case of vectors in a vector space, this translates to the property that linear combination of infinitely many vectors is still a vector in the vector space. Having this property insures we do not end up in an unphysical state outside the vector space.
 
 #### Normality
-Normality, or a vector being normal is just size of vector being of unit size. A vector $v$ is called normal if $|v|=1$. This notion is the same as those of unit vectors in coordinate geometry. When we work with a basis, it is eiser to express coordinates if the basis vectors are normal.
+Normality, or a vector being normal is just size of vector being of unit size. A vector $v$ is called normal if $|v|=1$. This notion is the same as those of unit vectors in coordinate geometry. When we work with a basis, it is easier to express coordinates if the basis vectors are normal.
+
+```{note}
+Any non-zero vector $v$ can always be normalized as $v\to\frac{1}{|v|}v$
+```
 
 #### Orthogonality
+Orthogonality in a vector space is the generalisation of two vectors being perpendicular in coordinate geometry. In this sense, the inner product naturally extends the notion of ordinary dot product.
+
+So, two vectors, say $v_1, v_2$ of an inner product space are called orthogonal, if
+their inner product is zero, i.e., $\langle v_1, v_2\rangle=0$. If we recall the angular interpretation of the inner product $\theta = \cos^{-1}\frac{\langle v_1, v_2\rangle}{|v_1||v_2|}$, then if the inner product is zero, then $\theta = \cos^{-1}(0) = \frac{\pi}{2}$. That is, the 'angle' between the two vectors is $90\degree$.
+
+If two vectors are linearly independent, then the angle between them can not be zero. Such vectors can be transformed into orthogonal vectors. This process is called **Gram Schmidt Orthogonalization**, see the [wiki link](https://en.wikipedia.org/wiki/Gram%E2%80%93Schmidt_process).
+
+Let's see this through two vectors. Assume we have two vectors $v_1, v_2$ in the inner product space, that aren't orthogonal, and we need to get new set of two vectors $v_1', v_2'$ from them that are. Then we do the following -
+
+We can choose the first vector $v_1'=v_1$ as the original one. We then need $v_2'$ such that $\langle v_1', v_2'\rangle = 0$. We use the following ansatz
 
 
 
