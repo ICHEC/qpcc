@@ -132,7 +132,7 @@ root(Mathematical Framework)
     Representation theory
 ```
 
-#### Scalar vs Vector
+### Scalar vs Vector
 
 Any quantity that can be described by a single numerical value, usually with real, and sometimes with complex numbers is a scalar.
 The common examples of scalars are volume, density, speed, energy, mass and time.
@@ -380,7 +380,7 @@ Just like sets have subsets, groups have subgroups. A subgroup of a group $(G, o
 - The identity of $o$, say $e$ belongs to $S$, and for every $a$ in $S$, $a^{-1}$ also belongs to $S$
 
 
-**Examples:**
+#### Examples
 
 ```{admonition} The set of integers with arithmatic addition $(\mathbb{Z}, +)$ forms a group.
 :class: information
@@ -603,7 +603,7 @@ In a more compact form (albeit terse looking) the set looks like $\mathbf{V} = \
 
 So we had to issentially grow the initial set to contain infinitely many element to make sure the binary operation was within the set, which makes $(\mathbf{V}, +)$ a group. While extending the set, we used integers to express derived vectors as combinations of $\mathbf{a_{\uparrow}}, \mathbf{a_{\downarrow}}$. This is basically trying to use the integers as scalar field. We know that the set of integers does not form a field, so we have to also generalise the numbers from integers to atleast rational number, or for comfort real or complex numbers.
 
-#### Vector Sub-space
+### Vector Sub-space
 Just like Groups have subgroup, vector space had vector subspace. Given a vector space **(V, +)**, with a field $F(+, .)$, a sub-space is a subset **S** of **V**, such that **(S, +)**, forms a vector space with a field $F(+, .)$. Since here all the operations, field are defined for the parent set **V**, to form a sub-space, all one needs to ensure is that those operations done on elements of **S** keep the results within **S**.
 
 ### Linear combination
@@ -642,7 +642,7 @@ $$
 
 ```
 
-#### Linear independence
+### Linear independence
 
 Consider the following equation: $a\mathbf{u} + b\mathbf{v} = 0$, where $a, b$ are some arbitraty scalars and $\mathbf{u}, \mathbf{v}$ are two arbitray vectors, and speculate it's implication.
 
@@ -872,7 +872,7 @@ The inner product can be defined in two ways in terms of linearity, (i) as above
 A vector space that has an inner product defined on it, is called an **Inner product space**.
 ```
 
-#### Norm of a vector
+### Norm of a vector
 
 As we saw in the definitio of inner product, $\langle v, v\rangle$ is a positive definite number, and depends only on single vector $v$, so it can be used to define the length or size of a vector.
 
@@ -883,7 +883,7 @@ $$
 $$
 where $|a|$ is magnitude of the scalar $a$. So the scalar multiplication to a vector multiplies to the norm of the vector.
 
-#### Caucy-Schwarz inequality
+### Caucy-Schwarz inequality
 
 It is a theorem, that states that the absolute value of the inner product of two vectors in a vector space is always less than or equal to the product of their norm.
 
@@ -900,7 +900,7 @@ $$
 
 With this interpretation, the inner product tells us how 'close' two vectors are in direction.
 
-### Hilbert space
+## Hilbert space
 With the inner product defined on the vector space, we can extend the notion of distance between two vectors. For this we need a function of two vectors to act as distance, but just any function wouldn't do. This function has to generalise the concept of distance in real life, for it to make sense.
 
 In mathematics, such a function is called a metric. A metric, or distance function defined on a set $V$ is a map $d: V\times V\longrightarrow R^{+}$, where $R^{+}$ is the set of non-negative real numbers, and satisfies following conditions -
@@ -960,18 +960,18 @@ An infinite series of sum of vectors results in a well defined net displacement 
 
 In case of vectors in a vector space, this translates to the property that linear combination of infinitely many vectors is still a vector in the vector space. Having this property insures we do not end up in an unphysical state outside the vector space.
 
-#### Normality
+### Normality
 Normality, or a vector being normal is just size of vector being of unit size. A vector $v$ is called normal if $|v|=1$. This notion is the same as those of unit vectors in coordinate geometry. When we work with a basis, it is easier to express coordinates if the basis vectors are normal.
 
 ```{note}
 Any non-zero vector $v$ can always be normalized as $v\to\frac{1}{|v|}v$
 ```
 
-#### Orthogonality
+### Orthogonality
 Orthogonality in a vector space is the generalisation of two vectors being perpendicular in coordinate geometry. In this sense, the inner product naturally extends the notion of ordinary dot product.
 
 So, two vectors, say $v_1, v_2$ of an inner product space are called orthogonal, if
-their inner product is zero, i.e., $\langle v_1, v_2\rangle=0$. If we recall the angular interpretation of the inner product $\theta = \cos^{-1}\frac{\langle v_1, v_2\rangle}{|v_1||v_2|}$, then if the inner product is zero, then $\theta = \cos^{-1}(0) = \frac{\pi}{2}$. That is, the 'angle' between the two vectors is $90\degree$.
+their inner product is zero, i.e., $\langle v_1, v_2\rangle=0$. If we recall the angular interpretation of the inner product $\theta = \cos^{-1}\frac{\langle v_1, v_2\rangle}{|v_1||v_2|}$, then if the inner product is zero, then $\theta = \cos^{-1}(0) = \frac{\pi}{2}$. That is, the 'angle' between the two vectors is $90^o$.
 
 If two vectors are linearly independent, then the angle between them can not be zero. Such vectors can be transformed into orthogonal vectors. This process is called **Gram Schmidt Orthogonalization**, see the [wiki link](https://en.wikipedia.org/wiki/Gram%E2%80%93Schmidt_process).
 
@@ -979,26 +979,213 @@ Let's see this through two vectors. Assume we have two vectors $v_1, v_2$ in the
 
 We can choose the first vector $v_1'=v_1$ as the original one. We then need $v_2'$ such that $\langle v_1', v_2'\rangle = 0$. We use the following ansatz
 
+$$
+v_2' = v_2 -\frac{\langle v_1, v_2\rangle}{\langle v_1, v_1 \rangle} v_1
+$$
 
+then 
 
-#### Overlap of vectors
-#### Orthogonality
+$$
+\langle v_1', v_2' \rangle = \langle v_1, v_2' \rangle = 
+\left\langle 
+    v_1, v_2 -\frac{\langle v_1, v_2\rangle}{\langle v_1, v_1 \rangle} v_1
+\right\rangle
+=\\
+\langle v_1, v_2 \rangle -
+\frac{\langle v_1, v_2\rangle}{\langle v_1, v_1 \rangle} \langle v_1, v_1 \rangle
+= \langle v_1, v_2 \rangle - \langle v_1, v_2 \rangle = 0
+$$
 
-#### Orthonormal basis
+Here we subtracted $\frac{\langle v_1, v_2\rangle}{\langle v_1, v_1 \rangle}v_1$ from $v_2$, which resulted in the new set being orthogonal.
 
-### Dirac Notation
+```{tip}
+$\frac{\langle v_1, v_2\rangle}{\langle v_1, v_1 \rangle}v_1$ is interpreted as the projection of $v_2$ with $v_1$.
+```
+
+### Overlap of vectors
+In an inner product space, the inner product of two vectors $\langle v_1, v_2\rangle$ is interpreted as overlap of two vectors. If the two vectors are normal, then the overlap is solely attributed to how apart the two vectors are in direction.
+
+### Orthonormal basis
+
+A basis of an inner product space, in which every vector is normal, and all the vectors are orthogonal to one another, is called an orthonormal basis. It is the basis most convenient to work with in a vector space.
+
+Consider a basis $B={v_1, v_2, \dots, v_n}$ that is orthonormal. This means $\langle v_i, v_j\rangle = 0$ if $i\ne j$, and $\langle v_i, v_i\rangle = 1$ for all $1\le i, j\le n$. With these properties in mind, let's compute the inner product of two arbitrary vectors $u, v$. We first express them in the basis B.
+
+$$
+u=\sum_i a_i v_i = a_1v_1 + a_2v_2 +\dots, a_nv_n, \quad\text{and}\quad v=\sum_i b_i v_i = b_1v_1 + b_2v_2 +\dots, b_nv_n
+$$
+where $a_1, a_2,\dots, a_n$ and $b_1, b_2, \dots, b_n$ are coordinates of vectors $u, v$ respectively in the basis B. So now the inner product can be written as following, assuming ${\bf a}  = (a_1, a_2, \dots, a_n)^T$
+and ${\bf b}  = (b_1, b_2, \dots, b_n)^T$ are coordinate representation of vectors $u, v$ as column vectors -
+
+$$
+\langle u, v\rangle = \left\langle\sum_i a_i v_i, \sum_j b_j v_j \right\rangle
+= \sum_{ij} a_i^*b_j \langle v_i, v_j\rangle = \sum_i a_i^* b_i = {\bf a^{\dagger}b}
+$$
+
+where we utilised the linearity of the inner product and the fact that the basis vectors are orthonormal.
+This shows that in the orthonormal basis, the inner product of the two vectors becomes the usual complex dot product of the corresponding coordinate vectors.
+
+Another advantage one can quickly see that if the basis vectors were not orthonormal, the double summation will not simplify to single summation, and there will be $i\ne j$ terms, makding computing of inner product more computationally expensive.
+
+So from now on, when we refer to a basis, it will be orthonormal basis, unless stated otherwise.
+
+### Changing basis
+
+A basis works as a reference in a vector space. When we write a vector as linear combination of basis elements, the coefficients, or coordinates basically tell us how much each of the basis vector needs to scale so that the added resulting vector is the desired one.
+
+Depending on what system the vector space describes, a specific basis can mean a specific orientation of the system, a specific frame of reference, or specific type of measurement system. One often changes the orientation, reference, or type of measurement. This means choosing a different basis.
+
+So here we will see how a vector transforms when we change the basis. Consider a basis $B={v_1, v_2, \dots, v_n}$, and another basis $B'={v'_1, v'_2, \dots, v'_n}$. We need to know how $B'$ is related to $B$. Say $B$ is our original basis, so we try expressing vectors of $B'$ in terms of $B$. We write, for every $1\le j \le n$
+
+$$
+v_j = \sum_i T_{ij} v_i'
+$$
+
+where $T_{ij}$ are linear coefficients for each $j$. Now an arbitrary vector $v=\sum_j a_j v_j$ can be expressed follows
+
+$$
+v = \sum_j a_j v_j = \sum_j a_j \left(\sum_i T_{ij}v_i'\right)
+=\sum_i
+\left(
+\sum_j T_{ij}a_j
+\right)v_i'
+=\sum_i({\bf Ta})_i v_i'=\sum_i a_i'v_i'
+$$
+
+where $a_i'=({\bf Ta})_i$. Thus the coordinates ${\bf a}=(a_1, a_2, \dots, a_n)$ of vector $v$ in basis $B$ become ${\bf a'}=(a_1', a_2', \dots, a_n')$ in the new basis $B'$. And since $a_i'=({\bf Ta})_i$, the coordinates are related as ${\bf a'=Ta}$ in the usual matrix multiplication sense.
 
 ## Special operators
 
+Consider a set of all linear operators on a vector space $L_v=\{L| L:V\to V\text{~is a linear operator}\}$. This set itself has interesting structure, with various operators that are of particular importance. Let's see below.
+
+- Sum of two linear operators is defined as follows. If $L_1, L_2 \in L_v$ are linear operators, then their sum $L=L_1 + L_2$ is a linear operator such that $L(v) = L_1(v) + L_2(v)$ for every $v\in V$.
+
+- Scalar multiplication to a linear operator is defined through $L=a_1L_1\implies L(v) = a_1 L_1(v)$
+- The **zero operator**, or map is $O:V \longrightarrow V$, that maps every vector $v$ to zero vector, $O(v)=0$.
+
+With the above, it is easy to see that the set $L_v$ of all the linear maps forms a vector space itself.
+
+- The **Identity operator**, $I:V\longrightarrow V$ maps every vector to itself, $I(v) = v$.
+
+Linear operators can be combined, or 'multiplied' in the following way. If $L_1, L_2$ are two linear operators, then their product, is defined as $L=L_1L_2$, such that $L(v)=L_1(L_2(v))$. It is easy to see that if ${\bf L_1, L_2}$ are matrix representations of the operators $L_1, L_2$, then $L$ is represented by the matrix multiplication ${\bf L=L_1L_2}$.
+
+
+- **Invertable operators**: Operators are map, and if they are bijective maps, they can be inverted. The inverse of an operator $L$ is an operator denoted as $L^{-1}$ such that $L^{-1}L = I, i.e., L^{-1}(L(v))=L^{-1}L(v)=I(v)=v$ for every $v\in V$.
+
+### Adjoint operator
+
+Adjoint operator is an operator related to another operator. For a given operator in an inner product space, it's adjoint operator is defined best with help of the inner product, as follows. If $A$ is an operator, it's adjoint operator is defined as an operator denoted as $A^{\dagger}$ such that, for any two vectors $v_1, v_2$, the following is always true-
+
+$$
+\langle A^{\dagger}v_1, v_2\rangle = \langle v_1, Av_2\rangle \quad\text{or equivalently}\quad \langle v_1, Av_2 \rangle = \langle v_2, A^{\dagger}v_1\rangle^* 
+$$
+
+So if we swap the two vectors, and conjugate the inner product, then the adjoint operator gives the same scalar as the given operator $A$. In this sense, the adjoint operator is conjugate transpose of  the given vector.
+
 ### Hermitian operators
 
+Hermitian operators are of vital importance in linear algebra, vector spaces, and in quantum science. These are operators that are adjoint of themselves. That is, an operator $A$ is called Hermitian if $A^{\dagger} = A$.
+
+```{tip}
+The matrix representation of a Hermitian operator is conjugate symmetric, i.e., ${\bf A^{\dagger}_{ij} = A^*_{ji}}$.
+```
+
 ### Unitary opertors
-- Probability conservation
+Unitary operators are special type of invertable operators, such that their adjoint is their inverse, i.e., $A^{\dagger}=A^{-1}$, and equivalently $A^{\dagger}A = AA^{\dagger} = I$.
 
+They are also of vital importance in quantum science, as well as linear algebra. To see why, let us see what happens to the norm of a vector that is transformed by a unitary operator. Say $U$ is a unitary operator, and $v$ an arbitrary vector. If $v'=Uv$, then
 
+$$
+\langle v', v'\rangle = \langle Uv, Uv\rangle =  \langle v, U^{\dagger}Uv\rangle = \langle v, Iv\rangle = \langle v, v\rangle
+$$
+
+That is, norm of a vector does not change under the effect of unitary operator. That is why, the act of unitary operator on vectors is interpreted as 'rotation' of vectors, and is called unitary rotation.
+
+### Dirac Notation
+
+$$
+{\Huge
+\left\langle
+     \text{Bra}| \text{Operator}| \text{Ket}
+\right\rangle = \text{Number}
+}$$
+
+The Dirac notation, also called Bra-Ket notation, is a notation used in Quantum Physics to express vector operations, and inner product.
+It makes interpretation of state, observations and inner product easier.
+
+- It uses angular brackets $\langle , \rangle$ and vertical bar $|$.
+- A Ket is a vector of the Hilbert space denoted as $|v\rangle$, and represents state of a quantum system.
+- Action of linear operator $A$ on a ket is expressed as $A|v\rangle$.
+- A Bra is of the form $\langle f|$. It is a map $f: V\longrightarrow C$, i.e., it maps a vector to a number, usually complex number.
+- With an inner product $\langle , \rangle$ defined on vector space, each ket has a unique corresponding bra $\langle v, ~ \rangle \equiv \langle v|$
+- Basically a bra is a map that is literally parameterised by the vector of Hilbert space, and its action on a vector is governed by the defined inner product.
+- The inner product then is equivalently expressed more conveniently as
+
+$$
+\langle v_1, v_2 \rangle \equiv \langle v_1 | v_2 \rangle , \quad\text{and for some operator, }A\quad \langle v_1, A v_2\rangle \equiv \langle v_1|A|v_2\rangle
+$$
+
+- The set of all Bra is called dual space of vector space, and both can be used to represent the state.
+- One also defines outer product, of two vectors as $L=|v_1\rangle \langle v_2|$, which acts as an operator
+$L(v)\equiv L|v\rangle = |v_1\rangle\langle v_2|v\rangle = \langle v_2|v\rangle|v_1\rangle$.
+Here applying $L$ on $|v\rangle$ gives the state $|v_1\rangle$ multiplied by scalar $\langle v_2|v \rangle$.
+
+- For a basis $\{|v_1\rangle, |v_2\rangle, \dots, |v_n\rangle \}$ there is a corresponding basis for dual space, a basis of bra's $\{\langle v_1|, \langle v_2|, \dots, \langle v_n|\}$
+
+- The linear combination for a ket is simply expressed as $|v\rangle = \sum_i a_i |v_i\rangle$, however, for the corresponding bra $\langle v|$ has conjugate coefficients.
+
+$$
+\langle v| = \sum_i a_i^*\langle v_i|
+$$
 
 ## States and Operators
+
+Here we will recall the fundamental notions of quantum mechanics we use when we setup the mathematical framework for a given quantum system.
+
+To describe or study a quantum system, we first start with a set of states that are mutually exclusive with respect to an observation or measurement.
+Classically, a system and observations are two distinct things without their interplay. Since classically when we observe something, for example a moving car, or a passing meteor, our 'observation' does not affect the dynamics or behaviour of the system in question. It is because the interaction of the observer and the system is usually so weak that there is no effect of the presence of observer on the system.
+
+But within the quantum realm, this is not the case. In the strict sense, any observation in quantum realm is result of a measurement, which itself is associated with the property of the system, such as position, momentum, or energy of the system. Secondly, in the quantum realm, properties are quantised, that is, instead of any possible value, there exist descrete values or outcomes that individual measurement can result in. For example, in case of a qubit, the measurement of the state result in either $|0\rangle$ or $|1\rangle$.
+
+So when there is an observation we think of, and the decrete set of state the system is in, and these state are mutually exlusive in the sense of possibility.
+
+If the system is found in one of those state, and the corresponding measurement is done, it will always be found in that state. We choose this set as our basis. Imagine there are $n$ possible states, then basis may be expressed as $B=\{|1\rangle, |2\rangle, |3\rangle, \dots, |n\rangle\}$. Here the states are symbolically expressed by the outcome labels $1, 2, \dots, n$. The Hilbert space for the quantum system is then the linear span of these states -
+
+$$
+H_b = \left\{|s\rangle =\sum_{l=1}^n c_l|l\rangle: \text{where } c_l\in \mathbb{C}\right\}
+$$
+
+Each vector in this Hilbert space is a possible state. This is because of the **superposition principle** which states that If a quantum system can exist in two states (or more), it can exist in all possible superpositions of the two (or more of those) states. Let's see below what this superposition means in connection with a quantum system.
+
 ### Connection with Experiment
+
+We have the following probabilistic interpretation of a general state in the Hilbert space.
+
+```{admonition} Probabilistic interpretation of superposition
+:class: tip
+
+A quantum state $|s\rangle = c_1|1\rangle + c_2|2\rangle  + \dots c_n|n\rangle $ is a state, in which possibilities of being measured in each one of the basis states $|l\rangle$ coexist simultaneously, untill the measurement is done.
+```
+
+The coefficients $c_l$ are complex probability amplitudes for each state $|l\rangle$, and the actual probability of measurement outcome being in the state $|l\rangle$ is $|c_l|^2$. Since sum of all the probabilities must add to 1, we must have -
+
+$$
+1 = \sum_{l=1}^n |c_l|^2 = |c_1|^2 + |c_2|^2 + \dots +|c_n|^2
+$$
+
+```{admonition} Overlap of probability
+The inner product of the two states $\langle s, s'\rangle \equiv \langle s|s'\rangle$ gives the overlap of probabilities of the two states.
+```
+
+For mutually exclusive states this overlap is zero, hence the mutually exclusive states should be orthogonal to each other. That is why we impose that the basis above is orthogonal, i.e., $\langle l|l'\rangle = 0$ for $l\ne l'$ and normal $\langle l|l\rangle = 1$.
+
+Further, lets compute the norm of the above generic state $|s\rangle$.
+
+$$
+\langle s|s\rangle = \sum_l c_l^*\langle l| \sum_{l'} c_{l'}|l'\rangle  = \sum_{l,l'} c_l^*c_{l'}\langle l|l'\rangle = \sum_{l} |c_l|^2
+$$
+
+But the probability argument implied that the last summation equals 1, so $\langle s|s'\rangle = 1$, that is the norm of the state must also be 1. That is why in quantum system, a state is represented by a unit vector of the Hilbert space.
 
 [youtube](https://youtube.com/clip/Ugkxh9W3xafNSWAP-VU9LCrRXkx9kgUH0mY8?si=MVsRsDUeJld5fV9_)
 
