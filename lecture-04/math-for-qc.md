@@ -1101,6 +1101,48 @@ $$
 
 That is, norm of a vector does not change under the effect of unitary operator. That is why, the act of unitary operator on vectors is interpreted as 'rotation' of vectors, and is called unitary rotation.
 
+### Eigenvalues, and Eigenvectors
+
+The concept eigenvalues and eigenvectors has rather wide range of applications in physics, as well as technology.
+
+In a vector space, eigenvalues and eigenvector are attributes associated with a linear map or operator. We all know that linear operators map a vector to another vector. Say $L$ is a linear operator, then for a given arbitrary vector $v$, $v'=L(v)$ is in general another vector.
+
+If it so happens that for a particular vector $v_e$, the transformation via $L$ does not change the direction, i.e., $L(v_e)$ is in the same direction. But then we can write $L(v_e) = \lambda v_e$, where $\lambda$ is a scalar. Such a vector is called eigenvector of the operator, and the associated scalar $\lambda$ is called an eigenvalue of the operator.
+
+```{admonition} Definition
+:class: tip
+
+For a given operator $L$, a vector $v$ is called an **eigenvector** if the vector gets mapped to a vector parallel to itself, i.e.,
+
+$$
+L(v) = \lambda v
+$$
+
+The corresponding number $\lambda$ with which the eigenvector get scaled is called the **eigenvalue**.
+```
+
+One can ask the following, how many eigenvalues and/or eigenvectors can a linear operator have?
+
+To answer it, and to also understand the nature and purpose of eigenvalues and eigenvectors, let's work with the matrix representation of the linear operator and vectors. Consider a basis $B=\{v_1, v_2,\dots, v_n\}$ in which the coordinates of a vector $v$ are ${\bf X}=(x_1, x_2, \dots, x_n)$, and the matrix representation of the operator $L$ is ${\bf L}$. Then if $v$ is an eigenvector of $L$ with eigenvalue $\lambda$, then $L(v) = \lambda v$ is equivalent to the following matrix expression 
+
+$$
+{\bf LX} = \lambda{\bf X}, \quad\text{or, equivalently}\quad ({\bf L}-\lambda {\bf I})X = 0
+$$
+where ${\bf I}$ is identity matrix. Since ${\bf X}$ is in general non-zero, the equation $({\bf L}-\lambda {\bf I})X = 0$ can only be true if the [determinant](https://en.wikipedia.org/wiki/Determinant) of the matrix ${\bf L_\lambda= L}-\lambda {\bf I}$ is zero.
+
+Determinant of a square matrix is a scalar function, expressed as $Det(L_\lambda)$. Computing the $Det({\bf L}-\lambda {\bf I})=0$ gives a polynomial equation in $\lambda$ of degree $n$. This equation will have $n$ solutions for $\lambda$. These $n$ values are the set of eigenvalues associated with the operator.
+
+If we label the $n$ eigenvalues as $\lambda_i$, then by solving the linear equation ${\bf L}X = \lambda_i X$ for vector $X$, we get the coordinates of the corresponding eigenvectors.
+
+```{admonition} Property
+:class: tip
+
+Eigenvectors corresponding to two distinct eigenvalues are linearly independent.
+```
+
+In fact, if we have a matrix with all distinct eigenvalues, the corresponding eigenvectors form a Basis of the vector space, called ***eigenbasis***.
+
+
 ### Dirac Notation
 
 $$
@@ -1140,6 +1182,7 @@ $$
 
 ## States and Operators
 
+
 Here we will recall the fundamental notions of quantum mechanics we use when we setup the mathematical framework for a given quantum system.
 
 To describe or study a quantum system, we first start with a set of states that are mutually exclusive with respect to an observation or measurement.
@@ -1160,6 +1203,8 @@ Each vector in this Hilbert space is a possible state. This is because of the **
 ### Connection with Experiment
 
 We have the following probabilistic interpretation of a general state in the Hilbert space.
+
+#### Probabilistic interpretation
 
 ```{admonition} Probabilistic interpretation of superposition
 :class: tip
@@ -1187,10 +1232,62 @@ $$
 
 But the probability argument implied that the last summation equals 1, so $\langle s|s'\rangle = 1$, that is the norm of the state must also be 1. That is why in quantum system, a state is represented by a unit vector of the Hilbert space.
 
+
+
+#### Interpretation of measurement
+Let us try to illustrate how quantum measurement works.
+When we measure a property of a quantum system, the outcome of the measurement should yield a value.
+
+Let's assume the quantum system imagined in the previous section, the states are $|l\rangle$ with $l=1,2,\dots n$. If the system is already in one of these states, then it stays in it, and the outcome of the measurement is, say $a_l$ corresponding to the state $|l\rangle$.
+
+This observation, against our intuition of uncertainty in quantum system, is actually definite. Is there something special about the system being in state $|l\rangle$ ? Yes, it is so because these state are by construction mutually exclusive with respect to observation, as discussed in section [](#states-and-operators).
+
+The uncertainty comes if before the measurement system was in a superposition state $|s\rangle = c_1|1\rangle + c_2|2\rangle  + \dots c_n|n\rangle$. In this case, the system is in a state where the possibility of being in any one of the $|l\rangle$ state coexist until the measurement. 
+
+Once we observe the system, or measure it, the system collapses into one of the $|l\rangle$ states with probability $|c_l|^2$. In this situation the outcome is not definite, but probabilistic, and if we repeat the above experiment, we get a probability averaged outcome, called **expectation value**. It is denoted as $\langle a \rangle$ and is given by the weighted average of the probabilities -
+
+$$
+\langle a \rangle = \sum_{l=1}^n |c_l|^2 a_l
+$$
+
+#### Mathematical interpretation
+
+Mathematically, the above measurement is interpreted as following.
+
+Every physically measurable quantity is called an observable, and for every observable, there is a Hermitian operator, say $A$ that acts on a state.
+If the state is $l\rangle$, the result of the action is $A|l\rangle=a_l|l\rangle$, and if the state is in superposition $|s\rangle$, the state changes to $A|s\rangle$.
+
+The overlap, or inner product of the resulting state with initial state gives the outcome of the measurement. The outcome, which is also called the expectation value, is expressed as $\langle s, As\rangle$ or $\langle s|A|s\rangle$ in the Dirac notation.
+
+- For the $|l\rangle$ state, the outcome is $\langle l|A|l\rangle = a_l\langle l|l\rangle = a_l$, and if definite.
+
+- For the superposition state, the outcome is probabilistic with expectation value
+
+$$
+\begin{align}
+\langle a \rangle &= \langle s|A|s \rangle =
+\left(
+    \sum_{l'}c_{l'}^*\langle l'|
+\right)A
+\left(
+\sum_l c_l|l\rangle
+\right)\\
+&=
+\sum_{l,l'}c_{l'}^*c_l a_l\langle l'|l \rangle
+= \sum_l a_l|c_l|^2
+\end{align}
+$$
+
+which is same as one interpreted as measurement outcome in the previous section.
+
+
+## Hilbert space of Qubits
+
+
+
 [youtube](https://youtube.com/clip/Ugkxh9W3xafNSWAP-VU9LCrRXkx9kgUH0mY8?si=MVsRsDUeJld5fV9_)
 
 
-### Representation theory
 
 
 [^1]: See the [Wikipedia article on set](https://en.wikipedia.org/wiki/Set_(mathematics)) for more details.
