@@ -1367,6 +1367,7 @@ The size of the basis, and hence the dimension of the Hilbert space of $n$ qubit
 The quantum state we referred to so far are what one calls pure states, and they are represented by a normalised vector in a complex Hilbert space. In the Dirac notation, they are described as a ket $|v\rangle$ or a bra $\langle v|$.
 
 There is another way to describe the state of quantum system which can be generalised to mixed states (defined below), and the is through **density operator**. For a system in pure quantum state $|v\rangle$, the density operator is defined as
+
 $$
 {\Huge
 \rho = |v\rangle \langle v|
