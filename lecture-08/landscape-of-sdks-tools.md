@@ -322,3 +322,8 @@ Lets take a look at the specific quantum software components used. First we have
 :align: center
 ```
 
+```{admonition} Julia instructions
+:class: tip
+
+Instructions for using Julia and Julia Yao can be found [here](./instructions/instructions.md)
+```
