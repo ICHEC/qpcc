@@ -1,10 +1,10 @@
 ---
-title: Quantum Algorithms - I
+title: Early Quantum Algorithms
 layout: post
 ---
 
 (lecture-10)=
-# Lecture 10: Quantum Algorithms - I
+# Lecture 10: Early Quantum Algorithms
 
 ```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture 
 ```
