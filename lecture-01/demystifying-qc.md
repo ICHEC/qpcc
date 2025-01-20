@@ -107,7 +107,7 @@ we now move on to addressed where quantum computing fits in this context, and wh
 ​The primary reasons why computational technology developers and its end-users are looking at the next generation of methodologies and platforms is that currently there are a number of challenges and limitations that classical high-performance computing is hitting​
 
 ```{card}
-- a number of complex computational, simulation and modelling problems remain intractable – and, an feasible time-to-solution is achieved by reducing the complexity through approximations of the problems/systems that are solved (through methods such as heuristics), or reducing the precision of the solution to be completed to an acceptable threshold that produces a good-enough solution. This is a compromise between high-accuracy or high-precision, versus a reasonable time-to-solution or what problem size can be actually represented and solved in a classical high-performance computer.​
+- a number of complex computational, simulation and modelling problems remain intractable – and, a feasible time-to-solution is achieved by reducing the complexity through approximations of the problems/systems that are solved (through methods such as heuristics), or reducing the precision of the solution to be completed to an acceptable threshold that produces a good-enough solution. This is a compromise between high-accuracy or high-precision, versus a reasonable time-to-solution or what problem size can be actually represented and solved in a classical high-performance computer.​
 ```
 ```{card}
 - Typically, these are faced in all of the sectors, algorithms and application areas that we walked through earlier.​
