@@ -100,9 +100,7 @@ Thus, HPC has enabled a wide variety of sectors and businesses to do more comple
 
 #### Where does Quantum Computing fit?
 
-Now that we have touched on the role and applications of high-performance computing, and pointed out where many of our sectors and organisations are most likely already using it to build and power digital solutions,​
-
-we now move on to addressed where quantum computing fits in this context, and why we look towards this emerging computing paradigm.​
+Now that we have touched on the role and applications of high-performance computing, and pointed out where many sectors and organisations are most likely already using it to build and power digital solutions,​ we move on to address where quantum computing fits in this context, and why we look towards this emerging computing paradigm.​
 
 ​The primary reasons why computational technology developers and its end-users are looking at the next generation of methodologies and platforms is that currently there are a number of challenges and limitations that classical high-performance computing is hitting​
 
