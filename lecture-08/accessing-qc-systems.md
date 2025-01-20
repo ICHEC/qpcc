@@ -462,11 +462,12 @@ Here is the link to [Xanadu codebook](https://codebook.xanadu.ai/). Please also 
 
 ### D-Wave Leap IDE
 
+
+We see a similar structure to IBM and Xanadu with D-Wave with some differences. Most notably that D-Wave uses **quantum annealing** based programming, with Ocean, and quantum annealing hardware. Ocean is D-wave's software suit. D-Wave also offers unique hybrid Classical-Quantum Solvers. Classical simulation can also be performed on D-Waves so-called classical solvers. D-Wave also offers an online cloud-computing service akin to IBM and Xanadu called the Leap IDE.  ​
+
 ```{drawio-image} ./dwave-diag.drawio
 :align: center
 ```
-
-We see a similar structure to IBM and Xanadu with D-Wave with some differences. Most notably that D-Wave uses **quantum annealing** based programming, with Ocean, and quantum annealing hardware. Ocean is D-wave's software suit. D-Wave also offers unique hybrid Classical-Quantum Solvers. Classical simulation can also be performed on D-Waves so-called classical solvers. D-Wave also offers an online cloud-computing service akin to IBM and Xanadu called the Leap IDE.  ​
 
 To checkout the D-wave's cloud setup, click this [link](https://www.dwavesys.com/solutions-and-products/cloud-platform/), and to signup for the cloud services, check [link](https://cloud.dwavesys.com/leap/signup/​). Following video gives an intro to D-wave's quantum computing setup.
 

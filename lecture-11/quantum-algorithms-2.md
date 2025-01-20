@@ -4,7 +4,23 @@ layout: post
 ---
 
 (lecture-11)=
-# Lecture 11: Quantum Algorithms - II
+# Lecture 11: NISQ Quantum Algorithms
+
+```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture 
+```
+
+```{admonition} Learning Outcomes
+:class: tip
+In this lecture we will be looking into Noisy Intermediate Scale Quantum (NISQ) algorithms. The learning outcomes of this lecture will be the following : 
+- Introduction to NISQ algorithms and their applications.
+- Grasping potential advantage of NISQ algorithms.
+- Some illustration of the Optimization problem, namely QUBO.
+```
+
+
+```{image} ../prep/images/quant.png
+:align: center
+```
 
 
 ## NISQ era and algorithms
@@ -255,6 +271,82 @@ In the diagram below we can see another diagram showing the problems solved by N
 :align: center
 ```
 
+## QUBO problem
+
+The Quadratic unconstrained binary optimiation, or **QUBO** is a class of mathematical problem, that has rather vast and diverse applications. The QUBO problem seeks minimization of a real valued function of several binary variables. More formally, one looks for minimization of the following function $f$ of $N$ variables -
+
+$$
+f({\bf x}) = {\bf x}^T Q {\bf x} + {\bf v}^T {\bf x} + c
+$$
+
+of equivalently
+
+$$
+f({\bf x}) = \sum_{ij} x_i Q_{ij} x_j + \sum_i v_i x_i + c
+$$
+
+where, $Q$ is real symmetric matrix of size $N\times N$ with entries $Q_{ij}$, ${\bf v}$ is real valued vector of length $N$, and $c$ is a constant number. The function $f$ is a function of $N$ binary variable ${\bf x} = (x_1, x_2, x_3, \dots, x_N)$, i.e., $x_i = 0, 1$. The matrix, vector and scalar $({\bf Q}, {\bf v}, c)$ define the optimization problem.
+
+The variables being binary is what makes minimization of $f(x)$ interesting and harder. Not that the minimization would have been easy if ${\bf x}$ was vector of continuous variables, as the minimization of functions of several variables is an $NP$ hard problem. But real variables give us access to local minima through gradient descent methods.
+
+### QUBO example: Set partitioning.
+
+To get a better feel about how and what kind of problems get mapped to QUBO, let us look at the following problem.
+We have a set of $N$ numbers $U = \{n_1, n_2, n_3, \dots, n_N\}$, and we need to partition the set into two disjoint subsets $A$ and $B$ such that the sum of numbers in both the sets is as close to each other as possible. More formally, if
+
+$$
+S_A = \sum_{i\in A} n_i \quad \text{and} \quad S_B = \sum_{i\in B} n_i
+$$
+
+The we need to construct the sets $A$ and $B$ such that $f_{\bf n} = (S_A - S_B)^2$ is minimum. Here ${\bf n} = (n_1, n_2, \dots, n_N)$ is the vector of numbers in the set. The function $f_{\bf n}$ is the cost function.
+
+
+```{tip}
+An example of such problem in daily life can be partitioning a class of students into two section, such that average grade of students in each section is almost same.
+```
+
+The process of finding optimal solution involves finding different partitionings of the the set $U$ into $A$ and $B$, and computing the cost function, to seek minima using some algorithm. The cost function can be better formalised if we can define a definite set of variables for our problem.
+
+For partitioning the set, we each of the numbers $n_i$ in only one of the two sets $A$, $B$, so we can associate a binary variable $x_i$ to $n_i$, such that if $x_i = 1$ if we put $n_i$ into $A$, and $x_i = 0$ if we put $n_i$ into $B$. Then a vector ${\bf x} = (x1, x_2,\dots, x_N)$ of binary variables encapsulated the set partitioning, and different configurations of the vector ${\bf x}$ correspond to different ways of partitioning the set into $A$ and $B$.
+
+With ${\bf x}$, we can also write the set sums as follows -
+
+$$
+S_A = \sum_i n_i x_i \quad \text{and} \quad S_B = \sum_i n_i (1 - x_i)
+$$
+
+We can also define $S = \sum_i n_i$ as sum of all the numbers in the set $U$. Using the above expressions, we can compute the cost function as follows
+
+$$
+\begin{align}
+f_{\bf n}({\bf x}) &= (S_A - S_B)^2 = S_A^2 + S_B^2 - 2 S_A S_B \\
+&= \left(
+    \sum_i n_i x_i 
+\right)^2 + 
+\left(
+    \sum_i n_i (1 - x_i)
+\right)^2 - 2
+\left(
+    \sum_i n_i x_i 
+\right)
+\left(
+    \sum_i n_i (1 - x_i)
+\right)\\
+&= \sum_{ij}\left(
+    n_i n_j x_i x_j + n_i n_j (1 - x_i) (1 - x_j) - 2 n_i n_j x_i (1 - x_j)
+\right)\\
+& = 4\sum_{ij} n_i n_j x_i x_j -4S\sum_i n_i x_i + S^2
+\end{align}
+$$
+
+If we define $Q_{ij} = n_i n_j, v_i = -4S n_i$, and $c = S^2$, then the cost function can be written in the matrix form as follows -
+
+$$
+f_{\bf n}({\bf x}) = {\bf x}^T Q {\bf x} + {\bf v}^T {\bf x} + c = \sum_{ij} Q_ij x_i x_j + \sum_i v_i x_i + c
+$$
+
+For small size problems, one can use heuristic algorithm we use in daily life to partition the set. However, with growing problem size, the heuristic algorithms can lead to quite misleading results.
+
 
 ## Wrap-up
 
@@ -262,4 +354,5 @@ In the diagram below we can see another diagram showing the problems solved by N
     - Simulation
     - Optimisation
     - Machine learning
+    - QUBO
 - Add more
