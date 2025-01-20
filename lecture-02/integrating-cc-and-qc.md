@@ -19,7 +19,7 @@ layout: post
 
 
 
-## Why imtegrate classical & Quantum Computing
+## Why integrate classical & Quantum Computing
 
 ### Classical High-Performance Computing
 
