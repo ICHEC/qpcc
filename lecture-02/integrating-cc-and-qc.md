@@ -61,6 +61,10 @@ And, the importance of doing this as a part of existing HPC software methods and
 ### Quantum Computation Workflow
 Before going forward with some specific examples of potential hybrid high-performance quantum computing applications, let us look deeper into the quantum computing part of an application workflow.
 
+```{image} ../prep/images/Computation_map.jpg
+:align: center
+```
+
 Presently, all data is generated and stored in classical format – that is in binary as bits. This is represented by the first letter in this map where C represents generation of classical data.
 This classical data is then processed by classical computing systems in classical formats. This is represented by the second letter in the map where C represents classical nature of the processing/computing system.
 Thus, the top left category CC is the scenario where classical data is generated and stored is processed by classical computing systems.
@@ -69,9 +73,11 @@ Towards the end of this lecture, we will highlight quantum sensing and metrology
 QC is the scenario where quantum data may be used for classical computing systems, an example is where classical applications such as machine learning models could be useful to study the internal state of a quantum system and associated quantum data.
 And, QQ is where quantum data is processed by quantum computers. This quantum data may come from measuring a quantum system through quantum sensing and metrology technologies, or quantum data within a quantum computer to simulate a quantum system such as a physics or molecular models.
 
-Now, the highlighted category CQ is the scenario where quantum computing systems process classical data. The data can be constituted of any kind of observations from classical systems such as text, images, time series, structured or unstructured data. In this scenario, is necessary to translate the classical data and represent it as quantum data within a quantum computer for it to be processed. This is illustrated in the workflow on the right.
+Now, the highlighted category CQ is the scenario where quantum computing systems process classical data. The data can be constituted of any kind of observations from classical systems such as text, images, time series, structured or unstructured data. In this scenario, is necessary to translate the classical data and represent it as quantum data within a quantum computer for it to be processed. This is illustrated in the workflow below.
 
-<<CLICK>>
+```{image} ../prep/images/workflow_quantum.png
+:align: center
+```
 The classical input data is prepared into quantum data through a step commonly referred to as quantum encoding or state preparation. The result is quantum states in which a set of qubits are used to represent the data as a superposition – do not worry about the terminologies and complexities now – if you continue with future lectures, these are introduced more understandably. For now, it is essential to just acknowledge that classical input data has to be encoded into quantum states, which can then be processed by a quantum program which is defined using a series of quantum operations. These quantum operations process the initial quantum state into a resultant quantum state. At the end of the processing, in order to get the quantum results out of the quantum computer, a series of steps have to be performed. The first of these steps is to perform measurements to read what are called observables of the quantum computing system.
 
 Let’s pause here for a moment. In the lecture on “Demystifying quantum computing”, we discussed that there are several technology options available to engineer and develop a quantum computer – using superconductors, photons, neutral atoms, ions, etc. – each with its own pros and cons. Depending on the technology used to implement a quantum processor, the observables of the quantum system that will be measured may be different. For a photon-based quantum computer, the observables can be phase, polarisation and wavelength. Irrespective of this, the observables are measured to describe the state of a quantum system.
