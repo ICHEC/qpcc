@@ -135,7 +135,7 @@ This is where the underlying principles for making quantum computing feasible, b
 
 #### How does Quantum Computing work??
 
-One of the key methods my which individual processors have been classically made more powerful has been through reducing their scale and size.​Chipmakers have incrementally gone down in the sizes of transistors that are used to build processors from 10 nanometers to 7 nanometers to now 5 and 3 nanometers.​
+One of the key methods by which individual processors have been classically made more powerful has been through reducing their scale and size. ​Chipmakers have incrementally gone down in the sizes of transistors that are used to build processors from 10 nanometers to 7 nanometers to now 5 and 3 nanometers.​
 
 ​In simplistic terms, a transistor is a device to control the flow of electrons, and using that ability to represent binary states (simplistically, a flow in a certain direction may represent zero, while in the opposite may represent one). ​Typically within a transistor, the source and drain are two ends, while a gate is used to control the flow of electrons between the source and drain.​
 
@@ -145,7 +145,7 @@ They have been reducing so much in size that it becomes increasingly difficult a
 
 This is a challenge and has limited the ability to build smaller transistors and more densely packed classical processors.​
 
-However, quantum mechanics and quantum effects that happen in a device at such small scales have been the opportunity to represent and process data in a different paradigm – quantum computing technologies.​
+However, quantum mechanics and quantum effects that happen in a device at such small scales offer the opportunity to represent and process data in a different paradigm – quantum computing technologies.​
 
 Rather than controlling a flow of electrons, and using that to represent zero or one as binary states of data – quantum computing works at such as small scale where the states of data are represented using individual particles - electrons or ions or specific charged atoms – and these individual particles are then controlled and manipulated to implement processing of their states and data​
 
@@ -155,7 +155,7 @@ Often, these quantum effects are presented in many articles as quantum tunnellin
 
 Now, to implement a quantum processor, different particles are being explored to present the state of data and the methods used to control the particles also vary – this is what we observe from different technology developers pursuing superconducting, trapped ion, neutral atom, silicon dots, diamond-based or topological qubit technologies.​
 
-Which approach is the most efficient, accurate and promising one? That is yet to be determined. Presently, all of these are being pursued by different players with an aim to improve the accuracy of these systems, their reliability because at such a small scale, quantum systems are easily affected by noise from their environment, the ability to control the individual particles is so fragile that the quantum states do not last too long – thus, they become erroneous or incorrect very soon, and hence you can do only very short computations.​
+Which approach is the most efficient, accurate and promising one? That is yet to be determined. Presently, all of these are being pursued by different players with an aim to improve the accuracy and reliability of these systems, since, at such a small scale, quantum systems are easily affected by noise from their environment. Control over the individual particles is so fragile that the quantum states do not last too long – thus, they become erroneous or incorrect very soon, and hence you can do only very short computations.​
 
 Thus, most of the efforts are currently to pursue these different approaches for realising and manufacturing quantum processors, and explore which ones can become mature and reliable enough like current classical processors.​
 
@@ -193,7 +193,7 @@ We will look at a few examples in a moment. Before that however, for any of us t
 - when we use lower precision to perform computations and representation of data on classical HPC compared to the problem’s natural precision;​
 ```
 ```{card}
-- when the time to compute a solution requires optimised by orders of magnitude,​
+- when the time to compute a solution needs to be reduced by several orders of magnitude,​
 ```
 
 These are typically candidates where quantum computing could help and deliver a potential improvement compared to classical computing methods.​
