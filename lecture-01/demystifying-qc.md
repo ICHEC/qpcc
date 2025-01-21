@@ -100,35 +100,35 @@ Thus, HPC has enabled a wide variety of sectors and businesses to do more comple
 
 #### Where does Quantum Computing fit?
 
-So far we have touched on the role and applications of high-performance computing, and pointed out where many sectors and organisations are most likely already using it to build and power digital solutions.​ We now move on to address where quantum computing fits in this context, and why we look towards this emerging computing paradigm.​
+So far, we have touched on the role and applications of high-performance computing, and pointed out where many sectors and organisations are most likely already using it to build and power digital solutions.​ We now move on to address where quantum computing fits in this context, and why we look towards this emerging computing paradigm.​
 
 ​The primary reasons why computational technology developers and its end-users are looking at the next generation of methodologies and platforms is that currently there are a number of challenges and limitations that classical high-performance computing is hitting​
 
 ```{card}
-- a number of complex computational, simulation and modelling problems remain intractable – and, an feasible time-to-solution is achieved by reducing the complexity through approximations of the problems/systems that are solved (through methods such as heuristics), or reducing the precision of the solution to be completed to an acceptable threshold that produces a good-enough solution. This is a compromise between high-accuracy or high-precision, versus a reasonable time-to-solution or what problem size can be actually represented and solved in a classical high-performance computer.​
+- A number of complex computational, simulation and modelling problems remain intractable – a feasible time-to-solution is achieved by reducing the complexity through approximations of the problems/systems that are solved (through methods such as heuristics), or reducing the precision of the solution to be completed to an acceptable threshold that produces a good-enough solution. This is a compromise between high-accuracy or high-precision, versus a reasonable time-to-solution or what problem size can be actually represented and solved in a classical high-performance computer.​
 ```
 ```{card}
 - Typically, these are faced in all of the sectors, algorithms and application areas that we walked through earlier.​
 ```
 ```{card}
-- even on supercomputers, for time-bound applications such as weather forecast, or real-time applications – the available time to compute a solution is limited, or the ability of decompose a problem into smaller parts for parallel processing is also being limited due to the nature of the problem.​
+- Even on supercomputers, for time-bound applications such as weather forecast, or real-time applications – the available time to compute a solution is limited, or the ability of decompose a problem into smaller parts for parallel processing is also being limited due to the nature of the problem.​
 ```
 ```{card}
-- this is one of the primary reasons where developers are looking at alternate computing techniques to supplement the existing classical high-performance computing as accelerators for specific parts of the problem.​
+- This is one of the primary reasons why developers are looking at alternate computing techniques to supplement the existing classical high-performance computing as accelerators for specific parts of the problem.​
 ```
 
 There are also fundamental reasons that are closer to the hardware-level that has limited the ability to build more and more powerful classical HPC systems​
 
 ```{card}
-- the power wall is a problem that limits the ability of pack more transistors into processors with limited power consumption, heat dissipation, or also about building larger supercomputing systems that are energy efficient and do not require a township’s worth of energy consumption - therefore the power requirements of more and more powerful HPC systems and processors is a limiting factor​
+- The power wall is a problem that limits the ability to pack more transistors into processors with limited power consumption, whilst managing heat dissipation. It also refers to the difficulties involved in building larger supercomputing systems that are efficient and do not require a township’s worth of energy consumption - therefore the power requirements of more and more powerful HPC systems and processors is a limiting factor​.
 ```
 
 ```{card}
-- the memory wall on the other hand is the increasing disparity between processors and memory/data storage devices - the computational modelling and analysis methods are increasingly moving driven by more and more data that are stored and have to be efficiently processed; exploring large data or parameter spaces are typical in areas such as computational physics, chemistry, optimisation and data analysis problems; therefore, how data is represented and computations are performed on the data is becoming another key bottleneck​.
+- The memory wall on the other hand is the increasing disparity between processors and memory/data storage devices. The computational modelling and analysis methods are driven by more and more data that are stored and have to be efficiently processed. Exploring large data or parameter spaces is typical in areas such as computational physics, chemistry, optimisation and data analysis problems. How data is represented and computations are performed on the data is becoming another key bottleneck​.
 ```
 
 ```{card}
-- finally, the ability to build more powerful and dense processors has been a long-standing problem in the semiconductor industry – scaling the fabrication of classical processors into smaller and smaller form factors are limited by challenges in engineering as well as fundamental physics​.
+- Finally, the ability to build more powerful and dense processors has been a long-standing problem in the semiconductor industry – scaling the fabrication of classical processors into smaller and smaller form factors are limited by challenges in engineering as well as fundamental physics​.
 ```
 
 This is where the underlying principles for making quantum computing feasible, by leveraging its fundamental computational power, and engineering quantum computing devices emerged.​
