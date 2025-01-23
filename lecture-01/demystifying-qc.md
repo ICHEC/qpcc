@@ -100,44 +100,42 @@ Thus, HPC has enabled a wide variety of sectors and businesses to do more comple
 
 #### Where does Quantum Computing fit?
 
-Now that we have touched on the role and applications of high-performance computing, and pointed out where many of our sectors and organisations are most likely already using it to build and power digital solutions,​
-
-we now move on to addressed where quantum computing fits in this context, and why we look towards this emerging computing paradigm.​
+So far, we have touched on the role and applications of high-performance computing, and pointed out where many sectors and organisations are most likely already using it to build and power digital solutions.​ We now move on to address where quantum computing fits in this context, and why we look towards this emerging computing paradigm.​
 
 ​The primary reasons why computational technology developers and its end-users are looking at the next generation of methodologies and platforms is that currently there are a number of challenges and limitations that classical high-performance computing is hitting​
 
 ```{card}
-- a number of complex computational, simulation and modelling problems remain intractable – and, an feasible time-to-solution is achieved by reducing the complexity through approximations of the problems/systems that are solved (through methods such as heuristics), or reducing the precision of the solution to be completed to an acceptable threshold that produces a good-enough solution. This is a compromise between high-accuracy or high-precision, versus a reasonable time-to-solution or what problem size can be actually represented and solved in a classical high-performance computer.​
+- A number of complex computational, simulation and modelling problems remain intractable – a feasible time-to-solution is achieved by reducing the complexity through approximations of the problems/systems that are solved (through methods such as heuristics), or reducing the precision of the solution to be completed to an acceptable threshold that produces a good-enough solution. This is a compromise between high-accuracy or high-precision, versus a reasonable time-to-solution or what problem size can be actually represented and solved in a classical high-performance computer.​
 ```
 ```{card}
 - Typically, these are faced in all of the sectors, algorithms and application areas that we walked through earlier.​
 ```
 ```{card}
-- even on supercomputers, for time-bound applications such as weather forecast, or real-time applications – the available time to compute a solution is limited, or the ability of decompose a problem into smaller parts for parallel processing is also being limited due to the nature of the problem.​
+- Even on supercomputers, for time-bound applications such as weather forecast, or real-time applications – the available time to compute a solution is limited, or the ability of decompose a problem into smaller parts for parallel processing is also being limited due to the nature of the problem.​
 ```
 ```{card}
-- this is one of the primary reasons where developers are looking at alternate computing techniques to supplement the existing classical high-performance computing as accelerators for specific parts of the problem.​
+- This is one of the primary reasons why developers are looking at alternate computing techniques to supplement the existing classical high-performance computing as accelerators for specific parts of the problem.​
 ```
 
 There are also fundamental reasons that are closer to the hardware-level that has limited the ability to build more and more powerful classical HPC systems​
 
 ```{card}
-- the power wall is a problem that limits the ability of pack more transistors into processors with limited power consumption, heat dissipation, or also about building larger supercomputing systems that are energy efficient and do not require a township’s worth of energy consumption - therefore the power requirements of more and more powerful HPC systems and processors is a limiting factor​
+- The power wall is a problem that limits the ability to pack more transistors into processors with limited power consumption, whilst managing heat dissipation. It also refers to the difficulties involved in building larger supercomputing systems that are efficient and do not require a township’s worth of energy consumption - therefore the power requirements of more and more powerful HPC systems and processors is a limiting factor​.
 ```
 
 ```{card}
-- the memory wall on the other hand is the increasing disparity between processors and memory/data storage devices - the computational modelling and analysis methods are increasingly moving driven by more and more data that are stored and have to be efficiently processed; exploring large data or parameter spaces are typical in areas such as computational physics, chemistry, optimisation and data analysis problems; therefore, how data is represented and computations are performed on the data is becoming another key bottleneck​.
+- The memory wall on the other hand is the increasing disparity between processors and memory/data storage devices. The computational modelling and analysis methods are driven by more and more data that are stored and have to be efficiently processed. Exploring large data or parameter spaces is typical in areas such as computational physics, chemistry, optimisation and data analysis problems. How data is represented and computations are performed on the data is becoming another key bottleneck​.
 ```
 
 ```{card}
-- finally, the ability to build more powerful and dense processors has been a long-standing problem in the semiconductor industry – scaling the fabrication of classical processors into smaller and smaller form factors are limited by challenges in engineering as well as fundamental physics​.
+- Finally, the ability to build more powerful and dense processors has been a long-standing problem in the semiconductor industry – scaling the fabrication of classical processors into smaller and smaller form factors are limited by challenges in engineering as well as fundamental physics​.
 ```
 
 This is where the underlying principles for making quantum computing feasible, by leveraging its fundamental computational power, and engineering quantum computing devices emerged.​
 
 #### How does Quantum Computing work??
 
-One of the key methods my which individual processors have been classically made more powerful has been through reducing their scale and size.​Chipmakers have incrementally gone down in the sizes of transistors that are used to build processors from 10 nanometers to 7 nanometers to now 5 and 3 nanometers.​
+One of the key methods by which individual processors have been classically made more powerful has been through reducing their scale and size. ​Chipmakers have incrementally gone down in the sizes of transistors that are used to build processors from 10 nanometers to 7 nanometers to now 5 and 3 nanometers.​
 
 ​In simplistic terms, a transistor is a device to control the flow of electrons, and using that ability to represent binary states (simplistically, a flow in a certain direction may represent zero, while in the opposite may represent one). ​Typically within a transistor, the source and drain are two ends, while a gate is used to control the flow of electrons between the source and drain.​
 
@@ -147,7 +145,7 @@ They have been reducing so much in size that it becomes increasingly difficult a
 
 This is a challenge and has limited the ability to build smaller transistors and more densely packed classical processors.​
 
-However, quantum mechanics and quantum effects that happen in a device at such small scales have been the opportunity to represent and process data in a different paradigm – quantum computing technologies.​
+However, quantum mechanics and quantum effects that happen in a device at such small scales offer the opportunity to represent and process data in a different paradigm – quantum computing technologies.​
 
 Rather than controlling a flow of electrons, and using that to represent zero or one as binary states of data – quantum computing works at such as small scale where the states of data are represented using individual particles - electrons or ions or specific charged atoms – and these individual particles are then controlled and manipulated to implement processing of their states and data​
 
@@ -157,7 +155,7 @@ Often, these quantum effects are presented in many articles as quantum tunnellin
 
 Now, to implement a quantum processor, different particles are being explored to present the state of data and the methods used to control the particles also vary – this is what we observe from different technology developers pursuing superconducting, trapped ion, neutral atom, silicon dots, diamond-based or topological qubit technologies.​
 
-Which approach is the most efficient, accurate and promising one? That is yet to be determined. Presently, all of these are being pursued by different players with an aim to improve the accuracy of these systems, their reliability because at such a small scale, quantum systems are easily affected by noise from their environment, the ability to control the individual particles is so fragile that the quantum states do not last too long – thus, they become erroneous or incorrect very soon, and hence you can do only very short computations.​
+Which approach is the most efficient, accurate and promising one? That is yet to be determined. Presently, all of these are being pursued by different players with an aim to improve the accuracy and reliability of these systems, since, at such a small scale, quantum systems are easily affected by noise from their environment. Control over the individual particles is so fragile that the quantum states do not last too long – thus, they become erroneous or incorrect very soon, and hence you can do only very short computations.​
 
 Thus, most of the efforts are currently to pursue these different approaches for realising and manufacturing quantum processors, and explore which ones can become mature and reliable enough like current classical processors.​
 
@@ -195,7 +193,7 @@ We will look at a few examples in a moment. Before that however, for any of us t
 - when we use lower precision to perform computations and representation of data on classical HPC compared to the problem’s natural precision;​
 ```
 ```{card}
-- when the time to compute a solution requires optimised by orders of magnitude,​
+- when the time to compute a solution needs to be reduced by several orders of magnitude,​
 ```
 
 These are typically candidates where quantum computing could help and deliver a potential improvement compared to classical computing methods.​
