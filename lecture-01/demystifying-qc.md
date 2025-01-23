@@ -184,16 +184,16 @@ Having said that, while a number of interesting algorithmics approaches are bein
 We will look at a few examples in a moment. Before that however, for any of us that are at the first step with the question, “where do I start to see if quantum computing is going to be relevant or beneficial for me”, typically​
 
 ```{card}
-- when modelling and simulating systems with complex characteristics, parameter spaces, correlations​
+- when modelling and simulating systems with complex characteristics, parameter spaces, correlations​;
 ```
 ```{card}
-- when the computations and calculations require approximations to make the solution tractable, for instance exploring a huge parameter space for the best solution,
+- when the computations and calculations require approximations to make the solution tractable, for instance exploring a huge parameter space for the best solution;
 ```
 ```{card} ​
 - when we use lower precision to perform computations and representation of data on classical HPC compared to the problem’s natural precision;​
 ```
 ```{card}
-- when the time to compute a solution needs to be reduced by several orders of magnitude,​
+- when the time to compute a solution needs to be reduced by several orders of magnitude.
 ```
 
 These are typically candidates where quantum computing could help and deliver a potential improvement compared to classical computing methods.​
