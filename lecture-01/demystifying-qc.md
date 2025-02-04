@@ -177,11 +177,11 @@ Well, as we have already mentioned quantum computing is an emerging methodology 
 
 Currently, it is understood to be suitable for very specific types of computations which it can do much better than their classical HPC counterpart implementations.​
 
-These types of specific computations include tasks such as modelling and simulating complex systems that are analogous to quantum mechanics systems (such as physics systems, molecular structures, certain mathematical problems), and typically quantum computing can potentially make such complex simulations and computations which are currently in-tractable at the desired level of accuracy, achievable using the quantum computing approach.​
+These types of specific computations include tasks such as modelling and simulating complex systems that are analogous to quantum mechanics systems, such as physics systems, molecular structures, certain mathematical problems. These problems are often classically intractable at the desired level of accuracy, but quantum computing can potentially make such complex simulations and computations achievable.
 
-Having said that, while a number of interesting algorithmics approaches are being developed and their applications to practically relevant use-cases identified, there is a lot more to be further explored both in terms of algorithms and the types of use-cases that are suited for quantum computing.​
+Having said that, while a number of interesting algorithmic approaches are being developed and their applications to practically relevant use-cases identified, there is a lot more to be further explored both in terms of algorithms and the types of use-cases that are suited for quantum computing.​ At present we are limited by high levels of noise and the relatively low number of qubits available on current quantum computers, but future applications of quantum computing could be much more broad.
 
-We will look at a few examples in a moment. Before that however, for any of us that are at the first step with the question, “where do I start to see if quantum computing is going to be relevant or beneficial for me”, typically​
+We will look at a few examples of fields in which quantum computing is currently being used in a moment when we consider the quantum computing ecosystem. Before that however, we want to answer what may be the first question for many of us: “where do I start to see if quantum computing is going to be relevant or beneficial for me?”:
 
 ```{card}
 - when modelling and simulating systems with complex characteristics, parameter spaces, correlations​;
