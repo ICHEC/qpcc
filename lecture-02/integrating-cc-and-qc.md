@@ -26,12 +26,37 @@ layout: post
 In the simplest of cases, applications to process data or perform modelling or analysis, are typically represented as a computer program which is executed on a Central Processing Unit (CPU). For simple cases, the CPU can be imagined to have one worker that executes the program instructions in a serial fashion to produce the desired output.
 As the complexity of applications and their logics increased, opportunities arose to do what is called parallel computing – this involves executing multiple parts of a program simultaneously on multiple workers within Processing Units. For example, the program or parts of the instructions (known as kernels) within the program, may have to be executed to process different input data sets which are independent of each other – so, these could be done in parallel. This is typically referred to as data parallelism.
 Another example is where for the same input data, different kernels within a program may be executed independent of each other and hence in parallel. This is referred to as task parallelism.
+
+````{panels}
+:container: container-fluid 
+:column: col-lg-6 col-md-6 col-sm-6 col-xs-12 
+:card: shadow-none border-0
+
+```{figure} data_parallelism.png
+:width: 100%
+:name: data_parallelism
+
+Sub-caption 1
+```
+
+---
+
+```{figure} task_parallelism.png
+:width: 100%
+:name: task_parallelism
+
+Sub-caption 2
+```
+
+````
+
+
 As the complexity of applications and their logic increased, computational scientists and HPC specialists built software libraries that take advantage of data parallelism and task parallelism within their applications, so that their programmes could be executed in parallel. They leverage powerful multi-core CPUs made up of multiple workers (known as cores) which allows for the execution of parallel programmes. Typically, multi-core CPUs have anywhere between 2 to 40 or 60 cores, depending upon whether you have them in your laptop or in a powerful server on high-performance computing systems. Now-a-days even processors on edge devices such as smart sensors and satellites have multi-core processors.
 In this context, as the complexity of applications and their logics continued to grow, and the opportunities for data and task parallelism within them were identified more and more, special-purpose processors which are very good at certain types of parallel execution were created.
 Examples of these are graphics processing units (GPUs) and field-programmable gate arrays (FPGAs) which have 100s or 1000s of cores in a single processor. Since these are special-purpose, they are often referred to as accelerators.
 Consequently, while the general purpose CPUs are responsible for executing an application programme, they offload some of the kernels in an application to these special-purpose accelerators and get partial results back from them to complete the rest of the program’s execution. Of course there are exceptions where, for instance, FPGAs are deployed as standalone devices on control systems in factories, robots, etc.. But, in the context of systems modelling, analytics, AI, simulation, these special-purpose processors such as GPUs and FPGAs are often used by the CPU for specific kernels within an application’s program.
 
-Another point to note is that, initially the software tools and libraries required to program such different types of processors also remained different. Over a number of years, programmers, software developers and HPC experts have had to integrate different software tools and libraries for a single program that is composed of multiple heterogeneous kernels. Often, this was done in collaboration with end users from academia and industry that own the applications in order to better understand the use-cases and ensure that these tools fit the requirements and uses within the community.
+Another point to note is that, initially the software tools and libraries required to program such different types of processors also remained different. Over a number of years, programmers, software developers and HPC experts have had to integrate different software tools and libraries for a single program that is composed of multiple heterogeneous kernels, each of which is executed on the most suitable processor. Often, this was done in collaboration with end users from academia and industry that own the applications in order to better understand the use-cases and ensure that these tools fit the requirements and uses within the community.
 Over time, interoperability and unification of these software tools and libraries was achieved – as a result of which now-a-days many programming libraries have the ability to target different processor types under the hood, thereby reducing the difficulty of end-users, application developers and computational scientists.
 
 ### Co-existence of Classical & Quantum Computing
