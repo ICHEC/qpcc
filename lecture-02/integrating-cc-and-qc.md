@@ -27,29 +27,18 @@ In the simplest of cases, applications to process data or perform modelling or a
 As the complexity of applications and their logics increased, opportunities arose to do what is called parallel computing – this involves executing multiple parts of a program simultaneously on multiple workers within Processing Units. For example, the program or parts of the instructions (known as kernels) within the program, may have to be executed to process different input data sets which are independent of each other – so, these could be done in parallel. This is typically referred to as data parallelism.
 Another example is where for the same input data, different kernels within a program may be executed independent of each other and hence in parallel. This is referred to as task parallelism.
 
-````{panels}
-:container: container-fluid 
-:column: col-lg-6 col-md-6 col-sm-6 col-xs-12 
-:card: shadow-none border-0
-
-```{figure} data_parallelism.png
+```{figure} ../lecture-02/data_parallelism.png
+:align: center
 :width: 100%
-:name: data_parallelism
-
-Sub-caption 1
+--
+**Data parallelism. Source: https://tinyurl.com/2jpdk47x**
 ```
-
----
-
-```{figure} task_parallelism.png
+```{figure} ../lecture-02/task_parallelism.png
+:align: center
 :width: 100%
-:name: task_parallelism
-
-Sub-caption 2
+--
+**Task parallelism. Source: https://tinyurl.com/2jpdk47x**
 ```
-
-````
-
 
 As the complexity of applications and their logic increased, computational scientists and HPC specialists built software libraries that take advantage of data parallelism and task parallelism within their applications, so that their programmes could be executed in parallel. They leverage powerful multi-core CPUs made up of multiple workers (known as cores) which allows for the execution of parallel programmes. Typically, multi-core CPUs have anywhere between 2 to 40 or 60 cores, depending upon whether you have them in your laptop or in a powerful server on high-performance computing systems. Now-a-days even processors on edge devices such as smart sensors and satellites have multi-core processors.
 In this context, as the complexity of applications and their logics continued to grow, and the opportunities for data and task parallelism within them were identified more and more, special-purpose processors which are very good at certain types of parallel execution were created.
