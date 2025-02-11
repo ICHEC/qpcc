@@ -24,18 +24,20 @@ layout: post
 ### Classical High-Performance Computing
 
 In the simplest of cases, applications to process data or perform modelling or analysis, are typically represented as a computer program which is executed on a Central Processing Unit (CPU). For simple cases, the CPU can be imagined to have one worker that executes the program instructions in a serial fashion to produce the desired output.
-As the complexity of applications and their logics increased, opportunities arose to do what is called parallel computing – this involves executing multiple parts of a program simultaneously on multiple workers within Processing Units. For example, the program or parts of the instructions (known as kernels) within the program, may have to be executed to process different input data sets which are independent of each other – so, these could be done in parallel. This is typically referred to as data parallelism.
-Another example is where for the same input data, different kernels within a program may be executed independent of each other and hence in parallel. This is referred to as task parallelism.
+As the complexity of applications and their logics increased, opportunities arose to do what is called parallel computing – this involves executing multiple parts of a program simultaneously on multiple workers within Processing Units. For example, the program or parts of the instructions (known as kernels) within the program, may have to be executed to process different input data sets which are independent of each other – so, these could be done in parallel. This is typically referred to as data parallelism, and is illustrated in {numref}`fig-data-parallelism`.
+Another example, shown in {numref}`fig-task-parallelism`, is where, for the same input data, different kernels within a program may be executed independent of each other and hence in parallel. This is referred to as task parallelism.
 
 ```{figure} ../lecture-02/data_parallelism.png
 :align: center
 :width: 100%
+:name: fig-data-parallelism
 --
 **Data parallelism. Source: https://tinyurl.com/2jpdk47x**
 ```
 ```{figure} ../lecture-02/task_parallelism.png
 :align: center
 :width: 100%
+:name: fig-task-parallelism
 --
 **Task parallelism. Source: https://tinyurl.com/2jpdk47x**
 ```
