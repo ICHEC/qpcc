@@ -228,8 +228,5 @@ mindmap
             [Industry]
 ```
 
-### Appendix
-
-> Future updates and Scratchpad
 
 ### References
