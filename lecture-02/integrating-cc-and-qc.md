@@ -78,7 +78,7 @@ On the other hand, current methods and levels of representation of data and prog
 
 Again, in the earlier lecture on “Demystifying quantum computing” we highlighted that while the reliability and scale of quantum computing is currently limited, 
 there are ongoing efforts by enterprises and research groups to improve these noisy-intermediate scale quantum systems to build reliable error-corrected larger-scale quantum computing systems, 
-quantum algorithms are bring explored for different example use-cases, 
+quantum algorithms are being explored for different example use-cases, 
 the computing community driven by the HPC experts and organisations, is driving the understanding and efforts required to enrich the software ecosystem and programmability of quantum computing systems. 
 
 And, the importance of doing this as a part of existing HPC software methods and tools through extensions is under discussion and being acknowledged by the scientific and enterprise communities, so that quantum computers can be seamlessly used within and by existing classical high-performance computing systems and its users. We will discuss this in a bit more detail later during this lecture.
@@ -103,24 +103,24 @@ Now, the highlighted category CQ is the scenario where quantum computing systems
 ```{image} ../prep/images/workflow_quantum.png
 :align: center
 ```
-The classical input data is prepared into quantum data through a step commonly referred to as quantum encoding or state preparation. The result is quantum states in which a set of qubits are used to represent the data as a superposition – do not worry about the terminologies and complexities now – if you continue with future lectures, these are introduced more understandably. For now, it is essential to just acknowledge that classical input data has to be encoded into quantum states, which can then be processed by a quantum program which is defined using a series of quantum operations. These quantum operations process the initial quantum state into a resultant quantum state. At the end of the processing, in order to get the quantum results out of the quantum computer, a series of steps have to be performed. The first of these steps is to perform measurements to read what are called observables of the quantum computing system.
+The classical input data is transformed into quantum data through a step commonly referred to as quantum encoding or state preparation. The result is quantum states in which a set of qubits are used to represent the data as a superposition – do not worry about the terminologies and complexities now – if you continue with future lectures, these are introduced more understandably. For now, it is essential to just acknowledge that classical input data has to be encoded into quantum states, which can then be processed by a quantum program which is defined using a series of quantum operations. These quantum operations process the initial quantum state into a resultant quantum state. At the end of the processing, in order to get the quantum results out of the quantum computer, a series of steps have to be performed. The first of these steps is to perform measurements to read what are called observables of the quantum computing system.
 
 Let’s pause here for a moment. In the lecture on “Demystifying quantum computing”, we discussed that there are several technology options available to engineer and develop a quantum computer – using superconductors, photons, neutral atoms, ions, etc. – each with its own pros and cons. Depending on the technology used to implement a quantum processor, the observables of the quantum system that will be measured may be different. For a photon-based quantum computer, the observables can be phase, polarisation and wavelength. Irrespective of this, the observables are measured to describe the state of a quantum system.
 
-Coming back to this workflow, the measurements are performed to read the observables of the quantum computing system’s state at the end of a quantum program’s execution, these observables describe the properties of final state of the quantum system, and these observables are post-processed to translate the output of quantum workflow into classical data.
+Coming back to this workflow, the measurements are performed to read the observables of the state of the quantum computing system at the end of a quantum program. These observables describe the properties of the final state of the quantum system, and are post-processed to translate the output of the quantum workflow into classical data.
 
-In summary, explicit complex steps are required to encode classical input data into an initial quantum state, on which a quantum program through quantum operations can be applied, and the final quantum state of the quantum computing system is measured to read observables that describe the system’s properties, and the observed properties have to be post-processed to reconstruct the results of the quantum computation as classical output data.
+In summary, explicit complex steps are required to encode classical input data into an initial quantum state, on which a quantum program, through quantum operations, can be applied. The final quantum state of the quantum computing system is measured to read observables that describe the system’s properties, and the observed properties have to be post-processed to reconstruct the results of the quantum computation as classical output data.
 
 There are two points to note here:
 - First, all steps indicated as green rectangles and their results as green circles are in the quantum paradigm or system, while the blue and red steps and their results are in the classical paradigm or system.
-- Second, quantum encoding can be a very expensive step depend on what data we want to encode and quantum processing we want to do. For instance, the cost of encoding the properties of a molecule may be less expensive.
+- Second, quantum encoding can be a very expensive step depending on what data we want to encode and quantum processing we want to do. For instance, the cost of encoding the properties of a molecule may be less expensive.
 
 But large datasets like those used to train machine learning or deep learning models will be very expensive to encode, and hence any quantum advantage due to quantum processing may be negated by the cost of quantum encoding. This is a key dictator of what types of data and problems have an advantage for using quantum computing.
 Also, at present due to the low-level of programming abstraction that we discussed earlier, it is quite complex to define a quantum program using quantum operators. A combination of skills spanning quantum mechanics, quantum information processing, advanced algebra, software development and domain expertise are required together. This is where advancement of software tools and libraries as well as skills development is important for programming quantum computers.
 
 Finally, reading out the results from a quantum computer is also an area of active development to improve accuracy of the measurements and one of the places where error correction can be applied.
 
-More details on these will be discussed in other QPCC lectures
+More details on these will be discussed in other QPCC lectures.
 
 ### Quantum computing as an accelerator
 
@@ -134,15 +134,8 @@ Consequently, this is the primary reason that necessitates integration of classi
 In the meantime, let us have a look at some application examples from a few select sectors to understand why integrated hybrid high-performance quantum computing could be beneficial and impactful.
 
 
-### Where does Quantum Computing fit?
-
-### How does the quantum computing ecosystem look
-
 ### What does QPCC offer you
 
-### Appendix
-
-> ### Future updates and Scratchpad
 
 ### References
 
