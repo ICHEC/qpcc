@@ -230,3 +230,7 @@ mindmap
 
 
 ### References
+* E. Grumbling and M. Horowitz, _Quantum Computing: Progress and Prospects_, Chapter 1
+* M.A. Nielsen and I.L. Chuang, _Quantum Computation and Quantum Information_,  Section 1.1, 1.3
+* T.G. Wong, _Introduction to Classical and Quantum Computing_
+* T.S. Humble et al., _Quantum Computers for High-Performance computing_, IEEE Micro **41**, 15 (2021)

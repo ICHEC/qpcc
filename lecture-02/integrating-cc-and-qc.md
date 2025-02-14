@@ -7,7 +7,7 @@ layout: post
 # Lecture 2: Integrating Classical and Quantum Computing
 
 
-```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture 
+```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be supplementary reading after watching the lecture 
 ```
 
 ```{admonition} Learning outcomes
@@ -23,7 +23,7 @@ layout: post
 
 ### Classical High-Performance Computing
 
-In the simplest of cases, applications to process data or perform modelling or analysis, are typically represented as a computer program which is executed on a Central Processing Unit (CPU). For simple cases, the CPU can be imagined to have one worker that executes the program instructions in a serial fashion to produce the desired output.
+In the simplest of cases, applications to process data or perform modelling or analysis, are typically represented as a computer program which is executed on a Central Processing Unit (CPU). For such simple cases, the CPU can be imagined to have one worker that executes the program instructions in a serial fashion to produce the desired output.
 As the complexity of applications and their logics increased, opportunities arose to do what is called parallel computing – this involves executing multiple parts of a program simultaneously on multiple workers within Processing Units. For example, the program or parts of the instructions (known as kernels) within the program, may have to be executed to process different input data sets which are independent of each other – so, these could be done in parallel. This is typically referred to as data parallelism, and is illustrated in {numref}`fig-data-parallelism`.
 Another example, shown in {numref}`fig-task-parallelism`, is where, for the same input data, different kernels within a program may be executed independent of each other and hence in parallel. This is referred to as task parallelism.
 
@@ -129,4 +129,7 @@ In the meantime, let us have a look at some application examples from a few sele
 
 
 ### References
-
+* E. Grumbling and M. Horowitz, _Quantum Computing: Progress and Prospects_, Chapter 1
+* M.A. Nielsen and I.L. Chuang, _Quantum Computation and Quantum Information_,  Section 1.1, 1.3
+* T.G. Wong, _Introduction to Classical and Quantum Computing_
+* T.S. Humble et al., _Quantum Computers for High-Performance computing_, IEEE Micro **41**, 15 (2021)
