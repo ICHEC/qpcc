@@ -25,8 +25,12 @@ To locally render the HTML for the lecture notes:
 
 1. Create a new environment
 2. Install the required packages from `requirements.txt`
-3. Build the book by running the following in the root directory (where `_config.yml` and `_toc.yml` are located):
+3. Using homebrew, install drawio to render some of the diagrams in the notes:
+```{code-cell}
+brew install --cask drawio
+```
+4. Build the book by running the following in the root directory (where `_config.yml` and `_toc.yml` are located):
 ```{code-cell}
 jupyter-book build .
 ```
-4. Copy and paste the generated link into a browser to view the notes
+5. Copy and paste the generated link into a browser to view the notes.
