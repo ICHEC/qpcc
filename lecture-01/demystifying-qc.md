@@ -62,13 +62,11 @@ At a high-level the leap and main difference in quantum computing is:
 
 From another perspective, we can see the trends in how capabilities of computing systems have also evolved. The currently familiar form of digital computers were initially targeted at personal computing (of course if we acknowledge and park the mainframe computations for the moment).​
 
-These desktop-based computers originated with limited single-core processor capabilities, and then evolved into multi-core processors on which computations in an application are parallelized at the logic/algorithmic level as well as at the instruction level to exploit parallel execution on several hardware or virtual cores on processors. ​Depending on the systems, current multi-core systems have 4, 8 or even dozens of cores on a single processor these days.​ This led to the parallelization of many applications delivering performance through shorter time-to-solution or in the form of high-throughput computing.​
-​
-A complementary approach to parallelization using multiple cores evolved into the innovation of many-core processors (such as Graphics Processing Units, or FPGAs) which are typically used as accelerators for the more traditional CPU-based processors.​
+These desktop-based computers originated with limited single-core processor capabilities, and then evolved into multi-core processors on which computations in an application are parallelized at the logic/algorithmic level as well as at the instruction level to exploit parallel execution on several hardware or virtual cores on processors. ​Depending on the systems, current multi-core systems have 4, 8 or even dozens of cores on a single processor these days.​ This led to the parallelization of many applications delivering performance through shorter time-to-solution, energy efficiency or in the form of high-throughput computing.​
 
-Together, CPU-based computing coupled with GPU or FPGA or recently Tensor Processing Units and Vector Processing Units, such accelerators have created a generation of heterogeneous parallel processing systems and applications. Some types of computations and data are better suited for processing on CPUs, while other types are better on certain accelerator devices.​
+In addition to CPU-based computing, accelerators (e.g. graphics processing units (GPU), field-programmable gate arrays (FPGA) or recently tensor processing units and vector processing units) have created a generation of heterogeneous parallel processing systems and applications. Some types of computations and data are better suited for processing on CPUs, while other types are better on certain accelerator devices.​
 
-Now, the field of high-performance computing has leveraged this ability to build heterogeneous parallel processing systems and applications that are optimised for computation performed on large-scale systems such as supercomputers, public cloud systems, as well as on small-form factor devices such as smart sensors or mobile platforms or even satellites. It is important to note that high-performance computing, typically referred to as HPC, is the ability to seamlessly execute different parts of a complex application efficiently (for faster time-to-solution, energy efficiency, or high-throughput) on different types of computing devices which may be connected together. And these HPC systems may be supercomputers, HPC clusters or your powerful workstation, or smart devices.​
+Now, the field of high-performance computing has leveraged this ability to build heterogeneous parallel processing systems and applications that are optimised for computation performed on large-scale systems such as supercomputers, public cloud systems, as well as on small-form factor devices such as smart sensors or mobile platforms or even satellites. It is important to note that high-performance computing, typically referred to as HPC, is the ability to seamlessly execute different parts of a complex application efficiently on different types of computing devices which may be connected together. And these HPC systems may be supercomputers, HPC clusters or your powerful workstation, or smart devices.​
 
 Currently, most of the focus in HPC is not just about building more powerful or efficient systems, but also to optimise the algorithms and their software implementations to solve more complex problems with increased accuracy, speed and scale. This is where quantum computing is positioned to serve as another type of accelerator in high-performance computing, where certain parts of a computation or application could benefit from being solved on quantum processors, while the rest of the application is better to be run on classical processors. With this, we are at the cusp of quantum computers being coupled or integrated to form hybrid high-performance quantum computers. So, as the quantum computing technology evolves, we are likely to see more seamless hybrid classical HPC quantum systems, and heterogeneous applications where there are both classical as well as quantum algorithms and software solutions.​
 
@@ -177,23 +175,23 @@ Well, as we have already mentioned quantum computing is an emerging methodology 
 
 Currently, it is understood to be suitable for very specific types of computations which it can do much better than their classical HPC counterpart implementations.​
 
-These types of specific computations include tasks such as modelling and simulating complex systems that are analogous to quantum mechanics systems (such as physics systems, molecular structures, certain mathematical problems), and typically quantum computing can potentially make such complex simulations and computations which are currently in-tractable at the desired level of accuracy, achievable using the quantum computing approach.​
+These types of specific computations include tasks such as modelling and simulating complex systems that are analogous to quantum mechanics systems, such as physics systems, molecular structures, certain mathematical problems. These problems are often classically intractable at the desired level of accuracy, but quantum computing can potentially make such complex simulations and computations achievable.
 
-Having said that, while a number of interesting algorithmics approaches are being developed and their applications to practically relevant use-cases identified, there is a lot more to be further explored both in terms of algorithms and the types of use-cases that are suited for quantum computing.​
+Having said that, while a number of interesting algorithmic approaches are being developed and their applications to practically relevant use-cases identified, there is a lot more to be further explored both in terms of algorithms and the types of use-cases that are suited for quantum computing.​ At present we are limited by high levels of noise and the relatively low number of qubits available on current quantum computers, but future applications of quantum computing could be much more broad.
 
-We will look at a few examples in a moment. Before that however, for any of us that are at the first step with the question, “where do I start to see if quantum computing is going to be relevant or beneficial for me”, typically​
+We will look at a few examples of fields in which quantum computing is currently being used in a moment when we consider the quantum computing ecosystem. Before that however, we want to answer what may be the first question for many of us — “where do I start to see if quantum computing is going to be relevant or beneficial for me?”:
 
 ```{card}
-- when modelling and simulating systems with complex characteristics, parameter spaces, correlations​
+- when modelling and simulating systems with complex characteristics, parameter spaces, correlations​;
 ```
 ```{card}
-- when the computations and calculations require approximations to make the solution tractable, for instance exploring a huge parameter space for the best solution,
+- when the computations and calculations require approximations to make the solution tractable, for instance exploring a huge parameter space for the best solution;
 ```
 ```{card} ​
 - when we use lower precision to perform computations and representation of data on classical HPC compared to the problem’s natural precision;​
 ```
 ```{card}
-- when the time to compute a solution needs to be reduced by several orders of magnitude,​
+- when the time to compute a solution needs to be reduced by several orders of magnitude.
 ```
 
 These are typically candidates where quantum computing could help and deliver a potential improvement compared to classical computing methods.​
@@ -230,8 +228,9 @@ mindmap
             [Industry]
 ```
 
-### Appendix
-
-> Future updates and Scratchpad
 
 ### References
+* E. Grumbling and M. Horowitz, _Quantum Computing: Progress and Prospects_, Chapter 1
+* M.A. Nielsen and I.L. Chuang, _Quantum Computation and Quantum Information_,  Section 1.1, 1.3
+* T.G. Wong, _Introduction to Classical and Quantum Computing_
+* T.S. Humble et al., _Quantum Computers for High-Performance computing_, IEEE Micro **41**, 15 (2021)

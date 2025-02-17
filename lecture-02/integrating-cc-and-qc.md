@@ -7,7 +7,7 @@ layout: post
 # Lecture 2: Integrating Classical and Quantum Computing
 
 
-```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture 
+```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be supplementary reading after watching the lecture 
 ```
 
 ```{admonition} Learning outcomes
@@ -23,15 +23,31 @@ layout: post
 
 ### Classical High-Performance Computing
 
-In the simplest of cases, applications to process data or perform modelling or analysis, are typically represented as a computer program which is executed on a Central Processing Unit (CPU). For simple cases, the CPU can be imagined to have one worker that executes the program instructions in a serial fashion to produce the desired output.
-As the complexity of applications and their logics increased, opportunities arose to do what is called parallel computing – this involves executing multiple parts of a program simultaneously on multiple workers within Processing Units. For example, the program or parts of the instructions (known as kernels) within the program, may have to be executed to process different input data sets which are independent of each other – so, these could be done in parallel. This is typically referred to as data parallelism.
-Another example is where for the same input data, different kernels within a program may be executed independent of each other and hence in parallel. This is referred to as task parallelism.
-As the complexity of applications and their logics increased, computational scientists and HPC specialists built software libraries that take advantage of data parallelism and task parallelism within their applications, so that their programmes could be executed in parallel in more powerful CPUs that have multiple workers within them – these workers are often referred to as cores – due to which the CPUs are referred to as multi-core CPUs which can execute parallel programmes. Typically, multi-core CPUs have anywhere between 2 to 40 or 60 cores, depending upon whether you have them in your laptop or in a powerful server on high-performance computing systems. Now-a-days even processors on edge devices such as smart sensors and satellites have multi-core processors.
+In the simplest of cases, applications to process data or perform modelling or analysis, are typically represented as a computer program which is executed on a Central Processing Unit (CPU). For such simple cases, the CPU can be imagined to have one worker that executes the program instructions in a serial fashion to produce the desired output.
+As the complexity of applications and their logics increased, opportunities arose to do what is called parallel computing – this involves executing multiple parts of a program simultaneously on multiple workers within Processing Units. For example, the program or parts of the instructions (known as kernels) within the program, may have to be executed to process different input data sets which are independent of each other – so, these could be done in parallel. This is typically referred to as data parallelism, and is illustrated in {numref}`fig-data-parallelism`.
+Another example, shown in {numref}`fig-task-parallelism`, is where, for the same input data, different kernels within a program may be executed independent of each other and hence in parallel. This is referred to as task parallelism.
+
+```{figure} ../lecture-02/data_parallelism.png
+:align: center
+:width: 100%
+:name: fig-data-parallelism
+--
+**Data parallelism. Source: https://tinyurl.com/2jpdk47x**
+```
+```{figure} ../lecture-02/task_parallelism.png
+:align: center
+:width: 100%
+:name: fig-task-parallelism
+--
+**Task parallelism. Source: https://tinyurl.com/2jpdk47x**
+```
+
+As the complexity of applications and their logic increased, computational scientists and HPC specialists built software libraries that take advantage of data parallelism and task parallelism within their applications, so that their programmes could be executed in parallel. They leverage powerful multi-core CPUs made up of multiple workers (known as cores) which allows for the execution of parallel programmes. Typically, multi-core CPUs have anywhere between 2 to 40 or 60 cores, depending upon whether you have them in your laptop or in a powerful server on high-performance computing systems. Now-a-days even processors on edge devices such as smart sensors and satellites have multi-core processors.
 In this context, as the complexity of applications and their logics continued to grow, and the opportunities for data and task parallelism within them were identified more and more, special-purpose processors which are very good at certain types of parallel execution were created.
-Examples of these are graphics processor units (GPUs) and Field Programmable Gate Arrays (FPGAs) which have 100s or 1000s of cores in a single processor. Since these are special-purpose, they are often referred to as Accelerators.
+Examples of these are graphics processing units (GPUs) and field-programmable gate arrays (FPGAs) which have 100s or 1000s of cores in a single processor. Since these are special-purpose, they are often referred to as accelerators.
 Consequently, while the general purpose CPUs are responsible for executing an application programme, they offload some of the kernels in an application to these special-purpose accelerators and get partial results back from them to complete the rest of the program’s execution. Of course there are exceptions where, for instance, FPGAs are deployed as standalone devices on control systems in factories, robots, etc.. But, in the context of systems modelling, analytics, AI, simulation, these special-purpose processors such as GPUs and FPGAs are often used by the CPU for specific kernels within an application’s program.
 
-Another point to note is that, initially the software tools and libraries required to program such different types of processors also remained different. Over a number of years, programmers, software developers and HPC experts have had to integrate different software tools and libraries for a single program that is composed of multiple heterogeneous kernels. Often, this was done in collaboration with end users from academia and industry that own the applications in order to better understand the use-cases and ensure that these tools fit the requirements and uses within the community.
+Another point to note is that, initially the software tools and libraries required to program such different types of processors also remained different. Over a number of years, programmers, software developers and HPC experts have had to integrate different software tools and libraries for a single program that is composed of multiple heterogeneous kernels, each of which is executed on the most suitable processor. Often, this was done in collaboration with end users from academia and industry that own the applications in order to better understand the use-cases and ensure that these tools fit the requirements and uses within the community.
 Over time, interoperability and unification of these software tools and libraries was achieved – as a result of which now-a-days many programming libraries have the ability to target different processor types under the hood, thereby reducing the difficulty of end-users, application developers and computational scientists.
 
 ### Co-existence of Classical & Quantum Computing
@@ -53,7 +69,7 @@ On the other hand, current methods and levels of representation of data and prog
 
 Again, in the earlier lecture on “Demystifying quantum computing” we highlighted that while the reliability and scale of quantum computing is currently limited, 
 there are ongoing efforts by enterprises and research groups to improve these noisy-intermediate scale quantum systems to build reliable error-corrected larger-scale quantum computing systems, 
-quantum algorithms are bring explored for different example use-cases, 
+quantum algorithms are being explored for different example use-cases, 
 the computing community driven by the HPC experts and organisations, is driving the understanding and efforts required to enrich the software ecosystem and programmability of quantum computing systems. 
 
 And, the importance of doing this as a part of existing HPC software methods and tools through extensions is under discussion and being acknowledged by the scientific and enterprise communities, so that quantum computers can be seamlessly used within and by existing classical high-performance computing systems and its users. We will discuss this in a bit more detail later during this lecture.
@@ -78,24 +94,24 @@ Now, the highlighted category CQ is the scenario where quantum computing systems
 ```{image} ../prep/images/workflow_quantum.png
 :align: center
 ```
-The classical input data is prepared into quantum data through a step commonly referred to as quantum encoding or state preparation. The result is quantum states in which a set of qubits are used to represent the data as a superposition – do not worry about the terminologies and complexities now – if you continue with future lectures, these are introduced more understandably. For now, it is essential to just acknowledge that classical input data has to be encoded into quantum states, which can then be processed by a quantum program which is defined using a series of quantum operations. These quantum operations process the initial quantum state into a resultant quantum state. At the end of the processing, in order to get the quantum results out of the quantum computer, a series of steps have to be performed. The first of these steps is to perform measurements to read what are called observables of the quantum computing system.
+The classical input data is transformed into quantum data through a step commonly referred to as quantum encoding or state preparation. The result is quantum states in which a set of qubits are used to represent the data as a superposition – do not worry about the terminologies and complexities now – if you continue with future lectures, these are introduced more understandably. For now, it is essential to just acknowledge that classical input data has to be encoded into quantum states, which can then be processed by a quantum program which is defined using a series of quantum operations. These quantum operations process the initial quantum state into a resultant quantum state. At the end of the processing, in order to get the quantum results out of the quantum computer, a series of steps have to be performed. The first of these steps is to perform measurements to read what are called observables of the quantum computing system.
 
 Let’s pause here for a moment. In the lecture on “Demystifying quantum computing”, we discussed that there are several technology options available to engineer and develop a quantum computer – using superconductors, photons, neutral atoms, ions, etc. – each with its own pros and cons. Depending on the technology used to implement a quantum processor, the observables of the quantum system that will be measured may be different. For a photon-based quantum computer, the observables can be phase, polarisation and wavelength. Irrespective of this, the observables are measured to describe the state of a quantum system.
 
-Coming back to this workflow, the measurements are performed to read the observables of the quantum computing system’s state at the end of a quantum program’s execution, these observables describe the properties of final state of the quantum system, and these observables are post-processed to translate the output of quantum workflow into classical data.
+Coming back to this workflow, the measurements are performed to read the observables of the state of the quantum computing system at the end of a quantum program. These observables describe the properties of the final state of the quantum system, and are post-processed to translate the output of the quantum workflow into classical data.
 
-In summary, explicit complex steps are required to encode classical input data into an initial quantum state, on which a quantum program through quantum operations can be applied, and the final quantum state of the quantum computing system is measured to read observables that describe the system’s properties, and the observed properties have to be post-processed to reconstruct the results of the quantum computation as classical output data.
+In summary, explicit complex steps are required to encode classical input data into an initial quantum state, on which a quantum program, through quantum operations, can be applied. The final quantum state of the quantum computing system is measured to read observables that describe the system’s properties, and the observed properties have to be post-processed to reconstruct the results of the quantum computation as classical output data.
 
 There are two points to note here:
 - First, all steps indicated as green rectangles and their results as green circles are in the quantum paradigm or system, while the blue and red steps and their results are in the classical paradigm or system.
-- Second, quantum encoding can be a very expensive step depend on what data we want to encode and quantum processing we want to do. For instance, the cost of encoding the properties of a molecule may be less expensive.
+- Second, quantum encoding can be a very expensive step depending on what data we want to encode and quantum processing we want to do. For instance, the cost of encoding the properties of a molecule may be less expensive.
 
 But large datasets like those used to train machine learning or deep learning models will be very expensive to encode, and hence any quantum advantage due to quantum processing may be negated by the cost of quantum encoding. This is a key dictator of what types of data and problems have an advantage for using quantum computing.
 Also, at present due to the low-level of programming abstraction that we discussed earlier, it is quite complex to define a quantum program using quantum operators. A combination of skills spanning quantum mechanics, quantum information processing, advanced algebra, software development and domain expertise are required together. This is where advancement of software tools and libraries as well as skills development is important for programming quantum computers.
 
 Finally, reading out the results from a quantum computer is also an area of active development to improve accuracy of the measurements and one of the places where error correction can be applied.
 
-More details on these will be discussed in other QPCC lectures
+More details on these will be discussed in other QPCC lectures.
 
 ### Quantum computing as an accelerator
 
@@ -109,15 +125,11 @@ Consequently, this is the primary reason that necessitates integration of classi
 In the meantime, let us have a look at some application examples from a few select sectors to understand why integrated hybrid high-performance quantum computing could be beneficial and impactful.
 
 
-### Where does Quantum Computing fit?
-
-### How does the quantum computing ecosystem look
-
 ### What does QPCC offer you
 
-### Appendix
-
-> ### Future updates and Scratchpad
 
 ### References
-
+* E. Grumbling and M. Horowitz, _Quantum Computing: Progress and Prospects_, Chapter 1
+* M.A. Nielsen and I.L. Chuang, _Quantum Computation and Quantum Information_,  Section 1.1, 1.3
+* T.G. Wong, _Introduction to Classical and Quantum Computing_
+* T.S. Humble et al., _Quantum Computers for High-Performance computing_, IEEE Micro **41**, 15 (2021)
