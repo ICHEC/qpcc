@@ -1,12 +1,13 @@
 jupyter-book
 jupytercards
 jupyterquiz
+manim
 matplotlib
 matplotlib-venn
 numpy
+pylatexenc
+qiskit
+qiskit-aer
 sphinxcontrib.mermaid
 sphinxcontrib.youtube
 sphinxcontrib-drawio
-qiskit
-qiskit-aer
-pylatexenc
