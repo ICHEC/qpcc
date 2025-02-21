@@ -1,4 +1,6 @@
+ffmpeg
 jupyter-book
+jupyterlab_myst
 jupytercards
 jupyterquiz
 manim
