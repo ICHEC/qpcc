@@ -1,0 +1,10 @@
+# This file is used internally by FFMPEG.
+file 'file:/Users/rajarshi/Library/CloudStorage/Dropbox/git_proj/github/ct4106/lecture-03/media/videos/1080p60/partial_movie_files/Measurement/1136589733_3610812612_2297392397.mp4'
+file 'file:/Users/rajarshi/Library/CloudStorage/Dropbox/git_proj/github/ct4106/lecture-03/media/videos/1080p60/partial_movie_files/Measurement/3550439210_3006439045_1322345638.mp4'
+file 'file:/Users/rajarshi/Library/CloudStorage/Dropbox/git_proj/github/ct4106/lecture-03/media/videos/1080p60/partial_movie_files/Measurement/3550439210_2765740977_778514429.mp4'
+file 'file:/Users/rajarshi/Library/CloudStorage/Dropbox/git_proj/github/ct4106/lecture-03/media/videos/1080p60/partial_movie_files/Measurement/3550439210_4086215816_2023860264.mp4'
+file 'file:/Users/rajarshi/Library/CloudStorage/Dropbox/git_proj/github/ct4106/lecture-03/media/videos/1080p60/partial_movie_files/Measurement/3550439210_3780613875_2482054489.mp4'
+file 'file:/Users/rajarshi/Library/CloudStorage/Dropbox/git_proj/github/ct4106/lecture-03/media/videos/1080p60/partial_movie_files/Measurement/3550439210_289180376_83924548.mp4'
+file 'file:/Users/rajarshi/Library/CloudStorage/Dropbox/git_proj/github/ct4106/lecture-03/media/videos/1080p60/partial_movie_files/Measurement/3550439210_629025632_2605754798.mp4'
+file 'file:/Users/rajarshi/Library/CloudStorage/Dropbox/git_proj/github/ct4106/lecture-03/media/videos/1080p60/partial_movie_files/Measurement/3550439210_3266767240_798471239.mp4'
+file 'file:/Users/rajarshi/Library/CloudStorage/Dropbox/git_proj/github/ct4106/lecture-03/media/videos/1080p60/partial_movie_files/Measurement/3550439210_2688965532_4225430164.mp4'

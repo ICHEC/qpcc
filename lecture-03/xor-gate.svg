@@ -1,0 +1,31 @@
+<svg version="1.1"
+     width="210" height="120"
+     xmlns="http://www.w3.org/2000/svg">
+
+  <rect width="100%" height="100%" fill="white" />
+<line x1="100" x2="200" y1="100" y2="100" stroke="green" stroke-width="2"
+transform="translate(4,-40)" />
+
+<path d="M 10,40 H 90" stroke="green" stroke-width="2" />
+<path d="M 10,80 H 90" stroke="green" stroke-width="2" />
+
+
+
+<path d="M 90,10 L 25 10 L 25,110 L 90,110 A 10 10 0 1 0 90 10"
+fill="white" stroke="green" stroke-width="2"
+transform="scale(0.8) translate(50,15)"/>
+
+<text x="2%" y="30%" fill="green" font-size="12">Input A
+<animateMotion id="ia" dur="2s" repeatCount="indefinite" path="M0,0 H60 C" />
+</text>
+
+
+<text x="2%" y="77%" fill="green" font-size="12">Input B
+<animateMotion id="ib" dur="2s" repeatCount="indefinite" path="M0,0 H60 C" />
+</text>
+
+<text x="120" y="15" fill="green" font-size="18">XOR gate</text>
+<text x="78%" y="45%" fill="green" font-size="12">Output
+<animateMotion dur="2s" animation-delay="2s" repeatCount="indefinite" path="M-40,0 H30 C" />
+</text>
+</svg>
