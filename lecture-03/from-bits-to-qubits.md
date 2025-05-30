@@ -1,6 +1,16 @@
 ---
 title: From Bits to Qubits
-layout: post
+jupytext:
+    formats: md:myst
+    text_representation:
+        extension: .md
+        format_name: myst
+kernelspec:
+    display_name: Python 3
+    language: python
+    name: python3
+mystnb:
+    render_markdown_format: myst
 ---
 
 (lecture-3)=
@@ -323,6 +333,12 @@ b --> c
 :width: 200px
 ```
 
+```{figure} ./test.svg
+:align: center
+:width: 300px
+```
+
+
 - The NOT gate can be observed to be a reversible gate, the input can always be recovered from the output, we can just flip the output to recover the original input, this is an important feature and we will come back to it later
 
 
@@ -413,6 +429,8 @@ Let's begin by understanding what exactly is a photon, A photon is a single part
 :width: 100%
 ```
 
+
+
 - The above two polarization states, the Vertical and Horizontal polarization states are labelled 0 and 1 and behave as the 2 independent states within Quantum Computation.
 
 These Quantum states are differentiated from Classical bits by using the ket notation, The Qubits are represented with $|0\rangle$ known as the ket notation or Dirac notation
@@ -448,7 +466,12 @@ However, with a plus state. If that is measured. Sometimes this happens. A zero 
 **Measurement example**
 ```
 
-So this is a really important property of measurement. It collapses, superpositions. So we saw that the plus state is an equal superposition of zero and one, and this superposition is collapsed into one of the two states.So measurement changes states and it changes into one of the two states that we are measuring for. Another point is we don't get the same eight come every time and there is a probability associated each outcome
+<video controls="true" autoplay muted width="100%">
+  <source src="https://github.com/rajarshitiwari/manim-anims/raw/refs/heads/main/q-measure/QMeasurement.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+
+So this is a really important property of measurement. It collapses, superpositions. So we saw that the plus state is an equal superposition of zero and one, and this superposition is collapsed into one of the two states. So measurement changes states and it changes into one of the two states that we are measuring for. Another point is we don't get the same eight come every time and there is a probability associated each outcome
 
 ## Quantum Gates and Operations
 
