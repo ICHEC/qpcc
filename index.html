@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>QPCC Lectures Overview &#8212; Lecture Notes from ICHEC</title>
+    <title>CT4106 Lectures Overview &#8212; Lecture Notes for CT4106</title>
   
   
   
@@ -59,6 +59,8 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
     <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
@@ -70,6 +72,7 @@ window.addEventListener("load", () => mermaid.run());
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lecture 1: Demystifying Quantum Computing" href="lecture-01/demystifying-qc.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -163,8 +166,8 @@ window.addEventListener("load", () => mermaid.run());
       
     
     
-    <img src="_static/logo.png" class="logo__image only-light" alt="Lecture Notes from ICHEC - Home"/>
-    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Lecture Notes from ICHEC - Home"/>`);</script>
+    <img src="_static/logo.png" class="logo__image only-light" alt="Lecture Notes for CT4106 - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Lecture Notes for CT4106 - Home"/>`);</script>
   
   
 </a></div>
@@ -185,11 +188,26 @@ window.addEventListener("load", () => mermaid.run());
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1 current active">
                 <a class="reference internal" href="#">
-                    QPCC Lectures Overview
+                    CT4106 Lectures Overview
                 </a>
             </li>
         </ul>
-        
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lecture-01/demystifying-qc.html">Lecture 1: Demystifying Quantum Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-02/integrating-cc-and-qc.html">Lecture 2: Integrating Classical and Quantum Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-03/from-bits-to-qubits.html">Lecture 3: From Bits to Qubits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-04/math-for-qc.html">Lecture 4: Mathematical framework for Quantum Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-05/intro-to-quantum-info.html">Lecture 5: Introduction to Quantum Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-06/realizing-qc-systems.html">Lecture 6: Realizing Quantum Computing Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-07/qc-hardwares.html">Lecture 7: Hardwares for Quantum Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-08/accessing-qc-systems.html">Lecture 8a: Accessing Quantum Computing Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-08/landscape-of-sdks-tools.html">Lecture 8b: Landscape of Quantum SDK’s and Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-09/cloud-qc.html">Lecture 9: Heterogeneous Quantum Computing on AWS with Amazon Braket</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-10/quantum-algorithms-1.html">Lecture 10: Early Quantum Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-11/quantum-algorithms-2.html">Lecture 11: NISQ Quantum Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-12/quantum-computing-ireland.html">Lecture 12: Quantum Computing in Ireland</a></li>
+</ul>
+
     </div>
 </nav></div>
     </div>
@@ -326,7 +344,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>QPCC Lectures Overview</h1>
+    <h1>CT4106 Lectures Overview</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -349,9 +367,9 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="qpcc-lectures-overview">
-<h1>QPCC Lectures Overview<a class="headerlink" href="#qpcc-lectures-overview" title="Link to this heading">#</a></h1>
-<p>The Quantum Programming Certification Course (QPCC) is offered from ICHEC aimed at providing exposure into quantum computing with minimal technical prerequisits. It is evolving, and we are added more modules with time to make it more comprehensive and inclusive of the skills and knowledge of the quantum computing ecosystem. Below are the list of modules currently offered.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="ct4106-lectures-overview">
+<h1>CT4106 Lectures Overview<a class="headerlink" href="#ct4106-lectures-overview" title="Link to this heading">#</a></h1>
+<p>The Quantum Programming Foundations Course (CT4106) is offered from ICHEC aimed at providing exposure into quantum computing with minimal technical prerequisits. It is evolving, and we intend to add more modules with time to make it more comprehensive and inclusive of the skills and knowledge of the quantum computing ecosystem. Below are the list of modules currently offered. This page serves as the landing page for the lecture notes for each of the vidoe lectures in CT4106.</p>
 <pre  class="mermaid">
         %%{init: {'theme':'base', 'fontSize': '11', 'securityLevel': &quot;loose&quot;}}%%
 mindmap
@@ -391,19 +409,29 @@ mindmap
     </pre><section id="list-of-lectures">
 <h2>List of Lectures<a class="headerlink" href="#list-of-lectures" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="lecture-1/demystifying-quantum-computing.html"><span class="std std-doc">Lecture 1 - Demystifying Quantum Computing</span></a></p></li>
-<li><p><a class="reference internal" href="lecture-2/integrating-classical-and-quantum-computing.html"><span class="std std-doc">Lecture 2 - Integrating Classical and Quantum Computing</span></a></p></li>
-<li><p><a class="reference internal" href="lecture-3/from-bits-to-qubits.html"><span class="std std-doc">Lecture 3 - From Bits to Qubits</span></a></p></li>
-<li><p><a class="reference internal" href="lecture-4/realizing-quantum-computing-systems.html"><span class="std std-doc">Lecture 4 - Realizing Quantum Computing Systems</span></a></p></li>
-<li><p><a class="reference internal" href="lecture-5/accessing-quantum-computing-systems.html"><span class="std std-doc">Lecture 5 - Accessing Quantum Computing Systems</span></a></p></li>
-<li><p><a class="reference internal" href="lecture-6/landscape-of-sdks-tools.html"><span class="std std-doc">Lecture 6 - Landscape of Quantum SDK’s and Tools</span></a></p></li>
-<li><p><a class="reference internal" href="lecture-7/landscape-of-quantum-algorithms.html"><span class="std std-doc">Lecture 7 - Landscape of Quantum algorithms</span></a></p></li>
+<li><p><a class="reference internal" href="#lecture-01/demystifying-quantum-computing.md"><span class="xref myst">Lecture 1 - Demystifying Quantum Computing</span></a></p></li>
+<li><p><a class="reference internal" href="#lecture-02/integrating-classical-and-quantum-computing.md"><span class="xref myst">Lecture 2 - Integrating Classical and Quantum Computing</span></a></p></li>
+<li><p><a class="reference internal" href="lecture-03/from-bits-to-qubits.html"><span class="std std-doc">Lecture 3 - From Bits to Qubits</span></a></p></li>
+<li><p><a class="reference internal" href="lecture-04/math-for-qc.html"><span class="std std-doc">Lecture 4 - Mathematical Framework for Qubits</span></a></p></li>
+<li><p><a class="reference internal" href="lecture-05/intro-to-quantum-info.html"><span class="std std-doc">Lecture 5 - Guest Lecture: Introduction to Quantum Information &amp; Cryptography</span></a></p></li>
+<li><p><a class="reference internal" href="lecture-06/realizing-qc-systems.html"><span class="std std-doc">Lecture 6 - Realizing Quantum Computing Systems</span></a></p></li>
+<li><p><a class="reference internal" href="lecture-07/qc-hardwares.html"><span class="std std-doc">Lecture 7 - Guest Lecture: Building a Quantum Computer</span></a></p></li>
+<li><p>Lecture 8 - Accessing and Programming Quantum Computing Systems</p>
+<ul>
+<li><p><a class="reference internal" href="lecture-08/accessing-qc-systems.html"><span class="std std-doc">8a: Accessing Quantum Computing</span></a></p></li>
+<li><p><a class="reference internal" href="lecture-08/landscape-of-sdks-tools.html"><span class="std std-doc">8b: Landscape of Quantum SDK’s and Tools</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="lecture-09/cloud-qc.html"><span class="std std-doc">Lecture 9 - Guest Lecture: Cloud Quantum computing Service</span></a></p></li>
+<li><p><a class="reference internal" href="lecture-10/quantum-algorithms-1.html"><span class="std std-doc">Lecture 10 - Quantum Algorithms - I</span></a></p></li>
+<li><p><a class="reference internal" href="lecture-11/quantum-algorithms-2.html"><span class="std std-doc">Lecture 11 - Quantum Algorithms - II</span></a></p></li>
+<li><p><a class="reference internal" href="#lecture-12/quantum-activity-in-ichec.md"><span class="xref myst">Lecture 12 - ICHEC’s engagement in Quantum Computing</span></a></p></li>
 </ul>
 </section>
 <hr class="docutils" />
 <section id="contact">
 <h2>Contact<a class="headerlink" href="#contact" title="Link to this heading">#</a></h2>
-<p>For QPCC related queries, contact us or the instructors at following -</p>
+<p>For course related queries, contact us or the instructors at following -</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -411,25 +439,16 @@ mindmap
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>QPCC team</p></td>
-<td class="text-center"><p><a class="reference external" href="mailto:qpcc&#37;&#52;&#48;ichec&#46;ie">qpcc<span>&#64;</span>ichec<span>&#46;</span>ie</a></p></td>
-</tr>
-<tr class="row-odd"><td><p>Emil Dimitrov</p></td>
+<tr class="row-even"><td><p>Emil Dimitrov</p></td>
 <td class="text-center"><p><a class="reference external" href="mailto:emil&#46;dimitrov&#37;&#52;&#48;ichec&#46;ie">emil<span>&#46;</span>dimitrov<span>&#64;</span>ichec<span>&#46;</span>ie</a></p></td>
 </tr>
-<tr class="row-even"><td><p>Karthik Krishnakumar</p></td>
+<tr class="row-odd"><td><p>Karthik Krishnakumar</p></td>
 <td class="text-center"><p><a class="reference external" href="mailto:karthik&#46;krishnakumar&#37;&#52;&#48;ichec&#46;ie">karthik<span>&#46;</span>krishnakumar<span>&#64;</span>ichec<span>&#46;</span>ie</a></p></td>
 </tr>
-<tr class="row-odd"><td><p>Pablo Lauret</p></td>
-<td class="text-center"><p><a class="reference external" href="mailto:pablo&#46;lauret&#37;&#52;&#48;ichec&#46;ie">pablo<span>&#46;</span>lauret<span>&#64;</span>ichec<span>&#46;</span>ie</a></p></td>
-</tr>
-<tr class="row-even"><td><p>Pablo Suárez Vieites</p></td>
-<td class="text-center"><p><a class="reference external" href="mailto:pablo&#46;suarez&#37;&#52;&#48;ichec&#46;ie">pablo<span>&#46;</span>suarez<span>&#64;</span>ichec<span>&#46;</span>ie</a></p></td>
-</tr>
-<tr class="row-odd"><td><p>Rajarshi Tiwari</p></td>
+<tr class="row-even"><td><p>Rajarshi Tiwari</p></td>
 <td class="text-center"><p><a class="reference external" href="mailto:rajarshi&#46;tiwari&#37;&#52;&#48;ichec&#46;ie">rajarshi<span>&#46;</span>tiwari<span>&#64;</span>ichec<span>&#46;</span>ie</a></p></td>
 </tr>
-<tr class="row-even"><td><p>Venkatesh Kannan</p></td>
+<tr class="row-odd"><td><p>Venkatesh Kannan</p></td>
 <td class="text-center"><p><a class="reference external" href="mailto:venkatesh&#46;kannan&#37;&#52;&#48;ichec&#46;ie">venkatesh<span>&#46;</span>kannan<span>&#64;</span>ichec<span>&#46;</span>ie</a></p></td>
 </tr>
 </tbody>
@@ -470,6 +489,15 @@ mindmap
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="right-next"
+       href="lecture-01/demystifying-qc.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lecture 1: Demystifying Quantum Computing</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -519,7 +547,7 @@ By ICHEC Team
   <div class="footer-item">
     
 <div class="extra_footer">
-  Copyright@2022
+  Copyright@2024
 </div>
   </div>
   
