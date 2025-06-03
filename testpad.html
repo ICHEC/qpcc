@@ -181,16 +181,7 @@
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="lecture-1/demystifying-quantum-computing.html">Lecture 1: Demystifying Quantum Computing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lecture-2/integrating-classical-and-quantum-computing.html">Lecture 2: Integrating Classical and Quantum Computing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lecture-3/from-bits-to-qubits.html">Lecture 3: From Bits to Qubits</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lecture-4/realizing-quantum-computing-systems.html">Lecture 4: Realizing Quantum Computing Systems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lecture-5/accessing-quantum-computing-systems.html">Lecture 5: Accessing Quantum Computing Systems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lecture-6/landscape-of-sdks-tools.html">Lecture 6: Landscape of Quantum SDK’s and Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lecture-7/landscape-of-quantum-algorithms.html">Lecture 7: Landscape of quantum algorithms</a></li>
-</ul>
-
+        
     </div>
 </nav></div>
     </div>
@@ -381,7 +372,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ee0514f2f79cd75da8448829880c693db42a00893c2b3a8452f99fa15ffba928.png" src="_images/ee0514f2f79cd75da8448829880c693db42a00893c2b3a8452f99fa15ffba928.png" />
+<img alt="_images/bed7a6f0426eac986473ae529f6b02e4932c9514046f4bc9a4b622b5ce30cfa2.png" src="_images/bed7a6f0426eac986473ae529f6b02e4932c9514046f4bc9a4b622b5ce30cfa2.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -391,22 +382,22 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;1101&#39;: 645,
- &#39;0001&#39;: 588,
- &#39;1000&#39;: 645,
- &#39;0110&#39;: 617,
- &#39;1011&#39;: 618,
- &#39;0011&#39;: 624,
- &#39;0111&#39;: 628,
- &#39;1100&#39;: 657,
- &#39;1010&#39;: 598,
- &#39;0100&#39;: 631,
- &#39;1001&#39;: 632,
- &#39;0101&#39;: 582,
- &#39;1110&#39;: 661,
- &#39;0010&#39;: 585,
- &#39;0000&#39;: 629,
- &#39;1111&#39;: 660}
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;1011&#39;: 624,
+ &#39;1100&#39;: 647,
+ &#39;0010&#39;: 620,
+ &#39;1110&#39;: 613,
+ &#39;1101&#39;: 588,
+ &#39;0001&#39;: 628,
+ &#39;1111&#39;: 654,
+ &#39;0000&#39;: 611,
+ &#39;0100&#39;: 614,
+ &#39;0011&#39;: 641,
+ &#39;0111&#39;: 658,
+ &#39;0110&#39;: 621,
+ &#39;1000&#39;: 581,
+ &#39;0101&#39;: 636,
+ &#39;1001&#39;: 633,
+ &#39;1010&#39;: 631}
 </pre></div>
 </div>
 </div>
@@ -614,6 +605,224 @@ fill_between : Fill between two sets of y-values.
 fill_betweenx : Fill between two sets of x-values.
 <span class=" -Color -Color-Red">File:</span>      ~/miniforge/envs/jb/lib/python3.12/site-packages/matplotlib/pyplot.py
 <span class=" -Color -Color-Red">Type:</span>      function
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Library</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib_venn</span><span class="w"> </span><span class="kn">import</span> <span class="n">venn2</span><span class="p">,</span> <span class="n">venn3</span>
+ 
+<span class="c1"># Basic Venn</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">venn2</span><span class="p">(</span><span class="n">subsets</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;10&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;01&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="s1">&#39;11&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">},</span>
+          <span class="n">set_labels</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">),</span>
+          <span class="n">set_colors</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">),</span>
+          <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
+ 
+<span class="c1"># Change Backgroud</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="c1">#plt.gca().set_axis_on()</span>
+ 
+<span class="c1"># Show it</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/b1327d91060fa3c687c832e41c4424db706fc5a0a67df13536c854aa776a3658.png" src="_images/b1327d91060fa3c687c832e41c4424db706fc5a0a67df13536c854aa776a3658.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>venn2<span class="o">?</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Red">Signature:</span>
+venn2<span class=" -Color -Color-Blue">(</span>
+    subsets<span class=" -Color -Color-Blue">,</span>
+    set_labels<span class=" -Color -Color-Blue">=(&#39;A&#39;,</span> <span class=" -Color -Color-Blue">&#39;B&#39;),</span>
+    set_colors<span class=" -Color -Color-Blue">=(&#39;r&#39;,</span> <span class=" -Color -Color-Blue">&#39;g&#39;),</span>
+    alpha<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">0.4</span><span class=" -Color -Color-Blue">,</span>
+    normalize_to<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">1.0</span><span class=" -Color -Color-Blue">,</span>
+    ax<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
+    subset_label_formatter<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
+<span class=" -Color -Color-Blue">)</span>
+<span class=" -Color -Color-Red">Docstring:</span>
+Plots a 2-set area-weighted Venn diagram.
+The subsets parameter can be one of the following:
+ - A list (or a tuple) containing two set objects.
+ - A dict, providing sizes of three diagram regions.
+   The regions are identified via two-letter binary codes (&#39;10&#39;, &#39;01&#39;, and &#39;11&#39;), hence a valid set could look like:
+   {&#39;10&#39;: 10, &#39;01&#39;: 20, &#39;11&#39;: 40}. Unmentioned codes are considered to map to 0.
+ - A list (or a tuple) with three numbers, denoting the sizes of the regions in the following order:
+   (10, 01, 11)
+
+``set_labels`` parameter is a list of two strings - set labels. Set it to None to disable set labels.
+The ``set_colors`` parameter should be a list of two elements, specifying the &quot;base colors&quot; of the two circles.
+The color of circle intersection will be computed based on those.
+
+The ``normalize_to`` parameter specifies the total (on-axes) area of the circles to be drawn. Sometimes tuning it (together
+with the overall fiture size) may be useful to fit the text labels better.
+The return value is a ``VennDiagram`` object, that keeps references to the ``Text`` and ``Patch`` objects used on the plot
+and lets you know the centers and radii of the circles, if you need it.
+
+The ``ax`` parameter specifies the axes on which the plot will be drawn (None means current axes).
+
+The ``subset_label_formatter`` parameter is a function that can be passed to format the labels
+that describe the size of each subset.
+
+&gt;&gt;&gt; from matplotlib_venn import *
+&gt;&gt;&gt; v = venn2(subsets={&#39;10&#39;: 1, &#39;01&#39;: 1, &#39;11&#39;: 1}, set_labels = (&#39;A&#39;, &#39;B&#39;))
+&gt;&gt;&gt; c = venn2_circles(subsets=(1, 1, 1), linestyle=&#39;dashed&#39;)
+&gt;&gt;&gt; v.get_patch_by_id(&#39;10&#39;).set_alpha(1.0)
+&gt;&gt;&gt; v.get_patch_by_id(&#39;10&#39;).set_color(&#39;white&#39;)
+&gt;&gt;&gt; v.get_label_by_id(&#39;10&#39;).set_text(&#39;Unknown&#39;)
+&gt;&gt;&gt; v.get_label_by_id(&#39;A&#39;).set_text(&#39;Set A&#39;)
+
+You can provide sets themselves rather than subset sizes:
+&gt;&gt;&gt; v = venn2(subsets=[set([1,2]), set([2,3,4,5])], set_labels = (&#39;A&#39;, &#39;B&#39;))
+&gt;&gt;&gt; c = venn2_circles(subsets=[set([1,2]), set([2,3,4,5])], linestyle=&#39;dashed&#39;)
+&gt;&gt;&gt; print(&quot;%0.2f&quot; % (v.get_circle_radius(1)/v.get_circle_radius(0)))
+1.41
+<span class=" -Color -Color-Red">File:</span>      ~/miniforge/envs/jb/lib/python3.12/site-packages/matplotlib_venn/_venn2.py
+<span class=" -Color -Color-Red">Type:</span>      function
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">venn3</span><span class="p">(</span><span class="n">subsets</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">set_labels</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1ec6b15d9ee471a8867fea3cb82a60bc7b5c80a9491141acf8ebea10f6307f3f.png" src="_images/1ec6b15d9ee471a8867fea3cb82a60bc7b5c80a9491141acf8ebea10f6307f3f.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mf">7.7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mf">8.2</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">x</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;o-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axline</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.lines.AxLine at 0x1207b3770&gt;
+</pre></div>
+</div>
+<img alt="_images/7453cddf809cb638784cafe91a6ad3810581746210e21c241a7ab34825247b08.png" src="_images/7453cddf809cb638784cafe91a6ad3810581746210e21c241a7ab34825247b08.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="n">c1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="o">-</span><span class="mf">1.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">c2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="mf">1.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">c1</span><span class="o">.</span><span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c1</span><span class="o">.</span><span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span> <span class="n">c2</span><span class="o">.</span><span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c2</span><span class="o">.</span><span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span>
+
+<span class="n">c3</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">c4</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span> <span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">c3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">c4</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">2.2</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.
+</pre></div>
+</div>
+<img alt="_images/b3804e9681569d7809e3ae66cbd879863a5ed3fab0304fa2bdb95fce97d2f5f8.png" src="_images/b3804e9681569d7809e3ae66cbd879863a5ed3fab0304fa2bdb95fce97d2f5f8.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="n">summ</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">xi</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">120</span><span class="p">):</span>
+    <span class="n">fi</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">summ</span> <span class="o">+=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">fi</span>
+    <span class="c1">#t = (fi, 0) if fi &gt; 0 else (0, fi)</span>
+    <span class="n">xi</span> <span class="o">+=</span> <span class="p">[</span><span class="n">fi</span><span class="p">]</span>
+
+<span class="n">xi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">xi</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">summ</span><span class="p">,</span> <span class="n">xi</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.13325946491983 (120,)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x116822fc0&gt;]
+</pre></div>
+</div>
+<img alt="_images/1fd0729b75864bbc551cee24fae44d5a2effbe4eed25b195da57fdbf40afecb1.png" src="_images/1fd0729b75864bbc551cee24fae44d5a2effbe4eed25b195da57fdbf40afecb1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1.        , 0.        , 0.2       , 0.        , 0.11111111,
+       0.        , 0.07692308, 0.        , 0.05882353, 0.        ,
+       0.04761905, 0.        , 0.04      , 0.        , 0.03448276,
+       0.        , 0.03030303, 0.        , 0.02702703, 0.        ,
+       0.02439024, 0.        , 0.02222222, 0.        , 0.02040816,
+       0.        , 0.01886792, 0.        , 0.01754386, 0.        ,
+       0.01639344, 0.        , 0.01538462, 0.        , 0.01449275,
+       0.        , 0.01369863, 0.        , 0.01298701, 0.        ,
+       0.01234568, 0.        , 0.01176471, 0.        , 0.01123596,
+       0.        , 0.01075269, 0.        , 0.01030928, 0.        ,
+       0.00990099, 0.        , 0.00952381, 0.        , 0.00917431,
+       0.        , 0.00884956, 0.        , 0.00854701, 0.        ,
+       0.00826446, 0.        , 0.008     , 0.        , 0.00775194,
+       0.        , 0.0075188 , 0.        , 0.00729927, 0.        ,
+       0.0070922 , 0.        , 0.00689655, 0.        , 0.00671141,
+       0.        , 0.00653595, 0.        , 0.00636943, 0.        ,
+       0.00621118, 0.        , 0.00606061, 0.        , 0.00591716,
+       0.        , 0.00578035, 0.        , 0.00564972, 0.        ,
+       0.00552486, 0.        , 0.00540541, 0.        , 0.00529101,
+       0.        , 0.00518135, 0.        , 0.00507614, 0.        ,
+       0.00497512, 0.        , 0.00487805, 0.        , 0.00478469,
+       0.        , 0.00469484, 0.        , 0.00460829, 0.        ,
+       0.00452489, 0.        , 0.00444444, 0.        , 0.00436681,
+       0.        , 0.00429185, 0.        , 0.00421941, 0.        ])
 </pre></div>
 </div>
 </div>
