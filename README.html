@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>CT4106 &#8212; Lecture Notes for CT4106</title>
+    <title>CT4110 &#8212; Lecture Notes for CT4106</title>
   
   
   
@@ -182,17 +182,19 @@
             </li>
         </ul>
         <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="lecture-01/demystifying-qc.html">Lecture 1: Demystifying Quantum Computing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lecture-02/integrating-cc-and-qc.html">Lecture 2: Integrating Classical and Quantum Computing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lecture-03/from-bits-to-qubits.html">Lecture 3: From Bits to Qubits</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lecture-04/math-for-qc.html">Lecture 4: Mathematical framework for Quantum Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-01/demystifying-qc.html">Lecture 1a: Demystifying Quantum Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-01/integrating-cc-and-qc.html">Lecture 1b: Integrating Classical and Quantum Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-02/from-bits-to-qubits.html">Lecture 3: From Bits to Qubits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-03/math-for-qc-1.html">Lecture 4: Mathematical framework for Quantum Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-04/math-for-qc-2.html">Lecture 4: Mathematical framework for Quantum Computing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lecture-05/intro-to-quantum-info.html">Lecture 5: Introduction to Quantum Information</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lecture-06/realizing-qc-systems.html">Lecture 6: Realizing Quantum Computing Systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lecture-07/qc-hardwares.html">Lecture 7: Hardwares for Quantum Computing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lecture-08/accessing-qc-systems.html">Lecture 8a: Accessing Quantum Computing Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-08/cloud-qc.html">Lecture 9: Heterogeneous Quantum Computing on AWS with Amazon Braket</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lecture-08/landscape-of-sdks-tools.html">Lecture 8b: Landscape of Quantum SDK’s and Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lecture-09/cloud-qc.html">Lecture 9: Heterogeneous Quantum Computing on AWS with Amazon Braket</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lecture-10/quantum-algorithms-1.html">Lecture 10: Early Quantum Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-09/quantum-algorithms-1.html">Lecture 10: Early Quantum Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-10/quantum-algo-prim.html">Quantum Algorithm primitives</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lecture-11/quantum-algorithms-2.html">Lecture 11: NISQ Quantum Algorithms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lecture-12/quantum-computing-ireland.html">Lecture 12: Quantum Computing in Ireland</a></li>
 </ul>
@@ -333,7 +335,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>CT4106</h1>
+    <h1>CT4110</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -356,24 +358,28 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="ct4106">
-<h1>CT4106<a class="headerlink" href="#ct4106" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="ct4110">
+<h1>CT4110<a class="headerlink" href="#ct4110" title="Link to this heading">#</a></h1>
 <p><a class="reference external" href="https://github.com/ICHEC/CT4106/actions/workflows/publish.yml"><img alt="deploy-book" src="https://github.com/ICHEC/CT4106/actions/workflows/publish.yml/badge.svg" /></a></p>
 <section id="structure">
 <h2>Structure<a class="headerlink" href="#structure" title="Link to this heading">#</a></h2>
+<p>Below is the latest structure of the lectures, and evolution from previous iterations.</p>
 <div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>graph LR
-Old(&quot;External&quot;) ==&gt; New([&quot;CT4106&quot;])
-1o(Lecture 1) ==&gt; 1n(Lecture 1)
-2o(Lecture 2) ==&gt; 2n(Lecture 2) 
-3o(Lecture 3) ==&gt; 3n(Lecture 3)
-new1(&quot;New&quot;) ==&gt; 4n(Lecture 4)
-new2(&quot;Guest 1&quot;) ==&gt; 5n(Lecture 5)
-4o(Lecture 4) ==&gt; 6n(Lecture 6)
-new3(&quot;Guest 2&quot;) ==&gt; 7n(Lecture 7)
-5o(Lecture 5) &amp; 6o(Lecture 6) ==&gt; 8n(Lecture 8)
-new4(&quot;Guest 3&quot;) ==&gt; 9n(Lecture 9)
-7o(Lecture 7) ==&gt; 10n(Lecture 10) &amp; 11n(Lecture 11)
-new5(&quot;ICHEC&quot;) ==&gt; 12n(Lecture 12)
+Old(&quot;External&quot;) ==&gt; New([&quot;CT4106&quot;]) ==&gt; New1([&quot;CT4110&quot;])
+1o(Lecture 1) ==&gt; 1n(Lecture 1) ==merge==&gt; l1(Lecture 1)
+2o(Lecture 2) ==&gt; 2n(Lecture 2) ==merge==&gt; l1(Lecture 1)
+3o(Lecture 3) ==&gt; 3n(Lecture 3) ==&gt; l2(Lecture 2)
+new1(&quot;New&quot;) ==&gt; 4n(Lecture 4) ==split==&gt; l3(Lecture 3) &amp; l4(Lecture 4)
+new2(&quot;Guest 1&quot;) ==&gt; 5n(Lecture 5) ==&gt; l5(Lecture 5)
+4o(Lecture 4) ==&gt; 6n(Lecture 6) ==&gt; l6(Lecture 6)
+new3(&quot;Guest 2&quot;) ==&gt; 7n(Lecture 7) ==&gt; l7(Lecture 7)
+5o(Lecture 5) &amp; 6o(Lecture 6) ==merge==&gt; 8n(Lecture 8) ==merge==&gt; l8(Lecture 8)
+new4(&quot;Guest 3&quot;) ==&gt; 9n(Lecture 9) ==merge==&gt; l8
+7o(Lecture 7) ==split==&gt; 10n(Lecture 10) &amp; 11n(Lecture 11)
+10n ==&gt; l9(Lecture 9)
+new5(&quot;New&quot;) ===&gt; l10(Lecture 10)
+11n ==&gt; l11(Lecture 11)
+new6(&quot;ICHEC&quot;) ==&gt; 12n(Lecture 12) ==&gt; l12(Lecture 12)
 </pre></div>
 </div>
 </section>

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Lecture 2: Integrating Classical and Quantum Computing &#8212; Lecture Notes for CT4106</title>
+    <title>Lecture 1b: Integrating Classical and Quantum Computing &#8212; Lecture Notes for CT4106</title>
   
   
   
@@ -59,11 +59,11 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-02/integrating-cc-and-qc';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-01/integrating-cc-and-qc';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Lecture 3: From Bits to Qubits" href="../lecture-03/from-bits-to-qubits.html" />
-    <link rel="prev" title="Lecture 1: Demystifying Quantum Computing" href="../lecture-01/demystifying-qc.html" />
+    <link rel="next" title="Lecture 3: From Bits to Qubits" href="../lecture-02/from-bits-to-qubits.html" />
+    <link rel="prev" title="Lecture 1a: Demystifying Quantum Computing" href="demystifying-qc.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -182,17 +182,19 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../lecture-01/demystifying-qc.html">Lecture 1: Demystifying Quantum Computing</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 2: Integrating Classical and Quantum Computing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../lecture-03/from-bits-to-qubits.html">Lecture 3: From Bits to Qubits</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../lecture-04/math-for-qc.html">Lecture 4: Mathematical framework for Quantum Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demystifying-qc.html">Lecture 1a: Demystifying Quantum Computing</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 1b: Integrating Classical and Quantum Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-02/from-bits-to-qubits.html">Lecture 3: From Bits to Qubits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-03/math-for-qc-1.html">Lecture 4: Mathematical framework for Quantum Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-04/math-for-qc-2.html">Lecture 4: Mathematical framework for Quantum Computing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lecture-05/intro-to-quantum-info.html">Lecture 5: Introduction to Quantum Information</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lecture-06/realizing-qc-systems.html">Lecture 6: Realizing Quantum Computing Systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lecture-07/qc-hardwares.html">Lecture 7: Hardwares for Quantum Computing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lecture-08/accessing-qc-systems.html">Lecture 8a: Accessing Quantum Computing Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-08/cloud-qc.html">Lecture 9: Heterogeneous Quantum Computing on AWS with Amazon Braket</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lecture-08/landscape-of-sdks-tools.html">Lecture 8b: Landscape of Quantum SDK’s and Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../lecture-09/cloud-qc.html">Lecture 9: Heterogeneous Quantum Computing on AWS with Amazon Braket</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../lecture-10/quantum-algorithms-1.html">Lecture 10: Early Quantum Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-09/quantum-algorithms-1.html">Lecture 10: Early Quantum Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-10/quantum-algo-prim.html">Quantum Algorithm primitives</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lecture-11/quantum-algorithms-2.html">Lecture 11: NISQ Quantum Algorithms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lecture-12/quantum-computing-ireland.html">Lecture 12: Quantum Computing in Ireland</a></li>
 </ul>
@@ -249,7 +251,7 @@
       
       
       
-      <li><a href="../_sources/lecture-02/integrating-cc-and-qc.md" target="_blank"
+      <li><a href="../_sources/lecture-01/integrating-cc-and-qc.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -333,7 +335,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Lecture 2: Integrating Classical and Quantum Computing</h1>
+    <h1>Lecture 1b: Integrating Classical and Quantum Computing</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -363,8 +365,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="lecture-2-integrating-classical-and-quantum-computing">
-<span id="lecture-2"></span><h1>Lecture 2: Integrating Classical and Quantum Computing<a class="headerlink" href="#lecture-2-integrating-classical-and-quantum-computing" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-1b-integrating-classical-and-quantum-computing">
+<span id="lecture-1b"></span><h1>Lecture 1b: Integrating Classical and Quantum Computing<a class="headerlink" href="#lecture-1b-integrating-classical-and-quantum-computing" title="Link to this heading">#</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>These lecture notes are a work in progress and are not a replacement for watching the lecture video, it’s intended to be supplementary reading after watching the lecture</p>
@@ -385,7 +387,7 @@ document.write(`
 As the complexity of applications and their logics increased, opportunities arose to do what is called parallel computing – this involves executing multiple parts of a program simultaneously on multiple workers within Processing Units. For example, the program or parts of the instructions (known as kernels) within the program, may have to be executed to process different input data sets which are independent of each other – so, these could be done in parallel. This is typically referred to as data parallelism, and is illustrated in <a class="reference internal" href="#fig-data-parallelism"><span class="std std-numref">Fig. 1</span></a>.
 Another example, shown in <a class="reference internal" href="#fig-task-parallelism"><span class="std std-numref">Fig. 2</span></a>, is where, for the same input data, different kernels within a program may be executed independent of each other and hence in parallel. This is referred to as task parallelism.</p>
 <figure class="align-center" id="fig-data-parallelism">
-<a class="reference internal image-reference" href="../_images/data_parallelism.png"><img alt="../_images/data_parallelism.png" src="../_images/data_parallelism.png" style="width: 100%;" />
+<a class="reference internal image-reference" href="lecture-02/data_parallelism.png"><img alt="lecture-02/data_parallelism.png" src="lecture-02/data_parallelism.png" style="width: 100%;" />
 </a>
 <figcaption>
 <p><span class="caption-number">Fig. 1 </span><span class="caption-text">–
@@ -393,7 +395,7 @@ Another example, shown in <a class="reference internal" href="#fig-task-parallel
 </figcaption>
 </figure>
 <figure class="align-center" id="fig-task-parallelism">
-<a class="reference internal image-reference" href="../_images/task_parallelism.png"><img alt="../_images/task_parallelism.png" src="../_images/task_parallelism.png" style="width: 100%;" />
+<a class="reference internal image-reference" href="lecture-02/task_parallelism.png"><img alt="lecture-02/task_parallelism.png" src="lecture-02/task_parallelism.png" style="width: 100%;" />
 </a>
 <figcaption>
 <p><span class="caption-number">Fig. 2 </span><span class="caption-text">–
@@ -487,7 +489,7 @@ When using quantum computing systems and QPUs as accelerators alongside the clas
         },
         kernelOptions: {
             name: "python3",
-            path: "./lecture-02"
+            path: "./lecture-01"
         },
         predefinedOutput: true
     }
@@ -505,16 +507,16 @@ When using quantum computing systems and QPUs as accelerators alongside the clas
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../lecture-01/demystifying-qc.html"
+       href="demystifying-qc.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Lecture 1: Demystifying Quantum Computing</p>
+        <p class="prev-next-title">Lecture 1a: Demystifying Quantum Computing</p>
       </div>
     </a>
     <a class="right-next"
-       href="../lecture-03/from-bits-to-qubits.html"
+       href="../lecture-02/from-bits-to-qubits.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>

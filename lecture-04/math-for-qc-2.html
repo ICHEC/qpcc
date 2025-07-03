@@ -1,0 +1,1943 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lecture 4: Mathematical framework for Quantum Computing &#8212; Lecture Notes for CT4106</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/drawio.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/style.css?v=fb429c44" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-04/math-for-qc-2';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Lecture 5: Introduction to Quantum Information" href="../lecture-05/intro-to-quantum-info.html" />
+    <link rel="prev" title="Lecture 4: Mathematical framework for Quantum Computing" href="../lecture-03/math-for-qc-1.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Lecture Notes for CT4106 - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Lecture Notes for CT4106 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    CT4106 Lectures Overview
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-01/demystifying-qc.html">Lecture 1a: Demystifying Quantum Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-01/integrating-cc-and-qc.html">Lecture 1b: Integrating Classical and Quantum Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-02/from-bits-to-qubits.html">Lecture 3: From Bits to Qubits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-03/math-for-qc-1.html">Lecture 4: Mathematical framework for Quantum Computing</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 4: Mathematical framework for Quantum Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-05/intro-to-quantum-info.html">Lecture 5: Introduction to Quantum Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-06/realizing-qc-systems.html">Lecture 6: Realizing Quantum Computing Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-07/qc-hardwares.html">Lecture 7: Hardwares for Quantum Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-08/accessing-qc-systems.html">Lecture 8a: Accessing Quantum Computing Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-08/cloud-qc.html">Lecture 9: Heterogeneous Quantum Computing on AWS with Amazon Braket</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-08/landscape-of-sdks-tools.html">Lecture 8b: Landscape of Quantum SDK’s and Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-09/quantum-algorithms-1.html">Lecture 10: Early Quantum Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-10/quantum-algo-prim.html">Quantum Algorithm primitives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-11/quantum-algorithms-2.html">Lecture 11: NISQ Quantum Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-12/quantum-computing-ireland.html">Lecture 12: Quantum Computing in Ireland</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lecture-04/math-for-qc-2.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 4: Mathematical framework for Quantum Computing</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#postulates-of-quantum-physics">Postulates of Quantum Physics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uncertainty-principle">Uncertainty Principle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#state-as-an-abstract-vector">State as an abstract vector</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superposition-principle">Superposition principle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#role-of-interference">Role of interference</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#principles-of-measurement">Principles of measurement</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#no-cloning">No-cloning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entanglement">Entanglement</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tunnelling">Tunnelling</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematica-structure">Mathematica Structure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scalar-vs-vector">Scalar vs Vector</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set">Set</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#subsets">Subsets</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#map">Map</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-operations">Binary operations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#group">Group</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#subgroups">Subgroups</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#field">Field</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-space">Vector Space</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-sub-space">Vector Sub-space</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-combination">Linear combination</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-independence">Linear independence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basis">Basis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-operators">Linear Operators</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inner-product-space">Inner product space</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#norm-of-a-vector">Norm of a vector</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caucy-schwarz-inequality">Caucy-Schwarz inequality</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hilbert-space">Hilbert space</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normality">Normality</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#orthogonality">Orthogonality</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overlap-of-vectors">Overlap of vectors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#orthonormal-basis">Orthonormal basis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-basis">Changing basis</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#special-operators">Special operators</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adjoint-operator">Adjoint operator</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hermitian-operators">Hermitian operators</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unitary-opertors">Unitary opertors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalues-and-eigenvectors">Eigenvalues, and Eigenvectors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dirac-notation">Dirac Notation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#states-and-operators">States and Operators</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connection-with-experiment">Connection with Experiment</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-interpretation">Probabilistic interpretation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-of-measurement">Interpretation of measurement</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-interpretation">Mathematical interpretation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hilbert-space-of-qubits">Hilbert space of Qubits</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-qubit">Single Qubit</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-qubits">Multiple Qubits</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pure-vs-mixed-states">Pure vs Mixed States</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pure-state">Pure state</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mixed-state">Mixed state</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-4-mathematical-framework-for-quantum-computing">
+<span id="lecture-4"></span><h1>Lecture 4: Mathematical framework for Quantum Computing<a class="headerlink" href="#lecture-4-mathematical-framework-for-quantum-computing" title="Link to this heading">#</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>These lecture notes are a work in progress and are not a replacement for watching the lecture video, it’s intended to be a supplementary reading after watching the lecture</p>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Learning outcomes</p>
+<p>In this lecture we discuss the mathematical framework and tools required to properly understand how quantum system works. We give a short introduction to notion of vector spaces, linear operators, and how they connect to physical reality.</p>
+</div>
+<section id="postulates-of-quantum-physics">
+<h2>Postulates of Quantum Physics<a class="headerlink" href="#postulates-of-quantum-physics" title="Link to this heading">#</a></h2>
+<p>Let us go through some of the building blocks of quantum mechanics, and see how the required mathematical framework emerges.</p>
+<section id="uncertainty-principle">
+<h3>Uncertainty Principle<a class="headerlink" href="#uncertainty-principle" title="Link to this heading">#</a></h3>
+<p>It is a fundamental principle of quantum mechanics, which states that certain pairs of physical properties can’t be measured simultaneously with arbitrary precision, for example a particle’s position and momentum. The properties which can form such pairs are called conjugate properties to each other. In the coming sections we will discuss more about them. In fact the product of uncertainties of the conjugate properties is bounded below. If the conjugate properties are <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>, and the standard deviation or uncertainties in their simulaneous measurement in a given experiment are <span class="math notranslate nohighlight">\(\sigma_A\)</span> and <span class="math notranslate nohighlight">\(\sigma_B\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma_A \sigma_B \ge \frac{h}{4\pi}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(h\)</span> is Plank’s constant.</p>
+</section>
+<section id="state-as-an-abstract-vector">
+<h3>State as an abstract vector<a class="headerlink" href="#state-as-an-abstract-vector" title="Link to this heading">#</a></h3>
+<p>In everyday life we use the term <code class="docutils literal notranslate"><span class="pre">state</span></code> when we refer to the situation/condition somebody or something is in. We make it more comprehensive by adding adjectives to it, such as <em>in state of weakness</em>, <em>in state of pain</em>, etc. In case of a physical system, the same idea extends to a comprehensive definition, with quantifiability. The state of a physical system refers to something that can provide complete physically accessible information about the system at a given instant of time. This is quantified with first determining the number of independent quantities required for complete information, and then assigning a variable for each of those.
+A numerical value of each of those variable defines the state of the system. Formally -</p>
+<blockquote>
+<div><p>A <strong>state</strong> is a <strong>set of variables</strong> describing a system which does not include anything about its history.</p>
+</div></blockquote>
+<p>This set of variable is assumed to be <em>minimal</em> so that removing any component results in only partial information about the system. Take for example the case of a single isolated particle.
+Then it’s position and velocity are two independent minimal properties.  If the motion of this particle is constrained along a line, then a variable <span class="math notranslate nohighlight">\(x\)</span> denoting it’s distance from a chosen origin on the line completely determines it’s position, and it’s time derivative <span class="math notranslate nohighlight">\(v = \frac{dx}{dt}\)</span> determines the velocity. Thus together, <span class="math notranslate nohighlight">\((x, v)\)</span> define the state of the particle.
+If the motion was not constrained, one would need three coordinates <span class="math notranslate nohighlight">\((x, y, z)\)</span> for position, and three components of velocity <span class="math notranslate nohighlight">\((v_x, v_y, v_z)\)</span> with respect to a given reference frame. Thus collectively a set of six variables <span class="math notranslate nohighlight">\((x, y, z, v_x, v_y, v_z)\)</span> defines the state of a particle. For a system of many particles, the variables are concatenated, and the set becomes bigger. For <span class="math notranslate nohighlight">\(N\)</span> particle system, the set contains <span class="math notranslate nohighlight">\(6N\)</span> variables.</p>
+<p>Note that this set has to be ordered so there is no confusion in the meaning of each of its elements. Such ordered sets are essentially what one calls vectors. We discuss vectors in more details in the coming sections.</p>
+<blockquote>
+<div><blockquote>
+<div><p>Add Figure</p>
+</div></blockquote>
+</div></blockquote>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>A reference frame refers to a chosen point of origin, and a given orientation of coordinate axes in which a position is measured.</p>
+</aside>
+<div class="tip admonition">
+<p class="admonition-title">Degrees of Freedom</p>
+<p>The degrees of freedom of a system is a number associated with it. It is the number of independent ways one
+can change the system’s state. Alternatively, it’s also the minimum number of individual quantities required to specify the state.</p>
+</div>
+<p>In case of single particle, it’s degrees of freedom is 6. For a system of <span class="math notranslate nohighlight">\(N\)</span> particles, it’s <span class="math notranslate nohighlight">\(6N\)</span>.</p>
+<p>Now consider a quantum particle, and think whether we can use the above mentioned set of positions and velocities/momenta <span class="math notranslate nohighlight">\((x, y, z, v_x, v_y, v_z)\)</span> can describe the state of quantum particle. Due to uncertainty principle, we immediately run into a problem, because the position <span class="math notranslate nohighlight">\(x\)</span>, and velocity <span class="math notranslate nohighlight">\(v_x\)</span> can not be accurately determined simultaneously. Thus the set of position and velocity variables can not provide complete information about particle’s state.</p>
+<p>So how do we define state of a quantum system? Here one postulates, that it is possible to define a <code class="docutils literal notranslate"><span class="pre">state</span></code> of a quantum system, represented as some type of abstract object. This object will likely have multiple components associated with it, one for each degree of freedom. It will thus be a vector
+of some kind. For the moment we call it an abstract vector, as we don’t know it’s structure. As we go throught the sections, we will explore how this structure emerges, and how it works.</p>
+<p>So, for the moment, we say that the state of a quantum system is represented by an abstract vector. In due course we will learn several synonyms for this abstract vector defining the state of a quantum system.</p>
+</section>
+<hr class="docutils" />
+<section id="superposition-principle">
+<h3>Superposition principle<a class="headerlink" href="#superposition-principle" title="Link to this heading">#</a></h3>
+<p>Superposition, issentially means applying multiple effect/stimuli/attributes on a system/object.</p>
+<p>In general, the superposition principle applies to anywhere more than one attributes can be imposed on a single object.
+Formally speaking, the principle states that in all linear systems, the net response caused by two or more stimuli on a system is sum of the individual responses that would have been caused by each individual stimulus.</p>
+<blockquote>
+<div><p>The sum of responses of individual effects, is same as the response of the sum of individual effecs.</p>
+</div></blockquote>
+<p>Once we go through the mathematical structure in the coming sections, it will become clear that the superposition principle issentially is a consequence of <strong>linearity</strong> in the system, or linear behaviour.</p>
+<p>In quantum mechanics, the superposition applies to states. What that means is, that if a system can exist in say two states <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>, then it can also exist in a superposition of <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>. In the section below we will learn how to interpret such a thing mathematically, but for now we can intuitively speculate, that a superposition of two states should have properties resembling both the states even though the two state might be very different.</p>
+<blockquote>
+<div><blockquote>
+<div><p>Figure for illustration</p>
+</div></blockquote>
+</div></blockquote>
+</section>
+<section id="role-of-interference">
+<h3>Role of interference<a class="headerlink" href="#role-of-interference" title="Link to this heading">#</a></h3>
+<p>The notion of intereference is quantum systems is very similar to what it means in waves. When two waves are combined, their instantaneous intensities or displacements are added. The intensity or displacement of the resulting wave can be greater or lower depending on their <code class="docutils literal notranslate"><span class="pre">relative</span> <span class="pre">phase</span></code>.</p>
+<p><img alt="" src="https://upload.wikimedia.org/wikipedia/commons/5/5d/Waventerference.gif" /></p>
+<p>In case of quantum system, as we will see, probability amplitudes take the role of intensity or displacements.</p>
+</section>
+<section id="principles-of-measurement">
+<h3>Principles of measurement<a class="headerlink" href="#principles-of-measurement" title="Link to this heading">#</a></h3>
+<p>In quantum mechanics, a measurement is testing or manipulation of a physical system that yields a numerical result.
+This in principle doesn’t look much different than a measurement of a classical system. However, in the quantum realm,
+the process of <code class="docutils literal notranslate"><span class="pre">measureing</span></code> something also changes the underlying system.</p>
+</section>
+<section id="no-cloning">
+<h3>No-cloning<a class="headerlink" href="#no-cloning" title="Link to this heading">#</a></h3>
+</section>
+<section id="entanglement">
+<h3>Entanglement<a class="headerlink" href="#entanglement" title="Link to this heading">#</a></h3>
+</section>
+<section id="tunnelling">
+<h3>Tunnelling<a class="headerlink" href="#tunnelling" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<hr class="docutils" />
+<section id="mathematica-structure">
+<h2>Mathematica Structure<a class="headerlink" href="#mathematica-structure" title="Link to this heading">#</a></h2>
+<p>Here we discuss in bravety the necessary mathematical structures upon which the formulation of quantum mechanics relies on.
+It progressively goes as follows -</p>
+<pre  class="mermaid">
+        mindmap
+root(Mathematical Framework)
+    Vector Space, Hilbert Space
+        Scalar vs Vector
+        States as Vector (Bra and Ket)
+    Linear combination
+        Linear independence
+    Inner Product
+        Overlap of vectors
+        Orthogonality
+    Linear Operators
+        Commutativity
+        Special operators: Unitary, Hermitian, ...
+        Probability conservation
+    Representation theory
+    </pre><section id="scalar-vs-vector">
+<h3>Scalar vs Vector<a class="headerlink" href="#scalar-vs-vector" title="Link to this heading">#</a></h3>
+<p>Any quantity that can be described by a single numerical value, usually with real, and sometimes with complex numbers is a scalar.
+The common examples of scalars are volume, density, speed, energy, mass and time.</p>
+<p>Quantities require multiples of numerical values, with each value describing some aspect or attribute of the quantities, are called vectors. The number of these values is called the <code class="docutils literal notranslate"><span class="pre">dimension</span></code> of the vector. Common examples of vector quantities from physics include position, velocity, momentum, and force. They all have two common attributes, (i) a <strong>magnitude</strong>, and (ii) a <strong>direction</strong> associated with them.</p>
+<p>Both scalars and vectors are represented usually with real numbers, and often with complex numbers. So the notions of <code class="docutils literal notranslate"><span class="pre">addition</span></code>, <code class="docutils literal notranslate"><span class="pre">subtraction</span></code>, <code class="docutils literal notranslate"><span class="pre">multiplication</span></code> and <code class="docutils literal notranslate"><span class="pre">division</span></code>,
+through which we manipulate numbers, are suitably extended on scalars and vectors.</p>
+<p><strong>Scalars</strong>: are expressed in terms of single number, so their algebra is essentially the same as algebra of real/complex numbers they are expressed in.</p>
+<p><strong>Vectors</strong>: are expressed in terms of multiple numbers. So it’s not straight forward as to how to manipulate vectors, based on scalars, or formally extend their algebra from the component numbers. We see below how this is done.</p>
+<p><strong>Vector Space, Hilbert Space</strong>: A Vector space is a mathematical structure, that constitutes the necessary components to manipulate vectors in sensible way. Before we define it, we need to understand a few definitions, namely <code class="docutils literal notranslate"><span class="pre">Set</span></code>, <code class="docutils literal notranslate"><span class="pre">map</span></code>, <code class="docutils literal notranslate"><span class="pre">Binary</span> <span class="pre">operations</span></code>, <code class="docutils literal notranslate"><span class="pre">Group</span></code> and <code class="docutils literal notranslate"><span class="pre">Field</span></code> -</p>
+</section>
+<section id="set">
+<h3>Set<a class="headerlink" href="#set" title="Link to this heading">#</a></h3>
+<p>Learning the notion of sets, and their manipulation provide not only training in fundamentals of logic of categorisation, organisation, it is crucial building block of most of mathematics.</p>
+<p>In Mathematics, a set is defined as a unique collection of well defined objects<a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, and the object in the collection are called elements of the set.</p>
+<p>For example,</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(A=\{a, e, i, o, u\}\)</span> is a set of vowels in english language.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{Z} = \{0, \pm1, \pm2, \pm3,\dots\}\)</span> is the set of integers.</p></li>
+</ul>
+<p>It’s important to imphesise the important of uniqueness in a set. It means in that in a set, a member exists only once. Thus <span class="math notranslate nohighlight">\(A=\{a, e, i, o, u\}\)</span> is a well defined set, while <span class="math notranslate nohighlight">\(A=\{a, e, i, o, u, a, i\}\)</span> is not, as <span class="math notranslate nohighlight">\(a, i\)</span> are put twice. So a set is different than a mere list, which can have multiple occurrance of an object.</p>
+<p>Secondly, the order of elements in a set have no meaning, so <span class="math notranslate nohighlight">\(\{a, e, i, o, u\}\)</span> and say, <span class="math notranslate nohighlight">\(\{i, o, a, u, e\}\)</span> are same sets, just expressed differently.</p>
+<p>A set is expressed with mainly two ways:</p>
+<ol class="arabic simple">
+<li><p><strong>Roster method</strong>: This is the method where we list all the elements of the set, in no particular order, and put them in curly braces. The set of vowels, <span class="math notranslate nohighlight">\(\{a, e, i, o, u\}\)</span> is one such examples. It is the simplest method, but becomes inconvenient for sets with large number of elements, or infinite number of elements.</p></li>
+<li><p><strong>Set builder/logical method</strong>: In this method, instead of trying to list elements one by one, we name a representative element, and describe it’s specific properties that make it a member of the set. For example, see below, and example of set builder method.</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+B = \{a| a\in \mathbb{Z}, \text{ and } a \text{ is even}\}
+\]</div>
+<p>The above is seen or read as “B equals a set of all ‘<span class="math notranslate nohighlight">\(a\)</span>’ such that <span class="math notranslate nohighlight">\(a\)</span> is an integer, and <span class="math notranslate nohighlight">\(a\)</span> is even”. Equivalently, B is set of all even integers. The roster version of this would be <span class="math notranslate nohighlight">\(B = \{\dots, -3, -2, -1, 0, 1, 2, 3, \dots\}\)</span>.</p>
+<p>A set can be finite, or infinite, that is, the number of elements in a set can be finite, or infinite.</p>
+<p>You can manipulate a set, by adding or removing elements from it. A set with no elements is called <code class="docutils literal notranslate"><span class="pre">Null</span> <span class="pre">set</span></code>, denoted by <span class="math notranslate nohighlight">\(\emptyset\)</span>.</p>
+<p>Sets can be finite and infinite. We all know what being finite is, so a finite set is a set with finite number of elements which one could count.</p>
+<p>Infinite is a slightly tricky concept in mathematics. To start with, an infinite set is a set that <strong>is not</strong> finite.</p>
+<p>The set of natural numbers <span class="math notranslate nohighlight">\(\mathbb{N} = \{1, 2, 3, \dots\}\)</span> plays a central role in the categorisation of sets. First, it let’s us define countability. So a set in which you could count the number of elements one by one, is called countable. If the counting finishes after finite number, the set is finite and countable. If you can count, and the counting can not finish in finite time, the set is said to be countably infinite. By definition or axiom, the set of natural number is countably infinite. <strong>Uncountable</strong> sets on the other hand, are the ones that are inifinite, and contains too many elements to be even countable.</p>
+<p>We use the term <strong>cardinality</strong> for representing a measure of number of elements in a set. The cardinality of a finite set is the number of elements in it. For infinite sets, the cardinality is symbolic and is established by comparison of two sets and defining map among them.</p>
+<section id="subsets">
+<h4>Subsets<a class="headerlink" href="#subsets" title="Link to this heading">#</a></h4>
+<p>Imagine we have two sets, A and B, and it is such that, every element of A is also element of B, then we say that A is a subset of B. It is denoted as <span class="math notranslate nohighlight">\(A\subset B\)</span>. We also in this case, call B as <strong>superset</strong> of A.</p>
+<p>Naturally, every set is subset and superset of itself. We a call a set A to be a <strong>proper subset</strong> of B, if every element of A is in B, but at least one element exists in B that is not in A. In this case, B is called a <strong>proper superset</strong> of A.</p>
+<p>For finite sets, their proper subsets have strictly lower number of element than the set itself. However for infinite sets, a proper subset may
+have same cardinality as the set itself.</p>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="https://upload.wikimedia.org/wikipedia/commons/b/b0/Venn_A_subset_B.svg"><img alt="https://upload.wikimedia.org/wikipedia/commons/b/b0/Venn_A_subset_B.svg" src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Venn_A_subset_B.svg" style="width: 400px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 11 </span><span class="caption-text">A is subset of B, and B is superset of A</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id4">
+<a class="reference internal image-reference" href="https://upload.wikimedia.org/wikipedia/commons/a/a0/NumberSetinC.svg"><img alt="https://upload.wikimedia.org/wikipedia/commons/a/a0/NumberSetinC.svg" src="https://upload.wikimedia.org/wikipedia/commons/a/a0/NumberSetinC.svg" style="width: 400px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 12 </span><span class="caption-text">Visualisation of the set of numbers, natural numbers <span class="math notranslate nohighlight">\(\mathbb{N}\)</span>, integers <span class="math notranslate nohighlight">\(\mathbb{Z}\)</span>, rational numbers <span class="math notranslate nohighlight">\(\mathbb{Q}\)</span>, real numbers <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>, and complex numbers <span class="math notranslate nohighlight">\(\mathbb{C}\)</span>. We have following <span class="math notranslate nohighlight">\(\mathbb{N}\subset \mathbb{Z}\subset \mathbb{Q}\subset \mathbb{R}\subset \mathbb{C}\)</span></span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/5ce7ecb379686c232fa95448335a0701dadfaa5466812030b560f9c6331f5850.png" src="../_images/5ce7ecb379686c232fa95448335a0701dadfaa5466812030b560f9c6331f5850.png" />
+</div>
+</div>
+<p>We defined what a set is, and introduced a notion of comparison by defining what a subset, and superset is. There is a lot more one can do with the notion of sets, to manipulate them, to the extent that it looks like everyday algebra.</p>
+<ul class="simple">
+<li><p><strong>Universal set:</strong> For a given consideration of problem, a universal set <span class="math notranslate nohighlight">\(U\)</span> is set of all elements considered, and fixed, so that every set defined for the problem, is a subset of <span class="math notranslate nohighlight">\(U\)</span>.</p></li>
+<li><p><strong>Complement:</strong> Compliment of a set A, denoted by <span class="math notranslate nohighlight">\(A'\)</span>, or sometimes <span class="math notranslate nohighlight">\(A^c\)</span> is defined with respect to the universal set, is set of all elements of <span class="math notranslate nohighlight">\(U\)</span> that are not in A.</p></li>
+</ul>
+<aside class="sidebar">
+<figure class="align-default" id="id5">
+<img alt="lecture-04/set-union-inters-diff.jpg" src="lecture-04/set-union-inters-diff.jpg" />
+<figcaption>
+<p><span class="caption-number">Fig. 13 </span><span class="caption-text">Set Union, intersection and set difference.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</aside>
+<ul class="simple">
+<li><p><strong>Union:</strong> A union of two sets, say A and B, denoted as <span class="math notranslate nohighlight">\(A\cup B\)</span> is defined as the set of all elements that belong to either A, or B, or both. For example, if <span class="math notranslate nohighlight">\(A=\{1,2,3,4\}\)</span> and <span class="math notranslate nohighlight">\(B=\{1,3,5,7\}\)</span>, then</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[A\cup B = \{1, 2, 3, 4, 5, 7\}\]</div>
+<ul class="simple">
+<li><p><strong>Intersection:</strong> An intersection of two sets, say A and B, denoted as <span class="math notranslate nohighlight">\(A\cap B\)</span> is defined as set of all elements that belong to both A and B.</p></li>
+<li><p><strong>Difference:</strong> The set difference of A from B, denote as <span class="math notranslate nohighlight">\(A-B\)</span>, is set of all elements of A that are not elements of B.</p></li>
+<li><p><strong>Cartesian Product:</strong> A cartesian product of two sets, say A and B, denoted by <span class="math notranslate nohighlight">\(A\times B\)</span> is the set of all ordered pairs <span class="math notranslate nohighlight">\((a, b)\)</span> such that <span class="math notranslate nohighlight">\(a\)</span> belongs to A, and <span class="math notranslate nohighlight">\(b\)</span> belongs to B.</p></li>
+</ul>
+<p>For examples, if <span class="math notranslate nohighlight">\(A=\{a, b, c\}\)</span> and <span class="math notranslate nohighlight">\(B=\{x, y, z\}\)</span> then</p>
+<div class="math notranslate nohighlight">
+\[
+A\times B = \{(a, x), (a, y), (a, z),
+(b, x), (b, y), (b, z),
+(c, x), (c, y), (c, z)\}
+\]</div>
+</section>
+</section>
+<section id="map">
+<h3>Map<a class="headerlink" href="#map" title="Link to this heading">#</a></h3>
+<p>In mathematics, a map is somethings that defines a symbolic relation from elements of a set <strong>X</strong> to elements of another set <strong>Y</strong>, such that each element of <strong>X</strong> gets associated to an element of <strong>Y</strong>. The set <strong>X</strong> whose elemets get <code class="docutils literal notranslate"><span class="pre">mapped</span> <span class="pre">to</span></code> is called the <strong>domain of the map</strong> and the set <strong>Y</strong> the elements of which they get <code class="docutils literal notranslate"><span class="pre">mapped</span> <span class="pre">from</span></code> is called the <strong>range or codomain of the map</strong>.</p>
+<p>Symbolically, a map is expressed as follows</p>
+<ul class="simple">
+<li><p>We say that <span class="math notranslate nohighlight">\(f\)</span> is a map from X to Y by <span class="math notranslate nohighlight">\(f: X\longrightarrow Y\)</span></p></li>
+<li><p>For an element <span class="math notranslate nohighlight">\(x\)</span> in X, the element in Y it maps to, is expressed as <span class="math notranslate nohighlight">\(f(x)\)</span>.</p></li>
+<li><p>The element <span class="math notranslate nohighlight">\(f(x)\)</span> belongs to Y, and is called the <strong>image</strong> of <span class="math notranslate nohighlight">\(x\)</span>.</p></li>
+</ul>
+<figure class="align-center">
+<a class="reference internal image-reference" href="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Function_color_example_3.svg/1024px-Function_color_example_3.svg.png"><img alt="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Function_color_example_3.svg/1024px-Function_color_example_3.svg.png" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Function_color_example_3.svg/1024px-Function_color_example_3.svg.png" style="width: 70%;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>The map, mapping, correspondence are synonyms. Usually, if the set is of numbers, they are also called functions.</p></li>
+<li><p>A map between two sets let’s us see a holistic relation between them.</p></li>
+<li><p>If distinct elements of the domain set X get mapped to distinct elements of the codomain set Y, the map is called <strong>injective, or one-to-one</strong>. For example, consider the set of integers <span class="math notranslate nohighlight">\(\mathbb{Z}\)</span>, and a map <span class="math notranslate nohighlight">\(f: \mathbb{Z} \longrightarrow \mathbb{Z} \)</span> such that <span class="math notranslate nohighlight">\(f(x) = 3 x\)</span>. This is an injective map from <span class="math notranslate nohighlight">\(\mathbb{Z}\)</span> to itself.</p></li>
+<li><p>A map in which each element of the codomain set is image of some element in domain set, is called <strong>surjective or on-to</strong> map.</p></li>
+<li><p>A map that is both injective, and surjective, is called a <strong>bijective map</strong>. Bijective maps play an important role in mathematics.</p></li>
+</ul>
+<figure class="align-center">
+<a class="reference internal image-reference" href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Bijection.svg/1024px-Bijection.svg.png"><img alt="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Bijection.svg/1024px-Bijection.svg.png" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Bijection.svg/1024px-Bijection.svg.png" style="width: 70%;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Recall the uncountable sets. Using concept of map we can more clearly define it as follows - A set X is uncountable if and only if there exists no injective map from the set X to set of natural numbers <span class="math notranslate nohighlight">\(\mathbb{N}\)</span>.</p></li>
+<li><p>Consider the set of integers <span class="math notranslate nohighlight">\(\mathbb{Z}=\{\dots, -2, -1, 0, 1, 2, \dots\}\)</span> and a map <span class="math notranslate nohighlight">\(f:\mathbb{Z}\longrightarrow \mathbb{Z};\quad f(n)=3n\)</span>. The range of this set is a proper subset of <span class="math notranslate nohighlight">\(\mathbb{Z}\)</span>, as the range only contains numbers that are multiple of 3. However, since the map is injective, this means that the subset has the same cardinality as <span class="math notranslate nohighlight">\(\mathbb{Z}\)</span>.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+    \begin{Bmatrix}
+    \vdots \\
+    -2\\
+    -1\\
+    0\\
+    1\\
+    2\\
+    \vdots
+    \end{Bmatrix} \underrightarrow{~~~~~~f~~~~~~}
+    \begin{Bmatrix}
+    \vdots \\
+    -6\\
+    -3\\
+    0\\
+    3\\
+    6\\
+    \vdots
+    \end{Bmatrix}
+\end{align}
+\end{split}\]</div>
+<ul class="simple">
+<li><p>Maps can be combined. Instead of exploring general consequences, consider two bijective maps <span class="math notranslate nohighlight">\(f, g\)</span> from a set X to itself. If <span class="math notranslate nohighlight">\(f\)</span> maps an arbitrary element <span class="math notranslate nohighlight">\(a\)</span> in X to <span class="math notranslate nohighlight">\(b=f(a)\)</span>, and <span class="math notranslate nohighlight">\(g\)</span> maps <span class="math notranslate nohighlight">\(b\)</span> to <span class="math notranslate nohighlight">\(c=g(b)\)</span>, then the the <strong>combination, or composition</strong> of the two maps <span class="math notranslate nohighlight">\(fog\)</span> maps <span class="math notranslate nohighlight">\(a\)</span> to <span class="math notranslate nohighlight">\(fog(a) = f(g(a))\)</span>.</p></li>
+</ul>
+<pre align="center" class="mermaid align-center">
+        graph LR
+a([&quot;X&quot;])
+b([&quot;X&quot;])
+c([&quot;X&quot;])
+a --f--&gt; b --g--&gt; c
+a --fog--&gt; c
+    </pre></section>
+<section id="binary-operations">
+<h3>Binary operations<a class="headerlink" href="#binary-operations" title="Link to this heading">#</a></h3>
+<p>Binary operations, as the name suggests are operations that take two objects and combine them to give (usually) one unique object.</p>
+<p>In mathematics, binary operation is defined on a set, that takes two elements of the set, and returns one element of a  set.</p>
+<p>Formally, a binary operation on a set A is a mapping of elements of <span class="math notranslate nohighlight">\(A\times A\)</span> to A, expressed as</p>
+<div class="math notranslate nohighlight">
+\[
+o : A\times A \longrightarrow A
+\]</div>
+<p>For the binary operation to be well defined, the operation <span class="math notranslate nohighlight">\(o\)</span> should be such that <em>every</em> pair of elements from A, should map to a unique element in A. That is, if <span class="math notranslate nohighlight">\(a, b\)</span> are two arbitrary elements of A, then there exists a <span class="math notranslate nohighlight">\(c\)</span> in A, that <span class="math notranslate nohighlight">\(o(a, b) = c\)</span>. <span class="math notranslate nohighlight">\(o(a, b)\)</span> or <span class="math notranslate nohighlight">\(a~o~b\)</span> is denoted as result of the binary operation.</p>
+<p><strong>Commutativity</strong> A binary operation is said to be commutative, if the result of combining does not depend on which is combined to the other i.e., if <span class="math notranslate nohighlight">\(a o b = b o a\)</span> for every <span class="math notranslate nohighlight">\(a, b\)</span> in the set A.</p>
+<p>Examples:</p>
+<ul class="simple">
+<li><p>On the set of real numbers <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>, the usual addition <span class="math notranslate nohighlight">\(o(a,b) = a + b\)</span>, and the usual multiplication <span class="math notranslate nohighlight">\(o(a,b) = ab\)</span> are most common examples of binary operations.</p></li>
+<li><p>Consider a given set X, and a set S of all possible bijective maps from X to X, then the composition of maps <code class="docutils literal notranslate"><span class="pre">o</span></code> is a binary operation.</p></li>
+</ul>
+</section>
+<section id="group">
+<h3>Group<a class="headerlink" href="#group" title="Link to this heading">#</a></h3>
+<p>When we have a set, it let’s us categorize, and organize the elements. Having binary operations defined on a set tells us how a pair of elements of the set result in another element, in effect how combining elements gives us different elements.</p>
+<p>The binary operations defined on a set, give new structure to the set. A group is one such structure.</p>
+<p>A group is a set <span class="math notranslate nohighlight">\(A\)</span> with an operation <span class="math notranslate nohighlight">\(o\)</span>, expressed as <span class="math notranslate nohighlight">\((A, o)\)</span>, such that the operation satifies following conditions -</p>
+<ol class="arabic simple">
+<li><p><strong>Associativity</strong> A binary operation is called associative, if <span class="math notranslate nohighlight">\(a o (b o c) = (a o b) o c\)</span> for every elements <span class="math notranslate nohighlight">\(a, b, c\)</span> in <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><strong>Existence of Identity</strong> There exist an element <span class="math notranslate nohighlight">\(e\)</span> in <span class="math notranslate nohighlight">\(A\)</span> such that for every element <span class="math notranslate nohighlight">\(a\in A\)</span>, <span class="math notranslate nohighlight">\(e o a = a\)</span>, i.e., combining any element with <span class="math notranslate nohighlight">\(e\)</span> results in the same element.</p></li>
+<li><p><strong>Existence of Inverse</strong> For every element <span class="math notranslate nohighlight">\(a\in A\)</span>, there exists another element, say <span class="math notranslate nohighlight">\(a'\)</span> such that <span class="math notranslate nohighlight">\(a' o a = e\)</span>, i.e, combining the two results in indentity element.</p></li>
+</ol>
+<p>The inverse of an element <span class="math notranslate nohighlight">\(a\)</span> is often denoted by <span class="math notranslate nohighlight">\(a^{-1}\)</span>. There are certain consequence, that result directly out of the above three assumptions. Consider the identity in the group <span class="math notranslate nohighlight">\((A, o)\)</span>: we said for identity, <span class="math notranslate nohighlight">\(e o a = a\)</span>, and why not <span class="math notranslate nohighlight">\(a o e = a\)</span>?</p>
+<p>The two expressions are in general different, and can potentially, mean existence of two types of identity elements, say <code class="docutils literal notranslate"><span class="pre">left</span> <span class="pre">identity</span></code> and <code class="docutils literal notranslate"><span class="pre">right</span> <span class="pre">identity</span></code>. However one can prove based on the purely logic, and the knowledge that <span class="math notranslate nohighlight">\((A, o)\)</span> is a group, that the left and right identities, are the same element.</p>
+<p>The same question can be posed for the existence of the inverse. The left and the right inverses of an element (can be proven) are the same.</p>
+<p>The inverse of the inverse of the element <span class="math notranslate nohighlight">\(a\)</span>, is the element itself, i.e., <span class="math notranslate nohighlight">\((a^{-1})^{-1} = a\)</span></p>
+<section id="subgroups">
+<h4>Subgroups<a class="headerlink" href="#subgroups" title="Link to this heading">#</a></h4>
+<p>Just like sets have subsets, groups have subgroups. A subgroup of a group <span class="math notranslate nohighlight">\((G, o)\)</span> is a subset <span class="math notranslate nohighlight">\(S\subset G\)</span>, that forms group under the binary operation <span class="math notranslate nohighlight">\(o\)</span> of the group constrained within <span class="math notranslate nohighlight">\(S\)</span>. So in order for a subset to be a subgroup, following must be satisfied</p>
+<ul class="simple">
+<li><p>The binary operation <span class="math notranslate nohighlight">\(o\)</span> defined on the set <span class="math notranslate nohighlight">\(G\)</span>, is also a binary operation on the subset <span class="math notranslate nohighlight">\(S\)</span>.</p></li>
+<li><p>The identity of <span class="math notranslate nohighlight">\(o\)</span>, say <span class="math notranslate nohighlight">\(e\)</span> belongs to <span class="math notranslate nohighlight">\(S\)</span>, and for every <span class="math notranslate nohighlight">\(a\)</span> in <span class="math notranslate nohighlight">\(S\)</span>, <span class="math notranslate nohighlight">\(a^{-1}\)</span> also belongs to <span class="math notranslate nohighlight">\(S\)</span></p></li>
+</ul>
+</section>
+<section id="examples">
+<h4>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h4>
+<div class="information admonition">
+<p class="admonition-title">The set of integers with arithmatic addition <span class="math notranslate nohighlight">\((\mathbb{Z}, +)\)</span> forms a group.</p>
+<p>The arithmatic operation <code class="docutils literal notranslate"><span class="pre">+</span></code> is a binary operation, as adding any two integers results in another, unique integer. Since the order of adding two integers, does not matter, the operation is obviously commutative.</p>
+<p>Next, we know that addition of three numbers is associative (otherwise grocery shopping to stock markets, everything would have been a mess! 😀).</p>
+<p>Zero is clearly the identity element in the set of integers.</p>
+<p>For every number, it’s negative is the additive inverse.</p>
+</div>
+<ul class="simple">
+<li><p>What about the set of rational numbers, real numbers and complex numbers. Do any of these form a group with arithmatic addition <code class="docutils literal notranslate"><span class="pre">+</span></code>, or multiplication <code class="docutils literal notranslate"><span class="pre">*</span></code> ? Following table gives a summary of answers, try to figure out why.</p></li>
+</ul>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Set A</p></th>
+<th class="head"><p>(A, <code class="docutils literal notranslate"><span class="pre">+</span></code>)</p></th>
+<th class="head"><p>(A, <code class="docutils literal notranslate"><span class="pre">.</span></code>)</p></th>
+<th class="head"><p>(<span class="math notranslate nohighlight">\(A^*\)</span>, <code class="docutils literal notranslate"><span class="pre">.</span></code>)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\mathbb{Z}\)</span></p></td>
+<td><p>Group</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\mathbb{Q}\)</span></p></td>
+<td><p>Group</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\mathbb{R}\)</span></p></td>
+<td><p>Group</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\mathbb{C}\)</span></p></td>
+<td><p>Group</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Here <span class="math notranslate nohighlight">\(A^* = A - {0}\)</span>, is the set with additive identity element removed from <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>The above defines what a group is, and based on the above example it may look like that a group is just a formal abstract version of what we already know about numbers from our school algebra/arithmatic knowlege. However this abstraction leads to generalization of the arithmatic operation to sets of other objects. See the following examples -</p>
+<div class="information admonition">
+<p class="admonition-title">Permutation Group</p>
+<p>A permutation is an arrangement of elements of a set. As we know, a set does not have a notion order of elements. But if the order of the elements mattered, each permutation, seen as ordered sequence of elements, will look different, as in figure below.</p>
+<figure class="align-center" id="rgb">
+<img alt="https://upload.wikimedia.org/wikipedia/commons/4/4c/Permutations_RGB.svg" src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Permutations_RGB.svg" />
+<figcaption>
+<p><span class="caption-number">Fig. 14 </span><span class="caption-text">Each row represents an arrangement of the three balls of colour red, green and blue. There are 6 such arrangements.</span><a class="headerlink" href="#rgb" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+<p>To abstractify, instead of ball of three colours, consider a set of 3 objects, and without loss of generality we can call them <span class="math notranslate nohighlight">\(a, b, c\)</span>. Now consider a set of each permutations of the three elements.
+The table below shows all possible arrangements of the three objects <span class="math notranslate nohighlight">\(a, b, c\)</span> symbolically represented as <span class="math notranslate nohighlight">\(p_0, p_1, p_2...\)</span>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(p_0\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(p_1\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(p_2\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(p_3\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(p_4\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(p_5\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Sequence</p></td>
+<td><p>(abc)</p></td>
+<td><p>(acb)</p></td>
+<td><p>(bac)</p></td>
+<td><p>(bca)</p></td>
+<td><p>(cab)</p></td>
+<td><p>(cba)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Mapping</p></td>
+<td><p>(123)</p></td>
+<td><p>(132)</p></td>
+<td><p>(213)</p></td>
+<td><p>(231)</p></td>
+<td><p>(312)</p></td>
+<td><p>(321)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>If we choose a reference arrangement to be <span class="math notranslate nohighlight">\((a,b,c)\)</span>, then, <span class="math notranslate nohighlight">\(p_0\)</span> is a map that maps (abc) to it itself, <span class="math notranslate nohighlight">\(p_1\)</span> maps (abc) to (acb), and so on.
+Basically, <span class="math notranslate nohighlight">\(p_0, p_1, ...\)</span> are bijective maps which map (abc) to different arrangements. Below is a table that show how resulting maps of combining two maps.</p>
+<p>They can be computed as following -</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+p_1 p_1(abc) &amp;= p_1(acb) = (abc) = p_0(abc) \implies p_1p_1 = p_0\\
+p_1 p_2(abc) &amp;= p_1(bac) = (bac) = p_3(abc) \implies p_1p_2 = p_3\\
+p_1 p_3(abc) &amp;= p_1(bac) = (bac) = p_2(abc) \implies p_1p_3 = p_2\\
+\dots &amp;= \dots
+\end{align}
+\end{split}\]</div>
+<p>Below is the operation table for composition <span class="math notranslate nohighlight">\(o\)</span>. Row and column numbers correspond to first and second operand respectively (row <span class="math notranslate nohighlight">\(o\)</span> column).</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\(o\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(p_0\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(p_1\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(p_2\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(p_3\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(p_4\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(p_5\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(p_0\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathbf{p_0}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_1\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_2\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_3\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_4\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_5\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(p_1\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_1\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathbf{p_0}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_3\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_2\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_5\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_4\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(p_2\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_2\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_4\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathbf{p_0}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_5\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_1\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_3\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(p_3\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_3\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_5\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_1\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_4\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathbf{p_0}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_2\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(p_4\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_4\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_2\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_5\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathbf{p_0}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_3\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_1\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(p_5\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_5\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_3\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_4\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_1\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p_2\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathbf{p_0}\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>If we consider the set <span class="math notranslate nohighlight">\(P=\{p_0\, p_1, ..., p_5\}\)</span>, then the above composition <span class="math notranslate nohighlight">\(o\)</span> is a binary operation, and <span class="math notranslate nohighlight">\((P, o)\)</span> forms a group. Here <span class="math notranslate nohighlight">\(p_0\)</span>, is the identity, as combining it with any other map gives the same map. Each element has an inverse, <span class="math notranslate nohighlight">\(p_0, p_1, p_2, p_5\)</span> are inverses of their own, and <span class="math notranslate nohighlight">\(p_3\)</span> and <span class="math notranslate nohighlight">\(p_4\)</span> are inverses of each other.</p>
+<p>This is called permutation group. We showed the example of three objects, but the group generalises to any number of objects. For <span class="math notranslate nohighlight">\(n\)</span> object, the set of bijective maps has <span class="math notranslate nohighlight">\(n!\)</span> elements.</p>
+<div class="information admonition">
+<p class="admonition-title">Group of modular arithmatic</p>
+<p>Modular arithmatic is a system of arithmatic, where numbers wrap around after reaching a certain value. A common example is arithmatic of <code class="docutils literal notranslate"><span class="pre">12-hour</span> <span class="pre">clock</span></code>. In general, consider a positive integer <span class="math notranslate nohighlight">\(m &gt; 1\)</span>. Now any arbitrary integer <span class="math notranslate nohighlight">\(a\in \mathbb{Z}\)</span>, we can write <span class="math notranslate nohighlight">\(a = qm + r\)</span> where <span class="math notranslate nohighlight">\(q, r\)</span> are some integers. There is unique pair <span class="math notranslate nohighlight">\(q, r\)</span> such that <span class="math notranslate nohighlight">\(q\)</span> is largest, and <span class="math notranslate nohighlight">\(0\le r\lt m\)</span>, in which case we know <span class="math notranslate nohighlight">\(q\)</span> and <span class="math notranslate nohighlight">\(r\)</span> as quotient and remainder when <span class="math notranslate nohighlight">\(a\)</span> is divided by <span class="math notranslate nohighlight">\(m\)</span>. Since in this unique representation <span class="math notranslate nohighlight">\(r\)</span> can have only <span class="math notranslate nohighlight">\(m\)</span> possible values in set <span class="math notranslate nohighlight">\(Z_m = \{0, 1, 2, \dots, m-1\}\)</span>.</p>
+<p>On this set, we define modular addition <span class="math notranslate nohighlight">\(\oplus\)</span>, to distinguish with usual addition <code class="docutils literal notranslate"><span class="pre">+</span></code> as follows:</p>
+<p>For any two arbitrary <span class="math notranslate nohighlight">\(a, b\)</span> in <span class="math notranslate nohighlight">\(Z_m\)</span>, <span class="math notranslate nohighlight">\(a \oplus b = c\)</span> where <span class="math notranslate nohighlight">\(a + b = qm + c\)</span>, i.e, <span class="math notranslate nohighlight">\(c\)</span> is obtained by computing the remainder when <span class="math notranslate nohighlight">\(a+b\)</span> is divided by <span class="math notranslate nohighlight">\(m\)</span>.</p>
+<p>Then <span class="math notranslate nohighlight">\((Z_m, \oplus)\)</span> forms a group, because of following -</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\oplus\)</span> is a binary operation, moreover, it is also commutative.</p></li>
+<li><p>0 is the identity, for any <span class="math notranslate nohighlight">\(a\oplus 0 = a\)</span>.</p></li>
+<li><p>For any <span class="math notranslate nohighlight">\(a\)</span> in <span class="math notranslate nohighlight">\(Z_m\)</span>, <span class="math notranslate nohighlight">\(0\le a\lt m\)</span>, there exists <span class="math notranslate nohighlight">\(m-a\)</span>, such that <span class="math notranslate nohighlight">\(a\oplus (m-a) = 0\)</span>, so <span class="math notranslate nohighlight">\(m-a\)</span> is the inverse of <span class="math notranslate nohighlight">\(a\)</span>.</p></li>
+</ul>
+</div>
+<p><strong>Illustration:</strong> Consider <span class="math notranslate nohighlight">\((Z_{8}, \oplus)\)</span>, where <span class="math notranslate nohighlight">\(Z_8 = \{0, 1, 2, 3, 4, 5, 6, 7\}\)</span>, then under modular arithmatic, <span class="math notranslate nohighlight">\(2\oplus 3 = 5\)</span>, but <span class="math notranslate nohighlight">\(4\oplus 4 = 0\)</span> and <span class="math notranslate nohighlight">\(4\oplus 7 = 3\)</span></p>
+</section>
+</section>
+<section id="field">
+<h3>Field<a class="headerlink" href="#field" title="Link to this heading">#</a></h3>
+<p>In mathematics, a field is defined as a set <span class="math notranslate nohighlight">\(F\)</span> with two binary operations, say <code class="docutils literal notranslate"><span class="pre">+</span></code> and <code class="docutils literal notranslate"><span class="pre">.</span></code> such that following conditions are satisfied -</p>
+<ol class="arabic simple">
+<li><p>The binary operations <code class="docutils literal notranslate"><span class="pre">+</span></code> and <code class="docutils literal notranslate"><span class="pre">.</span></code> are commutative, i.e., <span class="math notranslate nohighlight">\(a + b = b + a\)</span>, and <span class="math notranslate nohighlight">\(a\cdot b = b\cdot a\)</span> for every <span class="math notranslate nohighlight">\(a, b\in F\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\((F, +)\)</span> is a group. Let’s call <code class="docutils literal notranslate"><span class="pre">0</span></code> it’s identity for <code class="docutils literal notranslate"><span class="pre">+</span></code>.</p></li>
+<li><p><span class="math notranslate nohighlight">\((F^*, \cdot)\)</span> is also a group, where <span class="math notranslate nohighlight">\(F^* = F - \{0\}\)</span> is set with identity of <code class="docutils literal notranslate"><span class="pre">+</span></code> removed from it. Let’s call the identity for this as <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+<li><p>The operation <code class="docutils literal notranslate"><span class="pre">.</span></code> distributes over <code class="docutils literal notranslate"><span class="pre">+</span></code>, i.e., <span class="math notranslate nohighlight">\(a\cdot (b + c) = (a\cdot b) + (a\cdot c)\)</span> for every <span class="math notranslate nohighlight">\(a, b, c \in F\)</span>.</p></li>
+</ol>
+<p><strong>Examples:</strong></p>
+<ul class="simple">
+<li><p>The set of rational (<span class="math notranslate nohighlight">\(\mathbb{Q}\)</span>), real (<span class="math notranslate nohighlight">\(\mathbb{R}\)</span>), and complex numbers (<span class="math notranslate nohighlight">\(\mathbb{C}\)</span>), all from respective fields with usual arithmatic addition <code class="docutils literal notranslate"><span class="pre">+</span></code> and multiplication <code class="docutils literal notranslate"><span class="pre">.</span></code>. <span class="math notranslate nohighlight">\((\mathbb{Q}, +, \cdot)\)</span>, <span class="math notranslate nohighlight">\((\mathbb{R}, +, \cdot)\)</span>, <span class="math notranslate nohighlight">\((\mathbb{C}, +, \cdot)\)</span> are all fields, with 0 as additive identity, and 1 as multiplicative identity.</p></li>
+<li><p>There are examples of fields of finite set, but their discussion takes us (more than usual) different direction than we intend this lecture notes to. For most of the discussion, even the group aspect might be generally needed, the field of number relevant for us will be that of <span class="math notranslate nohighlight">\((\mathbb{R}, +, \cdot)\)</span> and <span class="math notranslate nohighlight">\((\mathbb{C}, +, \cdot)\)</span>.</p></li>
+<li><p>Recall the modular arithmatic, where <span class="math notranslate nohighlight">\((Z_m, \oplus)\)</span> formed a group for any arbitrary positive integer <span class="math notranslate nohighlight">\(m\)</span>. Now consider a modular version of the usual arithmatic multiplication, <span class="math notranslate nohighlight">\(\odot\)</span>, defined as follows. If <span class="math notranslate nohighlight">\(a, b\)</span> are two arbitrary integers in <span class="math notranslate nohighlight">\(Z_m\)</span>, then <span class="math notranslate nohighlight">\(a\odot b = c\)</span> where <span class="math notranslate nohighlight">\(c\)</span> is the remainder you get when you divide <span class="math notranslate nohighlight">\(ab\)</span> with <span class="math notranslate nohighlight">\(m\)</span>. Does the <span class="math notranslate nohighlight">\((Z_m, \oplus, \odot)\)</span></p>
+<ul>
+<li><p>Clearly, <span class="math notranslate nohighlight">\(\odot: Z_m\times Z_m \longrightarrow Z_m\)</span> is a binary operation.</p></li>
+<li><p>1 is the multiplicative identity, as <span class="math notranslate nohighlight">\(1 \odot a = a\)</span> for every <span class="math notranslate nohighlight">\(a\)</span> in <span class="math notranslate nohighlight">\(Z_m\)</span>.</p></li>
+<li><p>However, unless <span class="math notranslate nohighlight">\(m\)</span> is prime, we have issues with the structure of identity and inverse.</p></li>
+<li><p>Does every element has an inverse? Imagine <span class="math notranslate nohighlight">\(a, b\)</span> in <span class="math notranslate nohighlight">\(Z_m\)</span> are inverses of each other, then <span class="math notranslate nohighlight">\(a\odot b = 1\)</span>, which means <span class="math notranslate nohighlight">\(ab\)</span> is of the form <span class="math notranslate nohighlight">\(ab = qm + 1\)</span>, which means <span class="math notranslate nohighlight">\(b= {qm + 1\over a}\)</span></p></li>
+</ul>
+</li>
+</ul>
+<div class="tip admonition">
+<p class="admonition-title">Polynomials</p>
+<p>We need the structure of a field, i.e., set with atleast two binary operations to construct expressions that we call polynomials.</p>
+</div>
+</section>
+</section>
+<section id="vector-space">
+<h2>Vector Space<a class="headerlink" href="#vector-space" title="Link to this heading">#</a></h2>
+<p>All the above mathematical definitions, going through which can be perhaps excruciating, let us define what we need for the underlying math of quantum computing: A vector space, and a Hilbert space. We will see, that these two are nearly same structures, with one difference.</p>
+<p>A vector space is a mathematical structure, that consists of two sets, which have the following substructures:</p>
+<ul class="simple">
+<li><p>The first set, say <strong>V</strong>, whose elements are called vectors, is a commutative group <span class="math notranslate nohighlight">\((\mathbf{V}, +_v)\)</span> with <code class="docutils literal notranslate"><span class="pre">addition</span></code> <span class="math notranslate nohighlight">\(+_v\)</span>. Let’s call <span class="math notranslate nohighlight">\(0_v\)</span> the zero vector as the identity of this group.</p></li>
+<li><p>The second set, say F, whose elements are called scalars, is a Field <span class="math notranslate nohighlight">\((F, +_f, \cdot_f)\)</span> with <code class="docutils literal notranslate"><span class="pre">addition</span></code> <span class="math notranslate nohighlight">\(+_f\)</span> and <code class="docutils literal notranslate"><span class="pre">multiplication</span></code> <span class="math notranslate nohighlight">\(\cdot_f\)</span>. Let’s call the <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span> additive and multiplicative identity of the field.</p></li>
+<li><p>A binary operation <span class="math notranslate nohighlight">\(\cdot : F\times V \longrightarrow V\)</span> called scalar multiplication. This operation combines a scalar and a vector, and gives us a vector. It lets manipulate vectors through scalars, and satisfies following -</p></li>
+</ul>
+<ol class="arabic simple">
+<li><p><strong>Associativity</strong>:
+For any arbitrary <span class="math notranslate nohighlight">\(a, b\)</span> in F, and any arbitrary <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> in <strong>V</strong>,</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[a \cdot (b\cdot\mathbf{v}) = (a\cdot_f b)\mathbf{v}\]</div>
+<p>This means multiplying a vector successively by two scalars gives the same vector, as when multiplying the field multiplication of those two scalars to the vector.</p>
+<ol class="arabic simple" start="2">
+<li><p><strong>Distribution</strong>:
+The scalar multiplication distributes over addition of vectors, and addition of scalars. That is, for any arbitrary scalars <span class="math notranslate nohighlight">\(a, b\)</span> in F and any arbitrary vectors <span class="math notranslate nohighlight">\(\mathbf{u, v}\)</span> in <strong>V</strong>, the following holds</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+a\cdot(\mathbf{u} +_v \mathbf{v}) &amp;= (a\cdot\mathbf{u}) +_v (a\cdot\mathbf{v})\\
+(a +_f b)\cdot \mathbf{v} &amp;= (a\cdot\mathbf{v}) +_v (b\cdot\mathbf{v})
+\end{align*}
+\end{split}\]</div>
+<ul class="simple">
+<li><p>Multiplying any scalar with zero vector gives zero vector, <span class="math notranslate nohighlight">\(a\cdot 0_v = 0_v\)</span>, and multiplying zero scalar 0, with any vector gives zero vector, <span class="math notranslate nohighlight">\(0\cdot v = 0_v\)</span>.</p></li>
+</ul>
+<p>Because of associativity, and distribution of scalars with vectors, we often use the same symbol for addition (<code class="docutils literal notranslate"><span class="pre">+</span></code> for <span class="math notranslate nohighlight">\(+_v\)</span> and <span class="math notranslate nohighlight">\(+_f\)</span>) and scalar multiplications (<span class="math notranslate nohighlight">\(\cdot\)</span> for <span class="math notranslate nohighlight">\(\cdot_f\)</span>).</p>
+<p>Let us take a moment to appreciate what makes the structure of vector space rich.
+We have a set <strong>V</strong> of vectors elements, and set <strong>F</strong> of scalar elements. If one of the sets is infinite, the vector space automatically becomes infinite. (Guess Why?)</p>
+<p><strong>Examples:</strong></p>
+<p>Consider the set of points on 3D space, they are represented by the cartesian product of the set of real numbers</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{R}^3 = \mathbb{R}\times \mathbb{R}\times \mathbb{R} = {(x, y, z): x, y, z\in \mathbb{R}}
+\]</div>
+<p>If we define vector addition of two arbitrary points <span class="math notranslate nohighlight">\(\mathbf{r_1}=(x_1, y_1, z_1)\)</span>, and <span class="math notranslate nohighlight">\(\mathbf{r_2}=(x_2, y_2, z_2)\)</span> as</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{r_1} + \mathbf{r_2} = (x_1 + x_2, y_1 + y_2, z_1 + z_2)
+\]</div>
+<p>then <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span> forms a vector space over the field of real numbers <span class="math notranslate nohighlight">\((\mathbb{R}, +, \cdot)\)</span>.</p>
+<p>Consider a toy example of ‘constructing a vector space’. Let there be a set of just two non-zero vectors <span class="math notranslate nohighlight">\(\mathbf{V} = \{0, \mathbf{a_{\uparrow}}, \mathbf{a_{\downarrow}}\}\)</span>, where 0 is zero vector with respect to some addition operator ‘+’ which we define below. To define addition as binary operation, we have the following by definition of zero, or identity.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{a_{\uparrow}} + 0 = 0 + \mathbf{a_{\uparrow}} = \mathbf{a_{\uparrow}}\\
+\mathbf{a_{\downarrow}} + 0 = 0 + \mathbf{a_{\downarrow}} = \mathbf{a_{\downarrow}}
+\end{split}\]</div>
+<p>But what about <span class="math notranslate nohighlight">\(\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}}\)</span> ? It’s value can neither be <span class="math notranslate nohighlight">\(\mathbf{a_{\uparrow}}\)</span>, nor <span class="math notranslate nohighlight">\(\mathbf{a_{\downarrow}}\)</span> as in either case, the other element becomes the identity, or 0.</p>
+<div class="math notranslate nohighlight">
+\[
+\text{If}\quad\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}} = \mathbf{a_{\uparrow}} \implies \mathbf{a_{\downarrow}} = 0\quad\text{but we assumed it to be non-zero.}
+\]</div>
+<p>Thus the only option <strong>within the set</strong> is <span class="math notranslate nohighlight">\(\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}} = 0\)</span>, which makes the two vectors inverse of each other. Now, what do we assign to <span class="math notranslate nohighlight">\(\mathbf{a_{\uparrow}} + \mathbf{a_{\uparrow}}\)</span>, and <span class="math notranslate nohighlight">\(\mathbf{a_{\downarrow}} + \mathbf{a_{\downarrow}}\)</span>? We can’t have <span class="math notranslate nohighlight">\(\mathbf{a_{\uparrow}} + \mathbf{a_{\uparrow}} = 0\)</span> as this will make <span class="math notranslate nohighlight">\(\mathbf{a_{\uparrow}} = 0\)</span>, and same argument holds for <span class="math notranslate nohighlight">\(\mathbf{a_{\downarrow}}\)</span>. So the only option plaussible is <span class="math notranslate nohighlight">\(\mathbf{a_{\uparrow}} + \mathbf{a_{\uparrow}} = \mathbf{a_{\downarrow}}\)</span>, and <span class="math notranslate nohighlight">\(\mathbf{a_{\downarrow}} + \mathbf{a_{\downarrow}} = \mathbf{a_{\uparrow}}\)</span>.</p>
+<p>This gives the structure of this three element group, where combining any non-zero element with itself gives the other element, and both non-zero elements are inverses of each other.</p>
+<p>Other option, which gives us more to play with in context of vector space is, to assume that <span class="math notranslate nohighlight">\(\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}}\)</span> should exist as separate vector in <strong>V</strong>.
+Moreover, if <span class="math notranslate nohighlight">\(\mathbf{a_{\uparrow}}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{a_{\downarrow}}\)</span> aren’t inverses of each other like above, they should have separate inverses. This means that the set <strong>V</strong> should be extended to atleast</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{V} \to \{0, \mathbf{a_{\uparrow}}, -\mathbf{a_{\uparrow}}, \mathbf{a_{\downarrow}}, -\mathbf{a_{\downarrow}}, \mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}}, -(\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}})\}
+\]</div>
+<p>With introduction of more elements, we have to again make sure that the binary operation is well defined, i.e., addition of any two element results an element in the set. Consider now the <span class="math notranslate nohighlight">\(\mathbf{a_{\uparrow}} + (\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}})\)</span>, just like previous exercise, its value can not be either of <span class="math notranslate nohighlight">\(\mathbf{a_{\uparrow}}, \mathbf{a_{\downarrow}}\)</span> or <span class="math notranslate nohighlight">\(\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}}\)</span>, otherwise either of these will result in a contradiction.</p>
+<p>So, <span class="math notranslate nohighlight">\(\mathbf{a_{\uparrow}} + (\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}})\)</span>, and it’s inverse must now exist as seperate vector. We can simplify the expression <span class="math notranslate nohighlight">\(\mathbf{a_{\uparrow}} + (\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}})\)</span> = <span class="math notranslate nohighlight">\((\mathbf{a_{\uparrow}} + \mathbf{a_{\uparrow}}) + \mathbf{a_{\downarrow}}\)</span> = <span class="math notranslate nohighlight">\(2\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}}\)</span>, where <span class="math notranslate nohighlight">\(2\mathbf{a_{\uparrow}}\)</span> symbolically means <span class="math notranslate nohighlight">\(\mathbf{a_{\uparrow}} + \mathbf{a_{\uparrow}}\)</span>. We can easily see that</p>
+<ul class="simple">
+<li><p>This process of extending is actually endless</p></li>
+<li><p>If we keep doing this over and over again, the new elements added are expressed as some ‘combination’ of the originally assumed two non-zero vectors.</p></li>
+<li><p>We have deceptively used the notion of actual numbers to express new vectors.</p></li>
+<li><p>The fully extended set looks like</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{V} \to \{
+    0, \mathbf{a_{\uparrow}}, -\mathbf{a_{\uparrow}}, \mathbf{a_{\downarrow}}, -\mathbf{a_{\downarrow}}, \mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}}, -(\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}}),
+    2\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}},-(2\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}}),\\
+    \mathbf{a_{\uparrow}} + 2\mathbf{a_{\downarrow}},-(\mathbf{a_{\uparrow}} + 2\mathbf{a_{\downarrow}}),
+    3\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}},-(3\mathbf{a_{\uparrow}} + \mathbf{a_{\downarrow}}),
+    \mathbf{a_{\uparrow}} + 3\mathbf{a_{\downarrow}},-(\mathbf{a_{\uparrow}} + 3\mathbf{a_{\downarrow}}),\\
+    2\mathbf{a_{\uparrow}} + 3\mathbf{a_{\downarrow}},-(2\mathbf{a_{\uparrow}} + 3\mathbf{a_{\downarrow}}),
+    3\mathbf{a_{\uparrow}} +2\mathbf{a_{\downarrow}},-(3\mathbf{a_{\uparrow}} + 2\mathbf{a_{\downarrow}}),
+    \dots
+\}
+\end{split}\]</div>
+<p>In a more compact form (albeit terse looking) the set looks like <span class="math notranslate nohighlight">\(\mathbf{V} = \{n_1\mathbf{a_{\uparrow}} + n_2\mathbf{a_{\downarrow}}: \text{where}\quad n_1, n_2 \in \mathbb{Z}\}\)</span>, i.e., every element in the set is of the form <span class="math notranslate nohighlight">\(n_1\mathbf{a_{\uparrow}} + n_2\mathbf{a_{\downarrow}}\)</span> for some integers <span class="math notranslate nohighlight">\(n_1, n_2\)</span>.</p>
+<p>So we had to issentially grow the initial set to contain infinitely many element to make sure the binary operation was within the set, which makes <span class="math notranslate nohighlight">\((\mathbf{V}, +)\)</span> a group. While extending the set, we used integers to express derived vectors as combinations of <span class="math notranslate nohighlight">\(\mathbf{a_{\uparrow}}, \mathbf{a_{\downarrow}}\)</span>. This is basically trying to use the integers as scalar field. We know that the set of integers does not form a field, so we have to also generalise the numbers from integers to atleast rational number, or for comfort real or complex numbers.</p>
+<section id="vector-sub-space">
+<h3>Vector Sub-space<a class="headerlink" href="#vector-sub-space" title="Link to this heading">#</a></h3>
+<p>Just like Groups have subgroup, vector space had vector subspace. Given a vector space <strong>(V, +)</strong>, with a field <span class="math notranslate nohighlight">\(F(+, .)\)</span>, a sub-space is a subset <strong>S</strong> of <strong>V</strong>, such that <strong>(S, +)</strong>, forms a vector space with a field <span class="math notranslate nohighlight">\(F(+, .)\)</span>. Since here all the operations, field are defined for the parent set <strong>V</strong>, to form a sub-space, all one needs to ensure is that those operations done on elements of <strong>S</strong> keep the results within <strong>S</strong>.</p>
+</section>
+<section id="linear-combination">
+<h3>Linear combination<a class="headerlink" href="#linear-combination" title="Link to this heading">#</a></h3>
+<p>We saw from the above example, how a finite set object can be extended to an infinite set with a vector space by using combinations of those finite elements.
+These combinations are called linear combination of vectors, as they are expressed as sum of terms, each of those terms being vector, with scalar multiplied to. More formally, consider an arbitrarily chosen set of <span class="math notranslate nohighlight">\(n\)</span> vectors <span class="math notranslate nohighlight">\(v_1, v_2, v_3, \dots, v_n\)</span> in <strong>V</strong>, and scalars <span class="math notranslate nohighlight">\(a_1, a_2, a_3, \dots, a_n\)</span>, then the following is called a linear combination of the vectors</p>
+<div class="math notranslate nohighlight">
+\[
+v = \sum_{i=1}^n a_i \mathbf{v_i} = a_1 \mathbf{v_1} + a_2 \mathbf{v_2} + \dots a_n \mathbf{v_n}
+\]</div>
+<p>and the scalars <span class="math notranslate nohighlight">\(a_i\)</span> are called <strong>coefficients</strong> of corresponding vectors <span class="math notranslate nohighlight">\(\mathbf{v_i}\)</span>.</p>
+<p>Let’s try to make some interpretations on this linear combination, and here we recall that in physics we usually called single valued objects as scalars, and multi-valued objects as vectors. Thus a number is enough to represent scalar, while a vector having multiple attributes, requires multiple numbers.</p>
+<p>Given a vector <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> and a non-zero scalars <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>, <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>, <span class="math notranslate nohighlight">\(a\mathbf{v}\)</span>, <span class="math notranslate nohighlight">\(b\mathbf{v}\)</span>, and <span class="math notranslate nohighlight">\((a+b)\mathbf{v}\)</span> are all different vectors, yet they have something in common, the <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> itself. One can say, that all these, share some attributes. Recalling that a vector defined in usual sense in physics has a magnitude, and a direction, and magnitude is scalar while the direction is a multi attribute object, we can interpret the following -</p>
+<ul class="simple">
+<li><p>Multiplying a vector with a scalar, changes it’s <code class="docutils literal notranslate"><span class="pre">magnitude</span></code>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{v}\)</span>, <span class="math notranslate nohighlight">\(a\mathbf{v}\)</span>, <span class="math notranslate nohighlight">\(b\mathbf{v}\)</span>, <span class="math notranslate nohighlight">\((a+b)\mathbf{v}\)</span> all have the same <code class="docutils literal notranslate"><span class="pre">direction</span></code>.</p></li>
+</ul>
+<p>Given a vector space <strong>(V, +)</strong>, with a field <span class="math notranslate nohighlight">\(F(+, .)\)</span>, and a non-zero vector <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>, we can imagine a set of all vectors that can be created by multiplying scalars to <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>. This is called a <strong>linear span of the vector</strong> <span class="math notranslate nohighlight">\(\mathbf{v}\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+F\mathbf{v} = \{a\mathbf{v}: \text{For every}\quad a\in F\}
+\]</div>
+<p>Clearly, <span class="math notranslate nohighlight">\(F\mathbf{v}\)</span> is a subset of <strong>V</strong>, and its easy to see that it forms a vector sub-space.</p>
+<div class="information admonition">
+<p class="admonition-title">Linear span of a set</p>
+<p>Consider a set A with <span class="math notranslate nohighlight">\(n\)</span> number of non-zero vectors <span class="math notranslate nohighlight">\(A=\{\mathbf{v_1, v_2,\dots,v_n}\}\)</span>, all elements of a given vector space, then a set containing all the vectors that can be generated by forming linear combination of vectors in A is called the <strong>linear span</strong> of A. Formally, linear span of the set A is</p>
+<div class="math notranslate nohighlight">
+\[
+F_A=F_{\{\mathbf{v_1, v_2, \dots,v_n}\}} = \{a_1\mathbf{v_1}+a_2\mathbf{v_2}+\dots +a_n\mathbf{v_n}: \text{For every}~~a_1, a_2, \dots, a_n \in F\}
+\]</div>
+</div>
+</section>
+<section id="linear-independence">
+<h3>Linear independence<a class="headerlink" href="#linear-independence" title="Link to this heading">#</a></h3>
+<p>Consider the following equation: <span class="math notranslate nohighlight">\(a\mathbf{u} + b\mathbf{v} = 0\)</span>, where <span class="math notranslate nohighlight">\(a, b\)</span> are some arbitraty scalars and <span class="math notranslate nohighlight">\(\mathbf{u}, \mathbf{v}\)</span> are two arbitray vectors, and speculate it’s implication.</p>
+<p>The left part of the expression is a vector that is linear combination of <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>, and equating to zero means that the sum is zero vector. But then we can say the following -</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(a\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(b\mathbf{v}\)</span> are inverses of each other.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(a \ne 0\)</span>, then <span class="math notranslate nohighlight">\(\mathbf{u} = (-a^{-1}b)\mathbf{v}\)</span>, which means <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> shares the same direction as <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(b \ne 0\)</span>, then <span class="math notranslate nohighlight">\(\mathbf{v} = (-b^{-1}a)\mathbf{u}\)</span>, which also means <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> shares the same direction as <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>.</p></li>
+<li><p>The set of their span are identical <span class="math notranslate nohighlight">\(F\mathbf{u} = F\mathbf{v}\)</span> (try to see why).</p></li>
+</ul>
+<div class="tip admonition">
+<p class="admonition-title">Tip</p>
+<p>Thus if a linear combination of two vectors can be set to zero, with atleast one coefficient being non-zero, then the two vectors share the same direction.</p>
+</div>
+<p>What happens, if this cannot happen? That is, for the above two vectors, <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> there is no <span class="math notranslate nohighlight">\(a, b\)</span> with atleast one of them being non-zero, such that <span class="math notranslate nohighlight">\(a\mathbf{u} + b\mathbf{v} = 0\)</span>?</p>
+<p>Then the vector’s don’t share directions, and in a sense are independent of each other. A logically equivalent, but more intuitive way of saying the above is if two vectors don’t share direction, or can’t be written as scalar multiple of each other, then <span class="math notranslate nohighlight">\(a\mathbf{u} + b\mathbf{v} = 0\)</span> implies that <span class="math notranslate nohighlight">\(a=b=0\)</span>.</p>
+<div class="information admonition">
+<p class="admonition-title">Linear span of two vectors</p>
+<p>Imagine we have two vectors <span class="math notranslate nohighlight">\(\mathbf{v_1}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{v_2}\)</span> that don’t share direction. We can construct the span of these two vectors</p>
+<div class="math notranslate nohighlight">
+\[
+F\mathbf{v_1, v_2} = \{a_1\mathbf{v_1}+a_2\mathbf{v_2}: \text{For every}~~a_1, a_2 \in F\}
+\]</div>
+<p>It’s also easy to see that this is a sup-space, and linear spans <span class="math notranslate nohighlight">\(F\mathbf{v_1}\)</span> and <span class="math notranslate nohighlight">\(F\mathbf{v_2}\)</span> are contained in it.</p>
+</div>
+<p>Let’s extend this line of thinking, and consider three non-zero vectors <span class="math notranslate nohighlight">\(\mathbf{v_1}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{v_2}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{v_3}\)</span>, such that <span class="math notranslate nohighlight">\(a_1\mathbf{v_1}+a_2\mathbf{v_2}+a_3\mathbf{v_3} = 0\)</span>, then following can be said -</p>
+<ol class="arabic simple">
+<li><p>If all the coefficients <span class="math notranslate nohighlight">\(a_1, a_2, a_3\)</span> are non-zero, any one vector can be written as linear combination of the other two, for example, <span class="math notranslate nohighlight">\(\mathbf{v_1} = (-a_1^{-1}a_2)\mathbf{v_2} + (-a_1^{-1}a_3)\mathbf{v_3}\)</span>, assuming <span class="math notranslate nohighlight">\(a_1\ne 0\)</span>.</p></li>
+<li><p>If one of the coefficients is zero, then the expression maps to case of two vectors, and the other two coefficients being non-zero, they share direction.</p></li>
+<li><p>If two of the coefficients are zero, say <span class="math notranslate nohighlight">\(a_1 = a_2 = 0\)</span>, then the third has to be zero automatically, as <span class="math notranslate nohighlight">\(a_1\mathbf{v_1}+a_2\mathbf{v_2}+a_3\mathbf{v_3} = a_3\mathbf{v_3} = 0\)</span>, but <span class="math notranslate nohighlight">\(\mathbf{v_3}\)</span> is non-zero, so <span class="math notranslate nohighlight">\(a_3\)</span> has to be zero.</p></li>
+<li><p>If all the coefficients are zero, then non of the two vector out of the above three share direction. One can say, that each vector has directions that are independent of each other.</p></li>
+</ol>
+<div class="information admonition">
+<p class="admonition-title">Linear span of three vectors</p>
+<p>Now, if we have three vectors <span class="math notranslate nohighlight">\(\mathbf{v_1}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{v_2}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v_3}\)</span> with independent directions. We can construct the span of these three vectors</p>
+<div class="math notranslate nohighlight">
+\[
+F\mathbf{v_1, v_2, v_3} = \{a_1\mathbf{v_1}+a_2\mathbf{v_2}+a_3\mathbf{v_3}: \text{For every}~~a_1, a_2, a_3 \in F\}
+\]</div>
+<p>Just like two vectors, this is a sup-space, and linear spans <span class="math notranslate nohighlight">\(F\mathbf{v_1}\)</span>, <span class="math notranslate nohighlight">\(F\mathbf{v_2}\)</span>, <span class="math notranslate nohighlight">\(F\mathbf{v_3}\)</span>, <span class="math notranslate nohighlight">\(F\mathbf{v_1,v_2}\)</span>, <span class="math notranslate nohighlight">\(F\mathbf{v_2,v_3}\)</span> and <span class="math notranslate nohighlight">\(F\mathbf{v_1,v_3}\)</span> are contained in it.</p>
+</div>
+<p>This situation, generalised to arbitrary number of vectors is defined as <strong>linear independence</strong>. Formally, a set of vectors <span class="math notranslate nohighlight">\(n\)</span> vectors <span class="math notranslate nohighlight">\(\mathbf{v_1}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{v_2}\)</span>, <span class="math notranslate nohighlight">\(\dots\)</span>, <span class="math notranslate nohighlight">\(\mathbf{v_n}\)</span> are called linearly independent, if and only if</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^n a_i \mathbf{v_i} = a_1 \mathbf{v_1} + a_2 \mathbf{v_2} + \dots a_n \mathbf{v_n} = 0;\implies a_1 = a_2 = \dots a_n = 0
+\]</div>
+<p>They are called linearly dependent, if there exists a set of coefficients <span class="math notranslate nohighlight">\((a_1, a_2,\dots,a_n)\)</span> with atleast one non-zero component such that above linear combination equals to zero.</p>
+<p>This concept linear independence enhances the ability to express vectors, and categorise or manipulate vector space by defining various types of sub-spaces.</p>
+</section>
+<section id="basis">
+<h3>Basis<a class="headerlink" href="#basis" title="Link to this heading">#</a></h3>
+<p>We saw what are linearly independent vectors, and what linear span of some vectors is. When we start collecting non-zero vectors to a set A, and consider the linear span of the set <span class="math notranslate nohighlight">\(F_A\)</span>. Clearly, as we discussed above, <span class="math notranslate nohighlight">\(F_A\)</span>, is a subset of the given vector space <strong>V</strong>, and it is also a sub-space.</p>
+<p>Now let’s notice that as the number of elements in the set A increases, the linear span also starts to get bigger, infact, a lot bigger. See the table below, where we illustrate the linear span of a set A for different number of elements in it, assuming in each case, the vectors in the set A are linearly independent.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>No of elements</p></th>
+<th class="head"><p>Set A</p></th>
+<th class="head"><p>Linear span <span class="math notranslate nohighlight">\(F_A\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p><span class="math notranslate nohighlight">\(\{\mathbf{v_1}\}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\{a_1\mathbf{v_1}: \text{For every}~~a_1 \in F\}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p><span class="math notranslate nohighlight">\(\{\mathbf{v_1, v_2}\}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\{a_1\mathbf{v_1}+a_2\mathbf{v_2}: \text{For every}~~a_1, a_2 \in F\}\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p><span class="math notranslate nohighlight">\(\{\mathbf{v_1, v_2, v_3}\}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\{a_1\mathbf{v_1}+a_2\mathbf{v_2}+a_3\mathbf{v_3}: \text{For every}~~a_1, a_2, a_3 \in F\}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\dots\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\dots\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\dots\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>n</p></td>
+<td><p><span class="math notranslate nohighlight">\(\{\mathbf{v_1,v_2, v_3,\dots, v_n}\}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\{\sum_{i=1}^n a_i\mathbf{v_i}: \text{For every}~~a_1, a_2, a_3,\dots,a_n \in F\}\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p>For one element set <span class="math notranslate nohighlight">\(\{\mathbf{v_1}\}\)</span>, the linear span <span class="math notranslate nohighlight">\(F_A\)</span> contains a different vector for each possible value of scalar <span class="math notranslate nohighlight">\(a_1\)</span>.</p></li>
+<li><p>For two element set <span class="math notranslate nohighlight">\(\{\mathbf{v_1, v_2}\}\)</span>, the linear span <span class="math notranslate nohighlight">\(F_A\)</span> contains a different vector for each possible value of scalar <span class="math notranslate nohighlight">\(a_1\)</span> as well as each possible value of <span class="math notranslate nohighlight">\(a_2\)</span>.</p></li>
+<li><p>For three element set, the linear span contains a vector for each possible values of <span class="math notranslate nohighlight">\(a_1\)</span>, <span class="math notranslate nohighlight">\(a_2\)</span> and <span class="math notranslate nohighlight">\(a_3\)</span> independently.</p></li>
+<li><p>The scalar possibilities get multiplied everytime we add another vector to the set.</p></li>
+</ul>
+<p>Clearly, at each stage the linear span <span class="math notranslate nohighlight">\(F_A\)</span> gets bigger, but is still subset of <strong>V</strong>. Now let’s ask the following questions: If we keep adding more and more linearly independent vectors to the set A,</p>
+<ol class="arabic simple">
+<li><p>Will there be a stage, at which the linear span becomes the <strong>V</strong>, the vector space itself?</p></li>
+<li><p>If so, can we keep adding vectors still?</p></li>
+<li><p>What happens if <span class="math notranslate nohighlight">\(F_A\)</span> never becomes <strong>V</strong>?</p></li>
+</ol>
+<p>First, when this happens, i.e., the linear span <span class="math notranslate nohighlight">\(F_A\)</span> spans the entire vector space <strong>V</strong>, the set A becomes special, because every element of the vector space can be expressed as linear combination of elements of A, and such a set is called a <strong>basis</strong> of the vector space.</p>
+<p>Thus a set A of vectors is called a <strong>basis</strong>, if all its vectors are linearly independent, and every vector in the vector space can be written as linear combination of the vectors of A.</p>
+<p>Following theorem sheds light on question 1 and 3.</p>
+<div class="admonition-theorem admonition">
+<p class="admonition-title">Theorem</p>
+<p>Every vector space has a basis.</p>
+</div>
+<p>Now the question 2. If the set A has become the basis, then every vector can be written as linear combination of its elements. But then there are no more vectors left to add so that the set can still stay linearly independent.</p>
+<p>Without going into details of proving it, though you are encouraged to try, following statements hold for any basis and any vector space.</p>
+<ul class="simple">
+<li><p>A vector space may have multiple basis, however the number of elements in each basis stays the same.</p></li>
+<li><p>The basis may be finite or infinite. The number of element in the basis is called <strong>dimension</strong> of vector space. If the set A is infinite, then the dimension of the vector space is also infinite.</p></li>
+<li><p>Basis is a minimal set. As we saw above, you can’t add elements to it. However, if you remove any element from it, it will no longer be a basis.</p></li>
+</ul>
+<p>For a given basis A for vector space <strong>V</strong>, since every vector <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> can be written as linear combination of elements of A,</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{v} = \sum_i^n a_i \mathbf{v_i}
+\]</div>
+<p>The linear combination is defined by the scalars <span class="math notranslate nohighlight">\(a_i\)</span>, and it is unique for each vector (Easy to prove). The coefficients <span class="math notranslate nohighlight">\(a_i\)</span> can now be called coordinates of the vector <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>, as <span class="math notranslate nohighlight">\((a_1, a_2, \dots, a_n)\)</span> uniquely determine the vector <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>.</p>
+<p>It is often easier to imagine and interpret even abstract vectors in terms of these scalar coordinates, and this is facilitated by the basis.</p>
+</section>
+<section id="linear-operators">
+<h3>Linear Operators<a class="headerlink" href="#linear-operators" title="Link to this heading">#</a></h3>
+<p>Now that we know about vector space, let’s discuss how it’s elements are manipulated.</p>
+<p>Linear operators, are issentially maps from a vector space to another that follow linearity.</p>
+<p>For our purposes, we will restrict ourselves to maps from a vector space to itself. In that case, a linear operator, or a linear map is a map <span class="math notranslate nohighlight">\(L: V \longrightarrow V\)</span>, such that for every vectors <span class="math notranslate nohighlight">\(\mathbf{v_1, v_2}\)</span>, and scalars <span class="math notranslate nohighlight">\(a_1, a_2\)</span>, the map satisfies the following -</p>
+<div class="math notranslate nohighlight">
+\[
+L(a_1 \mathbf{v_1} + a_2 \mathbf{v_2}) = a_1 L(\mathbf{v_1}) + a_2 L(\mathbf{v_2})
+\]</div>
+<p>Let’s see some simple implications of this. If we choose <span class="math notranslate nohighlight">\(a_2 = 0\)</span>, then above gives us <span class="math notranslate nohighlight">\(L(a_1\mathbf{v_1}) = a_1 L(\mathbf{v_1}\)</span>. Basically, it means that under a linear operator, the image of a scaled vector is the scaled image of that vector.</p>
+<p>Next, if we choose <span class="math notranslate nohighlight">\(a_1 = a_2 = 1\)</span>, then above gives us <span class="math notranslate nohighlight">\(L(\mathbf{v_1} + \mathbf{v_2}) = L(\mathbf{v_1}) + L(\mathbf{v_2})\)</span>, i.e., under linear operator, the image of the sum of two vectors is the sum of the images of the two vectors.</p>
+<p>The above two deduction might look like just a clever word-play, but their impact is profound, which is that the linear relations of the vectors stays preserved under the linear maps.</p>
+<p>Here is the place we the use of Basis becomes very handy. For a linear map L, suppose we have a basis <span class="math notranslate nohighlight">\(B=\{\mathbf{v_1, v_2,\dots, v_n}\}\)</span>, and we know how L maps the vectors in the basis. That is, we know <span class="math notranslate nohighlight">\(L(B)=\{L(\mathbf{v_1}), L(\mathbf{v_2}),\dots, L(\mathbf{v_n})\}\)</span>.</p>
+<p>Since B is basis, any arbitrary vector <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> can be written in terms of elemenets of B. i.e.,</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{v} = \sum_i^n a_i \mathbf{v_i}~~\text{for some unique} ~~a_i\in F
+\]</div>
+<p>Then because of linearity, the image of <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> can be computed as</p>
+<div class="math notranslate nohighlight">
+\[
+L(\mathbf{v}) = L(\sum_i^n a_i \mathbf{v_i}) = \sum_i^n a_i L(\mathbf{v_i})
+\]</div>
+<p>This means a linear map is completely specified by how it maps elements of a basis. For a general set on the other hand, one has to speficy the mapping of every element of the set.</p>
+<p>Now let’s consider one of the mapped vectors <span class="math notranslate nohighlight">\(L(\mathbf{v_j})\)</span> for some <span class="math notranslate nohighlight">\(1\le j\le n\)</span>, and we know that it can also be written as linear combination of the Basis vectors. Let us assume that the coefficients of this linear combination are <span class="math notranslate nohighlight">\(l_{ij}\)</span> and the linear expression is</p>
+<div class="math notranslate nohighlight">
+\[
+L(\mathbf{v_j}) = \sum_j^n l_{ij} \mathbf{v_i} = l_{1j} \mathbf{v_1} + l_{2j} \mathbf{v_2} + \dots + l_{nj} \mathbf{v_n}
+\]</div>
+<p>Then the map L is completely specified in terms of the values <span class="math notranslate nohighlight">\(l_{ij}\)</span>. The matrix generated by these values</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{L} = \begin{pmatrix}
+l_{11} &amp; l_{12} &amp; \dots &amp; l_{1n}\\
+l_{21} &amp; l_{22} &amp; \dots &amp; l_{1n}\\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots\\ 
+l_{n1} &amp; l_{n2} &amp; \dots &amp; l_{nn}
+\end{pmatrix}
+\end{split}\]</div>
+<p>Is the matrix representation of the linear map L, and if we express an arbitrary vector <span class="math notranslate nohighlight">\(\mathbf{v} = \sum_i a_i \mathbf{v_i}\)</span>, as coordinate vector <span class="math notranslate nohighlight">\(\mathbf{a} = (a_1, a_2, \dots, a_n)^T\)</span>, then the coordinates of the <span class="math notranslate nohighlight">\(\mathbf{La}\)</span> are the same as the coefficients of the vector obtained by applying the linear map, when expressed in the basis B.</p>
+<p>This is how matrices representation of linear operators naturally emerges. To see more clearly, let’s compute <span class="math notranslate nohighlight">\(L({\bf v})\)</span> in terms of basis.</p>
+<div class="math notranslate nohighlight">
+\[
+L({\bf v}) = L\left(
+    \sum_j a_j {\bf v_j}
+\right)
+=\sum_j a_j L({\bf v_j})=
+\sum_j a_j \left(
+    \sum_i l_{ij} {\bf v_i}
+\right)
+=\sum_i \left(
+    \sum_j l_{ij} a_j
+\right){\bf v_i}
+=\sum_i ({\bf La})_i {\bf v_i}
+\]</div>
+<p>Thus the image <span class="math notranslate nohighlight">\(L({\bf v})\)</span> of an arbitrary vector <span class="math notranslate nohighlight">\({\bf v}=\sum_i a_j {\bf v_j}\)</span> expressed in the same basis <span class="math notranslate nohighlight">\({\bf v_j}\)</span> has coefficients <span class="math notranslate nohighlight">\(({\bf La})_i\)</span>, or, equivalently the ‘coordinates’ <span class="math notranslate nohighlight">\({\bf a}=(a_1, a_2, \dots, a_n)^T\)</span> is mapped to coordinates <span class="math notranslate nohighlight">\(({\bf La})_i\)</span>, wchih are result of matrix multiplication <span class="math notranslate nohighlight">\({\bf La}\)</span>.</p>
+<ul class="simple">
+<li><p>So once we choose the basis, we can express abstract vectors as regular array of numbers, and linear operators as matrices.</p></li>
+<li><p>This helps us encode abstract problems of vector space to matrix-vector manipulations, which are naturally done efficiently on computers.</p></li>
+<li><p>This is why we map states and operators to regular vectors and matrices in Quantum Physics and quantum computing.</p></li>
+</ul>
+</section>
+</section>
+<section id="inner-product-space">
+<h2>Inner product space<a class="headerlink" href="#inner-product-space" title="Link to this heading">#</a></h2>
+<p>We now know what a vector space <span class="math notranslate nohighlight">\(V(F)\)</span> is. We call the elements of <span class="math notranslate nohighlight">\(V\)</span> as vector, as in general we expect these elements to have some notion of magnitude and direction.</p>
+<p>For vector spaces that are defined over the field of real <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> or complex <span class="math notranslate nohighlight">\(\mathbb{C}\)</span> numbers, one can define more concrete geometric attributes. This is formally done by defining an <strong>Inner Product</strong> on the vector space. For the discussion onwards, we will assume the field to be of either real, or complex numbers <span class="math notranslate nohighlight">\(F=\mathbb{R, C}\)</span>.</p>
+<p>An inner product, is a map <span class="math notranslate nohighlight">\(\langle , \rangle: V\times V \longrightarrow F\)</span> that satisfies the following conditions.</p>
+<p>For any arbitrary vectors <span class="math notranslate nohighlight">\(v_1, v_2, v_3 \in V\)</span>, and arbitrary scalars <span class="math notranslate nohighlight">\(a_1, a_2, a_3 \in F\)</span>  -</p>
+<ol class="arabic simple">
+<li><p><strong>Conjugate symmetry:</strong> <span class="math notranslate nohighlight">\(\langle v_1, v_2\rangle = \langle v_2, v_1\rangle^*\)</span>, where <span class="math notranslate nohighlight">\(^*\)</span> denotes complex conjugate of the complex number. If the <span class="math notranslate nohighlight">\(F=\mathbb{R}\)</span>, then this becomes symmetry.</p></li>
+<li><p><strong>Linearity:</strong> Given that it is a function of two vectors, and is conjugate symmetric (point 1 above), it should have some level of linearity. Formally, it should be linear in the second argument, and conjugate linear in first argument, i.e.,</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\langle {\color{red} v_1}, a_2 v_2 + a_3 v_3\rangle = a_2 \langle {\color{red} v_1}, v_2 \rangle + a_3 \langle {\color{red} v_1}, v_3 \rangle
+\\
+\langle a_1 v_1 + a_2 v_2, {\color{red} v_3} \rangle = a_1^* \langle v_1, {\color{red} v_3} \rangle + a_2^* \langle v_2, {\color{red} v_3} \rangle
+\end{split}\]</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Positive definiteness:</strong> Note, that conjugate symmetry dictates that <span class="math notranslate nohighlight">\(\langle v, v\rangle = \langle v, v \rangle^*\)</span>, so the inner product of a vector with itself is a real number. We further say, that for every <span class="math notranslate nohighlight">\(v\in V\)</span>, the inner product of a vector with itself is non-negative, i.e, <span class="math notranslate nohighlight">\(\langle v, v\rangle \ge 0\)</span>. Moreover, <span class="math notranslate nohighlight">\(\langle v, v\rangle = 0\)</span> if and only if <span class="math notranslate nohighlight">\(v=0\)</span>, i.e, a non-zero vector’s inner product with itself is always a positive non-zero number.</p></li>
+</ol>
+<p>The inner product can be defined in two ways in terms of linearity, (i) as above, where in condition 2, we imposed linearity in second argument, and conjugate linearity in first argument, and (ii) where we impose linearity in the first argument</p>
+<div class="tip admonition">
+<p class="admonition-title">Inner product space</p>
+<p>A vector space that has an inner product defined on it, is called an <strong>Inner product space</strong>.</p>
+</div>
+<section id="norm-of-a-vector">
+<h3>Norm of a vector<a class="headerlink" href="#norm-of-a-vector" title="Link to this heading">#</a></h3>
+<p>As we saw in the definitio of inner product, <span class="math notranslate nohighlight">\(\langle v, v\rangle\)</span> is a positive definite number, and depends only on single vector <span class="math notranslate nohighlight">\(v\)</span>, so it can be used to define the length or size of a vector.</p>
+<p>The <strong>norm</strong> of a vector is defined as <span class="math notranslate nohighlight">\(|v|=\sqrt{\langle v, v\rangle}\)</span>. The larger this value, he bigger the size of the vector. Let’s see how scalar multiple affects the size of a vector. Consider a scalar <span class="math notranslate nohighlight">\(a\ne 0\)</span>, then the norm of <span class="math notranslate nohighlight">\(av\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[
+|av| = \sqrt{\langle av, av\rangle} = \sqrt{a^*\langle v, av\rangle} = \sqrt{a^* a\langle v, v\rangle} =\sqrt{|a|^2\langle v, v\rangle} = |a||v|
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(|a|\)</span> is magnitude of the scalar <span class="math notranslate nohighlight">\(a\)</span>. So the scalar multiplication to a vector multiplies to the norm of the vector.</p>
+</section>
+<section id="caucy-schwarz-inequality">
+<h3>Caucy-Schwarz inequality<a class="headerlink" href="#caucy-schwarz-inequality" title="Link to this heading">#</a></h3>
+<p>It is a theorem, that states that the absolute value of the inner product of two vectors in a vector space is always less than or equal to the product of their norm.</p>
+<div class="math notranslate nohighlight">
+\[
+|\langle v_1, v_2\rangle|\le |v_1||v_2|,\quad \text{or equivalently}\quad {\langle v_1, v_2 \rangle\over |v_1||v_2|} \le 1
+\]</div>
+<p>Since this ratio of inner product and product of norms of the two vector is bounded below 1, we can interpret this ratio to be cosine of an angle, and call this angle as the angle between two vectors.</p>
+<div class="math notranslate nohighlight">
+\[
+\cos{\theta} = {\langle v_1, v_2 \rangle\over |v_1||v_2|}, \quad\text{or equivalently}\quad
+\theta = \cos^{-1}{\langle v_1, v_2 \rangle\over |v_1||v_2|}
+\]</div>
+<p>With this interpretation, the inner product tells us how ‘close’ two vectors are in direction.</p>
+</section>
+</section>
+<section id="hilbert-space">
+<h2>Hilbert space<a class="headerlink" href="#hilbert-space" title="Link to this heading">#</a></h2>
+<p>With the inner product defined on the vector space, we can extend the notion of distance between two vectors. For this we need a function of two vectors to act as distance, but just any function wouldn’t do. This function has to generalise the concept of distance in real life, for it to make sense.</p>
+<p>In mathematics, such a function is called a metric. A metric, or distance function defined on a set <span class="math notranslate nohighlight">\(V\)</span> is a map <span class="math notranslate nohighlight">\(d: V\times V\longrightarrow R^{+}\)</span>, where <span class="math notranslate nohighlight">\(R^{+}\)</span> is the set of non-negative real numbers, and satisfies following conditions -</p>
+<ol class="arabic simple">
+<li><p><strong>Positive definiteness:</strong> For any arbitrary <span class="math notranslate nohighlight">\(v_1, v_2 \in V\)</span>, <span class="math notranslate nohighlight">\(d(v_1, v_2)\ge 0\)</span>, and <span class="math notranslate nohighlight">\(d(v_1, v_2)=0\)</span> if and only if <span class="math notranslate nohighlight">\(v_1 = v_2\)</span>.</p></li>
+<li><p><strong>Symmetry:</strong> the distance function is symmetric, i.e., <span class="math notranslate nohighlight">\(d(v_1, v_2) = d(v_2, v_1)\)</span></p></li>
+<li><p><strong>Triangular inequality:</strong> For any three elements/vectors <span class="math notranslate nohighlight">\(v_1, v_2, v_3 \in V\)</span>, the sum of the distance between the first two vectors is always more than or equal to the distance between the first and third vector, i.e., we have
+$<span class="math notranslate nohighlight">\(
+d(v_1, v_2) + d(v_2, v_3) \ge d(v_1, v_3)
+\)</span>$</p></li>
+</ol>
+<p>Any set with a metric defined on it, is called a <strong>metric space</strong>. It’s elements can be thought of as point in a geometrical sense, as there is a well defined distance between each of them.</p>
+<p>With this notion added, the vectors can be seen as ‘points’ in a vector space. The inner product space has a naturally defined notion of distance through the inner product itself, and that is</p>
+<div class="math notranslate nohighlight">
+\[
+d(v_1, v_2) = |v_1 - v_2| = \sqrt{\langle v_1 - v_2, v_1 - v_2\rangle }
+= \sqrt{|v_1|^2 + |v_2|^2 + \langle v_1, v_2\rangle +\langle v_1, v_2\rangle^*}
+\]</div>
+<p>It is easy to check that the above defined distance satisfies the three condition for being a metric.</p>
+<p>With this distance defined on it, we have a <strong>Hilbert space</strong>. Formally,</p>
+<div class="tip admonition">
+<p class="admonition-title">Hilbert Space</p>
+<p>Hilbert Space is a vector space equipped with an inner product that induces a metric/distance function for which the space is a complete metric space.</p>
+</div>
+<p>Now what is a complete metric space, or equivalently completeness?
+We will not go into details of this, but rather illustrate the concept of completeness.
+We know that vector addition is a binary operation, and similarly usual addition is a binary operation. And by definition, adding two numbers or vectors gives another number/vector.</p>
+<p>Within the set of rational numbers <span class="math notranslate nohighlight">\(\mathbb{Q}\)</span>, if we have a sequence of <span class="math notranslate nohighlight">\(n\)</span> rational numbers, say <span class="math notranslate nohighlight">\(a_1, a_2, \dots, a_n\)</span> then because of associativity,
+their sum <span class="math notranslate nohighlight">\(S_n\)</span> defined as</p>
+<p><span class="math notranslate nohighlight">\(S_n = \sum_{l=1}^n a_l = a_1 + a_2 + \dots, a_n\)</span></p>
+<p>is also a rational number and belongs to the same set <span class="math notranslate nohighlight">\(\mathbb{Q}\)</span>. But what happens when <span class="math notranslate nohighlight">\(n\)</span> is not finite, but infinite. In this case, question arises, as to whether the sum ‘converges’ to a specific finite number, or ‘diverges’ to infinity. Within the set of rational numbers, there is an issue even with the converged scenario. For example, consider the sequence <span class="math notranslate nohighlight">\(a_n = (-1)^{n-1}\frac{1}{2n+1}\)</span> then the sum of the <span class="math notranslate nohighlight">\(n\)</span> terms is</p>
+<div class="math notranslate nohighlight">
+\[
+S_n = 1 -\frac 13 + \frac 15 - \frac 17+\dots + (-1)^{n-1}\frac{1}{2n+1}
+\]</div>
+<p>So far, the sum is rational number. However in the limit of <span class="math notranslate nohighlight">\(n\to \infty\)</span>, this sum is known to be equal to <span class="math notranslate nohighlight">\(\frac{\pi}{4}\)</span>, which is an irrational number
+$<span class="math notranslate nohighlight">\(
+S_\infty = 1 -\frac 13 + \frac 15 - \frac 17+\dots = \frac{\pi}{4}
+\)</span>$</p>
+<p>This illustrates, that an infinite summation of rational numbers is actually not rational, but an irrational number. This is what completeness is about. In a complete metric space, the limit of an infinite sequence lies in the set. Thus, <span class="math notranslate nohighlight">\(\mathbb{Q}\)</span> is not complete, though the set of real numbers <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> is complete.</p>
+<figure class="align-default" id="id6">
+<img alt="https://upload.wikimedia.org/wikipedia/commons/8/89/Completeness_in_Hilbert_space.png" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Completeness_in_Hilbert_space.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 15 </span><span class="caption-text">An infinite series of sum of vectors results in a well defined net displacement vector.</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>In case of vectors in a vector space, this translates to the property that linear combination of infinitely many vectors is still a vector in the vector space. Having this property insures we do not end up in an unphysical state outside the vector space.</p>
+<section id="normality">
+<h3>Normality<a class="headerlink" href="#normality" title="Link to this heading">#</a></h3>
+<p>Normality, or a vector being normal is just size of vector being of unit size. A vector <span class="math notranslate nohighlight">\(v\)</span> is called normal if <span class="math notranslate nohighlight">\(|v|=1\)</span>. This notion is the same as those of unit vectors in coordinate geometry. When we work with a basis, it is easier to express coordinates if the basis vectors are normal.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Any non-zero vector <span class="math notranslate nohighlight">\(v\)</span> can always be normalized as <span class="math notranslate nohighlight">\(v\to\frac{1}{|v|}v\)</span></p>
+</div>
+</section>
+<section id="orthogonality">
+<h3>Orthogonality<a class="headerlink" href="#orthogonality" title="Link to this heading">#</a></h3>
+<p>Orthogonality in a vector space is the generalisation of two vectors being perpendicular in coordinate geometry. In this sense, the inner product naturally extends the notion of ordinary dot product.</p>
+<p>So, two vectors, say <span class="math notranslate nohighlight">\(v_1, v_2\)</span> of an inner product space are called orthogonal, if
+their inner product is zero, i.e., <span class="math notranslate nohighlight">\(\langle v_1, v_2\rangle=0\)</span>. If we recall the angular interpretation of the inner product <span class="math notranslate nohighlight">\(\theta = \cos^{-1}\frac{\langle v_1, v_2\rangle}{|v_1||v_2|}\)</span>, then if the inner product is zero, then <span class="math notranslate nohighlight">\(\theta = \cos^{-1}(0) = \frac{\pi}{2}\)</span>. That is, the ‘angle’ between the two vectors is <span class="math notranslate nohighlight">\(90^o\)</span>.</p>
+<p>If two vectors are linearly independent, then the angle between them can not be zero. Such vectors can be transformed into orthogonal vectors. This process is called <strong>Gram Schmidt Orthogonalization</strong>, see the <a class="reference external" href="https://en.wikipedia.org/wiki/Gram%E2%80%93Schmidt_process">wiki link</a>.</p>
+<p>Let’s see this through two vectors. Assume we have two vectors <span class="math notranslate nohighlight">\(v_1, v_2\)</span> in the inner product space, that aren’t orthogonal, and we need to get new set of two vectors <span class="math notranslate nohighlight">\(v_1', v_2'\)</span> from them that are. Then we do the following -</p>
+<p>We can choose the first vector <span class="math notranslate nohighlight">\(v_1'=v_1\)</span> as the original one. We then need <span class="math notranslate nohighlight">\(v_2'\)</span> such that <span class="math notranslate nohighlight">\(\langle v_1', v_2'\rangle = 0\)</span>. We use the following ansatz</p>
+<div class="math notranslate nohighlight">
+\[
+v_2' = v_2 -\frac{\langle v_1, v_2\rangle}{\langle v_1, v_1 \rangle} v_1
+\]</div>
+<p>then</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\langle v_1', v_2' \rangle = \langle v_1, v_2' \rangle = 
+\left\langle 
+    v_1, v_2 -\frac{\langle v_1, v_2\rangle}{\langle v_1, v_1 \rangle} v_1
+\right\rangle
+=\\
+\langle v_1, v_2 \rangle -
+\frac{\langle v_1, v_2\rangle}{\langle v_1, v_1 \rangle} \langle v_1, v_1 \rangle
+= \langle v_1, v_2 \rangle - \langle v_1, v_2 \rangle = 0
+\end{split}\]</div>
+<p>Here we subtracted <span class="math notranslate nohighlight">\(\frac{\langle v_1, v_2\rangle}{\langle v_1, v_1 \rangle}v_1\)</span> from <span class="math notranslate nohighlight">\(v_2\)</span>, which resulted in the new set being orthogonal.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><span class="math notranslate nohighlight">\(\frac{\langle v_1, v_2\rangle}{\langle v_1, v_1 \rangle}v_1\)</span> is interpreted as the projection of <span class="math notranslate nohighlight">\(v_2\)</span> with <span class="math notranslate nohighlight">\(v_1\)</span>.</p>
+</div>
+</section>
+<section id="overlap-of-vectors">
+<h3>Overlap of vectors<a class="headerlink" href="#overlap-of-vectors" title="Link to this heading">#</a></h3>
+<p>In an inner product space, the inner product of two vectors <span class="math notranslate nohighlight">\(\langle v_1, v_2\rangle\)</span> is interpreted as overlap of two vectors. If the two vectors are normal, then the overlap is solely attributed to how apart the two vectors are in direction.</p>
+</section>
+<section id="orthonormal-basis">
+<h3>Orthonormal basis<a class="headerlink" href="#orthonormal-basis" title="Link to this heading">#</a></h3>
+<p>A basis of an inner product space, in which every vector is normal, and all the vectors are orthogonal to one another, is called an orthonormal basis. It is the basis most convenient to work with in a vector space.</p>
+<p>Consider a basis <span class="math notranslate nohighlight">\(B={v_1, v_2, \dots, v_n}\)</span> that is orthonormal. This means <span class="math notranslate nohighlight">\(\langle v_i, v_j\rangle = 0\)</span> if <span class="math notranslate nohighlight">\(i\ne j\)</span>, and <span class="math notranslate nohighlight">\(\langle v_i, v_i\rangle = 1\)</span> for all <span class="math notranslate nohighlight">\(1\le i, j\le n\)</span>. With these properties in mind, let’s compute the inner product of two arbitrary vectors <span class="math notranslate nohighlight">\(u, v\)</span>. We first express them in the basis B.</p>
+<div class="math notranslate nohighlight">
+\[
+u=\sum_i a_i v_i = a_1v_1 + a_2v_2 +\dots, a_nv_n, \quad\text{and}\quad v=\sum_i b_i v_i = b_1v_1 + b_2v_2 +\dots, b_nv_n
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(a_1, a_2,\dots, a_n\)</span> and <span class="math notranslate nohighlight">\(b_1, b_2, \dots, b_n\)</span> are coordinates of vectors <span class="math notranslate nohighlight">\(u, v\)</span> respectively in the basis B. So now the inner product can be written as following, assuming <span class="math notranslate nohighlight">\({\bf a}  = (a_1, a_2, \dots, a_n)^T\)</span>
+and <span class="math notranslate nohighlight">\({\bf b}  = (b_1, b_2, \dots, b_n)^T\)</span> are coordinate representation of vectors <span class="math notranslate nohighlight">\(u, v\)</span> as column vectors -</p>
+<div class="math notranslate nohighlight">
+\[
+\langle u, v\rangle = \left\langle\sum_i a_i v_i, \sum_j b_j v_j \right\rangle
+= \sum_{ij} a_i^*b_j \langle v_i, v_j\rangle = \sum_i a_i^* b_i = {\bf a^{\dagger}b}
+\]</div>
+<p>where we utilised the linearity of the inner product and the fact that the basis vectors are orthonormal.
+This shows that in the orthonormal basis, the inner product of the two vectors becomes the usual complex dot product of the corresponding coordinate vectors.</p>
+<p>Another advantage one can quickly see that if the basis vectors were not orthonormal, the double summation will not simplify to single summation, and there will be <span class="math notranslate nohighlight">\(i\ne j\)</span> terms, makding computing of inner product more computationally expensive.</p>
+<p>So from now on, when we refer to a basis, it will be orthonormal basis, unless stated otherwise.</p>
+</section>
+<section id="changing-basis">
+<h3>Changing basis<a class="headerlink" href="#changing-basis" title="Link to this heading">#</a></h3>
+<p>A basis works as a reference in a vector space. When we write a vector as linear combination of basis elements, the coefficients, or coordinates basically tell us how much each of the basis vector needs to scale so that the added resulting vector is the desired one.</p>
+<p>Depending on what system the vector space describes, a specific basis can mean a specific orientation of the system, a specific frame of reference, or specific type of measurement system. One often changes the orientation, reference, or type of measurement. This means choosing a different basis.</p>
+<p>So here we will see how a vector transforms when we change the basis. Consider a basis <span class="math notranslate nohighlight">\(B={v_1, v_2, \dots, v_n}\)</span>, and another basis <span class="math notranslate nohighlight">\(B'={v'_1, v'_2, \dots, v'_n}\)</span>. We need to know how <span class="math notranslate nohighlight">\(B'\)</span> is related to <span class="math notranslate nohighlight">\(B\)</span>. Say <span class="math notranslate nohighlight">\(B\)</span> is our original basis, so we try expressing vectors of <span class="math notranslate nohighlight">\(B'\)</span> in terms of <span class="math notranslate nohighlight">\(B\)</span>. We write, for every <span class="math notranslate nohighlight">\(1\le j \le n\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+v_j = \sum_i T_{ij} v_i'
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(T_{ij}\)</span> are linear coefficients for each <span class="math notranslate nohighlight">\(j\)</span>. Now an arbitrary vector <span class="math notranslate nohighlight">\(v=\sum_j a_j v_j\)</span> can be expressed follows</p>
+<div class="math notranslate nohighlight">
+\[
+v = \sum_j a_j v_j = \sum_j a_j \left(\sum_i T_{ij}v_i'\right)
+=\sum_i
+\left(
+\sum_j T_{ij}a_j
+\right)v_i'
+=\sum_i({\bf Ta})_i v_i'=\sum_i a_i'v_i'
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(a_i'=({\bf Ta})_i\)</span>. Thus the coordinates <span class="math notranslate nohighlight">\({\bf a}=(a_1, a_2, \dots, a_n)\)</span> of vector <span class="math notranslate nohighlight">\(v\)</span> in basis <span class="math notranslate nohighlight">\(B\)</span> become <span class="math notranslate nohighlight">\({\bf a'}=(a_1', a_2', \dots, a_n')\)</span> in the new basis <span class="math notranslate nohighlight">\(B'\)</span>. And since <span class="math notranslate nohighlight">\(a_i'=({\bf Ta})_i\)</span>, the coordinates are related as <span class="math notranslate nohighlight">\({\bf a'=Ta}\)</span> in the usual matrix multiplication sense.</p>
+</section>
+</section>
+<section id="special-operators">
+<h2>Special operators<a class="headerlink" href="#special-operators" title="Link to this heading">#</a></h2>
+<p>Consider a set of all linear operators on a vector space <span class="math notranslate nohighlight">\(L_v=\{L| L:V\to V\text{~is a linear operator}\}\)</span>. This set itself has interesting structure, with various operators that are of particular importance. Let’s see below.</p>
+<ul class="simple">
+<li><p>Sum of two linear operators is defined as follows. If <span class="math notranslate nohighlight">\(L_1, L_2 \in L_v\)</span> are linear operators, then their sum <span class="math notranslate nohighlight">\(L=L_1 + L_2\)</span> is a linear operator such that <span class="math notranslate nohighlight">\(L(v) = L_1(v) + L_2(v)\)</span> for every <span class="math notranslate nohighlight">\(v\in V\)</span>.</p></li>
+<li><p>Scalar multiplication to a linear operator is defined through <span class="math notranslate nohighlight">\(L=a_1L_1\implies L(v) = a_1 L_1(v)\)</span></p></li>
+<li><p>The <strong>zero operator</strong>, or map is <span class="math notranslate nohighlight">\(O:V \longrightarrow V\)</span>, that maps every vector <span class="math notranslate nohighlight">\(v\)</span> to zero vector, <span class="math notranslate nohighlight">\(O(v)=0\)</span>.</p></li>
+</ul>
+<p>With the above, it is easy to see that the set <span class="math notranslate nohighlight">\(L_v\)</span> of all the linear maps forms a vector space itself.</p>
+<ul class="simple">
+<li><p>The <strong>Identity operator</strong>, <span class="math notranslate nohighlight">\(I:V\longrightarrow V\)</span> maps every vector to itself, <span class="math notranslate nohighlight">\(I(v) = v\)</span>.</p></li>
+</ul>
+<p>Linear operators can be combined, or ‘multiplied’ in the following way. If <span class="math notranslate nohighlight">\(L_1, L_2\)</span> are two linear operators, then their product, is defined as <span class="math notranslate nohighlight">\(L=L_1L_2\)</span>, such that <span class="math notranslate nohighlight">\(L(v)=L_1(L_2(v))\)</span>. It is easy to see that if <span class="math notranslate nohighlight">\({\bf L_1, L_2}\)</span> are matrix representations of the operators <span class="math notranslate nohighlight">\(L_1, L_2\)</span>, then <span class="math notranslate nohighlight">\(L\)</span> is represented by the matrix multiplication <span class="math notranslate nohighlight">\({\bf L=L_1L_2}\)</span>.</p>
+<ul class="simple">
+<li><p><strong>Invertable operators</strong>: Operators are map, and if they are bijective maps, they can be inverted. The inverse of an operator <span class="math notranslate nohighlight">\(L\)</span> is an operator denoted as <span class="math notranslate nohighlight">\(L^{-1}\)</span> such that <span class="math notranslate nohighlight">\(L^{-1}L = I, i.e., L^{-1}(L(v))=L^{-1}L(v)=I(v)=v\)</span> for every <span class="math notranslate nohighlight">\(v\in V\)</span>.</p></li>
+</ul>
+<section id="adjoint-operator">
+<h3>Adjoint operator<a class="headerlink" href="#adjoint-operator" title="Link to this heading">#</a></h3>
+<p>Adjoint operator is an operator related to another operator. For a given operator in an inner product space, it’s adjoint operator is defined best with help of the inner product, as follows. If <span class="math notranslate nohighlight">\(A\)</span> is an operator, it’s adjoint operator is defined as an operator denoted as <span class="math notranslate nohighlight">\(A^{\dagger}\)</span> such that, for any two vectors <span class="math notranslate nohighlight">\(v_1, v_2\)</span>, the following is always true-</p>
+<div class="math notranslate nohighlight">
+\[
+\langle A^{\dagger}v_1, v_2\rangle = \langle v_1, Av_2\rangle \quad\text{or equivalently}\quad \langle v_1, Av_2 \rangle = \langle v_2, A^{\dagger}v_1\rangle^* 
+\]</div>
+<p>So if we swap the two vectors, and conjugate the inner product, then the adjoint operator gives the same scalar as the given operator <span class="math notranslate nohighlight">\(A\)</span>. In this sense, the adjoint operator is conjugate transpose of  the given vector.</p>
+</section>
+<section id="hermitian-operators">
+<h3>Hermitian operators<a class="headerlink" href="#hermitian-operators" title="Link to this heading">#</a></h3>
+<p>Hermitian operators are of vital importance in linear algebra, vector spaces, and in quantum science. These are operators that are adjoint of themselves. That is, an operator <span class="math notranslate nohighlight">\(A\)</span> is called Hermitian if <span class="math notranslate nohighlight">\(A^{\dagger} = A\)</span>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The matrix representation of a Hermitian operator is conjugate symmetric, i.e., <span class="math notranslate nohighlight">\({\bf A^{\dagger}_{ij} = A^*_{ji}}\)</span>.</p>
+</div>
+</section>
+<section id="unitary-opertors">
+<h3>Unitary opertors<a class="headerlink" href="#unitary-opertors" title="Link to this heading">#</a></h3>
+<p>Unitary operators are special type of invertable operators, such that their adjoint is their inverse, i.e., <span class="math notranslate nohighlight">\(A^{\dagger}=A^{-1}\)</span>, and equivalently <span class="math notranslate nohighlight">\(A^{\dagger}A = AA^{\dagger} = I\)</span>.</p>
+<p>They are also of vital importance in quantum science, as well as linear algebra. To see why, let us see what happens to the norm of a vector that is transformed by a unitary operator. Say <span class="math notranslate nohighlight">\(U\)</span> is a unitary operator, and <span class="math notranslate nohighlight">\(v\)</span> an arbitrary vector. If <span class="math notranslate nohighlight">\(v'=Uv\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+\langle v', v'\rangle = \langle Uv, Uv\rangle =  \langle v, U^{\dagger}Uv\rangle = \langle v, Iv\rangle = \langle v, v\rangle
+\]</div>
+<p>That is, norm of a vector does not change under the effect of unitary operator. That is why, the act of unitary operator on vectors is interpreted as ‘rotation’ of vectors, and is called unitary rotation.</p>
+</section>
+<section id="eigenvalues-and-eigenvectors">
+<h3>Eigenvalues, and Eigenvectors<a class="headerlink" href="#eigenvalues-and-eigenvectors" title="Link to this heading">#</a></h3>
+<p>The concept eigenvalues and eigenvectors has rather wide range of applications in physics, as well as technology.</p>
+<p>In a vector space, eigenvalues and eigenvector are attributes associated with a linear map or operator. We all know that linear operators map a vector to another vector. Say <span class="math notranslate nohighlight">\(L\)</span> is a linear operator, then for a given arbitrary vector <span class="math notranslate nohighlight">\(v\)</span>, <span class="math notranslate nohighlight">\(v'=L(v)\)</span> is in general another vector.</p>
+<p>If it so happens that for a particular vector <span class="math notranslate nohighlight">\(v_e\)</span>, the transformation via <span class="math notranslate nohighlight">\(L\)</span> does not change the direction, i.e., <span class="math notranslate nohighlight">\(L(v_e)\)</span> is in the same direction. But then we can write <span class="math notranslate nohighlight">\(L(v_e) = \lambda v_e\)</span>, where <span class="math notranslate nohighlight">\(\lambda\)</span> is a scalar. Such a vector is called eigenvector of the operator, and the associated scalar <span class="math notranslate nohighlight">\(\lambda\)</span> is called an eigenvalue of the operator.</p>
+<div class="tip admonition">
+<p class="admonition-title">Definition</p>
+<p>For a given operator <span class="math notranslate nohighlight">\(L\)</span>, a vector <span class="math notranslate nohighlight">\(v\)</span> is called an <strong>eigenvector</strong> if the vector gets mapped to a vector parallel to itself, i.e.,</p>
+<div class="math notranslate nohighlight">
+\[
+L(v) = \lambda v
+\]</div>
+<p>The corresponding number <span class="math notranslate nohighlight">\(\lambda\)</span> with which the eigenvector get scaled is called the <strong>eigenvalue</strong>.</p>
+</div>
+<p>One can ask the following, how many eigenvalues and/or eigenvectors can a linear operator have?</p>
+<p>To answer it, and to also understand the nature and purpose of eigenvalues and eigenvectors, let’s work with the matrix representation of the linear operator and vectors. Consider a basis <span class="math notranslate nohighlight">\(B=\{v_1, v_2,\dots, v_n\}\)</span> in which the coordinates of a vector <span class="math notranslate nohighlight">\(v\)</span> are <span class="math notranslate nohighlight">\({\bf X}=(x_1, x_2, \dots, x_n)\)</span>, and the matrix representation of the operator <span class="math notranslate nohighlight">\(L\)</span> is <span class="math notranslate nohighlight">\({\bf L}\)</span>. Then if <span class="math notranslate nohighlight">\(v\)</span> is an eigenvector of <span class="math notranslate nohighlight">\(L\)</span> with eigenvalue <span class="math notranslate nohighlight">\(\lambda\)</span>, then <span class="math notranslate nohighlight">\(L(v) = \lambda v\)</span> is equivalent to the following matrix expression</p>
+<div class="math notranslate nohighlight">
+\[
+{\bf LX} = \lambda{\bf X}, \quad\text{or, equivalently}\quad ({\bf L}-\lambda {\bf I})X = 0
+\]</div>
+<p>where <span class="math notranslate nohighlight">\({\bf I}\)</span> is identity matrix. Since <span class="math notranslate nohighlight">\({\bf X}\)</span> is in general non-zero, the equation <span class="math notranslate nohighlight">\(({\bf L}-\lambda {\bf I})X = 0\)</span> can only be true if the <a class="reference external" href="https://en.wikipedia.org/wiki/Determinant">determinant</a> of the matrix <span class="math notranslate nohighlight">\({\bf L_\lambda= L}-\lambda {\bf I}\)</span> is zero.</p>
+<p>Determinant of a square matrix is a scalar function, expressed as <span class="math notranslate nohighlight">\(Det(L_\lambda)\)</span>. Computing the <span class="math notranslate nohighlight">\(Det({\bf L}-\lambda {\bf I})=0\)</span> gives a polynomial equation in <span class="math notranslate nohighlight">\(\lambda\)</span> of degree <span class="math notranslate nohighlight">\(n\)</span>. This equation will have <span class="math notranslate nohighlight">\(n\)</span> solutions for <span class="math notranslate nohighlight">\(\lambda\)</span>. These <span class="math notranslate nohighlight">\(n\)</span> values are the set of eigenvalues associated with the operator.</p>
+<p>If we label the <span class="math notranslate nohighlight">\(n\)</span> eigenvalues as <span class="math notranslate nohighlight">\(\lambda_i\)</span>, then by solving the linear equation <span class="math notranslate nohighlight">\({\bf L}X = \lambda_i X\)</span> for vector <span class="math notranslate nohighlight">\(X\)</span>, we get the coordinates of the corresponding eigenvectors.</p>
+<div class="tip admonition">
+<p class="admonition-title">Property</p>
+<p>Eigenvectors corresponding to two distinct eigenvalues are linearly independent.</p>
+</div>
+<p>In fact, if we have a matrix with all distinct eigenvalues, the corresponding eigenvectors form a Basis of the vector space, called <em><strong>eigenbasis</strong></em>.</p>
+</section>
+<section id="dirac-notation">
+<h3>Dirac Notation<a class="headerlink" href="#dirac-notation" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+{\Huge
+\left\langle
+     \text{Bra}| \text{Operator}| \text{Ket}
+\right\rangle = \text{Number}
+}\]</div>
+<p>The Dirac notation, also called Bra-Ket notation, is a notation used in Quantum Physics to express vector operations, and inner product.
+It makes interpretation of state, observations and inner product easier.</p>
+<ul class="simple">
+<li><p>It uses angular brackets <span class="math notranslate nohighlight">\(\langle , \rangle\)</span> and vertical bar <span class="math notranslate nohighlight">\(|\)</span>.</p></li>
+<li><p>A Ket is a vector of the Hilbert space denoted as <span class="math notranslate nohighlight">\(|v\rangle\)</span>, and represents state of a quantum system.</p></li>
+<li><p>Action of linear operator <span class="math notranslate nohighlight">\(A\)</span> on a ket is expressed as <span class="math notranslate nohighlight">\(A|v\rangle\)</span>.</p></li>
+<li><p>A Bra is of the form <span class="math notranslate nohighlight">\(\langle f|\)</span>. It is a map <span class="math notranslate nohighlight">\(f: V\longrightarrow C\)</span>, i.e., it maps a vector to a number, usually complex number.</p></li>
+<li><p>With an inner product <span class="math notranslate nohighlight">\(\langle , \rangle\)</span> defined on vector space, each ket has a unique corresponding bra <span class="math notranslate nohighlight">\(\langle v, ~ \rangle \equiv \langle v|\)</span></p></li>
+<li><p>Basically a bra is a map that is literally parameterised by the vector of Hilbert space, and its action on a vector is governed by the defined inner product.</p></li>
+<li><p>The inner product then is equivalently expressed more conveniently as</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\langle v_1, v_2 \rangle \equiv \langle v_1 | v_2 \rangle , \quad\text{and for some operator, }A\quad \langle v_1, A v_2\rangle \equiv \langle v_1|A|v_2\rangle
+\]</div>
+<ul class="simple">
+<li><p>The set of all Bra is called dual space of vector space, and both can be used to represent the state.</p></li>
+<li><p>One also defines outer product, of two vectors as <span class="math notranslate nohighlight">\(L=|v_1\rangle \langle v_2|\)</span>, which acts as an operator
+<span class="math notranslate nohighlight">\(L(v)\equiv L|v\rangle = |v_1\rangle\langle v_2|v\rangle = \langle v_2|v\rangle|v_1\rangle\)</span>.
+Here applying <span class="math notranslate nohighlight">\(L\)</span> on <span class="math notranslate nohighlight">\(|v\rangle\)</span> gives the state <span class="math notranslate nohighlight">\(|v_1\rangle\)</span> multiplied by scalar <span class="math notranslate nohighlight">\(\langle v_2|v \rangle\)</span>.</p></li>
+<li><p>For a basis <span class="math notranslate nohighlight">\(\{|v_1\rangle, |v_2\rangle, \dots, |v_n\rangle \}\)</span> there is a corresponding basis for dual space, a basis of bra’s <span class="math notranslate nohighlight">\(\{\langle v_1|, \langle v_2|, \dots, \langle v_n|\}\)</span></p></li>
+<li><p>The linear combination for a ket is simply expressed as <span class="math notranslate nohighlight">\(|v\rangle = \sum_i a_i |v_i\rangle\)</span>, however, for the corresponding bra <span class="math notranslate nohighlight">\(\langle v|\)</span> has conjugate coefficients.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\langle v| = \sum_i a_i^*\langle v_i|
+\]</div>
+</section>
+</section>
+<section id="states-and-operators">
+<h2>States and Operators<a class="headerlink" href="#states-and-operators" title="Link to this heading">#</a></h2>
+<p>Here we will recall the fundamental notions of quantum mechanics we use when we setup the mathematical framework for a given quantum system.</p>
+<p>To describe or study a quantum system, we first start with a set of states that are mutually exclusive with respect to an observation or measurement.
+Classically, a system and observations are two distinct things without their interplay. Since classically when we observe something, for example a moving car, or a passing meteor, our ‘observation’ does not affect the dynamics or behaviour of the system in question. It is because the interaction of the observer and the system is usually so weak that there is no effect of the presence of observer on the system.</p>
+<p>But within the quantum realm, this is not the case. In the strict sense, any observation in quantum realm is result of a measurement, which itself is associated with the property of the system, such as position, momentum, or energy of the system. Secondly, in the quantum realm, properties are quantised, that is, instead of any possible value, there exist descrete values or outcomes that individual measurement can result in. For example, in case of a qubit, the measurement of the state result in either <span class="math notranslate nohighlight">\(|0\rangle\)</span> or <span class="math notranslate nohighlight">\(|1\rangle\)</span>.</p>
+<p>So when there is an observation we think of, and the decrete set of state the system is in, and these state are mutually exlusive in the sense of possibility.</p>
+<p>If the system is found in one of those state, and the corresponding measurement is done, it will always be found in that state. We choose this set as our basis. Imagine there are <span class="math notranslate nohighlight">\(n\)</span> possible states, then basis may be expressed as <span class="math notranslate nohighlight">\(B=\{|1\rangle, |2\rangle, |3\rangle, \dots, |n\rangle\}\)</span>. Here the states are symbolically expressed by the outcome labels <span class="math notranslate nohighlight">\(1, 2, \dots, n\)</span>. The Hilbert space for the quantum system is then the linear span of these states -</p>
+<div class="math notranslate nohighlight">
+\[
+H_b = \left\{|s\rangle =\sum_{l=1}^n c_l|l\rangle: \text{where } c_l\in \mathbb{C}\right\}
+\]</div>
+<p>Each vector in this Hilbert space is a possible state. This is because of the <strong>superposition principle</strong> which states that If a quantum system can exist in two states (or more), it can exist in all possible superpositions of the two (or more of those) states. Let’s see below what this superposition means in connection with a quantum system.</p>
+<section id="connection-with-experiment">
+<h3>Connection with Experiment<a class="headerlink" href="#connection-with-experiment" title="Link to this heading">#</a></h3>
+<p>We have the following probabilistic interpretation of a general state in the Hilbert space.</p>
+<section id="probabilistic-interpretation">
+<h4>Probabilistic interpretation<a class="headerlink" href="#probabilistic-interpretation" title="Link to this heading">#</a></h4>
+<div class="tip admonition">
+<p class="admonition-title">Probabilistic interpretation of superposition</p>
+<p>A quantum state <span class="math notranslate nohighlight">\(|s\rangle = c_1|1\rangle + c_2|2\rangle  + \dots c_n|n\rangle \)</span> is a state, in which possibilities of being measured in each one of the basis states <span class="math notranslate nohighlight">\(|l\rangle\)</span> coexist simultaneously, untill the measurement is done.</p>
+</div>
+<p>The coefficients <span class="math notranslate nohighlight">\(c_l\)</span> are complex probability amplitudes for each state <span class="math notranslate nohighlight">\(|l\rangle\)</span>, and the actual probability of measurement outcome being in the state <span class="math notranslate nohighlight">\(|l\rangle\)</span> is <span class="math notranslate nohighlight">\(|c_l|^2\)</span>. Since sum of all the probabilities must add to 1, we must have -</p>
+<div class="math notranslate nohighlight">
+\[
+1 = \sum_{l=1}^n |c_l|^2 = |c_1|^2 + |c_2|^2 + \dots +|c_n|^2
+\]</div>
+<div class="admonition-overlap-of-probability admonition">
+<p class="admonition-title">Overlap of probability</p>
+<p>The inner product of the two states <span class="math notranslate nohighlight">\(\langle s, s'\rangle \equiv \langle s|s'\rangle\)</span> gives the overlap of probabilities of the two states.</p>
+</div>
+<p>For mutually exclusive states this overlap is zero, hence the mutually exclusive states should be orthogonal to each other. That is why we impose that the basis above is orthogonal, i.e., <span class="math notranslate nohighlight">\(\langle l|l'\rangle = 0\)</span> for <span class="math notranslate nohighlight">\(l\ne l'\)</span> and normal <span class="math notranslate nohighlight">\(\langle l|l\rangle = 1\)</span>.</p>
+<p>Further, lets compute the norm of the above generic state <span class="math notranslate nohighlight">\(|s\rangle\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
+\langle s|s\rangle = \sum_l c_l^*\langle l| \sum_{l'} c_{l'}|l'\rangle  = \sum_{l,l'} c_l^*c_{l'}\langle l|l'\rangle = \sum_{l} |c_l|^2
+\]</div>
+<p>But the probability argument implied that the last summation equals 1, so <span class="math notranslate nohighlight">\(\langle s|s'\rangle = 1\)</span>, that is the norm of the state must also be 1. That is why in quantum system, a state is represented by a unit vector of the Hilbert space.</p>
+</section>
+<section id="interpretation-of-measurement">
+<h4>Interpretation of measurement<a class="headerlink" href="#interpretation-of-measurement" title="Link to this heading">#</a></h4>
+<p>Let us try to illustrate how quantum measurement works.
+When we measure a property of a quantum system, the outcome of the measurement should yield a value.</p>
+<p>Let’s assume the quantum system imagined in the previous section, the states are <span class="math notranslate nohighlight">\(|l\rangle\)</span> with <span class="math notranslate nohighlight">\(l=1,2,\dots n\)</span>. If the system is already in one of these states, then it stays in it, and the outcome of the measurement is, say <span class="math notranslate nohighlight">\(a_l\)</span> corresponding to the state <span class="math notranslate nohighlight">\(|l\rangle\)</span>.</p>
+<p>This observation, against our intuition of uncertainty in quantum system, is actually definite. Is there something special about the system being in state <span class="math notranslate nohighlight">\(|l\rangle\)</span> ? Yes, it is so because these state are by construction mutually exclusive with respect to observation, as discussed in section <a class="reference internal" href="#states-and-operators"><code class="xref myst docutils literal notranslate"><span class="pre">states-and-operators</span></code></a>.</p>
+<p>The uncertainty comes if before the measurement system was in a superposition state <span class="math notranslate nohighlight">\(|s\rangle = c_1|1\rangle + c_2|2\rangle  + \dots c_n|n\rangle\)</span>. In this case, the system is in a state where the possibility of being in any one of the <span class="math notranslate nohighlight">\(|l\rangle\)</span> state coexist until the measurement.</p>
+<p>Once we observe the system, or measure it, the system collapses into one of the <span class="math notranslate nohighlight">\(|l\rangle\)</span> states with probability <span class="math notranslate nohighlight">\(|c_l|^2\)</span>. In this situation the outcome is not definite, but probabilistic, and if we repeat the above experiment, we get a probability averaged outcome, called <strong>expectation value</strong>. It is denoted as <span class="math notranslate nohighlight">\(\langle a \rangle\)</span> and is given by the weighted average of the probabilities -</p>
+<div class="math notranslate nohighlight">
+\[
+\langle a \rangle = \sum_{l=1}^n |c_l|^2 a_l
+\]</div>
+</section>
+<section id="mathematical-interpretation">
+<h4>Mathematical interpretation<a class="headerlink" href="#mathematical-interpretation" title="Link to this heading">#</a></h4>
+<p>Mathematically, the above measurement is interpreted as following.</p>
+<p>Every physically measurable quantity is called an observable, and for every observable, there is a Hermitian operator, say <span class="math notranslate nohighlight">\(A\)</span> that acts on a state.
+If the state is <span class="math notranslate nohighlight">\(l\rangle\)</span>, the result of the action is <span class="math notranslate nohighlight">\(A|l\rangle=a_l|l\rangle\)</span>, and if the state is in superposition <span class="math notranslate nohighlight">\(|s\rangle\)</span>, the state changes to <span class="math notranslate nohighlight">\(A|s\rangle\)</span>.</p>
+<p>The overlap, or inner product of the resulting state with initial state gives the outcome of the measurement. The outcome, which is also called the expectation value, is expressed as <span class="math notranslate nohighlight">\(\langle s, As\rangle\)</span> or <span class="math notranslate nohighlight">\(\langle s|A|s\rangle\)</span> in the Dirac notation.</p>
+<ul class="simple">
+<li><p>For the <span class="math notranslate nohighlight">\(|l\rangle\)</span> state, the outcome is <span class="math notranslate nohighlight">\(\langle l|A|l\rangle = a_l\langle l|l\rangle = a_l\)</span>, and if definite.</p></li>
+<li><p>For the superposition state, the outcome is probabilistic with expectation value</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\langle a \rangle &amp;= \langle s|A|s \rangle =
+\left(
+    \sum_{l'}c_{l'}^*\langle l'|
+\right)A
+\left(
+\sum_l c_l|l\rangle
+\right)\\
+&amp;=
+\sum_{l,l'}c_{l'}^*c_l a_l\langle l'|l \rangle
+= \sum_l a_l|c_l|^2
+\end{align}
+\end{split}\]</div>
+<p>which is same as one interpreted as measurement outcome in the previous section.</p>
+</section>
+</section>
+</section>
+<section id="hilbert-space-of-qubits">
+<h2>Hilbert space of Qubits<a class="headerlink" href="#hilbert-space-of-qubits" title="Link to this heading">#</a></h2>
+<p>Let us finally come to example of quantum systems that are useful for quantum computing.</p>
+<section id="single-qubit">
+<h3>Single Qubit<a class="headerlink" href="#single-qubit" title="Link to this heading">#</a></h3>
+<p>A <strong>Qubit</strong> is a quantum system with two state basis. A single qubit is one of the simplest quantum system of 2-dimensional Hilbert space.</p>
+<p>A qubit is an abstraction of a quantum system with two dimensional Hilbert space, with a basis <span class="math notranslate nohighlight">\(\{|0\rangle, |1\rangle\}\)</span>. The Hilbert space then looks like</p>
+<div class="math notranslate nohighlight">
+\[
+H_1 = {|s\rangle = c_0|0\rangle + c_1|1\rangle: c_0, c_1 \in \mathbb{C}}
+\]</div>
+<p>Note that in order to represent a quantum state, the kets <span class="math notranslate nohighlight">\(|s\rangle\)</span> need to be normal, which means</p>
+<div class="math notranslate nohighlight">
+\[
+|c_0|^2 + |c_1|^2 = 1
+\]</div>
+<p>Since the Hilbert space is two dimensional, all the operator on it can be
+represented as <span class="math notranslate nohighlight">\(2\times 2\)</span> complex matrices.</p>
+<p>Noteworthy operators are the following -</p>
+<ul class="simple">
+<li><p>Identity <span class="math notranslate nohighlight">\(I\)</span>, and Hadamard <span class="math notranslate nohighlight">\(H\)</span> operators. Their matrix representation is following -</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+I = \begin{pmatrix} 1 &amp; 0\\0 &amp; 1 \end{pmatrix};
+H = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 &amp; 1\\1 &amp; -1 \end{pmatrix}
+\end{split}\]</div>
+<ul class="simple">
+<li><p>Pauli <span class="math notranslate nohighlight">\(X, Y, Z\)</span> operators. Their matrix representation is following -
+$<span class="math notranslate nohighlight">\(
+X = \begin{pmatrix} 0 &amp; 1\\1 &amp; 0 \end{pmatrix}; 
+Y = \begin{pmatrix} 0 &amp; -i\\i &amp; 0 \end{pmatrix}; 
+Z = \begin{pmatrix} 1 &amp; 0\\0 &amp; -1 \end{pmatrix};
+\)</span>$</p></li>
+</ul>
+<p>One assumes a coordinate system with <span class="math notranslate nohighlight">\(x,y\)</span> and <span class="math notranslate nohighlight">\(z\)</span> axis, and a basis
+that is eigenstate of Pauli z operators.</p>
+</section>
+<section id="multiple-qubits">
+<h3>Multiple Qubits<a class="headerlink" href="#multiple-qubits" title="Link to this heading">#</a></h3>
+<p>In general, when we combine two quantum systems, the Hilbert space of the
+combined system is constructed from the cartesian product of the basis of
+component systems.</p>
+<p>Let us first consider a system of two qubits, if the basis for one qubit is
+<span class="math notranslate nohighlight">\(B_1 = \{|0\rangle, |1\rangle\}\)</span>, then the basis for the two qubit system is</p>
+<div class="math notranslate nohighlight">
+\[
+B_2 = B_1\times B_1 = {(|0\rangle, |0\rangle), (|0\rangle, |1\rangle),
+(|1\rangle, |0\rangle), (|1\rangle, |1\rangle)}
+\]</div>
+<p>Where the order of the states in ordered pair follows the qubit label.
+For example, <span class="math notranslate nohighlight">\((|0\rangle, |1\rangle)\)</span> represents a state in which first
+qubit is in 0 state, and second qubit is in 1 state.</p>
+<p>If we have more qubits, the Hilbert space will grow as <span class="math notranslate nohighlight">\(B_3 = B_1\times B_1\times B_1\)</span>, and so on.
+The ordered pair notation becomes combersome, so one puts the individual state labels inside the
+angular brackets. In this way, the basis for two and three qubits looks like following -</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+B_2 = &amp;\{|00\rangle, |01\rangle, |10\rangle, |11\rangle\}\\
+B_3 = &amp;\{|000\rangle, |001\rangle, |010\rangle, |011\rangle, |100\rangle, |101\rangle, |110\rangle, |111\rangle\}\\
+B_4 = &amp;\{
+    |0000\rangle, |0001\rangle, |0010\rangle, |0011\rangle,\\
+    &amp;|0100\rangle, |0101\rangle, |0110\rangle, |0111\rangle,\\
+    &amp;|1000\rangle, |1001\rangle, |1010\rangle, |1011\rangle,\\
+    &amp;|1100\rangle, |1101\rangle, |1110\rangle, |1111\rangle
+\}
+\end{align}
+\end{split}\]</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The size of the basis, and hence the dimension of the Hilbert space of <span class="math notranslate nohighlight">\(n\)</span> qubits is <span class="math notranslate nohighlight">\(2^n\)</span></p>
+</div>
+</section>
+<section id="pure-vs-mixed-states">
+<h3>Pure vs Mixed States<a class="headerlink" href="#pure-vs-mixed-states" title="Link to this heading">#</a></h3>
+<section id="pure-state">
+<h4>Pure state<a class="headerlink" href="#pure-state" title="Link to this heading">#</a></h4>
+<p>The quantum state we referred to so far are what one calls pure states, and they are represented by a normalised vector in a complex Hilbert space. In the Dirac notation, they are described as a ket <span class="math notranslate nohighlight">\(|v\rangle\)</span> or a bra <span class="math notranslate nohighlight">\(\langle v|\)</span>.</p>
+<p>There is another way to describe the state of quantum system which can be generalised to mixed states (defined below), and the is through <strong>density operator</strong>. For a system in pure quantum state <span class="math notranslate nohighlight">\(|v\rangle\)</span>, the density operator is defined as</p>
+<div class="math notranslate nohighlight">
+\[
+{\Huge
+\rho = |v\rangle \langle v|
+}
+\]</div>
+<ul class="simple">
+<li><p>It is easy to see that trace of the density operator is 1, i.e., <span class="math notranslate nohighlight">\(\text{Tr}(\rho)=1\)</span>.</p></li>
+<li><p>For a pure state, <span class="math notranslate nohighlight">\(\rho^2 = \rho\)</span>, so <span class="math notranslate nohighlight">\(\text{Tr}(\rho^2)=1\)</span></p></li>
+</ul>
+</section>
+<section id="mixed-state">
+<h4>Mixed state<a class="headerlink" href="#mixed-state" title="Link to this heading">#</a></h4>
+<p>Suppose we have a quantum system, and wish to prepare it in a state <span class="math notranslate nohighlight">\(|l\rangle\)</span> out of, say <span class="math notranslate nohighlight">\(\{|1\rangle, |2\rangle, |3\rangle,\dots, |n\rangle\}\)</span>. If we could do it, then the system is in a pure state. But on the other hand, due to some difficulty, experimental or otherwise of physical nature, when we try to prepare it in <span class="math notranslate nohighlight">\(|l\rangle\)</span>, each time we get the system prepared in a different state. We can repeat the attempt of preparing the state several times, and compute the statistical <em>weight</em> <span class="math notranslate nohighlight">\(w_l\)</span> of having prepared the system in the expected state <span class="math notranslate nohighlight">\(|l\rangle\)</span>. This adds another uncertainty, which is classical in nature on any measurement on the system in such a state, and any outcome of quantum measurement will be an ensemble average of these weights. Such a state is called a <strong>mixed state</strong>.</p>
+<p>What mathematical object should we use to represent such a state? Clearly a single vector does not suffice, so we need something that depends on the weights <span class="math notranslate nohighlight">\(w_l\)</span> and the state <span class="math notranslate nohighlight">\(|l\rangle\)</span> for all values of <span class="math notranslate nohighlight">\(l\)</span>.</p>
+<p>Such state are represented by the following</p>
+<div class="math notranslate nohighlight">
+\[
+\rho = \sum_l w_l |l\rangle \langle l|
+\]</div>
+<ul class="simple">
+<li><p>For a mixed state, <span class="math notranslate nohighlight">\(\rho^2 \ne \rho\)</span>, and <span class="math notranslate nohighlight">\(\text{Tr}(\rho) &lt;1\)</span>.</p></li>
+</ul>
+<p><a class="reference external" href="https://youtube.com/clip/Ugkxh9W3xafNSWAP-VU9LCrRXkx9kgUH0mY8?si=MVsRsDUeJld5fV9_">youtube</a></p>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>See the <a class="reference external" href="https://en.wikipedia.org/wiki/Set_(mathematics)">Wikipedia article on set</a> for more details.</p>
+</aside>
+</aside>
+</section>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lecture-04"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../lecture-03/math-for-qc-1.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 4: Mathematical framework for Quantum Computing</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../lecture-05/intro-to-quantum-info.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lecture 5: Introduction to Quantum Information</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#postulates-of-quantum-physics">Postulates of Quantum Physics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uncertainty-principle">Uncertainty Principle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#state-as-an-abstract-vector">State as an abstract vector</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superposition-principle">Superposition principle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#role-of-interference">Role of interference</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#principles-of-measurement">Principles of measurement</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#no-cloning">No-cloning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entanglement">Entanglement</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tunnelling">Tunnelling</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematica-structure">Mathematica Structure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scalar-vs-vector">Scalar vs Vector</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set">Set</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#subsets">Subsets</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#map">Map</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-operations">Binary operations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#group">Group</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#subgroups">Subgroups</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#field">Field</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-space">Vector Space</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-sub-space">Vector Sub-space</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-combination">Linear combination</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-independence">Linear independence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basis">Basis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-operators">Linear Operators</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inner-product-space">Inner product space</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#norm-of-a-vector">Norm of a vector</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caucy-schwarz-inequality">Caucy-Schwarz inequality</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hilbert-space">Hilbert space</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normality">Normality</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#orthogonality">Orthogonality</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overlap-of-vectors">Overlap of vectors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#orthonormal-basis">Orthonormal basis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-basis">Changing basis</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#special-operators">Special operators</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adjoint-operator">Adjoint operator</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hermitian-operators">Hermitian operators</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unitary-opertors">Unitary opertors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalues-and-eigenvectors">Eigenvalues, and Eigenvectors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dirac-notation">Dirac Notation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#states-and-operators">States and Operators</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connection-with-experiment">Connection with Experiment</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-interpretation">Probabilistic interpretation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-of-measurement">Interpretation of measurement</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-interpretation">Mathematical interpretation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hilbert-space-of-qubits">Hilbert space of Qubits</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-qubit">Single Qubit</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-qubits">Multiple Qubits</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pure-vs-mixed-states">Pure vs Mixed States</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pure-state">Pure state</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mixed-state">Mixed state</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By ICHEC Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  Copyright@2024
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

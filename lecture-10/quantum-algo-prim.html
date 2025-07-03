@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Lecture 5: Introduction to Quantum Information &#8212; Lecture Notes for CT4106</title>
+    <title>Quantum Algorithm primitives &#8212; Lecture Notes for CT4106</title>
   
   
   
@@ -59,11 +59,11 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-05/intro-to-quantum-info';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-10/quantum-algo-prim';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Lecture 6: Realizing Quantum Computing Systems" href="../lecture-06/realizing-qc-systems.html" />
-    <link rel="prev" title="Lecture 4: Mathematical framework for Quantum Computing" href="../lecture-04/math-for-qc-2.html" />
+    <link rel="next" title="Lecture 11: NISQ Quantum Algorithms" href="../lecture-11/quantum-algorithms-2.html" />
+    <link rel="prev" title="Lecture 10: Early Quantum Algorithms" href="../lecture-09/quantum-algorithms-1.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -187,14 +187,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../lecture-02/from-bits-to-qubits.html">Lecture 3: From Bits to Qubits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lecture-03/math-for-qc-1.html">Lecture 4: Mathematical framework for Quantum Computing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lecture-04/math-for-qc-2.html">Lecture 4: Mathematical framework for Quantum Computing</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 5: Introduction to Quantum Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-05/intro-to-quantum-info.html">Lecture 5: Introduction to Quantum Information</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lecture-06/realizing-qc-systems.html">Lecture 6: Realizing Quantum Computing Systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lecture-07/qc-hardwares.html">Lecture 7: Hardwares for Quantum Computing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lecture-08/accessing-qc-systems.html">Lecture 8a: Accessing Quantum Computing Systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lecture-08/cloud-qc.html">Lecture 9: Heterogeneous Quantum Computing on AWS with Amazon Braket</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lecture-08/landscape-of-sdks-tools.html">Lecture 8b: Landscape of Quantum SDK’s and Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lecture-09/quantum-algorithms-1.html">Lecture 10: Early Quantum Algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../lecture-10/quantum-algo-prim.html">Quantum Algorithm primitives</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Quantum Algorithm primitives</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lecture-11/quantum-algorithms-2.html">Lecture 11: NISQ Quantum Algorithms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lecture-12/quantum-computing-ireland.html">Lecture 12: Quantum Computing in Ireland</a></li>
 </ul>
@@ -251,7 +251,7 @@
       
       
       
-      <li><a href="../_sources/lecture-05/intro-to-quantum-info.md" target="_blank"
+      <li><a href="../_sources/lecture-10/quantum-algo-prim.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -322,9 +322,7 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -335,21 +333,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Lecture 5: Introduction to Quantum Information</h1>
+    <h1>Quantum Algorithm primitives</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#about-the-guest">About the Guest</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-lecture">Summary of lecture</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -359,107 +347,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="lecture-5-introduction-to-quantum-information">
-<span id="lecture-5"></span><h1>Lecture 5: Introduction to Quantum Information<a class="headerlink" href="#lecture-5-introduction-to-quantum-information" title="Link to this heading">#</a></h1>
-<div class="tip admonition">
-<p class="admonition-title">Overview</p>
-<p>This is a placeholder for the Guest Lecture. It will be populated in due time with necessary prerequisits, and supplementary content on Quantum Information.</p>
-</div>
-<section id="about-the-guest">
-<h2>About the Guest<a class="headerlink" href="#about-the-guest" title="Link to this heading">#</a></h2>
-<div class="information admonition">
-<p class="admonition-title">The Speaker: Dr. Homer Papadopoulos</p>
-<p>Dr. Homer Papadopoulos is a functional researcher at the Institute of Informatics and Telecommunications (IIT) of NCSR Demokritos and co-founder of the startup <strong>Syndesis Ltd</strong>, living and working in Athens. A natural polymath, Dr. Papadopoulos holds degrees in Physics, Telecommunications, Management, and a PhD in Information Systems Science, among others. With over 20 years of research experience, he has submitted numerous papers in various fields, showcasing his expertise and deep understanding of complex subjects and he has created multidisciplinary research programs, consistently pushing the boundaries of innovation in digital technologies.</p>
-<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<p class="sd-card-text"><a class="reference external" href="https://www.linkedin.com/in/homer-papadopoulos-3146519/?originalSubdomain=gr">LinkedIn Profile: Dr. Homer Papadopoulos</a></p>
-</div>
-</div>
-</div>
-<div class="admonition-affiliation-and-activities admonition">
-<p class="admonition-title">Affiliation and activities</p>
-<p>The National Centre for Scientific Research “Demokritos” (NCSRD) (<a class="reference external" href="http://www.demokritos.gr">www.demokritos.gr</a>) is a self- governing research organization, under the supervision of the Greek Government. With a staff of over 700, including 100 post-graduate students and over 300 research associates, NCSRD is the biggest research centre in applied sciences and engineering in Greece.
-The Institute of Informatics and Telecommunications - <a class="reference external" href="https://www.iit.demokritos.gr/">IIT</a>, one of the five Institutes of NCSRD, has accumulated substantial expertise and is actively involved in many areas of information technologies including Quantum information technologies, mobile applications and telecommunications, while it has participated in numerous EU and nationally funded research projects. NCSRD’s IIT is involved in technological research and it has been participating in a number of European projects in the above mentioned fields such as the Quantum information domain, namely: OPENQKD, HellasQCI and others
-<a class="reference external" href="https://www.syndesis.eu/">Syndesis Ltd</a>, a spin-off from the NCSR “Demokritos”, grounded in a solid background in informatics, software engineering, digital security, and trusted computing ensures its leading role in  developing the central hub for PQC utilising AI technologies. Its participation in the OPENQKD pilot project and HellasQCI project highlights its advanced expertise in PQC technologies and standardisation efforts. Syndesis is an active member of standard development organisations (SDOs) like CEN/CENELEC JTC 22 and the QuIC, where it leads the standards working group. The company’s contributions to the development of the CEN/CENELEC FGQT roadmap for standardising quantum technologies in the EU demonstrate its role in quantum standardisation.</p>
-</div>
-</section>
-<section id="summary-of-lecture">
-<h2>Summary of lecture<a class="headerlink" href="#summary-of-lecture" title="Link to this heading">#</a></h2>
-<div class="information admonition">
-<p class="admonition-title">Summary</p>
-<p>He will first touch upon what is information, and how do we quantify it. He will describe aspects of information, such as transferring from point A to point B, encoding and decoding information, and measuring information. He will describe the distinction between classical and quantum information, and tools for measuring quantum information.</p>
-<p>He will then dwelve into aspect of information security, particularly encryption. He will describe what cryptography is, and how it is used to safely transfer information for the right recepient, and protect it from third party. He will discuss symmetric and assymmytric cryptography, and digital signatures.</p>
-<p>This will be followed by some demos on cryptography, and then he will discuss Quantum enabled cryptography, quantum key distribution (QKD), quantum random number generation, and challenges in quantum cryptography, and introduce post-quantum cryptography (PQC). He will conclude the lecture after discussing some necessary aspects of PQC.</p>
-</div>
-</section>
-<section id="references">
-<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
-<p>It will be good idea to have looked through or read the following references before the guest lecture. These are recommended by Dr. Papadopoulos.</p>
-<div class="information admonition">
-<p class="admonition-title">References</p>
-<p><strong>Recommended Reading</strong></p>
-<ol class="arabic simple">
-<li><p>Basics of Quantum Information</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://learning.quantum.ibm.com/course/basics-of-quantum-information">IBM tutorial</a></p></li>
-</ul>
-</li>
-<li><p>Quantum internet: A vision for the road ahead</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://www.science.org/doi/10.1126/science.aam9288">Science Review, semi-technical</a></p></li>
-</ul>
-</li>
-<li><p>DIKW pyramid:</p>
-<ul class="simple">
-<li><p>Wiki page <a class="reference external" href="https://en.wikipedia.org/wiki/DIKW_pyramid">https://en.wikipedia.org/wiki/DIKW_pyramid</a></p></li>
-</ul>
-</li>
-<li><p>An Introduction to Public Key Cryptography</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://betterprogramming.pub/an-introduction-to-public-key-cryptography-3ea0cf7bf4ba">Semi-technical article</a></p></li>
-</ul>
-</li>
-<li><p>Quantum random number generation</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://www.nature.com/articles/npjqi201621">Article, NPJ Quantum Inf <strong>2</strong>, 16021, 2016</a></p></li>
-</ul>
-</li>
-<li><p>NIST Releases First 3 Finalized Post-Quantum Encryption Standards</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://www.nist.gov/news-events/news/2024/08/nist-releases-first-3-finalized-post-quantum-encryption-standards">NIST press release, 13 Aug, 2024</a></p></li>
-</ul>
-</li>
-</ol>
-<p><strong>Advance Reading</strong></p>
-<ol class="arabic simple">
-<li><p>Quantum Communications—Michal Hajdušek and Rodney Van Meter</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://arxiv.org/abs/2311.02367">Arxiv book</a></p></li>
-</ul>
-</li>
-<li><p>Quantum Information Theory – Lecture Notes—Christoph Dittel</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://arxiv.org/abs/2311.12442">Arxiv Lecture notes</a></p></li>
-</ul>
-</li>
-<li><p>Information Science in Theory and Practice</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://dokumen.pub/information-science-in-theory-and-practice-3nbsped-3598116586-9783598116582.html">Book by Alina Vickery and Brian C. Vickery, (1987)</a></p></li>
-</ul>
-</li>
-<li><p>The Mathematical Theory of Communication</p>
-<ul class="simple">
-<li><p>Book by <em>Shannon, C., &amp; Weaver, W.</em> (1948), University of Illinois Press.</p></li>
-</ul>
-</li>
-<li><p>Homomorphic Encryption Standardization</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://homomorphicencryption.org/">Website on Homomorphic Encryption Standardization</a></p></li>
-</ul>
-</li>
-</ol>
-</div>
-</section>
+  <section class="tex2jax_ignore mathjax_ignore" id="quantum-algorithm-primitives">
+<span id="lecture-10"></span><h1>Quantum Algorithm primitives<a class="headerlink" href="#quantum-algorithm-primitives" title="Link to this heading">#</a></h1>
 </section>
 
     <script type="text/x-thebe-config">
@@ -475,7 +364,7 @@ The Institute of Informatics and Telecommunications - <a class="reference extern
         },
         kernelOptions: {
             name: "python3",
-            path: "./lecture-05"
+            path: "./lecture-10"
         },
         predefinedOutput: true
     }
@@ -493,20 +382,20 @@ The Institute of Informatics and Telecommunications - <a class="reference extern
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../lecture-04/math-for-qc-2.html"
+       href="../lecture-09/quantum-algorithms-1.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Lecture 4: Mathematical framework for Quantum Computing</p>
+        <p class="prev-next-title">Lecture 10: Early Quantum Algorithms</p>
       </div>
     </a>
     <a class="right-next"
-       href="../lecture-06/realizing-qc-systems.html"
+       href="../lecture-11/quantum-algorithms-2.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Lecture 6: Realizing Quantum Computing Systems</p>
+        <p class="prev-next-title">Lecture 11: NISQ Quantum Algorithms</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -516,23 +405,6 @@ The Institute of Informatics and Telecommunications - <a class="reference extern
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#about-the-guest">About the Guest</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-lecture">Summary of lecture</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
