@@ -3,8 +3,8 @@ title: Early Quantum Algorithms
 layout: post
 ---
 
-(lecture-10)=
-# Lecture 10: Early Quantum Algorithms
+(lecture-09)=
+# Lecture 09: Early Quantum Algorithms
 
 ```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture 
 ```
