@@ -5,11 +5,7 @@
 ## Structure
 Below is the latest structure of the lectures, and evolution from previous iterations.
 
-
-```{drawio-image} ./flow-lectures.drawio
-:width: 81%
-:align: center
-```
+![](./flow-lectures.svg)
 
 ```mermaid
 graph LR
