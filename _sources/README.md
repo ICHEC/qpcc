@@ -6,6 +6,11 @@
 Below is the latest structure of the lectures, and evolution from previous iterations.
 
 
+```{drawio-image} ./flow-lectures.drawio
+:width: 81%
+:align: center
+```
+
 ```mermaid
 graph LR
 Old("External") ==> New(["CT4106"]) ==> New1(["CT4110"])
