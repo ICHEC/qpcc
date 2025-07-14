@@ -4,17 +4,43 @@
 format: jb-book
 root: index
 
+caption: Topic 1
 chapters:
  - file: lecture-01/demystifying-qc.md
- - file: lecture-02/integrating-cc-and-qc.md
+ - file: lecture-01/integrating-cc-and-qc.md
+caption: Topic 2
+chapters:
+ - file: lecture-02/from-bits-to-qubits.md
+caption: Topic 3
+chapters:
  - file: lecture-03/from-bits-to-qubits.md
+caption: Topic 4
+chapters:
  - file: lecture-04/math-for-qc.md
+caption: Topic 5
+chapters:
  - file: lecture-05/intro-to-quantum-info.md
+caption: Topic 6
+chapters:
  - file: lecture-06/realizing-qc-systems.md
+caption: Topic 7
+chapters:
  - file: lecture-07/qc-hardwares.md
+caption: Topic 8
+chapters:
  - file: lecture-08/accessing-qc-systems.md
+caption: Topic 9
+chapters:
  - file: lecture-08/landscape-of-sdks-tools.md
+caption: Topic 10
+chapters:
  - file: lecture-09/cloud-qc.md
+caption: Topic 11
+chapters:
  - file: lecture-10/quantum-algorithms-1.md
+caption: Topic 12
+chapters:
  - file: lecture-11/quantum-algorithms-2.md
+caption: Topic 2
+chapters:
  - file: lecture-12/quantum-computing-ireland.md
