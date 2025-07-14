@@ -4,7 +4,7 @@ layout: post
 ---
 
 (lecture-09)=
-# Lecture 09: Early Quantum Algorithms
+# Lecture 09: Early Quantum Algorithms I 
 
 ```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture 
 ```
