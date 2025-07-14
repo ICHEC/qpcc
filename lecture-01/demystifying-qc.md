@@ -3,8 +3,8 @@ title: Demystifying Quantum Computing
 layout: post
 ---
 
-(lecture-1)=
-# Lecture 1: Demystifying Quantum Computing
+(lecture-1a)=
+# Lecture 1a: Demystifying Quantum Computing
 
 
 

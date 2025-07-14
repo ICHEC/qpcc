@@ -3,8 +3,8 @@ title: Integrating Classical and Quantum Computing
 layout: post
 ---
 
-(lecture-2)=
-# Lecture 2: Integrating Classical and Quantum Computing
+(lecture-1b)=
+# Lecture 1b: Integrating Classical and Quantum Computing
 
 
 ```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be supplementary reading after watching the lecture 
