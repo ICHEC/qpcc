@@ -46,20 +46,24 @@ mindmap
 ```
 
 ## List of Lectures
-- [Lecture 1 - Demystifying Quantum Computing](lecture-01/demystifying-quantum-computing.md)
-- [Lecture 2 - Integrating Classical and Quantum Computing](lecture-02/integrating-classical-and-quantum-computing.md)
-- [Lecture 3 - From Bits to Qubits](lecture-03/from-bits-to-qubits.md)
-- [Lecture 4 - Mathematical Framework for Qubits](lecture-04/math-for-qc.md)
-- [Lecture 5 - Guest Lecture: Introduction to Quantum Information & Cryptography](lecture-05/intro-to-quantum-info.md)
-- [Lecture 6 - Realizing Quantum Computing Systems](lecture-06/realizing-qc-systems.md)
-- [Lecture 7 - Guest Lecture: Building a Quantum Computer](lecture-07/qc-hardwares.md)
+- Lecture 1 - Introduction to Quantum Computing
+  - [Demystifying quantum computing](./lecture-01/demystifying-qc.md)
+  - [Integrating classical and quantum computing](./lecture-01/integrating-cc-and-qc.md)
+- [Lecture 2 - From Bits to Qubits](./lecture-02/from-bits-to-qubits.md)
+- [Lecture 3 - Mathematical framework for quantum computing I](./lecture-03/math-for-qc1.md)
+- [Lecture 4 - Mathematical framework for quantum computing II](./lecture-04/math-for-qc2.md)
+- [Lecture 5 - Guest Lecture: Introduction to Quantum Information & Cryptography](./lecture-05/intro-to-quantum-info.md)
+- [Lecture 6 - Realizing Quantum Computing Systems](./lecture-06/realizing-qc-systems.md)
+- [Lecture 7 - Guest Lecture: Building a Quantum Computer](./lecture-07/qc-hardwares.md)
 - Lecture 8 - Accessing and Programming Quantum Computing Systems
-    - [8a: Accessing Quantum Computing](lecture-08/accessing-qc-systems.md)
-    - [8b: Landscape of Quantum SDK's and Tools](lecture-08/landscape-of-sdks-tools.md)
-- [Lecture 9 - Guest Lecture: Cloud Quantum computing Service](lecture-09/cloud-qc.md)
-- [Lecture 10 - Quantum Algorithms - I](lecture-10/quantum-algorithms-1.md)
-- [Lecture 11 - Quantum Algorithms - II](lecture-11/quantum-algorithms-2.md)
-- [Lecture 12 - ICHEC's engagement in Quantum Computing](lecture-12/quantum-activity-in-ichec.md)
+    - [8a: Accessing Quantum Computing](./lecture-08/accessing-qc-systems.md)
+    - [8b: Landscape of Quantum SDK's and Tools](./lecture-08/landscape-of-sdks-tools.md)
+    - [8c: Guest Lecture: Cloud Quantum computing Services](./lecture-08/cloud-qc.md)
+- [Lecture 9 - Early Quantum Algorithms - I](./lecture-09/quantum-algorithms1.md)
+- [Lecture 10 - Early Quantum Algorithms - II](./lecture-10/quantum-algorithms2.md)
+- [Lecture 11 - NISQ Quantum Algorithms](./lecture-11/nisq-quantum-algorithms.md)
+- [Lecture 12 - ICHEC's engagement in Quantum Computing](./lecture-12/quantum-computing-ireland.md)
+
 
 
 ---
