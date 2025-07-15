@@ -2,8 +2,8 @@
 title: Heterogeneous Quantum Computing on AWS with Amazon Braket
 ---
 
-(lecture-9)=
-# Lecture 9: Heterogeneous Quantum Computing on AWS with Amazon Braket
+(lecture-8c)=
+# Lecture 8c: Heterogeneous Quantum Computing on AWS with Amazon Braket
 
 ```{admonition} Overview
 :class: tip
