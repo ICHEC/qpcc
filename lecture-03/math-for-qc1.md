@@ -13,8 +13,8 @@ mystnb:
     render_markdown_format: myst
 ---
 
-(lecture-4)=
-# Lecture 4: Mathematical framework for Quantum Computing
+(lecture-3)=
+# Lecture 3: Mathematical framework for Quantum Computing
 
 ```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture 
 ```
