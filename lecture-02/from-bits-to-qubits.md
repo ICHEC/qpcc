@@ -3,8 +3,8 @@ title: From Bits to Qubits
 layout: post
 ---
 
-(lecture-3)=
-# Lecture 3: From Bits to Qubits
+(lecture-2)=
+# Lecture 2: From Bits to Qubits
 
 ```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture 
 ```
