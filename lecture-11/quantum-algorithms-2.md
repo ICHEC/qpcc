@@ -1,5 +1,5 @@
 ---
-title: Quantum Algorithms - II
+title: NISQ Quantum Algorithms
 layout: post
 ---
 

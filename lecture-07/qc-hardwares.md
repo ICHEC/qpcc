@@ -3,6 +3,7 @@ title: Hardwares for Quantum Computing
 layout: post
 ---
 
+(lecture-7)=
 # Lecture 7: Hardwares for Quantum Computing
 
 

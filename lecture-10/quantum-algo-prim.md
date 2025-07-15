@@ -1,5 +1,5 @@
 ---
-title: Quantum Algorithm primitives
+title: Quantum Algorithms II
 ---
 
 (lecture-10)=
