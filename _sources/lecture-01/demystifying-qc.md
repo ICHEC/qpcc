@@ -7,13 +7,13 @@ layout: post
 # Lecture 1a: Demystifying Quantum Computing
 
 
-```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture 
+```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture. 
 ```
 
 ```{admonition} Learning outcomes
 :class: tip
 
-This is an introductory module, which sets the stage for the remaining course by discussing some very elementary question into computing, and delves into quantum computing. As we go through the sections below, we will -
+This is an introductory module, which sets the stage for the remaining course by discussing some very elementary question into computing, and delves into quantum computing. As we go through the sections below, we will:
 
 - Gain knowledge to evaluate the capabilities, limitations and potential areas for applying quantum computing.
 
@@ -67,13 +67,13 @@ In addition to CPU-based computing, accelerators (e.g. graphics processing units
 
 Now, the field of high-performance computing has leveraged this ability to build heterogeneous parallel processing systems and applications that are optimised for computation performed on large-scale systems such as supercomputers, public cloud systems, as well as on small-form factor devices such as smart sensors or mobile platforms or even satellites. It is important to note that high-performance computing, typically referred to as HPC, is the ability to seamlessly execute different parts of a complex application efficiently on different types of computing devices which may be connected together. And these HPC systems may be supercomputers, HPC clusters or your powerful workstation, or smart devices.​
 
-Currently, most of the focus in HPC is not just about building more powerful or efficient systems, but also to optimise the algorithms and their software implementations to solve more complex problems with increased accuracy, speed and scale. This is where quantum computing is positioned to serve as another type of accelerator in high-performance computing, where certain parts of a computation or application could benefit from being solved on quantum processors, while the rest of the application is better to be run on classical processors. With this, we are at the cusp of quantum computers being coupled or integrated to form hybrid high-performance quantum computers. So, as the quantum computing technology evolves, we are likely to see more seamless hybrid classical HPC quantum systems, and heterogeneous applications where there are both classical as well as quantum algorithms and software solutions.​
+Currently, most of the focus in HPC is not just about building more powerful or efficient systems, but also to optimise the algorithms and their software implementations to solve more complex problems with increased accuracy, speed and scale. This is where quantum computing is positioned to serve as another type of accelerator in high-performance computing, where certain parts of a computation or application could benefit from being solved on quantum processors, while the rest of the application is better to be run on classical processors. With this, we are at the cusp of quantum computers being coupled or integrated to form hybrid high-performance quantum computers. So, as the quantum computing technology evolves, we are likely to see more seamless hybrid classical HPC quantum systems, and heterogeneous applications where there are both classical as well as quantum algorithms and software solutions working together.​
 
 ### What can HPC do?
 
 Now, before going further to quantum computing or its applications, we take a moment to acknowledge where classical high-performance computing currently plays a role across different domains and problems.​
 
-The digital transformation of many sectors, businesses and solutions has moved to a data-centric scenario where the huge variety and volume of heterogeneous datasets from different sources​ -
+The digital transformation of many sectors, businesses and solutions has moved to a data-centric scenario where the huge variety and volume of heterogeneous datasets from different sources​:
 
 ```{card}
 - be observed data from satellites, devices, vehicles​
@@ -81,9 +81,9 @@ The digital transformation of many sectors, businesses and solutions has moved t
 - or data from simulation of different systems and scenarios​
 ```
 
-All of these types of input data are analysed to infer intelligent, actionable, decisions, policies and strategies – both for commercial services or by public agencies​.
+All of these types of input data are analysed to infer intelligent and actionable, decisions, policies and strategies – both for commercial services or by public agencies​.
 
-The analysis is typically performed by a variety of techniques – numerical or statistical modelling that use rules of the underlying principles (whether in natural or man-made systems), more recently AI-based modelling that are build to capture the ​characteristics of data.​
+The analysis is typically performed by a variety of techniques – numerical or statistical modelling that use rules of the underlying principles (whether in natural or man-made systems), as well as more recently AI-based modelling that are build to capture the ​characteristics of data.​
 
 These types of models are used to analyse the data, simulate further scenarios – the models generate more data and also allow for end results, outputs that are used for decision-making, designing products, solutions and services.​
 
@@ -102,7 +102,7 @@ So far, we have touched on the role and applications of high-performance computi
 ​The primary reasons why computational technology developers and its end-users are looking at the next generation of methodologies and platforms is that currently there are a number of challenges and limitations that classical high-performance computing is hitting​
 
 ```{card}
-- A number of complex computational, simulation and modelling problems remain intractable – a feasible time-to-solution is achieved by reducing the complexity through approximations of the problems/systems that are solved (through methods such as heuristics), or reducing the precision of the solution to be completed to an acceptable threshold that produces a good-enough solution. This is a compromise between high-accuracy or high-precision, versus a reasonable time-to-solution or what problem size can be actually represented and solved in a classical high-performance computer.​
+- A number of complex computational, simulation and modelling problems remain intractable – a feasible time-to-solution is achieved by reducing the complexity through approximations of the problems/systems that are solved (through methods such as heuristics), or reducing the precision of the solution to be completed in an acceptable threshold that produces a good-enough solution. This is a compromise between high-accuracy or high-precision, versus a reasonable time-to-solution or what problem size can be actually represented and solved in a classical high-performance computer.​
 ```
 ```{card}
 - Typically, these are faced in all of the sectors, algorithms and application areas that we walked through earlier.​
@@ -114,7 +114,7 @@ So far, we have touched on the role and applications of high-performance computi
 - This is one of the primary reasons why developers are looking at alternate computing techniques to supplement the existing classical high-performance computing as accelerators for specific parts of the problem.​
 ```
 
-There are also fundamental reasons that are closer to the hardware-level that has limited the ability to build more and more powerful classical HPC systems​
+There are also fundamental reasons that are closer to the hardware-level that has limited the ability to build more and more powerful classical HPC systems​.
 
 ```{card}
 - The power wall is a problem that limits the ability to pack more transistors into processors with limited power consumption, whilst managing heat dissipation. It also refers to the difficulties involved in building larger supercomputing systems that are efficient and do not require a township’s worth of energy consumption - therefore the power requirements of more and more powerful HPC systems and processors is a limiting factor​.
@@ -130,7 +130,7 @@ There are also fundamental reasons that are closer to the hardware-level that ha
 
 This is where the underlying principles for making quantum computing feasible, by leveraging its fundamental computational power, and engineering quantum computing devices emerged.​
 
-#### How does Quantum Computing work??
+#### How does Quantum Computing work?
 
 One of the key methods by which individual processors have been classically made more powerful has been through reducing their scale and size. ​Chipmakers have incrementally gone down in the sizes of transistors that are used to build processors from 10 nanometers to 7 nanometers to now 5 and 3 nanometers.​
 
@@ -144,7 +144,7 @@ This is a challenge and has limited the ability to build smaller transistors and
 
 However, quantum mechanics and quantum effects that happen in a device at such small scales offer the opportunity to represent and process data in a different paradigm – quantum computing technologies.​
 
-Rather than controlling a flow of electrons, and using that to represent zero or one as binary states of data – quantum computing works at such as small scale where the states of data are represented using individual particles - electrons or ions or specific charged atoms – and these individual particles are then controlled and manipulated to implement processing of their states and data​
+Rather than controlling a flow of electrons, and using that to represent zero or one as binary states of data – quantum computing works at such as small scale where the states of data are represented using individual particles - electrons or ions or specific charged atoms – and these individual particles are then controlled and manipulated to implement processing of their states and data​.
 
 Therefore, fundamentally, representation and processing of data works at a much smaller scale in quantum computing devices compared to classical computing devices.​
 
@@ -157,14 +157,14 @@ Which approach is the most efficient, accurate and promising one? That is yet to
 Thus, most of the efforts are currently to pursue these different approaches for realising and manufacturing quantum processors, and explore which ones can become mature and reliable enough like current classical processors.​
 
 ```{card}
-- Classical computing works by controlling flow of electrons (bits, binary states)​
-- Quantum computing works by controlling (sub-)atomic particles at an individual level​
-- This is the source of quantum computing’s power that is based on quantum mechanics​
+- Classical computing works by controlling flow of electrons (bits, binary states)​.
+- Quantum computing works by controlling (sub-)atomic particles at an individual level​.
+- This is the source of quantum computing’s power that is based on quantum mechanics​.
 - Can bring precision, accuracy, scale of problem, time to solution, etc.​
-- That a representation of data (as qubit) can be at more than one value (state) at the same time with certain probabilities​
+- A representation of data (as qubit) can be at more than one value (state) at the same time with certain probabilities​.
 ```
 
-This is where quantum computing, specifying data and operations/computing for quantum computers and quantum programming is radically different from classical computing​
+This is where quantum computing, specifying data and operations/computing for quantum computers and quantum programming is radically different from classical computing​.
 
 ### Where is Quantum Computing Positioned
 
