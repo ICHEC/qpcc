@@ -7,7 +7,7 @@ layout: post
 # Lecture 1b: Integrating Classical and Quantum Computing
 
 
-```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be supplementary reading after watching the lecture 
+```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be supplementary reading after watching the lecture. 
 ```
 
 ```{admonition} Learning outcomes
@@ -120,7 +120,7 @@ Now, having looked a bit more into the detail of what a quantum computing workfl
 For classical computing using CPUs, GPUs and FPGAs, the classical application program natively takes classical data as input and produces classical data as output.
 When using quantum computing systems and QPUs as accelerators alongside the classical computing systems and processors, the result is that the entire quantum workflow that we discussed earlier needs to be implemented in order to offload an application kernel and its data from the classical computer that has to be accelerated by the quantum computer.
 
-Consequently, this is the primary reason that necessitates integration of classical high-performance and quantum computing systems at different levels of the stack, from physical location, communication network, processing , data storage, several payers of software and programming tools, algorithms and applications. This full-stack integration is essential for efficiently and effectively using quantum computing as an accelerator, is non-trivial, and is discussed in a bit more detail later in this lecture.
+Consequently, this is the primary reason that necessitates integration of classical high-performance and quantum computing systems at different levels of the stack, from physical location, communication network, processing, data storage, several payers of software and programming tools, algorithms and applications. This full-stack integration is essential for efficiently and effectively using quantum computing as an accelerator, is non-trivial, and is discussed in a bit more detail later in this lecture.
 
 In the meantime, let us have a look at some application examples from a few select sectors to understand why integrated hybrid high-performance quantum computing could be beneficial and impactful.
 
