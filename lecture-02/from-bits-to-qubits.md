@@ -217,7 +217,7 @@ b --> c
 
 Before moving to Qubits and Quantum Computing, let's list down all the important features of Classical Computing that we have encountered so far.
 - We've seen that **bits carry determistic pieces of information.**
-- We've also observed that **Classical Gates can be both reversible and irreversible in nature**. For example, NOT gate is reversible in nature whereas the 2 qubit gates such as AND gate and XOR gate are irreversible.
+- We've also observed that **Classical Gates can be both reversible and irreversible in nature**. For example, NOT gate is reversible in nature whereas the 2-bit gates such as AND gate and XOR gate are irreversible.
 - It can be a shown that a small subset of all the existing gates can be used to be build all the logical operations that can exist.
 - These complete subsets of Gates are said to form a **universal gate set.**
 - The AND, OR and NOT is one example of a universal gate set.
@@ -238,7 +238,7 @@ Now that we have completed a fundamental review of topics in Classical Computing
 - It will first be useful to understand what is the equivalent of a Bit in the Quantum regime
 - The fundamental unit of Quantum information is said to be a Qubit
 - Like a bit a qubit is a store of information however they display a set of Quantum Features which make them different from a classical bit.
-- Similar to how a Bit has 2 states 0 and 1, a qubit also posesses **two independent staes**, we will further discuss the meaning of the word independent in the upcoming sections.
+- Similar to how a Bit has 2 states 0 and 1, a qubit also posesses **two independent states**, we will further discuss the meaning of the word independent in the upcoming sections.
 - To be able to use a Qubit effectively for computation we need to be able to deterministically manipulate the Qubits using gates similar to what we had with Classical Computations.
 - There are several different Physical Architectures for qubits which are currently being developed but to build our current understanding of Quantum Information and how Qubits behave differently from their Classical counterparts we will use Photonic Architecture as an example.
 
