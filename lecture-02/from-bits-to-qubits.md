@@ -286,7 +286,18 @@ However, with a plus state. If that is measured. Sometimes this happens. A zero 
 **Measurement example**
 ```
 
-So this is a really important property of measurement. It collapses, superpositions. So we saw that the plus state is an equal superposition of zero and one, and this superposition is collapsed into one of the two states.So measurement changes states and it changes into one of the two states that we are measuring for. Another point is we don't get the same eight come every time and there is a probability associated each outcome
+
+```{figure} ./images/QMeasurement.gif
+:align: center
+:width: 100%
+
+**Measurement example**
+```
+
+
+
+
+So this is a really important property of measurement. It collapses, superpositions. So we saw that the plus state is an equal superposition of zero and one, and this superposition is collapsed into one of the two states. So measurement changes states and it changes into one of the two states that we are measuring for. Another point is we don't get the same eight come every time and there is a probability associated each outcome
 
 ## Quantum Gates and Operations
 
@@ -301,6 +312,7 @@ This gate behaves similar to the NOT gate for the states $|0\rangle$ and $|1\ran
 --
 **X-Gate**
 ```
+
 
 ### Hadamard Gate
 This gate takes the  $|0\rangle$ and $|1\rangle$  states to the  $|+\rangle$ and $|-\rangle$  states and vice-versa, Classically there is gate which acts as an analogue to such a gate
