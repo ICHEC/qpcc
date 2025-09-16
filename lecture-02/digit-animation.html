@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Decimal vs Binary Conversion Animation</title>
+  <style>
+    :root { --panel-height: 500px; }
+
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .panel {
+      width: 45%;
+      border: 1px solid #ddd;
+      padding: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      height: var(--panel-height);     
+      overflow: hidden;                
+    }
+
+    .panel h3 {
+      text-align: center;
+      margin: 0 0 8px;
+    }
+
+    #decimal-animation, #binary-animation {
+      flex: 1 1 auto;
+      overflow-y: hidden;  /* no scrollbars, larger height ensures fit */
+      padding-right: 6px;
+    }
+
+    .step {
+      margin: 8px 0;
+      font-size: 1.05em;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .arrow {
+      font-size: 1.5em;
+      color: #007acc;
+      margin: 0 10px;
+    }
+
+    .remainder {
+      font-weight: bold;
+      color: #d9534f;
+      margin-left: 10px;
+    }
+
+    .result {
+      margin-top: 10px;
+      font-size: 1.05em;
+      text-align: center;
+      color: #007acc;
+      flex: 0 0 auto; 
+      white-space: nowrap;
+    }
+
+    .binary-digit {
+      display: inline-block;
+      width: 20px;
+      text-align: center;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <h2>Decimal vs Binary Conversion Animation</h2>
+  <div class="container">
+    <!-- Decimal Panel -->
+    <div class="panel" id="decimal-panel">
+      <h3>Base 10</h3>
+      <div id="decimal-animation" aria-live="polite"></div>
+      <div class="result" id="decimal-result"></div>
+    </div>
+    <!-- Binary Panel -->
+    <div class="panel" id="binary-panel">
+      <h3>Base 2</h3>
+      <div id="binary-animation" aria-live="polite"></div>
+      <div class="result" id="binary-result"></div>
+    </div>
+  </div>
+
+  <script>
+    const number = 146;
+    const stepTime = 500; 
+    const waitTime = 2000; 
+
+    // Decimal division steps
+    let decSteps = [];
+    let decVal = number;
+    while (decVal > 0) {
+      const remainder = decVal % 10;
+      decSteps.push({ quotient: decVal, remainder: remainder });
+      decVal = Math.floor(decVal / 10);
+    }
+    const decimalDigits = decSteps.map(s => s.remainder).reverse().join(' ');
+
+    // Binary division steps
+    let binSteps = [];
+    let binVal = number;
+    while (binVal > 0) {
+      const remainder = binVal % 2;
+      binSteps.push({ quotient: binVal, remainder: remainder });
+      binVal = Math.floor(binVal / 2);
+    }
+    const binaryDigits = binSteps.map(s => s.remainder).reverse().join('');
+
+    const totalFrames = Math.max(decSteps.length, binSteps.length) + Math.floor(waitTime / stepTime);
+
+    const decAnimationDiv = document.getElementById("decimal-animation");
+    const decResultDiv = document.getElementById("decimal-result");
+    const binAnimationDiv = document.getElementById("binary-animation");
+    const binResultDiv = document.getElementById("binary-result");
+
+    let globalFrame = 0;
+    let timer;
+
+    function updateAnimations() {
+      // Decimal panel
+      decAnimationDiv.innerHTML = "";
+      for (let i = 0; i < Math.min(globalFrame + 1, decSteps.length); i++) {
+        const current = decSteps[i];
+        const next = (i < decSteps.length - 1) ? decSteps[i + 1].quotient : 0;
+        decAnimationDiv.innerHTML += 
+          `<div class="step">${current.quotient} <span class="arrow">↓</span> ${next} <span class="remainder">${current.remainder}</span></div>`;
+      }
+      if (globalFrame >= decSteps.length) {
+        decResultDiv.innerHTML = `<strong>Digits:</strong> ${decimalDigits}`;
+      } else {
+        decResultDiv.innerHTML = "";
+      }
+
+      // Binary panel
+      binAnimationDiv.innerHTML = "";
+      for (let i = 0; i < Math.min(globalFrame + 1, binSteps.length); i++) {
+        const current = binSteps[i];
+        const next = (i < binSteps.length - 1) ? binSteps[i + 1].quotient : 0;
+        binAnimationDiv.innerHTML += 
+          `<div class="step">${current.quotient} <span class="arrow">↓</span> ${next} <span class="remainder">${current.remainder}</span></div>`;
+      }
+      if (globalFrame >= binSteps.length) {
+        const formattedBinary = binaryDigits.split('').map(d => `<span class="binary-digit">${d}</span>`).join('');
+        binResultDiv.innerHTML = `<strong>Bits:</strong> ${formattedBinary}`;
+      } else {
+        binResultDiv.innerHTML = "";
+      }
+
+      globalFrame++;
+      if (globalFrame > totalFrames) {
+        globalFrame = 0;
+      }
+    }
+
+    timer = setInterval(updateAnimations, stepTime);
+  </script>
+</body>
+</html>

@@ -329,15 +329,26 @@ b --> c
 
 - The most simple gate we can perform on a Bit is the NOT gate, it simply flips a bit, taking it from 0 to 1 and from 1 to Zero.
 
+
+``````{grid}
+:label: not-gate
+
+```{grid-item-card}
+:columns: 6
+![](https://upload.wikimedia.org/wikipedia/commons/9/9f/Not-gate-en.svg)
+
+```
+
+```{grid-item-card}
+:columns: 6
+
 |Input|Output|
 |:---:|:---: |
 |0    |1     |
 |1    |0     |
 
-```{figure} ./images/NOT.png
-:align: center
-:width: 200px
 ```
+``````
 
 - The NOT gate can be observed to be a reversible gate, the input can always be recovered from the output, we can just flip the output to recover the original input, this is an important feature and we will come back to it later
 
@@ -346,10 +357,33 @@ b --> c
 
 - The second gate is a 2 bit gate called AND gate, it gives the output 1 when both the Inputs are 1 and it is 0 for all other cases.
 
-```{figure} ./images/and.png
+
+``````{grid}
+:label: and-gate
+
+````{grid-item-card}
+:columns: 6
+
+```{figure} https://upload.wikimedia.org/wikipedia/commons/b/b9/AND_ANSI_Labelled.svg
+:width: 100%
 :align: center
-:width: 300px
 ```
+
+````
+
+```{grid-item-card}
+:columns: 6
+
+|Input A|Input B| Output Q|
+|:---:  |:---: | :---: |
+|0      |0     | 0     |
+|0      |1     | 0     |
+|1      |0     | 0     |
+|1      |1     | 1     |
+
+```
+``````
+
 
 - We can notice that the AND gate unlike the NOT gate is not reversible we can\t recover both the input qubits from the output of the AND gates.
 
@@ -357,17 +391,31 @@ b --> c
 
 - The slightly more complicated 2-bit gate is the XOR gate, it's truth table has been mentioned below
 
-|A |B | Output|
-|:---: |:---: |:---:|
-|0 |0 |0      |
-|0 |1 |1      |
-|1 |0 |1      |
-|1 |1 |0      |
+``````{grid}
+:label: xor-gate
 
-```{figure} ./images/xor.jpeg
+````{grid-item-card}
+:columns: 6
+
+```{figure} https://upload.wikimedia.org/wikipedia/commons/1/17/XOR_ANSI_Labelled.svg
+:width: 100%
 :align: center
 ```
 
+````
+
+```{grid-item-card}
+:columns: 6
+
+|Input A|Input B|Output Q|
+|:---:  |:---:  |:---:   |
+|0      |0      |0       |
+|0      |1      |1       |
+|1      |0      |1       |
+|1      |1      |0       |
+
+```
+``````
 
 - It is not common to introduce an XOR gate as part of the fundamental gates of Classical computing however it provides an important analag to gates within Quantum Computing
 
@@ -377,17 +425,25 @@ b --> c
 
 - We can define a circuit that performs the additon operation we had defined previously using only the gates that we have introduced previously
 
+``````{grid}
+
+````{grid-item-card}
+
 ```{figure} ./images/half_add.png
 :align: center
 :width: 400px
 ```
-
-- Classical half-adder circuit shown above has the same input-output characteristics that we expected from the addition operations defined in the previous sections described by the truth table below.
-
+````
+````{grid-item-card}
 ```{figure} ./images/add_truth.png
 :align: center
 :width: 300px
 ```
+````
+``````
+
+- Classical half-adder circuit shown above has the same input-output characteristics that we expected from the addition operations defined in the previous sections described by the truth table below.
+
 
 - It is important to notice another key feture of the above circuit, we were **able to copy the inputs** A and B, i.e the single wire carrying the signal A could be split into two wires both carrying the same bit A, this feature will introduce us to an important difference between classical and quantum information later in the lecture.
 
