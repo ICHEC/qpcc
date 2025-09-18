@@ -411,8 +411,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-superposition">Quantum Superposition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-measurement">Quantum Measurement</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-gates-and-operations">Quantum Gates and Operations</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#x-gate">X gate</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hadamard-gate">Hadamard Gate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-x-gate">The X Gate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-hadamard-gate">The Hadamard Gate</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#features-of-quantum-computers">Features of Quantum computers</a></li>
@@ -650,59 +650,90 @@ b --&gt; c
 <ul class="simple">
 <li><p>A slightly more complicated 2-bit gate is the XOR gate, whose truth table is mentioned below.</p></li>
 </ul>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row docutils">
+<div class="sd-col sd-d-flex-row sd-col-6 sd-col-xs-6 sd-col-sm-6 sd-col-md-6 sd-col-lg-6 docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="https://upload.wikimedia.org/wikipedia/commons/1/17/XOR_ANSI_Labelled.svg"><img alt="https://upload.wikimedia.org/wikipedia/commons/1/17/XOR_ANSI_Labelled.svg" src="https://upload.wikimedia.org/wikipedia/commons/1/17/XOR_ANSI_Labelled.svg" style="width: 100%;" />
+</a>
+</figure>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row sd-col-6 sd-col-xs-6 sd-col-sm-6 sd-col-md-6 sd-col-lg-6 docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="head text-center"><p>A</p></th>
-<th class="head text-center"><p>B</p></th>
-<th class="head text-center"><p>Output</p></th>
+<tr class="row-odd"><th class="head text-center"><p class="sd-card-text">Input A</p></th>
+<th class="head text-center"><p class="sd-card-text">Input B</p></th>
+<th class="head text-center"><p class="sd-card-text">Output Q</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-center"><p>0</p></td>
-<td class="text-center"><p>0</p></td>
-<td class="text-center"><p>0</p></td>
+<tr class="row-even"><td class="text-center"><p class="sd-card-text">0</p></td>
+<td class="text-center"><p class="sd-card-text">0</p></td>
+<td class="text-center"><p class="sd-card-text">0</p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p>0</p></td>
-<td class="text-center"><p>1</p></td>
-<td class="text-center"><p>1</p></td>
+<tr class="row-odd"><td class="text-center"><p class="sd-card-text">0</p></td>
+<td class="text-center"><p class="sd-card-text">1</p></td>
+<td class="text-center"><p class="sd-card-text">1</p></td>
 </tr>
-<tr class="row-even"><td class="text-center"><p>1</p></td>
-<td class="text-center"><p>0</p></td>
-<td class="text-center"><p>1</p></td>
+<tr class="row-even"><td class="text-center"><p class="sd-card-text">1</p></td>
+<td class="text-center"><p class="sd-card-text">0</p></td>
+<td class="text-center"><p class="sd-card-text">1</p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p>1</p></td>
-<td class="text-center"><p>1</p></td>
-<td class="text-center"><p>0</p></td>
+<tr class="row-odd"><td class="text-center"><p class="sd-card-text">1</p></td>
+<td class="text-center"><p class="sd-card-text">1</p></td>
+<td class="text-center"><p class="sd-card-text">0</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<figure class="align-center">
-<img alt="../_images/xor.jpeg" src="../_images/xor.jpeg" />
-</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
 <ul class="simple">
-<li><p>It is not common to introduce an XOR gate as part of the fundamental gates of Classical Computing, however it provides an important analag to gates within Quantum Computing.</p></li>
+<li><p>It is not common to introduce an XOR gate as part of the fundamental gates of Classical computing however it provides an important analag to gates within Quantum Computing</p></li>
 <li><p>Similar to the AND gate we can observe that XOR gate is also irreversible and we can’t recover both the input qubits from the output of the AND gates.</p></li>
 </ul>
 </section>
 <section id="classical-half-adder-using-gates">
 <h3>Classical Half-Adder using gates<a class="headerlink" href="#classical-half-adder-using-gates" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p>We can define a circuit that performs the additon operation we had defined previously using only the gates that we have introduced previously.</p></li>
+<li><p>We can define a circuit that performs the additon operation we had defined previously using only the gates that we have introduced previously</p></li>
 </ul>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
 <figure class="align-center">
 <a class="reference internal image-reference" href="../_images/half_add.png"><img alt="../_images/half_add.png" src="../_images/half_add.png" style="width: 400px;" />
 </a>
 </figure>
-<ul class="simple">
-<li><p>Classical half-adder circuit shown above has the same input-output characteristics that we expected from the addition operations defined in the previous sections described by the truth table below.</p></li>
-</ul>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
 <figure class="align-center">
 <a class="reference internal image-reference" href="../_images/add_truth.png"><img alt="../_images/add_truth.png" src="../_images/add_truth.png" style="width: 300px;" />
 </a>
 </figure>
+</div>
+</div>
+</div>
+</div>
+</div>
 <ul class="simple">
-<li><p>It is important to notice another key feature of the above circuit, we were <strong>able to copy the inputs</strong> A and B, i.e. the single wire carrying the signal A could be split into two wires both carrying the same bit A. This feature will introduce us to an important difference between classical and quantum information later in the lecture.</p></li>
+<li><p>Classical half-adder circuit shown above has the same input-output characteristics that we expected from the addition operations defined in the previous sections described by the truth table below.</p></li>
+<li><p>It is important to notice another key feture of the above circuit, we were <strong>able to copy the inputs</strong> A and B, i.e the single wire carrying the signal A could be split into two wires both carrying the same bit A, this feature will introduce us to an important difference between classical and quantum information later in the lecture.</p></li>
 </ul>
 </section>
 </section>
@@ -789,9 +820,9 @@ However, with a plus state, if measured, sometimes this happens: A zero is measu
 <section id="quantum-gates-and-operations">
 <h2>Quantum Gates and Operations<a class="headerlink" href="#quantum-gates-and-operations" title="Link to this heading">#</a></h2>
 <p>Now let as look at Quantum Gates, the equivalent of Classical Gates in the quantum regime. We’ll first start with a set of fundamental gates and then compare the features of Quantum Gates in comparison to Classical Gates.</p>
-<section id="x-gate">
-<h3>X gate<a class="headerlink" href="#x-gate" title="Link to this heading">#</a></h3>
-<p>This gate behaves similar to the NOT gate for the states <span class="math notranslate nohighlight">\(|0\rangle\)</span> and <span class="math notranslate nohighlight">\(|1\rangle\)</span>  causing the state to flip. The diagram below shows the action of the X gate on some Quantum States.</p>
+<section id="the-x-gate">
+<h3>The X Gate<a class="headerlink" href="#the-x-gate" title="Link to this heading">#</a></h3>
+<p>The <span class="math notranslate nohighlight">\(X\)</span> gate behaves similar to the classical NOT gate for the states <span class="math notranslate nohighlight">\(|0\rangle\)</span> and <span class="math notranslate nohighlight">\(|1\rangle\)</span> causing the state to flip, i.e., <span class="math notranslate nohighlight">\(X|0\rangle = |1\rangle\)</span> and <span class="math notranslate nohighlight">\(X|1\rangle = |0\rangle\)</span>. The diagram below shows the action of the X gate on some Quantum states.</p>
 <figure class="align-center" id="id4">
 <a class="reference internal image-reference" href="../_images/xgate.png"><img alt="../_images/xgate.png" src="../_images/xgate.png" style="width: 100%;" />
 </a>
@@ -801,9 +832,9 @@ However, with a plus state, if measured, sometimes this happens: A zero is measu
 </figcaption>
 </figure>
 </section>
-<section id="hadamard-gate">
-<h3>Hadamard Gate<a class="headerlink" href="#hadamard-gate" title="Link to this heading">#</a></h3>
-<p>This gate takes the <span class="math notranslate nohighlight">\(|0\rangle\)</span> and <span class="math notranslate nohighlight">\(|1\rangle\)</span> states to the <span class="math notranslate nohighlight">\(|+\rangle\)</span> and <span class="math notranslate nohighlight">\(|-\rangle\)</span>. Classically there is no analogue gate to the quantum Hadamard gate.</p>
+<section id="the-hadamard-gate">
+<h3>The Hadamard Gate<a class="headerlink" href="#the-hadamard-gate" title="Link to this heading">#</a></h3>
+<p>This gate takes the <span class="math notranslate nohighlight">\(|0\rangle\)</span> and <span class="math notranslate nohighlight">\(|1\rangle\)</span> states to the <span class="math notranslate nohighlight">\(|+\rangle\)</span> and <span class="math notranslate nohighlight">\(|-\rangle\)</span>  states and vice-versa, Classically there is gate which acts as an analogue to such a gate</p>
 <ul class="simple">
 <li><p>No Classical Analogies to some gates</p></li>
 <li><p>2 Qubit gates - C NOT</p></li>
@@ -936,8 +967,8 @@ However, with a plus state, if measured, sometimes this happens: A zero is measu
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-superposition">Quantum Superposition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-measurement">Quantum Measurement</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-gates-and-operations">Quantum Gates and Operations</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#x-gate">X gate</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hadamard-gate">Hadamard Gate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-x-gate">The X Gate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-hadamard-gate">The Hadamard Gate</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#features-of-quantum-computers">Features of Quantum computers</a></li>

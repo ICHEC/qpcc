@@ -212,39 +212,61 @@ b --> c
 
 - A slightly more complicated 2-bit gate is the XOR gate, whose truth table is mentioned below.
 
-|A |B | Output|
-|:---: |:---: |:---:|
-|0 |0 |0      |
-|0 |1 |1      |
-|1 |0 |1      |
-|1 |1 |0      |
+``````{grid}
+:label: xor-gate
 
-```{figure} ./images/xor.jpeg
+````{grid-item-card}
+:columns: 6
+
+```{figure} https://upload.wikimedia.org/wikipedia/commons/1/17/XOR_ANSI_Labelled.svg
+:width: 100%
 :align: center
 ```
 
+````
 
-- It is not common to introduce an XOR gate as part of the fundamental gates of Classical Computing, however it provides an important analag to gates within Quantum Computing.
+```{grid-item-card}
+:columns: 6
+
+|Input A|Input B|Output Q|
+|:---:  |:---:  |:---:   |
+|0      |0      |0       |
+|0      |1      |1       |
+|1      |0      |1       |
+|1      |1      |0       |
+
+```
+``````
+
+- It is not common to introduce an XOR gate as part of the fundamental gates of Classical computing however it provides an important analag to gates within Quantum Computing
 
 - Similar to the AND gate we can observe that XOR gate is also irreversible and we can't recover both the input qubits from the output of the AND gates.
 
 ### Classical Half-Adder using gates
 
-- We can define a circuit that performs the additon operation we had defined previously using only the gates that we have introduced previously.
+- We can define a circuit that performs the additon operation we had defined previously using only the gates that we have introduced previously
+
+``````{grid}
+
+````{grid-item-card}
 
 ```{figure} ./images/half_add.png
 :align: center
 :width: 400px
 ```
-
-- Classical half-adder circuit shown above has the same input-output characteristics that we expected from the addition operations defined in the previous sections described by the truth table below.
-
+````
+````{grid-item-card}
 ```{figure} ./images/add_truth.png
 :align: center
 :width: 300px
 ```
+````
+``````
 
-- It is important to notice another key feature of the above circuit, we were **able to copy the inputs** A and B, i.e. the single wire carrying the signal A could be split into two wires both carrying the same bit A. This feature will introduce us to an important difference between classical and quantum information later in the lecture.
+- Classical half-adder circuit shown above has the same input-output characteristics that we expected from the addition operations defined in the previous sections described by the truth table below.
+
+
+- It is important to notice another key feture of the above circuit, we were **able to copy the inputs** A and B, i.e the single wire carrying the signal A could be split into two wires both carrying the same bit A, this feature will introduce us to an important difference between classical and quantum information later in the lecture.
 
 ## Features of Classical computing
 
@@ -336,19 +358,21 @@ So this is a really important property of quantum measurement. It collapses supe
 
 Now let as look at Quantum Gates, the equivalent of Classical Gates in the quantum regime. We'll first start with a set of fundamental gates and then compare the features of Quantum Gates in comparison to Classical Gates.
 
-### X gate
-This gate behaves similar to the NOT gate for the states $|0\rangle$ and $|1\rangle$  causing the state to flip. The diagram below shows the action of the X gate on some Quantum States.
+### The X Gate
+
+The $X$ gate behaves similar to the classical NOT gate for the states $|0\rangle$ and $|1\rangle$ causing the state to flip, i.e., $X|0\rangle = |1\rangle$ and $X|1\rangle = |0\rangle$. The diagram below shows the action of the X gate on some Quantum states.
 
 ```{figure} ./images/xgate.png
 :align: center
 :width: 100%
+:label: x-gate
 --
 **X-Gate**
 ```
 
 
-### Hadamard Gate
-This gate takes the $|0\rangle$ and $|1\rangle$ states to the $|+\rangle$ and $|-\rangle$. Classically there is no analogue gate to the quantum Hadamard gate.
+### The Hadamard Gate
+This gate takes the $|0\rangle$ and $|1\rangle$ states to the $|+\rangle$ and $|-\rangle$  states and vice-versa, Classically there is gate which acts as an analogue to such a gate
 
 - No Classical Analogies to some gates
 - 2 Qubit gates - C NOT
