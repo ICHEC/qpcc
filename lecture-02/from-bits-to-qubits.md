@@ -120,6 +120,183 @@ The figure below show base 10 to base 2 conversion by repeated division of 2.
 ```
 
 
+
+
+
+```{raw} html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Decimal vs Binary Conversion Animation</title>
+  <style>
+    :root { --panel-height: 500px; }
+
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .panel {
+      width: 45%;
+      border: 1px solid #ddd;
+      padding: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      height: var(--panel-height);     
+      overflow: hidden;                
+    }
+
+    .panel h3 {
+      text-align: center;
+      margin: 0 0 8px;
+    }
+
+    #decimal-animation, #binary-animation {
+      flex: 1 1 auto;
+      overflow-y: hidden;  /* no scrollbars, larger height ensures fit */
+      padding-right: 6px;
+    }
+
+    .step {
+      margin: 8px 0;
+      font-size: 1.05em;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .arrow {
+      font-size: 1.5em;
+      color: #007acc;
+      margin: 0 10px;
+    }
+
+    .remainder {
+      font-weight: bold;
+      color: #d9534f;
+      margin-left: 10px;
+    }
+
+    .result {
+      margin-top: 10px;
+      font-size: 1.05em;
+      text-align: center;
+      color: #007acc;
+      flex: 0 0 auto; 
+      white-space: nowrap;
+    }
+
+    .binary-digit {
+      display: inline-block;
+      width: 20px;
+      text-align: center;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <h2>Decimal vs Binary Conversion Animation</h2>
+  <div class="container">
+    <!-- Decimal Panel -->
+    <div class="panel" id="decimal-panel">
+      <h3>Base 10</h3>
+      <div id="decimal-animation" aria-live="polite"></div>
+      <div class="result" id="decimal-result"></div>
+    </div>
+    <!-- Binary Panel -->
+    <div class="panel" id="binary-panel">
+      <h3>Base 2</h3>
+      <div id="binary-animation" aria-live="polite"></div>
+      <div class="result" id="binary-result"></div>
+    </div>
+  </div>
+
+  <script>
+    const number = 146;
+    const stepTime = 500; 
+    const waitTime = 2000; 
+
+    // Decimal division steps
+    let decSteps = [];
+    let decVal = number;
+    while (decVal > 0) {
+      const remainder = decVal % 10;
+      decSteps.push({ quotient: decVal, remainder: remainder });
+      decVal = Math.floor(decVal / 10);
+    }
+    const decimalDigits = decSteps.map(s => s.remainder).reverse().join(' ');
+
+    // Binary division steps
+    let binSteps = [];
+    let binVal = number;
+    while (binVal > 0) {
+      const remainder = binVal % 2;
+      binSteps.push({ quotient: binVal, remainder: remainder });
+      binVal = Math.floor(binVal / 2);
+    }
+    const binaryDigits = binSteps.map(s => s.remainder).reverse().join('');
+
+    const totalFrames = Math.max(decSteps.length, binSteps.length) + Math.floor(waitTime / stepTime);
+
+    const decAnimationDiv = document.getElementById("decimal-animation");
+    const decResultDiv = document.getElementById("decimal-result");
+    const binAnimationDiv = document.getElementById("binary-animation");
+    const binResultDiv = document.getElementById("binary-result");
+
+    let globalFrame = 0;
+    let timer;
+
+    function updateAnimations() {
+      // Decimal panel
+      decAnimationDiv.innerHTML = "";
+      for (let i = 0; i < Math.min(globalFrame + 1, decSteps.length); i++) {
+        const current = decSteps[i];
+        const next = (i < decSteps.length - 1) ? decSteps[i + 1].quotient : 0;
+        decAnimationDiv.innerHTML += 
+          `<div class="step">${current.quotient} <span class="arrow">↓</span> ${next} <span class="remainder">${current.remainder}</span></div>`;
+      }
+      if (globalFrame >= decSteps.length) {
+        decResultDiv.innerHTML = `<strong>Digits:</strong> ${decimalDigits}`;
+      } else {
+        decResultDiv.innerHTML = "";
+      }
+
+      // Binary panel
+      binAnimationDiv.innerHTML = "";
+      for (let i = 0; i < Math.min(globalFrame + 1, binSteps.length); i++) {
+        const current = binSteps[i];
+        const next = (i < binSteps.length - 1) ? binSteps[i + 1].quotient : 0;
+        binAnimationDiv.innerHTML += 
+          `<div class="step">${current.quotient} <span class="arrow">↓</span> ${next} <span class="remainder">${current.remainder}</span></div>`;
+      }
+      if (globalFrame >= binSteps.length) {
+        const formattedBinary = binaryDigits.split('').map(d => `<span class="binary-digit">${d}</span>`).join('');
+        binResultDiv.innerHTML = `<strong>Bits:</strong> ${formattedBinary}`;
+      } else {
+        binResultDiv.innerHTML = "";
+      }
+
+      globalFrame++;
+      if (globalFrame > totalFrames) {
+        globalFrame = 0;
+      }
+    }
+
+    timer = setInterval(updateAnimations, stepTime);
+  </script>
+</body>
+</html>
+```
+
 ## Adding in Binary
 
 - Addition follows the same rules in binary as they do in decimal however since there are only two digits we have a few changes we need to implement.
@@ -374,18 +551,92 @@ The $X$ gate behaves similar to the classical NOT gate for the states $|0\rangle
 ### The Hadamard Gate
 This gate takes the $|0\rangle$ and $|1\rangle$ states to the $|+\rangle$ and $|-\rangle$  states and vice-versa, Classically there is gate which acts as an analogue to such a gate
 
-- No Classical Analogies to some gates
-- 2 Qubit gates - C NOT
-- Universal Gate set
-- Combining gates to form Circuits
+$$
+\rule[0.7em]{2em}{1.5pt}{\Huge\boxed{H}}\rule[0.7em]{2em}{1.5pt}
+$$
+
+
+### The P Gate
+
+The P-gate, also called a phase gate, is a parametrised gate, i.e., it need a number $\phi$ to define it. It performs the rotation of the state with angle $\phi$ around Z-axis.
+It's matrix form is 
+
+$$
+P(\phi) = 
+\begin{bmatrix}
+  1 & 0 \\
+  0 & e^{i\phi}
+\end{bmatrix}
+$$
+
+Notice that $P(\phi_1)P(\phi_2) = P(\phi_1 + \phi_2)$, i.e., successive operation of phase gate with two angles is equivalent to a single operation with added angles.
+
+### The S Gate
+
+The S-gate, sometimes also known as the $\sqrt{Z}$-gate, is essentially P-gate with $\phi=\frac{\pi}{2}$. It does a quarter-turn around the Bloch sphere.
+It's called $\sqrt{Z}$-gate because $S^2 = Z$. The matrix form is simply as below
+
+$$
+S = 
+\begin{bmatrix}
+  1 & 0 \\
+  0 & e^{i\frac{\pi}{2}}
+\end{bmatrix}
+$$
+
+
+### The T Gate
+
+The T-gate is a very commonly used gate, and it is also a special case of P-gate with $\phi=\frac{\pi}{4}$:
+
+$$
+T = 
+\begin{bmatrix}
+  1 & 0 \\
+  0 & e^{i\frac{\pi}{4}}
+\end{bmatrix}
+$$
+
+
+### The CNOT Gate
+
+This gate is a conditional gate, that acts as X-gate on the second qubit, if the first qubit is in $|1\rangle$ state.
+The first qubit is called _control_, and the second qubit is called _target_. It's also called CX-gate. It's matrix form is looks like the following:
+
+$$
+CNOT = 
+\begin{bmatrix}
+  1 & 0 & 0 & 0\\
+  0 & 1 & 0 & 0\\
+  0 & 0 & 0 & 1\\
+  0 & 0 & 1 & 0
+\end{bmatrix} \equiv 
+\begin{bmatrix}
+  I & O \\
+  O & X
+\end{bmatrix}
+$$
+
+
+The gates such as X or CNOT seem similar to classical gate, where the `flip` a qubit, however other gates such as Hadamard don't have any classical Analogy, as classical gate don't have notion of superposition. They also don't have notion of `phase` as in P, S and T gates.
+
+```{admonition} Universal Gate set
+:class: note
+
+Any well defined procedure to transform one or more qubit can be a quantum gate, and in this sense, there are infinitely many quantum gate. However, one can simplify things by seeking whether there is a minimal set of gates, with which one can arbitrary quantum operation. Such a set is called a set of **universal quantum gates**. This is very similar to classical computing (are there some key differences?).
+```
+
+
+Combining gates if different ways results in different quantum circuits.
 
 ## Features of Quantum computers
 
+**To be expanded**
+
 Compare and Contrast with Classical Features
-- entanglement - 2 Qubits can be connexted in a way such that the description of one Qubit cannot be provided without the other qubit.
-- No cloning - There doesn't exist a method tocopy a set of arbitrary Quantum states from one wire to another
+- entanglement - 2 Qubits can be connected in a way such that the description of one Qubit cannot be provided without the other qubit.
+- No cloning - There doesn't exist a method to copy a set of arbitrary Quantum states from one wire to another
 - Probabilistic
-- Universal Gate set
 - reversibility
 - superposition
 
@@ -412,5 +663,3 @@ Compare and Contrast with Classical Features
 
 The following references are optional reading material:
 1. The following chapters of the textbook Introduction to Classical and Quantum Computing([pdf](https://www.thomaswong.net/introduction-to-classical-and-quantum-computing-1e3p.pdf)) : 1.1, 1.2, 1.3, 2.2, 2.3, 2.6, 4.4
-
-2. [Qiskit Textbook for S gate and T gate](https://qiskit.org/textbook/ch-states/single-qubit-gates.html#6.-The-I,-S-and-T-gates--)
