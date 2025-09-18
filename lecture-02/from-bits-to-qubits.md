@@ -643,8 +643,4 @@ Combining gates if different ways results in different quantum circuits.
 
 The following references are optional reading material:
 1. The following chapters of the textbook Introduction to Classical and Quantum Computing([pdf](https://www.thomaswong.net/introduction-to-classical-and-quantum-computing-1e3p.pdf)) : 1.1, 1.2, 1.3, 2.2, 2.3, 2.6, 4.4
-2. Bell theorem, illustration video
-<center>
-<iframe width="720" height="405" src="https://www.youtube.com/embed/zcqZHYo7ONs?si=TdULdSXysY4W7eQq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-</center>
 
