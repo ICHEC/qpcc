@@ -17,9 +17,6 @@ In this lecture we revise the good old and simpler concepts of bits and their ma
 - Learn the features of bits and qubits from phenomenological perspective, and through comparison of their similarities and differences. - We will also learn how manipulating bits and a qubits forms a building block for basic computations.
 ``` 
 
-```{image} ../prep/images/quant.png
-:align: center
-```
 
 ## Introduction
 In classical computing, which we usually call just computing, we transform or map every mathematical problem into a sequence of tasks, which is performed by computer, and towards the end, we get the desired result. These sequences of tasks, are what we call algorithms, consists of an exact sequence of simpler tasks that can be understood by computer. When this exact sequence is expressed in a way that computer understand, we call it a computer program. To understand, and organise well, the algorithms are often broken down to smallest possible building blocks. We  will discuss some of these building blocks now, and see how the role of bits comes into play.
@@ -478,16 +475,14 @@ Now that we have completed a fundamental review of topics in Classical Computing
 
 Let's begin by understanding what exactly is a photon. A photon is a single particle of light and we know that light is an electromagnetic wave and just like every wave has a direction of oscillation, a photon has a direction of oscillation called it's polarization.
 
-```{figure} ./images/0_1_ket.png
+
+```{table}
 :align: center
-:width: 100%
-```
 
-Visual illustration of photonic qubits $\begin{pmatrix} 1\\ 0 \end{pmatrix} = |1\rangle$ (left) and $\begin{pmatrix} 0\\ 1 \end{pmatrix} = |1\rangle$ (right) is shown below.
-
-|$\vert 0\rangle$            | $\vert 1\rangle$          |
-|:---:                       |:---:                      |
+|${\LARGE \begin{pmatrix} 1\\ 0 \end{pmatrix} = \vert 1\rangle}$ | ${\LARGE \begin{pmatrix} 0\\ 1 \end{pmatrix} = \vert 1\rangle}$          |
+|:-----------:         |:----------:                      |
 | ![](./images/photon-0.gif) | ![](./images/photon-1.gif)|
+```
 
 
 - The above two polarization states: Vertical and Horizontal, are labelled 0 and 1 and behave as the 2 independent states within Quantum Computation.
@@ -500,18 +495,10 @@ Visual illustration of photonic qubits $\begin{pmatrix} 1\\ 0 \end{pmatrix} = |1
 
 Although quantum states can exist in the two directions (Vertical and Horizontal as mentioned in the previous section) it can in general be any arbitrary direction, as shown below: two diagonal quantum states which are rotated at a 45 degree angle.
 
-Visual illustration of photonic qubits $\frac {1}{\sqrt{2}}\begin{pmatrix} 1\\ 1 \end{pmatrix} = |+\rangle$ (left) and $\frac {1}{\sqrt{2}}\begin{pmatrix} 1\\-1 \end{pmatrix} = |-\rangle$ (right) is shown below.
-
-|$\vert +\rangle$            | $\vert -\rangle$          |
+|${\LARGE \frac {1}{\sqrt{2}}\begin{pmatrix} 1\\ 1 \end{pmatrix} = \vert+ \rangle}$            | ${\LARGE \frac {1}{\sqrt{2}}\begin{pmatrix} 1\\-1 \end{pmatrix} = \vert -\rangle}$          |
 |:---:                       |:---:                      |
 | ![](./images/photon-p.gif) | ![](./images/photon-m.gif)|
 
-```{figure} ./images/+_-.png
-:align: center
-:width: 100%
---
-**Superposition in light**
-```
 
 It can be shown however that these two states labelled $|+\rangle$ and $|-\rangle$ can be written as a combination of the states  $|0\rangle$ and $|1\rangle$ as introduced in the previous section. This combination of states to describe another new state is known as **Quantum Superposition**
 
@@ -566,6 +553,11 @@ This gate takes the $|0\rangle$ and $|1\rangle$ states to the $|+\rangle$ and $|
 
 $$
 \rule[0.7em]{2em}{1.5pt}{\Huge\boxed{H}}\rule[0.7em]{2em}{1.5pt}
+\quad \quad H = \frac{1}{\sqrt{2}}
+\begin{bmatrix}
+  1 & 1 \\
+  1 & -1
+\end{bmatrix}
 $$
 
 
@@ -575,7 +567,8 @@ The P-gate, also called a phase gate, is a parametrised gate, i.e., it need a nu
 It's matrix form is 
 
 $$
-P(\phi) = 
+\rule[0.7em]{2em}{1.5pt}{\Huge\boxed{P}}\rule[0.7em]{2em}{1.5pt}
+\quad \quad P(\phi) = 
 \begin{bmatrix}
   1 & 0 \\
   0 & e^{i\phi}
@@ -590,7 +583,8 @@ The S-gate, sometimes also known as the $\sqrt{Z}$-gate, is essentially P-gate w
 It's called $\sqrt{Z}$-gate because $S^2 = Z$. The matrix form is simply as below
 
 $$
-S = 
+\rule[0.7em]{2em}{1.5pt}{\Huge\boxed{S}}\rule[0.7em]{2em}{1.5pt}
+\quad \quad S = 
 \begin{bmatrix}
   1 & 0 \\
   0 & e^{i\frac{\pi}{2}}
@@ -603,7 +597,8 @@ $$
 The T-gate is a very commonly used gate, and it is also a special case of P-gate with $\phi=\frac{\pi}{4}$:
 
 $$
-T = 
+\rule[0.7em]{2em}{1.5pt}{\Huge\boxed{T}}\rule[0.7em]{2em}{1.5pt}
+\quad \quad T = 
 \begin{bmatrix}
   1 & 0 \\
   0 & e^{i\frac{\pi}{4}}
@@ -642,37 +637,14 @@ Any well defined procedure to transform one or more qubit can be a quantum gate,
 
 Combining gates if different ways results in different quantum circuits.
 
-## Features of Quantum computers
-
-**To be expanded**
-
-Compare and Contrast with Classical Features
-- entanglement - 2 Qubits can be connected in a way such that the description of one Qubit cannot be provided without the other qubit.
-- No cloning - There doesn't exist a method to copy a set of arbitrary Quantum states from one wire to another
-- Probabilistic
-- reversibility
-- superposition
-
-
-## Appendix
-
-```{tip} Future updates and Scratchpad
-```
-
-- Introduction as an abstract concept without mathematics (perhaps circles), maybe with an experiment like Mach-Zender/Stern Gerlach.
-- A discussion on measurement and what is different.
-- Can even discuss some gate actions (Paulis and Hadamard) on qubits.
-- Discussion about what quantum properties such as coherence can add to computing (a thought experiment demonstrating Bell’s inequalities without mentioning them can be discussed here). Maybe the way to go is a light discussion like in [this video](https://www.youtube.com/watch?v=zcqZHYo7ONs.).
-
-
-<center>
-<iframe width="720" height="405" src="https://www.youtube.com/embed/zcqZHYo7ONs?si=TdULdSXysY4W7eQq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-</center>
-
-
 
 
 ## [References](#reference)
 
 The following references are optional reading material:
 1. The following chapters of the textbook Introduction to Classical and Quantum Computing([pdf](https://www.thomaswong.net/introduction-to-classical-and-quantum-computing-1e3p.pdf)) : 1.1, 1.2, 1.3, 2.2, 2.3, 2.6, 4.4
+2. Bell theorem, illustration video
+<center>
+<iframe width="720" height="405" src="https://www.youtube.com/embed/zcqZHYo7ONs?si=TdULdSXysY4W7eQq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</center>
+
