@@ -148,17 +148,28 @@ b --> c
 
 ### NOT gate
 
-- The most simple gate we can perform on a Bit is the NOT gate, it simply flips a bit, taking it from 0 to 1 and from 1 to 0.
+- The most simple gate we can perform on a Bit is the NOT gate, it simply flips a bit, taking it from 0 to 1 and from 1 to Zero.
+
+
+``````{grid}
+:label: not-gate
+
+```{grid-item-card}
+:columns: 6
+![](https://upload.wikimedia.org/wikipedia/commons/9/9f/Not-gate-en.svg)
+
+```
+
+```{grid-item-card}
+:columns: 6
 
 |Input|Output|
 |:---:|:---: |
 |0    |1     |
 |1    |0     |
 
-```{figure} ./images/NOT.png
-:align: center
-:width: 200px
 ```
+``````
 
 - The NOT gate can be observed to be a reversible gate, the input can always be recovered from the output, we can just flip the output to recover the original input. This is an important feature and we will come back to it later.
 
@@ -167,10 +178,33 @@ b --> c
 
 - The second gate is a 2 bit gate called AND gate, it gives the output 1 when both the Inputs are 1 and it is 0 for all other cases.
 
-```{figure} ./images/and.png
+
+``````{grid}
+:label: and-gate
+
+````{grid-item-card}
+:columns: 6
+
+```{figure} https://upload.wikimedia.org/wikipedia/commons/b/b9/AND_ANSI_Labelled.svg
+:width: 100%
 :align: center
-:width: 300px
 ```
+
+````
+
+```{grid-item-card}
+:columns: 6
+
+|Input A|Input B| Output Q|
+|:---:  |:---: | :---: |
+|0      |0     | 0     |
+|0      |1     | 0     |
+|1      |0     | 0     |
+|1      |1     | 1     |
+
+```
+``````
+
 
 - We can notice that the AND gate unlike the NOT gate is not reversible we can\t recover both the input qubits from the output of the AND gates.
 
