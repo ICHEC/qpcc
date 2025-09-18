@@ -549,7 +549,7 @@ The $X$ gate behaves similar to the classical NOT gate for the states $|0\rangle
 
 
 ### The Hadamard Gate
-This gate takes the  $|0\rangle$ and $|1\rangle$  states to the $|+\rangle$ and $|-\rangle$  states and vice-versa, Classically there is gate which acts as an analogue to such a gate
+This gate takes the $|0\rangle$ and $|1\rangle$ states to the $|+\rangle$ and $|-\rangle$  states and vice-versa, Classically there is gate which acts as an analogue to such a gate
 
 $$
 \rule[0.7em]{2em}{1.5pt}{\Huge\boxed{H}}\rule[0.7em]{2em}{1.5pt}
