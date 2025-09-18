@@ -483,6 +483,13 @@ Let's begin by understanding what exactly is a photon. A photon is a single part
 :width: 100%
 ```
 
+Visual illustration of photonic qubits $\begin{pmatrix} 1\\ 0 \end{pmatrix} = |1\rangle$ (left) and $\begin{pmatrix} 0\\ 1 \end{pmatrix} = |1\rangle$ (right) is shown below.
+
+|$\vert 0\rangle$            | $\vert 1\rangle$          |
+|:---:                       |:---:                      |
+| ![](./images/photon-0.gif) | ![](./images/photon-1.gif)|
+
+
 - The above two polarization states: Vertical and Horizontal, are labelled 0 and 1 and behave as the 2 independent states within Quantum Computation.
 
 - These quantum states are differentiated from classical bits by using the ket notation. The qubits are represented with $|0\rangle$ known as the ket notation or Dirac notation.
@@ -492,6 +499,12 @@ Let's begin by understanding what exactly is a photon. A photon is a single part
 ## Quantum Superposition
 
 Although quantum states can exist in the two directions (Vertical and Horizontal as mentioned in the previous section) it can in general be any arbitrary direction, as shown below: two diagonal quantum states which are rotated at a 45 degree angle.
+
+Visual illustration of photonic qubits $\frac {1}{\sqrt{2}}\begin{pmatrix} 1\\ 1 \end{pmatrix} = |+\rangle$ (left) and $\frac {1}{\sqrt{2}}\begin{pmatrix} 1\\-1 \end{pmatrix} = |-\rangle$ (right) is shown below.
+
+|$\vert +\rangle$            | $\vert -\rangle$          |
+|:---:                       |:---:                      |
+| ![](./images/photon-p.gif) | ![](./images/photon-m.gif)|
 
 ```{figure} ./images/+_-.png
 :align: center
