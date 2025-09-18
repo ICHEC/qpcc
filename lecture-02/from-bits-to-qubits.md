@@ -537,32 +537,108 @@ So this is a really important property of measurement. It collapses, superpositi
 
 Now let as look at Quantum Gates, the equivalent of Classical gates in the Quantum regime, we'll first start with a set of fundamental gates and then compare the features of Quantum Gates in comparison to Classical gates
 
-### X gate
-This gate behaves similar to the NOT gate for the states $|0\rangle$ and $|1\rangle$  causing the state to flip, the diagram below shows the action of the X gate on some Quantum states.
+### The X Gate
+
+The $X$ gate behaves similar to the classical NOT gate for the states $|0\rangle$ and $|1\rangle$ causing the state to flip, i.e., $X|0\rangle = |1\rangle$ and $X|1\rangle = |0\rangle$. The diagram below shows the action of the X gate on some Quantum states.
 
 ```{figure} ./images/xgate.png
 :align: center
 :width: 100%
+:label: x-gate
 --
 **X-Gate**
 ```
 
 
-### Hadamard Gate
-This gate takes the  $|0\rangle$ and $|1\rangle$  states to the  $|+\rangle$ and $|-\rangle$  states and vice-versa, Classically there is gate which acts as an analogue to such a gate
+### The Hadamard Gate
+This gate takes the  $|0\rangle$ and $|1\rangle$  states to the $|+\rangle$ and $|-\rangle$  states and vice-versa, Classically there is gate which acts as an analogue to such a gate
 
-- No Classical Analogies to some gates
-- 2 Qubit gates - C NOT
-- Universal Gate set
-- Combining gates to form Circuits
+$$
+\rule[0.7em]{2em}{1.5pt}{\Huge\boxed{H}}\rule[0.7em]{2em}{1.5pt}
+$$
+
+
+### The P Gate
+
+The P-gate, also called a phase gate, is a parametrised gate, i.e., it need a number $\phi$ to define it. It performs the rotation of the state with angle $\phi$ around Z-axis.
+It's matrix form is 
+
+$$
+P(\phi) = 
+\begin{bmatrix}
+  1 & 0 \\
+  0 & e^{i\phi}
+\end{bmatrix}
+$$
+
+Notice that $P(\phi_1)P(\phi_2) = P(\phi_1 + \phi_2)$, i.e., successive operation of phase gate with two angles is equivalent to a single operation with added angles.
+
+### The S Gate
+
+The S-gate, sometimes also known as the $\sqrt{Z}$-gate, is essentially P-gate with $\phi=\frac{\pi}{2}$. It does a quarter-turn around the Bloch sphere.
+It's called $\sqrt{Z}$-gate because $S^2 = Z$. The matrix form is simply as below
+
+$$
+S = 
+\begin{bmatrix}
+  1 & 0 \\
+  0 & e^{i\frac{\pi}{2}}
+\end{bmatrix}
+$$
+
+
+### The T Gate
+
+The T-gate is a very commonly used gate, and it is also a special case of P-gate with $\phi=\frac{\pi}{4}$:
+
+$$
+T = 
+\begin{bmatrix}
+  1 & 0 \\
+  0 & e^{i\frac{\pi}{4}}
+\end{bmatrix}
+$$
+
+
+### The CNOT Gate
+
+This gate is a conditional gate, that acts as X-gate on the second qubit, if the first qubit is in $|1\rangle$ state.
+The first qubit is called _control_, and the second qubit is called _target_. It's also called CX-gate. It's matrix form is looks like the following:
+
+$$
+CNOT = 
+\begin{bmatrix}
+  1 & 0 & 0 & 0\\
+  0 & 1 & 0 & 0\\
+  0 & 0 & 0 & 1\\
+  0 & 0 & 1 & 0
+\end{bmatrix} \equiv 
+\begin{bmatrix}
+  I & O \\
+  O & X
+\end{bmatrix}
+$$
+
+
+The gates such as X or CNOT seem similar to classical gate, where the `flip` a qubit, however other gates such as Hadamard don't have any classical Analogy, as classical gate don't have notion of superposition. They also don't have notion of `phase` as in P, S and T gates.
+
+```{admonition} Universal Gate set
+:class: note
+
+Any well defined procedure to transform one or more qubit can be a quantum gate, and in this sense, there are infinitely many quantum gate. However, one can simplify things by seeking whether there is a minimal set of gates, with which one can arbitrary quantum operation. Such a set is called a set of **universal quantum gates**. This is very similar to classical computing (are there some key differences?).
+```
+
+
+Combining gates if different ways results in different quantum circuits.
 
 ## Features of Quantum computers
 
+**To be expanded**
+
 Compare and Contrast with Classical Features
-- entanglement - 2 Qubits can be connexted in a way such that the description of one Qubit cannot be provided without the other qubit.
-- No cloning - There doesn't exist a method tocopy a set of arbitrary Quantum states from one wire to another
+- entanglement - 2 Qubits can be connected in a way such that the description of one Qubit cannot be provided without the other qubit.
+- No cloning - There doesn't exist a method to copy a set of arbitrary Quantum states from one wire to another
 - Probabilistic
-- Universal Gate set
 - reversibility
 - superposition
 
@@ -589,5 +665,3 @@ Compare and Contrast with Classical Features
 
 The following references are optional reading material:
 1. The following chapters of the textbook Introduction to Classical and Quantum Computing([pdf](https://www.thomaswong.net/introduction-to-classical-and-quantum-computing-1e3p.pdf)) : 1.1, 1.2, 1.3, 2.2, 2.3, 2.6, 4.4
-
-2. [Qiskit Textbook for S gate and T gate](https://qiskit.org/textbook/ch-states/single-qubit-gates.html#6.-The-I,-S-and-T-gates--)
