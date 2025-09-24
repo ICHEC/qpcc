@@ -88,7 +88,6 @@ Once we go through the mathematical structure in the coming sections, it will be
 
 In quantum mechanics, the superposition applies to states. What that means is, that if a system can exist in say two states $A$ and $B$, then it can also exist in a superposition of $A$ and $B$. In the section below we will learn how to interpret such a thing mathematically, but for now we can intuitively speculate, that a superposition of two states should have properties resembling both the states even though the two state might be very different.
 
->> Figure for illustration
  
 ### Role of interference
 The notion of intereference is quantum systems is very similar to what it means in waves. When two waves are combined, their instantaneous intensities or displacements are added. The intensity or displacement of the resulting wave can be greater or lower depending on their `relative phase`.
@@ -100,19 +99,13 @@ In case of quantum system, as we will see, probability amplitudes take the role 
 ### Principles of measurement
 In quantum mechanics, a measurement is testing or manipulation of a physical system that yields a numerical result.
 This in principle doesn't look much different than a measurement of a classical system. However, in the quantum realm,
-the process of `measureing` something also changes the underlying system.
+the process of `measuring` something also changes the underlying system.
 
-
-### No-cloning
-
-
-### Entanglement
-### Tunnelling 
 
 ---
-## Mathematica Structure
+## Mathematical Structure
 
-Here we discuss in bravety the necessary mathematical structures upon which the formulation of quantum mechanics relies on.
+Here we discuss in brevity the necessary mathematical structures upon which the formulation of quantum mechanics relies.
 It progressively goes as follows -
 ```{mermaid}
 mindmap
@@ -661,7 +654,7 @@ Thus if a linear combination of two vectors can be set to zero, with atleast one
 
 What happens, if this cannot happen? That is, for the above two vectors, $\mathbf{u}$ and $\mathbf{v}$ there is no $a, b$ with atleast one of them being non-zero, such that $a\mathbf{u} + b\mathbf{v} = 0$?
 
-Then the vector's don't share directions, and in a sense are independent of each other. A logically equivalent, but more intuitive way of saying the above is if two vectors don't share direction, or can't be written as scalar multiple of each other, then $a\mathbf{u} + b\mathbf{v} = 0$ implies that $a=b=0$.
+Then the vectors don't share directions, and in a sense are independent of each other. A logically equivalent, but more intuitive way of saying the above is if two vectors don't share direction, or can't be written as scalar multiple of each other, then $a\mathbf{u} + b\mathbf{v} = 0$ implies that $a=b=0$.
 
 ```{admonition} Linear span of two vectors
 :class: information
@@ -1240,7 +1233,7 @@ When we measure a property of a quantum system, the outcome of the measurement s
 
 Let's assume the quantum system imagined in the previous section, the states are $|l\rangle$ with $l=1,2,\dots n$. If the system is already in one of these states, then it stays in it, and the outcome of the measurement is, say $a_l$ corresponding to the state $|l\rangle$.
 
-This observation, against our intuition of uncertainty in quantum system, is actually definite. Is there something special about the system being in state $|l\rangle$ ? Yes, it is so because these state are by construction mutually exclusive with respect to observation, as discussed in section [](#states-and-operators).
+This observation, against our intuition of uncertainty in quantum system, is actually definite. Is there something special about the system being in state $|l\rangle$ ? Yes, it is so because these states are by construction mutually exclusive with respect to observation, as discussed in section [](#states-and-operators).
 
 The uncertainty comes if before the measurement system was in a superposition state $|s\rangle = c_1|1\rangle + c_2|2\rangle  + \dots c_n|n\rangle$. In this case, the system is in a state where the possibility of being in any one of the $|l\rangle$ state coexist until the measurement. 
 
@@ -1281,119 +1274,4 @@ $$
 which is same as one interpreted as measurement outcome in the previous section.
 
 
-## Hilbert space of Qubits
 
-Let us finally come to example of quantum systems that are useful for quantum computing.
-
-### Single Qubit
-
-A **Qubit** is a quantum system with two state basis. A single qubit is one of the simplest quantum system of 2-dimensional Hilbert space.
-
-A qubit is an abstraction of a quantum system with two dimensional Hilbert space, with a basis $\{|0\rangle, |1\rangle\}$. The Hilbert space then looks like 
-
-$$
-H_1 = {|s\rangle = c_0|0\rangle + c_1|1\rangle: c_0, c_1 \in \mathbb{C}}
-$$
-
-Note that in order to represent a quantum state, the kets $|s\rangle$ need to be normal, which means
-
-$$
-|c_0|^2 + |c_1|^2 = 1
-$$
-
-Since the Hilbert space is two dimensional, all the operator on it can be
-represented as $2\times 2$ complex matrices.
-
-Noteworthy operators are the following -
-- Identity $I$, and Hadamard $H$ operators. Their matrix representation is following -
-
-$$
-I = \begin{pmatrix} 1 & 0\\0 & 1 \end{pmatrix};
-H = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 & 1\\1 & -1 \end{pmatrix}
-$$
-
-- Pauli $X, Y, Z$ operators. Their matrix representation is following -
-$$
-X = \begin{pmatrix} 0 & 1\\1 & 0 \end{pmatrix}; 
-Y = \begin{pmatrix} 0 & -i\\i & 0 \end{pmatrix}; 
-Z = \begin{pmatrix} 1 & 0\\0 & -1 \end{pmatrix};
-$$
-
-One assumes a coordinate system with $x,y$ and $z$ axis, and a basis 
-that is eigenstate of Pauli z operators.
-
-### Multiple Qubits
-
-In general, when we combine two quantum systems, the Hilbert space of the
-combined system is constructed from the cartesian product of the basis of
-component systems.
-
-Let us first consider a system of two qubits, if the basis for one qubit is
-$B_1 = \{|0\rangle, |1\rangle\}$, then the basis for the two qubit system is
-
-$$
-B_2 = B_1\times B_1 = {(|0\rangle, |0\rangle), (|0\rangle, |1\rangle),
-(|1\rangle, |0\rangle), (|1\rangle, |1\rangle)}
-$$
-
-Where the order of the states in ordered pair follows the qubit label.
-For example, $(|0\rangle, |1\rangle)$ represents a state in which first
-qubit is in 0 state, and second qubit is in 1 state.
-
-If we have more qubits, the Hilbert space will grow as $B_3 = B_1\times B_1\times B_1$, and so on.
-The ordered pair notation becomes combersome, so one puts the individual state labels inside the
-angular brackets. In this way, the basis for two and three qubits looks like following -
-
-$$
-\begin{align}
-B_2 = &\{|00\rangle, |01\rangle, |10\rangle, |11\rangle\}\\
-B_3 = &\{|000\rangle, |001\rangle, |010\rangle, |011\rangle, |100\rangle, |101\rangle, |110\rangle, |111\rangle\}\\
-B_4 = &\{
-    |0000\rangle, |0001\rangle, |0010\rangle, |0011\rangle,\\
-    &|0100\rangle, |0101\rangle, |0110\rangle, |0111\rangle,\\
-    &|1000\rangle, |1001\rangle, |1010\rangle, |1011\rangle,\\
-    &|1100\rangle, |1101\rangle, |1110\rangle, |1111\rangle
-\}
-\end{align}
-$$
-
-```{tip}
-The size of the basis, and hence the dimension of the Hilbert space of $n$ qubits is $2^n$
-```
-
-### Pure vs Mixed States
-
-#### Pure state
-The quantum state we referred to so far are what one calls pure states, and they are represented by a normalised vector in a complex Hilbert space. In the Dirac notation, they are described as a ket $|v\rangle$ or a bra $\langle v|$.
-
-There is another way to describe the state of quantum system which can be generalised to mixed states (defined below), and the is through **density operator**. For a system in pure quantum state $|v\rangle$, the density operator is defined as
-
-$$
-{\Huge
-\rho = |v\rangle \langle v|
-}
-$$
-
-- It is easy to see that trace of the density operator is 1, i.e., $\text{Tr}(\rho)=1$.
-- For a pure state, $\rho^2 = \rho$, so $\text{Tr}(\rho^2)=1$
-
-#### Mixed state
-Suppose we have a quantum system, and wish to prepare it in a state $|l\rangle$ out of, say $\{|1\rangle, |2\rangle, |3\rangle,\dots, |n\rangle\}$. If we could do it, then the system is in a pure state. But on the other hand, due to some difficulty, experimental or otherwise of physical nature, when we try to prepare it in $|l\rangle$, each time we get the system prepared in a different state. We can repeat the attempt of preparing the state several times, and compute the statistical *weight* $w_l$ of having prepared the system in the expected state $|l\rangle$. This adds another uncertainty, which is classical in nature on any measurement on the system in such a state, and any outcome of quantum measurement will be an ensemble average of these weights. Such a state is called a **mixed state**. 
-
-What mathematical object should we use to represent such a state? Clearly a single vector does not suffice, so we need something that depends on the weights $w_l$ and the state $|l\rangle$ for all values of $l$.
-
-Such state are represented by the following
-
-$$
-\rho = \sum_l w_l |l\rangle \langle l|
-$$
-
-- For a mixed state, $\rho^2 \ne \rho$, and $\text{Tr}(\rho) <1$.
-
-
-[youtube](https://youtube.com/clip/Ugkxh9W3xafNSWAP-VU9LCrRXkx9kgUH0mY8?si=MVsRsDUeJld5fV9_)
-
-
-
-
-[^1]: See the [Wikipedia article on set](https://en.wikipedia.org/wiki/Set_(mathematics)) for more details.
