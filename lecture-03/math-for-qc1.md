@@ -26,11 +26,13 @@ mystnb:
 In this lecture we discuss the mathematical framework and tools required to properly understand how quantum system works. We give a short introduction to notion of sets, vector spaces, linear operators and maps.
 
 
----
+```
+
 ## Mathematical Structure
 
 Here we discuss in brevity the necessary mathematical structures upon which the formulation of quantum mechanics relies.
 It progressively goes as follows -
+
 ```{mermaid}
 mindmap
 root(Mathematical Framework)
@@ -154,7 +156,7 @@ We defined what a set is, and introduced a notion of comparison by defining what
 
 - **Complement:** Compliment of a set A, denoted by $A'$, or sometimes $A^c$ is defined with respect to the universal set, is set of all elements of $U$ that are not in A.
 
-``````{sidebar}
+``````{margin}
 ```{figure} ./set-union-inters-diff.jpg
 Set Union, intersection and set difference.
 ```
@@ -223,7 +225,7 @@ $$
     1\\
     2\\
     \vdots
-    \end{Bmatrix} \underrightarrow{~~~~~~f~~~~~~}
+    \end{Bmatrix} \xrightarrow{~~~~~~f~~~~~~}
     \begin{Bmatrix}
     \vdots \\
     -6\\
