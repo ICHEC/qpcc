@@ -389,19 +389,22 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scalar-vs-vector">Scalar vs Vector</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set">Set</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subsets">Subsets</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-structure">Mathematical Structure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scalar-vs-vector">Scalar vs Vector</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set">Set</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#subsets">Subsets</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map">Map</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-operations">Binary operations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#group">Group</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subgroups">Subgroups</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#map">Map</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-operations">Binary operations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#group">Group</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#subgroups">Subgroups</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#field">Field</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#field">Field</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-space">Vector Space</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-sub-space">Vector Sub-space</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-combination">Linear combination</a></li>
@@ -460,8 +463,9 @@ document.write(`
 <div class="tip admonition">
 <p class="admonition-title">Learning outcomes</p>
 <p>In this lecture we discuss the mathematical framework and tools required to properly understand how quantum system works. We give a short introduction to notion of sets, vector spaces, linear operators and maps.</p>
-<hr class="docutils" />
-<h2 class="rubric" id="mathematical-structure">Mathematical Structure</h2>
+</div>
+<section id="mathematical-structure">
+<h2>Mathematical Structure<a class="headerlink" href="#mathematical-structure" title="Link to this heading">#</a></h2>
 <p>Here we discuss in brevity the necessary mathematical structures upon which the formulation of quantum mechanics relies.
 It progressively goes as follows -</p>
 <pre  class="mermaid">
@@ -480,9 +484,8 @@ root(Mathematical Framework)
         Special operators: Unitary, Hermitian, ...
         Probability conservation
     Representation theory
-    </pre></div>
-<section id="scalar-vs-vector">
-<h2>Scalar vs Vector<a class="headerlink" href="#scalar-vs-vector" title="Link to this heading">#</a></h2>
+    </pre><section id="scalar-vs-vector">
+<h3>Scalar vs Vector<a class="headerlink" href="#scalar-vs-vector" title="Link to this heading">#</a></h3>
 <p>Any quantity that can be described by a single numerical value, usually with real, and sometimes with complex numbers is a scalar.
 The common examples of scalars are volume, density, speed, energy, mass and time.</p>
 <p>Quantities require multiples of numerical values, with each value describing some aspect or attribute of the quantities, are called vectors. The number of these values is called the <code class="docutils literal notranslate"><span class="pre">dimension</span></code> of the vector. Common examples of vector quantities from physics include position, velocity, momentum, and force. They all have two common attributes, (i) a <strong>magnitude</strong>, and (ii) a <strong>direction</strong> associated with them.</p>
@@ -493,7 +496,7 @@ through which we manipulate numbers, are suitably extended on scalars and vector
 <p><strong>Vector Space, Hilbert Space</strong>: A Vector space is a mathematical structure, that constitutes the necessary components to manipulate vectors in sensible way. Before we define it, we need to understand a few definitions, namely <code class="docutils literal notranslate"><span class="pre">Set</span></code>, <code class="docutils literal notranslate"><span class="pre">map</span></code>, <code class="docutils literal notranslate"><span class="pre">Binary</span> <span class="pre">operations</span></code>, <code class="docutils literal notranslate"><span class="pre">Group</span></code> and <code class="docutils literal notranslate"><span class="pre">Field</span></code> -</p>
 </section>
 <section id="set">
-<h2>Set<a class="headerlink" href="#set" title="Link to this heading">#</a></h2>
+<h3>Set<a class="headerlink" href="#set" title="Link to this heading">#</a></h3>
 <p>Learning the notion of sets, and their manipulation provide not only training in fundamentals of logic of categorisation, organisation, it is crucial building block of most of mathematics.</p>
 <p>In Mathematics, a set is defined as a unique collection of well defined objects[^1], and the object in the collection are called elements of the set.</p>
 <p>For example,</p>
@@ -520,7 +523,7 @@ B = \{a| a\in \mathbb{Z}, \text{ and } a \text{ is even}\}
 <p>The set of natural numbers <span class="math notranslate nohighlight">\(\mathbb{N} = \{1, 2, 3, \dots\}\)</span> plays a central role in the categorisation of sets. First, it let’s us define countability. So a set in which you could count the number of elements one by one, is called countable. If the counting finishes after finite number, the set is finite and countable. If you can count, and the counting can not finish in finite time, the set is said to be countably infinite. By definition or axiom, the set of natural number is countably infinite. <strong>Uncountable</strong> sets on the other hand, are the ones that are inifinite, and contains too many elements to be even countable.</p>
 <p>We use the term <strong>cardinality</strong> for representing a measure of number of elements in a set. The cardinality of a finite set is the number of elements in it. For infinite sets, the cardinality is symbolic and is established by comparison of two sets and defining map among them.</p>
 <section id="subsets">
-<h3>Subsets<a class="headerlink" href="#subsets" title="Link to this heading">#</a></h3>
+<h4>Subsets<a class="headerlink" href="#subsets" title="Link to this heading">#</a></h4>
 <p>Imagine we have two sets, A and B, and it is such that, every element of A is also element of B, then we say that A is a subset of B. It is denoted as <span class="math notranslate nohighlight">\(A\subset B\)</span>. We also in this case, call B as <strong>superset</strong> of A.</p>
 <p>Naturally, every set is subset and superset of itself. We a call a set A to be a <strong>proper subset</strong> of B, if every element of A is in B, but at least one element exists in B that is not in A. In this case, B is called a <strong>proper superset</strong> of A.</p>
 <p>For finite sets, their proper subsets have strictly lower number of element than the set itself. However for infinite sets, a proper subset may
@@ -549,7 +552,8 @@ have same cardinality as the set itself.</p>
 <li><p><strong>Universal set:</strong> For a given consideration of problem, a universal set <span class="math notranslate nohighlight">\(U\)</span> is set of all elements considered, and fixed, so that every set defined for the problem, is a subset of <span class="math notranslate nohighlight">\(U\)</span>.</p></li>
 <li><p><strong>Complement:</strong> Compliment of a set A, denoted by <span class="math notranslate nohighlight">\(A'\)</span>, or sometimes <span class="math notranslate nohighlight">\(A^c\)</span> is defined with respect to the universal set, is set of all elements of <span class="math notranslate nohighlight">\(U\)</span> that are not in A.</p></li>
 </ul>
-<aside class="sidebar">
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
 <figure class="align-default" id="id3">
 <img alt="../_images/set-union-inters-diff.jpg" src="../_images/set-union-inters-diff.jpg" />
 <figcaption>
@@ -577,7 +581,7 @@ A\times B = \{(a, x), (a, y), (a, z),
 </section>
 </section>
 <section id="map">
-<h2>Map<a class="headerlink" href="#map" title="Link to this heading">#</a></h2>
+<h3>Map<a class="headerlink" href="#map" title="Link to this heading">#</a></h3>
 <p>In mathematics, a map is somethings that defines a symbolic relation from elements of a set <strong>X</strong> to elements of another set <strong>Y</strong>, such that each element of <strong>X</strong> gets associated to an element of <strong>Y</strong>. The set <strong>X</strong> whose elemets get <code class="docutils literal notranslate"><span class="pre">mapped</span> <span class="pre">to</span></code> is called the <strong>domain of the map</strong> and the set <strong>Y</strong> the elements of which they get <code class="docutils literal notranslate"><span class="pre">mapped</span> <span class="pre">from</span></code> is called the <strong>range or codomain of the map</strong>.</p>
 <p>Symbolically, a map is expressed as follows</p>
 <ul class="simple">
@@ -615,7 +619,7 @@ A\times B = \{(a, x), (a, y), (a, z),
     1\\
     2\\
     \vdots
-    \end{Bmatrix} \underrightarrow{~~~~~~f~~~~~~}
+    \end{Bmatrix} \xrightarrow{~~~~~~f~~~~~~}
     \begin{Bmatrix}
     \vdots \\
     -6\\
@@ -639,7 +643,7 @@ a --f--&gt; b --g--&gt; c
 a --fog--&gt; c
     </pre></section>
 <section id="binary-operations">
-<h2>Binary operations<a class="headerlink" href="#binary-operations" title="Link to this heading">#</a></h2>
+<h3>Binary operations<a class="headerlink" href="#binary-operations" title="Link to this heading">#</a></h3>
 <p>Binary operations, as the name suggests are operations that take two objects and combine them to give (usually) one unique object.</p>
 <p>In mathematics, binary operation is defined on a set, that takes two elements of the set, and returns one element of a  set.</p>
 <p>Formally, a binary operation on a set A is a mapping of elements of <span class="math notranslate nohighlight">\(A\times A\)</span> to A, expressed as</p>
@@ -656,7 +660,7 @@ o : A\times A \longrightarrow A
 </ul>
 </section>
 <section id="group">
-<h2>Group<a class="headerlink" href="#group" title="Link to this heading">#</a></h2>
+<h3>Group<a class="headerlink" href="#group" title="Link to this heading">#</a></h3>
 <p>When we have a set, it let’s us categorize, and organize the elements. Having binary operations defined on a set tells us how a pair of elements of the set result in another element, in effect how combining elements gives us different elements.</p>
 <p>The binary operations defined on a set, give new structure to the set. A group is one such structure.</p>
 <p>A group is a set <span class="math notranslate nohighlight">\(A\)</span> with an operation <span class="math notranslate nohighlight">\(o\)</span>, expressed as <span class="math notranslate nohighlight">\((A, o)\)</span>, such that the operation satifies following conditions -</p>
@@ -670,7 +674,7 @@ o : A\times A \longrightarrow A
 <p>The same question can be posed for the existence of the inverse. The left and the right inverses of an element (can be proven) are the same.</p>
 <p>The inverse of the inverse of the element <span class="math notranslate nohighlight">\(a\)</span>, is the element itself, i.e., <span class="math notranslate nohighlight">\((a^{-1})^{-1} = a\)</span></p>
 <section id="subgroups">
-<h3>Subgroups<a class="headerlink" href="#subgroups" title="Link to this heading">#</a></h3>
+<h4>Subgroups<a class="headerlink" href="#subgroups" title="Link to this heading">#</a></h4>
 <p>Just like sets have subsets, groups have subgroups. A subgroup of a group <span class="math notranslate nohighlight">\((G, o)\)</span> is a subset <span class="math notranslate nohighlight">\(S\subset G\)</span>, that forms group under the binary operation <span class="math notranslate nohighlight">\(o\)</span> of the group constrained within <span class="math notranslate nohighlight">\(S\)</span>. So in order for a subset to be a subgroup, following must be satisfied</p>
 <ul class="simple">
 <li><p>The binary operation <span class="math notranslate nohighlight">\(o\)</span> defined on the set <span class="math notranslate nohighlight">\(G\)</span>, is also a binary operation on the subset <span class="math notranslate nohighlight">\(S\)</span>.</p></li>
@@ -678,7 +682,7 @@ o : A\times A \longrightarrow A
 </ul>
 </section>
 <section id="examples">
-<h3>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h3>
+<h4>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h4>
 <div class="information admonition">
 <p class="admonition-title">The set of integers with arithmatic addition <span class="math notranslate nohighlight">\((\mathbb{Z}, +)\)</span> forms a group.</p>
 <p>The arithmatic operation <code class="docutils literal notranslate"><span class="pre">+</span></code> is a binary operation, as adding any two integers results in another, unique integer. Since the order of adding two integers, does not matter, the operation is obviously commutative.</p>
@@ -860,7 +864,7 @@ p_1 p_3(abc) &amp;= p_1(bac) = (bac) = p_2(abc) \implies p_1p_3 = p_2\\
 </section>
 </section>
 <section id="field">
-<h2>Field<a class="headerlink" href="#field" title="Link to this heading">#</a></h2>
+<h3>Field<a class="headerlink" href="#field" title="Link to this heading">#</a></h3>
 <p>In mathematics, a field is defined as a set <span class="math notranslate nohighlight">\(F\)</span> with two binary operations, say <code class="docutils literal notranslate"><span class="pre">+</span></code> and <code class="docutils literal notranslate"><span class="pre">.</span></code> such that following conditions are satisfied -</p>
 <ol class="arabic simple">
 <li><p>The binary operations <code class="docutils literal notranslate"><span class="pre">+</span></code> and <code class="docutils literal notranslate"><span class="pre">.</span></code> are commutative, i.e., <span class="math notranslate nohighlight">\(a + b = b + a\)</span>, and <span class="math notranslate nohighlight">\(a\cdot b = b\cdot a\)</span> for every <span class="math notranslate nohighlight">\(a, b\in F\)</span>.</p></li>
@@ -885,6 +889,7 @@ p_1 p_3(abc) &amp;= p_1(bac) = (bac) = p_2(abc) \implies p_1p_3 = p_2\\
 <p class="admonition-title">Polynomials</p>
 <p>We need the structure of a field, i.e., set with atleast two binary operations to construct expressions that we call polynomials.</p>
 </div>
+</section>
 </section>
 <section id="vector-space">
 <h2>Vector Space<a class="headerlink" href="#vector-space" title="Link to this heading">#</a></h2>
@@ -1627,19 +1632,22 @@ If the state is <span class="math notranslate nohighlight">\(l\rangle\)</span>, 
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scalar-vs-vector">Scalar vs Vector</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set">Set</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subsets">Subsets</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-structure">Mathematical Structure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scalar-vs-vector">Scalar vs Vector</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set">Set</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#subsets">Subsets</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map">Map</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-operations">Binary operations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#group">Group</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subgroups">Subgroups</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#map">Map</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-operations">Binary operations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#group">Group</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#subgroups">Subgroups</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#field">Field</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#field">Field</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-space">Vector Space</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-sub-space">Vector Sub-space</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-combination">Linear combination</a></li>
