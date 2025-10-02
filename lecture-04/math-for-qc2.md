@@ -148,6 +148,17 @@ Entangled systems share a quantum state. A measurement performed on one subsyste
 
 
 ### Tunnelling 
+Tunneling is a phenomenon that can occur when a quantum particle approaches a potential barrier (this could be gravitational potential, electrical potential, etc.) 
+
+In the classical case, if the energy of the barrier is $U$ and the energy of the particle is $E$,
+- the particle is transmitted through the barrier if $E>U$
+- the particle is reflected if $E<U$.
+
+In the quantum case things get more interesting.
+- Quantum systems display both particle-like and wave-like behaviour. Quantum particles can be partially transmitted and partially reflected.
+- There is a non-zero probability of finding the quantum particle beyond the classically insurmountable barrier!
+- I.e., the quantum particle may `tunnel` through the barrier even if $E<U$.
+- The probability of this `tunnelling` taking placew decreases exponentially with the width of the barrier.
 
 
 
