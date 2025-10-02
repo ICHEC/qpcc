@@ -503,13 +503,43 @@ Formally speaking, the principle states that in all linear systems, the net resp
 <h3>Principles of measurement<a class="headerlink" href="#principles-of-measurement" title="Link to this heading">#</a></h3>
 <p>In quantum mechanics, a measurement is testing or manipulation of a physical system that yields a numerical result.
 This in principle doesn’t look much different than a measurement of a classical system. However, in the quantum realm,
-the process of <code class="docutils literal notranslate"><span class="pre">measureing</span></code> something also changes the underlying system.</p>
+the process of <code class="docutils literal notranslate"><span class="pre">measuring</span></code> something also changes the underlying system.</p>
 </section>
 <section id="no-cloning">
 <h3>No-cloning<a class="headerlink" href="#no-cloning" title="Link to this heading">#</a></h3>
+<p>Classically we can copy an unknown bit using the following simple process:</p>
+<ol class="arabic simple">
+<li><p>We receive an unknown bit. This means we don’t know its state. We don’t know if it is 0 or 1.</p></li>
+<li><p>Measure the bit and record the outcome. We either get 0 or 1. Say for example we obtain 1.</p></li>
+<li><p>Using this information, prepare a new bit matching the original bit.</p></li>
+<li><p>Now we have 11, i.e. the original bit plus a copy.</p></li>
+</ol>
+<p>What happens if we try to copy a qubit using this procedure?</p>
+<ol class="arabic simple">
+<li><p>We receive an unknown qubit. We don’t know its state, <span class="math notranslate nohighlight">\(\psi=\alpha\ket{0}+\beta\ket{1}\)</span>. We don’t know the coefficients <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>.</p></li>
+<li><p>Measure the qubit and record the outcome. We either get 0 or 1. Say for example we obtain 1.</p></li>
+<li><p>We cannot prepare a new qubit matching the old one! We still don’t know 𝛼 and 𝛽.</p></li>
+<li><p>Plus the original qubit is now destroyed!</p></li>
+</ol>
+<p>There is no process to copy an unknown qubit. This is a consequence of the <code class="docutils literal notranslate"><span class="pre">no-cloning</span> <span class="pre">theorem</span></code>, which is stated as follows:</p>
+<p>“An <strong>unknown</strong> quantum state cannot be <strong>precisely</strong> recreated, it cannot be cloned”.</p>
+<p>Two important words are written in <strong>bold</strong> in the above theorem:</p>
+<ul class="simple">
+<li><p><strong>Unknown</strong>: Known states can be copied infinitely many times, simply by repeating the known algorithm used to prepare them</p></li>
+<li><p><strong>Precisely</strong>: Approximate cloning is possible, by taking thousands of measurements in different bases [Bužek &amp; Hillery, PRL 81 22 (1998)].</p></li>
+</ul>
 </section>
 <section id="entanglement">
 <h3>Entanglement<a class="headerlink" href="#entanglement" title="Link to this heading">#</a></h3>
+<p>Consider the Hilbert space over two subsystems <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>, written as <span class="math notranslate nohighlight">\(=\mathcal{H}_A\otimes\mathcal{H}_B\)</span>. A general state of <span class="math notranslate nohighlight">\(\mathcal{H}\)</span> is given by
+$<span class="math notranslate nohighlight">\(
+\ket{\psi}_{AB}=\sum_{ij}c_{ij}\ket{i}_A\ket{j}_B.
+\)</span>$</p>
+<ul class="simple">
+<li><p>If <span class="math notranslate nohighlight">\(\ket{\psi}_{AB}\)</span> <strong>can</strong> be written as <span class="math notranslate nohighlight">\(\ket{x}_A\cdot\ket{y}_B\)</span> then <span class="math notranslate nohighlight">\(\ket{\psi}_{AB}\)</span> is <code class="docutils literal notranslate"><span class="pre">separable</span></code>.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(\ket{\psi}_{AB}\)</span> <strong>cannot</strong> be written as <span class="math notranslate nohighlight">\(\ket{x}_A\cdot\ket{y}_B\)</span> then <span class="math notranslate nohighlight">\(\ket{\psi}_{AB}\)</span> is <code class="docutils literal notranslate"><span class="pre">entangled</span></code>.</p></li>
+</ul>
+<p>Entangled systems share a quantum state. A measurement performed on one subsystem instantaneously changes the state of the other subsystem, no matter how far apart they may be. Einstein called this ‘spooky action at a distance’.</p>
 </section>
 <section id="tunnelling">
 <h3>Tunnelling<a class="headerlink" href="#tunnelling" title="Link to this heading">#</a></h3>
@@ -736,7 +766,6 @@ B_4 = &amp;\{
 <ul class="simple">
 <li><p>For a mixed state, <span class="math notranslate nohighlight">\(\rho^2 \ne \rho\)</span>, and <span class="math notranslate nohighlight">\(\text{Tr}(\rho) &lt;1\)</span>.</p></li>
 </ul>
-<p><a class="reference external" href="https://youtube.com/clip/Ugkxh9W3xafNSWAP-VU9LCrRXkx9kgUH0mY8?si=MVsRsDUeJld5fV9_">youtube</a></p>
 </section>
 </section>
 </section>

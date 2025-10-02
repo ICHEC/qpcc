@@ -100,13 +100,53 @@ In case of quantum system, as we will see, probability amplitudes take the role 
 ### Principles of measurement
 In quantum mechanics, a measurement is testing or manipulation of a physical system that yields a numerical result.
 This in principle doesn't look much different than a measurement of a classical system. However, in the quantum realm,
-the process of `measureing` something also changes the underlying system.
+the process of `measuring` something also changes the underlying system.
 
 
 ### No-cloning
+Classically we can copy an unknown bit using the following simple process:
+
+1. We receive an unknown bit. This means we don’t know its state. We don’t know if it is 0 or 1.
+
+2. Measure the bit and record the outcome. We either get 0 or 1. Say for example we obtain 1.
+
+3. Using this information, prepare a new bit matching the original bit.
+
+4. Now we have 11, i.e. the original bit plus a copy.
+
+
+
+What happens if we try to copy a qubit using this procedure?
+
+1. We receive an unknown qubit. We don’t know its state, $\psi=\alpha\ket{0}+\beta\ket{1}$. We don’t know the coefficients $\alpha$ and $\beta$.
+
+2. Measure the qubit and record the outcome. We either get 0 or 1. Say for example we obtain 1.
+
+3. We cannot prepare a new qubit matching the old one! We still don’t know 𝛼 and 𝛽.
+
+4. Plus the original qubit is now destroyed!
+
+There is no process to copy an unknown qubit. This is a consequence of the `no-cloning theorem`, which is stated as follows:
+
+"An **unknown** quantum state cannot be **precisely** recreated, it cannot be cloned".
+
+Two important words are written in **bold** in the above theorem:
+- **Unknown**: Known states can be copied infinitely many times, simply by repeating the known algorithm used to prepare them
+- **Precisely**: Approximate cloning is possible, by taking thousands of measurements in different bases [Bužek & Hillery, PRL 81 22 (1998)].
 
 
 ### Entanglement
+
+Consider the Hilbert space over two subsystems $A$ and $B$, written as $=\mathcal{H}_A\otimes\mathcal{H}_B$. A general state of $\mathcal{H}$ is given by
+$$
+\ket{\psi}_{AB}=\sum_{ij}c_{ij}\ket{i}_A\ket{j}_B.
+$$
+- If $\ket{\psi}_{AB}$ **can** be written as $\ket{x}_A\cdot\ket{y}_B$ then $\ket{\psi}_{AB}$ is `separable`.
+- If $\ket{\psi}_{AB}$ **cannot** be written as $\ket{x}_A\cdot\ket{y}_B$ then $\ket{\psi}_{AB}$ is `entangled`.
+
+Entangled systems share a quantum state. A measurement performed on one subsystem instantaneously changes the state of the other subsystem, no matter how far apart they may be. Einstein called this ‘spooky action at a distance’.
+
+
 ### Tunnelling 
 
 
@@ -360,10 +400,3 @@ $$
 
 - For a mixed state, $\rho^2 \ne \rho$, and $\text{Tr}(\rho) <1$.
 
-
-[youtube](https://youtube.com/clip/Ugkxh9W3xafNSWAP-VU9LCrRXkx9kgUH0mY8?si=MVsRsDUeJld5fV9_)
-
-
-
-
-[^1]: See the [Wikipedia article on set](https://en.wikipedia.org/wiki/Set_(mathematics)) for more details.
