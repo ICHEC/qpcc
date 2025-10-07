@@ -285,7 +285,7 @@ The overlap, or inner product of the resulting state with initial state gives th
 - For the superposition state, the outcome is probabilistic with expectation value
 
 $$
-\begin{align}
+\begin{align*}
 \langle a \rangle &= \langle s|A|s \rangle =
 \left(
     \sum_{l'}c_{l'}^*\langle l'|
@@ -296,11 +296,48 @@ $$
 &=
 \sum_{l,l'}c_{l'}^*c_l a_l\langle l'|l \rangle
 = \sum_l a_l|c_l|^2
-\end{align}
+\end{align*}
 $$
 
 which is same as one interpreted as measurement outcome in the previous section.
 
+### Measurement in the computational basis
+
+The **Born rule** tells us that if we measure a generic qubit state, $\psi=\alpha\ket{0}+\beta\ket{1}$, in the computational basis, $\{\ket{0},\ket{1}\}$, the probability of outcome 0 is given by
+$$
+\begin{align*}
+P(0)&=|\langle0|\psi\rangle|^2\\
+&=|\bra{0}\left(\alpha\ket{0}+\beta\ket{1}\right)|^2\\
+&=|\langle0|\alpha|0\rangle+\langle0|\beta|1\rangle|^2\\
+&=|\alpha\langle0|0\rangle+\beta\langle0|1\rangle|^2\\
+&=|\,\alpha\cdot1+\beta\cdot0\,|^2
+\\
+&=|\alpha|^2.
+\end{align*}
+$$
+Via similar working we can calculate that the probability of outcome 1 is given by
+$$
+P(1)=|\langle1|\psi\rangle|^2=|\beta|^2.
+$$
+
+### Measurement in a different basis
+
+We can generalise the above procedure to account for measuring a state $\ket{\psi}$ in any basis $\{\ket{b_i}\}$. Each possible measurement outcome corresponds to a **projector**
+$$
+P_i=\ket{b_i}\bra{b_i}.
+$$
+The probability of outcome $i$ is
+$$
+\begin{align*}
+P(i)&=\langle\psi|P_i|\psi\rangle\\
+&=\langle\psi|b_i\rangle\langle b_i|\psi\rangle\\
+&=|\langle b_i|\psi\rangle|^2
+\end{align*},
+$$
+where in the final line we have used the fact that $\langle b_i|\psi\rangle$ is the complex conjugate of $\langle\psi|b_i\rangle$, and a complex number multipled by its own complex conjugate gives the square of its magnitude,
+$$
+z\cdot z^*=|z|^2, \; z\in\mathbb{C}
+$$
 
 ## Hilbert space of Qubits
 
