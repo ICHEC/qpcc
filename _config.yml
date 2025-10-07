@@ -44,6 +44,7 @@ sphinx:
   config:
     html_show_copyright: false
     drawio_headless: auto
+    html_extra_path: ['assets']
 
 parse:
   myst_enable_extensions:
