@@ -325,7 +325,7 @@ $$
 
 ### Measurement in a different basis
 
-We can generalise the above procedure to account for measuring a state $\ket{\psi}$ in any basis $\{\ket{b_i}\}$. Each possible measurement outcome corresponds to a **projector**
+We can generalise the above procedure to account for measuring a state $\ket{\psi}$ in any basis $\{\ket{b_i}\}$. Each possible measurement outcome corresponds to a **projector**,
 
 $$
 P_i=\ket{b_i}\bra{b_i}.
@@ -337,14 +337,14 @@ $$
 \begin{align*}
 P(i)&=\langle\psi|P_i|\psi\rangle\\
 &=\langle\psi|b_i\rangle\langle b_i|\psi\rangle\\
-&=|\langle b_i|\psi\rangle|^2
-\end{align*},
+&=|\langle b_i|\psi\rangle|^2,
+\end{align*}
 $$
 
 where in the final line we have used the fact that $\langle b_i|\psi\rangle$ is the complex conjugate of $\langle\psi|b_i\rangle$, and a complex number multipled by its own complex conjugate gives the square of its magnitude,
 
 $$
-z\cdot z^*=|z|^2, \; z\in\mathbb{C}
+z\cdot z^*=|z|^2, \; z\in\mathbb{C}.
 $$
 
 ## Hilbert space of Qubits
