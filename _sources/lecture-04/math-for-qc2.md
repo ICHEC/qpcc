@@ -304,8 +304,8 @@ which is same as one interpreted as measurement outcome in the previous section.
 ### Measurement in the computational basis
 
 The **Born rule** tells us that if we measure a generic qubit state, $\psi=\alpha\ket{0}+\beta\ket{1}$, in the computational basis, $\{\ket{0},\ket{1}\}$, the probability of outcome 0 is given by
-$$
-\begin{align*}
+
+$$\begin{align*}
 P(0)&=|\langle0|\psi\rangle|^2\\
 &=|\bra{0}\left(\alpha\ket{0}+\beta\ket{1}\right)|^2\\
 &=|\langle0|\alpha|0\rangle+\langle0|\beta|1\rangle|^2\\
@@ -315,18 +315,24 @@ P(0)&=|\langle0|\psi\rangle|^2\\
 &=|\alpha|^2.
 \end{align*}
 $$
+
 Via similar working we can calculate that the probability of outcome 1 is given by
+
 $$
 P(1)=|\langle1|\psi\rangle|^2=|\beta|^2.
 $$
 
+
 ### Measurement in a different basis
 
 We can generalise the above procedure to account for measuring a state $\ket{\psi}$ in any basis $\{\ket{b_i}\}$. Each possible measurement outcome corresponds to a **projector**
+
 $$
 P_i=\ket{b_i}\bra{b_i}.
 $$
+
 The probability of outcome $i$ is
+
 $$
 \begin{align*}
 P(i)&=\langle\psi|P_i|\psi\rangle\\
@@ -334,7 +340,9 @@ P(i)&=\langle\psi|P_i|\psi\rangle\\
 &=|\langle b_i|\psi\rangle|^2
 \end{align*},
 $$
+
 where in the final line we have used the fact that $\langle b_i|\psi\rangle$ is the complex conjugate of $\langle\psi|b_i\rangle$, and a complex number multipled by its own complex conjugate gives the square of its magnitude,
+
 $$
 z\cdot z^*=|z|^2, \; z\in\mathbb{C}
 $$
