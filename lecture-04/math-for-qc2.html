@@ -412,6 +412,7 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mixed-state">Mixed state</a></li>
 </ul>
 </li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-qubit-state-visualization">Interactive Qubit State Visualization</a></li>
 </ul>
 </li>
 </ul>
@@ -825,6 +826,32 @@ B_4 = &amp;\{
 </ul>
 </section>
 </section>
+<section id="interactive-qubit-state-visualization">
+<h3>Interactive Qubit State Visualization<a class="headerlink" href="#interactive-qubit-state-visualization" title="Link to this heading">#</a></h3>
+<p>Below we show an interactive illustration how a qubit is visualized on a Bloch sphere. An arbitrary qubit can be expressed in terms of two angles  <span class="math notranslate nohighlight">\(\theta, \phi\)</span>, which are mapped to unit vectors in 3D as follows</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+|\theta, \phi\rangle = \begin{pmatrix}
+    \cos{\frac{\theta}{2}}\\
+    e^{i\phi}\sin{\frac{\theta}{2}}
+\end{pmatrix}
+\longleftrightarrow
+\begin{pmatrix}
+    \sin{\theta}\cos{\phi}\\
+    \sin{\theta}\sin{\phi}\\
+    \cos{\theta}
+\end{pmatrix}
+\end{split}\]</div>
+<p>The interactive widget below lets you move the <span class="math notranslate nohighlight">\(\theta, \phi\)</span> on the plane to show how the corresponding point on the Bloch sphere moves with it.</p>
+<iframe 
+    src="../bloch-sphere.html" 
+    width="100%" 
+    height="600px" 
+    style="border: 2px solid #ccc; border-radius: 8px;"
+    loading="lazy"
+></iframe>
+<p>Use the controls on the left to drag the state and the mouse to rotate the 3D sphere.</p>
+</section>
 </section>
 </section>
 
@@ -923,6 +950,7 @@ B_4 = &amp;\{
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mixed-state">Mixed state</a></li>
 </ul>
 </li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-qubit-state-visualization">Interactive Qubit State Visualization</a></li>
 </ul>
 </li>
 </ul>

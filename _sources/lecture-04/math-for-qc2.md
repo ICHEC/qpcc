@@ -456,3 +456,31 @@ $$
 
 - For a mixed state, $\rho^2 \ne \rho$, and $\text{Tr}(\rho) <1$.
 
+### Interactive Qubit State Visualization
+
+Below we show an interactive illustration how a qubit is visualized on a Bloch sphere. An arbitrary qubit can be expressed in terms of two angles  $\theta, \phi$, which are mapped to unit vectors in 3D as follows
+
+$$
+|\theta, \phi\rangle = \begin{pmatrix}
+    \cos{\frac{\theta}{2}}\\
+    e^{i\phi}\sin{\frac{\theta}{2}}
+\end{pmatrix}
+\longleftrightarrow
+\begin{pmatrix}
+    \sin{\theta}\cos{\phi}\\
+    \sin{\theta}\sin{\phi}\\
+    \cos{\theta}
+\end{pmatrix}
+$$
+
+The interactive widget below lets you move the $\theta, \phi$ on the plane to show how the corresponding point on the Bloch sphere moves with it.
+
+<iframe 
+    src="../bloch-sphere.html" 
+    width="100%" 
+    height="600px" 
+    style="border: 2px solid #ccc; border-radius: 8px;"
+    loading="lazy"
+></iframe>
+
+Use the controls on the left to drag the state and the mouse to rotate the 3D sphere.
