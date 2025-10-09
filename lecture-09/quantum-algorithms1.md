@@ -130,7 +130,7 @@ Let's start with a quick recap of why we need quantum computers:
     2. Quantum walks.
     3. Quantum phase estimation (Shor's algorithm).
     
-```{drawio-image} ./images/early_algorithms.drawio
+```{image} ./images/early_algorithms.svg
     :align: center
     :width: 100%
 ```

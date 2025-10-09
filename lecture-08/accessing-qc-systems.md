@@ -375,14 +375,15 @@ These providers create both the hardware and software layer while also providing
 %:align: center
 %```
 
-```{drawio-image} ./q-stack.drawio
+```{image} ./q-stack.svg
 :export-scale: 150
 ```
 
 ### IBM Quantum
-```{drawio-image} ./ibm-q.drawio
+```{image} ./ibm-q.svg
 :align: center
 ```
+
 IBM Quantum is one the popular emerging provider for software and hardware stacks for quantum computing. Lets take a closer look at IBM Quantum and what they offer.
 
 Firstly, we have [Qiskit](https://www.ibm.com/quantum/qiskit), the quantum computing software library which serves as a complete quantum computing software library. Using Qiskit, one can develop quantum circuit based algorithms an applications, simulate these programs on Qiskits Aer backend simulator or run the program on IBMs quantum hardware. The maximum qubit IBM had reached till last year was 433, [Osprey](https://www.allaboutcircuits.com/news/exclusive-ibm-shares-details-of-its-400-plus-qubit-quantum-processor/) quantum processor. [OpenQASM](https://openqasm.com/) serves as Qiskit's Quantum Assembly language, which is an intermediate between the qiskit and the classical or quantum hardware. Secondly, IBM also offer a quantum computing cloud environment called IBM quantum lab, in which you can develop and run qiskit based programs on simulators or quantum hardware. 
@@ -427,7 +428,7 @@ Here is the screenshot of the [IBM quantum composer](https://quantum.ibm.com/com
 ### Xanadu
 
 
-```{drawio-image} ./xanadu-cl.drawio
+```{image} ./xanadu-cl.svg
 :align: center
 ```
 
@@ -465,7 +466,7 @@ Here is the link to [Xanadu codebook](https://codebook.xanadu.ai/). Please also 
 
 We see a similar structure to IBM and Xanadu with D-Wave with some differences. Most notably that D-Wave uses **quantum annealing** based programming, with Ocean, and quantum annealing hardware. Ocean is D-wave's software suit. D-Wave also offers unique hybrid Classical-Quantum Solvers. Classical simulation can also be performed on D-Waves so-called classical solvers. D-Wave also offers an online cloud-computing service akin to IBM and Xanadu called the Leap IDE.  ​
 
-```{drawio-image} ./dwave-diag.drawio
+```{image} ./dwave-diag.svg
 :align: center
 ```
 
@@ -482,9 +483,10 @@ D-Wave maintains the lead in the industry for their use of quantum annealing har
 
 ### Heterogenous cloud quantum systems
 
-```{drawio-image} ./hetero-cloud.drawio
+```{image} ./hetero-cloud.svg
 :align: center
 ```
+
 We will now move on to Heterogenous Cloud Quantum Systems and these are quantum programming online environments in which the elements of the quantum stack are developed by multiple different providers. For example, in this diagram the applications are sourced from provider A, the algorithms from C and the harwdware and software from provider B. The stack is then implemented in a cloud system usually provided by another party.​
 
 The notable providers for heterogenous systems are following -
@@ -499,7 +501,7 @@ The notable providers for heterogenous systems are following -
 
 One example of a heterogenous quantum cloud system is **Amazon's Braket**. Amazon Braket offers the use of it's own quantum computing langauge and simulators which are confusingly also called Braket, and it also offers hardware access to many different systems including Rigetti, IonQ, D-Wave, Xanadu, and Oxford Quantum Circuits.
 
-```{drawio-image} ./braket.drawio
+```{image} ./braket.svg
 :align: center
 ```
 
@@ -513,9 +515,10 @@ One example of a heterogenous quantum cloud system is **Amazon's Braket**. Amazo
 
 QCWare Forge is next on the list of Heterogenous providers, and they offer the use of their own QCWare language and simulators. They also offer classical and quantum hardware access to the providers listed in the figure below.
 
-```{drawio-image} ./qcware.drawio
+```{image} ./qcware.svg
 :align: center
 ```
+
 More details on their `qcware` software can be found [here](https://qcware.readthedocs.io/en/latest/index.html). This library can be installed via `pip install qcware`, however you need to register with the vendor to get the API_KEY to be able to use the library.
 
 - Current Capabilities
@@ -532,7 +535,7 @@ More details on their `qcware` software can be found [here](https://qcware.readt
 
 Microsoft also offers a heterogenous cloud system in which you can use their `Q#` language and simulators. THey also offer access to Toshiba's GPUs for classical simulation. The quantum hardware access includes Quantinuum, Pasqal, Quantum Circuit Inc, IonQ and Rigetti.
 
-```{drawio-image} ./ms-az-q.drawio
+```{image} ./ms-az-q.svg
 :align: center
 ```
 
@@ -555,7 +558,7 @@ Microsoft also offers a heterogenous cloud system in which you can use their `Q#
 
 Google similarly offers a heterogenous cloud quantum system called Google Quantum AI. Google's Cirq quantum programming language can be used as well as their simulators and quantum hardware, the most powerful being Sycamore. While Google is relatively more self contained then the other hetorogenous cloud providers, they also offer Quantum HArdware Access to AQT, IonQ, Microsoft Azure Quantum, Pasqal, and Rigetti. ​
 
-```{drawio-image} ./google-q-ai.drawio
+```{image} ./google-q-ai.svg
 :align: center
 ```
 
@@ -578,7 +581,7 @@ Google similarly offers a heterogenous cloud quantum system called Google Quantu
 
 IonQ offers a heterogenous cloud quantum system named IonQ Quantum Cloud. IonQ offers a unique language agnostic serviice, which can manipulate their Quantum Simulators and hardware. They alos provide use of various quantum software listed on the right.​
 
-```{drawio-image} ./ionq.drawio
+```{image} ./ionq.svg
 :align: center
 ```
 
@@ -588,7 +591,7 @@ IonQ offers a heterogenous cloud quantum system named IonQ Quantum Cloud. IonQ o
 
 The last section we will cover is Publicly-Funded quantum systems. Firstly lets take a look at Irish National systems, most notably provided by the Irish Centre for High-End Computing which offers various bespoke quantum systems including Atos QLM, Intel Quantum Simualtors, Qulacs, Pennylane, Qiskit, and Tket.
 
-```{drawio-image} ./ichec-qlp.drawio
+```{image} ./ichec-qlp.svg
 :align: center
 ```
 
