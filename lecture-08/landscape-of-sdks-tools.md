@@ -255,7 +255,7 @@ These out-of-the-box quantum programming stacks come with some pros and cons. Fo
 
 ````{card} IBM Quantum Lab
 
-```{drawio-image} ./ibm-q.drawio
+```{image} ./ibm-q.svg
 :export-scale: 70
 ```
 
@@ -263,7 +263,7 @@ These out-of-the-box quantum programming stacks come with some pros and cons. Fo
 
 ````{card} Amazon Braket
 
-```{drawio-image} ./braket.drawio
+```{image} ./braket.svg
 :export-scale: 70
 ```
 

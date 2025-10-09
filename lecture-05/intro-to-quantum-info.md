@@ -16,7 +16,7 @@ This is a placeholder for the Guest Lecture. It will be populated in due time wi
 ``````{admonition} The Speaker: Dr. Homer Papadopoulos
 :class: information
 
-Dr. Homer Papadopoulos is a functional researcher at the Institute of Informatics and Telecommunications (IIT) of NCSR Demokritos and co-founder of the startup **Syndesis Ltd**, living and working in Athens. A natural polymath, Dr. Papadopoulos holds degrees in Physics, Telecommunications, Management, and a PhD in Information Systems Science, among others. With over 20 years of research experience, he has submitted numerous papers in various fields, showcasing his expertise and deep understanding of complex subjects and he has created multidisciplinary research programs, consistently pushing the boundaries of innovation in digital technologies. 
+Dr. Homer Papadopoulos is a functional researcher at the Institute of Informatics and Telecommunications (IIT) of NCSR Demokritos and co-founder of the startup **Syndesis Ltd**, living and working in Athens. A natural polymath, Dr. Papadopoulos holds degrees in Physics, Telecommunications, Management, and a PhD in Information Systems Science, among others. With over 21 years of research experience, he has submitted numerous papers in various fields, showcasing his expertise and deep understanding of complex subjects and he has created multidisciplinary research programs, consistently pushing the boundaries of innovation in digital technologies. 
 
 ```{card}
 :align: center
