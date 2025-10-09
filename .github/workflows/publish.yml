@@ -21,8 +21,6 @@ jobs:
 
     - name: Install dependencies
       run: |
-        wget https://github.com/jgraph/drawio-desktop/releases/download/v23.1.5/drawio-amd64-23.1.5.deb
-        sudo apt -f install ./drawio-amd64-23.1.5.deb
         pip install -r requirements.txt
 
 
