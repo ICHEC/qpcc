@@ -37,11 +37,12 @@ The Institute of Informatics and Telecommunications - [IIT](https://www.iit.demo
 
 ```{admonition} Summary
 :class: information
-He will first touch upon what is information, and how do we quantify it. He will describe aspects of information, such as transferring from point A to point B, encoding and decoding information, and measuring information. He will describe the distinction between classical and quantum information, and tools for measuring quantum information.
 
-He will then dwelve into aspect of information security, particularly encryption. He will describe what cryptography is, and how it is used to safely transfer information for the right recepient, and protect it from third party. He will discuss symmetric and assymmytric cryptography, and digital signatures.
+He will first touch upon what is information, and how does one quantify it. He will describe aspects of information, such as transferring from `point A` to `point B`, _encoding_ and _decoding_ information, and _measuring_ information. He will describe the distinction between classical and quantum information, and tools for measuring quantum information.
 
-This will be followed by some demos on cryptography, and then he will discuss Quantum enabled cryptography, quantum key distribution (QKD), quantum random number generation, and challenges in quantum cryptography, and introduce post-quantum cryptography (PQC). He will conclude the lecture after discussing some necessary aspects of PQC.
+He will then delve into aspects of information security, particularly encryption. He will describe what _cryptography_ is, and how it is used to safely transfer information to the right recipient, and protect it from third parties. He will discuss symmetric and asymmetric cryptography, and digital signatures.
+
+This will be followed by some demos on cryptography, and then he will discuss quantum-enabled cryptography, quantum key distribution (QKD), quantum random number generation, and challenges in quantum cryptography, followed by an introduction to quantum teleportation as a building block for quantum networks, and how quantum repeaters and quantum memories enable long-distance quantum communication. He will briefly introduce post-quantum cryptography (PQC) and conclude the lecture with real-world implementations that combine QKD and PQC.
 ```
 
 ## References
