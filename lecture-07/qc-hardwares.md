@@ -53,8 +53,11 @@ https://resonance.meetiqm.com/sign-up/ichec
 :class: information
 
 Links:
-- Sign up for Resonance: https://resonance.meetiqm.com/sign-up/ichec
-Documentation for Pulla (pulse-level access) available via: https://docs.meetiqm.com/
-A quantum engineer's guide to superconducting qubits: https://pubs.aip.org/aip/apr/article/6/2/021318/570326
+
+Sign up for Resonance: https://resonance.meetiqm.com/sign-up/ichec
+
+- Documentation for Pulla (pulse-level access) available via: https://docs.meetiqm.com/
+
+- A quantum engineer's guide to superconducting qubits: https://pubs.aip.org/aip/apr/article/6/2/021318/570326
 
 ```
