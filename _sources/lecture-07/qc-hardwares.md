@@ -15,28 +15,24 @@ This is a placeholder for the Guest Lecture. It will be populated in due time wi
 
 
 ## About the Guest
-``````{admonition} The Speaker: David Redmond
+``````{admonition} The Speaker: Dr. Stefan Seegerer
 :class: information
 
-David Redmond received the B.E.E. degree from University College Cork, in 1988, and the M.Sc. degree in mathematics from University College Dublin, in 2017. He was involved in the semiconductor industry for more than 30 years developing high volume consumer and industrial products from handset 2/3/4G RF transceivers, to SerDes and Gigabit Ethernet products for such companies, such as AT&T Lucent, S3, Motorola, Freescale, and Analog Devices, operating at various levels of corporate research and development and product development. Since 2020, he has been with Equal1 Labs for VP AI & silicon. His research interests include machine learning and statistics.
-
-From [IEEE Xplore](https://ieeexplore.ieee.org/author/37089004330)
+**BIO:**
+Dr. Stefan Seegerer is the Head of Product, Quantum Platform at IQM Quantum Computers, a global leader in superconducting quantum computers. 
 
 ```{card}
 :align: center
-[LinkedIn Profile: David Redmond](https://www.linkedin.com/in/davidredmo/)
+URL: [Dr. Stefan Seegerer](https://www.stefanseegerer.de/speaker-details)
 ```
 ``````
 
 
 ```{admonition} Affiliation and activities
-David has been with the Equal1 since 2020, working towards building silicon based quantum computing device. His expertise include:
 
-ML hardware for QEC, mixed-signal circuits for qubit control, ML mixed-signal CMOS accelerators 
-Quantum Algorithms, Quantum Error Correction, Hybrid ML quantum algorithms. Deep Learning Networks, NISQ Quantum Computers, Time series, Anomaly detection, Computer vision. 
-IIoT sensors to cloud to insights, vibrational analysis and predictive maintenance, business innovation, 
-Industrial and Consumer ethernet.
-Full Silicon Product development for consumer and industrial products 
+**Head of Product, Quantum Platform, IQM Quantum Computers**
+
+In his role at IQM, he helps define how people interact and work with quantum computers. As an experienced educator, he has conducted more than 100 workshops and talks and designed a variety of teaching and learning materials in the field of quantum computing and artificial intelligence such as IQM Academy. In recognition of his contributions, he was awarded AI Newcomer in 2021 by the German Computer Science Society and the German Ministry of Science and Education and the Balzert award for his contributions to computing education.
 ```
 
 ## Summary of lecture
@@ -44,7 +40,9 @@ Full Silicon Product development for consumer and industrial products
 ```{admonition} Summary
 :class: information
 
-This lecture will be illustrating how a quantum computing device is built. He will go through the underlying technology to define qubits, methods to control them, and challenges there in.
+We will explore together what makes up a superconducting quantum computer, how a superconducting quantum computer works, and how it’s controlled (via microwave pulses). As we will be using a superconducting quantum computer during the session, please make sure to create an account for IQM Resonance ahead of the session using this link: 
+
+https://resonance.meetiqm.com/sign-up/ichec
 
 ```
 
@@ -54,10 +52,9 @@ This lecture will be illustrating how a quantum computing device is built. He wi
 ```{admonition} References
 :class: information
 
-**Recommended Reading**
-
-
-**Advance Reading**
-
+Links:
+- Sign up for Resonance: https://resonance.meetiqm.com/sign-up/ichec
+Documentation for Pulla (pulse-level access) available via: https://docs.meetiqm.com/
+A quantum engineer's guide to superconducting qubits: https://pubs.aip.org/aip/apr/article/6/2/021318/570326
 
 ```
