@@ -36,7 +36,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/drawio.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/style.css?v=fb429c44" />
+    <link rel="stylesheet" type="text/css" href="../_static/style.css?v=9c06fe5a" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -427,7 +427,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scaling-quantum-hardware">Scaling Quantum hardware</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix">Appendix</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
             </nav>
@@ -460,7 +459,7 @@ document.write(`
 <p>First let us answer the question of Why we need quantum computers, There are broadly two reasons why Quantum Computing promises to be useful to us in the future of computing.</p>
 <ul class="simple">
 <li><p>The first reason is that there exist a class of problems which are very difficult to solve on Classical Computers but can be efficiently calculated on a Quantum Computer. These include certain Optimization problems, Chemical Simulations and some search problems, Quantum computers can theoretically solve these problems in exponentially fewer computational steps in comparison to their classical counterpart.</p></li>
-<li><p>Secondly,Classical computers and processors are getting smaller as observed by the Moore’s law, which was introduced in the previous module, the Quantum effects within the Hardware start becoming more apparent the Quantum Interactions between the individual bits start affecting the information stored in the system and therefore it is important to understand Quantum Phenomenon to build better Classical Processors in the future.</p></li>
+<li><p>Secondly, Classical computers and processors are getting smaller as observed by the Moore’s law, which was introduced in the previous module, the Quantum effects within the Hardware start becoming more apparent the Quantum Interactions between the individual bits start affecting the information stored in the system and therefore it is important to understand Quantum Phenomenon to build better Classical Processors in the future.</p></li>
 </ul>
 </section>
 <section id="qubits">
@@ -491,7 +490,54 @@ document.write(`
 <section id="quantum-computation-workflow">
 <h2>Quantum Computation Workflow<a class="headerlink" href="#quantum-computation-workflow" title="Link to this heading">#</a></h2>
 <p>Let’s take a look at how the workflow of a Quantum Computation is different from the Classical Computation we’re familiar with, In the classical workflow we get the data from the given problem statement which acts as the input to the Classical algorithm which gives us the required output.</p>
-<img alt="../_images/worflow.png" class="align-center" src="../_images/worflow.png" />
+<div class="admonition-classical-computational-workflow admonition">
+<p class="admonition-title">Classical Computational Workflow</p>
+<pre align="center" class="mermaid align-center">
+        graph LR
+
+A1{&quot;Classical
+Problem Statement&quot;}
+A2([&quot;Classical
+Dataset&quot;])
+A3([&quot;Classical
+Algorithm&quot;])
+A4{Output}
+
+A1 ==&gt; A2 ==&gt; A3 ==&gt; A4
+
+style A1 fill:#ccf,stroke:#333,stroke-width:3px
+style A2 fill:#ccf,stroke:#333,stroke-width:3px
+style A3 fill:#ccf,stroke:#333,stroke-width:3px
+style A4 fill:#cfc,stroke:#333,stroke-width:3px
+    </pre></div>
+<div class="admonition-quantum-computational-workflow admonition">
+<p class="admonition-title">Quantum Computational Workflow</p>
+<pre align="center" class="mermaid align-center">
+        graph LR
+
+B1{&quot;Classical
+Problem Statement&quot;}
+B2([&quot;Classical
+Dataset&quot;])
+B3([&quot;Quantum
+States&quot;])
+B4([&quot;Quantum
+Algorithm&quot;])
+B5([&quot;Quantum
+Circuit&quot;])
+B6{Output}
+
+B1 ==&gt; B2 ==&quot;Data
+Encoding&quot;==&gt; B3 ==&gt; B4 ==&quot;Circuit
+Compilation&quot;==&gt; B5 ==&gt; B6
+
+style B1 fill:#ccf,stroke:#333,stroke-width:3px
+style B2 fill:#ccf,stroke:#333,stroke-width:3px
+style B3 fill:#fcc,stroke:#333,stroke-width:3px
+style B4 fill:#fcc,stroke:#333,stroke-width:3px
+style B5 fill:#fcc,stroke:#333,stroke-width:3px
+style B6 fill:#cfc,stroke:#333,stroke-width:3px
+    </pre></div>
 <p>The Quantum version of the workflow follows a similar set of steps with a few additional Quantum specific operations in the middle, The first step of generating data from the Classical Problem statement remains the same, however this classical data cannot directly be input into a Quantum Algorithm it needs to be converted into a set of Quantum states this process of conversion of Classical data into a set of input Quantum States is known as Data Encoding, the type of data encoding often depends on the type of quantum Algorithm we choose, we can store multiple copies of these intial Quantum states in a Quantum memory so that we don’t require to reinitialize the input state each time we want to run the circuit, these input states are provided to the Quantum algorithm,  Quantum Computers can physically be implemented using various different architectures which we will discuss in the coming few slides, based on the type of Computing architecture we’re working on the abstract Quantum Algorithm needs to be compiled into a physical Quantum circuit which is then implemented on the hardware, the ouput from the Quantumm circuit often requires a certain amount of Classical post processing to get the required output.</p>
 </section>
 <section id="building-quantum-computers">
@@ -669,13 +715,6 @@ The Error correction schemes allow us to detect and eliminate the errors that ha
 <p>This roadmap shows some of the key milestones we are working towards while building Quantum Computers, we are currently  at the dot on the top left of the graph in a phase called Noisy Intermediate Scale Quantum Computing or NISQ for short, Solutions in the domains of  Quantum Chemistry, Optimization problems and for Machine learning which use noise resistant algorithms are currently being explored  As we improve the systems with the various technologies we just mentioned we will start moving towards towards the bottom right portion of the graph with more qubits and lower error rates until we reach the second red dot which is called the Fault-Tolerant threshold this paradigm will expand the prospective use cases and application of Quantum Computers.</p>
 </section>
 </section>
-<section id="appendix">
-<h2>Appendix<a class="headerlink" href="#appendix" title="Link to this heading">#</a></h2>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>Future updates and Scratchpad</p>
-</div>
-</section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
 </section>
@@ -785,7 +824,6 @@ The Error correction schemes allow us to detect and eliminate the errors that ha
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scaling-quantum-hardware">Scaling Quantum hardware</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix">Appendix</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>
