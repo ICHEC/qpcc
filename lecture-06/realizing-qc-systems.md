@@ -26,7 +26,7 @@ Discuss the types of Quantum Computing Hardware and the Physical components that
 First let us answer the question of Why we need quantum computers, There are broadly two reasons why Quantum Computing promises to be useful to us in the future of computing. 
 
 - The first reason is that there exist a class of problems which are very difficult to solve on Classical Computers but can be efficiently calculated on a Quantum Computer. These include certain Optimization problems, Chemical Simulations and some search problems, Quantum computers can theoretically solve these problems in exponentially fewer computational steps in comparison to their classical counterpart. 
-- Secondly,Classical computers and processors are getting smaller as observed by the Moore’s law, which was introduced in the previous module, the Quantum effects within the Hardware start becoming more apparent the Quantum Interactions between the individual bits start affecting the information stored in the system and therefore it is important to understand Quantum Phenomenon to build better Classical Processors in the future. 
+- Secondly, Classical computers and processors are getting smaller as observed by the Moore’s law, which was introduced in the previous module, the Quantum effects within the Hardware start becoming more apparent the Quantum Interactions between the individual bits start affecting the information stored in the system and therefore it is important to understand Quantum Phenomenon to build better Classical Processors in the future. 
 
 ## Qubits
 
@@ -65,10 +65,61 @@ A sequence of Quantum Gates and Operations in a particular order is known as a Q
 
 Let’s take a look at how the workflow of a Quantum Computation is different from the Classical Computation we’re familiar with, In the classical workflow we get the data from the given problem statement which acts as the input to the Classical algorithm which gives us the required output.
 
-```{image} ./images/worflow.png
+``````{admonition} Classical Computational Workflow
+```{mermaid}
 :align: center
+graph LR
+
+A1{"Classical
+Problem Statement"}
+A2(["Classical
+Dataset"])
+A3(["Classical
+Algorithm"])
+A4{Output}
+
+A1 ==> A2 ==> A3 ==> A4
+
+style A1 fill:#ccf,stroke:#333,stroke-width:3px
+style A2 fill:#ccf,stroke:#333,stroke-width:3px
+style A3 fill:#ccf,stroke:#333,stroke-width:3px
+style A4 fill:#cfc,stroke:#333,stroke-width:3px
+
 ```
-  
+``````
+
+``````{admonition} Quantum Computational Workflow
+```{mermaid}
+:align: center
+
+graph LR
+
+B1{"Classical
+Problem Statement"}
+B2(["Classical
+Dataset"])
+B3(["Quantum
+States"])
+B4(["Quantum
+Algorithm"])
+B5(["Quantum
+Circuit"])
+B6{Output}
+
+B1 ==> B2 =="Data
+Encoding"==> B3 ==> B4 =="Circuit
+Compilation"==> B5 ==> B6
+
+style B1 fill:#ccf,stroke:#333,stroke-width:3px
+style B2 fill:#ccf,stroke:#333,stroke-width:3px
+style B3 fill:#fcc,stroke:#333,stroke-width:3px
+style B4 fill:#fcc,stroke:#333,stroke-width:3px
+style B5 fill:#fcc,stroke:#333,stroke-width:3px
+style B6 fill:#cfc,stroke:#333,stroke-width:3px
+
+```
+``````
+
 
 The Quantum version of the workflow follows a similar set of steps with a few additional Quantum specific operations in the middle, The first step of generating data from the Classical Problem statement remains the same, however this classical data cannot directly be input into a Quantum Algorithm it needs to be converted into a set of Quantum states this process of conversion of Classical data into a set of input Quantum States is known as Data Encoding, the type of data encoding often depends on the type of quantum Algorithm we choose, we can store multiple copies of these intial Quantum states in a Quantum memory so that we don’t require to reinitialize the input state each time we want to run the circuit, these input states are provided to the Quantum algorithm,  Quantum Computers can physically be implemented using various different architectures which we will discuss in the coming few slides, based on the type of Computing architecture we’re working on the abstract Quantum Algorithm needs to be compiled into a physical Quantum circuit which is then implemented on the hardware, the ouput from the Quantumm circuit often requires a certain amount of Classical post processing to get the required output.
 
@@ -193,6 +244,7 @@ All these metrics together determine the performance of the qubits, Scientists a
 :align: center
 ```
 
+
 ### Analog Quantum Simulators
 
 ```{image} ./images/analog.png
@@ -276,12 +328,6 @@ As discussed in the Quantum Workflow it can be useful to have a Quantum Memory t
 
 This roadmap shows some of the key milestones we are working towards while building Quantum Computers, we are currently  at the dot on the top left of the graph in a phase called Noisy Intermediate Scale Quantum Computing or NISQ for short, Solutions in the domains of  Quantum Chemistry, Optimization problems and for Machine learning which use noise resistant algorithms are currently being explored  As we improve the systems with the various technologies we just mentioned we will start moving towards towards the bottom right portion of the graph with more qubits and lower error rates until we reach the second red dot which is called the Fault-Tolerant threshold this paradigm will expand the prospective use cases and application of Quantum Computers.
 
-
-## Appendix
-
-```{tip}
-Future updates and Scratchpad
-```
 
 ## References
 
