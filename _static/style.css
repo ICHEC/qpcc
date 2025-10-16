@@ -82,7 +82,9 @@ table caption .footnote {
     font-size: smaller;
 }
   
+/*
 tr:hover {
-    /*background-color: #ffff00;*/
+    // background-color: #ffff00;
     font-weight: bold;
 }
+*/
