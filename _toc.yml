@@ -31,7 +31,7 @@ parts:
     chapters:
     - file: lecture-08/accessing-qc-systems.md
     - file: lecture-08/landscape-of-sdks-tools.md
-    - file: lecture-08/cloud-qc.md
+    - file: lecture-08/qc-network.md
   - caption: Topic 9
     chapters:
     - file: lecture-09/quantum-algorithms1.md
