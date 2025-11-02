@@ -467,6 +467,7 @@ Table showing the performance of the QFT
 
 - However, QFT is still a central part in lots of other important quantum algorithms like Shor's or Quantum Phase Estimation. 
 
+## Quantum Phase Estimation.
 
 ###  QPE: Definition. 
 
