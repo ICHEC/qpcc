@@ -246,7 +246,7 @@ $$
 From this we see that if we measure $|0\rangle$ on the first qubit that means that the function is **constant**, while if we measure $|1\rangle$ that means that the function is **balanced**, and thus the Deutsch problem is solved. 
 
 
-### Deutsch-Jozsa algorithm
+### Deutsch-Jozsa algorithm.
 
 - So far we have seen the case for 1-bit function. But what if the function is n-bit? 
 
@@ -259,4 +259,302 @@ From this we see that if we measure $|0\rangle$ on the first qubit that means th
 
 - However this algorithms are very important as they showed the power of QC in its early stages. Also, the way they use superposition, parallelism, and interference were a source of inspiration to other algorithms that have shown lots of potential applications, as we will see in the next sections. 
 
-## Quantum Fourier transform. 
+## Quantum Fourier Transform. 
+
+### Fourier analysis I.
+
+- Was invented by Joseph Fourier n the early 19th century, while studying heat transfer. 
+
+- Studies how complex functions can be approximated by sums of sines and cosines. 
+
+```{figure} ./images_2025/sincos.png
+:align: center
+
+Plot of the sine and cosine functions. 
+```
+
+- The quantum Fourier transform has a wide variety of applications:
+
+    - Signal processing.
+    - Electronics.
+    - Machine learning.
+    - Time series analysis.
+    - Quantum mechanics. 
+
+### Fourier analysis II. 
+
+- Let's provide a mathematical definition of what a **Fourier series** is: 
+
+- Let $f(x)$ be a *complex periodic function*. Its Fourier series will be given by: 
+
+    $$f(x) \rightarrow \sum_{n=-\infty}^{n=\infty}c_ne^{i2\pi \frac{n}{P}x},$$
+
+where $P$ is the period of the function, and we assume that the the function $f(x)$ is integrable in the interval $[0,P]$.
+
+- The coefficients $c_n$ will be given by the formula: 
+
+    $$c_n = \frac{1}{P}\int_{0}^{P}f(x)e^{-i2\pi \frac{n}{P}x}dx$$
+
+- We can see that the function $f$ is expanded as a trigonometric series. Each term has a frequency associated, and the coefficients $c_n$ will determine the weight or contribution of each frequency to the signal. 
+
+- Let's see an example of how this works, for the square function $s(x)$. This function is defined as: 
+
+    $$s(x) = sgn(sin(2\pi f_0 x))$$
+
+where $sgn$ is the sign function, and $f_0$ is a real number called *fundamental frequency*. The plot of the square function looks like this: 
+
+```{figure} ./images_2025/square_wave.png
+:align: center
+
+Plot of the square wave. 
+```
+
+
+- If we solve the integral for the coefficients we obtain that: 
+
+    $$
+    \left\{\begin{matrix}c_n= 0 \text{ for }k\text{ even.}\\c_n= -i\frac{2}{\pi k} \text{ for }k\text{ odd.} \end{matrix}\right .
+    $$
+
+if we substitute this coefficients in the Fourier series formula, and arranging terms, we obtain that: 
+
+$$
+s(x) \rightarrow \frac{4}{\pi} \sum_{k=1,3,5,\dots}^{\infty} \frac{1}{k} \sin(2\pi k f_0 x)
+$$
+
+- The more terms we add in the series, the better if will approximate the function $s(x)$. In the plots below we can see the Fourier series when using 1,2,3 and 4 first terms of the Fourier series. 
+
+| ![1- term Fourier series](./images_2025/square_wave_fourier_1.png) | ![2- term Fourier series](./images_2025/square_wave_fourier_2.png) |
+|:--:|:--:|
+| ![3- term Fourier series](./images_2025/square_wave_fourier_3.png) | ![4 - term Fourier series](./images_2025/square_wave_fourier_4.png) |
+
+
+### Discrete Fourier Transform and Quantum Fourier Transform.
+
+- In the previous section we saw the Fourier series for a function defined over a continuous domain. The **discrete Fourier transform (DFT)** is the analogous of Fourier series, but for a a sequence of **discrete values**. It takes a discrete set of points $\{x_n\}:=x_0,\dots,x_{N-1} \rightarrow \{X_n\}:=X_0,\dots,X_{N-1}$, where the values $X_k$ are given by the formula: 
+
+$$
+X_k = \sum_{j=0}^{N-1}x_je^{-i2\pi\frac{j}{N}k}
+$$
+
+- Similar to the continuous case, the coefficients $X_k$ tell us how much the frequency $k$ is contributing to our function. 
+
+- The **Quantum Fourier transform (QFT)** is defined as the transformation that takes an state $|x\rangle=\sum_{i=0}^{N-1}x_i|i\rangle\rightarrow |y\rangle=\sum_{i=0}^{N-1} y_i|i\rangle$, where the values $y_i$ are given by the formula: 
+
+$$
+y_k = \frac{1}{\sqrt{N}}\sum_{j=0}^{N-1}x_je^{i2\pi\frac{j}{N}k}
+$$ 
+
+- The QFT has a direct correspondece with the DFT, but in this case the transformation acts on a quantum state. The different sign in the exponent is just a mathematical convention. 
+
+
+### QFT: Circuit notation. 
+
+- Before introducing the circuit implementing the QFT, let's make a few notes about *circuit notation*: 
+
+    - *Binary representation of a n-qubit basis*: Sometimes it its useful to represent our basis vectors $|0\rangle,\dots, |2^{n-1}\rangle$  in binary notation:
+
+    $$ |j\rangle = |j_12^{n-1} + j_22^{n-2} + \dots + j_n 2^{0}\rangle = |j_1j_2\dots j_n\rangle $$ 
+
+    - *Binary fractions* : They are defined in a similar way as binary integers: 
+
+    $$ 0.j_1j_2\dots j_n=\frac{j_1}{2} + \frac{j_2}{4} + \dots + \frac{j_n}{2^{n}} $$ 
+
+    - *Hadamard gate in binary fraction notation* : 
+
+    $$ H|j_1\rangle = |0\rangle + e^{2\pi i0.j_1}|1\rangle $$ 
+
+
+
+
+
+### Prodcut representation of QFT. 
+
+- We saw in the previous section that the QFT operator performs the following transformation on the states of the basis $|j\rangle$:
+
+$$
+|j\rangle \longrightarrow \frac{1}{\sqrt{N}} \sum_{k=0}^{N-1} e^{2\pi i jk / N} \, |k\rangle
+$$
+
+- This transformation can be rewritten as: 
+
+$$
+|j_1, \dots, j_n\rangle \;\rightarrow\; 
+\big(|0\rangle + e^{2\pi i 0.j_n} |1\rangle\big)
+\big(|0\rangle + e^{2\pi i 0.j_{n-1} j_n} |1\rangle\big) 
+\cdots 
+\big(|0\rangle + e^{2\pi i 0.j_1 j_2 \dots j_n} |1\rangle\big)
+$$ 
+
+this is called the **product representation of QFT**. $n$ is the number of qubits. Let's see its algebraic derivation: 
+
+$$
+|j\rangle \;\rightarrow\; 
+\frac{1}{2^{n/2}} \sum_{k=0}^{2^n - 1} e^{2\pi i jk / 2^n} |k\rangle \\[2mm]
+\;=\; 
+\frac{1}{2^{n/2}} \sum_{k_1 = 0}^{1} \cdots \sum_{k_n = 0}^{1}
+e^{2\pi i j \sum_{l=1}^{n} k_l 2^{-l}} |k_1 \dots k_n\rangle \\[1mm]
+\;=\; 
+\frac{1}{2^{n/2}}  \sum_{k_1 = 0}^{1} \cdots \sum_{k_n = 0}^{1}  \bigotimes_{l=1}^{n} e^{2\pi i jk_l  2^{-l}}|k_l\rangle\\[1mm]
+\;=\; 
+\frac{1}{2^{n/2}} \bigotimes_{l=1}^{n}\big(\sum_{k_l=0}^{1} e^{2\pi i jk_l2^{-l}} |k_l\rangle  \big) \\[1mm]
+\;=\; 
+\frac{1}{2^{n/2}} \bigotimes_{l=1}^{n} \big( |0\rangle + e^{2\pi i j 2^{-l}} |1\rangle \big) \\[1mm]
+\;=\; 
+\frac{1}{2^{n/2}}
+\big( |0\rangle + e^{2\pi i 0.j_n} |1\rangle \big)
+\big( |0\rangle + e^{2\pi i 0.j_{n-1} j_n} |1\rangle \big)
+\cdots
+\big( |0\rangle + e^{2\pi i 0.j_1 j_2 \dots j_n} |1\rangle \big)
+$$
+
+
+###  QFT: Circuit. 
+
+
+- For building the circuit what we will call $R_k$ gate, which is defined as: 
+
+$$
+R_k = \left[\begin{matrix}1 & 0 \\ 0 & e^{2\pi i/2^k}\end{matrix}\right]
+$$
+
+as we see is just a $P$ gate with a value of $\theta=2\pi/2^{k}$.
+
+- A controlled version of the $R_k$ gate can be build. Remembering how a controlled gate acts, let's look at this circuit: 
+
+```{figure} ./images_2025/qft_circuit_1.png
+:align: center
+
+Building block of QFT circuit
+```
+
+- It is easy to see that the state of this circuit is: 
+
+$$
+\frac{1}{\sqrt{2}}\left(|0\rangle + e^{2\pi i0.j_1j_2\dots j_n}|1\rangle\right)|j_2\dots j_n\rangle
+$$
+
+- This will be the building block of QFT. In the picture below we can see the QFT circuit for $n$ qubits: 
+
+```{figure} ./images_2025/qft_circuit_2.png
+:align: center
+QFT circuit for n qubits
+```
+
+- Now the state of the circuit would be: 
+
+$$
+\frac{1}{2^{n/2}} 
+\big(|0\rangle + e^{2\pi i 0.j_1 j_2 \dots j_n} |1\rangle\big)
+\big(|0\rangle + e^{2\pi i 0.j_2 \dots j_n} |1\rangle\big)
+\cdots
+\big(|0\rangle + e^{2\pi i 0.j_n} |1\rangle\big)
+$$ 
+
+we can see that the state is almost equal to the product representation we saw in previous section. The last step would be to apply SWAP gates (that interchange the state of two qubits) so that we retrieve the QFT formula. This will be the *circuit representation of QFT operator*. 
+
+
+### QFT: Remarks and conclusions. 
+
+```{figure} ./images_2025/qft_performance.png
+:align: center
+Table showing the performance of the QFT
+```
+
+- The table above shows the performance of the QFt compared to FFT. Even if the improvement compared to classical case seems to be huge, there are two caveats we need to have into account:
+    - There are no efficient way of preparing a state $x$ in a quantum computer. Encoding a vector $x$ in a quantum computer may be very difficult or even impossible in actual devices.
+    - When we measure a state, we obtain probabilities, which are the square module of amplitudes. So we can't directly access the amplitudes of QFT transformation by performing a measurement. 
+
+- However, QFT is still a central part in lots of other important quantum algorithms like Shor's or Quantum Phase Estimation. 
+
+
+###  QPE: Definition. 
+
+- The *quantum phase estimation* or QPE is a a quantum algorithm that tries to find the norm-1 eigenvalues of a unitary operator $U$: 
+
+$$ 
+U|u\rangle = e^{2\pi i \phi}|u\rangle
+$$
+
+The QPE algorithm will output the value of the phase $\phi$ of the eigenvalues. 
+
+- The algorithm works based in two assumptions: 
+    1. The state $|u\rangle$ can be encoded in a quantum computer. 
+    2. A controlled-$U^{2^t}$ gate can be prepared. 
+
+
+### QPE: Circuit. 
+
+- Similar to the QFT case, let's start by defining the building blocks of the QPE algorithm. First we should notice that: 
+
+$$
+U^{2^t}|u\rangle = e^{2\pi i 2^{t}\phi}|u\rangle
+$$
+
+- The building blocks of QPE will be given by the following circuit: 
+
+```{figure} ./images_2025/qpe_circuit_1.png
+:align: center
+Building block circuit of QPE
+```
+
+- The state of this circuit will be in this case: 
+
+$$
+|0\rangle|u\rangle + |1\rangle e^{2\pi i 2^{t}\phi}|u\rangle = \left[|0\rangle + e^{2\pi i 2^{t}\phi}|1\rangle\right]|u\rangle
+$$ 
+
+- We will use this building block in our QPE circuit. *The first part* of QPE circuit for $t$ bits used to find the eigenvalue $\phi$ will look like this: 
+
+```{figure} ./images_2025/qpe_circuit_2.png
+:align: center
+First part of t-qubit precision QPE circuit for $U$ and $|u\rangle$. 
+```
+
+- We can now focus ourselves just in the state of the first register. Having into account previous sections, we find that the state of the register is given by: 
+
+$$
+\frac{1}{2^{t/2}}
+\big(|0\rangle + e^{2\pi i\, 2^{t-1}\phi} |1\rangle\big)
+\big(|0\rangle + e^{2\pi i\, 2^{t-2}\phi} |1\rangle\big)
+\cdots
+\big(|0\rangle + e^{2\pi i\, 2^{0}\phi} |1\rangle\big)
+\;=\;
+\frac{1}{2^{t/2}} \sum_{k=0}^{2^{t}-1} e^{2\pi i\, \phi k} |k\rangle
+$$
+
+which assuming that our eigenvalue $\phi$ can be expressed as a binary fraction in the form $|\phi_1\phi_2\dots\phi_t\rangle$ and applying some algebra, can be rewritten as: 
+
+$$
+\frac{1}{2^{t/2}}
+\big(|0\rangle + e^{2\pi i\, 0.\phi_t} |1\rangle\big)
+\big(|0\rangle + e^{2\pi i\, 0.\phi_{t-1}\phi_t} |1\rangle\big)
+\cdots
+\big(|0\rangle + e^{2\pi i\, 0.\phi_1 \phi_2 \cdots \phi_t} |1\rangle\big)
+$$ 
+
+- As we saw on the previous chapter, this expression is the result of applying the QFT operator to the state $|\phi_1\phi_2\dots\phi_t\rangle$. 
+
+- This means that now we can apply the inverse QFT operator to obtain the state $|\phi_1\phi_2\dots\phi_t\rangle$, which will give us the value of the phase $\phi$. This means that the complete circuit of the QPE will look like this: 
+
+```{figure} ./images_2025/qpe_circuit_3.png
+:align: center
+Full QPE circuit. 
+```
+
+### QPE: Remarks and conclusions. 
+
+- The QPE will always output the right answer if $\phi$ can be expressed as a binary function. The more digits it has in the binary fraction notation, the more qubits we will need in the first register to obtain an exact solution. 
+- If the $\phi$ can't either be exactly expressed as a binary fraction, or we use in the first register less qubits than digits needed to exacly express $\phi$ in binary fraction, we would get the right answer with a probability of at least $4/\pi\approx 0.40$
+
+```{figure} ./images_2025/qpe_results.png
+:align: center
+Result of QPE for $P$ gate operator when $\phi=1/6$
+```
+
+- QPE has lots of applications: 
+
+    - Shor's algorithm for factoring. 
+    - Quantum chemistry and material sciences. 
+    - Solving linear systems (HHL algorithm).
+    - Quantum walk and search algorithms. 
