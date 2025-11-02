@@ -96,7 +96,7 @@ Quantum circuit.
 Probabilistic outcome of a quantum algorithm. 
 ```
 
-## Computational complexity
+## Computational complexity.
 
 - Time and memory space are the two fundamental variables we are concerned with when comparing classical and quantum algorithms.
 
@@ -115,7 +115,7 @@ Plot showing complexity for different functions.
 - The O shown in the graph legend is known as big O notation. It represents the limit behaviour of a function. As an example, this would mean that in the graph the orange line would be at most a multiple of N.
 
 
-## Basic quantum algorithms
+## Basic quantum algorithms.
 
 Three quantum algorithms will be covered in this lecture: 
 
@@ -127,9 +127,9 @@ Three quantum algorithms will be covered in this lecture:
 - In some cases, they are the basic building blocks of more complex and recent algorithms. 
 - Studying these algorithms is fundamental to understanding the basics of quantum computing, and to continue progressing to more complex algorithms and topics.
 
-## Deutsch Algorithm
+## Deutsch Algorithm.
 
-### Deutsch Problem
+### Deutsch Problem.
 
 The Deutsch Problem is defined as follows : 
 
@@ -146,7 +146,7 @@ We need to make *two evaluations* of the function $f$ to determine if it is cons
 **Quantum approach (Deutsch's algorithm):**  
 Using a quantum computer, we can determine if $f$ is constant or balanced with just *one evaluation*. 
 
-### Quantum Parallelism 
+### Quantum Parallelism.
 
 ```{admonition} Quantum parallelism
 :class: information
@@ -179,7 +179,7 @@ then we can easily see that $U_f(|x'\rangle|y'\rangle) = \frac{1}{\sqrt{2}}\left
 - However, we can only access one of the amplitudes, and therefore one vaue, per measurement. So we will need to use other tools in order to solve our problem in just one measurement. 
 
 
-### Deutsch Algorithm
+### Deutsch Algorithm.
 
 ```{figure} ./images_2025/deutsch_algorithm.png
 :align: center
