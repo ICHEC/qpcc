@@ -39,7 +39,7 @@ Let's start with a quick recap of why we need quantum computers:
     - Interference and entanglement as tools: Interference and entanglement can be used to create correlations between qubits that classical bits can capture. We will see this in detail later in the lecture.
     - Using physics as computation: Quantum mechanics laws can be used for making computations. As they rely in the principles of quantum mechanics, quantum computers can directly model some quantum systems. This is reflected in this quote of the fantastic Richard Feynman: 
 
-```{figure} ./images_2025/feynman_quote.png
+```{figure} ./images/feynman_quote.png
 :align: center
 
 Richard Feynman quote about quantum simulation.
@@ -58,14 +58,14 @@ An algorithm is a set of instructions, functions, or a recipes that takes in som
 ```
 - A classical algorithm is fundamentally based on binary operations, or the moving around of bits or 0s and 1s, and is run on classical hardware. 
 
-```{figure} ./images_2025/what_is_an_algorithm.png
+```{figure} ./images/what_is_an_algorithm.png
 :align: center
 
 Diagram of an algorithm.
 ```
 - An everyday example is the google maps and route optimization algorithm. One can input the desired destination and method of transport, and the algorithm outputs the fastest route. 
 
-```{figure} ./images_2025/google_maps_algorithm.png
+```{figure} ./images/google_maps_algorithm.png
 :align: center
 
 Google maps screenshot.
@@ -82,7 +82,7 @@ A quantum algorithm is an algorithm formulated for a quantum computer, where qua
 
 - For gate-based models for quantum computation, the input of the algorithm is encoded in an array of qubits, which are acted upon by a quantum circuit.
 
-```{figure} ./images_2025/quantum_algorithm.png
+```{figure} ./images/quantum_algorithm.png
 :align: center
 
 Quantum circuit. 
@@ -90,7 +90,7 @@ Quantum circuit.
 
 - The result of applying a quantum algorithm is a probability distribution over the possible different outcomes, which are arrays of 0s and 1s representing the final state of each qubit.
 
-```{figure} ./images_2025/quantum_algorithm_outcome.jpg
+```{figure} ./images/quantum_algorithm_outcome.jpg
 :align: center
 
 Probabilistic outcome of a quantum algorithm. 
@@ -102,7 +102,7 @@ Probabilistic outcome of a quantum algorithm.
 
 - These two metrics are encapsulated in the subject of computational complexity.
 
-```{figure} ./images_2025/complexity.jpg
+```{figure} ./images/complexity.jpg
 :align: center
 
 Plot showing complexity for different functions. 
@@ -154,7 +154,7 @@ Is a fundamental feature of many quantum algorithms, that allows quantum compute
 ```
 - Considering a function $f : \{0, 1\} \to \{0, 1\}$ and a quantum computer starting in the state $|x\rangle|y\rangle$. By using a quantum oracle, i.e., a black-box unitary operator $U_f$, we can make the transformation: $U_f\left(|x\rangle|y\rangle\right)=|x\rangle|y\oplus f(x)\rangle$. We will see how to build oracles $U_f$ in the exercises for the lecture. 
 
-```{figure} ./images_2025/XOR_gate.png
+```{figure} ./images/XOR_gate.png
 :align: center
 :width: 250px
 
@@ -181,7 +181,7 @@ then we can easily see that $U_f(|x'\rangle|y'\rangle) = \frac{1}{\sqrt{2}}\left
 
 ### Deutsch Algorithm.
 
-```{figure} ./images_2025/deutsch_algorithm.png
+```{figure} ./images/deutsch_algorithm.png
 :align: center
 
 Circuit of the Deutsch algorithm. 
@@ -267,7 +267,7 @@ From this we see that if we measure $|0\rangle$ on the first qubit that means th
 
 - Studies how complex functions can be approximated by sums of sines and cosines. 
 
-```{figure} ./images_2025/sincos.png
+```{figure} ./images/sincos.png
 :align: center
 
 Plot of the sine and cosine functions. 
@@ -303,7 +303,7 @@ where $P$ is the period of the function, and we assume that the the function $f(
 
 where $sgn$ is the sign function, and $f_0$ is a real number called *fundamental frequency*. The plot of the square function looks like this: 
 
-```{figure} ./images_2025/square_wave.png
+```{figure} ./images/square_wave.png
 :align: center
 
 Plot of the square wave. 
@@ -324,9 +324,9 @@ $$
 
 - The more terms we add in the series, the better if will approximate the function $s(x)$. In the plots below we can see the Fourier series when using 1,2,3 and 4 first terms of the Fourier series. 
 
-| ![1- term Fourier series](./images_2025/square_wave_fourier_1.png) | ![2- term Fourier series](./images_2025/square_wave_fourier_2.png) |
+| ![1- term Fourier series](./images/square_wave_fourier_1.png) | ![2- term Fourier series](./images/square_wave_fourier_2.png) |
 |:--:|:--:|
-| ![3- term Fourier series](./images_2025/square_wave_fourier_3.png) | ![4 - term Fourier series](./images_2025/square_wave_fourier_4.png) |
+| ![3- term Fourier series](./images/square_wave_fourier_3.png) | ![4 - term Fourier series](./images/square_wave_fourier_4.png) |
 
 
 ### Discrete Fourier Transform and Quantum Fourier Transform.
@@ -422,7 +422,7 @@ as we see is just a $P$ gate with a value of $\theta=2\pi/2^{k}$.
 
 - A controlled version of the $R_k$ gate can be build. Remembering how a controlled gate acts, let's look at this circuit: 
 
-```{figure} ./images_2025/qft_circuit_1.png
+```{figure} ./images/qft_circuit_1.png
 :align: center
 
 Building block of QFT circuit
@@ -436,7 +436,7 @@ $$
 
 - This will be the building block of QFT. In the picture below we can see the QFT circuit for $n$ qubits: 
 
-```{figure} ./images_2025/qft_circuit_2.png
+```{figure} ./images/qft_circuit_2.png
 :align: center
 QFT circuit for n qubits
 ```
@@ -456,7 +456,7 @@ we can see that the state is almost equal to the product representation we saw i
 
 ### QFT: Remarks and conclusions. 
 
-```{figure} ./images_2025/qft_performance.png
+```{figure} ./images/qft_performance.png
 :align: center
 Table showing the performance of the QFT
 ```
@@ -494,7 +494,7 @@ $$
 
 - The building blocks of QPE will be given by the following circuit: 
 
-```{figure} ./images_2025/qpe_circuit_1.png
+```{figure} ./images/qpe_circuit_1.png
 :align: center
 Building block circuit of QPE
 ```
@@ -507,7 +507,7 @@ $$
 
 - We will use this building block in our QPE circuit. *The first part* of QPE circuit for $t$ bits used to find the eigenvalue $\phi$ will look like this: 
 
-```{figure} ./images_2025/qpe_circuit_2.png
+```{figure} ./images/qpe_circuit_2.png
 :align: center
 First part of t-qubit precision QPE circuit for $U$ and $|u\rangle$. 
 ```
@@ -538,7 +538,7 @@ $$
 
 - This means that now we can apply the inverse QFT operator to obtain the state $|\phi_1\phi_2\dots\phi_t\rangle$, which will give us the value of the phase $\phi$. This means that the complete circuit of the QPE will look like this: 
 
-```{figure} ./images_2025/qpe_circuit_3.png
+```{figure} ./images/qpe_circuit_3.png
 :align: center
 Full QPE circuit. 
 ```
@@ -548,7 +548,7 @@ Full QPE circuit.
 - The QPE will always output the right answer if $\phi$ can be expressed as a binary function. The more digits it has in the binary fraction notation, the more qubits we will need in the first register to obtain an exact solution. 
 - If the $\phi$ can't either be exactly expressed as a binary fraction, or we use in the first register less qubits than digits needed to exacly express $\phi$ in binary fraction, we would get the right answer with a probability of at least $4/\pi\approx 0.40$
 
-```{figure} ./images_2025/qpe_results.png
+```{figure} ./images/qpe_results.png
 :align: center
 Result of QPE for $P$ gate operator when $\phi=1/6$
 ```
