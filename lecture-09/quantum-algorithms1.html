@@ -1,0 +1,1166 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lecture 9: Early Quantum Algorithms I &#8212; Lecture Notes for CT4106</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/drawio.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/style.css?v=9c06fe5a" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-09/quantum-algorithms1';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Lecture 10: Early Quantum Algorithms" href="../lecture-10/quantum-algorithms2.html" />
+    <link rel="prev" title="Guest Lecture 8c: Quantum Communication Networks" href="../lecture-08/qc-network.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Lecture Notes for CT4106 - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Lecture Notes for CT4106 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    CT4110 Lectures Overview
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 1</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-01/demystifying-qc.html">Lecture 1a: Demystifying Quantum Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-01/integrating-cc-and-qc.html">Lecture 1b: Integrating Classical and Quantum Computing</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-02/from-bits-to-qubits.html">Lecture 2: From Bits to Qubits</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 3</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-03/math-for-qc1.html">Lecture 3: Mathematical framework for Quantum Computing</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 4</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-04/math-for-qc2.html">Lecture 4: Mathematical framework for Quantum Computing</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 5</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-05/intro-to-quantum-info.html">Lecture 5: Introduction to Quantum Information</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 6</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-06/realizing-qc-systems.html">Lecture 6: Realizing Quantum Computing Systems</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 7</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-07/qc-hardwares.html">Lecture 7: Hardwares for Quantum Computing</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 8</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-08/accessing-qc-systems.html">Lecture 8a: Accessing Quantum Computing Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-08/landscape-of-sdks-tools.html">Lecture 8b: Landscape of Quantum SDK’s and Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-08/qc-network.html">Guest Lecture 8c: Quantum Communication Networks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 9</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 9: Early Quantum Algorithms I</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 10</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-10/quantum-algorithms2.html">Lecture 10: Early Quantum Algorithms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 11</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-11/nisq-quantum-algorithms.html">Lecture 11: NISQ Quantum Algorithms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 12</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-12/quantum-computing-ireland.html">Lecture 12: Quantum Computing in Ireland</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lecture-09/quantum-algorithms1.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 9: Early Quantum Algorithms I</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-we-need-quantum-computers">Why do we need quantum computers?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-an-algorithm">What is an algorithm?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-quantum-algorithm">What is a quantum algorithm?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computational-complexity">Computational complexity.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-quantum-algorithms">Basic quantum algorithms.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deutsch-algorithm">Deutsch Algorithm.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deutsch-problem">Deutsch Problem.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-parallelism">Quantum Parallelism.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Deutsch Algorithm.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deutsch-jozsa-algorithm">Deutsch-Jozsa algorithm.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-fourier-transform">Quantum Fourier Transform.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-analysis-i">Fourier analysis I.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-analysis-ii">Fourier analysis II.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discrete-fourier-transform-and-quantum-fourier-transform">Discrete Fourier Transform and Quantum Fourier Transform.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qft-circuit-notation">QFT: Circuit notation.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prodcut-representation-of-qft">Prodcut representation of QFT.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qft-circuit">QFT: Circuit.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qft-remarks-and-conclusions">QFT: Remarks and conclusions.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-phase-estimation">Quantum Phase Estimation.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qpe-definition">QPE: Definition.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qpe-circuit">QPE: Circuit.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qpe-remarks-and-conclusions">QPE: Remarks and conclusions.</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-9-early-quantum-algorithms-i">
+<span id="lecture-9"></span><h1>Lecture 9: Early Quantum Algorithms I<a class="headerlink" href="#lecture-9-early-quantum-algorithms-i" title="Link to this heading">#</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>These lecture notes are a work in progress and are not a replacement for watching the lecture video, it’s intended to be a supplementary reading after watching the lecture.</p>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Learning Outcomes</p>
+<p>In this learning we will get familiarised with quantum algorithms in general. We will learn what is a quantum algorithm and why do we need quantum computers. After that we will talk about three important quantum algorithms that were created on the beginnings of QC. These algorihtms are:</p>
+<ul class="simple">
+<li><p>Deutsch Algorithm.</p></li>
+<li><p>Quantum Fourier Transform.</p></li>
+<li><p>Quantum Phase Estimation.</p></li>
+</ul>
+</div>
+<section id="why-do-we-need-quantum-computers">
+<h2>Why do we need quantum computers?<a class="headerlink" href="#why-do-we-need-quantum-computers" title="Link to this heading">#</a></h2>
+<p>Let’s start with a quick recap of why we need quantum computers:</p>
+<ul class="simple">
+<li><p>Quantum computers can be far powerful than their classical counterparts. Qubits are informationally dense, meaning that we can encode 1 GB of information in just 33 qubits. A quantum computer with 272 qubits can represent more states than atoms are in the universe!</p></li>
+<li><p>Apart from their computational advantage, quantum computers change the way we think about problems.</p>
+<ul>
+<li><p>Probabilistic nature: The probabilistic nature of quantum mechanics allows us to think in terms of distributions instead of single outcomes. Measuremente in quantum computers is therefore intrinsically probabilistic, enabling a different approach to some problems.</p></li>
+<li><p>Interference and entanglement as tools: Interference and entanglement can be used to create correlations between qubits that classical bits can capture. We will see this in detail later in the lecture.</p></li>
+<li><p>Using physics as computation: Quantum mechanics laws can be used for making computations. As they rely in the principles of quantum mechanics, quantum computers can directly model some quantum systems. This is reflected in this quote of the fantastic Richard Feynman:</p></li>
+</ul>
+</li>
+</ul>
+<figure class="align-center" id="id2">
+<img alt="../_images/feynman_quote.png" src="../_images/feynman_quote.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11 </span><span class="caption-text">Richard Feynman quote about quantum simulation.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="information admonition">
+<p class="admonition-title">The examples we have just presented assume noise-free qubits.</p>
+<p>In practice qubits have errors, which means that more qubits are needed in order to make computations.</p>
+</div>
+</section>
+<section id="what-is-an-algorithm">
+<h2>What is an algorithm?<a class="headerlink" href="#what-is-an-algorithm" title="Link to this heading">#</a></h2>
+<div class="information admonition">
+<p class="admonition-title">Algorithm</p>
+<p>An algorithm is a set of instructions, functions, or a recipes that takes in some input and produces an output in order to solve some sort of problem.</p>
+</div>
+<ul class="simple">
+<li><p>A classical algorithm is fundamentally based on binary operations, or the moving around of bits or 0s and 1s, and is run on classical hardware.</p></li>
+</ul>
+<figure class="align-center" id="id3">
+<img alt="../_images/what_is_an_algorithm.png" src="../_images/what_is_an_algorithm.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 12 </span><span class="caption-text">Diagram of an algorithm.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>An everyday example is the google maps and route optimization algorithm. One can input the desired destination and method of transport, and the algorithm outputs the fastest route.</p></li>
+</ul>
+<figure class="align-center" id="id4">
+<img alt="../_images/google_maps_algorithm.png" src="../_images/google_maps_algorithm.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 13 </span><span class="caption-text">Google maps screenshot.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="what-is-a-quantum-algorithm">
+<h2>What is a quantum algorithm?<a class="headerlink" href="#what-is-a-quantum-algorithm" title="Link to this heading">#</a></h2>
+<div class="information admonition">
+<p class="admonition-title">Quantum Algorithm</p>
+<p>A quantum algorithm is an algorithm formulated for a quantum computer, where quantum mechanics principles are used to process information.</p>
+</div>
+<ul class="simple">
+<li><p>Operating on quantum hardware allows the algorithm to take advantage of quantum mechanical properties such as superposition, entanglement or interference.</p></li>
+<li><p>For gate-based models for quantum computation, the input of the algorithm is encoded in an array of qubits, which are acted upon by a quantum circuit.</p></li>
+</ul>
+<figure class="align-center" id="id5">
+<img alt="../_images/quantum_algorithm.png" src="../_images/quantum_algorithm.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 14 </span><span class="caption-text">Quantum circuit.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>The result of applying a quantum algorithm is a probability distribution over the possible different outcomes, which are arrays of 0s and 1s representing the final state of each qubit.</p></li>
+</ul>
+<figure class="align-center" id="id6">
+<img alt="../_images/quantum_algorithm_outcome.jpg" src="../_images/quantum_algorithm_outcome.jpg" />
+<figcaption>
+<p><span class="caption-number">Fig. 15 </span><span class="caption-text">Probabilistic outcome of a quantum algorithm.</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="computational-complexity">
+<h2>Computational complexity.<a class="headerlink" href="#computational-complexity" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Time and memory space are the two fundamental variables we are concerned with when comparing classical and quantum algorithms.</p></li>
+<li><p>These two metrics are encapsulated in the subject of computational complexity.</p></li>
+</ul>
+<figure class="align-center" id="id7">
+<img alt="../_images/complexity.jpg" src="../_images/complexity.jpg" />
+<figcaption>
+<p><span class="caption-number">Fig. 16 </span><span class="caption-text">Plot showing complexity for different functions.</span><a class="headerlink" href="#id7" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>The image above represents an example of time/memory complexity with respect to some value N, that could be for example the number of variables of a given optimisation problem.</p></li>
+<li><p>In the graph we can see how the different lines scale in a different way with the N value. We would say in this case that the algorithm represented by the blue line is the most efficient.</p></li>
+<li><p>The O shown in the graph legend is known as big O notation. It represents the limit behaviour of a function. As an example, this would mean that in the graph the orange line would be at most a multiple of N.</p></li>
+</ul>
+</section>
+<section id="basic-quantum-algorithms">
+<h2>Basic quantum algorithms.<a class="headerlink" href="#basic-quantum-algorithms" title="Link to this heading">#</a></h2>
+<p>Three quantum algorithms will be covered in this lecture:</p>
+<ol class="arabic simple">
+<li><p><strong>Deutsch algorithm:</strong> One of the first algorithms that showed the potential of QC.</p></li>
+<li><p><strong>Quantum Fourier transform (QFT):</strong> Key part in lots of important QC algorithms.</p></li>
+<li><p><strong>Quantum phase estimation (QPE):</strong> One of the first QC algorithms to show a wide range of  applications.</p></li>
+</ol>
+<ul class="simple">
+<li><p>These algorithms were all created during the <em>early times</em> of quantum computing.</p></li>
+<li><p>In some cases, they are the basic building blocks of more complex and recent algorithms.</p></li>
+<li><p>Studying these algorithms is fundamental to understanding the basics of quantum computing, and to continue progressing to more complex algorithms and topics.</p></li>
+</ul>
+</section>
+<section id="deutsch-algorithm">
+<h2>Deutsch Algorithm.<a class="headerlink" href="#deutsch-algorithm" title="Link to this heading">#</a></h2>
+<section id="deutsch-problem">
+<h3>Deutsch Problem.<a class="headerlink" href="#deutsch-problem" title="Link to this heading">#</a></h3>
+<p>The Deutsch Problem is defined as follows :</p>
+<p>Let <span class="math notranslate nohighlight">\(f: \{0,1\} \to \{0,1\}\)</span> be a Boolean function that takes a single bit as input and outputs either 0 or 1. The goal is to determine whether <span class="math notranslate nohighlight">\(f\)</span> is:</p>
+<ul class="simple">
+<li><p><strong>Constant:</strong> <span class="math notranslate nohighlight">\(f(0) = f(1)\)</span></p></li>
+<li><p><strong>Balanced:</strong> <span class="math notranslate nohighlight">\(f(0) \neq f(1)\)</span></p></li>
+</ul>
+<p>using as few evaluations (queries) of <span class="math notranslate nohighlight">\(f\)</span> as possible.</p>
+<p><strong>Classical approach:</strong><br />
+We need to make <em>two evaluations</em> of the function <span class="math notranslate nohighlight">\(f\)</span> to determine if it is constant or balanced.</p>
+<p><strong>Quantum approach (Deutsch’s algorithm):</strong><br />
+Using a quantum computer, we can determine if <span class="math notranslate nohighlight">\(f\)</span> is constant or balanced with just <em>one evaluation</em>.</p>
+</section>
+<section id="quantum-parallelism">
+<h3>Quantum Parallelism.<a class="headerlink" href="#quantum-parallelism" title="Link to this heading">#</a></h3>
+<div class="information admonition">
+<p class="admonition-title">Quantum parallelism</p>
+<p>Is a fundamental feature of many quantum algorithms, that allows quantum computers to evaluate a function <span class="math notranslate nohighlight">\(f(x)\)</span> for many different values of x <em>simultaneously</em>.</p>
+</div>
+<ul class="simple">
+<li><p>Considering a function <span class="math notranslate nohighlight">\(f : \{0, 1\} \to \{0, 1\}\)</span> and a quantum computer starting in the state <span class="math notranslate nohighlight">\(|x\rangle|y\rangle\)</span>. By using a quantum oracle, i.e., a black-box unitary operator <span class="math notranslate nohighlight">\(U_f\)</span>, we can make the transformation: <span class="math notranslate nohighlight">\(U_f\left(|x\rangle|y\rangle\right)=|x\rangle|y\oplus f(x)\rangle\)</span>. We will see how to build oracles <span class="math notranslate nohighlight">\(U_f\)</span> in the exercises for the lecture.</p></li>
+</ul>
+<figure class="align-center" id="id8">
+<a class="reference internal image-reference" href="../_images/XOR_gate.png"><img alt="../_images/XOR_gate.png" src="../_images/XOR_gate.png" style="width: 250px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 17 </span><span class="caption-text">Truth table of XOR gate</span><a class="headerlink" href="#id8" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>When our qubits are in the following states:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left\{
+\begin{matrix}
+    |x'\rangle = H|0\rangle =  \frac{1}{\sqrt{2}} \left(|0\rangle + |1\rangle \right) \\
+    |y'\rangle = |0\rangle,
+\end{matrix}
+\right .
+\end{split}\]</div>
+<p>then we can easily see that <span class="math notranslate nohighlight">\(U_f(|x'\rangle|y'\rangle) = \frac{1}{\sqrt{2}}\left[|0\rangle|f(0)\rangle + |1\rangle|f(1)\rangle\right]\)</span>.</p>
+<ul class="simple">
+<li><p>So, by implementing the oracle <span class="math notranslate nohighlight">\(U_f\)</span>, we are evaluating both values <span class="math notranslate nohighlight">\(f(0),f(1)\)</span> <em>simulatenously</em>.</p></li>
+<li><p>However, we can only access one of the amplitudes, and therefore one vaue, per measurement. So we will need to use other tools in order to solve our problem in just one measurement.</p></li>
+</ul>
+</section>
+<section id="id1">
+<h3>Deutsch Algorithm.<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<figure class="align-center" id="id9">
+<img alt="../_images/deutsch_algorithm.png" src="../_images/deutsch_algorithm.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 18 </span><span class="caption-text">Circuit of the Deutsch algorithm.</span><a class="headerlink" href="#id9" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The image above shows the circuit for the Deutsch algorithm. Let’s break down it step by step:</p>
+<ol class="arabic simple">
+<li><p>The initial state is:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+|\psi_1\rangle = |0\rangle|1\rangle
+\]</div>
+<ol class="arabic simple" start="2">
+<li><p>After that we apply <strong>superposition</strong> using Hadamard gates so that we arrive to the state:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+|\psi_2\rangle = \left[\frac{|0\rangle + |1\rangle}{\sqrt{2}}\right]\left[\frac{|0\rangle - |1\rangle}{\sqrt{2}}\right]
+\]</div>
+<p>If you remember the <em>diagonal states</em> from previous lectures, you can see that we can rewrite our state as:</p>
+<div class="math notranslate nohighlight">
+\[
+|\psi_2\rangle=|+\rangle|-\rangle
+\]</div>
+<ol class="arabic simple" start="3">
+<li><p>Now we arrive to the part where the oracle acts to create <strong>parallelism</strong> between the function values. Remembering that the oracles acts over a state <span class="math notranslate nohighlight">\(|x\rangle|y\rangle\)</span> as:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+U_f\left(|x\rangle|y\rangle\right)=|x\rangle|y\oplus f(x)\rangle,
+\]</div>
+<p>then we can see that :</p>
+<div class="math notranslate nohighlight">
+\[ 
+|x\rangle \left[\frac{|0\rangle - |1\rangle}{\sqrt{2}}\right] = \left[\frac{|x\rangle|0\oplus f(x)\rangle}{\sqrt{2}}- \frac{|x\rangle|1\oplus f(x)\rangle}{\sqrt{2}}\right] = (-1)^{f(x)}|x\rangle\left[\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right],
+\]</div>
+<p>using diagonal states notation, this equation can be rewritten as:</p>
+<div class="math notranslate nohighlight">
+\[
+ |x\rangle|-\rangle = (-1)^{f(x)}|x\rangle|-\rangle
+\]</div>
+<p>using this identity, we can see that for our case:</p>
+<div class="math notranslate nohighlight">
+\[
+U_f\left[\left(\frac{|0\rangle + |1\rangle}{\sqrt{2}}\right)\left(\frac{|0\rangle - |1\rangle}{\sqrt{2}}\right)\right] = \left[(-1)^{f(0)}|0\rangle\left(\frac{|0\rangle - |1\rangle}{\sqrt{2}}\right)+(-1)^{f(1)}|1\rangle\left(\frac{|0\rangle - |1\rangle}{\sqrt{2}}\right)\right]
+\]</div>
+<p>which again can be rewritten as:</p>
+<div class="math notranslate nohighlight">
+\[
+|\psi_3\rangle = U_f\left[|+\rangle|-\rangle\right] = \left[(-1)^{f(0)}|0\rangle+(-1)^{f(1)}|1\rangle\right]|-\rangle
+\]</div>
+<ol class="arabic simple" start="4">
+<li><p>By applying the final Hadamard gate we generate <strong>interference</strong> between the states. By doing some algebra one can see that the state of the circuit is now:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+|\psi_4\rangle = \left\{\begin{matrix}\pm|0\rangle|-\rangle \text{ if }f(0)=f(1) \\ \pm|1\rangle|-\rangle \text{ if }f(0)\neq f(1) \end{matrix}\right. = \pm|f(0) \oplus f(1)\rangle |-\rangle
+\end{split}\]</div>
+<p>From this we see that if we measure <span class="math notranslate nohighlight">\(|0\rangle\)</span> on the first qubit that means that the function is <strong>constant</strong>, while if we measure <span class="math notranslate nohighlight">\(|1\rangle\)</span> that means that the function is <strong>balanced</strong>, and thus the Deutsch problem is solved.</p>
+</section>
+<section id="deutsch-jozsa-algorithm">
+<h3>Deutsch-Jozsa algorithm.<a class="headerlink" href="#deutsch-jozsa-algorithm" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>So far we have seen the case for 1-bit function. But what if the function is n-bit?</p></li>
+<li><p>In 1992 David Deutsch, together with Richard Jozsa proposed an algorithm that solves this. It is very similar to Deutsch algorithm, just a little bit more complex. Once again the algorithm can tell if the function is constant or balanced in just one query.</p></li>
+<li><p>In this case classically, determining if the function is constant or balanced can take up to <span class="math notranslate nohighlight">\(2^{n-1} + 1\)</span> queries.</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>While this looks like a big improvement, the Deutsch and Deutsch-Jozsa algorithms have no known practical applications.</p>
+</div>
+<ul class="simple">
+<li><p>However this algorithms are very important as they showed the power of QC in its early stages. Also, the way they use superposition, parallelism, and interference were a source of inspiration to other algorithms that have shown lots of potential applications, as we will see in the next sections.</p></li>
+</ul>
+</section>
+</section>
+<section id="quantum-fourier-transform">
+<h2>Quantum Fourier Transform.<a class="headerlink" href="#quantum-fourier-transform" title="Link to this heading">#</a></h2>
+<section id="fourier-analysis-i">
+<h3>Fourier analysis I.<a class="headerlink" href="#fourier-analysis-i" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Was invented by Joseph Fourier n the early 19th century, while studying heat transfer.</p></li>
+<li><p>Studies how complex functions can be approximated by sums of sines and cosines.</p></li>
+</ul>
+<figure class="align-center" id="id10">
+<img alt="../_images/sincos.png" src="../_images/sincos.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 19 </span><span class="caption-text">Plot of the sine and cosine functions.</span><a class="headerlink" href="#id10" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>The quantum Fourier transform has a wide variety of applications:</p>
+<ul>
+<li><p>Signal processing.</p></li>
+<li><p>Electronics.</p></li>
+<li><p>Machine learning.</p></li>
+<li><p>Time series analysis.</p></li>
+<li><p>Quantum mechanics.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="fourier-analysis-ii">
+<h3>Fourier analysis II.<a class="headerlink" href="#fourier-analysis-ii" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Let’s provide a mathematical definition of what a <strong>Fourier series</strong> is:</p></li>
+<li><p>Let <span class="math notranslate nohighlight">\(f(x)\)</span> be a <em>complex periodic function</em>. Its Fourier series will be given by:</p>
+<div class="math notranslate nohighlight">
+\[f(x) \rightarrow \sum_{n=-\infty}^{n=\infty}c_ne^{i2\pi \frac{n}{P}x},\]</div>
+</li>
+</ul>
+<p>where <span class="math notranslate nohighlight">\(P\)</span> is the period of the function, and we assume that the the function <span class="math notranslate nohighlight">\(f(x)\)</span> is integrable in the interval <span class="math notranslate nohighlight">\([0,P]\)</span>.</p>
+<ul>
+<li><p>The coefficients <span class="math notranslate nohighlight">\(c_n\)</span> will be given by the formula:</p>
+<div class="math notranslate nohighlight">
+\[c_n = \frac{1}{P}\int_{0}^{P}f(x)e^{-i2\pi \frac{n}{P}x}dx\]</div>
+</li>
+<li><p>We can see that the function <span class="math notranslate nohighlight">\(f\)</span> is expanded as a trigonometric series. Each term has a frequency associated, and the coefficients <span class="math notranslate nohighlight">\(c_n\)</span> will determine the weight or contribution of each frequency to the signal.</p></li>
+<li><p>Let’s see an example of how this works, for the square function <span class="math notranslate nohighlight">\(s(x)\)</span>. This function is defined as:</p>
+<div class="math notranslate nohighlight">
+\[s(x) = sgn(sin(2\pi f_0 x))\]</div>
+</li>
+</ul>
+<p>where <span class="math notranslate nohighlight">\(sgn\)</span> is the sign function, and <span class="math notranslate nohighlight">\(f_0\)</span> is a real number called <em>fundamental frequency</em>. The plot of the square function looks like this:</p>
+<figure class="align-center" id="id11">
+<img alt="../_images/square_wave.png" src="../_images/square_wave.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 20 </span><span class="caption-text">Plot of the square wave.</span><a class="headerlink" href="#id11" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul>
+<li><p>If we solve the integral for the coefficients we obtain that:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    \left\{\begin{matrix}c_n= 0 \text{ for }k\text{ even.}\\c_n= -i\frac{2}{\pi k} \text{ for }k\text{ odd.} \end{matrix}\right .
+    \end{split}\]</div>
+</li>
+</ul>
+<p>if we substitute this coefficients in the Fourier series formula, and arranging terms, we obtain that:</p>
+<div class="math notranslate nohighlight">
+\[
+s(x) \rightarrow \frac{4}{\pi} \sum_{k=1,3,5,\dots}^{\infty} \frac{1}{k} \sin(2\pi k f_0 x)
+\]</div>
+<ul class="simple">
+<li><p>The more terms we add in the series, the better if will approximate the function <span class="math notranslate nohighlight">\(s(x)\)</span>. In the plots below we can see the Fourier series when using 1,2,3 and 4 first terms of the Fourier series.</p></li>
+</ul>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p><img alt="1- term Fourier series" src="../_images/square_wave_fourier_1.png" /></p></th>
+<th class="head text-center"><p><img alt="2- term Fourier series" src="../_images/square_wave_fourier_2.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><img alt="3- term Fourier series" src="../_images/square_wave_fourier_3.png" /></p></td>
+<td class="text-center"><p><img alt="4 - term Fourier series" src="../_images/square_wave_fourier_4.png" /></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="discrete-fourier-transform-and-quantum-fourier-transform">
+<h3>Discrete Fourier Transform and Quantum Fourier Transform.<a class="headerlink" href="#discrete-fourier-transform-and-quantum-fourier-transform" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>In the previous section we saw the Fourier series for a function defined over a continuous domain. The <strong>discrete Fourier transform (DFT)</strong> is the analogous of Fourier series, but for a a sequence of <strong>discrete values</strong>. It takes a discrete set of points <span class="math notranslate nohighlight">\(\{x_n\}:=x_0,\dots,x_{N-1} \rightarrow \{X_n\}:=X_0,\dots,X_{N-1}\)</span>, where the values <span class="math notranslate nohighlight">\(X_k\)</span> are given by the formula:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+X_k = \sum_{j=0}^{N-1}x_je^{-i2\pi\frac{j}{N}k}
+\]</div>
+<ul class="simple">
+<li><p>Similar to the continuous case, the coefficients <span class="math notranslate nohighlight">\(X_k\)</span> tell us how much the frequency <span class="math notranslate nohighlight">\(k\)</span> is contributing to our function.</p></li>
+<li><p>The <strong>Quantum Fourier transform (QFT)</strong> is defined as the transformation that takes an state <span class="math notranslate nohighlight">\(|x\rangle=\sum_{i=0}^{N-1}x_i|i\rangle\rightarrow |y\rangle=\sum_{i=0}^{N-1} y_i|i\rangle\)</span>, where the values <span class="math notranslate nohighlight">\(y_i\)</span> are given by the formula:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+y_k = \frac{1}{\sqrt{N}}\sum_{j=0}^{N-1}x_je^{i2\pi\frac{j}{N}k}
+\]</div>
+<ul class="simple">
+<li><p>The QFT has a direct correspondece with the DFT, but in this case the transformation acts on a quantum state. The different sign in the exponent is just a mathematical convention.</p></li>
+</ul>
+</section>
+<section id="qft-circuit-notation">
+<h3>QFT: Circuit notation.<a class="headerlink" href="#qft-circuit-notation" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Before introducing the circuit implementing the QFT, let’s make a few notes about <em>circuit notation</em>:</p>
+<ul class="simple">
+<li><p><em>Binary representation of a n-qubit basis</em>: Sometimes it its useful to represent our basis vectors <span class="math notranslate nohighlight">\(|0\rangle,\dots, |2^{n-1}\rangle\)</span>  in binary notation:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ |j\rangle = |j_12^{n-1} + j_22^{n-2} + \dots + j_n 2^{0}\rangle = |j_1j_2\dots j_n\rangle \]</div>
+<ul class="simple">
+<li><p><em>Binary fractions</em> : They are defined in a similar way as binary integers:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ 0.j_1j_2\dots j_n=\frac{j_1}{2} + \frac{j_2}{4} + \dots + \frac{j_n}{2^{n}} \]</div>
+<ul class="simple">
+<li><p><em>Hadamard gate in binary fraction notation</em> :</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ H|j_1\rangle = |0\rangle + e^{2\pi i0.j_1}|1\rangle \]</div>
+</li>
+</ul>
+</section>
+<section id="prodcut-representation-of-qft">
+<h3>Prodcut representation of QFT.<a class="headerlink" href="#prodcut-representation-of-qft" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>We saw in the previous section that the QFT operator performs the following transformation on the states of the basis <span class="math notranslate nohighlight">\(|j\rangle\)</span>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+|j\rangle \longrightarrow \frac{1}{\sqrt{N}} \sum_{k=0}^{N-1} e^{2\pi i jk / N} \, |k\rangle
+\]</div>
+<ul class="simple">
+<li><p>This transformation can be rewritten as:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+|j_1, \dots, j_n\rangle \;\rightarrow\; 
+\big(|0\rangle + e^{2\pi i 0.j_n} |1\rangle\big)
+\big(|0\rangle + e^{2\pi i 0.j_{n-1} j_n} |1\rangle\big) 
+\cdots 
+\big(|0\rangle + e^{2\pi i 0.j_1 j_2 \dots j_n} |1\rangle\big)
+\]</div>
+<p>this is called the <strong>product representation of QFT</strong>. <span class="math notranslate nohighlight">\(n\)</span> is the number of qubits. Let’s see its algebraic derivation:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+|j\rangle \;\rightarrow\; 
+\frac{1}{2^{n/2}} \sum_{k=0}^{2^n - 1} e^{2\pi i jk / 2^n} |k\rangle \\[2mm]
+\;=\; 
+\frac{1}{2^{n/2}} \sum_{k_1 = 0}^{1} \cdots \sum_{k_n = 0}^{1}
+e^{2\pi i j \sum_{l=1}^{n} k_l 2^{-l}} |k_1 \dots k_n\rangle \\[1mm]
+\;=\; 
+\frac{1}{2^{n/2}}  \sum_{k_1 = 0}^{1} \cdots \sum_{k_n = 0}^{1}  \bigotimes_{l=1}^{n} e^{2\pi i jk_l  2^{-l}}|k_l\rangle\\[1mm]
+\;=\; 
+\frac{1}{2^{n/2}} \bigotimes_{l=1}^{n}\big(\sum_{k_l=0}^{1} e^{2\pi i jk_l2^{-l}} |k_l\rangle  \big) \\[1mm]
+\;=\; 
+\frac{1}{2^{n/2}} \bigotimes_{l=1}^{n} \big( |0\rangle + e^{2\pi i j 2^{-l}} |1\rangle \big) \\[1mm]
+\;=\; 
+\frac{1}{2^{n/2}}
+\big( |0\rangle + e^{2\pi i 0.j_n} |1\rangle \big)
+\big( |0\rangle + e^{2\pi i 0.j_{n-1} j_n} |1\rangle \big)
+\cdots
+\big( |0\rangle + e^{2\pi i 0.j_1 j_2 \dots j_n} |1\rangle \big)
+\end{split}\]</div>
+</section>
+<section id="qft-circuit">
+<h3>QFT: Circuit.<a class="headerlink" href="#qft-circuit" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>For building the circuit what we will call <span class="math notranslate nohighlight">\(R_k\)</span> gate, which is defined as:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+R_k = \left[\begin{matrix}1 &amp; 0 \\ 0 &amp; e^{2\pi i/2^k}\end{matrix}\right]
+\end{split}\]</div>
+<p>as we see is just a <span class="math notranslate nohighlight">\(P\)</span> gate with a value of <span class="math notranslate nohighlight">\(\theta=2\pi/2^{k}\)</span>.</p>
+<ul class="simple">
+<li><p>A controlled version of the <span class="math notranslate nohighlight">\(R_k\)</span> gate can be build. Remembering how a controlled gate acts, let’s look at this circuit:</p></li>
+</ul>
+<figure class="align-center" id="id12">
+<img alt="../_images/qft_circuit_1.png" src="../_images/qft_circuit_1.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 21 </span><span class="caption-text">Building block of QFT circuit</span><a class="headerlink" href="#id12" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>It is easy to see that the state of this circuit is:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{\sqrt{2}}\left(|0\rangle + e^{2\pi i0.j_1j_2\dots j_n}|1\rangle\right)|j_2\dots j_n\rangle
+\]</div>
+<ul class="simple">
+<li><p>This will be the building block of QFT. In the picture below we can see the QFT circuit for <span class="math notranslate nohighlight">\(n\)</span> qubits:</p></li>
+</ul>
+<figure class="align-center" id="id13">
+<img alt="../_images/qft_circuit_2.png" src="../_images/qft_circuit_2.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 22 </span><span class="caption-text">QFT circuit for n qubits</span><a class="headerlink" href="#id13" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>Now the state of the circuit would be:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{2^{n/2}} 
+\big(|0\rangle + e^{2\pi i 0.j_1 j_2 \dots j_n} |1\rangle\big)
+\big(|0\rangle + e^{2\pi i 0.j_2 \dots j_n} |1\rangle\big)
+\cdots
+\big(|0\rangle + e^{2\pi i 0.j_n} |1\rangle\big)
+\]</div>
+<p>we can see that the state is almost equal to the product representation we saw in previous section. The last step would be to apply SWAP gates (that interchange the state of two qubits) so that we retrieve the QFT formula. This will be the <em>circuit representation of QFT operator</em>.</p>
+</section>
+<section id="qft-remarks-and-conclusions">
+<h3>QFT: Remarks and conclusions.<a class="headerlink" href="#qft-remarks-and-conclusions" title="Link to this heading">#</a></h3>
+<figure class="align-center" id="id14">
+<img alt="../_images/qft_performance.png" src="../_images/qft_performance.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 23 </span><span class="caption-text">Table showing the performance of the QFT</span><a class="headerlink" href="#id14" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>The table above shows the performance of the QFt compared to FFT. Even if the improvement compared to classical case seems to be huge, there are two caveats we need to have into account:</p>
+<ul>
+<li><p>There are no efficient way of preparing a state <span class="math notranslate nohighlight">\(x\)</span> in a quantum computer. Encoding a vector <span class="math notranslate nohighlight">\(x\)</span> in a quantum computer may be very difficult or even impossible in actual devices.</p></li>
+<li><p>When we measure a state, we obtain probabilities, which are the square module of amplitudes. So we can’t directly access the amplitudes of QFT transformation by performing a measurement.</p></li>
+</ul>
+</li>
+<li><p>However, QFT is still a central part in lots of other important quantum algorithms like Shor’s or Quantum Phase Estimation.</p></li>
+</ul>
+</section>
+</section>
+<section id="quantum-phase-estimation">
+<h2>Quantum Phase Estimation.<a class="headerlink" href="#quantum-phase-estimation" title="Link to this heading">#</a></h2>
+<section id="qpe-definition">
+<h3>QPE: Definition.<a class="headerlink" href="#qpe-definition" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The <em>quantum phase estimation</em> or QPE is a a quantum algorithm that tries to find the norm-1 eigenvalues of a unitary operator <span class="math notranslate nohighlight">\(U\)</span>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ 
+U|u\rangle = e^{2\pi i \phi}|u\rangle
+\]</div>
+<p>The QPE algorithm will output the value of the phase <span class="math notranslate nohighlight">\(\phi\)</span> of the eigenvalues.</p>
+<ul class="simple">
+<li><p>The algorithm works based in two assumptions:</p>
+<ol class="arabic simple">
+<li><p>The state <span class="math notranslate nohighlight">\(|u\rangle\)</span> can be encoded in a quantum computer.</p></li>
+<li><p>A controlled-<span class="math notranslate nohighlight">\(U^{2^t}\)</span> gate can be prepared.</p></li>
+</ol>
+</li>
+</ul>
+</section>
+<section id="qpe-circuit">
+<h3>QPE: Circuit.<a class="headerlink" href="#qpe-circuit" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Similar to the QFT case, let’s start by defining the building blocks of the QPE algorithm. First we should notice that:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+U^{2^t}|u\rangle = e^{2\pi i 2^{t}\phi}|u\rangle
+\]</div>
+<ul class="simple">
+<li><p>The building blocks of QPE will be given by the following circuit:</p></li>
+</ul>
+<figure class="align-center" id="id15">
+<img alt="../_images/qpe_circuit_1.png" src="../_images/qpe_circuit_1.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 24 </span><span class="caption-text">Building block circuit of QPE</span><a class="headerlink" href="#id15" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>The state of this circuit will be in this case:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+|0\rangle|u\rangle + |1\rangle e^{2\pi i 2^{t}\phi}|u\rangle = \left[|0\rangle + e^{2\pi i 2^{t}\phi}|1\rangle\right]|u\rangle
+\]</div>
+<ul class="simple">
+<li><p>We will use this building block in our QPE circuit. <em>The first part</em> of QPE circuit for <span class="math notranslate nohighlight">\(t\)</span> bits used to find the eigenvalue <span class="math notranslate nohighlight">\(\phi\)</span> will look like this:</p></li>
+</ul>
+<figure class="align-center" id="id16">
+<img alt="../_images/qpe_circuit_2.png" src="../_images/qpe_circuit_2.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 25 </span><span class="caption-text">First part of t-qubit precision QPE circuit for <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(|u\rangle\)</span>.</span><a class="headerlink" href="#id16" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>We can now focus ourselves just in the state of the first register. Having into account previous sections, we find that the state of the register is given by:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{2^{t/2}}
+\big(|0\rangle + e^{2\pi i\, 2^{t-1}\phi} |1\rangle\big)
+\big(|0\rangle + e^{2\pi i\, 2^{t-2}\phi} |1\rangle\big)
+\cdots
+\big(|0\rangle + e^{2\pi i\, 2^{0}\phi} |1\rangle\big)
+\;=\;
+\frac{1}{2^{t/2}} \sum_{k=0}^{2^{t}-1} e^{2\pi i\, \phi k} |k\rangle
+\]</div>
+<p>which assuming that our eigenvalue <span class="math notranslate nohighlight">\(\phi\)</span> can be expressed as a binary fraction in the form <span class="math notranslate nohighlight">\(|\phi_1\phi_2\dots\phi_t\rangle\)</span> and applying some algebra, can be rewritten as:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{2^{t/2}}
+\big(|0\rangle + e^{2\pi i\, 0.\phi_t} |1\rangle\big)
+\big(|0\rangle + e^{2\pi i\, 0.\phi_{t-1}\phi_t} |1\rangle\big)
+\cdots
+\big(|0\rangle + e^{2\pi i\, 0.\phi_1 \phi_2 \cdots \phi_t} |1\rangle\big)
+\]</div>
+<ul class="simple">
+<li><p>As we saw on the previous chapter, this expression is the result of applying the QFT operator to the state <span class="math notranslate nohighlight">\(|\phi_1\phi_2\dots\phi_t\rangle\)</span>.</p></li>
+<li><p>This means that now we can apply the inverse QFT operator to obtain the state <span class="math notranslate nohighlight">\(|\phi_1\phi_2\dots\phi_t\rangle\)</span>, which will give us the value of the phase <span class="math notranslate nohighlight">\(\phi\)</span>. This means that the complete circuit of the QPE will look like this:</p></li>
+</ul>
+<figure class="align-center" id="id17">
+<img alt="../_images/qpe_circuit_3.png" src="../_images/qpe_circuit_3.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 26 </span><span class="caption-text">Full QPE circuit.</span><a class="headerlink" href="#id17" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="qpe-remarks-and-conclusions">
+<h3>QPE: Remarks and conclusions.<a class="headerlink" href="#qpe-remarks-and-conclusions" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The QPE will always output the right answer if <span class="math notranslate nohighlight">\(\phi\)</span> can be expressed as a binary function. The more digits it has in the binary fraction notation, the more qubits we will need in the first register to obtain an exact solution.</p></li>
+<li><p>If the <span class="math notranslate nohighlight">\(\phi\)</span> can’t either be exactly expressed as a binary fraction, or we use in the first register less qubits than digits needed to exacly express <span class="math notranslate nohighlight">\(\phi\)</span> in binary fraction, we would get the right answer with a probability of at least <span class="math notranslate nohighlight">\(4/\pi\approx 0.40\)</span></p></li>
+</ul>
+<figure class="align-center" id="id18">
+<img alt="../_images/qpe_results.png" src="../_images/qpe_results.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 27 </span><span class="caption-text">Result of QPE for <span class="math notranslate nohighlight">\(P\)</span> gate operator when <span class="math notranslate nohighlight">\(\phi=1/6\)</span></span><a class="headerlink" href="#id18" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>QPE has lots of applications:</p>
+<ul>
+<li><p>Shor’s algorithm for factoring.</p></li>
+<li><p>Quantum chemistry and material sciences.</p></li>
+<li><p>Solving linear systems (HHL algorithm).</p></li>
+<li><p>Quantum walk and search algorithms.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lecture-09"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../lecture-08/qc-network.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Guest Lecture 8c: Quantum Communication Networks</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../lecture-10/quantum-algorithms2.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lecture 10: Early Quantum Algorithms</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-we-need-quantum-computers">Why do we need quantum computers?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-an-algorithm">What is an algorithm?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-quantum-algorithm">What is a quantum algorithm?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computational-complexity">Computational complexity.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-quantum-algorithms">Basic quantum algorithms.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deutsch-algorithm">Deutsch Algorithm.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deutsch-problem">Deutsch Problem.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-parallelism">Quantum Parallelism.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Deutsch Algorithm.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deutsch-jozsa-algorithm">Deutsch-Jozsa algorithm.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-fourier-transform">Quantum Fourier Transform.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-analysis-i">Fourier analysis I.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-analysis-ii">Fourier analysis II.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discrete-fourier-transform-and-quantum-fourier-transform">Discrete Fourier Transform and Quantum Fourier Transform.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qft-circuit-notation">QFT: Circuit notation.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prodcut-representation-of-qft">Prodcut representation of QFT.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qft-circuit">QFT: Circuit.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qft-remarks-and-conclusions">QFT: Remarks and conclusions.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-phase-estimation">Quantum Phase Estimation.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qpe-definition">QPE: Definition.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qpe-circuit">QPE: Circuit.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qpe-remarks-and-conclusions">QPE: Remarks and conclusions.</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By ICHEC Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  Copyright@2024
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

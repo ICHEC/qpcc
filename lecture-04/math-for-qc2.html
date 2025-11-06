@@ -1,0 +1,1006 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lecture 4: Mathematical framework for Quantum Computing &#8212; Lecture Notes for CT4106</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/drawio.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/style.css?v=9c06fe5a" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-04/math-for-qc2';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Lecture 5: Introduction to Quantum Information" href="../lecture-05/intro-to-quantum-info.html" />
+    <link rel="prev" title="Lecture 3: Mathematical framework for Quantum Computing" href="../lecture-03/math-for-qc1.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Lecture Notes for CT4106 - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Lecture Notes for CT4106 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    CT4110 Lectures Overview
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 1</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-01/demystifying-qc.html">Lecture 1a: Demystifying Quantum Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-01/integrating-cc-and-qc.html">Lecture 1b: Integrating Classical and Quantum Computing</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-02/from-bits-to-qubits.html">Lecture 2: From Bits to Qubits</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 3</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-03/math-for-qc1.html">Lecture 3: Mathematical framework for Quantum Computing</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 4</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 4: Mathematical framework for Quantum Computing</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 5</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-05/intro-to-quantum-info.html">Lecture 5: Introduction to Quantum Information</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 6</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-06/realizing-qc-systems.html">Lecture 6: Realizing Quantum Computing Systems</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 7</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-07/qc-hardwares.html">Lecture 7: Hardwares for Quantum Computing</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 8</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-08/accessing-qc-systems.html">Lecture 8a: Accessing Quantum Computing Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-08/landscape-of-sdks-tools.html">Lecture 8b: Landscape of Quantum SDK’s and Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-08/qc-network.html">Guest Lecture 8c: Quantum Communication Networks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 9</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-09/quantum-algorithms1.html">Lecture 9: Early Quantum Algorithms I</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 10</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-10/quantum-algorithms2.html">Lecture 10: Early Quantum Algorithms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 11</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-11/nisq-quantum-algorithms.html">Lecture 11: NISQ Quantum Algorithms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 12</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-12/quantum-computing-ireland.html">Lecture 12: Quantum Computing in Ireland</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lecture-04/math-for-qc2.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 4: Mathematical framework for Quantum Computing</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#postulates-of-quantum-physics">Postulates of Quantum Physics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uncertainty-principle">Uncertainty Principle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#state-as-an-abstract-vector">State as an abstract vector</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superposition-principle">Superposition principle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#role-of-interference">Role of interference</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#principles-of-measurement">Principles of measurement</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#no-cloning">No-cloning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entanglement">Entanglement</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tunnelling">Tunnelling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dirac-notation">Dirac Notation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#states-and-operators">States and Operators</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connection-with-experiment">Connection with Experiment</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-interpretation">Probabilistic interpretation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-of-measurement">Interpretation of measurement</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-interpretation">Mathematical interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#measurement-in-the-computational-basis">Measurement in the computational basis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#measurement-in-a-different-basis">Measurement in a different basis</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hilbert-space-of-qubits">Hilbert space of Qubits</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-qubit">Single Qubit</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-qubits">Multiple Qubits</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pure-vs-mixed-states">Pure vs Mixed States</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pure-state">Pure state</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mixed-state">Mixed state</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-qubit-state-visualization">Interactive Qubit State Visualization</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-4-mathematical-framework-for-quantum-computing">
+<span id="lecture-4"></span><h1>Lecture 4: Mathematical framework for Quantum Computing<a class="headerlink" href="#lecture-4-mathematical-framework-for-quantum-computing" title="Link to this heading">#</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>These lecture notes are a work in progress and are not a replacement for watching the lecture video, it’s intended to be a supplementary reading after watching the lecture</p>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Learning outcomes</p>
+<p>In this lecture we connect the mathematical framework of vector spaces and operators to the physical reality of quantum computing.</p>
+</div>
+<section id="postulates-of-quantum-physics">
+<h2>Postulates of Quantum Physics<a class="headerlink" href="#postulates-of-quantum-physics" title="Link to this heading">#</a></h2>
+<p>Let us go through some of the building blocks of quantum mechanics, and see how the required mathematical framework emerges.</p>
+<section id="uncertainty-principle">
+<h3>Uncertainty Principle<a class="headerlink" href="#uncertainty-principle" title="Link to this heading">#</a></h3>
+<p>It is a fundamental principle of quantum mechanics, which states that certain pairs of physical properties can’t be measured simultaneously with arbitrary precision, for example a particle’s position and momentum. The properties which can form such pairs are called conjugate properties to each other. In the coming sections we will discuss more about them. In fact the product of uncertainties of the conjugate properties is bounded below. If the conjugate properties are <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>, and the standard deviation or uncertainties in their simulaneous measurement in a given experiment are <span class="math notranslate nohighlight">\(\sigma_A\)</span> and <span class="math notranslate nohighlight">\(\sigma_B\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma_A \sigma_B \ge \frac{h}{4\pi}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(h\)</span> is Plank’s constant.</p>
+</section>
+<section id="state-as-an-abstract-vector">
+<h3>State as an abstract vector<a class="headerlink" href="#state-as-an-abstract-vector" title="Link to this heading">#</a></h3>
+<p>In everyday life we use the term <code class="docutils literal notranslate"><span class="pre">state</span></code> when we refer to the situation/condition somebody or something is in. We make it more comprehensive by adding adjectives to it, such as <em>in state of weakness</em>, <em>in state of pain</em>, etc. In case of a physical system, the same idea extends to a comprehensive definition, with quantifiability. The state of a physical system refers to something that can provide complete physically accessible information about the system at a given instant of time. This is quantified with first determining the number of independent quantities required for complete information, and then assigning a variable for each of those.
+A numerical value of each of those variable defines the state of the system. Formally -</p>
+<blockquote>
+<div><p>A <strong>state</strong> is a <strong>set of variables</strong> describing a system which does not include anything about its history.</p>
+</div></blockquote>
+<p>This set of variable is assumed to be <em>minimal</em> so that removing any component results in only partial information about the system. Take for example the case of a single isolated particle.
+Then it’s position and velocity are two independent minimal properties.  If the motion of this particle is constrained along a line, then a variable <span class="math notranslate nohighlight">\(x\)</span> denoting it’s distance from a chosen origin on the line completely determines it’s position, and it’s time derivative <span class="math notranslate nohighlight">\(v = \frac{dx}{dt}\)</span> determines the velocity. Thus together, <span class="math notranslate nohighlight">\((x, v)\)</span> define the state of the particle.
+If the motion was not constrained, one would need three coordinates <span class="math notranslate nohighlight">\((x, y, z)\)</span> for position, and three components of velocity <span class="math notranslate nohighlight">\((v_x, v_y, v_z)\)</span> with respect to a given reference frame. Thus collectively a set of six variables <span class="math notranslate nohighlight">\((x, y, z, v_x, v_y, v_z)\)</span> defines the state of a particle. For a system of many particles, the variables are concatenated, and the set becomes bigger. For <span class="math notranslate nohighlight">\(N\)</span> particle system, the set contains <span class="math notranslate nohighlight">\(6N\)</span> variables.</p>
+<p>Note that this set has to be ordered so there is no confusion in the meaning of each of its elements. Such ordered sets are essentially what one calls vectors. We discuss vectors in more details in the coming sections.</p>
+<blockquote>
+<div><blockquote>
+<div><p>Add Figure</p>
+</div></blockquote>
+</div></blockquote>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>A reference frame refers to a chosen point of origin, and a given orientation of coordinate axes in which a position is measured.</p>
+</aside>
+<div class="tip admonition">
+<p class="admonition-title">Degrees of Freedom</p>
+<p>The degrees of freedom of a system is a number associated with it. It is the number of independent ways one
+can change the system’s state. Alternatively, it’s also the minimum number of individual quantities required to specify the state.</p>
+</div>
+<p>In case of single particle, it’s degrees of freedom is 6. For a system of <span class="math notranslate nohighlight">\(N\)</span> particles, it’s <span class="math notranslate nohighlight">\(6N\)</span>.</p>
+<p>Now consider a quantum particle, and think whether we can use the above mentioned set of positions and velocities/momenta <span class="math notranslate nohighlight">\((x, y, z, v_x, v_y, v_z)\)</span> can describe the state of quantum particle. Due to uncertainty principle, we immediately run into a problem, because the position <span class="math notranslate nohighlight">\(x\)</span>, and velocity <span class="math notranslate nohighlight">\(v_x\)</span> can not be accurately determined simultaneously. Thus the set of position and velocity variables can not provide complete information about particle’s state.</p>
+<p>So how do we define state of a quantum system? Here one postulates, that it is possible to define a <code class="docutils literal notranslate"><span class="pre">state</span></code> of a quantum system, represented as some type of abstract object. This object will likely have multiple components associated with it, one for each degree of freedom. It will thus be a vector
+of some kind. For the moment we call it an abstract vector, as we don’t know it’s structure. As we go throught the sections, we will explore how this structure emerges, and how it works.</p>
+<p>So, for the moment, we say that the state of a quantum system is represented by an abstract vector. In due course we will learn several synonyms for this abstract vector defining the state of a quantum system.</p>
+</section>
+<hr class="docutils" />
+<section id="superposition-principle">
+<h3>Superposition principle<a class="headerlink" href="#superposition-principle" title="Link to this heading">#</a></h3>
+<p>Superposition, issentially means applying multiple effect/stimuli/attributes on a system/object.</p>
+<p>In general, the superposition principle applies to anywhere more than one attributes can be imposed on a single object.
+Formally speaking, the principle states that in all linear systems, the net response caused by two or more stimuli on a system is sum of the individual responses that would have been caused by each individual stimulus.</p>
+<blockquote>
+<div><p>The sum of responses of individual effects, is same as the response of the sum of individual effecs.</p>
+</div></blockquote>
+<p>Once we go through the mathematical structure in the coming sections, it will become clear that the superposition principle issentially is a consequence of <strong>linearity</strong> in the system, or linear behaviour.</p>
+<p>In quantum mechanics, the superposition applies to states. What that means is, that if a system can exist in say two states <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>, then it can also exist in a superposition of <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>. In the section below we will learn how to interpret such a thing mathematically, but for now we can intuitively speculate, that a superposition of two states should have properties resembling both the states even though the two state might be very different.</p>
+<blockquote>
+<div><blockquote>
+<div><p>Figure for illustration</p>
+</div></blockquote>
+</div></blockquote>
+</section>
+<section id="role-of-interference">
+<h3>Role of interference<a class="headerlink" href="#role-of-interference" title="Link to this heading">#</a></h3>
+<p>The notion of intereference is quantum systems is very similar to what it means in waves. When two waves are combined, their instantaneous intensities or displacements are added. The intensity or displacement of the resulting wave can be greater or lower depending on their <code class="docutils literal notranslate"><span class="pre">relative</span> <span class="pre">phase</span></code>.</p>
+<p><img alt="" src="https://upload.wikimedia.org/wikipedia/commons/5/5d/Waventerference.gif" /></p>
+<p>In case of quantum system, as we will see, probability amplitudes take the role of intensity or displacements.</p>
+</section>
+<section id="principles-of-measurement">
+<h3>Principles of measurement<a class="headerlink" href="#principles-of-measurement" title="Link to this heading">#</a></h3>
+<p>In quantum mechanics, a measurement is testing or manipulation of a physical system that yields a numerical result.
+This in principle doesn’t look much different than a measurement of a classical system. However, in the quantum realm,
+the process of <code class="docutils literal notranslate"><span class="pre">measuring</span></code> something also changes the underlying system.</p>
+</section>
+<section id="no-cloning">
+<h3>No-cloning<a class="headerlink" href="#no-cloning" title="Link to this heading">#</a></h3>
+<p>Classically we can copy an unknown bit using the following simple process:</p>
+<ol class="arabic simple">
+<li><p>We receive an unknown bit. This means we don’t know its state. We don’t know if it is 0 or 1.</p></li>
+<li><p>Measure the bit and record the outcome. We either get 0 or 1. Say for example we obtain 1.</p></li>
+<li><p>Using this information, prepare a new bit matching the original bit.</p></li>
+<li><p>Now we have 11, i.e. the original bit plus a copy.</p></li>
+</ol>
+<p>What happens if we try to copy a qubit using this procedure?</p>
+<ol class="arabic simple">
+<li><p>We receive an unknown qubit. We don’t know its state, <span class="math notranslate nohighlight">\(\psi=\alpha\ket{0}+\beta\ket{1}\)</span>. We don’t know the coefficients <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>.</p></li>
+<li><p>Measure the qubit and record the outcome. We either get 0 or 1. Say for example we obtain 1.</p></li>
+<li><p>We cannot prepare a new qubit matching the old one! We still don’t know 𝛼 and 𝛽.</p></li>
+<li><p>Plus the original qubit is now destroyed!</p></li>
+</ol>
+<p>There is no process to copy an unknown qubit. This is a consequence of the <code class="docutils literal notranslate"><span class="pre">no-cloning</span> <span class="pre">theorem</span></code>, which is stated as follows:</p>
+<p>“An <strong>unknown</strong> quantum state cannot be <strong>precisely</strong> recreated, it cannot be cloned”.</p>
+<p>Two important words are written in <strong>bold</strong> in the above theorem:</p>
+<ul class="simple">
+<li><p><strong>Unknown</strong>: Known states can be copied infinitely many times, simply by repeating the known algorithm used to prepare them</p></li>
+<li><p><strong>Precisely</strong>: Approximate cloning is possible, by taking thousands of measurements in different bases [Bužek &amp; Hillery, PRL 81 22 (1998)].</p></li>
+</ul>
+</section>
+<section id="entanglement">
+<h3>Entanglement<a class="headerlink" href="#entanglement" title="Link to this heading">#</a></h3>
+<p>Consider the Hilbert space over two subsystems <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>, written as <span class="math notranslate nohighlight">\(=\mathcal{H}_A\otimes\mathcal{H}_B\)</span>. A general state of <span class="math notranslate nohighlight">\(\mathcal{H}\)</span> is given by
+$<span class="math notranslate nohighlight">\(
+\ket{\psi}_{AB}=\sum_{ij}c_{ij}\ket{i}_A\ket{j}_B.
+\)</span>$</p>
+<ul class="simple">
+<li><p>If <span class="math notranslate nohighlight">\(\ket{\psi}_{AB}\)</span> <strong>can</strong> be written as <span class="math notranslate nohighlight">\(\ket{x}_A\cdot\ket{y}_B\)</span> then <span class="math notranslate nohighlight">\(\ket{\psi}_{AB}\)</span> is <code class="docutils literal notranslate"><span class="pre">separable</span></code>.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(\ket{\psi}_{AB}\)</span> <strong>cannot</strong> be written as <span class="math notranslate nohighlight">\(\ket{x}_A\cdot\ket{y}_B\)</span> then <span class="math notranslate nohighlight">\(\ket{\psi}_{AB}\)</span> is <code class="docutils literal notranslate"><span class="pre">entangled</span></code>.</p></li>
+</ul>
+<p>Entangled systems share a quantum state. A measurement performed on one subsystem instantaneously changes the state of the other subsystem, no matter how far apart they may be. Einstein called this ‘spooky action at a distance’.</p>
+</section>
+<section id="tunnelling">
+<h3>Tunnelling<a class="headerlink" href="#tunnelling" title="Link to this heading">#</a></h3>
+<p>Tunneling is a phenomenon that can occur when a quantum particle approaches a potential barrier (this could be gravitational potential, electrical potential, etc.)</p>
+<p>In the classical case, if the energy of the barrier is <span class="math notranslate nohighlight">\(U\)</span> and the energy of the particle is <span class="math notranslate nohighlight">\(E\)</span>,</p>
+<ul class="simple">
+<li><p>the particle is transmitted through the barrier if <span class="math notranslate nohighlight">\(E&gt;U\)</span></p></li>
+<li><p>the particle is reflected if <span class="math notranslate nohighlight">\(E&lt;U\)</span>.</p></li>
+</ul>
+<p>In the quantum case things get more interesting.</p>
+<ul class="simple">
+<li><p>Quantum systems display both particle-like and wave-like behaviour. Quantum particles can be partially transmitted and partially reflected.</p></li>
+<li><p>There is a non-zero probability of finding the quantum particle beyond the classically insurmountable barrier!</p></li>
+<li><p>I.e., the quantum particle may <code class="docutils literal notranslate"><span class="pre">tunnel</span></code> through the barrier even if <span class="math notranslate nohighlight">\(E&lt;U\)</span>.</p></li>
+<li><p>The probability of this <code class="docutils literal notranslate"><span class="pre">tunnelling</span></code> taking placew decreases exponentially with the width of the barrier.</p></li>
+</ul>
+</section>
+<section id="dirac-notation">
+<h3>Dirac Notation<a class="headerlink" href="#dirac-notation" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+{\Huge
+\left\langle
+     \text{Bra}| \text{Operator}| \text{Ket}
+\right\rangle = \text{Number}
+}\]</div>
+<p>The Dirac notation, also called Bra-Ket notation, is a notation used in Quantum Physics to express vector operations, and inner product.
+It makes interpretation of state, observations and inner product easier.</p>
+<ul class="simple">
+<li><p>It uses angular brackets <span class="math notranslate nohighlight">\(\langle , \rangle\)</span> and vertical bar <span class="math notranslate nohighlight">\(|\)</span>.</p></li>
+<li><p>A Ket is a vector of the Hilbert space denoted as <span class="math notranslate nohighlight">\(|v\rangle\)</span>, and represents state of a quantum system.</p></li>
+<li><p>Action of linear operator <span class="math notranslate nohighlight">\(A\)</span> on a ket is expressed as <span class="math notranslate nohighlight">\(A|v\rangle\)</span>.</p></li>
+<li><p>A Bra is of the form <span class="math notranslate nohighlight">\(\langle f|\)</span>. It is a map <span class="math notranslate nohighlight">\(f: V\longrightarrow C\)</span>, i.e., it maps a vector to a number, usually complex number.</p></li>
+<li><p>With an inner product <span class="math notranslate nohighlight">\(\langle , \rangle\)</span> defined on vector space, each ket has a unique corresponding bra <span class="math notranslate nohighlight">\(\langle v, ~ \rangle \equiv \langle v|\)</span></p></li>
+<li><p>Basically a bra is a map that is literally parameterised by the vector of Hilbert space, and its action on a vector is governed by the defined inner product.</p></li>
+<li><p>The inner product then is equivalently expressed more conveniently as</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\langle v_1, v_2 \rangle \equiv \langle v_1 | v_2 \rangle , \quad\text{and for some operator, }A\quad \langle v_1, A v_2\rangle \equiv \langle v_1|A|v_2\rangle
+\]</div>
+<ul class="simple">
+<li><p>The set of all Bra is called dual space of vector space, and both can be used to represent the state.</p></li>
+<li><p>One also defines outer product, of two vectors as <span class="math notranslate nohighlight">\(L=|v_1\rangle \langle v_2|\)</span>, which acts as an operator
+<span class="math notranslate nohighlight">\(L(v)\equiv L|v\rangle = |v_1\rangle\langle v_2|v\rangle = \langle v_2|v\rangle|v_1\rangle\)</span>.
+Here applying <span class="math notranslate nohighlight">\(L\)</span> on <span class="math notranslate nohighlight">\(|v\rangle\)</span> gives the state <span class="math notranslate nohighlight">\(|v_1\rangle\)</span> multiplied by scalar <span class="math notranslate nohighlight">\(\langle v_2|v \rangle\)</span>.</p></li>
+<li><p>For a basis <span class="math notranslate nohighlight">\(\{|v_1\rangle, |v_2\rangle, \dots, |v_n\rangle \}\)</span> there is a corresponding basis for dual space, a basis of bra’s <span class="math notranslate nohighlight">\(\{\langle v_1|, \langle v_2|, \dots, \langle v_n|\}\)</span></p></li>
+<li><p>The linear combination for a ket is simply expressed as <span class="math notranslate nohighlight">\(|v\rangle = \sum_i a_i |v_i\rangle\)</span>, however, for the corresponding bra <span class="math notranslate nohighlight">\(\langle v|\)</span> has conjugate coefficients.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\langle v| = \sum_i a_i^*\langle v_i|
+\]</div>
+</section>
+</section>
+<section id="states-and-operators">
+<h2>States and Operators<a class="headerlink" href="#states-and-operators" title="Link to this heading">#</a></h2>
+<p>Here we will recall the fundamental notions of quantum mechanics we use when we setup the mathematical framework for a given quantum system.</p>
+<p>To describe or study a quantum system, we first start with a set of states that are mutually exclusive with respect to an observation or measurement.
+Classically, a system and observations are two distinct things without their interplay. Since classically when we observe something, for example a moving car, or a passing meteor, our ‘observation’ does not affect the dynamics or behaviour of the system in question. It is because the interaction of the observer and the system is usually so weak that there is no effect of the presence of observer on the system.</p>
+<p>But within the quantum realm, this is not the case. In the strict sense, any observation in quantum realm is result of a measurement, which itself is associated with the property of the system, such as position, momentum, or energy of the system. Secondly, in the quantum realm, properties are quantised, that is, instead of any possible value, there exist descrete values or outcomes that individual measurement can result in. For example, in case of a qubit, the measurement of the state result in either <span class="math notranslate nohighlight">\(|0\rangle\)</span> or <span class="math notranslate nohighlight">\(|1\rangle\)</span>.</p>
+<p>So when there is an observation we think of, and the decrete set of state the system is in, and these state are mutually exlusive in the sense of possibility.</p>
+<p>If the system is found in one of those state, and the corresponding measurement is done, it will always be found in that state. We choose this set as our basis. Imagine there are <span class="math notranslate nohighlight">\(n\)</span> possible states, then basis may be expressed as <span class="math notranslate nohighlight">\(B=\{|1\rangle, |2\rangle, |3\rangle, \dots, |n\rangle\}\)</span>. Here the states are symbolically expressed by the outcome labels <span class="math notranslate nohighlight">\(1, 2, \dots, n\)</span>. The Hilbert space for the quantum system is then the linear span of these states -</p>
+<div class="math notranslate nohighlight">
+\[
+H_b = \left\{|s\rangle =\sum_{l=1}^n c_l|l\rangle: \text{where } c_l\in \mathbb{C}\right\}
+\]</div>
+<p>Each vector in this Hilbert space is a possible state. This is because of the <strong>superposition principle</strong> which states that If a quantum system can exist in two states (or more), it can exist in all possible superpositions of the two (or more of those) states. Let’s see below what this superposition means in connection with a quantum system.</p>
+<section id="connection-with-experiment">
+<h3>Connection with Experiment<a class="headerlink" href="#connection-with-experiment" title="Link to this heading">#</a></h3>
+<p>We have the following probabilistic interpretation of a general state in the Hilbert space.</p>
+<section id="probabilistic-interpretation">
+<h4>Probabilistic interpretation<a class="headerlink" href="#probabilistic-interpretation" title="Link to this heading">#</a></h4>
+<div class="tip admonition">
+<p class="admonition-title">Probabilistic interpretation of superposition</p>
+<p>A quantum state <span class="math notranslate nohighlight">\(|s\rangle = c_1|1\rangle + c_2|2\rangle  + \dots c_n|n\rangle \)</span> is a state, in which possibilities of being measured in each one of the basis states <span class="math notranslate nohighlight">\(|l\rangle\)</span> coexist simultaneously, untill the measurement is done.</p>
+</div>
+<p>The coefficients <span class="math notranslate nohighlight">\(c_l\)</span> are complex probability amplitudes for each state <span class="math notranslate nohighlight">\(|l\rangle\)</span>, and the actual probability of measurement outcome being in the state <span class="math notranslate nohighlight">\(|l\rangle\)</span> is <span class="math notranslate nohighlight">\(|c_l|^2\)</span>. Since sum of all the probabilities must add to 1, we must have -</p>
+<div class="math notranslate nohighlight">
+\[
+1 = \sum_{l=1}^n |c_l|^2 = |c_1|^2 + |c_2|^2 + \dots +|c_n|^2
+\]</div>
+<div class="admonition-overlap-of-probability admonition">
+<p class="admonition-title">Overlap of probability</p>
+<p>The inner product of the two states <span class="math notranslate nohighlight">\(\langle s, s'\rangle \equiv \langle s|s'\rangle\)</span> gives the overlap of probabilities of the two states.</p>
+</div>
+<p>For mutually exclusive states this overlap is zero, hence the mutually exclusive states should be orthogonal to each other. That is why we impose that the basis above is orthogonal, i.e., <span class="math notranslate nohighlight">\(\langle l|l'\rangle = 0\)</span> for <span class="math notranslate nohighlight">\(l\ne l'\)</span> and normal <span class="math notranslate nohighlight">\(\langle l|l\rangle = 1\)</span>.</p>
+<p>Further, lets compute the norm of the above generic state <span class="math notranslate nohighlight">\(|s\rangle\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
+\langle s|s\rangle = \sum_l c_l^*\langle l| \sum_{l'} c_{l'}|l'\rangle  = \sum_{l,l'} c_l^*c_{l'}\langle l|l'\rangle = \sum_{l} |c_l|^2
+\]</div>
+<p>But the probability argument implied that the last summation equals 1, so <span class="math notranslate nohighlight">\(\langle s|s'\rangle = 1\)</span>, that is the norm of the state must also be 1. That is why in quantum system, a state is represented by a unit vector of the Hilbert space.</p>
+</section>
+<section id="interpretation-of-measurement">
+<h4>Interpretation of measurement<a class="headerlink" href="#interpretation-of-measurement" title="Link to this heading">#</a></h4>
+<p>Let us try to illustrate how quantum measurement works.
+When we measure a property of a quantum system, the outcome of the measurement should yield a value.</p>
+<p>Let’s assume the quantum system imagined in the previous section, the states are <span class="math notranslate nohighlight">\(|l\rangle\)</span> with <span class="math notranslate nohighlight">\(l=1,2,\dots n\)</span>. If the system is already in one of these states, then it stays in it, and the outcome of the measurement is, say <span class="math notranslate nohighlight">\(a_l\)</span> corresponding to the state <span class="math notranslate nohighlight">\(|l\rangle\)</span>.</p>
+<p>This observation, against our intuition of uncertainty in quantum system, is actually definite. Is there something special about the system being in state <span class="math notranslate nohighlight">\(|l\rangle\)</span> ? Yes, it is so because these state are by construction mutually exclusive with respect to observation, as discussed in section <a class="reference internal" href="#states-and-operators"><code class="xref myst docutils literal notranslate"><span class="pre">states-and-operators</span></code></a>.</p>
+<p>The uncertainty comes if before the measurement system was in a superposition state <span class="math notranslate nohighlight">\(|s\rangle = c_1|1\rangle + c_2|2\rangle  + \dots c_n|n\rangle\)</span>. In this case, the system is in a state where the possibility of being in any one of the <span class="math notranslate nohighlight">\(|l\rangle\)</span> state coexist until the measurement.</p>
+<p>Once we observe the system, or measure it, the system collapses into one of the <span class="math notranslate nohighlight">\(|l\rangle\)</span> states with probability <span class="math notranslate nohighlight">\(|c_l|^2\)</span>. In this situation the outcome is not definite, but probabilistic, and if we repeat the above experiment, we get a probability averaged outcome, called <strong>expectation value</strong>. It is denoted as <span class="math notranslate nohighlight">\(\langle a \rangle\)</span> and is given by the weighted average of the probabilities -</p>
+<div class="math notranslate nohighlight">
+\[
+\langle a \rangle = \sum_{l=1}^n |c_l|^2 a_l
+\]</div>
+</section>
+<section id="mathematical-interpretation">
+<h4>Mathematical interpretation<a class="headerlink" href="#mathematical-interpretation" title="Link to this heading">#</a></h4>
+<p>Mathematically, the above measurement is interpreted as following.</p>
+<p>Every physically measurable quantity is called an observable, and for every observable, there is a Hermitian operator, say <span class="math notranslate nohighlight">\(A\)</span> that acts on a state.
+If the state is <span class="math notranslate nohighlight">\(l\rangle\)</span>, the result of the action is <span class="math notranslate nohighlight">\(A|l\rangle=a_l|l\rangle\)</span>, and if the state is in superposition <span class="math notranslate nohighlight">\(|s\rangle\)</span>, the state changes to <span class="math notranslate nohighlight">\(A|s\rangle\)</span>.</p>
+<p>The overlap, or inner product of the resulting state with initial state gives the outcome of the measurement. The outcome, which is also called the expectation value, is expressed as <span class="math notranslate nohighlight">\(\langle s, As\rangle\)</span> or <span class="math notranslate nohighlight">\(\langle s|A|s\rangle\)</span> in the Dirac notation.</p>
+<ul class="simple">
+<li><p>For the <span class="math notranslate nohighlight">\(|l\rangle\)</span> state, the outcome is <span class="math notranslate nohighlight">\(\langle l|A|l\rangle = a_l\langle l|l\rangle = a_l\)</span>, and if definite.</p></li>
+<li><p>For the superposition state, the outcome is probabilistic with expectation value</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\langle a \rangle &amp;= \langle s|A|s \rangle =
+\left(
+    \sum_{l'}c_{l'}^*\langle l'|
+\right)A
+\left(
+\sum_l c_l|l\rangle
+\right)\\
+&amp;=
+\sum_{l,l'}c_{l'}^*c_l a_l\langle l'|l \rangle
+= \sum_l a_l|c_l|^2
+\end{align*}
+\end{split}\]</div>
+<p>which is same as one interpreted as measurement outcome in the previous section.</p>
+</section>
+</section>
+<section id="measurement-in-the-computational-basis">
+<h3>Measurement in the computational basis<a class="headerlink" href="#measurement-in-the-computational-basis" title="Link to this heading">#</a></h3>
+<p>The <strong>Born rule</strong> tells us that if we measure a generic qubit state, <span class="math notranslate nohighlight">\(\psi=\alpha\ket{0}+\beta\ket{1}\)</span>, in the computational basis, <span class="math notranslate nohighlight">\(\{\ket{0},\ket{1}\}\)</span>, the probability of outcome 0 is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+P(0)&amp;=|\langle0|\psi\rangle|^2\\
+&amp;=|\bra{0}\left(\alpha\ket{0}+\beta\ket{1}\right)|^2\\
+&amp;=|\langle0|\alpha|0\rangle+\langle0|\beta|1\rangle|^2\\
+&amp;=|\alpha\langle0|0\rangle+\beta\langle0|1\rangle|^2\\
+&amp;=|\,\alpha\cdot1+\beta\cdot0\,|^2
+\\
+&amp;=|\alpha|^2.
+\end{align*}
+\end{split}\]</div>
+<p>Via similar working we can calculate that the probability of outcome 1 is given by</p>
+<div class="math notranslate nohighlight">
+\[
+P(1)=|\langle1|\psi\rangle|^2=|\beta|^2.
+\]</div>
+</section>
+<section id="measurement-in-a-different-basis">
+<h3>Measurement in a different basis<a class="headerlink" href="#measurement-in-a-different-basis" title="Link to this heading">#</a></h3>
+<p>We can generalise the above procedure to account for measuring a state <span class="math notranslate nohighlight">\(\ket{\psi}\)</span> in any basis <span class="math notranslate nohighlight">\(\{\ket{b_i}\}\)</span>. Each possible measurement outcome corresponds to a <strong>projector</strong>,</p>
+<div class="math notranslate nohighlight">
+\[
+P_i=\ket{b_i}\bra{b_i}.
+\]</div>
+<p>The probability of outcome <span class="math notranslate nohighlight">\(i\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+P(i)&amp;=\langle\psi|P_i|\psi\rangle\\
+&amp;=\langle\psi|b_i\rangle\langle b_i|\psi\rangle\\
+&amp;=|\langle b_i|\psi\rangle|^2,
+\end{align*}
+\end{split}\]</div>
+<p>where in the final line we have used the fact that <span class="math notranslate nohighlight">\(\langle b_i|\psi\rangle\)</span> is the complex conjugate of <span class="math notranslate nohighlight">\(\langle\psi|b_i\rangle\)</span>, and a complex number multipled by its own complex conjugate gives the square of its magnitude,</p>
+<div class="math notranslate nohighlight">
+\[
+z\cdot z^*=|z|^2, \; z\in\mathbb{C}.
+\]</div>
+</section>
+</section>
+<section id="hilbert-space-of-qubits">
+<h2>Hilbert space of Qubits<a class="headerlink" href="#hilbert-space-of-qubits" title="Link to this heading">#</a></h2>
+<p>Let us finally come to example of quantum systems that are useful for quantum computing.</p>
+<section id="single-qubit">
+<h3>Single Qubit<a class="headerlink" href="#single-qubit" title="Link to this heading">#</a></h3>
+<p>A <strong>Qubit</strong> is a quantum system with two state basis. A single qubit is one of the simplest quantum system of 2-dimensional Hilbert space.</p>
+<p>A qubit is an abstraction of a quantum system with two dimensional Hilbert space, with a basis <span class="math notranslate nohighlight">\(\{|0\rangle, |1\rangle\}\)</span>. The Hilbert space then looks like</p>
+<div class="math notranslate nohighlight">
+\[
+H_1 = {|s\rangle = c_0|0\rangle + c_1|1\rangle: c_0, c_1 \in \mathbb{C}}
+\]</div>
+<p>Note that in order to represent a quantum state, the kets <span class="math notranslate nohighlight">\(|s\rangle\)</span> need to be normal, which means</p>
+<div class="math notranslate nohighlight">
+\[
+|c_0|^2 + |c_1|^2 = 1
+\]</div>
+<p>Since the Hilbert space is two dimensional, all the operator on it can be
+represented as <span class="math notranslate nohighlight">\(2\times 2\)</span> complex matrices.</p>
+<p>Noteworthy operators are the following -</p>
+<ul class="simple">
+<li><p>Identity <span class="math notranslate nohighlight">\(I\)</span>, and Hadamard <span class="math notranslate nohighlight">\(H\)</span> operators. Their matrix representation is following -</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+I = \begin{pmatrix} 1 &amp; 0\\0 &amp; 1 \end{pmatrix};
+H = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 &amp; 1\\1 &amp; -1 \end{pmatrix}
+\end{split}\]</div>
+<ul class="simple">
+<li><p>Pauli <span class="math notranslate nohighlight">\(X, Y, Z\)</span> operators. Their matrix representation is following -
+$<span class="math notranslate nohighlight">\(
+X = \begin{pmatrix} 0 &amp; 1\\1 &amp; 0 \end{pmatrix}; 
+Y = \begin{pmatrix} 0 &amp; -i\\i &amp; 0 \end{pmatrix}; 
+Z = \begin{pmatrix} 1 &amp; 0\\0 &amp; -1 \end{pmatrix};
+\)</span>$</p></li>
+</ul>
+<p>One assumes a coordinate system with <span class="math notranslate nohighlight">\(x,y\)</span> and <span class="math notranslate nohighlight">\(z\)</span> axis, and a basis
+that is eigenstate of Pauli z operators.</p>
+</section>
+<section id="multiple-qubits">
+<h3>Multiple Qubits<a class="headerlink" href="#multiple-qubits" title="Link to this heading">#</a></h3>
+<p>In general, when we combine two quantum systems, the Hilbert space of the
+combined system is constructed from the cartesian product of the basis of
+component systems.</p>
+<p>Let us first consider a system of two qubits, if the basis for one qubit is
+<span class="math notranslate nohighlight">\(B_1 = \{|0\rangle, |1\rangle\}\)</span>, then the basis for the two qubit system is</p>
+<div class="math notranslate nohighlight">
+\[
+B_2 = B_1\times B_1 = {(|0\rangle, |0\rangle), (|0\rangle, |1\rangle),
+(|1\rangle, |0\rangle), (|1\rangle, |1\rangle)}
+\]</div>
+<p>Where the order of the states in ordered pair follows the qubit label.
+For example, <span class="math notranslate nohighlight">\((|0\rangle, |1\rangle)\)</span> represents a state in which first
+qubit is in 0 state, and second qubit is in 1 state.</p>
+<p>If we have more qubits, the Hilbert space will grow as <span class="math notranslate nohighlight">\(B_3 = B_1\times B_1\times B_1\)</span>, and so on.
+The ordered pair notation becomes combersome, so one puts the individual state labels inside the
+angular brackets. In this way, the basis for two and three qubits looks like following -</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+B_2 = &amp;\{|00\rangle, |01\rangle, |10\rangle, |11\rangle\}\\
+B_3 = &amp;\{|000\rangle, |001\rangle, |010\rangle, |011\rangle, |100\rangle, |101\rangle, |110\rangle, |111\rangle\}\\
+B_4 = &amp;\{
+    |0000\rangle, |0001\rangle, |0010\rangle, |0011\rangle,\\
+    &amp;|0100\rangle, |0101\rangle, |0110\rangle, |0111\rangle,\\
+    &amp;|1000\rangle, |1001\rangle, |1010\rangle, |1011\rangle,\\
+    &amp;|1100\rangle, |1101\rangle, |1110\rangle, |1111\rangle
+\}
+\end{align}
+\end{split}\]</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The size of the basis, and hence the dimension of the Hilbert space of <span class="math notranslate nohighlight">\(n\)</span> qubits is <span class="math notranslate nohighlight">\(2^n\)</span></p>
+</div>
+</section>
+<section id="pure-vs-mixed-states">
+<h3>Pure vs Mixed States<a class="headerlink" href="#pure-vs-mixed-states" title="Link to this heading">#</a></h3>
+<section id="pure-state">
+<h4>Pure state<a class="headerlink" href="#pure-state" title="Link to this heading">#</a></h4>
+<p>The quantum state we referred to so far are what one calls pure states, and they are represented by a normalised vector in a complex Hilbert space. In the Dirac notation, they are described as a ket <span class="math notranslate nohighlight">\(|v\rangle\)</span> or a bra <span class="math notranslate nohighlight">\(\langle v|\)</span>.</p>
+<p>There is another way to describe the state of quantum system which can be generalised to mixed states (defined below), and the is through <strong>density operator</strong>. For a system in pure quantum state <span class="math notranslate nohighlight">\(|v\rangle\)</span>, the density operator is defined as</p>
+<div class="math notranslate nohighlight">
+\[
+{\Huge
+\rho = |v\rangle \langle v|
+}
+\]</div>
+<ul class="simple">
+<li><p>It is easy to see that trace of the density operator is 1, i.e., <span class="math notranslate nohighlight">\(\text{Tr}(\rho)=1\)</span>.</p></li>
+<li><p>For a pure state, <span class="math notranslate nohighlight">\(\rho^2 = \rho\)</span>, so <span class="math notranslate nohighlight">\(\text{Tr}(\rho^2)=1\)</span></p></li>
+</ul>
+</section>
+<section id="mixed-state">
+<h4>Mixed state<a class="headerlink" href="#mixed-state" title="Link to this heading">#</a></h4>
+<p>Suppose we have a quantum system, and wish to prepare it in a state <span class="math notranslate nohighlight">\(|l\rangle\)</span> out of, say <span class="math notranslate nohighlight">\(\{|1\rangle, |2\rangle, |3\rangle,\dots, |n\rangle\}\)</span>. If we could do it, then the system is in a pure state. But on the other hand, due to some difficulty, experimental or otherwise of physical nature, when we try to prepare it in <span class="math notranslate nohighlight">\(|l\rangle\)</span>, each time we get the system prepared in a different state. We can repeat the attempt of preparing the state several times, and compute the statistical <em>weight</em> <span class="math notranslate nohighlight">\(w_l\)</span> of having prepared the system in the expected state <span class="math notranslate nohighlight">\(|l\rangle\)</span>. This adds another uncertainty, which is classical in nature on any measurement on the system in such a state, and any outcome of quantum measurement will be an ensemble average of these weights. Such a state is called a <strong>mixed state</strong>.</p>
+<p>What mathematical object should we use to represent such a state? Clearly a single vector does not suffice, so we need something that depends on the weights <span class="math notranslate nohighlight">\(w_l\)</span> and the state <span class="math notranslate nohighlight">\(|l\rangle\)</span> for all values of <span class="math notranslate nohighlight">\(l\)</span>.</p>
+<p>Such state are represented by the following</p>
+<div class="math notranslate nohighlight">
+\[
+\rho = \sum_l w_l |l\rangle \langle l|
+\]</div>
+<ul class="simple">
+<li><p>For a mixed state, <span class="math notranslate nohighlight">\(\rho^2 \ne \rho\)</span>, and <span class="math notranslate nohighlight">\(\text{Tr}(\rho) &lt;1\)</span>.</p></li>
+</ul>
+</section>
+</section>
+<section id="interactive-qubit-state-visualization">
+<h3>Interactive Qubit State Visualization<a class="headerlink" href="#interactive-qubit-state-visualization" title="Link to this heading">#</a></h3>
+<p>Below we show an interactive illustration how a qubit is visualized on a Bloch sphere. An arbitrary qubit can be expressed in terms of two angles  <span class="math notranslate nohighlight">\(\theta, \phi\)</span>, which are mapped to unit vectors in 3D as follows</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+|\theta, \phi\rangle = \begin{pmatrix}
+    \cos{\frac{\theta}{2}}\\
+    e^{i\phi}\sin{\frac{\theta}{2}}
+\end{pmatrix}
+\longleftrightarrow
+\begin{pmatrix}
+    \sin{\theta}\cos{\phi}\\
+    \sin{\theta}\sin{\phi}\\
+    \cos{\theta}
+\end{pmatrix}
+\end{split}\]</div>
+<p>The interactive widget below lets you move the <span class="math notranslate nohighlight">\(\theta, \phi\)</span> on the plane to show how the corresponding point on the Bloch sphere moves with it.</p>
+<iframe 
+    src="../bloch-sphere.html" 
+    width="100%" 
+    height="600px" 
+    style="border: 2px solid #ccc; border-radius: 8px;"
+    loading="lazy"
+></iframe>
+<p>Use the controls on the left to drag the state and the mouse to rotate the 3D sphere.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lecture-04"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../lecture-03/math-for-qc1.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 3: Mathematical framework for Quantum Computing</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../lecture-05/intro-to-quantum-info.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lecture 5: Introduction to Quantum Information</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#postulates-of-quantum-physics">Postulates of Quantum Physics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uncertainty-principle">Uncertainty Principle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#state-as-an-abstract-vector">State as an abstract vector</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superposition-principle">Superposition principle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#role-of-interference">Role of interference</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#principles-of-measurement">Principles of measurement</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#no-cloning">No-cloning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entanglement">Entanglement</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tunnelling">Tunnelling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dirac-notation">Dirac Notation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#states-and-operators">States and Operators</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connection-with-experiment">Connection with Experiment</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-interpretation">Probabilistic interpretation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-of-measurement">Interpretation of measurement</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-interpretation">Mathematical interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#measurement-in-the-computational-basis">Measurement in the computational basis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#measurement-in-a-different-basis">Measurement in a different basis</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hilbert-space-of-qubits">Hilbert space of Qubits</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-qubit">Single Qubit</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-qubits">Multiple Qubits</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pure-vs-mixed-states">Pure vs Mixed States</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pure-state">Pure state</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mixed-state">Mixed state</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-qubit-state-visualization">Interactive Qubit State Visualization</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By ICHEC Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  Copyright@2024
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
