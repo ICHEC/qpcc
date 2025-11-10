@@ -59,6 +59,8 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-10/quantum-algorithms2';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -379,7 +381,13 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-algorithm">Simon’s Algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-problem">Simon’s Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-speed-up">Quantum Speed up</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shors-algorithm">Shor’s Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grovers-algorithm">Grover’s Algorithm</a></li>
 </ul>
             </nav>
         </div>
@@ -407,8 +415,55 @@ document.write(`
 </ul>
 </div>
 <img alt="../_images/quant.png" class="align-center" src="../_images/quant.png" />
-<section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<section id="simons-algorithm">
+<h2>Simon’s Algorithm<a class="headerlink" href="#simons-algorithm" title="Link to this heading">#</a></h2>
+<p>Simon’s algorithm was the first proposed quantum algorithm to demonstrate an exponential speed up over classical computers. While it doesn’t have a known practical use, it served as an inspiration for many other quantum algorithms.</p>
+<section id="simons-problem">
+<h3>Simon’s Problem<a class="headerlink" href="#simons-problem" title="Link to this heading">#</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(f:{0, 1}^n \rightarrow {0,1}^n\)</span> be a function that is 2-1 (for every <span class="math notranslate nohighlight">\(x\)</span> there is a <span class="math notranslate nohighlight">\(y\)</span> such that <span class="math notranslate nohighlight">\(f(x)=f(y)\)</span>) and where <span class="math notranslate nohighlight">\(f(x\,\text{XOR}\, c)=f(x)\)</span>.
+Our task is to find <span class="math notranslate nohighlight">\(c\)</span>.</p>
+<p>Here <span class="math notranslate nohighlight">\(x\,\text{XOR}\, c\)</span> means to take the component-wise XOR between the n-bit strings <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(c\)</span>. If <span class="math notranslate nohighlight">\(x=1011\)</span> and <span class="math notranslate nohighlight">\(c=0101\)</span> then we would get <span class="math notranslate nohighlight">\(x\,\text{XOR}\, c=1010\)</span>.</p>
+<p>Classically this can be solved with an average of <span class="math notranslate nohighlight">\(O(2^{n/2})\)</span> evaluations. While on a quantum computer on average we will require only <span class="math notranslate nohighlight">\(O(n)\)</span> evaluations.</p>
+</section>
+<section id="quantum-speed-up">
+<h3>Quantum Speed up<a class="headerlink" href="#quantum-speed-up" title="Link to this heading">#</a></h3>
+<p>We require <span class="math notranslate nohighlight">\(2n\)</span> qubits split into 2 n-bit registers. Simon’s algorithm consists in the following steps:</p>
+<p>Firstly we apply a Hadamard gate to each qubit in the first register, creating the state
+$<span class="math notranslate nohighlight">\(\frac{1}{2^{n/2}} \sum_x |x\rangle |0\rangle.\)</span><span class="math notranslate nohighlight">\( 
+Note that the sum is over all n-bit strings, so for \)</span>n=2<span class="math notranslate nohighlight">\( we sum over \)</span>00<span class="math notranslate nohighlight">\(, \)</span>01<span class="math notranslate nohighlight">\(, \)</span>10<span class="math notranslate nohighlight">\( and \)</span>11$.</p>
+<p>The we apply the unitary <span class="math notranslate nohighlight">\(U|x\rangle|y\rangle=|x\rangle|y \,\text{XOR}\, f(x) \rangle\)</span> getting the state
+$<span class="math notranslate nohighlight">\(\frac{1}{2^{n/2}} \sum_x |x\rangle |f(x)\rangle.\)</span>$</p>
+<p>Next we measure the qubits in the second register. Suppose we measured <span class="math notranslate nohighlight">\(f(z)\)</span>, where recall <span class="math notranslate nohighlight">\(f(z)\)</span> is an n-bit string, then we know that qubits in the first register must either be in <span class="math notranslate nohighlight">\(z\)</span> or <span class="math notranslate nohighlight">\(z \,\text{XOR}\, c\)</span> and hence the qubits in the first register are in state $<span class="math notranslate nohighlight">\( \frac{|z\rangle + |z \,\text{XOR}\, c\rangle}{\sqrt 2}\)</span>$</p>
+<p>Now we apply a Hadamard gate again to each qubit in the first register producing the state
+$<span class="math notranslate nohighlight">\(
+ \frac{1}{2^{(n+1)/2}} \sum_x [(-1)^{x\cdot z} + (-1)^{x\cdot (z \,\text{XOR}\, c)}|x\rangle \\
+ \)</span><span class="math notranslate nohighlight">\(
+ where \)</span>x\cdot z=x_1 z_1 + x_2 z_2 + … + x_n z_n<span class="math notranslate nohighlight">\(. Using the fact that \)</span>(-1)^{a ,\text{XOR}, b}=(-1)^{a+b}<span class="math notranslate nohighlight">\( where \)</span>a,b\in{0,1}<span class="math notranslate nohighlight">\(
+ we can rewrite this as
+ \)</span><span class="math notranslate nohighlight">\(
+ \begin{split} 
+ &amp; \frac{1}{2^{(n+1)/2}} \sum_x [(-1)^{x\cdot z} + (-1)^{x\cdot z} (-1)^{x\cdot c}|x\rangle \\
+ =&amp; \frac{1}{2^{(n+1)/2}} \sum_x (-1)^{x\cdot z}[1 + (-1)^{x\cdot c}|x\rangle .\\
+ \end{split}
+ \)</span><span class="math notranslate nohighlight">\(
+When \)</span>x\cdot c<span class="math notranslate nohighlight">\( is an odd number \)</span>1 + (-1)^{x\cdot c}<span class="math notranslate nohighlight">\( will be zero, thus we can simplify this as
+\)</span><span class="math notranslate nohighlight">\( \frac{1}{2^{(n+1)/2}} \sum_{x|x\cdot c \in\, \text{even}} (-1)^{x\cdot z} |x\rangle\)</span><span class="math notranslate nohighlight">\(
+where \)</span>x\cdot c \in, \text{even}<span class="math notranslate nohighlight">\( means we only sum over bit strings for which \)</span>x\cdot c$ is an even number.</p>
+<p>Thus running the above circuit once, the first register gives us a value of <span class="math notranslate nohighlight">\(x\)</span> for which <span class="math notranslate nohighlight">\(x\cdot c\)</span> is even. If we repeat this <span class="math notranslate nohighlight">\(n\)</span> times we will end up with <span class="math notranslate nohighlight">\(n\)</span> independent equations (assuming we don’t get duplicate values of <span class="math notranslate nohighlight">\(x\)</span>) for which we can easily solve for <span class="math notranslate nohighlight">\(c\)</span>.</p>
+<figure class="align-center" id="id1">
+<img alt="../_images/simons_circuit.png" src="../_images/simons_circuit.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 28 </span><span class="caption-text">The circuit for Simon’s algorithm for <span class="math notranslate nohighlight">\(n=3\)</span>.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="shors-algorithm">
+<h2>Shor’s Algorithm<a class="headerlink" href="#shors-algorithm" title="Link to this heading">#</a></h2>
+<p>This is blank, need to populate.</p>
+</section>
+<section id="grovers-algorithm">
+<h2>Grover’s Algorithm<a class="headerlink" href="#grovers-algorithm" title="Link to this heading">#</a></h2>
 <p>This is blank, need to populate.</p>
 </section>
 </section>
@@ -477,7 +532,13 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-algorithm">Simon’s Algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-problem">Simon’s Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-speed-up">Quantum Speed up</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shors-algorithm">Shor’s Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grovers-algorithm">Grover’s Algorithm</a></li>
 </ul>
   </nav></div>
 
