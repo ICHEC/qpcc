@@ -33,34 +33,41 @@ Classically this can be solved with an average of $O(2^{n/2})$ evaluations. Whil
 ### Quantum Speed up
 With $2n$ qubits split into 2 n-bit registers, Simon's algorithm consists in the following steps:
 
-Firstly we apply a Hadamard gate to each qubit in the first register, creating the state 
+Firstly we apply a Hadamard gate to each qubit in the first register, creating the state
+
 $$
 \frac{1}{2^{n/2}} \sum_x |x\rangle |0\rangle.
 $$ 
+
 Note that the sum is over all n-bit strings, so for $n=2$ we sum over $00$, $01$, $10$ and $11$.
 
-The we apply the unitary $U|x\rangle|y\rangle=|x\rangle|y \,\text{XOR}\, f(x) \rangle$ getting the state 
+The we apply the unitary $U|x\rangle|y\rangle=|x\rangle|y \,\text{XOR}\, f(x) \rangle$ getting the state
+
 $$
 \frac{1}{2^{n/2}} \sum_x |x\rangle |f(x)\rangle.
 $$
 
-Next we measure the qubits in the second register. Suppose we measured $f(z)$, where recall $f(z)$ is an n-bit string, then we know that qubits in the first register must either be in $z$ or $z \,\text{XOR}\, c$ and hence the qubits in the first register are in state 
+Next we measure the qubits in the second register. Suppose we measured $f(z)$, where recall $f(z)$ is an n-bit string, then we know that qubits in the first register must either be in $z$ or $z \,\text{XOR}\, c$ and hence the qubits in the first register are in state
+
 $$
 \frac{|z\rangle + |z \,\text{XOR}\, c\rangle}{\sqrt 2}
 $$
 
 Now we apply a Hadamard gate again to each qubit in the first register producing the state
+
 $$
  \frac{1}{2^{(n+1)/2}} \sum_x [(-1)^{x\cdot z} + (-1)^{x\cdot (z \,\text{XOR}\, c)}|x\rangle \\
 $$
- where $x\cdot z=x_1 z_1 + x_2 z_2 + ... + x_n z_n$. Using the fact that $(-1)^{a \,\text{XOR}\, b}=(-1)^{a+b}$ where $a,b\in\{0,1\}$
- we can rewrite this as
+
+where $x\cdot z=x_1 z_1 + x_2 z_2 + ... + x_n z_n$. Using the fact that $(-1)^{a \,\text{XOR}\, b}=(-1)^{a+b}$ where $a,b\in\{0,1\}$ we can rewrite this as
+
 $$
- \begin{split} 
- & \frac{1}{2^{(n+1)/2}} \sum_x [(-1)^{x\cdot z} + (-1)^{x\cdot z} (-1)^{x\cdot c}|x\rangle \\
- =& \frac{1}{2^{(n+1)/2}} \sum_x (-1)^{x\cdot z}[1 + (-1)^{x\cdot c}|x\rangle .\\
- \end{split}
+\begin{split} 
+& \frac{1}{2^{(n+1)/2}} \sum_x [(-1)^{x\cdot z} + (-1)^{x\cdot z} (-1)^{x\cdot c}|x\rangle \\
+=& \frac{1}{2^{(n+1)/2}} \sum_x (-1)^{x\cdot z}[1 + (-1)^{x\cdot c}|x\rangle .\\
+\end{split}
 $$
+
 When $x\cdot c$ is an odd number $1 + (-1)^{x\cdot c}$ will be zero, thus we can simplify this as
 $$ \frac{1}{2^{(n+1)/2}} \sum_{x|x\cdot c \in\, \text{even}} (-1)^{x\cdot z} |x\rangle$$
 where $x\cdot c \in\, \text{even}$ means we only sum over bit strings for which $x\cdot c$ is an even number.
@@ -97,6 +104,7 @@ where $0<x<N$. Here $\text{mod}\, N$ means we divide by $N$ and keep the remaind
 It turns out that if we have a fast method for order finding, then we also have a fast method for factoring numbers.
 
 Order finding can be efficiently run on a quantum computer using the QPE algorithm with unitary
+
 $$
 U|y\rangle=|xy\,\text{mod}\,N\rangle.
 $$
@@ -114,10 +122,13 @@ Here the protocal is as follows:
 
 The public keys are $(e, n)$ and the private key is $d$.
 A message $m$ can be encrypted using 
+
 $$
 E(m) = m^e \,\text{mod}\, n
 $$
+
 and decrypted using
+
 $$
 m = E(m)^d \,\text{mod}\, n.
 $$
@@ -130,9 +141,11 @@ Grover's algorithm is an algorithm for searching through an unstructed database.
 ### Unstructured search
 We can formulate the search problem more formally as follows:
 Suppose we’re given a function
+
 $$
 f:\{0,1\}^n \rightarrow \{0,1\}
 $$
+
 Our goal is to find a solution, which is a binary string $x\in\{0,1\}^n$ for which $f(x)=1$.
 
 Classically we can solve this by iterating through all $x$ and evaluating $f$ on each one and stopping when we find $f(x)=1$.
