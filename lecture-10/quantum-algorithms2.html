@@ -391,7 +391,12 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implications-for-crytography">Implications for crytography</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grovers-algorithm">Grover’s Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grovers-algorithm">Grover’s Algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unstructured-search">Unstructured search</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Grover’s algorithm</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limiations-of-early-quantum-algorithms">Limiations of early quantum algorithms</a></li>
 </ul>
             </nav>
         </div>
@@ -411,14 +416,13 @@ document.write(`
 </div>
 <div class="tip admonition">
 <p class="admonition-title">Learning Outcomes</p>
-<p>In this lecture we will be taking a look at the landscape of quantum algorithms, and talk about two of the layers of the quantum stack shown in the right, namely the applications and quantum algorithms. The learning outcomes of this lecture will be the following :</p>
+<p>In this learning we will continue with our exporation of early quantum algorithms. Specially we’ll discuss:</p>
 <ul class="simple">
-<li><p>Introduction to quantum algorithms and their applications.</p></li>
-<li><p>Grasping potential advantage of quantum algorithms.</p></li>
-<li><p>Understanding the requirements for the practical application of quantum algorithms.</p></li>
+<li><p>Simon’s Algorithm.</p></li>
+<li><p>Shor’s Algorithm.</p></li>
+<li><p>Grover’s Algorithm.</p></li>
 </ul>
 </div>
-<img alt="../_images/quant.png" class="align-center" src="../_images/quant.png" />
 <section id="simons-algorithm">
 <h2>Simon’s Algorithm<a class="headerlink" href="#simons-algorithm" title="Link to this heading">#</a></h2>
 <p>Simon’s algorithm was the first proposed quantum algorithm to demonstrate an exponential speed up over classical computers. While it doesn’t have a known practical use, it served as an inspiration for many other quantum algorithms.</p>
@@ -432,39 +436,43 @@ Our task is to find <span class="math notranslate nohighlight">\(c\)</span>.</p>
 <section id="quantum-speed-up">
 <h3>Quantum Speed up<a class="headerlink" href="#quantum-speed-up" title="Link to this heading">#</a></h3>
 <p>With <span class="math notranslate nohighlight">\(2n\)</span> qubits split into 2 n-bit registers, Simon’s algorithm consists in the following steps:</p>
-<p>Firstly we apply a Hadamard gate to each qubit in the first register, creating the state
-$<span class="math notranslate nohighlight">\(
+<p>Firstly we apply a Hadamard gate to each qubit in the first register, creating the state</p>
+<div class="math notranslate nohighlight">
+\[
 \frac{1}{2^{n/2}} \sum_x |x\rangle |0\rangle.
-\)</span><span class="math notranslate nohighlight">\( 
-Note that the sum is over all n-bit strings, so for \)</span>n=2<span class="math notranslate nohighlight">\( we sum over \)</span>00<span class="math notranslate nohighlight">\(, \)</span>01<span class="math notranslate nohighlight">\(, \)</span>10<span class="math notranslate nohighlight">\( and \)</span>11$.</p>
-<p>The we apply the unitary <span class="math notranslate nohighlight">\(U|x\rangle|y\rangle=|x\rangle|y \,\text{XOR}\, f(x) \rangle\)</span> getting the state
-$<span class="math notranslate nohighlight">\(
+\]</div>
+<p>Note that the sum is over all n-bit strings, so for <span class="math notranslate nohighlight">\(n=2\)</span> we sum over <span class="math notranslate nohighlight">\(00\)</span>, <span class="math notranslate nohighlight">\(01\)</span>, <span class="math notranslate nohighlight">\(10\)</span> and <span class="math notranslate nohighlight">\(11\)</span>.</p>
+<p>The we apply the unitary <span class="math notranslate nohighlight">\(U|x\rangle|y\rangle=|x\rangle|y \,\text{XOR}\, f(x) \rangle\)</span> getting the state</p>
+<div class="math notranslate nohighlight">
+\[
 \frac{1}{2^{n/2}} \sum_x |x\rangle |f(x)\rangle.
-\)</span>$</p>
-<p>Next we measure the qubits in the second register. Suppose we measured <span class="math notranslate nohighlight">\(f(z)\)</span>, where recall <span class="math notranslate nohighlight">\(f(z)\)</span> is an n-bit string, then we know that qubits in the first register must either be in <span class="math notranslate nohighlight">\(z\)</span> or <span class="math notranslate nohighlight">\(z \,\text{XOR}\, c\)</span> and hence the qubits in the first register are in state
-$<span class="math notranslate nohighlight">\(
+\]</div>
+<p>Next we measure the qubits in the second register. Suppose we measured <span class="math notranslate nohighlight">\(f(z)\)</span>, where recall <span class="math notranslate nohighlight">\(f(z)\)</span> is an n-bit string, then we know that qubits in the first register must either be in <span class="math notranslate nohighlight">\(z\)</span> or <span class="math notranslate nohighlight">\(z \,\text{XOR}\, c\)</span> and hence the qubits in the first register are in state</p>
+<div class="math notranslate nohighlight">
+\[
 \frac{|z\rangle + |z \,\text{XOR}\, c\rangle}{\sqrt 2}
-\)</span>$</p>
-<p>Now we apply a Hadamard gate again to each qubit in the first register producing the state
-$<span class="math notranslate nohighlight">\(
+\]</div>
+<p>Now we apply a Hadamard gate again to each qubit in the first register producing the state</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
  \frac{1}{2^{(n+1)/2}} \sum_x [(-1)^{x\cdot z} + (-1)^{x\cdot (z \,\text{XOR}\, c)}|x\rangle \\
-\)</span><span class="math notranslate nohighlight">\(
- where \)</span>x\cdot z=x_1 z_1 + x_2 z_2 + … + x_n z_n<span class="math notranslate nohighlight">\(. Using the fact that \)</span>(-1)^{a ,\text{XOR}, b}=(-1)^{a+b}<span class="math notranslate nohighlight">\( where \)</span>a,b\in{0,1}<span class="math notranslate nohighlight">\(
- we can rewrite this as
-\)</span><span class="math notranslate nohighlight">\(
- \begin{split} 
- &amp; \frac{1}{2^{(n+1)/2}} \sum_x [(-1)^{x\cdot z} + (-1)^{x\cdot z} (-1)^{x\cdot c}|x\rangle \\
- =&amp; \frac{1}{2^{(n+1)/2}} \sum_x (-1)^{x\cdot z}[1 + (-1)^{x\cdot c}|x\rangle .\\
- \end{split}
-\)</span><span class="math notranslate nohighlight">\(
-When \)</span>x\cdot c<span class="math notranslate nohighlight">\( is an odd number \)</span>1 + (-1)^{x\cdot c}<span class="math notranslate nohighlight">\( will be zero, thus we can simplify this as
-\)</span><span class="math notranslate nohighlight">\( \frac{1}{2^{(n+1)/2}} \sum_{x|x\cdot c \in\, \text{even}} (-1)^{x\cdot z} |x\rangle\)</span><span class="math notranslate nohighlight">\(
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(x\cdot z=x_1 z_1 + x_2 z_2 + ... + x_n z_n\)</span>. Using the fact that <span class="math notranslate nohighlight">\((-1)^{a \,\text{XOR}\, b}=(-1)^{a+b}\)</span> where <span class="math notranslate nohighlight">\(a,b\in\{0,1\}\)</span> we can rewrite this as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{split} 
+&amp; \frac{1}{2^{(n+1)/2}} \sum_x [(-1)^{x\cdot z} + (-1)^{x\cdot z} (-1)^{x\cdot c}|x\rangle \\
+=&amp; \frac{1}{2^{(n+1)/2}} \sum_x (-1)^{x\cdot z}[1 + (-1)^{x\cdot c}|x\rangle .\\
+\end{split}
+\end{split}\]</div>
+<p>When <span class="math notranslate nohighlight">\(x\cdot c\)</span> is an odd number <span class="math notranslate nohighlight">\(1 + (-1)^{x\cdot c}\)</span> will be zero, thus we can simplify this as
+$<span class="math notranslate nohighlight">\( \frac{1}{2^{(n+1)/2}} \sum_{x|x\cdot c \in\, \text{even}} (-1)^{x\cdot z} |x\rangle\)</span><span class="math notranslate nohighlight">\(
 where \)</span>x\cdot c \in, \text{even}<span class="math notranslate nohighlight">\( means we only sum over bit strings for which \)</span>x\cdot c$ is an even number.</p>
 <p>Thus running the above circuit once, the first register gives us a value of <span class="math notranslate nohighlight">\(x\)</span> for which <span class="math notranslate nohighlight">\(x\cdot c\)</span> is even. If we repeat this <span class="math notranslate nohighlight">\(n\)</span> times we will end up with <span class="math notranslate nohighlight">\(n\)</span> independent equations (assuming we don’t get duplicate values of <span class="math notranslate nohighlight">\(x\)</span>) for which we can easily solve for <span class="math notranslate nohighlight">\(c\)</span>.</p>
-<figure class="align-center" id="id1">
+<figure class="align-center" id="id2">
 <img alt="../_images/simons_circuit.png" src="../_images/simons_circuit.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 28 </span><span class="caption-text">The circuit for Simon’s algorithm for <span class="math notranslate nohighlight">\(n=3\)</span>.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 28 </span><span class="caption-text">The circuit for Simon’s algorithm for <span class="math notranslate nohighlight">\(n=3\)</span>.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -480,10 +488,10 @@ Shor’s algorithm can find the prime factors of a given integer exponentially f
 <li><p>Reduce the factoring problem to an order finding problem</p></li>
 <li><p>Efficiently solve the order finding problem using the QPE algorihm</p></li>
 </ul>
-<figure class="align-center" id="id2">
+<figure class="align-center" id="id3">
 <img alt="../_images/shor_workflow.png" src="../_images/shor_workflow.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 29 </span><span class="caption-text">The workflow for Shor’s algorithm.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 29 </span><span class="caption-text">The workflow for Shor’s algorithm.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>The order finding problem is to find a value of <span class="math notranslate nohighlight">\(r\)</span> such that
@@ -492,10 +500,11 @@ x^r = 1\, \text{mod}\, N
 \)</span><span class="math notranslate nohighlight">\(
 where \)</span>0&lt;x&lt;N<span class="math notranslate nohighlight">\(. Here \)</span>\text{mod}, N<span class="math notranslate nohighlight">\( means we divide by \)</span>N$ and keep the remainder.
 It turns out that if we have a fast method for order finding, then we also have a fast method for factoring numbers.</p>
-<p>Order finding can be efficiently run on a quantum computer using the QPE algorithm with unitary
-$<span class="math notranslate nohighlight">\(
+<p>Order finding can be efficiently run on a quantum computer using the QPE algorithm with unitary</p>
+<div class="math notranslate nohighlight">
+\[
 U|y\rangle=|xy\,\text{mod}\,N\rangle.
-\)</span>$</p>
+\]</div>
 </section>
 <section id="implications-for-crytography">
 <h3>Implications for crytography<a class="headerlink" href="#implications-for-crytography" title="Link to this heading">#</a></h3>
@@ -510,20 +519,47 @@ Here the protocal is as follows:</p>
 <li><p>Find <span class="math notranslate nohighlight">\(d\)</span> where <span class="math notranslate nohighlight">\(de=1\,\text{mod}\,\phi\)</span></p></li>
 </ol>
 <p>The public keys are <span class="math notranslate nohighlight">\((e, n)\)</span> and the private key is <span class="math notranslate nohighlight">\(d\)</span>.
-A message <span class="math notranslate nohighlight">\(m\)</span> can be encrypted using
-$<span class="math notranslate nohighlight">\(
+A message <span class="math notranslate nohighlight">\(m\)</span> can be encrypted using</p>
+<div class="math notranslate nohighlight">
+\[
 E(m) = m^e \,\text{mod}\, n
-\)</span><span class="math notranslate nohighlight">\(
-and decrypted using
-\)</span><span class="math notranslate nohighlight">\(
+\]</div>
+<p>and decrypted using</p>
+<div class="math notranslate nohighlight">
+\[
 m = E(m)^d \,\text{mod}\, n.
-\)</span>$</p>
+\]</div>
 <p>The security of RSA relies on the assumption that factoring is difficult and can’t be done efficiently, as far as we know this is true on classical computers, but Shor’s algorithm shows it’s not the case for quanutm computers. Currently quantum computers are not large enough to run Shor’s algorithm, but post quantum cryptography protocals are already being adopted.</p>
 </section>
 </section>
 <section id="grovers-algorithm">
 <h2>Grover’s Algorithm<a class="headerlink" href="#grovers-algorithm" title="Link to this heading">#</a></h2>
-<p>This is blank, need to populate.</p>
+<p>Grover’s algorithm is an algorithm for searching through an unstructed database. It ofters a quadratic speed-up over classical approaches.</p>
+<section id="unstructured-search">
+<h3>Unstructured search<a class="headerlink" href="#unstructured-search" title="Link to this heading">#</a></h3>
+<p>We can formulate the search problem more formally as follows:
+Suppose we’re given a function</p>
+<div class="math notranslate nohighlight">
+\[
+f:\{0,1\}^n \rightarrow \{0,1\}
+\]</div>
+<p>Our goal is to find a solution, which is a binary string <span class="math notranslate nohighlight">\(x\in\{0,1\}^n\)</span> for which <span class="math notranslate nohighlight">\(f(x)=1\)</span>.</p>
+<p>Classically we can solve this by iterating through all <span class="math notranslate nohighlight">\(x\)</span> and evaluating <span class="math notranslate nohighlight">\(f\)</span> on each one and stopping when we find <span class="math notranslate nohighlight">\(f(x)=1\)</span>.
+If there are <span class="math notranslate nohighlight">\(N\)</span> elements in the list and only one solution then on average we will have to evaluate <span class="math notranslate nohighlight">\(N/2\)</span> elements.</p>
+</section>
+<section id="id1">
+<h3>Grover’s algorithm<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="limiations-of-early-quantum-algorithms">
+<h2>Limiations of early quantum algorithms<a class="headerlink" href="#limiations-of-early-quantum-algorithms" title="Link to this heading">#</a></h2>
+<p>Most early quantum algorithms require:</p>
+<ul class="simple">
+<li><p>Large amounts of qubits</p></li>
+<li><p>Long circuits</p></li>
+<li><p>Error correction (to be robust in the present of noise), further increasing the number of required qubits</p></li>
+</ul>
+<p>As current hardware is unable to meet these requirements, they are rarely used currently, with NISQ (Noisy Intermediate Scale Quantum) algorithms being developed and used instead.</p>
 </section>
 </section>
 
@@ -601,7 +637,12 @@ m = E(m)^d \,\text{mod}\, n.
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implications-for-crytography">Implications for crytography</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grovers-algorithm">Grover’s Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grovers-algorithm">Grover’s Algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unstructured-search">Unstructured search</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Grover’s algorithm</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limiations-of-early-quantum-algorithms">Limiations of early quantum algorithms</a></li>
 </ul>
   </nav></div>
 
