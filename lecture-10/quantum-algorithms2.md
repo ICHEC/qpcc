@@ -26,6 +26,12 @@ Simon's algorithm was the first proposed quantum algorithm to demonstrate an exp
 Let $f:{0, 1}^n \rightarrow {0,1}^n$ be a function that is 2-1 (for every $x$ there is a $y$ such that $f(x)=f(y)$) and where $f(x\,\text{XOR}\, c)=f(x)$. 
 Our task is to find $c$. 
 
+```{figure} ./images/two-one-func.png
+:align: center
+
+A 2-1 function, here for every output there are two inputs that map to it.
+```
+
 Here $x\,\text{XOR}\, c$ means to take the component-wise XOR between the n-bit strings $x$ and $c$. If $x=1011$ and $c=0101$ then we would get $x\,\text{XOR}\, c=1010$.
 
 Classically this can be solved with an average of $O(2^{n/2})$ evaluations. While on a quantum computer on average we will require only $O(n)$ evaluations.
@@ -69,7 +75,11 @@ $$
 $$
 
 When $x\cdot c$ is an odd number $1 + (-1)^{x\cdot c}$ will be zero, thus we can simplify this as
-$$ \frac{1}{2^{(n+1)/2}} \sum_{x|x\cdot c \in\, \text{even}} (-1)^{x\cdot z} |x\rangle$$
+
+$$ 
+\frac{1}{2^{(n+1)/2}} \sum_{x|x\cdot c \in\, \text{even}} (-1)^{x\cdot z} |x\rangle
+$$
+
 where $x\cdot c \in\, \text{even}$ means we only sum over bit strings for which $x\cdot c$ is an even number.
 
 Thus running the above circuit once, the first register gives us a value of $x$ for which $x\cdot c$ is even. If we repeat this $n$ times we will end up with $n$ independent equations (assuming we don't get duplicate values of $x$) for which we can easily solve for $c$.
@@ -96,10 +106,12 @@ Shor's algorithm consists of two steps:
 The workflow for Shor's algorithm.
 ```
 
-The order finding problem is to find a value of $r$ such that 
+The order finding problem is to find a value of $r$ such that
+
 $$
 x^r = 1\, \text{mod}\, N
 $$
+
 where $0<x<N$. Here $\text{mod}\, N$ means we divide by $N$ and keep the remainder.
 It turns out that if we have a fast method for order finding, then we also have a fast method for factoring numbers.
 
@@ -151,8 +163,43 @@ Our goal is to find a solution, which is a binary string $x\in\{0,1\}^n$ for whi
 Classically we can solve this by iterating through all $x$ and evaluating $f$ on each one and stopping when we find $f(x)=1$.
 If there are $N$ elements in the list and only one solution then on average we will have to evaluate $N/2$ elements.
 
-### Grover's algorithm
+### Circuit
+For a database of size $N=2^n$ we require $n$ qubits. 
+We define the oracle, $O$, which performs the operation
 
+$$
+O|x\rangle = (-1)^{f(x)}|x\rangle.
+$$
+
+We also define the Diffusion operator which performs the operation
+
+$$
+2|\psi\rangle\langle \psi|-I 
+$$
+
+where $|\psi\rangle$ is the uniform superposition state given by
+
+$$
+|\psi\rangle = \frac{1}{2^{n/2}} \sum_x |x\rangle 
+$$
+
+(note that the sum is over all $n$ bit strings $x$) and $I$ is the identity matrix.
+
+Grover’s operator, $G$, is defined as
+
+$$
+G = (2|\psi\rangle\langle \psi|-I)O
+$$
+
+Grover's algorithm consists in
+1. Apply a Hadamard gate to each qubit
+1. Apply Grover's operator $\sim\sqrt{N}$ times
+1. Meaure the qubits
+
+with a probability of at least $1/2$ a solution will be measured. 
+
+### WHy does Grover's algorithm work?
+...
 
 ## Limiations of early quantum algorithms
 Most early quantum algorithms require:
