@@ -11,15 +11,10 @@ layout: post
 
 ```{admonition} Learning Outcomes
 :class: tip
-In this lecture we will be taking a look at the landscape of quantum algorithms, and talk about two of the layers of the quantum stack shown in the right, namely the applications and quantum algorithms. The learning outcomes of this lecture will be the following : 
-- Introduction to quantum algorithms and their applications.
-- Grasping potential advantage of quantum algorithms.
-- Understanding the requirements for the practical application of quantum algorithms.
-```
-
-
-```{image} ../prep/images/quant.png
-:align: center
+In this learning we will continue with our exporation of early quantum algorithms. Specially we'll discuss:
+- Simon's Algorithm.
+- Shor's Algorithm.
+- Grover's Algorithm.
 ```
 
 ## Simon's Algorithm
@@ -130,5 +125,26 @@ $$
 The security of RSA relies on the assumption that factoring is difficult and can't be done efficiently, as far as we know this is true on classical computers, but Shor's algorithm shows it's not the case for quanutm computers. Currently quantum computers are not large enough to run Shor's algorithm, but post quantum cryptography protocals are already being adopted.
 
 ## Grover's Algorithm
+Grover's algorithm is an algorithm for searching through an unstructed database. It ofters a quadratic speed-up over classical approaches.
 
-This is blank, need to populate.
+### Unstructured search
+We can formulate the search problem more formally as follows:
+Suppose we’re given a function
+$$
+f:\{0,1\}^n \rightarrow \{0,1\}
+$$
+Our goal is to find a solution, which is a binary string $x\in\{0,1\}^n$ for which $f(x)=1$.
+
+Classically we can solve this by iterating through all $x$ and evaluating $f$ on each one and stopping when we find $f(x)=1$.
+If there are $N$ elements in the list and only one solution then on average we will have to evaluate $N/2$ elements.
+
+### Grover's algorithm
+
+
+## Limiations of early quantum algorithms
+Most early quantum algorithms require:
+- Large amounts of qubits
+- Long circuits
+- Error correction (to be robust in the present of noise), further increasing the number of required qubits
+
+As current hardware is unable to meet these requirements, they are rarely used currently, with NISQ (Noisy Intermediate Scale Quantum) algorithms being developed and used instead.
