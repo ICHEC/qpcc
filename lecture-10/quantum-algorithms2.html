@@ -393,7 +393,8 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grovers-algorithm">Grover’s Algorithm</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unstructured-search">Unstructured search</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Grover’s algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#circuit">Circuit</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-does-grovers-algorithm-work">WHy does Grover’s algorithm work?</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limiations-of-early-quantum-algorithms">Limiations of early quantum algorithms</a></li>
@@ -430,6 +431,12 @@ document.write(`
 <h3>Simon’s Problem<a class="headerlink" href="#simons-problem" title="Link to this heading">#</a></h3>
 <p>Let <span class="math notranslate nohighlight">\(f:{0, 1}^n \rightarrow {0,1}^n\)</span> be a function that is 2-1 (for every <span class="math notranslate nohighlight">\(x\)</span> there is a <span class="math notranslate nohighlight">\(y\)</span> such that <span class="math notranslate nohighlight">\(f(x)=f(y)\)</span>) and where <span class="math notranslate nohighlight">\(f(x\,\text{XOR}\, c)=f(x)\)</span>.
 Our task is to find <span class="math notranslate nohighlight">\(c\)</span>.</p>
+<figure class="align-center" id="id1">
+<img alt="../_images/two-one-func.png" src="../_images/two-one-func.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 28 </span><span class="caption-text">A 2-1 function, here for every output there are two inputs that map to it.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 <p>Here <span class="math notranslate nohighlight">\(x\,\text{XOR}\, c\)</span> means to take the component-wise XOR between the n-bit strings <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(c\)</span>. If <span class="math notranslate nohighlight">\(x=1011\)</span> and <span class="math notranslate nohighlight">\(c=0101\)</span> then we would get <span class="math notranslate nohighlight">\(x\,\text{XOR}\, c=1010\)</span>.</p>
 <p>Classically this can be solved with an average of <span class="math notranslate nohighlight">\(O(2^{n/2})\)</span> evaluations. While on a quantum computer on average we will require only <span class="math notranslate nohighlight">\(O(n)\)</span> evaluations.</p>
 </section>
@@ -465,14 +472,17 @@ Our task is to find <span class="math notranslate nohighlight">\(c\)</span>.</p>
 =&amp; \frac{1}{2^{(n+1)/2}} \sum_x (-1)^{x\cdot z}[1 + (-1)^{x\cdot c}|x\rangle .\\
 \end{split}
 \end{split}\]</div>
-<p>When <span class="math notranslate nohighlight">\(x\cdot c\)</span> is an odd number <span class="math notranslate nohighlight">\(1 + (-1)^{x\cdot c}\)</span> will be zero, thus we can simplify this as
-$<span class="math notranslate nohighlight">\( \frac{1}{2^{(n+1)/2}} \sum_{x|x\cdot c \in\, \text{even}} (-1)^{x\cdot z} |x\rangle\)</span><span class="math notranslate nohighlight">\(
-where \)</span>x\cdot c \in, \text{even}<span class="math notranslate nohighlight">\( means we only sum over bit strings for which \)</span>x\cdot c$ is an even number.</p>
+<p>When <span class="math notranslate nohighlight">\(x\cdot c\)</span> is an odd number <span class="math notranslate nohighlight">\(1 + (-1)^{x\cdot c}\)</span> will be zero, thus we can simplify this as</p>
+<div class="math notranslate nohighlight">
+\[ 
+\frac{1}{2^{(n+1)/2}} \sum_{x|x\cdot c \in\, \text{even}} (-1)^{x\cdot z} |x\rangle
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(x\cdot c \in\, \text{even}\)</span> means we only sum over bit strings for which <span class="math notranslate nohighlight">\(x\cdot c\)</span> is an even number.</p>
 <p>Thus running the above circuit once, the first register gives us a value of <span class="math notranslate nohighlight">\(x\)</span> for which <span class="math notranslate nohighlight">\(x\cdot c\)</span> is even. If we repeat this <span class="math notranslate nohighlight">\(n\)</span> times we will end up with <span class="math notranslate nohighlight">\(n\)</span> independent equations (assuming we don’t get duplicate values of <span class="math notranslate nohighlight">\(x\)</span>) for which we can easily solve for <span class="math notranslate nohighlight">\(c\)</span>.</p>
 <figure class="align-center" id="id2">
 <img alt="../_images/simons_circuit.png" src="../_images/simons_circuit.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 28 </span><span class="caption-text">The circuit for Simon’s algorithm for <span class="math notranslate nohighlight">\(n=3\)</span>.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 29 </span><span class="caption-text">The circuit for Simon’s algorithm for <span class="math notranslate nohighlight">\(n=3\)</span>.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -491,14 +501,15 @@ Shor’s algorithm can find the prime factors of a given integer exponentially f
 <figure class="align-center" id="id3">
 <img alt="../_images/shor_workflow.png" src="../_images/shor_workflow.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 29 </span><span class="caption-text">The workflow for Shor’s algorithm.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 30 </span><span class="caption-text">The workflow for Shor’s algorithm.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<p>The order finding problem is to find a value of <span class="math notranslate nohighlight">\(r\)</span> such that
-$<span class="math notranslate nohighlight">\(
+<p>The order finding problem is to find a value of <span class="math notranslate nohighlight">\(r\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[
 x^r = 1\, \text{mod}\, N
-\)</span><span class="math notranslate nohighlight">\(
-where \)</span>0&lt;x&lt;N<span class="math notranslate nohighlight">\(. Here \)</span>\text{mod}, N<span class="math notranslate nohighlight">\( means we divide by \)</span>N$ and keep the remainder.
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(0&lt;x&lt;N\)</span>. Here <span class="math notranslate nohighlight">\(\text{mod}\, N\)</span> means we divide by <span class="math notranslate nohighlight">\(N\)</span> and keep the remainder.
 It turns out that if we have a fast method for order finding, then we also have a fast method for factoring numbers.</p>
 <p>Order finding can be efficiently run on a quantum computer using the QPE algorithm with unitary</p>
 <div class="math notranslate nohighlight">
@@ -547,8 +558,130 @@ f:\{0,1\}^n \rightarrow \{0,1\}
 <p>Classically we can solve this by iterating through all <span class="math notranslate nohighlight">\(x\)</span> and evaluating <span class="math notranslate nohighlight">\(f\)</span> on each one and stopping when we find <span class="math notranslate nohighlight">\(f(x)=1\)</span>.
 If there are <span class="math notranslate nohighlight">\(N\)</span> elements in the list and only one solution then on average we will have to evaluate <span class="math notranslate nohighlight">\(N/2\)</span> elements.</p>
 </section>
-<section id="id1">
-<h3>Grover’s algorithm<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<section id="circuit">
+<h3>Circuit<a class="headerlink" href="#circuit" title="Link to this heading">#</a></h3>
+<p>For a database of size <span class="math notranslate nohighlight">\(N=2^n\)</span> we require <span class="math notranslate nohighlight">\(n\)</span> qubits.
+We define the oracle, <span class="math notranslate nohighlight">\(O\)</span>, which performs the operation</p>
+<div class="math notranslate nohighlight">
+\[
+O|x\rangle = (-1)^{f(x)}|x\rangle.
+\]</div>
+<p>We also define the Diffusion operator which performs the operation</p>
+<div class="math notranslate nohighlight">
+\[
+2|\psi\rangle\langle \psi|-I 
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> is the uniform superposition state given by</p>
+<div class="math notranslate nohighlight">
+\[
+|\psi\rangle = \frac{1}{2^{n/2}} \sum_x |x\rangle 
+\]</div>
+<p>(note that the sum is over all <span class="math notranslate nohighlight">\(n\)</span> bit strings <span class="math notranslate nohighlight">\(x\)</span>) and <span class="math notranslate nohighlight">\(I\)</span> is the identity matrix.</p>
+<p>Grover’s operator, <span class="math notranslate nohighlight">\(G\)</span>, is defined as</p>
+<div class="math notranslate nohighlight">
+\[
+G = (2|\psi\rangle\langle \psi|-I)O
+\]</div>
+<p>Grover’s algorithm consists in</p>
+<ol class="arabic simple">
+<li><p>Apply a Hadamard gate to each qubit (creating a uniform superposition state)</p></li>
+<li><p>Apply Grover’s operator <span class="math notranslate nohighlight">\(\sim\sqrt{N}\)</span> times</p></li>
+<li><p>Meaure the qubits</p></li>
+</ol>
+<p>with a probability of at least <span class="math notranslate nohighlight">\(1/2\)</span> a solution will be measured.</p>
+</section>
+<section id="why-does-grovers-algorithm-work">
+<h3>WHy does Grover’s algorithm work?<a class="headerlink" href="#why-does-grovers-algorithm-work" title="Link to this heading">#</a></h3>
+<p>We define <span class="math notranslate nohighlight">\(M\)</span> to be the number of solutions (i.e. values of <span class="math notranslate nohighlight">\(x\)</span> for which <span class="math notranslate nohighlight">\(f(x)=1\)</span>).</p>
+<p>We define an equal superposition of solutions</p>
+<div class="math notranslate nohighlight">
+\[
+|A_1\rangle = \frac{1}{\sqrt M} \sum_{x \,|\, f(x)=1}|x\rangle
+\]</div>
+<p>where we some over all bit strings <span class="math notranslate nohighlight">\(x\)</span> which have <span class="math notranslate nohighlight">\(f(x)=1\)</span>, and an equal superposition of non-solutions</p>
+<div class="math notranslate nohighlight">
+\[
+|A_0\rangle = \frac{1}{\sqrt{N-M}} \sum_{x \,|\, f(x)=0}|x\rangle.
+\]</div>
+<p>Note that we can write the uniform superposition state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> in terms of these two states</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{split}
+|\psi\rangle &amp;= \frac{1}{\sqrt N} \sum_x |x\rangle \\ 
+&amp;= \frac{1}{\sqrt N} \sum_{x \,|\, f(x)=0} |x\rangle + \frac{1}{\sqrt N} \sum_{x \,|\, f(x)=1} |x\rangle \\
+&amp;= \sqrt{\frac{N-M}{N}} |A_0\rangle + \sqrt{\frac{M}{N}} |A_1\rangle \\
+&amp;= \sqrt{1-\phi} |A_0\rangle + \sqrt{\phi} |A_1\rangle \\
+\end{split}
+\end{split}\]</div>
+<p>where we have define <span class="math notranslate nohighlight">\(\phi=M / N\)</span>.</p>
+<p>Consider a linear combination of <span class="math notranslate nohighlight">\(|A_0\rangle\)</span> and <span class="math notranslate nohighlight">\(|A_1\rangle\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+|\alpha\rangle = a_0 |A_0\rangle + a_1 |A_1\rangle
+\]</div>
+<p>note that the state the circuit is in before the first application of Grover’s application is <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> and hence is in the form of <span class="math notranslate nohighlight">\(|\alpha\rangle\)</span>.</p>
+<p>If we apply Grover’s operator to <span class="math notranslate nohighlight">\(|\alpha\rangle\)</span> we get</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{split}
+G|\alpha\rangle &amp;= (2|\psi\rangle\langle \psi|-I)O (a_0 |A_0\rangle + a_1 |A_1\rangle) \\ 
+&amp;= (2|\psi\rangle\langle \psi|-I)(a_0 |A_0\rangle - a_1 |A_1\rangle) \\ 
+&amp;= 2a_0 |\psi\rangle\langle \psi|A_0\rangle - 2 a_1 |\psi\rangle\langle \psi|A_1\rangle - a_0 |A_0\rangle + a_1 |A_1\rangle \\ 
+&amp;= 2a_0 \sqrt{1-\phi} |\psi\rangle - 2 a_1 \sqrt{\phi} |\psi\rangle - a_0 |A_0\rangle + a_1 |A_1\rangle \\ 
+&amp;= \left[a_0(1-2\phi) - 2 a_1 \sqrt{\phi(1-\phi)} \right] |A_0\rangle  + \left[a_1(1- 2\phi) + 2a_0 \sqrt{\phi(1-\phi)} \right] |A_1\rangle .\\ 
+\end{split}
+\end{split}\]</div>
+<p>Note that <span class="math notranslate nohighlight">\(0 \le \phi \le 1\)</span> and hence <span class="math notranslate nohighlight">\(-1 \le 1-2\phi \le 1\)</span>, this means we can write</p>
+<div class="math notranslate nohighlight">
+\[
+1-2\phi = \cos \theta
+\]</div>
+<p>and hence</p>
+<div class="math notranslate nohighlight">
+\[
+\sin \theta = \sqrt{1 - \cos^2 \theta} = \sqrt{1 - (1-2\phi )^2} = 2\sqrt{\phi(1-\phi)}.
+\]</div>
+<p>Thus using this new <span class="math notranslate nohighlight">\(\theta\)</span> variable we get</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+G|\alpha\rangle = \left[a_0\cos \theta - 2 a_1 \sin \theta \right] |A_0\rangle  + \left[a_1\cos \theta + 2a_0 \sin \theta \right] |A_1\rangle .\\ 
+\end{split}\]</div>
+<p>In terms of the coefficients <span class="math notranslate nohighlight">\(a_0\)</span> and <span class="math notranslate nohighlight">\(a_1\)</span>, applying Grover’s operator to <span class="math notranslate nohighlight">\(|\alpha\rangle\)</span> results in the transformation</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{pmatrix}
+a_0\\ a_1\\
+\end{pmatrix}
+\rightarrow
+\begin{pmatrix}
+\cos\theta &amp; -\sin\theta \\
+\sin\theta &amp; \cos\theta \\
+\end{pmatrix}
+\begin{pmatrix}
+a_0\\ a_1\\
+\end{pmatrix}.
+\end{split}\]</div>
+<p>In the 2-D plane with <span class="math notranslate nohighlight">\(|A_0\rangle\)</span> being the x-axis and <span class="math notranslate nohighlight">\(|A_1\rangle\)</span> being the y-axis, this corresponds to an anti-clockwise rotation of angle <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
+<figure class="align-center" id="id4">
+<img alt="../_images/grover_rotation.png" src="../_images/grover_rotation.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 31 </span><span class="caption-text">Applying Grover’s operator to state <span class="math notranslate nohighlight">\(|\alpha\rangle\)</span> results in an anti-clockwise rotation.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Let’s suppose that the number of solutions <span class="math notranslate nohighlight">\(M\)</span> is small, then <span class="math notranslate nohighlight">\(\phi=M/N\)</span> must also be small.
+Thus we can approximate <span class="math notranslate nohighlight">\(\phi(1-\phi)\approx \phi\)</span> and hence
+<span class="math notranslate nohighlight">\(\sin \theta = 2\sqrt{\phi(1-\phi)} \approx 2\sqrt{\phi}\)</span>.
+But if <span class="math notranslate nohighlight">\(\phi\)</span> is small then we can approximate <span class="math notranslate nohighlight">\(\sin \theta\approx \theta\)</span> and hence we end up with</p>
+<div class="math notranslate nohighlight">
+\[
+\theta \approx 2\sqrt{\phi} = 2\sqrt{\frac{M}{N}}.
+\]</div>
+<p>Recall that the first step of Grover’s algorithm is to apply a Hadamard gate to each qubit, creating the uniform superposition state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span>, if <span class="math notranslate nohighlight">\(M\)</span> is small then <span class="math notranslate nohighlight">\(|\psi\rangle\approx |A_0\rangle\)</span>. Thus we start very close to the <span class="math notranslate nohighlight">\(|A_0\rangle\)</span> state, recall that Grover’s operator rotates anticlockwise by angle <span class="math notranslate nohighlight">\(\theta\)</span>, if we wish to end up near the <span class="math notranslate nohighlight">\(|A_1\rangle\)</span> we need to rotate by <span class="math notranslate nohighlight">\(90\)</span> degrees or <span class="math notranslate nohighlight">\(\pi/2\)</span> radians. Thus the number of rotations we require, <span class="math notranslate nohighlight">\(k\)</span>, is</p>
+<div class="math notranslate nohighlight">
+\[
+k = \frac{\pi}{2 \theta} = \frac{\pi}{4} \sqrt{\frac{N}{M}}.
+\]</div>
+<p>Thus we have derivived the <span class="math notranslate nohighlight">\(O(\sqrt N)\)</span> scaling of Grover’s algorithm.</p>
 </section>
 </section>
 <section id="limiations-of-early-quantum-algorithms">
@@ -639,7 +772,8 @@ If there are <span class="math notranslate nohighlight">\(N\)</span> elements in
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grovers-algorithm">Grover’s Algorithm</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unstructured-search">Unstructured search</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Grover’s algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#circuit">Circuit</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-does-grovers-algorithm-work">WHy does Grover’s algorithm work?</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limiations-of-early-quantum-algorithms">Limiations of early quantum algorithms</a></li>
