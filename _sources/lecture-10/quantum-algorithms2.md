@@ -23,7 +23,7 @@ Simon's algorithm was the first proposed quantum algorithm to demonstrate an exp
 
 ### Simon's Problem
 
-Let $f:{0, 1}^n \rightarrow {0,1}^n$ be a function that is 2-1 (for every $x$ there is a $y$ such that $f(x)=f(y)$) and where $f(x\,\text{XOR}\, c)=f(x)$. 
+Let $f:\{0, 1\}^n \rightarrow \{0,1\}^n$ be a function that is 2-1 (for every $x$ there is a $y$ such that $f(x)=f(y)$) and where $f(x\,\text{XOR}\, c)=f(x)$. 
 Our task is to find $c$. 
 
 ```{figure} ./images/two-one-func.png
@@ -224,7 +224,7 @@ $$
 \end{split}
 $$
 
-where we have define $\phi=M / N$.
+where we have defined $\phi=M / N$.
 
 Consider a linear combination of $|A_0\rangle$ and $|A_1\rangle$
 
@@ -303,7 +303,7 @@ $$
 k = \frac{\pi}{2 \theta} = \frac{\pi}{4} \sqrt{\frac{N}{M}}.
 $$
 
-Thus we have derivived the $O(\sqrt N)$ scaling of Grover's algorithm.
+Thus we have derived the $O(\sqrt N)$ scaling of Grover's algorithm.
 
 
 ## Limiations of early quantum algorithms
