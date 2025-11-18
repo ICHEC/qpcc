@@ -437,7 +437,7 @@ Our task is to find <span class="math notranslate nohighlight">\(c\)</span>.</p>
 <p><span class="caption-number">Fig. 28 </span><span class="caption-text">A 2-1 function, here for every output there are two inputs that map to it.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<p>Here <span class="math notranslate nohighlight">\(x\,\text{XOR}\, c\)</span> means to take the component-wise XOR between the n-bit strings <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(c\)</span>. If <span class="math notranslate nohighlight">\(x=1011\)</span> and <span class="math notranslate nohighlight">\(c=0101\)</span> then we would get <span class="math notranslate nohighlight">\(x\,\text{XOR}\, c=1010\)</span>.</p>
+<p>Here <span class="math notranslate nohighlight">\(x\,\text{XOR}\, c\)</span> means to take the component-wise XOR between the n-bit strings <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(c\)</span>. If <span class="math notranslate nohighlight">\(x=1011\)</span> and <span class="math notranslate nohighlight">\(c=0101\)</span> then we would get <span class="math notranslate nohighlight">\(x\,\text{XOR}\, c=1110\)</span>.</p>
 <p>Classically this can be solved with an average of <span class="math notranslate nohighlight">\(O(2^{n/2})\)</span> evaluations. While on a quantum computer on average we will require only <span class="math notranslate nohighlight">\(O(n)\)</span> evaluations.</p>
 </section>
 <section id="quantum-speed-up">
@@ -449,7 +449,7 @@ Our task is to find <span class="math notranslate nohighlight">\(c\)</span>.</p>
 \frac{1}{2^{n/2}} \sum_x |x\rangle |0\rangle.
 \]</div>
 <p>Note that the sum is over all n-bit strings, so for <span class="math notranslate nohighlight">\(n=2\)</span> we sum over <span class="math notranslate nohighlight">\(00\)</span>, <span class="math notranslate nohighlight">\(01\)</span>, <span class="math notranslate nohighlight">\(10\)</span> and <span class="math notranslate nohighlight">\(11\)</span>.</p>
-<p>The we apply the unitary <span class="math notranslate nohighlight">\(U|x\rangle|y\rangle=|x\rangle|y \,\text{XOR}\, f(x) \rangle\)</span> getting the state</p>
+<p>Then we apply the unitary <span class="math notranslate nohighlight">\(U|x\rangle|y\rangle=|x\rangle|y \,\text{XOR}\, f(x) \rangle\)</span> getting the state</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{1}{2^{n/2}} \sum_x |x\rangle |f(x)\rangle.

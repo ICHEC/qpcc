@@ -32,7 +32,7 @@ Our task is to find $c$.
 A 2-1 function, here for every output there are two inputs that map to it.
 ```
 
-Here $x\,\text{XOR}\, c$ means to take the component-wise XOR between the n-bit strings $x$ and $c$. If $x=1011$ and $c=0101$ then we would get $x\,\text{XOR}\, c=1010$.
+Here $x\,\text{XOR}\, c$ means to take the component-wise XOR between the n-bit strings $x$ and $c$. If $x=1011$ and $c=0101$ then we would get $x\,\text{XOR}\, c=1110$.
 
 Classically this can be solved with an average of $O(2^{n/2})$ evaluations. While on a quantum computer on average we will require only $O(n)$ evaluations.
 
@@ -47,7 +47,7 @@ $$
 
 Note that the sum is over all n-bit strings, so for $n=2$ we sum over $00$, $01$, $10$ and $11$.
 
-The we apply the unitary $U|x\rangle|y\rangle=|x\rangle|y \,\text{XOR}\, f(x) \rangle$ getting the state
+Then we apply the unitary $U|x\rangle|y\rangle=|x\rangle|y \,\text{XOR}\, f(x) \rangle$ getting the state
 
 $$
 \frac{1}{2^{n/2}} \sum_x |x\rangle |f(x)\rangle.
