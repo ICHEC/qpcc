@@ -10,7 +10,8 @@ layout: post
 :class: tip
 
 This week consist's of two lectures.
-- Recorded Lecture on Quantum Computing in Ireland, covering Irish footprint in Quantum, and a guest lecture from Oxford Quantum Circuits (OQC).
+- Recorded Lecture on Quantum Computing in Ireland, covering Irish footprint in Quantum, and
+- Guest lecture from Oxford Quantum Circuits (OQC).
 ```
 
 ## Summary
