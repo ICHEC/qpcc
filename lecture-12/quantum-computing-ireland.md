@@ -9,12 +9,28 @@ layout: post
 ```{admonition} Overview
 :class: tip
 
-This is a placeholder for the in house lecture from ICHEC. It will be populated in due time with necessary prerequisits, and supplementary content on ICHEC's activities on quantum computing.
+This week consist's of two lectures.
+- Recorded Lecture on Quantum Computing in Ireland, covering Irish footprint in Quantum, and a guest lecture from Oxford Quantum Circuits (OQC).
 ```
 
 ## Summary
 
-This is a live lecture, and covers Irish footprint on Quantum computing. We recall the scientist from Ireland whose discoveries helped the quantum computing, discuss the current research and industry activities in quantum computing, and describe ICHEC's positioning in the quantum computing ecosystem in Ireland.
+```{admonition} Quantum Computing in Ireland
+:class: tip
+
+We have a recorded lecture, covering Irish footprint on Quantum computing. We recall the scientist from Ireland whose discoveries helped the quantum computing, discuss the current research and industry activities in quantum computing, and describe ICHEC's positioning in the quantum computing ecosystem in Ireland.
+
+```
+
+```{admonition} Guest lecture from OQC
+:class: tip
+
+**Title: Quantum Computing - From Superconducting Hardware to Real-World Applications**
+
+**Presenter bio:**
+
+**Daria Van Hende** is a Quantum Software Engineer at OQC, specialising in quantum compilation and quantum applications. She works at the intersection of hardware-aware quantum algorithm development and quantum software, focusing on making quantum algorithms more efficient, scalable and tailored to quantum hardware. She holds a PhD in Quantum Chemistry from Ghent University, Belgium, where her research focused on the application of quantum information theory to explain the behaviour of molecules in chemical reactions
+```
 
 
 ## References
