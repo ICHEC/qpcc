@@ -1,0 +1,23 @@
+[project]
+name = "qpcc"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "ICHEC Quantum-HPC Team", email = "qpcc@ichec.ie" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "jupyter-book==1",
+    "matplotlib>=3.11.1",
+    "numpy>=2.5.1",
+    "pylatexenc>=2.10",
+    "qiskit>=2.5.0",
+    "sphinxcontrib-drawio>=0.0.17",
+    "sphinxcontrib-mermaid>=2.1.0",
+    "sphinxcontrib-youtube>=1.5.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.11.14,<0.12.0"]
+build-backend = "uv_build"
