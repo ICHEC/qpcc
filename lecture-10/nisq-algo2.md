@@ -4,7 +4,7 @@ layout: post
 ---
 
 (lecture-10)=
-# Lecture 10: Early Quantum Algorithms
+# Lecture 10: Nisq Algorithms 2
 
 ```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture 
 ```

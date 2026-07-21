@@ -14,7 +14,7 @@ mystnb:
 ---
 
 (lecture-9)=
-# Lecture 9: Early Quantum Algorithms I 
+# Lecture 9: Nisq Algorithms I
 
 ```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture.
 ```

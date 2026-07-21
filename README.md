@@ -33,11 +33,23 @@ To locally render the HTML for the lecture notes:
 1. Create a new environment
 2. Install the required packages from `requirements.txt`
 3. Using homebrew, install drawio to render some of the diagrams in the notes:
-```{code-cell}
+```bash
 brew install --cask drawio
 ```
 4. Build the book by running the following in the root directory (where `_config.yml` and `_toc.yml` are located):
-```{code-cell}
+```bash
 jupyter-book build .
 ```
 5. Copy and paste the generated link into a browser to view the notes.
+
+## Using `uv`
+
+`uv` is a lot faster python package manager. There is a pyproject.toml file that takes precedence over requirement.txt file. If you are comfortable with using `uv`, then 
+
+- use the `uv sync` command to ready the environment for the build.
+- Use `uv` to run it.
+```bash
+uv run jupyter-book build .
+```
+
+
