@@ -1,0 +1,867 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lecture 10: Nisq Algorithms 2 &#8212; Lecture Notes for CT4106</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/drawio.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/style.css?v=9c06fe5a" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-10/nisq-algo2';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="The Future of Quantum Computing" href="../lecture-11/future-quantum-guest.html" />
+    <link rel="prev" title="Lecture 9: Nisq Algorithms I" href="../lecture-09/nisq-algo1.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Lecture Notes for CT4106 - Home"/>
+    <img src="../_static/logo.png" class="logo__image only-dark pst-js-only" alt="Lecture Notes for CT4106 - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    CT4110 Lectures Overview
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 1</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-01/intro-cc-qc.html">Introduction to Classical and Quantum Computing</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-02/bits-to-qubits.html">Lecture 2: From Bits to Qubits</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 3</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-03/quantum-gates.html">Lecture 3: Mathematical framework for Quantum Computing</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 4</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-04/first-qa-intro-to-sdk.html">Lecture 4: Mathematical framework for Quantum Computing</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 5</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-05/hardware-physics-qc.html">Hardware &amp; Physics of Quantum Computers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 6</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-06/early-qa1.html">Early Quantum Algorigthms 1: QFT &amp; QPE</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 7</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-07/early-qa2.html">Early Quantum Algorithms 2: Simon and Shor’s Algorithm</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 8</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-08/early-qa3.html">Early Quantum Algorithms 3: Grover’s Algorithm</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 9</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-09/nisq-algo1.html">Lecture 9: Nisq Algorithms I</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 10</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 10: Nisq Algorithms 2</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 11</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-11/future-quantum-guest.html">The Future of Quantum Computing</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 12</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-12/quantum-computing-ireland.html">Lecture 12: Quantum Computing in Ireland</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lecture-10/nisq-algo2.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 10: Nisq Algorithms 2</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-algorithm">Simon’s Algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-problem">Simon’s Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-speed-up">Quantum Speed up</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shors-algorithm">Shor’s Algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implications-for-crytography">Implications for crytography</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grovers-algorithm">Grover’s Algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unstructured-search">Unstructured search</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#circuit">Circuit</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-does-grovers-algorithm-work">WHy does Grover’s algorithm work?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limiations-of-early-quantum-algorithms">Limiations of early quantum algorithms</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-10-nisq-algorithms-2">
+<span id="lecture-10"></span><h1>Lecture 10: Nisq Algorithms 2<a class="headerlink" href="#lecture-10-nisq-algorithms-2" title="Link to this heading">#</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>These lecture notes are a work in progress and are not a replacement for watching the lecture video, it’s intended to be a supplementary reading after watching the lecture</p>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Learning Outcomes</p>
+<p>In this learning we will continue with our exporation of early quantum algorithms. Specially we’ll discuss:</p>
+<ul class="simple">
+<li><p>Simon’s Algorithm.</p></li>
+<li><p>Shor’s Algorithm.</p></li>
+<li><p>Grover’s Algorithm.</p></li>
+</ul>
+</div>
+<section id="simons-algorithm">
+<h2>Simon’s Algorithm<a class="headerlink" href="#simons-algorithm" title="Link to this heading">#</a></h2>
+<p>Simon’s algorithm was the first proposed quantum algorithm to demonstrate an exponential speed up over classical computers. While it doesn’t have a known practical use, it served as an inspiration for many other quantum algorithms.</p>
+<section id="simons-problem">
+<h3>Simon’s Problem<a class="headerlink" href="#simons-problem" title="Link to this heading">#</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(f:\{0, 1\}^n \rightarrow \{0,1\}^n\)</span> be a function that is 2-1 (for every <span class="math notranslate nohighlight">\(x\)</span> there is a <span class="math notranslate nohighlight">\(y\)</span> such that <span class="math notranslate nohighlight">\(f(x)=f(y)\)</span>) and where <span class="math notranslate nohighlight">\(f(x\,\text{XOR}\, c)=f(x)\)</span>.
+Our task is to find <span class="math notranslate nohighlight">\(c\)</span>.</p>
+<figure class="align-center" id="id1">
+<img alt="../_images/two-one-func.png" src="../_images/two-one-func.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 28 </span><span class="caption-text">A 2-1 function, here for every output there are two inputs that map to it.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Here <span class="math notranslate nohighlight">\(x\,\text{XOR}\, c\)</span> means to take the component-wise XOR between the n-bit strings <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(c\)</span>. If <span class="math notranslate nohighlight">\(x=1011\)</span> and <span class="math notranslate nohighlight">\(c=0101\)</span> then we would get <span class="math notranslate nohighlight">\(x\,\text{XOR}\, c=1110\)</span>.</p>
+<p>Classically this can be solved with an average of <span class="math notranslate nohighlight">\(O(2^{n/2})\)</span> evaluations. While on a quantum computer on average we will require only <span class="math notranslate nohighlight">\(O(n)\)</span> evaluations.</p>
+</section>
+<section id="quantum-speed-up">
+<h3>Quantum Speed up<a class="headerlink" href="#quantum-speed-up" title="Link to this heading">#</a></h3>
+<p>With <span class="math notranslate nohighlight">\(2n\)</span> qubits split into 2 n-bit registers, Simon’s algorithm consists in the following steps:</p>
+<p>Firstly we apply a Hadamard gate to each qubit in the first register, creating the state</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{2^{n/2}} \sum_x |x\rangle |0\rangle.
+\]</div>
+<p>Note that the sum is over all n-bit strings, so for <span class="math notranslate nohighlight">\(n=2\)</span> we sum over <span class="math notranslate nohighlight">\(00\)</span>, <span class="math notranslate nohighlight">\(01\)</span>, <span class="math notranslate nohighlight">\(10\)</span> and <span class="math notranslate nohighlight">\(11\)</span>.</p>
+<p>Then we apply the unitary <span class="math notranslate nohighlight">\(U|x\rangle|y\rangle=|x\rangle|y \,\text{XOR}\, f(x) \rangle\)</span> getting the state</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{2^{n/2}} \sum_x |x\rangle |f(x)\rangle.
+\]</div>
+<p>Next we measure the qubits in the second register. Suppose we measured <span class="math notranslate nohighlight">\(f(z)\)</span>, where recall <span class="math notranslate nohighlight">\(f(z)\)</span> is an n-bit string, then we know that qubits in the first register must either be in <span class="math notranslate nohighlight">\(z\)</span> or <span class="math notranslate nohighlight">\(z \,\text{XOR}\, c\)</span> and hence the qubits in the first register are in state</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{|z\rangle + |z \,\text{XOR}\, c\rangle}{\sqrt 2}
+\]</div>
+<p>Now we apply a Hadamard gate again to each qubit in the first register producing the state</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+ \frac{1}{2^{(n+1)/2}} \sum_x [(-1)^{x\cdot z} + (-1)^{x\cdot (z \,\text{XOR}\, c)}|x\rangle \\
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(x\cdot z=x_1 z_1 + x_2 z_2 + ... + x_n z_n\)</span>. Using the fact that <span class="math notranslate nohighlight">\((-1)^{a \,\text{XOR}\, b}=(-1)^{a+b}\)</span> where <span class="math notranslate nohighlight">\(a,b\in\{0,1\}\)</span> we can rewrite this as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{split} 
+&amp; \frac{1}{2^{(n+1)/2}} \sum_x [(-1)^{x\cdot z} + (-1)^{x\cdot z} (-1)^{x\cdot c}|x\rangle \\
+=&amp; \frac{1}{2^{(n+1)/2}} \sum_x (-1)^{x\cdot z}[1 + (-1)^{x\cdot c}|x\rangle .\\
+\end{split}
+\end{split}\]</div>
+<p>When <span class="math notranslate nohighlight">\(x\cdot c\)</span> is an odd number <span class="math notranslate nohighlight">\(1 + (-1)^{x\cdot c}\)</span> will be zero, thus we can simplify this as</p>
+<div class="math notranslate nohighlight">
+\[ 
+\frac{1}{2^{(n+1)/2}} \sum_{x|x\cdot c \in\, \text{even}} (-1)^{x\cdot z} |x\rangle
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(x\cdot c \in\, \text{even}\)</span> means we only sum over bit strings for which <span class="math notranslate nohighlight">\(x\cdot c\)</span> is an even number.</p>
+<p>Thus running the above circuit once, the first register gives us a value of <span class="math notranslate nohighlight">\(x\)</span> for which <span class="math notranslate nohighlight">\(x\cdot c\)</span> is even. If we repeat this <span class="math notranslate nohighlight">\(n\)</span> times we will end up with <span class="math notranslate nohighlight">\(n\)</span> independent equations (assuming we don’t get duplicate values of <span class="math notranslate nohighlight">\(x\)</span>) for which we can easily solve for <span class="math notranslate nohighlight">\(c\)</span>.</p>
+<figure class="align-center" id="id2">
+<img alt="../_images/simons_circuit.png" src="../_images/simons_circuit.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 29 </span><span class="caption-text">The circuit for Simon’s algorithm for <span class="math notranslate nohighlight">\(n=3\)</span>.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="shors-algorithm">
+<h2>Shor’s Algorithm<a class="headerlink" href="#shors-algorithm" title="Link to this heading">#</a></h2>
+<p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Fundamental_theorem_of_arithmetic">fundamental theorem of arithmetic</a> states that every integer can be unique written as a product of primes. For example the number <span class="math notranslate nohighlight">\(42\)</span> can be written as <span class="math notranslate nohighlight">\(2*3*7\)</span>, all of which are prime.
+Shor’s algorithm can find the prime factors of a given integer exponentially faster than the best known classical algorithms.</p>
+<section id="overview">
+<h3>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h3>
+<p>Shor’s algorithm consists of two steps:</p>
+<ul class="simple">
+<li><p>Reduce the factoring problem to an order finding problem</p></li>
+<li><p>Efficiently solve the order finding problem using the QPE algorihm</p></li>
+</ul>
+<figure class="align-center" id="id3">
+<img alt="../_images/shor_workflow.png" src="../_images/shor_workflow.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 30 </span><span class="caption-text">The workflow for Shor’s algorithm.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The order finding problem is to find a value of <span class="math notranslate nohighlight">\(r\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[
+x^r = 1\, \text{mod}\, N
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(0&lt;x&lt;N\)</span>. Here <span class="math notranslate nohighlight">\(\text{mod}\, N\)</span> means we divide by <span class="math notranslate nohighlight">\(N\)</span> and keep the remainder.
+It turns out that if we have a fast method for order finding, then we also have a fast method for factoring numbers.</p>
+<p>Order finding can be efficiently run on a quantum computer using the QPE algorithm with unitary</p>
+<div class="math notranslate nohighlight">
+\[
+U|y\rangle=|xy\,\text{mod}\,N\rangle.
+\]</div>
+</section>
+<section id="implications-for-crytography">
+<h3>Implications for crytography<a class="headerlink" href="#implications-for-crytography" title="Link to this heading">#</a></h3>
+<p>In public-key cryptography one party is able to to securely share information to another, by using a public key (available to anyone) to encrypt a message and a private key (kept private by the party receiving the message) to decryt the message.</p>
+<p>A common way to generate the public and private keys is to use the RSA algorithm.
+Here the protocal is as follows:</p>
+<ol class="arabic simple">
+<li><p>Choose two random prime numbers <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(q\)</span></p></li>
+<li><p>Compute <span class="math notranslate nohighlight">\(n=pq\)</span></p></li>
+<li><p>Compute <span class="math notranslate nohighlight">\(\phi=(p-1)(q-1)\)</span></p></li>
+<li><p>Select a random number <span class="math notranslate nohighlight">\(e\)</span> whose greatest common factor with <span class="math notranslate nohighlight">\(\phi\)</span> is 1</p></li>
+<li><p>Find <span class="math notranslate nohighlight">\(d\)</span> where <span class="math notranslate nohighlight">\(de=1\,\text{mod}\,\phi\)</span></p></li>
+</ol>
+<p>The public keys are <span class="math notranslate nohighlight">\((e, n)\)</span> and the private key is <span class="math notranslate nohighlight">\(d\)</span>.
+A message <span class="math notranslate nohighlight">\(m\)</span> can be encrypted using</p>
+<div class="math notranslate nohighlight">
+\[
+E(m) = m^e \,\text{mod}\, n
+\]</div>
+<p>and decrypted using</p>
+<div class="math notranslate nohighlight">
+\[
+m = E(m)^d \,\text{mod}\, n.
+\]</div>
+<p>The security of RSA relies on the assumption that factoring is difficult and can’t be done efficiently, as far as we know this is true on classical computers, but Shor’s algorithm shows it’s not the case for quanutm computers. Currently quantum computers are not large enough to run Shor’s algorithm, but post quantum cryptography protocals are already being adopted.</p>
+</section>
+</section>
+<section id="grovers-algorithm">
+<h2>Grover’s Algorithm<a class="headerlink" href="#grovers-algorithm" title="Link to this heading">#</a></h2>
+<p>Grover’s algorithm is an algorithm for searching through an unstructed database. It ofters a quadratic speed-up over classical approaches.</p>
+<section id="unstructured-search">
+<h3>Unstructured search<a class="headerlink" href="#unstructured-search" title="Link to this heading">#</a></h3>
+<p>We can formulate the search problem more formally as follows:
+Suppose we’re given a function</p>
+<div class="math notranslate nohighlight">
+\[
+f:\{0,1\}^n \rightarrow \{0,1\}
+\]</div>
+<p>Our goal is to find a solution, which is a binary string <span class="math notranslate nohighlight">\(x\in\{0,1\}^n\)</span> for which <span class="math notranslate nohighlight">\(f(x)=1\)</span>.</p>
+<p>Classically we can solve this by iterating through all <span class="math notranslate nohighlight">\(x\)</span> and evaluating <span class="math notranslate nohighlight">\(f\)</span> on each one and stopping when we find <span class="math notranslate nohighlight">\(f(x)=1\)</span>.
+If there are <span class="math notranslate nohighlight">\(N\)</span> elements in the list and only one solution then on average we will have to evaluate <span class="math notranslate nohighlight">\(N/2\)</span> elements.</p>
+</section>
+<section id="circuit">
+<h3>Circuit<a class="headerlink" href="#circuit" title="Link to this heading">#</a></h3>
+<p>For a database of size <span class="math notranslate nohighlight">\(N=2^n\)</span> we require <span class="math notranslate nohighlight">\(n\)</span> qubits.
+We define the oracle, <span class="math notranslate nohighlight">\(O\)</span>, which performs the operation</p>
+<div class="math notranslate nohighlight">
+\[
+O|x\rangle = (-1)^{f(x)}|x\rangle.
+\]</div>
+<p>We also define the Diffusion operator which performs the operation</p>
+<div class="math notranslate nohighlight">
+\[
+2|\psi\rangle\langle \psi|-I 
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> is the uniform superposition state given by</p>
+<div class="math notranslate nohighlight">
+\[
+|\psi\rangle = \frac{1}{2^{n/2}} \sum_x |x\rangle 
+\]</div>
+<p>(note that the sum is over all <span class="math notranslate nohighlight">\(n\)</span> bit strings <span class="math notranslate nohighlight">\(x\)</span>) and <span class="math notranslate nohighlight">\(I\)</span> is the identity matrix.</p>
+<p>Grover’s operator, <span class="math notranslate nohighlight">\(G\)</span>, is defined as</p>
+<div class="math notranslate nohighlight">
+\[
+G = (2|\psi\rangle\langle \psi|-I)O
+\]</div>
+<p>Grover’s algorithm consists in</p>
+<ol class="arabic simple">
+<li><p>Apply a Hadamard gate to each qubit (creating a uniform superposition state)</p></li>
+<li><p>Apply Grover’s operator <span class="math notranslate nohighlight">\(\sim\sqrt{N}\)</span> times</p></li>
+<li><p>Meaure the qubits</p></li>
+</ol>
+<p>with a probability of at least <span class="math notranslate nohighlight">\(1/2\)</span> a solution will be measured.</p>
+</section>
+<section id="why-does-grovers-algorithm-work">
+<h3>WHy does Grover’s algorithm work?<a class="headerlink" href="#why-does-grovers-algorithm-work" title="Link to this heading">#</a></h3>
+<p>We define <span class="math notranslate nohighlight">\(M\)</span> to be the number of solutions (i.e. values of <span class="math notranslate nohighlight">\(x\)</span> for which <span class="math notranslate nohighlight">\(f(x)=1\)</span>).</p>
+<p>We define an equal superposition of solutions</p>
+<div class="math notranslate nohighlight">
+\[
+|A_1\rangle = \frac{1}{\sqrt M} \sum_{x \,|\, f(x)=1}|x\rangle
+\]</div>
+<p>where we some over all bit strings <span class="math notranslate nohighlight">\(x\)</span> which have <span class="math notranslate nohighlight">\(f(x)=1\)</span>, and an equal superposition of non-solutions</p>
+<div class="math notranslate nohighlight">
+\[
+|A_0\rangle = \frac{1}{\sqrt{N-M}} \sum_{x \,|\, f(x)=0}|x\rangle.
+\]</div>
+<p>Note that we can write the uniform superposition state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> in terms of these two states</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{split}
+|\psi\rangle &amp;= \frac{1}{\sqrt N} \sum_x |x\rangle \\ 
+&amp;= \frac{1}{\sqrt N} \sum_{x \,|\, f(x)=0} |x\rangle + \frac{1}{\sqrt N} \sum_{x \,|\, f(x)=1} |x\rangle \\
+&amp;= \sqrt{\frac{N-M}{N}} |A_0\rangle + \sqrt{\frac{M}{N}} |A_1\rangle \\
+&amp;= \sqrt{1-\phi} |A_0\rangle + \sqrt{\phi} |A_1\rangle \\
+\end{split}
+\end{split}\]</div>
+<p>where we have defined <span class="math notranslate nohighlight">\(\phi=M / N\)</span>.</p>
+<p>Consider a linear combination of <span class="math notranslate nohighlight">\(|A_0\rangle\)</span> and <span class="math notranslate nohighlight">\(|A_1\rangle\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+|\alpha\rangle = a_0 |A_0\rangle + a_1 |A_1\rangle
+\]</div>
+<p>note that the state the circuit is in before the first application of Grover’s application is <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> and hence is in the form of <span class="math notranslate nohighlight">\(|\alpha\rangle\)</span>.</p>
+<p>If we apply Grover’s operator to <span class="math notranslate nohighlight">\(|\alpha\rangle\)</span> we get</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{split}
+G|\alpha\rangle &amp;= (2|\psi\rangle\langle \psi|-I)O (a_0 |A_0\rangle + a_1 |A_1\rangle) \\ 
+&amp;= (2|\psi\rangle\langle \psi|-I)(a_0 |A_0\rangle - a_1 |A_1\rangle) \\ 
+&amp;= 2a_0 |\psi\rangle\langle \psi|A_0\rangle - 2 a_1 |\psi\rangle\langle \psi|A_1\rangle - a_0 |A_0\rangle + a_1 |A_1\rangle \\ 
+&amp;= 2a_0 \sqrt{1-\phi} |\psi\rangle - 2 a_1 \sqrt{\phi} |\psi\rangle - a_0 |A_0\rangle + a_1 |A_1\rangle \\ 
+&amp;= \left[a_0(1-2\phi) - 2 a_1 \sqrt{\phi(1-\phi)} \right] |A_0\rangle  + \left[a_1(1- 2\phi) + 2a_0 \sqrt{\phi(1-\phi)} \right] |A_1\rangle .\\ 
+\end{split}
+\end{split}\]</div>
+<p>Note that <span class="math notranslate nohighlight">\(0 \le \phi \le 1\)</span> and hence <span class="math notranslate nohighlight">\(-1 \le 1-2\phi \le 1\)</span>, this means we can write</p>
+<div class="math notranslate nohighlight">
+\[
+1-2\phi = \cos \theta
+\]</div>
+<p>and hence</p>
+<div class="math notranslate nohighlight">
+\[
+\sin \theta = \sqrt{1 - \cos^2 \theta} = \sqrt{1 - (1-2\phi )^2} = 2\sqrt{\phi(1-\phi)}.
+\]</div>
+<p>Thus using this new <span class="math notranslate nohighlight">\(\theta\)</span> variable we get</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+G|\alpha\rangle = \left[a_0\cos \theta - 2 a_1 \sin \theta \right] |A_0\rangle  + \left[a_1\cos \theta + 2a_0 \sin \theta \right] |A_1\rangle .\\ 
+\end{split}\]</div>
+<p>In terms of the coefficients <span class="math notranslate nohighlight">\(a_0\)</span> and <span class="math notranslate nohighlight">\(a_1\)</span>, applying Grover’s operator to <span class="math notranslate nohighlight">\(|\alpha\rangle\)</span> results in the transformation</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{pmatrix}
+a_0\\ a_1\\
+\end{pmatrix}
+\rightarrow
+\begin{pmatrix}
+\cos\theta &amp; -\sin\theta \\
+\sin\theta &amp; \cos\theta \\
+\end{pmatrix}
+\begin{pmatrix}
+a_0\\ a_1\\
+\end{pmatrix}.
+\end{split}\]</div>
+<p>In the 2-D plane with <span class="math notranslate nohighlight">\(|A_0\rangle\)</span> being the x-axis and <span class="math notranslate nohighlight">\(|A_1\rangle\)</span> being the y-axis, this corresponds to an anti-clockwise rotation of angle <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
+<figure class="align-center" id="id4">
+<img alt="../_images/grover_rotation.png" src="../_images/grover_rotation.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 31 </span><span class="caption-text">Applying Grover’s operator to state <span class="math notranslate nohighlight">\(|\alpha\rangle\)</span> results in an anti-clockwise rotation.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Let’s suppose that the number of solutions <span class="math notranslate nohighlight">\(M\)</span> is small, then <span class="math notranslate nohighlight">\(\phi=M/N\)</span> must also be small.
+Thus we can approximate <span class="math notranslate nohighlight">\(\phi(1-\phi)\approx \phi\)</span> and hence
+<span class="math notranslate nohighlight">\(\sin \theta = 2\sqrt{\phi(1-\phi)} \approx 2\sqrt{\phi}\)</span>.
+But if <span class="math notranslate nohighlight">\(\phi\)</span> is small then we can approximate <span class="math notranslate nohighlight">\(\sin \theta\approx \theta\)</span> and hence we end up with</p>
+<div class="math notranslate nohighlight">
+\[
+\theta \approx 2\sqrt{\phi} = 2\sqrt{\frac{M}{N}}.
+\]</div>
+<p>Recall that the first step of Grover’s algorithm is to apply a Hadamard gate to each qubit, creating the uniform superposition state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span>, if <span class="math notranslate nohighlight">\(M\)</span> is small then <span class="math notranslate nohighlight">\(|\psi\rangle\approx |A_0\rangle\)</span>. Thus we start very close to the <span class="math notranslate nohighlight">\(|A_0\rangle\)</span> state, recall that Grover’s operator rotates anticlockwise by angle <span class="math notranslate nohighlight">\(\theta\)</span>, if we wish to end up near the <span class="math notranslate nohighlight">\(|A_1\rangle\)</span> we need to rotate by <span class="math notranslate nohighlight">\(90\)</span> degrees or <span class="math notranslate nohighlight">\(\pi/2\)</span> radians. Thus the number of rotations we require, <span class="math notranslate nohighlight">\(k\)</span>, is</p>
+<div class="math notranslate nohighlight">
+\[
+k = \frac{\pi}{2 \theta} = \frac{\pi}{4} \sqrt{\frac{N}{M}}.
+\]</div>
+<p>Thus we have derived the <span class="math notranslate nohighlight">\(O(\sqrt N)\)</span> scaling of Grover’s algorithm.</p>
+</section>
+</section>
+<section id="limiations-of-early-quantum-algorithms">
+<h2>Limiations of early quantum algorithms<a class="headerlink" href="#limiations-of-early-quantum-algorithms" title="Link to this heading">#</a></h2>
+<p>Most early quantum algorithms require:</p>
+<ul class="simple">
+<li><p>Large amounts of qubits</p></li>
+<li><p>Long circuits</p></li>
+<li><p>Error correction (to be robust in the present of noise), further increasing the number of required qubits</p></li>
+</ul>
+<p>As current hardware is unable to meet these requirements, they are rarely used currently, with NISQ (Noisy Intermediate Scale Quantum) algorithms being developed and used instead.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lecture-10"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../lecture-09/nisq-algo1.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 9: Nisq Algorithms I</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../lecture-11/future-quantum-guest.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">The Future of Quantum Computing</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-algorithm">Simon’s Algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-problem">Simon’s Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-speed-up">Quantum Speed up</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shors-algorithm">Shor’s Algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implications-for-crytography">Implications for crytography</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grovers-algorithm">Grover’s Algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unstructured-search">Unstructured search</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#circuit">Circuit</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-does-grovers-algorithm-work">WHy does Grover’s algorithm work?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limiations-of-early-quantum-algorithms">Limiations of early quantum algorithms</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By ICHEC Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  Copyright@2024
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
