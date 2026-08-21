@@ -88,3 +88,26 @@ tr:hover {
     font-weight: bold;
 }
 */
+
+/*--------------------------------------------------------------------*\
+
+Styling for Highlighted Terms
+
+- Reusable colour classes for emphasising key terms in lecture text
+
+\*--------------------------------------------------------------------*/
+
+.hl-red {
+    color: #d9534f;
+    font-weight: 600;
+}
+
+.hl-green {
+    color: #28a745;
+    font-weight: 600;
+}
+
+.hl-blue {
+    color: #007acc;
+    font-weight: 600;
+}
