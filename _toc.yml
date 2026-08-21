@@ -16,7 +16,7 @@ parts:
     - file: lecture-03/quantum-gates.md
   - caption: Topic 4
     chapters:
-    - file: lecture-04/first-qa-intro-to-sdk.md
+    - file: lecture-04/lecture-04-fqa.md
   - caption: Topic 5
     chapters:
     - file: lecture-05/hardware-physics-qc.md
