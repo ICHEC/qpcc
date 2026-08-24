@@ -840,14 +840,14 @@ window.runMermaid = runMermaid;</script>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">30000</span><span class="p">)</span>     <span class="c1"># generate the random numbers</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>           <span class="c1"># plot the histogram</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>                 <span class="c1"># set the x-label  |</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Histogram of x&quot;</span><span class="p">)</span>    <span class="c1"># set the y-label  | The &#39;plot&#39; thickens :-) </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"x"</span><span class="p">)</span>                 <span class="c1"># set the x-label  |</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Histogram of x"</span><span class="p">)</span>    <span class="c1"># set the y-label  | The 'plot' thickens :-) </span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>                      <span class="c1"># display the plot |</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/80a7d191c9dbc9401b0d949902a60ca430504910279413cc191b77320e66c0a9.png" src="../_images/80a7d191c9dbc9401b0d949902a60ca430504910279413cc191b77320e66c0a9.png" />
+<img alt="../_images/181b729dfee7052d278d4e20e78b86e7b58703ebb8c63586c9735813ed956058.png" src="../_images/181b729dfee7052d278d4e20e78b86e7b58703ebb8c63586c9735813ed956058.png" />
 </div>
 </div>
 <p>The small piece of code above is a <code class="docutils literal notranslate"><span class="pre">program</span></code> written in Python programming language and uses the popular scientific library <code class="docutils literal notranslate"><span class="pre">Numpy</span></code>. The first line imports the module<a class="footnote-reference brackets" href="#lib" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>/library, and the second line imports the famous plotting library <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.
@@ -886,7 +886,7 @@ Although the underlying programs in the plotting library matplotlib and the rand
     <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>                  <span class="c1"># Loop for adding measurement</span>
     <span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.8</span><span class="p">)</span>       <span class="c1"># Marmalade is served :-)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">'mpl'</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.8</span><span class="p">)</span>       <span class="c1"># Marmalade is served :-)</span>
 </pre></div>
 </div>
 </div>
@@ -902,7 +902,7 @@ Next we add measurement instruction for each qubit <span class="math notranslate
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qiskit_aer</span><span class="w"> </span><span class="kn">import</span> <span class="n">Aer</span>                       <span class="c1"># import the Aer simulation backend</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qiskit.visualization</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_histogram</span>  <span class="c1"># import plotting function</span>
 
-<span class="n">sim</span> <span class="o">=</span> <span class="n">Aer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;aer_simulator&#39;</span><span class="p">)</span>           <span class="c1"># define a simulator object from Aer</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">Aer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">'aer_simulator'</span><span class="p">)</span>           <span class="c1"># define a simulator object from Aer</span>
 <span class="n">job</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>                   <span class="c1"># run circuit via simulated experiment</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>                            <span class="c1"># extract result from job</span>
 <span class="n">counts</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>                     <span class="c1"># get the measured values on state</span>
@@ -911,7 +911,7 @@ Next we add measurement instruction for each qubit <span class="math notranslate
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/cba781a9b804fb1c8740115c2803cac406b2d003a0f7d75625b20dca2b86da06.png" src="../_images/cba781a9b804fb1c8740115c2803cac406b2d003a0f7d75625b20dca2b86da06.png" />
+<img alt="../_images/00c51a4941e845f3211df9c622edc0e9a1b97eeb79be27892cf2a3353f8d794a.png" src="../_images/00c51a4941e845f3211df9c622edc0e9a1b97eeb79be27892cf2a3353f8d794a.png" />
 </div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">Aer</span></code> module is part of qiskit software ecosystem, and provides us with a few backend software simulators for quantum computing. The line <code class="docutils literal notranslate"><span class="pre">sim</span> <span class="pre">=</span> <span class="pre">Aer.get_backend('aer_simulator')</span></code> defines a simulator object based on Aer’s ‘aer_simulator backend’.

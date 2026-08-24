@@ -788,69 +788,76 @@ window.runMermaid = runMermaid;</script>
                   
   <section class="tex2jax_ignore mathjax_ignore" id="ct4110-lectures-overview">
 <h1>CT4110 Lectures Overview<a class="headerlink" href="#ct4110-lectures-overview" title="Link to this heading">#</a></h1>
-<p>The Quantum Programming Foundations Course (CT4106) is offered from ICHEC aimed at providing exposure into quantum computing with minimal technical prerequisits. It is evolving, and we intend to add more modules with time to make it more comprehensive and inclusive of the skills and knowledge of the quantum computing ecosystem. Below are the list of modules currently offered. This page serves as the landing page for the lecture notes for each of the vidoe lectures in CT4106.</p>
+<p>The Quantum Programming Foundations Course (CT4100) is offered by ICHEC and aims to provide an accessible introduction to quantum computing with minimal technical prerequisites.</p>
+<p>The course introduces the foundations of classical and quantum computing, the mathematical framework behind qubits and quantum gates, quantum hardware, quantum programming, and key quantum algorithms. It also explores current NISQ approaches and ongoing developments in the quantum computing ecosystem.</p>
+<p>The course continues to evolve, and we intend to add and update modules over time to make it more comprehensive and inclusive of the skills and knowledge required across the quantum computing ecosystem.</p>
+<p>Below is an overview of the course structure for 2026–2027. This page serves as the landing page for the lecture notes accompanying the course.</p>
 <pre  class="mermaid">
         %%{init: {'theme':'base', 'fontSize': '11', 'securityLevel': &quot;loose&quot;}}%%
 mindmap
   root((QPCC))
-    lec1(&quot;**1. Demystifying Quantum Computing**&quot;)
-    ::icon(fa fa-book)
-        (Introduction)
-        (Basics)
-    lec2(**2. Integrating Classical and Quantum Computing**)
-    ::icon(fa fa-book)
-        (Classical computing)
-        (Role and Position of Quantum computing in HPC)
-    lec3(**3. From Bits to Qubits**)
-    ::icon(fa fa-book)
-        (Gentle intro into Quantum computing)
-        (Building blocks)
-            (States &amp; Gates)
-            (Quantum concenpts)
-    lec4(**4. Realizing Quantum Computing Systems**)
-    ::icon(fa fa-book)
-        (Quantum Circuits)
-        (Quantum workflow)
-        (Types of Quantum computing)
-        (Performance metrics)
-    lec5(**5. Accessing Quantum Computing Systems**)
-    ::icon(fa fa-book)
-    lec6(**6. Landscape of Quantum SDK's and Tools**)
-    ::icon(fa fa-book)
-        (High &amp; Low levels in Quantum computing)
-        (Quantum Softwares)
-        (Specialised Quantum languages &amp; Libraries)
-    lec7(**7. Landscape of Quantum algorithms**)
-    ::icon(fa fa-book)
-        (Computational complexity)
-        (Quantum Algorithms)
-        (Examples and interface with machine learning)
+    lec1(**1. Introduction to Classical and Quantum Computing**)
+        (Introduction to Quantum Computing)
+        (Introduction to Classical Bits and Gates)
+    lec2(**2. From Bits to Qubits**)
+        (Qubits)
+        (The maths of qubits)
+        (Bloch sphere)
+        (Single-qubit gates)
+        (Quantum measurement)
+    lec3(**3. Quantum Gates**)
+        (Multiple-qubit gates)
+        (Connecting mathematics to experiment)
+        (Universal gate sets)
+    lec4(**4. First Quantum Algorithm**)
+        (Software SDKs)
+        (Deutsch algorithm)
+        (Algorithmic scaling)
+    lec5(**5. Hardware and Physics of Quantum Computer**)
+        (DiVincenzo's criteria)
+        (Key features of quantum physics)
+        (Quantum hardware)
+        (Noise)
+        (Analogue quantum computing)
+    lec6(**6. Early Quantum Algorithms I: QFT &amp; QPE**)
+        (Quantum Fourier Transform)
+        (Quantum Phase Estimation)
+    lec7(**7. Early Quantum Algorithms II: Shor &amp; Cryptography**)
+        (Shor's algorithm)
+        (Cryptography &amp; Shor)
+    lec8(**8. Early Quantum Algorithms III: Grover &amp; Quantum Random Walks**)
+        (Grover's algorithm)
+        (Quantum random walks)
+    lec9(**9. NISQ Algorithms I: Introduction**)
+        (Introduction to NISQ)
+        (Mathematical foundations)
+    lec10(**10. NISQ Algorithms II: QUBO Optimization**)
+        (QUBO)
+        (QAOA)
+    lec11(**11. The Future of Quantum**)
+        (History of quantum in Ireland)
+        (ICHEC)
+        (ICHEC research)
+        (Current open research questions)
     </pre><section id="list-of-lectures">
 <h2>List of Lectures<a class="headerlink" href="#list-of-lectures" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Lecture 1 - Introduction to Quantum Computing</p>
+<li><p>Lecture 1 - Introduction to Classical and Quantum Computing</p>
 <ul>
-<li><p><a class="reference internal" href="#./lecture-01/demystifying-qc.md"><span class="xref myst">Demystifying quantum computing</span></a></p></li>
-<li><p><a class="reference internal" href="#./lecture-01/integrating-cc-and-qc.md"><span class="xref myst">Integrating classical and quantum computing</span></a></p></li>
+<li><p><a class="reference internal" href="#./lecture-01/introduction-to-quantum-computing.md"><span class="xref myst">Introduction to Quantum Computing</span></a></p></li>
+<li><p><a class="reference internal" href="#./lecture-01/introduction-to-classical-bits-and-gates.md"><span class="xref myst">Introduction to Classical Bits and Gates</span></a></p></li>
 </ul>
 </li>
 <li><p><a class="reference internal" href="#./lecture-02/from-bits-to-qubits.md"><span class="xref myst">Lecture 2 - From Bits to Qubits</span></a></p></li>
-<li><p><a class="reference internal" href="#./lecture-03/math-for-qc1.md"><span class="xref myst">Lecture 3 - Mathematical framework for quantum computing I</span></a></p></li>
-<li><p><a class="reference internal" href="#./lecture-04/math-for-qc2.md"><span class="xref myst">Lecture 4 - Mathematical framework for quantum computing II</span></a></p></li>
-<li><p><a class="reference internal" href="lecture-05/intro-to-quantum-info.html"><span class="std std-doc">Lecture 5 - Guest Lecture: Introduction to Quantum Information &amp; Cryptography</span></a></p></li>
-<li><p><a class="reference internal" href="#./lecture-06/realizing-qc-systems.md"><span class="xref myst">Lecture 6 - Realizing Quantum Computing Systems</span></a></p></li>
-<li><p><a class="reference internal" href="#./lecture-07/qc-hardwares.md"><span class="xref myst">Lecture 7 - Guest Lecture: Building a Quantum Computer</span></a></p></li>
-<li><p>Lecture 8 - Accessing and Programming Quantum Computing Systems</p>
-<ul>
-<li><p><a class="reference internal" href="#./lecture-08/accessing-qc-systems.md"><span class="xref myst">8a: Accessing Quantum Computing</span></a></p></li>
-<li><p><a class="reference internal" href="#./lecture-08/landscape-of-sdks-tools.md"><span class="xref myst">8b: Landscape of Quantum SDK’s and Tools</span></a></p></li>
-<li><p><a class="reference internal" href="#./lecture-08/cloud-qc.md"><span class="xref myst">8c: Guest Lecture: Cloud Quantum computing Services</span></a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#./lecture-09/quantum-algorithms1.md"><span class="xref myst">Lecture 9 - Early Quantum Algorithms - I</span></a></p></li>
-<li><p><a class="reference internal" href="#./lecture-10/quantum-algorithms2.md"><span class="xref myst">Lecture 10 - Early Quantum Algorithms - II</span></a></p></li>
-<li><p><a class="reference internal" href="#./lecture-11/nisq-quantum-algorithms.md"><span class="xref myst">Lecture 11 - NISQ Quantum Algorithms</span></a></p></li>
-<li><p><a class="reference internal" href="lecture-12/quantum-computing-ireland.html"><span class="std std-doc">Lecture 12 - ICHEC’s engagement in Quantum Computing</span></a></p></li>
+<li><p><a class="reference internal" href="lecture-03/quantum-gates.html"><span class="std std-doc">Lecture 3 - Quantum Gates</span></a></p></li>
+<li><p><a class="reference internal" href="#./lecture-04/first-quantum-algorithm.md"><span class="xref myst">Lecture 4 - First Quantum Algorithm</span></a></p></li>
+<li><p><a class="reference internal" href="#./lecture-05/hardware-and-physics-of-quantum-computer.md"><span class="xref myst">Lecture 5 - Hardware and Physics of Quantum Computer</span></a></p></li>
+<li><p><a class="reference internal" href="#./lecture-06/early-quantum-algorithms-qft-qpe.md"><span class="xref myst">Lecture 6 - Early Quantum Algorithms I: QFT &amp; QPE</span></a></p></li>
+<li><p><a class="reference internal" href="#./lecture-07/shors-algorithm-and-cryptography.md"><span class="xref myst">Lecture 7 - Early Quantum Algorithms II: Shor’s Algorithm &amp; Cryptography</span></a></p></li>
+<li><p><a class="reference internal" href="#./lecture-08/grovers-algorithm-and-quantum-random-walks.md"><span class="xref myst">Lecture 8 - Early Quantum Algorithms III: Grover’s Algorithm &amp; Quantum Random Walks</span></a></p></li>
+<li><p><a class="reference internal" href="#./lecture-09/nisq-algorithms-introduction.md"><span class="xref myst">Lecture 9 - NISQ Algorithms I: Introduction</span></a></p></li>
+<li><p><a class="reference internal" href="#./lecture-10/qubo-optimization.md"><span class="xref myst">Lecture 10 - NISQ Algorithms II: QUBO Optimization</span></a></p></li>
+<li><p><a class="reference internal" href="#./lecture-11/future-of-quantum.md"><span class="xref myst">Lecture 11 - The Future of Quantum</span></a></p></li>
 </ul>
 </section>
 <hr class="docutils" />
@@ -870,16 +877,19 @@ mindmap
 <tr class="row-odd"><td><p>James Nelson</p></td>
 <td class="text-center"><p><a class="reference external" href="mailto:james&#46;nelson&#37;&#52;&#48;ichec&#46;ie">james<span>&#46;</span>nelson<span>&#64;</span>ichec<span>&#46;</span>ie</a></p></td>
 </tr>
-<tr class="row-even"><td><p>Pablo Suarez Vieites</p></td>
+<tr class="row-even"><td><p>Karthik Krishnakumar</p></td>
+<td class="text-center"><p><a class="reference external" href="mailto:karthik&#46;krishnakumar&#37;&#52;&#48;ichec&#46;ie">karthik<span>&#46;</span>krishnakumar<span>&#64;</span>ichec<span>&#46;</span>ie</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Pablo Suarez Vieites</p></td>
 <td class="text-center"><p><a class="reference external" href="mailto:pablo&#46;suarez&#37;&#52;&#48;ichec&#46;ie">pablo<span>&#46;</span>suarez<span>&#64;</span>ichec<span>&#46;</span>ie</a></p></td>
 </tr>
-<tr class="row-odd"><td><p>Rajarshi Tiwari</p></td>
+<tr class="row-even"><td><p>Rajarshi Tiwari</p></td>
 <td class="text-center"><p><a class="reference external" href="mailto:rajarshi&#46;tiwari&#37;&#52;&#48;ichec&#46;ie">rajarshi<span>&#46;</span>tiwari<span>&#64;</span>ichec<span>&#46;</span>ie</a></p></td>
 </tr>
-<tr class="row-even"><td><p>Sherry Blair</p></td>
+<tr class="row-odd"><td><p>Sherry Blair</p></td>
 <td class="text-center"><p><a class="reference external" href="mailto:sherry&#46;blair&#37;&#52;&#48;ichec&#46;ie">sherry<span>&#46;</span>blair<span>&#64;</span>ichec<span>&#46;</span>ie</a></p></td>
 </tr>
-<tr class="row-odd"><td><p>Venkatesh Kannan</p></td>
+<tr class="row-even"><td><p>Venkatesh Kannan</p></td>
 <td class="text-center"><p><a class="reference external" href="mailto:venkatesh&#46;kannan&#37;&#52;&#48;ichec&#46;ie">venkatesh<span>&#46;</span>kannan<span>&#64;</span>ichec<span>&#46;</span>ie</a></p></td>
 </tr>
 </tbody>

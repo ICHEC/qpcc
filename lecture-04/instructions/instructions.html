@@ -489,13 +489,13 @@ The link to install annaconda and installation instruction can be found <a class
 </pre></div>
 </div>
 <p>This will run julia, and you will see julia prompt similar to python/ipython prompt. Within the prompt, now we run the following in sequence-</p>
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">Pkg</span><span class="p">;</span><span class="w"> </span><span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;IJulia&quot;</span><span class="p">)</span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">Pkg</span><span class="p">;</span><span class="w"> </span><span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">"IJulia"</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This will install IJulia which provides ability to use julia kernel.</p>
 <p>We further configure the kernel by following command -</p>
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">IJulia</span>
-<span class="n">installkernel</span><span class="p">(</span><span class="s">&quot;[Julia 4 cpu]&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">env</span><span class="o">=</span><span class="kt">Dict</span><span class="p">(</span><span class="s">&quot;JULIA_NUM_THREADS&quot;</span><span class="o">=&gt;</span><span class="s">&quot;4&quot;</span><span class="p">))</span>
+<span class="n">installkernel</span><span class="p">(</span><span class="s">"[Julia 4 cpu]"</span><span class="p">,</span><span class="w"> </span><span class="n">env</span><span class="o">=</span><span class="kt">Dict</span><span class="p">(</span><span class="s">"JULIA_NUM_THREADS"</span><span class="o">=&gt;</span><span class="s">"4"</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>The <em>installkernel</em> command is taking two arguments, first is a string, that is name of the kernel (visible when choosing a kernel in vscode/jupyter notebook) and next one defines a variable JULIA_NUM_THREADS which tells julia kernel how many cpu threads it can use. We choose 4, but it can be any positive number ≤ total number of cpu threads on your machine (laptop/desktop).</p>

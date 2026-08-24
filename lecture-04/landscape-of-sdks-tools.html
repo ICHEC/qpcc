@@ -877,7 +877,7 @@ Keep in mind, our quantum programs can also be executed on classical hardware as
 
 <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># applies the Hadamard gate to the second qubit</span>
 
-<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span> <span class="c1"># Print the drawing of the circuit.</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">'mpl'</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span> <span class="c1"># Print the drawing of the circuit.</span>
 </pre></div>
 </div>
 </div>
@@ -992,8 +992,8 @@ Qiskit</div>
     <span class="n">QuantumRegister</span><span class="p">,</span>
     <span class="n">ClassicalRegister</span><span class="p">,</span>
     <span class="n">QuantumCircuit</span><span class="p">)</span>
-<span class="n">reg_q</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;q&#39;</span><span class="p">)</span>
-<span class="n">reg_c</span> <span class="o">=</span> <span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
+<span class="n">reg_q</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">'q'</span><span class="p">)</span>
+<span class="n">reg_c</span> <span class="o">=</span> <span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">)</span>
 <span class="n">circ</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">reg_q</span><span class="p">,</span> <span class="n">reg_c</span><span class="p">)</span>
 
 <span class="n">circ</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">reg_q</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -1009,7 +1009,7 @@ Qiskit</div>
 <div class="sd-card-title sd-font-weight-bold docutils">
 OpenQASM</div>
 <div class="highlight-openqasm notranslate"><div class="highlight"><pre><span></span>OPENQASM 2.0;
-include &quot;qelib1.inc&quot;;
+include "qelib1.inc";
 
 qreg q[2];
 creg c[2];

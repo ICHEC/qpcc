@@ -436,7 +436,7 @@
 <span class="c1">#</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
     <span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">'mpl'</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -449,7 +449,7 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qiskit_aer</span><span class="w"> </span><span class="kn">import</span> <span class="n">Aer</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qiskit.visualization</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_histogram</span>
 
-<span class="n">sim</span> <span class="o">=</span> <span class="n">Aer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;aer_simulator&#39;</span><span class="p">)</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">Aer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">'aer_simulator'</span><span class="p">)</span>
 <span class="n">job</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
 <span class="n">counts</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
@@ -458,7 +458,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/57742474c6131f53175e1df223cd6550c1a9151663db4d635c76027264abfedc.png" src="_images/57742474c6131f53175e1df223cd6550c1a9151663db4d635c76027264abfedc.png" />
+<img alt="_images/45b3bf868a8fefb3bb503a4dd4877fa15df8dd7fd599353a8b3679a9615c7a76.png" src="_images/45b3bf868a8fefb3bb503a4dd4877fa15df8dd7fd599353a8b3679a9615c7a76.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -468,22 +468,22 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;0100&#39;: 636,
- &#39;1101&#39;: 619,
- &#39;1100&#39;: 636,
- &#39;1001&#39;: 633,
- &#39;0101&#39;: 643,
- &#39;1110&#39;: 651,
- &#39;1011&#39;: 623,
- &#39;0011&#39;: 602,
- &#39;0111&#39;: 642,
- &#39;1000&#39;: 589,
- &#39;0110&#39;: 562,
- &#39;1111&#39;: 636,
- &#39;0001&#39;: 632,
- &#39;0000&#39;: 639,
- &#39;0010&#39;: 655,
- &#39;1010&#39;: 602}
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{'1110': 652,
+ '1111': 612,
+ '1011': 664,
+ '0011': 608,
+ '0111': 612,
+ '1000': 611,
+ '0110': 628,
+ '1101': 615,
+ '0010': 605,
+ '0000': 604,
+ '1010': 616,
+ '1100': 648,
+ '0101': 607,
+ '1001': 617,
+ '0001': 655,
+ '0100': 646}
 </pre></div>
 </div>
 </div>
@@ -497,15 +497,15 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">svs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">svs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">tns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">tns</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">'log'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">svs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">svs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">fc</span><span class="o">=</span><span class="s1">'green'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">tns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">tns</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">fc</span><span class="o">=</span><span class="s1">'blue'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">loc</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">17</span><span class="p">)]</span>
 <span class="n">lab</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="o">**</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">17</span><span class="p">)]</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span> <span class="n">lab</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;Tensor-Network Simulators&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;State-Vector Simulators&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="s2">"Tensor-Network Simulators"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="s2">"State-Vector Simulators"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -519,7 +519,7 @@
 <span class="g g-Whitespace">      </span><span class="mi">3</span> 
 <span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-<span class="ne">NameError</span>: name &#39;np&#39; is not defined
+<span class="ne">NameError</span>: name 'np' is not defined
 </pre></div>
 </div>
 </div>
@@ -532,13 +532,13 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
 <span class="c1">#plt.ylim(1, 10**6)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">'log'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">'o-'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'green'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">fc</span><span class="o">=</span><span class="s1">'blue'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;No. of Qubits&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;No. of Bits&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"No. of Qubits"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"No. of Bits"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -556,16 +556,16 @@
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Red">Signature:</span>
 plt<span class=" -Color -Color-Blue">.</span>fill_between<span class=" -Color -Color-Blue">(</span>
-    x<span class=" -Color -Color-Blue">:</span> <span class=" -Color -Color-Blue">&#39;ArrayLike&#39;,</span>
-    y1<span class=" -Color -Color-Blue">:</span> <span class=" -Color -Color-Blue">&#39;ArrayLike | float&#39;,</span>
-    y2<span class=" -Color -Color-Blue">:</span> <span class=" -Color -Color-Blue">&#39;ArrayLike | float&#39;</span> <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">,</span>
-    where<span class=" -Color -Color-Blue">:</span> <span class=" -Color -Color-Blue">&#39;Sequence[bool] | None&#39;</span> <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    interpolate<span class=" -Color -Color-Blue">:</span> <span class=" -Color -Color-Blue">&#39;bool&#39;</span> <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span>
-    step<span class=" -Color -Color-Blue">:</span> <span class=" -Color -Color-Blue">&quot;Literal[&#39;pre&#39;, &#39;post&#39;, &#39;mid&#39;] | None&quot;</span> <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
+    x<span class=" -Color -Color-Blue">:</span> <span class=" -Color -Color-Blue">'ArrayLike',</span>
+    y1<span class=" -Color -Color-Blue">:</span> <span class=" -Color -Color-Blue">'ArrayLike | float',</span>
+    y2<span class=" -Color -Color-Blue">:</span> <span class=" -Color -Color-Blue">'ArrayLike | float'</span> <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">,</span>
+    where<span class=" -Color -Color-Blue">:</span> <span class=" -Color -Color-Blue">'Sequence[bool] | None'</span> <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
+    interpolate<span class=" -Color -Color-Blue">:</span> <span class=" -Color -Color-Blue">'bool'</span> <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span>
+    step<span class=" -Color -Color-Blue">:</span> <span class=" -Color -Color-Blue">"Literal['pre', 'post', 'mid'] | None"</span> <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
     <span class=" -Color -Color-Blue">*,</span>
     data<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
     <span class=" -Color -Color-Blue">**</span>kwargs<span class=" -Color -Color-Blue">,</span>
-<span class=" -Color -Color-Blue">)</span> <span class=" -Color -Color-Blue">-&gt;</span> <span class=" -Color -Color-Blue">&#39;PolyCollection&#39;</span>
+<span class=" -Color -Color-Blue">)</span> <span class=" -Color -Color-Blue">-&gt;</span> <span class=" -Color -Color-Blue">'PolyCollection'</span>
 <span class=" -Color -Color-Red">Docstring:</span>
 Fill the area between two horizontal curves.
 
@@ -613,18 +613,18 @@ interpolate : bool, default: False
     Setting *interpolate* to *True* will calculate the actual
     intersection point and extend the filled region up to this point.
 
-step : {&#39;pre&#39;, &#39;post&#39;, &#39;mid&#39;}, optional
+step : {'pre', 'post', 'mid'}, optional
     Define *step* if the filling should be a step function,
     i.e. constant in between *x*.  The value determines where the
     step will occur:
 
-    - &#39;pre&#39;: The y value is continued constantly to the left from
+    - 'pre': The y value is continued constantly to the left from
       every *x* position, i.e. the interval ``(x[i-1], x[i]]`` has the
       value ``y[i]``.
-    - &#39;post&#39;: The y value is continued constantly to the right from
+    - 'post': The y value is continued constantly to the right from
       every *x* position, i.e. the interval ``[x[i], x[i+1])`` has the
       value ``y[i]``.
-    - &#39;mid&#39;: Steps occur half-way between the *x* positions.
+    - 'mid': Steps occur half-way between the *x* positions.
 
 Returns
 -------
@@ -649,20 +649,20 @@ data : indexable object, optional
     animated: bool
     antialiased or aa or antialiaseds: bool or list of bools
     array: array-like or None
-    capstyle: `.CapStyle` or {&#39;butt&#39;, &#39;projecting&#39;, &#39;round&#39;}
+    capstyle: `.CapStyle` or {'butt', 'projecting', 'round'}
     clim: (vmin: float, vmax: float)
     clip_box: `~matplotlib.transforms.BboxBase` or None
     clip_on: bool
     clip_path: Patch or (Path, Transform) or None
     cmap: `.Colormap` or str or None
     color: color or list of RGBA tuples
-    edgecolor or ec or edgecolors: color or list of colors or &#39;face&#39;
+    edgecolor or ec or edgecolors: color or list of colors or 'face'
     facecolor or facecolors or fc: color or list of colors
     figure: `~matplotlib.figure.Figure`
     gid: str
-    hatch: {&#39;/&#39;, &#39;\\&#39;, &#39;|&#39;, &#39;-&#39;, &#39;+&#39;, &#39;x&#39;, &#39;o&#39;, &#39;O&#39;, &#39;.&#39;, &#39;*&#39;}
+    hatch: {'/', '\\', '|', '-', '+', 'x', 'o', 'O', '.', '*'}
     in_layout: bool
-    joinstyle: `.JoinStyle` or {&#39;miter&#39;, &#39;round&#39;, &#39;bevel&#39;}
+    joinstyle: `.JoinStyle` or {'miter', 'round', 'bevel'}
     label: object
     linestyle or dashes or linestyles or ls: str or tuple or list thereof
     linewidth or linewidths or lw: float or list of floats
@@ -703,13 +703,13 @@ fill_betweenx : Fill between two sets of x-values.
 <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib_venn</span><span class="w"> </span><span class="kn">import</span> <span class="n">venn2</span><span class="p">,</span> <span class="n">venn3</span>
  
 <span class="c1"># Basic Venn</span>
-<span class="n">v</span> <span class="o">=</span> <span class="n">venn2</span><span class="p">(</span><span class="n">subsets</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;10&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;01&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="s1">&#39;11&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">},</span>
-          <span class="n">set_labels</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">),</span>
-          <span class="n">set_colors</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">),</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">venn2</span><span class="p">(</span><span class="n">subsets</span><span class="o">=</span><span class="p">{</span><span class="s1">'10'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'01'</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="s1">'11'</span><span class="p">:</span> <span class="mi">9</span><span class="p">},</span>
+          <span class="n">set_labels</span><span class="o">=</span><span class="p">(</span><span class="s2">"A"</span><span class="p">,</span> <span class="s2">"B"</span><span class="p">),</span>
+          <span class="n">set_colors</span><span class="o">=</span><span class="p">(</span><span class="s1">'r'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">),</span>
           <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
  
 <span class="c1"># Change Backgroud</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s1">'white'</span><span class="p">)</span>
 <span class="c1">#plt.gca().set_axis_on()</span>
  
 <span class="c1"># Show it</span>
@@ -731,8 +731,8 @@ fill_betweenx : Fill between two sets of x-values.
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Red">Signature:</span>
 venn2<span class=" -Color -Color-Blue">(</span>
     subsets<span class=" -Color -Color-Blue">,</span>
-    set_labels<span class=" -Color -Color-Blue">=(&#39;A&#39;,</span> <span class=" -Color -Color-Blue">&#39;B&#39;),</span>
-    set_colors<span class=" -Color -Color-Blue">=(&#39;r&#39;,</span> <span class=" -Color -Color-Blue">&#39;g&#39;),</span>
+    set_labels<span class=" -Color -Color-Blue">=('A',</span> <span class=" -Color -Color-Blue">'B'),</span>
+    set_colors<span class=" -Color -Color-Blue">=('r',</span> <span class=" -Color -Color-Blue">'g'),</span>
     alpha<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">0.4</span><span class=" -Color -Color-Blue">,</span>
     normalize_to<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">1.0</span><span class=" -Color -Color-Blue">,</span>
     ax<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
@@ -743,13 +743,13 @@ Plots a 2-set area-weighted Venn diagram.
 The subsets parameter can be one of the following:
  - A list (or a tuple) containing two set objects.
  - A dict, providing sizes of three diagram regions.
-   The regions are identified via two-letter binary codes (&#39;10&#39;, &#39;01&#39;, and &#39;11&#39;), hence a valid set could look like:
-   {&#39;10&#39;: 10, &#39;01&#39;: 20, &#39;11&#39;: 40}. Unmentioned codes are considered to map to 0.
+   The regions are identified via two-letter binary codes ('10', '01', and '11'), hence a valid set could look like:
+   {'10': 10, '01': 20, '11': 40}. Unmentioned codes are considered to map to 0.
  - A list (or a tuple) with three numbers, denoting the sizes of the regions in the following order:
    (10, 01, 11)
 
 ``set_labels`` parameter is a list of two strings - set labels. Set it to None to disable set labels.
-The ``set_colors`` parameter should be a list of two elements, specifying the &quot;base colors&quot; of the two circles.
+The ``set_colors`` parameter should be a list of two elements, specifying the "base colors" of the two circles.
 The color of circle intersection will be computed based on those.
 
 The ``normalize_to`` parameter specifies the total (on-axes) area of the circles to be drawn. Sometimes tuning it (together
@@ -763,17 +763,17 @@ The ``subset_label_formatter`` parameter is a function that can be passed to for
 that describe the size of each subset.
 
 &gt;&gt;&gt; from matplotlib_venn import *
-&gt;&gt;&gt; v = venn2(subsets={&#39;10&#39;: 1, &#39;01&#39;: 1, &#39;11&#39;: 1}, set_labels = (&#39;A&#39;, &#39;B&#39;))
-&gt;&gt;&gt; c = venn2_circles(subsets=(1, 1, 1), linestyle=&#39;dashed&#39;)
-&gt;&gt;&gt; v.get_patch_by_id(&#39;10&#39;).set_alpha(1.0)
-&gt;&gt;&gt; v.get_patch_by_id(&#39;10&#39;).set_color(&#39;white&#39;)
-&gt;&gt;&gt; v.get_label_by_id(&#39;10&#39;).set_text(&#39;Unknown&#39;)
-&gt;&gt;&gt; v.get_label_by_id(&#39;A&#39;).set_text(&#39;Set A&#39;)
+&gt;&gt;&gt; v = venn2(subsets={'10': 1, '01': 1, '11': 1}, set_labels = ('A', 'B'))
+&gt;&gt;&gt; c = venn2_circles(subsets=(1, 1, 1), linestyle='dashed')
+&gt;&gt;&gt; v.get_patch_by_id('10').set_alpha(1.0)
+&gt;&gt;&gt; v.get_patch_by_id('10').set_color('white')
+&gt;&gt;&gt; v.get_label_by_id('10').set_text('Unknown')
+&gt;&gt;&gt; v.get_label_by_id('A').set_text('Set A')
 
 You can provide sets themselves rather than subset sizes:
-&gt;&gt;&gt; v = venn2(subsets=[set([1,2]), set([2,3,4,5])], set_labels = (&#39;A&#39;, &#39;B&#39;))
-&gt;&gt;&gt; c = venn2_circles(subsets=[set([1,2]), set([2,3,4,5])], linestyle=&#39;dashed&#39;)
-&gt;&gt;&gt; print(&quot;%0.2f&quot; % (v.get_circle_radius(1)/v.get_circle_radius(0)))
+&gt;&gt;&gt; v = venn2(subsets=[set([1,2]), set([2,3,4,5])], set_labels = ('A', 'B'))
+&gt;&gt;&gt; c = venn2_circles(subsets=[set([1,2]), set([2,3,4,5])], linestyle='dashed')
+&gt;&gt;&gt; print("%0.2f" % (v.get_circle_radius(1)/v.get_circle_radius(0)))
 1.41
 <span class=" -Color -Color-Red">File:</span>      ~/miniforge/envs/jb/lib/python3.12/site-packages/matplotlib_venn/_venn2.py
 <span class=" -Color -Color-Red">Type:</span>      function
@@ -783,7 +783,7 @@ You can provide sets themselves rather than subset sizes:
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">venn3</span><span class="p">(</span><span class="n">subsets</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">set_labels</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">venn3</span><span class="p">(</span><span class="n">subsets</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">set_labels</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'A'</span><span class="p">,</span> <span class="s1">'B'</span><span class="p">,</span> <span class="s1">'C'</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -800,7 +800,7 @@ You can provide sets themselves rather than subset sizes:
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mf">7.7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mf">8.2</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
 <span class="n">y</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">x</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;o-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">'o-'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axline</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
 </pre></div>
 </div>
@@ -817,15 +817,15 @@ You can provide sets themselves rather than subset sizes:
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 
-<span class="n">c1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="o">-</span><span class="mf">1.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-<span class="n">c2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="mf">1.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">c1</span><span class="o">.</span><span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c1</span><span class="o">.</span><span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span> <span class="n">c2</span><span class="o">.</span><span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c2</span><span class="o">.</span><span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+<span class="n">c1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="o">-</span><span class="mf">1.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'g'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
+<span class="n">c2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="mf">1.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'g'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">c1</span><span class="o">.</span><span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c1</span><span class="o">.</span><span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">'A'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">'center'</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">'center'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span> <span class="n">c2</span><span class="o">.</span><span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c2</span><span class="o">.</span><span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">'B'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">'center'</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">'center'</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span>
 
-<span class="n">c3</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-<span class="n">c4</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span> <span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">c3</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'g'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
+<span class="n">c4</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span> <span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'g'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">c3</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">c4</span><span class="p">)</span>
@@ -865,7 +865,7 @@ You can provide sets themselves rather than subset sizes:
 <span class="n">xi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">xi</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">summ</span><span class="p">,</span> <span class="n">xi</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="s1">'-o'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
