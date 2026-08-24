@@ -88,3 +88,51 @@ tr:hover {
     font-weight: bold;
 }
 */
+
+/*--------------------------------------------------------------------*\
+
+Styling for Highlighted Terms
+
+- Reusable colour classes for emphasising key terms in lecture text
+
+\*--------------------------------------------------------------------*/
+
+.hl-red {
+    color: #d9534f;
+    font-weight: 600;
+}
+
+.hl-green {
+    color: #28a745;
+    font-weight: 600;
+}
+
+.hl-blue {
+    color: #007acc;
+    font-weight: 600;
+}
+
+/*--------------------------------------------------------------------*\
+
+Styling for a red "note" admonition
+
+- Opt-in via `class: note-red` on top of `class: note`, so it only
+  applies where requested instead of recolouring every note.
+
+\*--------------------------------------------------------------------*/
+
+.admonition.note-red,
+div.admonition.note-red {
+    border-color: var(--pst-color-danger);
+}
+
+.admonition.note-red > .admonition-title,
+div.admonition.note-red > .admonition-title {
+    background-color: var(--pst-color-danger-bg);
+}
+
+.admonition.note-red > .admonition-title::after,
+div.admonition.note-red > .admonition-title::after {
+    color: var(--pst-color-danger);
+    content: var(--pst-icon-admonition-note);
+}
