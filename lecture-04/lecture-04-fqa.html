@@ -1,0 +1,1254 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lecture 4: First Quantum Algorithm &#8212; Lecture Notes for CT4106</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/drawio.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/style.css?v=66ade4b8" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-04/lecture-04-fqa';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Hardware &amp; Physics of Quantum Computers" href="../lecture-05/hardware-physics-qc.html" />
+    <link rel="prev" title="Lecture 3: Mathematical framework for Quantum Computing" href="../lecture-03/quantum-gates.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Lecture Notes for CT4106 - Home"/>
+    <img src="../_static/logo.png" class="logo__image only-dark pst-js-only" alt="Lecture Notes for CT4106 - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    CT4110 Lectures Overview
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 1</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-01/intro-cc-qc.html">Introduction to Classical and Quantum Computing</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-02/bits-to-qubits.html">Lecture 2: From Bits to Qubits</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 3</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-03/quantum-gates.html">Lecture 3: Mathematical framework for Quantum Computing</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 4</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 4: First Quantum Algorithm</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 5</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-05/hardware-physics-qc.html">Hardware &amp; Physics of Quantum Computers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 6</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-06/early-qa1.html">Early Quantum Algorigthms 1: QFT &amp; QPE</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 7</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-07/early-qa2.html">Early Quantum Algorithms 2: Simon and Shor’s Algorithm</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 8</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-08/early-qa3.html">Early Quantum Algorithms 3: Grover’s Algorithm</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 9</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-09/nisq-algo1.html">Lecture 9: Nisq Algorithms I</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 10</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-10/nisq-algo2.html">Lecture 10: Nisq Algorithms 2</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 11</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-11/future-quantum-guest.html">The Future of Quantum Computing</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 12</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-12/quantum-computing-ireland.html">Lecture 12: Quantum Computing in Ireland</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lecture-04/lecture-04-fqa.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 4: First Quantum Algorithm</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-definition">Algorithm: Definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-algorithm-definition">Quantum Algorithm: Definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#superposition-entanglement-interference">Superposition, Entanglement, Interference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-vs-quantum-algorithms">Classical vs Quantum Algorithms</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-unit-of-information">1. Basic unit of information</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-states-are-processed">2. How states are processed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gates">3. Gates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reversibility">4. Reversibility</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-output">5. Algorithm output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-foundations">6. Mathematical foundations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#circuits">Circuits</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-and-quantum-circuits-differences-and-similarities">Classical and Quantum Circuits: Differences and Similarities</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#similarity-gate-ordering">1. Similarity: Gate ordering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#difference-gate-timing">2. Difference: Gate timing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#difference-circuit-depth">3. Difference: Circuit depth</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-circuits">Quantum Circuits</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-qubit-circuits">Multi-Qubit Circuits</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#measurement">Measurement</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-circuit-example-the-half-adder">Classical Circuit Example: The Half Adder</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-circuit-example-the-half-adder">Quantum Circuit Example: The Half Adder</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deutsch-problem">Deutsch Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-parallelism">Quantum Parallelism</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#oracle">Oracle</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-f">Constant f</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#balanced-f">Balanced f</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deutsch-algorithm">Deutsch Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deutsch-jozsa-algorithm">Deutsch-Jozsa Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-programs">Classical Programs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-programs">Quantum Programs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-simulators">Quantum Simulators</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statevector-simulators">Statevector Simulators</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-4-first-quantum-algorithm">
+<span id="lecture-4"></span><h1>Lecture 4: First Quantum Algorithm<a class="headerlink" href="#lecture-4-first-quantum-algorithm" title="Link to this heading">#</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>These lecture notes are a work in progress and are not a replacement for watching the lecture video, it’s intended to be a supplementary reading after watching the lecture.</p>
+</div>
+<section id="algorithm-definition">
+<h2>Algorithm: Definition<a class="headerlink" href="#algorithm-definition" title="Link to this heading">#</a></h2>
+<div class="information admonition">
+<p class="admonition-title">Algorithm</p>
+<p>An <span class="hl-red">algorithm</span> is a <span class="hl-red"> set of instructions</span> that solves a given problem.</p>
+</div>
+<figure class="align-center" id="id1">
+<img alt="../_images/algorithm_diagram.png" src="../_images/algorithm_diagram.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11 </span><span class="caption-text">Algorithm diagram.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>A <span class="hl-green">classical algorithm</span> is based on <span class="hl-green"> binary operations</span> or the moving around of <span class="hl-green">bits</span> (0’s and 1’s).</p></li>
+</ul>
+<figure class="align-center" id="id2">
+<img alt="../_images/algorithm_01.png" src="../_images/algorithm_01.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 12 </span><span class="caption-text">Algorithm binary representation.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>A classical algorithm is always run on <span class="hl-blue">classical hardware</span>.</p></li>
+</ul>
+</section>
+<section id="quantum-algorithm-definition">
+<h2>Quantum Algorithm: Definition<a class="headerlink" href="#quantum-algorithm-definition" title="Link to this heading">#</a></h2>
+<div class="information admonition">
+<p class="admonition-title">Quantum Algorithm</p>
+<p>A <span class="hl-red">quantum algorithm</span> is an algorithm that leverages <span class="hl-red">quantum mechanics</span> in terms of design and/or hardware.</p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Some algorithms are <span class="hl-green">designed</span> leveraging quantum mechanical properties, but run in a classical hardware.</p>
+</div>
+<p>Its basic unit of information is the <span class="hl-green">qubit</span>. It exhibits the following properties:</p>
+<ol class="arabic simple">
+<li><p><span class="hl-blue">Superposition:</span> A qubit can be in <span class="hl-red">combination</span> of <span class="math notranslate nohighlight">\(\ket{0}\)</span> and <span class="math notranslate nohighlight">\(\ket{1}\)</span> states.</p></li>
+<li><p><span class="hl-blue">Entanglement:</span> Qubits can be <span class="hl-red">correlated</span> in ways that have no classical equivalent. Measuring the state of one qubit instantely tells us something about another.</p></li>
+<li><p><span class="hl-blue">Interference:</span> A quantum algorithm can be designed so that the “wrong” answers <span class="hl-red">interfere</span> destructively and the right answers interfere constructively.</p></li>
+</ol>
+</section>
+<section id="superposition-entanglement-interference">
+<h2>Superposition, Entanglement, Interference<a class="headerlink" href="#superposition-entanglement-interference" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><span class="hl-blue">Superposition</span></p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[H\ket{0} = \frac{1}{\sqrt{2}}\ket{0} + \frac{1}{\sqrt{2}}\ket{1}\]</div>
+<div class="information admonition">
+<p class="admonition-title">Superposition</p>
+<p>The qubit is in both states at once — measuring gives 0 or 1, each with probability 1/2.</p>
+</div>
+<ol class="arabic simple" start="2">
+<li><p><span class="hl-blue">Entanglement</span></p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\frac{1}{\sqrt{2}}\ket{00} + \frac{1}{\sqrt{2}}\ket{11}\]</div>
+<div class="information admonition">
+<p class="admonition-title">Entanglement</p>
+<p>Measuring qubit 1 instantly fixes qubit 2’s outcome.</p>
+</div>
+<ol class="arabic simple" start="3">
+<li><p><span class="hl-blue">Interference</span></p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[H H \ket{0} = \left(\tfrac{1}{2}+\tfrac{1}{2}\right)\ket{0} + \left(\tfrac{1}{2}-\tfrac{1}{2}\right)\ket{1} = \ket{0}\]</div>
+<div class="information admonition">
+<p class="admonition-title">Interference</p>
+<p>The <span class="math notranslate nohighlight">\(\ket{1}\)</span> amplitudes cancel (destructive), the <span class="math notranslate nohighlight">\(\ket{0}\)</span> amplitudes add (constructive).</p>
+</div>
+</section>
+<section id="classical-vs-quantum-algorithms">
+<h2>Classical vs Quantum Algorithms<a class="headerlink" href="#classical-vs-quantum-algorithms" title="Link to this heading">#</a></h2>
+<section id="basic-unit-of-information">
+<h3>1. Basic unit of information<a class="headerlink" href="#basic-unit-of-information" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><span class="hl-blue">Classical</span>: Works with <span class="hl-red">bits</span>. Each bit is definitely either 0 or 1 at every point in time.</p></li>
+<li><p><span class="hl-blue">Quantum</span>: Works with <span class="hl-red">qubits</span>. Qubits can show <span class="hl-green">superposition, entanglement and interference</span>.</p></li>
+</ul>
+</section>
+<section id="how-states-are-processed">
+<h3>2. How states are processed<a class="headerlink" href="#how-states-are-processed" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><span class="hl-blue">Classical</span>: to check N possibilities, a classical computer generally has to look at them <span class="hl-red">one at time</span>.</p></li>
+<li><p><span class="hl-blue">Quantum</span>: N qubits in superposition represent all <span class="math notranslate nohighlight">\(2^{N}\)</span> combinations of states <span class="hl-red">simultaneously</span>.</p></li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Even if quantum algorithms work with a superposition of states, measuring collapses the system to <strong>one result</strong>.</p>
+</div>
+</section>
+<section id="gates">
+<h3>3. Gates<a class="headerlink" href="#gates" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><span class="hl-blue">Classical</span>: Classical gates implement <span class="hl-red">boolean logic functions</span> on bitstrings.</p></li>
+<li><p><span class="hl-blue">Quantum</span>: Quantum gates implement <span class="hl-red">linear transformations</span> (represented by unitary matrices) on state vectors.</p></li>
+</ul>
+</section>
+<section id="reversibility">
+<h3>4. Reversibility<a class="headerlink" href="#reversibility" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><span class="hl-blue">Classical</span>: most classical logic gates are <span class="hl-red">irreversible</span>. We can’t uniquely reconstruct the input from its output.</p></li>
+<li><p><span class="hl-blue">Quantum</span>: quantum gates must be <span class="hl-red">reversible</span>. This means they can always be run backward.</p></li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Reversibility of quantum gates is a <strong>hard mathematical constraint</strong> on how quantum circuits are built.</p>
+</div>
+</section>
+<section id="algorithm-output">
+<h3>5. Algorithm output<a class="headerlink" href="#algorithm-output" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><span class="hl-blue">Classical</span>: Measurement is <span class="hl-red">deterministic</span>. We run the classical algorithm once, we get a definite answer.</p></li>
+<li><p><span class="hl-blue">Quantum</span>: Measurement is <span class="hl-red">probabilistic</span>. A quantum algorithm is run several times to get the desired result.</p></li>
+</ul>
+</section>
+<section id="mathematical-foundations">
+<h3>6. Mathematical foundations<a class="headerlink" href="#mathematical-foundations" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><span class="hl-blue">Classical</span>: Based on <span class="hl-red">boolean algebra</span> and <span class="hl-red">discrete math</span>. Bitstrings are transformed by logical operations.</p></li>
+<li><p><span class="hl-blue">Quantum</span>: Based on <span class="hl-red">linear algebra</span> over <span class="hl-red">Hilbert spaces</span>. Statevectors are transformed by unitary matrices.</p></li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Any classical algorithm can be represented and executed on a quantum computer.</p>
+</div>
+</section>
+</section>
+<section id="circuits">
+<h2>Circuits<a class="headerlink" href="#circuits" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>In <span class="hl-blue">theoretical computer science</span> a circuit is a <span class="hl-blue">model of computation</span> in which input values go through a sequence of gates, each of which computes a function.</p></li>
+<li><p>Classical (quantum) <span class="hl-red">algorithms</span> can be implemented using complex sequences of classical (quantum) <span class="hl-green">circuits</span>.</p></li>
+<li><p><span class="hl-red">Circuits</span> can be thought as an <span class="hl-blue">ordered sequence</span> of operations, where each individual operation is a <span class="hl-blue">gate</span>.</p></li>
+</ul>
+<figure class="align-center" id="id3">
+<img alt="../_images/classical_quantum_circuit.png" src="../_images/classical_quantum_circuit.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 13 </span><span class="caption-text">Example of classical and quantum circuits.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="classical-and-quantum-circuits-differences-and-similarities">
+<h2>Classical and Quantum Circuits: Differences and Similarities<a class="headerlink" href="#classical-and-quantum-circuits-differences-and-similarities" title="Link to this heading">#</a></h2>
+<section id="similarity-gate-ordering">
+<h3>1. Similarity: Gate ordering<a class="headerlink" href="#similarity-gate-ordering" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Both are <span class="hl-red">partially ordered sequences of gates</span>: independent gates can be <span class="hl-green">reordered</span> or run in <span class="hl-green">parallel</span>.</p></li>
+</ul>
+</section>
+<section id="difference-gate-timing">
+<h3>2. Difference: Gate timing<a class="headerlink" href="#difference-gate-timing" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><span class="hl-blue">Classical</span>: <span class="hl-green">Gate execution times</span> are essentially <span class="hl-red">uniform</span> across gate types.</p></li>
+<li><p><span class="hl-blue">Quantum</span>: <span class="hl-green">Gate execution times</span> are <span class="hl-red">not uniform</span>. Different gates take different amounts of time to implement on real hardware.</p></li>
+</ul>
+</section>
+<section id="difference-circuit-depth">
+<h3>3. Difference: Circuit depth<a class="headerlink" href="#difference-circuit-depth" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><span class="hl-blue">Classical</span>: Circuit depth is not as important as classical bits <span class="hl-green">don’t suffer from decoherence</span>.</p></li>
+<li><p><span class="hl-blue">Quantum</span>: Depth is <span class="hl-green">critical</span>, since qubits have a <span class="hl-green">limited lifetime</span> due to decoherence.</p></li>
+</ul>
+</section>
+</section>
+<section id="quantum-circuits">
+<h2>Quantum Circuits<a class="headerlink" href="#quantum-circuits" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>In a <span class="hl-red">quantum circuit</span>, <span class="hl-green">wires</span> represent qubits and <span class="hl-green">gates</span> represent operations on these qubits.</p></li>
+</ul>
+<figure class="align-center" id="id4">
+<img alt="../_images/single_quantum_gates.png" src="../_images/single_quantum_gates.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 14 </span><span class="caption-text">Names, symbols and unitary matrices for common single qubit gates.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>Unless stated otherwise, qubits in a circuit are <span class="hl-blue">initialised</span> to <span class="math notranslate nohighlight">\(\ket{0}\)</span> state.</p></li>
+<li><p>Circuits are read <span class="hl-red">left to right</span>. Gates to the left are applied first.</p></li>
+</ul>
+<figure class="align-center" id="id5">
+<img alt="../_images/quantum_circuit_1.png" src="../_images/quantum_circuit_1.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 15 </span><span class="caption-text">Quantum circuit example.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
+&amp;= S\frac{1}{\sqrt{2}}\left(\ket{0}-\ket{1}\right) = S\frac{1}{\sqrt{2}}\left(\ket{0}-i\ket{1}\right)
+\end{aligned}\end{split}\]</div>
+<section id="multi-qubit-circuits">
+<h3>Multi-Qubit Circuits<a class="headerlink" href="#multi-qubit-circuits" title="Link to this heading">#</a></h3>
+<figure class="align-center" id="id6">
+<img alt="../_images/two_qubit_quantum_gates.png" src="../_images/two_qubit_quantum_gates.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 16 </span><span class="caption-text">Common two-qubit gates: CNOT, general controlled-U and SWAP gate.</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>Multi-qubit states in circuits are usually written as <span class="math notranslate nohighlight">\(\ket{q_0q_1\dots q_{n-1}}\)</span> (<span class="hl-blue">big-endian ordering</span>).</p></li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Some SDKs like <span class="hl-red">Qiskit</span> use <span class="hl-blue">little-endian ordering</span>, which means that multi-qubit states are written as <span class="math notranslate nohighlight">\(\ket{q_{n-1}\dots q_1\dots q_{0}}\)</span>. In all cases, however, <span class="math notranslate nohighlight">\(q_0\)</span> will be at the top when drawing the circuit.</p>
+</div>
+<figure class="align-center" id="id7">
+<a class="reference internal image-reference" href="../_images/little_endian_big_endian.png"><img alt="../_images/little_endian_big_endian.png" src="../_images/little_endian_big_endian.png" style="width: 400px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 17 </span><span class="caption-text">Quantum circuit example to show big-endian little-endian differences.</span><a class="headerlink" href="#id7" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>The state of the circuit above would be <span class="math notranslate nohighlight">\(\ket{001}\)</span> in little-endian ordering and <span class="math notranslate nohighlight">\(\ket{100}\)</span> in big-endian ordering.</p>
+</div>
+<figure class="align-center" id="id8">
+<img alt="../_images/quantum_circuit_3.png" src="../_images/quantum_circuit_3.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 18 </span><span class="caption-text">3 qubit quantum circuit example.</span><a class="headerlink" href="#id8" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\ket{\psi_0} &amp;= \ket{000} \\[0.5em]
+\ket{\psi_1} &amp;= (H_0\otimes I_1\otimes I_2)\,\ket{\psi_0} = \tfrac{1}{\sqrt{2}}(\ket{000}+\ket{100}) \\[0.5em]
+\ket{\psi_2} &amp;= (\text{CNOT}_{01}\otimes I_2)\,\ket{\psi_1} = \tfrac{1}{\sqrt{2}}(\ket{000}+\ket{110}) \\[0.5em]
+\ket{\psi_3} &amp;= (I_0\otimes \text{SWAP}_{12})\,\ket{\psi_2} = \tfrac{1}{\sqrt{2}}(\ket{000}+\ket{101})
+\end{aligned}
+\end{split}\]</div>
+</section>
+<section id="measurement">
+<h3>Measurement<a class="headerlink" href="#measurement" title="Link to this heading">#</a></h3>
+<figure class="align-center" id="id9">
+<img alt="../_images/measurement.png" src="../_images/measurement.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 19 </span><span class="caption-text">Computational basis measurement symbol.</span><a class="headerlink" href="#id9" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Even if measurement is drawn as a quantum gate, it is not. <strong>Measurement is not unitary</strong>. It is probabilistic and irreversible.</p>
+</div>
+<figure class="align-center" id="id10">
+<img alt="../_images/measurement_2.png" src="../_images/measurement_2.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 20 </span><span class="caption-text">Example of measurement with classical registers.</span><a class="headerlink" href="#id10" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>The outcomes of measurements are written into a <span class="hl-blue">classical bit</span> in the <span class="hl-red">classical register</span>.</p></li>
+<li><p>Classical registers enable conditional operations after mid-circuit measurements, applying quantum gates conditioned to the values in the classical register.</p></li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Sometimes all classical registers are drawn using just one double wire, or even not drawn at all.</p>
+</div>
+</section>
+</section>
+<section id="classical-circuit-example-the-half-adder">
+<h2>Classical Circuit Example: The Half Adder<a class="headerlink" href="#classical-circuit-example-the-half-adder" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The <span class="hl-blue">half adder</span> is an example of a <span class="hl-red">binary logical classical circuit</span>.</p></li>
+<li><p>It takes two <span class="hl-green">1-bit inputs</span> and produces:</p>
+<ol class="arabic simple">
+<li><p><span class="hl-green">SUM:</span> A XOR B.</p></li>
+<li><p><span class="hl-green">CARRY:</span> A AND B.</p></li>
+</ol>
+</li>
+<li><p>It is called “half” adder because it doesn’t account for a carry-in from previous stage.</p></li>
+</ul>
+<figure class="align-center" id="id11">
+<img alt="../_images/half_adder.png" src="../_images/half_adder.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 21 </span><span class="caption-text">Half adder circuit.</span><a class="headerlink" href="#id11" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>A</p></th>
+<th class="head"><p>B</p></th>
+<th class="head"><p>Sum</p></th>
+<th class="head"><p>Carry</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="information admonition">
+<p class="admonition-title">Half Adder</p>
+<p>When we run an <span class="hl-blue">algorithm</span> on a <span class="hl-red">classical computer</span>, it is made of a lot of <span class="hl-red">logical circuits</span> like the half-adder.</p>
+</div>
+</section>
+<section id="quantum-circuit-example-the-half-adder">
+<h2>Quantum Circuit Example: The Half Adder<a class="headerlink" href="#quantum-circuit-example-the-half-adder" title="Link to this heading">#</a></h2>
+<figure class="align-center" id="id12">
+<img alt="../_images/quantum_half_adder.png" src="../_images/quantum_half_adder.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 22 </span><span class="caption-text">Half adder quantum circuit.</span><a class="headerlink" href="#id12" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>The <span class="hl-blue">Toffoli gate</span> computes the <span class="hl-red">carry operation</span>, <span class="math notranslate nohighlight">\(q_2 = A \cdot B\)</span>.</p></li>
+<li><p>The <span class="hl-blue">CNOT gate</span> computes the <span class="hl-red">sum</span>, <span class="math notranslate nohighlight">\(q_1 = A \oplus B\)</span>.</p></li>
+<li><p>Measuring <span class="math notranslate nohighlight">\(q_1\)</span>, <span class="math notranslate nohighlight">\(q_2\)</span> reads out the <span class="hl-red">sum</span> and <span class="hl-red">carry</span> into the classical register.</p></li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This is just classical logic embedded reversibly into unitary gates, no superposition or interference is used. There’s <strong>no quantum speedup</strong>: it needs an extra ancilla qubit and offers no efficiency gain over a classical half adder.</p>
+</div>
+</section>
+<section id="deutsch-problem">
+<h2>Deutsch Problem<a class="headerlink" href="#deutsch-problem" title="Link to this heading">#</a></h2>
+<figure class="align-center" id="id13">
+<a class="reference internal image-reference" href="../_images/deutsch.png"><img alt="../_images/deutsch.png" src="../_images/deutsch.png" style="width: 200px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 23 </span><span class="caption-text">David Deutsch.</span><a class="headerlink" href="#id13" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>Given a <span class="hl-red">black box</span> <span class="math notranslate nohighlight">\(f : \{0,1\} \rightarrow \{0,1\}\)</span></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{cases} f(0) = f(1) = 0 \\ f(0) = f(1) = 1 \end{cases}
+\Rightarrow \textcolor{green}{\textbf{Constant } f}\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{cases} f(0) = 0,\ f(1) = 1 \\ f(0) = 1,\ f(1) = 0 \end{cases}
+\Rightarrow \textcolor{blue}{\textbf{Balanced } f}\end{split}\]</div>
+<ul class="simple">
+<li><p>Uses an <span class="hl-red">oracle</span> to determine if <span class="math notranslate nohighlight">\(f\)</span> is <span class="hl-green">constant</span> or <span class="hl-blue">balanced</span>.</p></li>
+</ul>
+<figure class="align-center" id="id14">
+<a class="reference internal image-reference" href="../_images/oracle.png"><img alt="../_images/oracle.png" src="../_images/oracle.png" style="width: 150px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 24 </span><span class="caption-text">Oracle.</span><a class="headerlink" href="#id14" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p><span class="hl-red">Classically</span> -&gt; 2 queries.</p></li>
+<li><p><span class="hl-red">Deutsch algorithm</span> -&gt; 1 query.</p></li>
+<li><p>Early demonstration of QC power (<span class="hl-blue">1985</span>).</p></li>
+</ul>
+</section>
+<section id="quantum-parallelism">
+<h2>Quantum Parallelism<a class="headerlink" href="#quantum-parallelism" title="Link to this heading">#</a></h2>
+<div class="information admonition">
+<p class="admonition-title">Quantum Parallelism</p>
+<p><span class="hl-red">Quantum parallelism</span> allows quantum computers to evaluate a function f(x) for <span class="hl-blue">different values</span> of x <span class="hl-blue">simultaneously</span>.</p>
+</div>
+<ul class="simple">
+<li><p>For a <span class="hl-green">binary function</span>, it is possible to build a gate <span class="math notranslate nohighlight">\(U_f\)</span> that performs the transformation:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[U_f\ket{x,y}=\ket{x,y\oplus f(x)}\]</div>
+<figure class="align-center" id="id15">
+<img alt="../_images/parallelism_oracle.png" src="../_images/parallelism_oracle.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 25 </span><span class="caption-text">Parallelism oracle example.</span><a class="headerlink" href="#id15" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p><span class="hl-green">Input state:</span> <span class="math notranslate nohighlight">\(\ket{\psi_0}=\frac{1}{\sqrt{2}}(\ket{0,0}+\ket{1,0})\)</span></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[U_f\ket{\psi_0}=\frac{1}{\sqrt{2}}(\ket{0,f(0)}+\ket{1,f(1)})\]</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p><span class="math notranslate nohighlight">\(f(0)\)</span>, <span class="math notranslate nohighlight">\(f(1)\)</span> are evaluated <span class="hl-red">simultaneously</span>! But only <span class="hl-red">one value</span> is accessed per <span class="hl-red">measurement</span>.</p>
+</div>
+</section>
+<section id="oracle">
+<h2>Oracle<a class="headerlink" href="#oracle" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>For a <span class="hl-green">1-bit function</span> there are only <span class="hl-blue">4 possible oracles</span>.</p></li>
+</ul>
+<section id="constant-f">
+<h3>Constant f<a class="headerlink" href="#constant-f" title="Link to this heading">#</a></h3>
+<figure class="align-center" id="id16">
+<a class="reference internal image-reference" href="../_images/oracle_1.png"><img alt="../_images/oracle_1.png" src="../_images/oracle_1.png" style="width: 200px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 26 </span><span class="caption-text"><span class="math notranslate nohighlight">\(f(x)=0\)</span></span><a class="headerlink" href="#id16" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id17">
+<a class="reference internal image-reference" href="../_images/oracle_2.png"><img alt="../_images/oracle_2.png" src="../_images/oracle_2.png" style="width: 200px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 27 </span><span class="caption-text"><span class="math notranslate nohighlight">\(f(x)=1\)</span></span><a class="headerlink" href="#id17" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="balanced-f">
+<h3>Balanced f<a class="headerlink" href="#balanced-f" title="Link to this heading">#</a></h3>
+<figure class="align-center" id="id18">
+<a class="reference internal image-reference" href="../_images/oracle_3.png"><img alt="../_images/oracle_3.png" src="../_images/oracle_3.png" style="width: 200px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 28 </span><span class="caption-text"><span class="math notranslate nohighlight">\(f(x)=x\)</span></span><a class="headerlink" href="#id18" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id19">
+<a class="reference internal image-reference" href="../_images/oracle_4.png"><img alt="../_images/oracle_4.png" src="../_images/oracle_4.png" style="width: 200px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 29 </span><span class="caption-text"><span class="math notranslate nohighlight">\(f(x)=1-x\)</span></span><a class="headerlink" href="#id19" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="deutsch-algorithm">
+<h2>Deutsch Algorithm<a class="headerlink" href="#deutsch-algorithm" title="Link to this heading">#</a></h2>
+<figure class="align-center" id="id20">
+<img alt="../_images/deutsch_algorithm.png" src="../_images/deutsch_algorithm.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 30 </span><span class="caption-text">Deutsch Algorithm.</span><a class="headerlink" href="#id20" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ol class="arabic simple">
+<li><p>Initial state.</p></li>
+<li><p><span class="hl-red">Superposition</span> generated using <span class="hl-green">Hadamard gates</span>.</p></li>
+<li><p>Evaluate values f(x) using the <span class="hl-green">oracle</span> (<span class="hl-red">parallelism</span>).</p></li>
+<li><p><span class="hl-red">Interference</span> between states.</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\ket{\psi_1}=\ket{0}\ket{1}\]</div>
+<div class="math notranslate nohighlight">
+\[\ket{\psi_2}=\left(\frac{\ket{0}+\ket{1}}{\sqrt{2}}\right)\left(\frac{\ket{0}-\ket{1}}{\sqrt{2}}\right)\rightarrow\]</div>
+<div class="math notranslate nohighlight">
+\[\ket{\psi_3}=\frac{1}{\sqrt{2}}\left((-1)^{f(0)}\ket{0}+(-1)^{f(1)}\ket{1}\right)\left(\frac{\ket{0}-\ket{1}}{\sqrt{2}}\right)\]</div>
+<div class="math notranslate nohighlight">
+\[\ket{\psi_4}=\pm\ket{f(0)\oplus f(1)}\left(\frac{\ket{0}-\ket{1}}{\sqrt{2}}\right)\]</div>
+<div class="information admonition">
+<p class="admonition-title">Deutsch Algorithm</p>
+<p>Solves the problem in just <span class="hl-red">one measurement</span>!</p>
+</div>
+<div class="note note-red admonition">
+<p class="admonition-title">Note</p>
+<p>In order to get the state <span class="math notranslate nohighlight">\(\ket{\psi_3}\)</span>, we used the fact that <span class="math notranslate nohighlight">\(U_f\left[\ket{x}\left(\frac{\ket{0}-\ket{1}}{\sqrt{2}}\right)\right] = (-1)^{f(x)}\ket{x}\left(\frac{\ket{0}-\ket{1}}{\sqrt{2}}\right)\)</span>. Let’s see why:</p>
+</div>
+<div class="math notranslate nohighlight">
+\[U_f\left[\ket{x}\left(\frac{\ket{0}-\ket{1}}{\sqrt{2}}\right)\right] = \ket{x}\left[\frac{\ket{f(x)}-\ket{f(x)\oplus 1}}{\sqrt{2}}\right]\rightarrow\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\rightarrow \left\{\begin{array}{c}\text{if } f(x)=0\rightarrow \ket{x}\left(\frac{\ket{0}-\ket{1}}{\sqrt{2}}\right) \\ \text{if } f(x)=1\rightarrow -\ket{x}\left(\frac{\ket{0}-\ket{1}}{\sqrt{2}}\right)\end{array}\right.\rightarrow\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\rightarrow U_f\left[\ket{x}\left(\frac{\ket{0}-\ket{1}}{\sqrt{2}}\right)\right] = (-1)^{f(x)}\ket{x}\left(\frac{\ket{0}-\ket{1}}{\sqrt{2}}\right)\]</div>
+</section>
+<section id="deutsch-jozsa-algorithm">
+<h2>Deutsch-Jozsa Algorithm<a class="headerlink" href="#deutsch-jozsa-algorithm" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>If <span class="math notranslate nohighlight">\(f\)</span> is <span class="hl-red">n-bit:</span></p></li>
+<li><p><span class="hl-green">Deutsch-Jozsa algorithm</span> (<span class="hl-blue">1992</span>) -&gt; <span class="hl-red">1 query</span>.</p></li>
+<li><p><span class="hl-green">Classically</span> -&gt; Can be up to <span class="hl-red"><span class="math notranslate nohighlight">\(2^{n-1}+1\)</span> queries</span>.</p></li>
+</ul>
+<figure class="align-center" id="id21">
+<a class="reference internal image-reference" href="../_images/jozsa.png"><img alt="../_images/jozsa.png" src="../_images/jozsa.png" style="width: 200px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 31 </span><span class="caption-text">Richard Jozsa.</span><a class="headerlink" href="#id21" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>Looks like a big improvement but…</p></li>
+</ul>
+<ol class="arabic simple">
+<li><p>Deutsch problem has no known <span class="hl-blue">practical applications</span>.</p></li>
+<li><p>The method <span class="hl-blue">evaluating the function it’s different</span> between the classical and quantum case.</p></li>
+<li><p>If we use a <span class="hl-blue">classical probabilistic algorithm</span>, we can drastically <span class="hl-blue">reduce the number of queries</span> needed to solve the problem with high confidence.</p></li>
+</ol>
+</section>
+<section id="classical-programs">
+<h2>Classical Programs<a class="headerlink" href="#classical-programs" title="Link to this heading">#</a></h2>
+<div class="information admonition">
+<p class="admonition-title">Classical Program</p>
+<p>A <span class="hl-red">classical computer program</span> is a <span class="hl-blue">set of instructions</span> in a programming language for a <span class="hl-red">classical computer to execute</span>.</p>
+</div>
+<ul class="simple">
+<li><p>One can think of a <span class="hl-red">classical computer program</span> as a <span class="hl-green">concrete implementation of a classical algorithm</span>.</p></li>
+</ul>
+<p><strong>random_integer.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">values</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">counts</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Value"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Count"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<figure class="align-center" id="id22">
+<img alt="../_images/random_integer.png" src="../_images/random_integer.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 32 </span><span class="caption-text">Output of random_integer.py.</span><a class="headerlink" href="#id22" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="quantum-programs">
+<h2>Quantum Programs<a class="headerlink" href="#quantum-programs" title="Link to this heading">#</a></h2>
+<div class="information admonition">
+<p class="admonition-title">Quantum Program</p>
+<p>A <span class="hl-red">quantum program</span> is a <span class="hl-blue">set of instructions</span> in a programming language for a <span class="hl-red">quantum computation</span>.</p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>A quantum program can be executed on a <span class="hl-green">quantum computer</span> or simulated in a <span class="hl-green">quantum simulator</span>.</p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>A quantum program may be composed of <span class="hl-green">one or more quantum circuits</span>.</p>
+</div>
+<figure class="align-center" id="id23">
+<img alt="../_images/quantum_algorithm_program_circuit_hierarchy.png" src="../_images/quantum_algorithm_program_circuit_hierarchy.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 33 </span><span class="caption-text">Quantum algorithm, program and circuit hierarchy.</span><a class="headerlink" href="#id23" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>random_integer_quantum.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit</span><span class="w"> </span><span class="kn">import</span> <span class="n">QuantumCircuit</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit_aer</span><span class="w"> </span><span class="kn">import</span> <span class="n">AerSimulator</span>
+
+<span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="n">counts</span> <span class="o">=</span> <span class="n">AerSimulator</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+
+<span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">bitstring</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">bitstring</span> <span class="ow">in</span> <span class="n">counts</span><span class="p">]</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">counts</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Value"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Count"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<figure class="align-center" id="id24">
+<img alt="../_images/random_integer_quantum_circuit.png" src="../_images/random_integer_quantum_circuit.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 34 </span><span class="caption-text">Circuit of random_integer_quantum.py.</span><a class="headerlink" href="#id24" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id25">
+<img alt="../_images/random_integer_quantum.png" src="../_images/random_integer_quantum.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 35 </span><span class="caption-text">Output of random_integer_quantum.py.</span><a class="headerlink" href="#id25" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="quantum-simulators">
+<h2>Quantum Simulators<a class="headerlink" href="#quantum-simulators" title="Link to this heading">#</a></h2>
+<div class="information admonition">
+<p class="admonition-title">Quantum Simulator</p>
+<p>A <span class="hl-red">quantum simulator</span> is a system that <span class="hl-blue">reproduces the behaviour</span> of a quantum computer.</p>
+</div>
+<ul class="simple">
+<li><p>Running algorithms on real hardware is <span class="hl-red">very expensive</span>.</p></li>
+<li><p>Using quantum simulators allows us to <span class="hl-blue">look for bugs, prototype algorithms or do resource estimation</span> before sending them to a real device.</p></li>
+<li><p>The number of amplitudes grows as <span class="hl-red"><span class="math notranslate nohighlight">\(2^n\)</span></span>, so simulating larger systems gets <span class="hl-red">exponentially</span> harder.</p></li>
+</ul>
+<figure class="align-center" id="id26">
+<img alt="../_images/qubits_amplitudes.png" src="../_images/qubits_amplitudes.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 36 </span><span class="caption-text">Number of amplitudes vs. number of qubits.</span><a class="headerlink" href="#id26" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="statevector-simulators">
+<h3>Statevector Simulators<a class="headerlink" href="#statevector-simulators" title="Link to this heading">#</a></h3>
+<div class="information admonition">
+<p class="admonition-title">Statevector Simulator</p>
+<p>A <span class="hl-red">statevector simulator</span> represents the full quantum state as a <span class="hl-blue">single complex vector</span> of length <span class="hl-red"><span class="math notranslate nohighlight">\(2^n\)</span></span>.</p>
+</div>
+<ul class="simple">
+<li><p>The statevector simulator is the <span class="hl-blue">default simulator</span> in almost all SDKs.</p></li>
+<li><p>The number of <span class="hl-green">quantum amplitudes</span> grows exponentially with the number of qubits. Simulating more than <span class="hl-green">40 qubits</span> requires supercomputer-scale distributed memory.</p></li>
+<li><p>Other examples of quantum simulators:</p>
+<ul>
+<li><p>Mixed state simulators</p></li>
+<li><p>Tensor network simulators</p></li>
+<li><p>Matrix product state simulators</p></li>
+<li><p>Decision diagram simulators</p></li>
+<li><p>Montecarlo wavefunction simulators</p></li>
+<li><p>Path integral simulators</p></li>
+<li><p>Sparse state simulators</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lecture-04"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../lecture-03/quantum-gates.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 3: Mathematical framework for Quantum Computing</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../lecture-05/hardware-physics-qc.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Hardware &amp; Physics of Quantum Computers</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-definition">Algorithm: Definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-algorithm-definition">Quantum Algorithm: Definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#superposition-entanglement-interference">Superposition, Entanglement, Interference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-vs-quantum-algorithms">Classical vs Quantum Algorithms</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-unit-of-information">1. Basic unit of information</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-states-are-processed">2. How states are processed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gates">3. Gates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reversibility">4. Reversibility</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-output">5. Algorithm output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-foundations">6. Mathematical foundations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#circuits">Circuits</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-and-quantum-circuits-differences-and-similarities">Classical and Quantum Circuits: Differences and Similarities</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#similarity-gate-ordering">1. Similarity: Gate ordering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#difference-gate-timing">2. Difference: Gate timing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#difference-circuit-depth">3. Difference: Circuit depth</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-circuits">Quantum Circuits</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-qubit-circuits">Multi-Qubit Circuits</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#measurement">Measurement</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-circuit-example-the-half-adder">Classical Circuit Example: The Half Adder</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-circuit-example-the-half-adder">Quantum Circuit Example: The Half Adder</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deutsch-problem">Deutsch Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-parallelism">Quantum Parallelism</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#oracle">Oracle</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-f">Constant f</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#balanced-f">Balanced f</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deutsch-algorithm">Deutsch Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deutsch-jozsa-algorithm">Deutsch-Jozsa Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-programs">Classical Programs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-programs">Quantum Programs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-simulators">Quantum Simulators</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statevector-simulators">Statevector Simulators</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By ICHEC Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  Copyright@2024
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
