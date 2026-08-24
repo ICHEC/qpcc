@@ -22,7 +22,7 @@ parts:
     - file: lecture-05/hardware-physics-qc.md
   - caption: Topic 6
     chapters:
-    - file: lecture-06/early-qa1.md
+    - file: lecture-06/lecture-06-eqa1.md
   - caption: Topic 7
     chapters:
     - file: lecture-07/early-qa2.md
