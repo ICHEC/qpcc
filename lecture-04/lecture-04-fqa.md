@@ -133,6 +133,43 @@ Reversibility of quantum gates is a **hard mathematical constraint** on how quan
 Any classical algorithm can be represented and executed on a quantum computer.
 ```
 
+## Computational Complexity
+
+- <span class="hl-red">Computational complexity</span> is the study of <span class="hl-blue">time and space resources</span> required to solve computational problems.
+
+- The <span class="hl-red">big-O notation ($O$)</span> is used to study the worst-case behaviour of specific algorithms.
+
+- $f(n)$ is in the class of functions $O(g(n))$ means:
+
+```{admonition} Big-O Notation
+:class: information
+There exists constants $c$ and $n_0$ such that for all $n>n_0\rightarrow f(n)<cg(n)$
+```
+
+```{figure} ./images/complexity_plot.png
+:align: center
+
+Growth of common complexity classes.
+```
+
+- A simple <span class="hl-blue">sorting algorithm</span> (e.g. <span class="hl-red">bubble sort</span>) is a good example of computing an algorithm's complexity.
+
+```{figure} ./images/bubble_sort.gif
+:align: center
+
+Bubble sort algorithm animation. Source: commons.wikipedia.org
+```
+
+- The <span class="hl-blue">bubble sort</span> is a simple (and inefficient) sorting algorithm.
+
+- It steps through the list <span class="hl-blue">element by element</span>, comparing adjacent elements and swapping their values if the order is not right.
+
+- This means it has to do $(N-1) + (N-2) + \dots + 2 + 1 = \frac{N(N-1)}{2}=\frac{1}{2}(N^{2}-N)$ swaps in the <span class="hl-red">worst case</span>.
+
+```{attention}
+For large $N$, the <span class="hl-red">$N^2$</span> term dominates, so bubble sort is said to have <span class="hl-red">$O(N^2)$</span> complexity.
+```
+
 ## Circuits
 
 - In <span class="hl-blue">theoretical computer science</span> a circuit is a <span class="hl-blue">model of computation</span> in which input values go through a sequence of gates, each of which computes a function.
