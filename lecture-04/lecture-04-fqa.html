@@ -428,6 +428,7 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-foundations">6. Mathematical foundations</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computational-complexity">Computational Complexity</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#circuits">Circuits</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-and-quantum-circuits-differences-and-similarities">Classical and Quantum Circuits: Differences and Similarities</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#similarity-gate-ordering">1. Similarity: Gate ordering</a></li>
@@ -603,6 +604,42 @@
 </div>
 </section>
 </section>
+<section id="computational-complexity">
+<h2>Computational Complexity<a class="headerlink" href="#computational-complexity" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><span class="hl-red">Computational complexity</span> is the study of <span class="hl-blue">time and space resources</span> required to solve computational problems.</p></li>
+<li><p>The <span class="hl-red">big-O notation (<span class="math notranslate nohighlight">\(O\)</span>)</span> is used to study the worst-case behaviour of specific algorithms.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f(n)\)</span> is in the class of functions <span class="math notranslate nohighlight">\(O(g(n))\)</span> means:</p></li>
+</ul>
+<div class="information admonition">
+<p class="admonition-title">Big-O Notation</p>
+<p>There exists constants <span class="math notranslate nohighlight">\(c\)</span> and <span class="math notranslate nohighlight">\(n_0\)</span> such that for all <span class="math notranslate nohighlight">\(n&gt;n_0\rightarrow f(n)&lt;cg(n)\)</span></p>
+</div>
+<figure class="align-center" id="id3">
+<img alt="../_images/complexity_plot.png" src="../_images/complexity_plot.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 13 </span><span class="caption-text">Growth of common complexity classes.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>A simple <span class="hl-blue">sorting algorithm</span> (e.g. <span class="hl-red">bubble sort</span>) is a good example of computing an algorithm’s complexity.</p></li>
+</ul>
+<figure class="align-center" id="id4">
+<img alt="../_images/bubble_sort.gif" src="../_images/bubble_sort.gif" />
+<figcaption>
+<p><span class="caption-number">Fig. 14 </span><span class="caption-text">Bubble sort algorithm animation. Source: <a class="reference external" href="http://commons.wikipedia.org">commons.wikipedia.org</a></span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>The <span class="hl-blue">bubble sort</span> is a simple (and inefficient) sorting algorithm.</p></li>
+<li><p>It steps through the list <span class="hl-blue">element by element</span>, comparing adjacent elements and swapping their values if the order is not right.</p></li>
+<li><p>This means it has to do <span class="math notranslate nohighlight">\((N-1) + (N-2) + \dots + 2 + 1 = \frac{N(N-1)}{2}=\frac{1}{2}(N^{2}-N)\)</span> swaps in the <span class="hl-red">worst case</span>.</p></li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>For large <span class="math notranslate nohighlight">\(N\)</span>, the <span class="hl-red"><span class="math notranslate nohighlight">\(N^2\)</span></span> term dominates, so bubble sort is said to have <span class="hl-red"><span class="math notranslate nohighlight">\(O(N^2)\)</span></span> complexity.</p>
+</div>
+</section>
 <section id="circuits">
 <h2>Circuits<a class="headerlink" href="#circuits" title="Link to this heading">#</a></h2>
 <ul class="simple">
@@ -610,10 +647,10 @@
 <li><p>Classical (quantum) <span class="hl-red">algorithms</span> can be implemented using complex sequences of classical (quantum) <span class="hl-green">circuits</span>.</p></li>
 <li><p><span class="hl-red">Circuits</span> can be thought as an <span class="hl-blue">ordered sequence</span> of operations, where each individual operation is a <span class="hl-blue">gate</span>.</p></li>
 </ul>
-<figure class="align-center" id="id3">
+<figure class="align-center" id="id5">
 <img alt="../_images/classical_quantum_circuit.png" src="../_images/classical_quantum_circuit.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 13 </span><span class="caption-text">Example of classical and quantum circuits.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 15 </span><span class="caption-text">Example of classical and quantum circuits.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -645,20 +682,20 @@
 <ul class="simple">
 <li><p>In a <span class="hl-red">quantum circuit</span>, <span class="hl-green">wires</span> represent qubits and <span class="hl-green">gates</span> represent operations on these qubits.</p></li>
 </ul>
-<figure class="align-center" id="id4">
+<figure class="align-center" id="id6">
 <img alt="../_images/single_quantum_gates.png" src="../_images/single_quantum_gates.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 14 </span><span class="caption-text">Names, symbols and unitary matrices for common single qubit gates.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 16 </span><span class="caption-text">Names, symbols and unitary matrices for common single qubit gates.</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <ul class="simple">
 <li><p>Unless stated otherwise, qubits in a circuit are <span class="hl-blue">initialised</span> to <span class="math notranslate nohighlight">\(\ket{0}\)</span> state.</p></li>
 <li><p>Circuits are read <span class="hl-red">left to right</span>. Gates to the left are applied first.</p></li>
 </ul>
-<figure class="align-center" id="id5">
+<figure class="align-center" id="id7">
 <img alt="../_images/quantum_circuit_1.png" src="../_images/quantum_circuit_1.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 15 </span><span class="caption-text">Quantum circuit example.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 17 </span><span class="caption-text">Quantum circuit example.</span><a class="headerlink" href="#id7" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="math notranslate nohighlight">
@@ -668,10 +705,10 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
 \end{aligned}\end{split}\]</div>
 <section id="multi-qubit-circuits">
 <h3>Multi-Qubit Circuits<a class="headerlink" href="#multi-qubit-circuits" title="Link to this heading">#</a></h3>
-<figure class="align-center" id="id6">
+<figure class="align-center" id="id8">
 <img alt="../_images/two_qubit_quantum_gates.png" src="../_images/two_qubit_quantum_gates.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 16 </span><span class="caption-text">Common two-qubit gates: CNOT, general controlled-U and SWAP gate.</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 18 </span><span class="caption-text">Common two-qubit gates: CNOT, general controlled-U and SWAP gate.</span><a class="headerlink" href="#id8" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <ul class="simple">
@@ -681,21 +718,21 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
 <p class="admonition-title">Attention</p>
 <p>Some SDKs like <span class="hl-red">Qiskit</span> use <span class="hl-blue">little-endian ordering</span>, which means that multi-qubit states are written as <span class="math notranslate nohighlight">\(\ket{q_{n-1}\dots q_1\dots q_{0}}\)</span>. In all cases, however, <span class="math notranslate nohighlight">\(q_0\)</span> will be at the top when drawing the circuit.</p>
 </div>
-<figure class="align-center" id="id7">
+<figure class="align-center" id="id9">
 <a class="reference internal image-reference" href="../_images/little_endian_big_endian.png"><img alt="../_images/little_endian_big_endian.png" src="../_images/little_endian_big_endian.png" style="width: 400px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 17 </span><span class="caption-text">Quantum circuit example to show big-endian little-endian differences.</span><a class="headerlink" href="#id7" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 19 </span><span class="caption-text">Quantum circuit example to show big-endian little-endian differences.</span><a class="headerlink" href="#id9" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>The state of the circuit above would be <span class="math notranslate nohighlight">\(\ket{001}\)</span> in little-endian ordering and <span class="math notranslate nohighlight">\(\ket{100}\)</span> in big-endian ordering.</p>
 </div>
-<figure class="align-center" id="id8">
+<figure class="align-center" id="id10">
 <img alt="../_images/quantum_circuit_3.png" src="../_images/quantum_circuit_3.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 18 </span><span class="caption-text">3 qubit quantum circuit example.</span><a class="headerlink" href="#id8" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 20 </span><span class="caption-text">3 qubit quantum circuit example.</span><a class="headerlink" href="#id10" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="math notranslate nohighlight">
@@ -710,20 +747,20 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
 </section>
 <section id="measurement">
 <h3>Measurement<a class="headerlink" href="#measurement" title="Link to this heading">#</a></h3>
-<figure class="align-center" id="id9">
+<figure class="align-center" id="id11">
 <img alt="../_images/measurement.png" src="../_images/measurement.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 19 </span><span class="caption-text">Computational basis measurement symbol.</span><a class="headerlink" href="#id9" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 21 </span><span class="caption-text">Computational basis measurement symbol.</span><a class="headerlink" href="#id11" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>Even if measurement is drawn as a quantum gate, it is not. <strong>Measurement is not unitary</strong>. It is probabilistic and irreversible.</p>
 </div>
-<figure class="align-center" id="id10">
+<figure class="align-center" id="id12">
 <img alt="../_images/measurement_2.png" src="../_images/measurement_2.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 20 </span><span class="caption-text">Example of measurement with classical registers.</span><a class="headerlink" href="#id10" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 22 </span><span class="caption-text">Example of measurement with classical registers.</span><a class="headerlink" href="#id12" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <ul class="simple">
@@ -748,10 +785,10 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
 </li>
 <li><p>It is called “half” adder because it doesn’t account for a carry-in from previous stage.</p></li>
 </ul>
-<figure class="align-center" id="id11">
+<figure class="align-center" id="id13">
 <img alt="../_images/half_adder.png" src="../_images/half_adder.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 21 </span><span class="caption-text">Half adder circuit.</span><a class="headerlink" href="#id11" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 23 </span><span class="caption-text">Half adder circuit.</span><a class="headerlink" href="#id13" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="pst-scrollable-table-container"><table class="table">
@@ -793,10 +830,10 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
 </section>
 <section id="quantum-circuit-example-the-half-adder">
 <h2>Quantum Circuit Example: The Half Adder<a class="headerlink" href="#quantum-circuit-example-the-half-adder" title="Link to this heading">#</a></h2>
-<figure class="align-center" id="id12">
+<figure class="align-center" id="id14">
 <img alt="../_images/quantum_half_adder.png" src="../_images/quantum_half_adder.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 22 </span><span class="caption-text">Half adder quantum circuit.</span><a class="headerlink" href="#id12" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 24 </span><span class="caption-text">Half adder quantum circuit.</span><a class="headerlink" href="#id14" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <ul class="simple">
@@ -811,11 +848,11 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
 </section>
 <section id="deutsch-problem">
 <h2>Deutsch Problem<a class="headerlink" href="#deutsch-problem" title="Link to this heading">#</a></h2>
-<figure class="align-center" id="id13">
+<figure class="align-center" id="id15">
 <a class="reference internal image-reference" href="../_images/deutsch.png"><img alt="../_images/deutsch.png" src="../_images/deutsch.png" style="width: 200px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 23 </span><span class="caption-text">David Deutsch.</span><a class="headerlink" href="#id13" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 25 </span><span class="caption-text">David Deutsch.</span><a class="headerlink" href="#id15" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <ul class="simple">
@@ -830,11 +867,11 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
 <ul class="simple">
 <li><p>Uses an <span class="hl-red">oracle</span> to determine if <span class="math notranslate nohighlight">\(f\)</span> is <span class="hl-green">constant</span> or <span class="hl-blue">balanced</span>.</p></li>
 </ul>
-<figure class="align-center" id="id14">
+<figure class="align-center" id="id16">
 <a class="reference internal image-reference" href="../_images/oracle.png"><img alt="../_images/oracle.png" src="../_images/oracle.png" style="width: 150px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 24 </span><span class="caption-text">Oracle.</span><a class="headerlink" href="#id14" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 26 </span><span class="caption-text">Oracle.</span><a class="headerlink" href="#id16" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <ul class="simple">
@@ -854,10 +891,10 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
 </ul>
 <div class="math notranslate nohighlight">
 \[U_f\ket{x,y}=\ket{x,y\oplus f(x)}\]</div>
-<figure class="align-center" id="id15">
+<figure class="align-center" id="id17">
 <img alt="../_images/parallelism_oracle.png" src="../_images/parallelism_oracle.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 25 </span><span class="caption-text">Parallelism oracle example.</span><a class="headerlink" href="#id15" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 27 </span><span class="caption-text">Parallelism oracle example.</span><a class="headerlink" href="#id17" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <ul class="simple">
@@ -877,45 +914,45 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
 </ul>
 <section id="constant-f">
 <h3>Constant f<a class="headerlink" href="#constant-f" title="Link to this heading">#</a></h3>
-<figure class="align-center" id="id16">
+<figure class="align-center" id="id18">
 <a class="reference internal image-reference" href="../_images/oracle_1.png"><img alt="../_images/oracle_1.png" src="../_images/oracle_1.png" style="width: 200px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 26 </span><span class="caption-text"><span class="math notranslate nohighlight">\(f(x)=0\)</span></span><a class="headerlink" href="#id16" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 28 </span><span class="caption-text"><span class="math notranslate nohighlight">\(f(x)=0\)</span></span><a class="headerlink" href="#id18" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<figure class="align-center" id="id17">
+<figure class="align-center" id="id19">
 <a class="reference internal image-reference" href="../_images/oracle_2.png"><img alt="../_images/oracle_2.png" src="../_images/oracle_2.png" style="width: 200px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 27 </span><span class="caption-text"><span class="math notranslate nohighlight">\(f(x)=1\)</span></span><a class="headerlink" href="#id17" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 29 </span><span class="caption-text"><span class="math notranslate nohighlight">\(f(x)=1\)</span></span><a class="headerlink" href="#id19" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="balanced-f">
 <h3>Balanced f<a class="headerlink" href="#balanced-f" title="Link to this heading">#</a></h3>
-<figure class="align-center" id="id18">
+<figure class="align-center" id="id20">
 <a class="reference internal image-reference" href="../_images/oracle_3.png"><img alt="../_images/oracle_3.png" src="../_images/oracle_3.png" style="width: 200px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 28 </span><span class="caption-text"><span class="math notranslate nohighlight">\(f(x)=x\)</span></span><a class="headerlink" href="#id18" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 30 </span><span class="caption-text"><span class="math notranslate nohighlight">\(f(x)=x\)</span></span><a class="headerlink" href="#id20" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<figure class="align-center" id="id19">
+<figure class="align-center" id="id21">
 <a class="reference internal image-reference" href="../_images/oracle_4.png"><img alt="../_images/oracle_4.png" src="../_images/oracle_4.png" style="width: 200px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 29 </span><span class="caption-text"><span class="math notranslate nohighlight">\(f(x)=1-x\)</span></span><a class="headerlink" href="#id19" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 31 </span><span class="caption-text"><span class="math notranslate nohighlight">\(f(x)=1-x\)</span></span><a class="headerlink" href="#id21" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 </section>
 <section id="deutsch-algorithm">
 <h2>Deutsch Algorithm<a class="headerlink" href="#deutsch-algorithm" title="Link to this heading">#</a></h2>
-<figure class="align-center" id="id20">
+<figure class="align-center" id="id22">
 <img alt="../_images/deutsch_algorithm.png" src="../_images/deutsch_algorithm.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 30 </span><span class="caption-text">Deutsch Algorithm.</span><a class="headerlink" href="#id20" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 32 </span><span class="caption-text">Deutsch Algorithm.</span><a class="headerlink" href="#id22" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <ol class="arabic simple">
@@ -954,11 +991,11 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
 <li><p><span class="hl-green">Deutsch-Jozsa algorithm</span> (<span class="hl-blue">1992</span>) -&gt; <span class="hl-red">1 query</span>.</p></li>
 <li><p><span class="hl-green">Classically</span> -&gt; Can be up to <span class="hl-red"><span class="math notranslate nohighlight">\(2^{n-1}+1\)</span> queries</span>.</p></li>
 </ul>
-<figure class="align-center" id="id21">
+<figure class="align-center" id="id23">
 <a class="reference internal image-reference" href="../_images/jozsa.png"><img alt="../_images/jozsa.png" src="../_images/jozsa.png" style="width: 200px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 31 </span><span class="caption-text">Richard Jozsa.</span><a class="headerlink" href="#id21" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 33 </span><span class="caption-text">Richard Jozsa.</span><a class="headerlink" href="#id23" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <ul class="simple">
@@ -992,10 +1029,10 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-center" id="id22">
+<figure class="align-center" id="id24">
 <img alt="../_images/random_integer.png" src="../_images/random_integer.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 32 </span><span class="caption-text">Output of random_integer.py.</span><a class="headerlink" href="#id22" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 34 </span><span class="caption-text">Output of random_integer.py.</span><a class="headerlink" href="#id24" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -1013,10 +1050,10 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
 <p class="admonition-title">Attention</p>
 <p>A quantum program may be composed of <span class="hl-green">one or more quantum circuits</span>.</p>
 </div>
-<figure class="align-center" id="id23">
+<figure class="align-center" id="id25">
 <img alt="../_images/quantum_algorithm_program_circuit_hierarchy.png" src="../_images/quantum_algorithm_program_circuit_hierarchy.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 33 </span><span class="caption-text">Quantum algorithm, program and circuit hierarchy.</span><a class="headerlink" href="#id23" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 35 </span><span class="caption-text">Quantum algorithm, program and circuit hierarchy.</span><a class="headerlink" href="#id25" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>random_integer_quantum.py</strong></p>
@@ -1039,16 +1076,16 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-center" id="id24">
+<figure class="align-center" id="id26">
 <img alt="../_images/random_integer_quantum_circuit.png" src="../_images/random_integer_quantum_circuit.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 34 </span><span class="caption-text">Circuit of random_integer_quantum.py.</span><a class="headerlink" href="#id24" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 36 </span><span class="caption-text">Circuit of random_integer_quantum.py.</span><a class="headerlink" href="#id26" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<figure class="align-center" id="id25">
+<figure class="align-center" id="id27">
 <img alt="../_images/random_integer_quantum.png" src="../_images/random_integer_quantum.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 35 </span><span class="caption-text">Output of random_integer_quantum.py.</span><a class="headerlink" href="#id25" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 37 </span><span class="caption-text">Output of random_integer_quantum.py.</span><a class="headerlink" href="#id27" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -1063,10 +1100,10 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
 <li><p>Using quantum simulators allows us to <span class="hl-blue">look for bugs, prototype algorithms or do resource estimation</span> before sending them to a real device.</p></li>
 <li><p>The number of amplitudes grows as <span class="hl-red"><span class="math notranslate nohighlight">\(2^n\)</span></span>, so simulating larger systems gets <span class="hl-red">exponentially</span> harder.</p></li>
 </ul>
-<figure class="align-center" id="id26">
+<figure class="align-center" id="id28">
 <img alt="../_images/qubits_amplitudes.png" src="../_images/qubits_amplitudes.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 36 </span><span class="caption-text">Number of amplitudes vs. number of qubits.</span><a class="headerlink" href="#id26" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 38 </span><span class="caption-text">Number of amplitudes vs. number of qubits.</span><a class="headerlink" href="#id28" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="statevector-simulators">
@@ -1172,6 +1209,7 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-foundations">6. Mathematical foundations</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computational-complexity">Computational Complexity</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#circuits">Circuits</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-and-quantum-circuits-differences-and-similarities">Classical and Quantum Circuits: Differences and Similarities</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#similarity-gate-ordering">1. Similarity: Gate ordering</a></li>
