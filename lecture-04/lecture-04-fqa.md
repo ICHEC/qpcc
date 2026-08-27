@@ -19,6 +19,16 @@ mystnb:
 ```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture.
 ```
 
+## Learning Outcomes
+
+```{admonition} Learning Outcomes
+:class: information
+- Understand what a <span class="hl-green">quantum algorithm</span> is and how it differs from a classical one.
+- How a quantum algorithm is represented using <span class="hl-green">quantum circuits</span>.
+- Study the <span class="hl-green">Deutsch algorithm</span>, one of the earliest quantum algorithms.
+- Understand how quantum algorithms are <span class="hl-green">programmed</span>.
+```
+
 ## Algorithm: Definition
 
 ```{admonition} Algorithm
@@ -121,8 +131,8 @@ Reversibility of quantum gates is a **hard mathematical constraint** on how quan
 
 ### 5. Algorithm output
 
-- <span class="hl-blue">Classical</span>: Measurement is <span class="hl-red">deterministic</span>. We run the classical algorithm once, we get a definite answer.
-- <span class="hl-blue">Quantum</span>: Measurement is <span class="hl-red">probabilistic</span>. A quantum algorithm is run several times to get the desired result.
+- <span class="hl-blue">Classical</span>: Algorithm output is <span class="hl-red">deterministic in nature</span>.
+- <span class="hl-blue">Quantum</span>: Measurement is <span class="hl-red">probabilistic in nature</span>.
 
 ### 6. Mathematical foundations
 
@@ -146,8 +156,11 @@ Any classical algorithm can be represented and executed on a quantum computer.
 There exists constants $c$ and $n_0$ such that for all $n>n_0\rightarrow f(n)<cg(n)$
 ```
 
+- In computational complexity, $n$ can represent a wide variety of things, like the number of <span class="hl-blue">inputs, variables, qubits, gates, iterations...</span>
+
 ```{figure} ./images/complexity_plot.png
 :align: center
+:width: 580px
 
 Growth of common complexity classes.
 ```
@@ -156,6 +169,7 @@ Growth of common complexity classes.
 
 ```{figure} ./images/bubble_sort.gif
 :align: center
+:width: 360px
 
 Bubble sort algorithm animation. Source: commons.wikipedia.org
 ```
@@ -359,17 +373,10 @@ $$\begin{cases} f(0) = 0,\ f(1) = 1 \\ f(0) = 1,\ f(1) = 0 \end{cases}
 
 - Uses an <span class="hl-red">oracle</span> to determine if $f$ is <span class="hl-green">constant</span> or <span class="hl-blue">balanced</span>.
 
-```{figure} ./images/oracle.png
-:align: center
-:width: 150px
-
-Oracle.
-```
-
 - <span class="hl-red">Classically</span> -> 2 queries.
 - <span class="hl-red">Deutsch algorithm</span> -> 1 query.
 
-- Early demonstration of QC power (<span class="hl-blue">1985</span>).
+- Early example of QC power (<span class="hl-blue">1985</span>).
 
 ## Quantum Parallelism
 
@@ -389,6 +396,13 @@ Parallelism oracle example.
 ```
 
 - <span class="hl-green">Input state:</span> $\ket{\psi_0}=\frac{1}{\sqrt{2}}(\ket{0,0}+\ket{1,0})$
+
+- <span class="hl-green">XOR gate</span> ($\oplus$) truth table:
+
+| $x$ | 0 | 1 | 0 | 1 |
+|---|---|---|---|---|
+| $y$ | 0 | 0 | 1 | 1 |
+| $x\oplus y$ | 0 | 1 | 1 | 0 |
 
 $$U_f\ket{\psi_0}=\frac{1}{\sqrt{2}}(\ket{0,f(0)}+\ket{1,f(1)})$$
 
@@ -482,7 +496,7 @@ $$\rightarrow U_f\left[\ket{x}\left(\frac{\ket{0}-\ket{1}}{\sqrt{2}}\right)\righ
 
 ```{figure} ./images/jozsa.png
 :align: center
-:width: 200px
+:width: 170px
 
 Richard Jozsa.
 ```
@@ -568,12 +582,14 @@ plt.show()
 
 ```{figure} ./images/random_integer_quantum_circuit.png
 :align: center
+:width: 430px
 
 Circuit of random_integer_quantum.py.
 ```
 
 ```{figure} ./images/random_integer_quantum.png
 :align: center
+:width: 720px
 
 Output of random_integer_quantum.py.
 ```
@@ -582,7 +598,7 @@ Output of random_integer_quantum.py.
 
 ```{admonition} Quantum Simulator
 :class: information
-A <span class="hl-red">quantum simulator</span> is a system that <span class="hl-blue">reproduces the behaviour</span> of a quantum computer.
+A <span class="hl-red">quantum simulator</span> is a classical system that <span class="hl-blue">reproduces the behaviour</span> of a quantum computer.
 ```
 
 - Running algorithms on real hardware is <span class="hl-red">very expensive</span>.
@@ -593,6 +609,7 @@ A <span class="hl-red">quantum simulator</span> is a system that <span class="hl
 
 ```{figure} ./images/qubits_amplitudes.png
 :align: center
+:width: 650px
 
 Number of amplitudes vs. number of qubits.
 ```
@@ -606,14 +623,8 @@ A <span class="hl-red">statevector simulator</span> represents the full quantum 
 
 - The statevector simulator is the <span class="hl-blue">default simulator</span> in almost all SDKs.
 
-- The number of <span class="hl-green">quantum amplitudes</span> grows exponentially with the number of qubits. Simulating more than <span class="hl-green">40 qubits</span> requires supercomputer-scale distributed memory.
+- The number of <span class="hl-green">quantum amplitudes</span> grows <span class="hl-red">exponentially</span> with the number of qubits.
 
-- Other examples of quantum simulators:
+- Statevector simulation uses brute force to perform the simulation. It is the <span class="hl-red">most exact</span>, but among the most <span class="hl-red">computationally expensive simulators</span>.
 
-  - Mixed state simulators
-  - Tensor network simulators
-  - Matrix product state simulators
-  - Decision diagram simulators
-  - Montecarlo wavefunction simulators
-  - Path integral simulators
-  - Sparse state simulators
+- Simulating more than <span class="hl-green">40 qubits</span> with a statevector simulator requires supercomputer-scale distributed memory.
