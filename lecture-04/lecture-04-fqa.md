@@ -628,3 +628,26 @@ A <span class="hl-red">statevector simulator</span> represents the full quantum 
 - Statevector simulation uses brute force to perform the simulation. It is the <span class="hl-red">most exact</span>, but among the most <span class="hl-red">computationally expensive simulators</span>.
 
 - Simulating more than <span class="hl-green">40 qubits</span> with a statevector simulator requires supercomputer-scale distributed memory.
+
+
+## Accesing Quantum Computing Systems 
+
+
+### Quantum Stack 
+
+
+```{figure} ./images/quantum_stack.png
+:align: center
+
+The quantum computing stack.
+```
+
+
+- The user can interact with the software and hardware elements of the quantum stack in different ways. 
+
+
+- Quantum programs can be executed <span class="hl-blue">locally or remotely</span>, and using <span class="hl-green">commercial or publicly-funded</span> systems.
+
+
+
+
