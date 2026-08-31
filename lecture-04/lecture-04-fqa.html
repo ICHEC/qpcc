@@ -416,6 +416,7 @@
             </div>
             <nav aria-label="Page">
                 <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-outcomes">Learning Outcomes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-definition">Algorithm: Definition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-algorithm-definition">Quantum Algorithm: Definition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#superposition-entanglement-interference">Superposition, Entanglement, Interference</a></li>
@@ -458,6 +459,15 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statevector-simulators">Statevector Simulators</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accesing-quantum-computing-systems">Accesing Quantum Computing Systems</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-stack">Quantum Stack</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-computing-software-simualtors-qcss">Quantum Computing Software Simualtors (QCSS)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-quantum-computing-software-simulators">Accessing Quantum Computing Software Simulators</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tightly-integrated-vs-heterogeneous-quantum-stacks">Tightly-Integrated vs Heterogeneous Quantum Stacks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#high-level-quantum-software">High-Level Quantum Software</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#low-level-quantum-software">Low-Level Quantum Software</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -475,6 +485,18 @@
 <p class="admonition-title">Warning</p>
 <p>These lecture notes are a work in progress and are not a replacement for watching the lecture video, it’s intended to be a supplementary reading after watching the lecture.</p>
 </div>
+<section id="learning-outcomes">
+<h2>Learning Outcomes<a class="headerlink" href="#learning-outcomes" title="Link to this heading">#</a></h2>
+<div class="information admonition">
+<p class="admonition-title">Learning Outcomes</p>
+<ul class="simple">
+<li><p>Understand what a <span class="hl-green">quantum algorithm</span> is and how it differs from a classical one.</p></li>
+<li><p>How a quantum algorithm is represented using <span class="hl-green">quantum circuits</span>.</p></li>
+<li><p>Study the <span class="hl-green">Deutsch algorithm</span>, one of the earliest quantum algorithms.</p></li>
+<li><p>Understand how quantum algorithms are <span class="hl-green">programmed</span>.</p></li>
+</ul>
+</div>
+</section>
 <section id="algorithm-definition">
 <h2>Algorithm: Definition<a class="headerlink" href="#algorithm-definition" title="Link to this heading">#</a></h2>
 <div class="information admonition">
@@ -588,8 +610,8 @@
 <section id="algorithm-output">
 <h3>5. Algorithm output<a class="headerlink" href="#algorithm-output" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p><span class="hl-blue">Classical</span>: Measurement is <span class="hl-red">deterministic</span>. We run the classical algorithm once, we get a definite answer.</p></li>
-<li><p><span class="hl-blue">Quantum</span>: Measurement is <span class="hl-red">probabilistic</span>. A quantum algorithm is run several times to get the desired result.</p></li>
+<li><p><span class="hl-blue">Classical</span>: Algorithm output is <span class="hl-red">deterministic in nature</span>.</p></li>
+<li><p><span class="hl-blue">Quantum</span>: Measurement is <span class="hl-red">probabilistic in nature</span>.</p></li>
 </ul>
 </section>
 <section id="mathematical-foundations">
@@ -615,8 +637,12 @@
 <p class="admonition-title">Big-O Notation</p>
 <p>There exists constants <span class="math notranslate nohighlight">\(c\)</span> and <span class="math notranslate nohighlight">\(n_0\)</span> such that for all <span class="math notranslate nohighlight">\(n&gt;n_0\rightarrow f(n)&lt;cg(n)\)</span></p>
 </div>
+<ul class="simple">
+<li><p>In computational complexity, <span class="math notranslate nohighlight">\(n\)</span> can represent a wide variety of things, like the number of <span class="hl-blue">inputs, variables, qubits, gates, iterations…</span></p></li>
+</ul>
 <figure class="align-center" id="id3">
-<img alt="../_images/complexity_plot.png" src="../_images/complexity_plot.png" />
+<a class="reference internal image-reference" href="../_images/complexity_plot.png"><img alt="../_images/complexity_plot.png" src="../_images/complexity_plot.png" style="width: 580px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 13 </span><span class="caption-text">Growth of common complexity classes.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
 </figcaption>
@@ -625,7 +651,8 @@
 <li><p>A simple <span class="hl-blue">sorting algorithm</span> (e.g. <span class="hl-red">bubble sort</span>) is a good example of computing an algorithm’s complexity.</p></li>
 </ul>
 <figure class="align-center" id="id4">
-<img alt="../_images/bubble_sort.gif" src="../_images/bubble_sort.gif" />
+<a class="reference internal image-reference" href="../_images/bubble_sort.gif"><img alt="../_images/bubble_sort.gif" src="../_images/bubble_sort.gif" style="width: 360px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 14 </span><span class="caption-text">Bubble sort algorithm animation. Source: <a class="reference external" href="http://commons.wikipedia.org">commons.wikipedia.org</a></span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
 </figcaption>
@@ -866,18 +893,9 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
 \Rightarrow \textcolor{blue}{\textbf{Balanced } f}\end{split}\]</div>
 <ul class="simple">
 <li><p>Uses an <span class="hl-red">oracle</span> to determine if <span class="math notranslate nohighlight">\(f\)</span> is <span class="hl-green">constant</span> or <span class="hl-blue">balanced</span>.</p></li>
-</ul>
-<figure class="align-center" id="id16">
-<a class="reference internal image-reference" href="../_images/oracle.png"><img alt="../_images/oracle.png" src="../_images/oracle.png" style="width: 150px;" />
-</a>
-<figcaption>
-<p><span class="caption-number">Fig. 26 </span><span class="caption-text">Oracle.</span><a class="headerlink" href="#id16" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
-<ul class="simple">
 <li><p><span class="hl-red">Classically</span> -&gt; 2 queries.</p></li>
 <li><p><span class="hl-red">Deutsch algorithm</span> -&gt; 1 query.</p></li>
-<li><p>Early demonstration of QC power (<span class="hl-blue">1985</span>).</p></li>
+<li><p>Early example of QC power (<span class="hl-blue">1985</span>).</p></li>
 </ul>
 </section>
 <section id="quantum-parallelism">
@@ -891,15 +909,41 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
 </ul>
 <div class="math notranslate nohighlight">
 \[U_f\ket{x,y}=\ket{x,y\oplus f(x)}\]</div>
-<figure class="align-center" id="id17">
+<figure class="align-center" id="id16">
 <img alt="../_images/parallelism_oracle.png" src="../_images/parallelism_oracle.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 27 </span><span class="caption-text">Parallelism oracle example.</span><a class="headerlink" href="#id17" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 26 </span><span class="caption-text">Parallelism oracle example.</span><a class="headerlink" href="#id16" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <ul class="simple">
 <li><p><span class="hl-green">Input state:</span> <span class="math notranslate nohighlight">\(\ket{\psi_0}=\frac{1}{\sqrt{2}}(\ket{0,0}+\ket{1,0})\)</span></p></li>
+<li><p><span class="hl-green">XOR gate</span> (<span class="math notranslate nohighlight">\(\oplus\)</span>) truth table:</p></li>
 </ul>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\(x\)</span></p></th>
+<th class="head"><p>0</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>0</p></th>
+<th class="head"><p>1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(y\)</span></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(x\oplus y\)</span></p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="math notranslate nohighlight">
 \[U_f\ket{\psi_0}=\frac{1}{\sqrt{2}}(\ket{0,f(0)}+\ket{1,f(1)})\]</div>
 <div class="admonition attention">
@@ -914,45 +958,45 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
 </ul>
 <section id="constant-f">
 <h3>Constant f<a class="headerlink" href="#constant-f" title="Link to this heading">#</a></h3>
-<figure class="align-center" id="id18">
+<figure class="align-center" id="id17">
 <a class="reference internal image-reference" href="../_images/oracle_1.png"><img alt="../_images/oracle_1.png" src="../_images/oracle_1.png" style="width: 200px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 28 </span><span class="caption-text"><span class="math notranslate nohighlight">\(f(x)=0\)</span></span><a class="headerlink" href="#id18" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 27 </span><span class="caption-text"><span class="math notranslate nohighlight">\(f(x)=0\)</span></span><a class="headerlink" href="#id17" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<figure class="align-center" id="id19">
+<figure class="align-center" id="id18">
 <a class="reference internal image-reference" href="../_images/oracle_2.png"><img alt="../_images/oracle_2.png" src="../_images/oracle_2.png" style="width: 200px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 29 </span><span class="caption-text"><span class="math notranslate nohighlight">\(f(x)=1\)</span></span><a class="headerlink" href="#id19" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 28 </span><span class="caption-text"><span class="math notranslate nohighlight">\(f(x)=1\)</span></span><a class="headerlink" href="#id18" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="balanced-f">
 <h3>Balanced f<a class="headerlink" href="#balanced-f" title="Link to this heading">#</a></h3>
-<figure class="align-center" id="id20">
+<figure class="align-center" id="id19">
 <a class="reference internal image-reference" href="../_images/oracle_3.png"><img alt="../_images/oracle_3.png" src="../_images/oracle_3.png" style="width: 200px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 30 </span><span class="caption-text"><span class="math notranslate nohighlight">\(f(x)=x\)</span></span><a class="headerlink" href="#id20" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 29 </span><span class="caption-text"><span class="math notranslate nohighlight">\(f(x)=x\)</span></span><a class="headerlink" href="#id19" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<figure class="align-center" id="id21">
+<figure class="align-center" id="id20">
 <a class="reference internal image-reference" href="../_images/oracle_4.png"><img alt="../_images/oracle_4.png" src="../_images/oracle_4.png" style="width: 200px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 31 </span><span class="caption-text"><span class="math notranslate nohighlight">\(f(x)=1-x\)</span></span><a class="headerlink" href="#id21" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 30 </span><span class="caption-text"><span class="math notranslate nohighlight">\(f(x)=1-x\)</span></span><a class="headerlink" href="#id20" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 </section>
 <section id="deutsch-algorithm">
 <h2>Deutsch Algorithm<a class="headerlink" href="#deutsch-algorithm" title="Link to this heading">#</a></h2>
-<figure class="align-center" id="id22">
+<figure class="align-center" id="id21">
 <img alt="../_images/deutsch_algorithm.png" src="../_images/deutsch_algorithm.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 32 </span><span class="caption-text">Deutsch Algorithm.</span><a class="headerlink" href="#id22" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 31 </span><span class="caption-text">Deutsch Algorithm.</span><a class="headerlink" href="#id21" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <ol class="arabic simple">
@@ -991,11 +1035,11 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
 <li><p><span class="hl-green">Deutsch-Jozsa algorithm</span> (<span class="hl-blue">1992</span>) -&gt; <span class="hl-red">1 query</span>.</p></li>
 <li><p><span class="hl-green">Classically</span> -&gt; Can be up to <span class="hl-red"><span class="math notranslate nohighlight">\(2^{n-1}+1\)</span> queries</span>.</p></li>
 </ul>
-<figure class="align-center" id="id23">
-<a class="reference internal image-reference" href="../_images/jozsa.png"><img alt="../_images/jozsa.png" src="../_images/jozsa.png" style="width: 200px;" />
+<figure class="align-center" id="id22">
+<a class="reference internal image-reference" href="../_images/jozsa.png"><img alt="../_images/jozsa.png" src="../_images/jozsa.png" style="width: 170px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 33 </span><span class="caption-text">Richard Jozsa.</span><a class="headerlink" href="#id23" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 32 </span><span class="caption-text">Richard Jozsa.</span><a class="headerlink" href="#id22" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <ul class="simple">
@@ -1029,10 +1073,10 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-center" id="id24">
+<figure class="align-center" id="id23">
 <img alt="../_images/random_integer.png" src="../_images/random_integer.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 34 </span><span class="caption-text">Output of random_integer.py.</span><a class="headerlink" href="#id24" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 33 </span><span class="caption-text">Output of random_integer.py.</span><a class="headerlink" href="#id23" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -1050,10 +1094,10 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
 <p class="admonition-title">Attention</p>
 <p>A quantum program may be composed of <span class="hl-green">one or more quantum circuits</span>.</p>
 </div>
-<figure class="align-center" id="id25">
+<figure class="align-center" id="id24">
 <img alt="../_images/quantum_algorithm_program_circuit_hierarchy.png" src="../_images/quantum_algorithm_program_circuit_hierarchy.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 35 </span><span class="caption-text">Quantum algorithm, program and circuit hierarchy.</span><a class="headerlink" href="#id25" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 34 </span><span class="caption-text">Quantum algorithm, program and circuit hierarchy.</span><a class="headerlink" href="#id24" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>random_integer_quantum.py</strong></p>
@@ -1076,16 +1120,18 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-center" id="id26">
-<img alt="../_images/random_integer_quantum_circuit.png" src="../_images/random_integer_quantum_circuit.png" />
+<figure class="align-center" id="id25">
+<a class="reference internal image-reference" href="../_images/random_integer_quantum_circuit.png"><img alt="../_images/random_integer_quantum_circuit.png" src="../_images/random_integer_quantum_circuit.png" style="width: 430px;" />
+</a>
 <figcaption>
-<p><span class="caption-number">Fig. 36 </span><span class="caption-text">Circuit of random_integer_quantum.py.</span><a class="headerlink" href="#id26" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 35 </span><span class="caption-text">Circuit of random_integer_quantum.py.</span><a class="headerlink" href="#id25" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<figure class="align-center" id="id27">
-<img alt="../_images/random_integer_quantum.png" src="../_images/random_integer_quantum.png" />
+<figure class="align-center" id="id26">
+<a class="reference internal image-reference" href="../_images/random_integer_quantum.png"><img alt="../_images/random_integer_quantum.png" src="../_images/random_integer_quantum.png" style="width: 720px;" />
+</a>
 <figcaption>
-<p><span class="caption-number">Fig. 37 </span><span class="caption-text">Output of random_integer_quantum.py.</span><a class="headerlink" href="#id27" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 36 </span><span class="caption-text">Output of random_integer_quantum.py.</span><a class="headerlink" href="#id26" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -1093,17 +1139,18 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
 <h2>Quantum Simulators<a class="headerlink" href="#quantum-simulators" title="Link to this heading">#</a></h2>
 <div class="information admonition">
 <p class="admonition-title">Quantum Simulator</p>
-<p>A <span class="hl-red">quantum simulator</span> is a system that <span class="hl-blue">reproduces the behaviour</span> of a quantum computer.</p>
+<p>A <span class="hl-red">quantum simulator</span> is a classical system that <span class="hl-blue">reproduces the behaviour</span> of a quantum computer.</p>
 </div>
 <ul class="simple">
 <li><p>Running algorithms on real hardware is <span class="hl-red">very expensive</span>.</p></li>
 <li><p>Using quantum simulators allows us to <span class="hl-blue">look for bugs, prototype algorithms or do resource estimation</span> before sending them to a real device.</p></li>
 <li><p>The number of amplitudes grows as <span class="hl-red"><span class="math notranslate nohighlight">\(2^n\)</span></span>, so simulating larger systems gets <span class="hl-red">exponentially</span> harder.</p></li>
 </ul>
-<figure class="align-center" id="id28">
-<img alt="../_images/qubits_amplitudes.png" src="../_images/qubits_amplitudes.png" />
+<figure class="align-center" id="id27">
+<a class="reference internal image-reference" href="../_images/qubits_amplitudes.png"><img alt="../_images/qubits_amplitudes.png" src="../_images/qubits_amplitudes.png" style="width: 650px;" />
+</a>
 <figcaption>
-<p><span class="caption-number">Fig. 38 </span><span class="caption-text">Number of amplitudes vs. number of qubits.</span><a class="headerlink" href="#id28" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 37 </span><span class="caption-text">Number of amplitudes vs. number of qubits.</span><a class="headerlink" href="#id27" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="statevector-simulators">
@@ -1114,18 +1161,159 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
 </div>
 <ul class="simple">
 <li><p>The statevector simulator is the <span class="hl-blue">default simulator</span> in almost all SDKs.</p></li>
-<li><p>The number of <span class="hl-green">quantum amplitudes</span> grows exponentially with the number of qubits. Simulating more than <span class="hl-green">40 qubits</span> requires supercomputer-scale distributed memory.</p></li>
-<li><p>Other examples of quantum simulators:</p>
-<ul>
-<li><p>Mixed state simulators</p></li>
-<li><p>Tensor network simulators</p></li>
-<li><p>Matrix product state simulators</p></li>
-<li><p>Decision diagram simulators</p></li>
-<li><p>Montecarlo wavefunction simulators</p></li>
-<li><p>Path integral simulators</p></li>
-<li><p>Sparse state simulators</p></li>
+<li><p>The number of <span class="hl-green">quantum amplitudes</span> grows <span class="hl-red">exponentially</span> with the number of qubits.</p></li>
+<li><p>Statevector simulation uses brute force to perform the simulation. It is the <span class="hl-red">most exact</span>, but among the most <span class="hl-red">computationally expensive simulators</span>.</p></li>
+<li><p>Simulating more than <span class="hl-green">40 qubits</span> with a statevector simulator requires supercomputer-scale distributed memory.</p></li>
 </ul>
-</li>
+</section>
+</section>
+<section id="accesing-quantum-computing-systems">
+<h2>Accesing Quantum Computing Systems<a class="headerlink" href="#accesing-quantum-computing-systems" title="Link to this heading">#</a></h2>
+<section id="quantum-stack">
+<h3>Quantum Stack<a class="headerlink" href="#quantum-stack" title="Link to this heading">#</a></h3>
+<figure class="align-center" id="id28">
+<img alt="../_images/quantum_stack.png" src="../_images/quantum_stack.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 38 </span><span class="caption-text">The quantum computing stack.</span><a class="headerlink" href="#id28" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>The user can interact with the software and hardware elements of the quantum stack in different ways.</p></li>
+<li><p>Quantum programs can be executed <span class="hl-blue">locally or remotely</span>, and using <span class="hl-green">commercial or publicly-funded</span> systems.</p></li>
+</ul>
+</section>
+<section id="quantum-computing-software-simualtors-qcss">
+<h3>Quantum Computing Software Simualtors (QCSS)<a class="headerlink" href="#quantum-computing-software-simualtors-qcss" title="Link to this heading">#</a></h3>
+<figure class="align-center" id="id29">
+<img alt="../_images/qcss.png" src="../_images/qcss.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 39 </span><span class="caption-text">Local and remote QCSS.</span><a class="headerlink" href="#id29" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>QCSS can be installed <span class="hl-blue">locally</span> on one’s laptop or workstation.</p></li>
+<li><p>Remote QCSS are installed on <span class="hl-blue">larger scale HPC</span> facilities.</p></li>
+</ul>
+</section>
+<section id="accessing-quantum-computing-software-simulators">
+<h3>Accessing Quantum Computing Software Simulators<a class="headerlink" href="#accessing-quantum-computing-software-simulators" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Simulators can be roughly split into two categories: <span class="hl-blue">full-stack</span> simulators bundled as a backend of a specific SDK, and <span class="hl-blue">standalone</span> simulators used independently of any SDK.</p></li>
+</ul>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Simulator</p></th>
+<th class="head"><p>Language</p></th>
+<th class="head"><p>Category</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/Qiskit/qiskit-aer">Qiskit Aer</a></p></td>
+<td><p>C++</p></td>
+<td><p>Full-stack</p></td>
+<td><p>Qiskit’s backend; supports statevector, density-matrix, MPS and stabilizer methods</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/PennyLaneAI/pennylane-lightning">PennyLane Lightning</a></p></td>
+<td><p>C++</p></td>
+<td><p>Full-stack</p></td>
+<td><p>PennyLane’s state-vector backend, with CPU, GPU and MPI variants</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/quantumlib/Cirq">Cirq</a></p></td>
+<td><p>Python</p></td>
+<td><p>Full-stack</p></td>
+<td><p>Google’s SDK; built-in <code class="docutils literal notranslate"><span class="pre">cirq.Simulator</span></code> state-vector simulator</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/ProjectQ-Framework/ProjectQ">ProjectQ</a></p></td>
+<td><p>Python / C++</p></td>
+<td><p>Full-stack</p></td>
+<td><p>Open-source framework with a high-performance built-in simulator</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/amazon-braket/amazon-braket-default-simulator-python">Amazon Braket</a></p></td>
+<td><p>Python</p></td>
+<td><p>Full-stack</p></td>
+<td><p>AWS Braket SDK’s local statevector / density-matrix simulators</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/intel/intel-qs">Intel Quantum Simulator (IQS)</a></p></td>
+<td><p>C++ / MPI</p></td>
+<td><p>Standalone</p></td>
+<td><p>Distributed-memory state-vector simulator, formerly qHiPSTER</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/qulacs/qulacs">Qulacs</a></p></td>
+<td><p>C++ / Python</p></td>
+<td><p>Standalone</p></td>
+<td><p>Fast state-vector simulator with SIMD, OpenMP and GPU support</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/QuEST-Kit/QuEST">QuEST</a></p></td>
+<td><p>C</p></td>
+<td><p>Standalone</p></td>
+<td><p>Multithreaded, distributed, GPU-accelerated statevector and density-matrix simulator</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/quantumlib/qsim">qsim</a></p></td>
+<td><p>C++</p></td>
+<td><p>Standalone</p></td>
+<td><p>High-performance state-vector simulator, usable via Cirq or on its own</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/quantumlib/Stim">Stim</a></p></td>
+<td><p>C++ / Python</p></td>
+<td><p>Standalone</p></td>
+<td><p>Very fast stabilizer-circuit simulator, built for QEC research</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/NVIDIA/cuQuantum">NVIDIA cuQuantum</a></p></td>
+<td><p>C++ / Python (CUDA)</p></td>
+<td><p>Standalone</p></td>
+<td><p>GPU-accelerated libraries (cuStateVec, cuTensorNet) used as a backend by many simulators</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/munich-quantum-toolkit/ddsim">MQT DDSIM</a></p></td>
+<td><p>C++ / Python</p></td>
+<td><p>Standalone</p></td>
+<td><p>Decision-diagram based simulator from the Munich Quantum Toolkit</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/jcmgray/quimb">quimb</a></p></td>
+<td><p>Python</p></td>
+<td><p>Standalone</p></td>
+<td><p>Tensor-network library used for large circuit simulation</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="tightly-integrated-vs-heterogeneous-quantum-stacks">
+<h3>Tightly-Integrated vs Heterogeneous Quantum Stacks<a class="headerlink" href="#tightly-integrated-vs-heterogeneous-quantum-stacks" title="Link to this heading">#</a></h3>
+<figure class="align-center" id="id30">
+<img alt="../_images/integrated_heterogeneous.png" src="../_images/integrated_heterogeneous.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 40 </span><span class="caption-text">Tightly-integrated vs heterogeneous quantum stack</span><a class="headerlink" href="#id30" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p><span class="hl-red">Tightly integrated quantum stacks</span> are stacks in which the <span class="hl-blue">software layer</span> and the <span class="hl-blue">quantum computing layer</span> are developed by the <span class="hl-green">same provider</span>.</p></li>
+<li><p><span class="hl-red">Heterogeneous quantum stacks</span> are stacks in which their elements are developed by <span class="hl-green">different providers</span>.</p></li>
+</ul>
+</section>
+<section id="high-level-quantum-software">
+<h3>High-Level Quantum Software<a class="headerlink" href="#high-level-quantum-software" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>A <span class="hl-red">quantum programming environment</span> is a type of <span class="hl-red">human-computer interface</span> used to create programs to run on quantum computers or quantum software simulators.</p></li>
+<li><p>Once a <span class="hl-red">quantum program</span> is created, similar to classical programs, it can be compiled into instructions that your choice of hardware can understand and execute.</p></li>
+<li><p>Some <span class="hl-blue">quantum programming languages</span> (QPLs) are <span class="hl-green">standalone languages</span> (e.g. <a class="reference external" href="https://github.com/microsoft/qdk">Q#</a>, <a class="reference external" href="https://silq.ethz.ch/">Silq</a>), while others are <span class="hl-green">libraries/extensions</span> added on top of an existing classical language.</p></li>
+<li><p>Most <span class="hl-blue">quantum programming libraries</span> today are built on <span class="hl-green">Python</span> (e.g. <a class="reference external" href="https://github.com/Qiskit/qiskit">Qiskit</a>, <a class="reference external" href="https://github.com/PennyLaneAI/pennylane">PennyLane</a>), though other languages are supported too, such as <span class="hl-green">Julia</span> (<a class="reference external" href="https://github.com/QuantumBFS/Yao.jl">Yao.jl</a>) or the <span class="hl-green">C ++</span> (<a class="reference external" href="https://www.intel.com/content/www/us/en/developer/tools/quantum-sdk/overview.html">Intel SDK</a>).</p></li>
+<li><p>Aside from generic quantum languages and libraries, there are also <span class="hl-blue">specialised languages and libraries</span> designed and optimised for specific application domains, like <span class="hl-green">quantum chemistry</span>, <span class="hl-green">QNLP</span> and <span class="hl-green">QML</span>. For example, <a class="reference external" href="https://github.com/tequilahub/tequila">Tequila</a> is geared towards solving problems in the quantum chemistry domain, while <a class="reference external" href="https://github.com/Quantinuum/lambeq">Lambeq</a> represents sentence grammatical structure in the form of a quantum circuit: the sentence “John walks in the park” is deconstructed using diagrammatic methods and then represented as a quantum circuit, which can be used in NLP applications such as classification or sentiment analysis.</p></li>
+</ul>
+<figure class="align-center" id="id31">
+<img alt="../_images/john_walks_in_the_park.png" src="../_images/john_walks_in_the_park.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 41 </span><span class="caption-text">Image example of lambeq library</span><a class="headerlink" href="#id31" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="low-level-quantum-software">
+<h3>Low-Level Quantum Software<a class="headerlink" href="#low-level-quantum-software" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><span class="hl-red">Low-level quantum software</span> refers to <span class="hl-blue">intermediate representation (IR) languages</span> that serve as an interface between many high-level quantum software languages and the target quantum computing hardware.</p></li>
+<li><p>In a similar way to classical programming, high-level languages are <span class="hl-green">translated to an intermediate language</span>, which is then used to apply the instructions to quantum hardware.</p></li>
+<li><p>One of the more common intermediate languages is <span class="hl-red"><a class="reference external" href="https://openqasm.com/">OpenQASM</a></span>. For example, a Bell state written in high-level <span class="hl-green">Qiskit</span> code compiles down to the equivalent OpenQASM circuit.</p></li>
+<li><p>Some consider these intermediate representations the <span class="hl-blue">equivalent to assembly</span> in the classical programming world. They provide similar functionality: different high-level QPLs can be compiled to the same IR, which provides a mechanism to target different quantum systems with the same high-level code.</p></li>
 </ul>
 </section>
 </section>
@@ -1197,6 +1385,7 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-outcomes">Learning Outcomes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-definition">Algorithm: Definition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-algorithm-definition">Quantum Algorithm: Definition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#superposition-entanglement-interference">Superposition, Entanglement, Interference</a></li>
@@ -1237,6 +1426,15 @@ SHX\ket{q_0} &amp;= SHX\ket{0} = SH\ket{1}= \\
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-programs">Quantum Programs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-simulators">Quantum Simulators</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statevector-simulators">Statevector Simulators</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accesing-quantum-computing-systems">Accesing Quantum Computing Systems</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-stack">Quantum Stack</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-computing-software-simualtors-qcss">Quantum Computing Software Simualtors (QCSS)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-quantum-computing-software-simulators">Accessing Quantum Computing Software Simulators</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tightly-integrated-vs-heterogeneous-quantum-stacks">Tightly-Integrated vs Heterogeneous Quantum Stacks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#high-level-quantum-software">High-Level Quantum Software</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#low-level-quantum-software">Low-Level Quantum Software</a></li>
 </ul>
 </li>
 </ul>
