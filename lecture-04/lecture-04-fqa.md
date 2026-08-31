@@ -630,6 +630,7 @@ A <span class="hl-red">statevector simulator</span> represents the full quantum 
 - Simulating more than <span class="hl-green">40 qubits</span> with a statevector simulator requires supercomputer-scale distributed memory.
 
 
+
 ## Accesing Quantum Computing Systems 
 
 
@@ -651,3 +652,85 @@ The quantum computing stack.
 
 
 
+### Quantum Computing Software Simualtors (QCSS)
+
+
+
+```{figure} ./images/qcss.png
+:align: center
+
+Local and remote QCSS.
+```
+
+- QCSS can be installed <span class="hl-blue">locally</span> on one's laptop or workstation. 
+
+- Remote QCSS are installed on <span class="hl-blue">larger scale HPC</span> facilities. 
+
+### Accessing Quantum Computing Software Simulators
+
+
+
+- Simulators can be roughly split into two categories: <span class="hl-blue">full-stack</span> simulators bundled as a backend of a specific SDK, and <span class="hl-blue">standalone</span> simulators used independently of any SDK.
+
+| Simulator | Language | Category | Notes |
+|---|---|---|---|
+| [Qiskit Aer](https://github.com/Qiskit/qiskit-aer) | C++ | Full-stack | Qiskit's backend; supports statevector, density-matrix, MPS and stabilizer methods |
+| [PennyLane Lightning](https://github.com/PennyLaneAI/pennylane-lightning) | C++ | Full-stack | PennyLane's state-vector backend, with CPU, GPU and MPI variants |
+| [Cirq](https://github.com/quantumlib/Cirq) | Python | Full-stack | Google's SDK; built-in `cirq.Simulator` state-vector simulator |
+| [ProjectQ](https://github.com/ProjectQ-Framework/ProjectQ) | Python / C++ | Full-stack | Open-source framework with a high-performance built-in simulator |
+| [Amazon Braket](https://github.com/amazon-braket/amazon-braket-default-simulator-python) | Python | Full-stack | AWS Braket SDK's local statevector / density-matrix simulators |
+| [Intel Quantum Simulator (IQS)](https://github.com/intel/intel-qs) | C++ / MPI | Standalone | Distributed-memory state-vector simulator, formerly qHiPSTER |
+| [Qulacs](https://github.com/qulacs/qulacs) | C++ / Python | Standalone | Fast state-vector simulator with SIMD, OpenMP and GPU support |
+| [QuEST](https://github.com/QuEST-Kit/QuEST) | C | Standalone | Multithreaded, distributed, GPU-accelerated statevector and density-matrix simulator |
+| [qsim](https://github.com/quantumlib/qsim) | C++ | Standalone | High-performance state-vector simulator, usable via Cirq or on its own |
+| [Stim](https://github.com/quantumlib/Stim) | C++ / Python | Standalone | Very fast stabilizer-circuit simulator, built for QEC research |
+| [NVIDIA cuQuantum](https://github.com/NVIDIA/cuQuantum) | C++ / Python (CUDA) | Standalone | GPU-accelerated libraries (cuStateVec, cuTensorNet) used as a backend by many simulators |
+| [MQT DDSIM](https://github.com/munich-quantum-toolkit/ddsim) | C++ / Python | Standalone | Decision-diagram based simulator from the Munich Quantum Toolkit |
+| [quimb](https://github.com/jcmgray/quimb) | Python | Standalone | Tensor-network library used for large circuit simulation |
+
+
+
+
+### Tightly-Integrated vs Heterogeneous Quantum Stacks
+
+```{figure} ./images/integrated_heterogeneous.png
+:align: center
+
+Tightly-integrated vs heterogeneous quantum stack
+```
+
+- <span class="hl-red">Tightly integrated quantum stacks</span> are stacks in which the <span class="hl-blue">software layer</span> and the <span class="hl-blue">quantum computing layer</span> are developed by the <span class="hl-green">same provider</span>.
+
+- <span class="hl-red">Heterogeneous quantum stacks</span> are stacks in which their elements are developed by <span class="hl-green">different providers</span>.
+
+ 
+### High-Level Quantum Software
+
+- A <span class="hl-red">quantum programming environment</span> is a type of <span class="hl-red">human-computer interface</span> used to create programs to run on quantum computers or quantum software simulators. 
+
+- Once a <span class="hl-red">quantum program</span> is created, similar to classical programs, it can be compiled into instructions that your choice of hardware can understand and execute. 
+
+- Some <span class="hl-blue">quantum programming languages</span> (QPLs) are <span class="hl-green">standalone languages</span> (e.g. [Q#](https://github.com/microsoft/qdk), [Silq](https://silq.ethz.ch/)), while others are <span class="hl-green">libraries/extensions</span> added on top of an existing classical language.
+
+- Most <span class="hl-blue">quantum programming libraries</span> today are built on <span class="hl-green">Python</span> (e.g. [Qiskit](https://github.com/Qiskit/qiskit), [PennyLane](https://github.com/PennyLaneAI/pennylane)), though other languages are supported too, such as <span class="hl-green">Julia</span> ([Yao.jl](https://github.com/QuantumBFS/Yao.jl)) or the <span class="hl-green">C ++</span> ([Intel SDK](https://www.intel.com/content/www/us/en/developer/tools/quantum-sdk/overview.html)).
+
+- Aside from generic quantum languages and libraries, there are also <span class="hl-blue">specialised languages and libraries</span> designed and optimised for specific application domains, like <span class="hl-green">quantum chemistry</span>, <span class="hl-green">QNLP</span> and <span class="hl-green">QML</span>. For example, [Tequila](https://github.com/tequilahub/tequila) is geared towards solving problems in the quantum chemistry domain, while [Lambeq](https://github.com/Quantinuum/lambeq) represents sentence grammatical structure in the form of a quantum circuit: the sentence "John walks in the park" is deconstructed using diagrammatic methods and then represented as a quantum circuit, which can be used in NLP applications such as classification or sentiment analysis.
+
+
+
+```{figure} ./images/john_walks_in_the_park.png
+:align: center
+
+Image example of lambeq library
+```
+
+
+### Low-Level Quantum Software
+
+- <span class="hl-red">Low-level quantum software</span> refers to <span class="hl-blue">intermediate representation (IR) languages</span> that serve as an interface between many high-level quantum software languages and the target quantum computing hardware.
+
+- In a similar way to classical programming, high-level languages are <span class="hl-green">translated to an intermediate language</span>, which is then used to apply the instructions to quantum hardware.
+
+- One of the more common intermediate languages is <span class="hl-red">[OpenQASM](https://openqasm.com/)</span>. For example, a Bell state written in high-level <span class="hl-green">Qiskit</span> code compiles down to the equivalent OpenQASM circuit.
+
+- Some consider these intermediate representations the <span class="hl-blue">equivalent to assembly</span> in the classical programming world. They provide similar functionality: different high-level QPLs can be compiled to the same IR, which provides a mechanism to target different quantum systems with the same high-level code.
