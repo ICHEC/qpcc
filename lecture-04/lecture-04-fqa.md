@@ -19,6 +19,16 @@ mystnb:
 ```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture.
 ```
 
+## Learning Outcomes
+
+```{admonition} Learning Outcomes
+:class: information
+- Understand what a <span class="hl-green">quantum algorithm</span> is and how it differs from a classical one.
+- How a quantum algorithm is represented using <span class="hl-green">quantum circuits</span>.
+- Study the <span class="hl-green">Deutsch algorithm</span>, one of the earliest quantum algorithms.
+- Understand how quantum algorithms are <span class="hl-green">programmed</span>.
+```
+
 ## Algorithm: Definition
 
 ```{admonition} Algorithm
@@ -121,8 +131,8 @@ Reversibility of quantum gates is a **hard mathematical constraint** on how quan
 
 ### 5. Algorithm output
 
-- <span class="hl-blue">Classical</span>: Measurement is <span class="hl-red">deterministic</span>. We run the classical algorithm once, we get a definite answer.
-- <span class="hl-blue">Quantum</span>: Measurement is <span class="hl-red">probabilistic</span>. A quantum algorithm is run several times to get the desired result.
+- <span class="hl-blue">Classical</span>: Algorithm output is <span class="hl-red">deterministic in nature</span>.
+- <span class="hl-blue">Quantum</span>: Measurement is <span class="hl-red">probabilistic in nature</span>.
 
 ### 6. Mathematical foundations
 
@@ -146,8 +156,11 @@ Any classical algorithm can be represented and executed on a quantum computer.
 There exists constants $c$ and $n_0$ such that for all $n>n_0\rightarrow f(n)<cg(n)$
 ```
 
+- In computational complexity, $n$ can represent a wide variety of things, like the number of <span class="hl-blue">inputs, variables, qubits, gates, iterations...</span>
+
 ```{figure} ./images/complexity_plot.png
 :align: center
+:width: 580px
 
 Growth of common complexity classes.
 ```
@@ -156,6 +169,7 @@ Growth of common complexity classes.
 
 ```{figure} ./images/bubble_sort.gif
 :align: center
+:width: 360px
 
 Bubble sort algorithm animation. Source: commons.wikipedia.org
 ```
@@ -359,17 +373,10 @@ $$\begin{cases} f(0) = 0,\ f(1) = 1 \\ f(0) = 1,\ f(1) = 0 \end{cases}
 
 - Uses an <span class="hl-red">oracle</span> to determine if $f$ is <span class="hl-green">constant</span> or <span class="hl-blue">balanced</span>.
 
-```{figure} ./images/oracle.png
-:align: center
-:width: 150px
-
-Oracle.
-```
-
 - <span class="hl-red">Classically</span> -> 2 queries.
 - <span class="hl-red">Deutsch algorithm</span> -> 1 query.
 
-- Early demonstration of QC power (<span class="hl-blue">1985</span>).
+- Early example of QC power (<span class="hl-blue">1985</span>).
 
 ## Quantum Parallelism
 
@@ -389,6 +396,13 @@ Parallelism oracle example.
 ```
 
 - <span class="hl-green">Input state:</span> $\ket{\psi_0}=\frac{1}{\sqrt{2}}(\ket{0,0}+\ket{1,0})$
+
+- <span class="hl-green">XOR gate</span> ($\oplus$) truth table:
+
+| $x$ | 0 | 1 | 0 | 1 |
+|---|---|---|---|---|
+| $y$ | 0 | 0 | 1 | 1 |
+| $x\oplus y$ | 0 | 1 | 1 | 0 |
 
 $$U_f\ket{\psi_0}=\frac{1}{\sqrt{2}}(\ket{0,f(0)}+\ket{1,f(1)})$$
 
@@ -482,7 +496,7 @@ $$\rightarrow U_f\left[\ket{x}\left(\frac{\ket{0}-\ket{1}}{\sqrt{2}}\right)\righ
 
 ```{figure} ./images/jozsa.png
 :align: center
-:width: 200px
+:width: 170px
 
 Richard Jozsa.
 ```
@@ -568,12 +582,14 @@ plt.show()
 
 ```{figure} ./images/random_integer_quantum_circuit.png
 :align: center
+:width: 430px
 
 Circuit of random_integer_quantum.py.
 ```
 
 ```{figure} ./images/random_integer_quantum.png
 :align: center
+:width: 720px
 
 Output of random_integer_quantum.py.
 ```
@@ -582,7 +598,7 @@ Output of random_integer_quantum.py.
 
 ```{admonition} Quantum Simulator
 :class: information
-A <span class="hl-red">quantum simulator</span> is a system that <span class="hl-blue">reproduces the behaviour</span> of a quantum computer.
+A <span class="hl-red">quantum simulator</span> is a classical system that <span class="hl-blue">reproduces the behaviour</span> of a quantum computer.
 ```
 
 - Running algorithms on real hardware is <span class="hl-red">very expensive</span>.
@@ -593,6 +609,7 @@ A <span class="hl-red">quantum simulator</span> is a system that <span class="hl
 
 ```{figure} ./images/qubits_amplitudes.png
 :align: center
+:width: 650px
 
 Number of amplitudes vs. number of qubits.
 ```
@@ -606,14 +623,114 @@ A <span class="hl-red">statevector simulator</span> represents the full quantum 
 
 - The statevector simulator is the <span class="hl-blue">default simulator</span> in almost all SDKs.
 
-- The number of <span class="hl-green">quantum amplitudes</span> grows exponentially with the number of qubits. Simulating more than <span class="hl-green">40 qubits</span> requires supercomputer-scale distributed memory.
+- The number of <span class="hl-green">quantum amplitudes</span> grows <span class="hl-red">exponentially</span> with the number of qubits.
 
-- Other examples of quantum simulators:
+- Statevector simulation uses brute force to perform the simulation. It is the <span class="hl-red">most exact</span>, but among the most <span class="hl-red">computationally expensive simulators</span>.
 
-  - Mixed state simulators
-  - Tensor network simulators
-  - Matrix product state simulators
-  - Decision diagram simulators
-  - Montecarlo wavefunction simulators
-  - Path integral simulators
-  - Sparse state simulators
+- Simulating more than <span class="hl-green">40 qubits</span> with a statevector simulator requires supercomputer-scale distributed memory.
+
+
+
+## Accesing Quantum Computing Systems 
+
+
+### Quantum Stack 
+
+
+```{figure} ./images/quantum_stack.png
+:align: center
+
+The quantum computing stack.
+```
+
+
+- The user can interact with the software and hardware elements of the quantum stack in different ways. 
+
+
+- Quantum programs can be executed <span class="hl-blue">locally or remotely</span>, and using <span class="hl-green">commercial or publicly-funded</span> systems.
+
+
+
+
+### Quantum Computing Software Simualtors (QCSS)
+
+
+
+```{figure} ./images/qcss.png
+:align: center
+
+Local and remote QCSS.
+```
+
+- QCSS can be installed <span class="hl-blue">locally</span> on one's laptop or workstation. 
+
+- Remote QCSS are installed on <span class="hl-blue">larger scale HPC</span> facilities. 
+
+### Accessing Quantum Computing Software Simulators
+
+
+
+- Simulators can be roughly split into two categories: <span class="hl-blue">full-stack</span> simulators bundled as a backend of a specific SDK, and <span class="hl-blue">standalone</span> simulators used independently of any SDK.
+
+| Simulator | Language | Category | Notes |
+|---|---|---|---|
+| [Qiskit Aer](https://github.com/Qiskit/qiskit-aer) | C++ | Full-stack | Qiskit's backend; supports statevector, density-matrix, MPS and stabilizer methods |
+| [PennyLane Lightning](https://github.com/PennyLaneAI/pennylane-lightning) | C++ | Full-stack | PennyLane's state-vector backend, with CPU, GPU and MPI variants |
+| [Cirq](https://github.com/quantumlib/Cirq) | Python | Full-stack | Google's SDK; built-in `cirq.Simulator` state-vector simulator |
+| [ProjectQ](https://github.com/ProjectQ-Framework/ProjectQ) | Python / C++ | Full-stack | Open-source framework with a high-performance built-in simulator |
+| [Amazon Braket](https://github.com/amazon-braket/amazon-braket-default-simulator-python) | Python | Full-stack | AWS Braket SDK's local statevector / density-matrix simulators |
+| [Intel Quantum Simulator (IQS)](https://github.com/intel/intel-qs) | C++ / MPI | Standalone | Distributed-memory state-vector simulator, formerly qHiPSTER |
+| [Qulacs](https://github.com/qulacs/qulacs) | C++ / Python | Standalone | Fast state-vector simulator with SIMD, OpenMP and GPU support |
+| [QuEST](https://github.com/QuEST-Kit/QuEST) | C | Standalone | Multithreaded, distributed, GPU-accelerated statevector and density-matrix simulator |
+| [qsim](https://github.com/quantumlib/qsim) | C++ | Standalone | High-performance state-vector simulator, usable via Cirq or on its own |
+| [Stim](https://github.com/quantumlib/Stim) | C++ / Python | Standalone | Very fast stabilizer-circuit simulator, built for QEC research |
+| [NVIDIA cuQuantum](https://github.com/NVIDIA/cuQuantum) | C++ / Python (CUDA) | Standalone | GPU-accelerated libraries (cuStateVec, cuTensorNet) used as a backend by many simulators |
+| [MQT DDSIM](https://github.com/munich-quantum-toolkit/ddsim) | C++ / Python | Standalone | Decision-diagram based simulator from the Munich Quantum Toolkit |
+| [quimb](https://github.com/jcmgray/quimb) | Python | Standalone | Tensor-network library used for large circuit simulation |
+
+
+
+
+### Tightly-Integrated vs Heterogeneous Quantum Stacks
+
+```{figure} ./images/integrated_heterogeneous.png
+:align: center
+
+Tightly-integrated vs heterogeneous quantum stack
+```
+
+- <span class="hl-red">Tightly integrated quantum stacks</span> are stacks in which the <span class="hl-blue">software layer</span> and the <span class="hl-blue">quantum computing layer</span> are developed by the <span class="hl-green">same provider</span>.
+
+- <span class="hl-red">Heterogeneous quantum stacks</span> are stacks in which their elements are developed by <span class="hl-green">different providers</span>.
+
+ 
+### High-Level Quantum Software
+
+- A <span class="hl-red">quantum programming environment</span> is a type of <span class="hl-red">human-computer interface</span> used to create programs to run on quantum computers or quantum software simulators. 
+
+- Once a <span class="hl-red">quantum program</span> is created, similar to classical programs, it can be compiled into instructions that your choice of hardware can understand and execute. 
+
+- Some <span class="hl-blue">quantum programming languages</span> (QPLs) are <span class="hl-green">standalone languages</span> (e.g. [Q#](https://github.com/microsoft/qdk), [Silq](https://silq.ethz.ch/)), while others are <span class="hl-green">libraries/extensions</span> added on top of an existing classical language.
+
+- Most <span class="hl-blue">quantum programming libraries</span> today are built on <span class="hl-green">Python</span> (e.g. [Qiskit](https://github.com/Qiskit/qiskit), [PennyLane](https://github.com/PennyLaneAI/pennylane)), though other languages are supported too, such as <span class="hl-green">Julia</span> ([Yao.jl](https://github.com/QuantumBFS/Yao.jl)) or the <span class="hl-green">C ++</span> ([Intel SDK](https://www.intel.com/content/www/us/en/developer/tools/quantum-sdk/overview.html)).
+
+- Aside from generic quantum languages and libraries, there are also <span class="hl-blue">specialised languages and libraries</span> designed and optimised for specific application domains, like <span class="hl-green">quantum chemistry</span>, <span class="hl-green">QNLP</span> and <span class="hl-green">QML</span>. For example, [Tequila](https://github.com/tequilahub/tequila) is geared towards solving problems in the quantum chemistry domain, while [Lambeq](https://github.com/Quantinuum/lambeq) represents sentence grammatical structure in the form of a quantum circuit: the sentence "John walks in the park" is deconstructed using diagrammatic methods and then represented as a quantum circuit, which can be used in NLP applications such as classification or sentiment analysis.
+
+
+
+```{figure} ./images/john_walks_in_the_park.png
+:align: center
+
+Image example of lambeq library
+```
+
+
+### Low-Level Quantum Software
+
+- <span class="hl-red">Low-level quantum software</span> refers to <span class="hl-blue">intermediate representation (IR) languages</span> that serve as an interface between many high-level quantum software languages and the target quantum computing hardware.
+
+- In a similar way to classical programming, high-level languages are <span class="hl-green">translated to an intermediate language</span>, which is then used to apply the instructions to quantum hardware.
+
+- One of the more common intermediate languages is <span class="hl-red">[OpenQASM](https://openqasm.com/)</span>. For example, a Bell state written in high-level <span class="hl-green">Qiskit</span> code compiles down to the equivalent OpenQASM circuit.
+
+- Some consider these intermediate representations the <span class="hl-blue">equivalent to assembly</span> in the classical programming world. They provide similar functionality: different high-level QPLs can be compiled to the same IR, which provides a mechanism to target different quantum systems with the same high-level code.
