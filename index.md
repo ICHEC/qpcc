@@ -65,9 +65,9 @@ mindmap
 ## List of Lectures
 
 - Lecture 1 - Introduction to Classical and Quantum Computing
-  - [Introduction to Quantum Computing](./lecture-01/introduction-to-quantum-computing.md)
-  - [Introduction to Classical Bits and Gates](./lecture-01/introduction-to-classical-bits-and-gates.md)
-- [Lecture 2 - From Bits to Qubits](./lecture-02/from-bits-to-qubits.md)
+  - [Introduction to Quantum Computing](./lecture-01/intro-cc-qc.md)
+  - [Introduction to Classical Bits and Gates](./lecture-01/intro-bits-and-gates.md)
+- [Lecture 2 - From Bits to Qubits](./lecture-02/bits-to-qubits.md)
 - [Lecture 3 - Quantum Gates](./lecture-03/quantum-gates.md)
 - [Lecture 4 - First Quantum Algorithm](./lecture-04/first-quantum-algorithm.md)
 - [Lecture 5 - Hardware and Physics of Quantum Computer](./lecture-05/hardware-and-physics-of-quantum-computer.md)
