@@ -1,10 +1,10 @@
 ---
-title: From Bits to Qubits
+title: Introduction to classical bits and gates
 layout: post
 ---
 
-(lecture-2)=
-# Lecture 2: From Bits to Qubits
+(lecture-1b)=
+# Introduction to classical Bits and Gates
 
 ```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture. 
 ```

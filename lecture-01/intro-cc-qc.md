@@ -3,10 +3,8 @@ title: Introduction to Classical and Quantum Computing
 layout: post
 ---
 
-# Introduction to Classical and Quantum Computing
-
 (lecture-1a)=
-## Lecture 1a: Demystifying Quantum Computing
+# Introduction to Classical and Quantum Computing
 
 
 ```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture. 
