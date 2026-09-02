@@ -68,8 +68,6 @@
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="The Future of Quantum Computing" href="../lecture-11/future-quantum-guest.html" />
-    <link rel="prev" title="Lecture 9: Nisq Algorithms I" href="../lecture-09/nisq-algo1.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -171,6 +169,8 @@
       
       
       
+        
+      
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
@@ -227,50 +227,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../lecture-01/intro-cc-qc.html">Introduction to Classical and Quantum Computing</a></li>
 
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 2</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../lecture-02/bits-to-qubits.html">Lecture 2: From Bits to Qubits</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 3</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../lecture-03/quantum-gates.html">Lecture 3: Mathematical framework for Quantum Computing</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 4</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../lecture-04/lecture-04-fqa.html">Lecture 4: First Quantum Algorithm</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 5</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../lecture-05/hardware-physics-qc.html">Hardware &amp; Physics of Quantum Computers</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 6</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../lecture-06/early-qa1.html">Early Quantum Algorigthms 1: QFT &amp; QPE</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 7</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../lecture-07/early-qa2.html">Early Quantum Algorithms 2: Simon and Shor’s Algorithm</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 8</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../lecture-08/early-qa3.html">Early Quantum Algorithms 3: Grover’s Algorithm</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 9</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../lecture-09/nisq-algo1.html">Lecture 9: Nisq Algorithms I</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 10</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 10: Nisq Algorithms 2</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 11</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../lecture-11/future-quantum-guest.html">The Future of Quantum Computing</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 12</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../lecture-12/quantum-computing-ireland.html">Lecture 12: Quantum Computing in Ireland</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture-01/intro-bits-and-gates.html">Introduction to classical Bits and Gates</a></li>
 </ul>
 
     </div>
@@ -469,7 +426,7 @@ Our task is to find <span class="math notranslate nohighlight">\(c\)</span>.</p>
 <figure class="align-center" id="id1">
 <img alt="../_images/two-one-func.png" src="../_images/two-one-func.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 59 </span><span class="caption-text">A 2-1 function, here for every output there are two inputs that map to it.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+<p><span class="caption-text">A 2-1 function, here for every output there are two inputs that map to it.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Here <span class="math notranslate nohighlight">\(x\,\text{XOR}\, c\)</span> means to take the component-wise XOR between the n-bit strings <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(c\)</span>. If <span class="math notranslate nohighlight">\(x=1011\)</span> and <span class="math notranslate nohighlight">\(c=0101\)</span> then we would get <span class="math notranslate nohighlight">\(x\,\text{XOR}\, c=1110\)</span>.</p>
@@ -517,7 +474,7 @@ Our task is to find <span class="math notranslate nohighlight">\(c\)</span>.</p>
 <figure class="align-center" id="id2">
 <img alt="../_images/simons_circuit.png" src="../_images/simons_circuit.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 60 </span><span class="caption-text">The circuit for Simon’s algorithm for <span class="math notranslate nohighlight">\(n=3\)</span>.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+<p><span class="caption-text">The circuit for Simon’s algorithm for <span class="math notranslate nohighlight">\(n=3\)</span>.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -536,7 +493,7 @@ Shor’s algorithm can find the prime factors of a given integer exponentially f
 <figure class="align-center" id="id3">
 <img alt="../_images/shor_workflow.png" src="../_images/shor_workflow.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 61 </span><span class="caption-text">The workflow for Shor’s algorithm.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+<p><span class="caption-text">The workflow for Shor’s algorithm.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>The order finding problem is to find a value of <span class="math notranslate nohighlight">\(r\)</span> such that</p>
@@ -700,7 +657,7 @@ a_0\\ a_1\\
 <figure class="align-center" id="id4">
 <img alt="../_images/grover_rotation.png" src="../_images/grover_rotation.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 62 </span><span class="caption-text">Applying Grover’s operator to state <span class="math notranslate nohighlight">\(|\alpha\rangle\)</span> results in an anti-clockwise rotation.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+<p><span class="caption-text">Applying Grover’s operator to state <span class="math notranslate nohighlight">\(|\alpha\rangle\)</span> results in an anti-clockwise rotation.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Let’s suppose that the number of solutions <span class="math notranslate nohighlight">\(M\)</span> is small, then <span class="math notranslate nohighlight">\(\phi=M/N\)</span> must also be small.
@@ -761,24 +718,6 @@ k = \frac{\pi}{2 \theta} = \frac{\pi}{4} \sqrt{\frac{N}{M}}.
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="../lecture-09/nisq-algo1.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Lecture 9: Nisq Algorithms I</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="../lecture-11/future-quantum-guest.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">The Future of Quantum Computing</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               

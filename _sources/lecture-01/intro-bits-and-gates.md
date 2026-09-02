@@ -1,10 +1,10 @@
 ---
-title: From Bits to Qubits
+title: Introduction to classical bits and gates
 layout: post
 ---
 
-(lecture-2)=
-# Lecture 2: From Bits to Qubits
+(lecture-1b)=
+# Introduction to classical Bits and Gates
 
 ```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture. 
 ```
@@ -16,7 +16,6 @@ In this lecture we revise the good old and simpler concepts of bits and their ma
 
 - Learn the features of bits and qubits from phenomenological perspective, and through comparison of their similarities and differences. - We will also learn how manipulating bits and a qubits forms a building block for basic computations.
 ``` 
-
 
 
 ## Introduction
@@ -637,15 +636,6 @@ Any well defined procedure to transform one or more qubit can be a quantum gate,
 
 
 Combining gates if different ways results in different quantum circuits.
-
-
-
-## [References](#reference)
-
-The following references are optional reading material:
-1. The following chapters of the textbook Introduction to Classical and Quantum Computing([pdf](https://www.thomaswong.net/introduction-to-classical-and-quantum-computing-1e3p.pdf)) : 1.1, 1.2, 1.3, 2.2, 2.3, 2.6, 4.4
-
-
 
 
 
