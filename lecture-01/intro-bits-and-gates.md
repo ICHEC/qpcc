@@ -12,18 +12,21 @@ layout: post
 ```{admonition} Learning outcomes
 :class: tip
 
-In this lecture we revise the good old and simpler concepts of bits and their manipulations to set the stage for the fundamental blocks of quantum computing, i.e., qubits and their manipulation. As we go through the sections below, we will:
+In this lecture we revise the good old simpler concepts of bits and their manipulation to set the stage for the fundamental blocks of quantum computing, i.e., qubits and their manipulation. As we go through the sections below, we will:
 
-- Learn the features of bits and qubits from phenomenological perspective, and through comparison of their similarities and differences. - We will also learn how manipulating bits and a qubits forms a building block for basic computations.
+- Build an understanding of the basics of classical computing
+- Gain familiarity with binary encoding
+- Learn about classical gates
+
 ``` 
 
 
 ## Introduction
-In classical computing, which we usually call just computing, we transform or map every mathematical problem into a sequence of tasks, which is performed by computer, and towards the end, we get the desired result. These sequences of tasks, are what we call algorithms, consists of an exact sequence of simpler tasks that can be understood by computer. When this exact sequence is expressed in a way that computer understand, we call it a computer program. To understand, and organise well, the algorithms are often broken down to smallest possible building blocks. We  will discuss some of these building blocks now, and see how the role of bits comes into play.
+In classical computing, which we usually call just computing, we transform or map every mathematical problem into a sequence of tasks, which is performed by computer, and at the end we get the desired result. These sequences of tasks, known as algorithms, consist of an exact sequence of simpler tasks that can be understood by computer. When this exact sequence is expressed in a way that computer understands, we call it a computer program. To understand, and organise well, the algorithms are often broken down to smallest possible building blocks. We  will discuss some of these building blocks now, and see how the role of bits comes into play.
 
 ## Binary Data
 
-Most algorithms require an input in some form, which is required to feed into the algorithm, and we get some result in the end. For example, *addition* is an algorithm, that requires input of two numbers, and gives the result, that is the sum of two numbers.
+Most algorithms require an input in some form, which is required to feed into the algorithm, and we get some result at the end. For example, *addition* is an algorithm, that requires input of two numbers, and gives the result, that is the sum of two numbers.
 
 ```{mermaid}
 :align: center
@@ -34,10 +37,10 @@ a(12) & b(15) --> add{Addition} --> sum(27)
 
 ```
 
-The input information, can in principle be anything, however over the decades we have learnt to represent it in some standardised format which is easily understood by computers. For most applications, the input can be broken down to a list or collection of simpler objects, and the simpler objects are either a number, or a text. The numbers themselves can be integers, or real numbers. The text can be english, or any other language, and within each language, a text is an ordered sequence of characters of alphabets and symbols.
+The input information can in principle be anything, however over the decades we have learnt to represent it in some standardised format which is easily understood by computers. For most applications, the input can be broken down to a list or collection of simpler objects, and the simpler objects are either a number, or text. The numbers themselves can be integers, or real numbers. The text can be english, or any other language, and within each language, a text is an ordered sequence of characters of alphabets and symbols.
 
 ## Bit
-The smallest unit of input, logically for us, and also for a computer, is something called **bit** that is mapped to `True` or `False`. This minimalistic information exist as one of the two mutually exclusive possibilities. Below are some more examples of such pair of possible 'states'.
+The smallest unit of input, logically for us, and also for a computer, is something called a **bit** that can either be `True` or `False` - it exists in one of two possible *states*. Below are some more examples of such pairs of possible *states*.
 
 ```{mermaid}
 :align: center
@@ -50,21 +53,16 @@ Like <---> Dislike;
 1 <---> 0;
 ```
 
-## Physical Representation and why Quantum
+## Physical Representation
 
-The above are some of the daily life analogies of properties/informations that can be described by choosing one of the two possibilities. We say that such properties have 1 bit of information, and the two states are usually represented as 0 and 1. More and complex information can be represented by multitude of such bits, and is usually stored in computers, or other forms of modern storage using technologies which can (i) prepare an object in one of two clearly distinguishable physical states, and (ii) have tools available that can detect in which of the two states the object is in. Typical examples include:
+The above are some of the daily life analogies of properties/informations that can be described by choosing one of the two possibilities. We say that such properties have 1 bit of information, and the two states are usually represented as 0 and 1. More complex information can be represented by a multitude of such bits, and is usually stored in computers, or other forms of modern storage using technologies which can (i) prepare an object in one of two clearly distinguishable physical states, and (ii) have tools available that can detect in which of the two states the object is in. Typical examples include:
 
-- Switches and wires use voltages to store bits where a high voltage corresponds to 1 and a low voltage corresponds to zero.
-- CD's consist of very large number of tiny pits that are either etched or not, and based on that, the pits are either reflective or not. We use this information to store and detect 0s and 1s.
+- Switches and wires use voltages to store bits where a high voltage corresponds to 1 and a low voltage corresponds to 0.
+- CDs consist of a very large number of tiny pits that are either etched or not, and based on that, the pits are either reflective or not. We use this information to store and detect 0s and 1s.
 - Hard drives consists of similar to pits of CDs, tiny blocks of magnetic materials, and we store the bits by orienting the magnetic fields of those blocks.
+- Modern computers have tiny circuits composed of transistors to (i) store and (ii) manipulate bits.
 
-Modern computers have tiny circuits composed of transistors to (i) store and (ii) manipulate bits. The transistors are very small in size. In fact they were already $10\mu m$ in 1970s, and with technological advances, their sizes kept reducing, to about $3 nm$ in 2022. This means we can fit larger number of transistors in a smaller area, making it easier to build complex computing hardware in smaller size. This behaviour was well perceived by Gordon Moore (see graph below), and is known as anemperical law called Moore's Law which observes a trend in which the no. of transistors on an Integrated circuit chip doubles approximately every two years.
-
-<center>
-<iframe src="https://ourworldindata.org/grapher/transistors-per-microprocessor?time=earliest..2021" loading="lazy" style="width: 90%; height: 800px; border: 1px none;"></iframe>
-</center>
-
-Now we know that smallest information is a **bit** (pun intended), and can be represented by either **0** or **1**. It is easy to see that using combinatorics, it's possible to encode information of more complex systems. For example, if we have two coins, they both can exist independently, upon flipping, in either of the Head or Tail state, or equivalently, in 1 or 0 state. The possible outcomes of the pair of coins are 4 possible states, namely 00, 01, 10, and 11. Thus, with 2 bits, we can distinguish among 4 possibilities, and any system that can exist in four possible distinct states, its state information can be encoded in 2 bits.
+Now we know that smallest information is a **bit** (short for *binary digit*, and yes the pun is intended), and can be represented by either **0** or **1**. It is easy to see that using combinatorics, it's possible to encode information of more complex systems. For example, if we have two coins, they both can exist independently, upon flipping, in either of the Head or Tail state, or equivalently, in 1 or 0 state. The possible outcomes of the pair of coins are 4 possible states, namely 00, 01, 10, and 11. Thus, with 2 bits, we can distinguish among 4 possibilities, and any system that can exist in four possible distinct states, its state information can be encoded in 2 bits.
 Recall the lecture where we use the example of tossing coins as a means of conveying information, Bits or Binary data is a means of storing and transmitting information using 0's and 1's. The more the bits we have the greater the amount of information we can convey.
 
 So to generalise, 3 bits can describe 8 possibilities, and in general $n$ bits can describe $2^n$ possibilities. It's easy to now see that adding 1 bit doubles the amount of information you can convey.
