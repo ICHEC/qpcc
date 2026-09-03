@@ -62,8 +62,8 @@ The above are some of the daily life analogies of properties/informations that c
 - Hard drives consists of similar to pits of CDs, tiny blocks of magnetic materials, and we store the bits by orienting the magnetic fields of those blocks.
 - Modern computers have tiny circuits composed of transistors to (i) store and (ii) manipulate bits.
 
-Now we know that smallest information is a **bit** (short for *binary digit*, and yes the pun is intended), and can be represented by either **0** or **1**. It is easy to see that using combinatorics, it's possible to encode information of more complex systems. For example, if we have two coins, they both can exist independently, upon flipping, in either of the Head or Tail state, or equivalently, in 1 or 0 state. The possible outcomes of the pair of coins are 4 possible states, namely 00, 01, 10, and 11. Thus, with 2 bits, we can distinguish among 4 possibilities, and any system that can exist in four possible distinct states, its state information can be encoded in 2 bits.
-Recall the lecture where we use the example of tossing coins as a means of conveying information, Bits or Binary data is a means of storing and transmitting information using 0's and 1's. The more the bits we have the greater the amount of information we can convey.
+Now we know that smallest information is a **bit** (short for *binary digit*, and yes the pun is intended), and can be represented by either **0** or **1**. It is easy to see that using combinatorics, it's possible to encode information of more complex systems. For example, if we have two coins, they both can exist independently, upon flipping, in either of the Head or Tail state, or equivalently, in 1 or 0 state. The possible outcomes of a pair of coins are 4 different states, namely 00, 01, 10, and 11. Thus, with 2 bits, we can distinguish among 4 possibilities. Conversely, for any system that has four possible distinct states, we can encode its state information in 2 bits.
+Recall in the lecture where we use the example of tossing coins as a means of conveying information -- bits or *binary data* is a means of storing and transmitting information using 0s and 1s. The more bits we have the greater the amount of information we can convey.
 
 So to generalise, 3 bits can describe 8 possibilities, and in general $n$ bits can describe $2^n$ possibilities. It's easy to now see that adding 1 bit doubles the amount of information you can convey.
 
@@ -73,9 +73,9 @@ Most common examples of such 'binary encoding' include the following:
 
 + **Strings**: [ASCII](https://en.wikipedia.org/wiki/ASCII) system provides binary encoding to English alphabet, decimal numbers and most commonly used special characters and symbols. It uses 8 bit for each character and each of the characters is mapped to a unique 8 bit sequence. There are total $2^8=256$ distinct bit sequences, each mapped to one unique character.
 
-## Conversion from Decimal to binary
+## Conversion from decimal to binary
 
-Let us quickly recall how we represent numbers. What we usually refer to as decimal system, consists of using a unique sequence of digits for any number. For examples the number **34593**, *thirty four thousands five hundreds and ninety three*, is five digits. We have ten digits, namely 0, 1, 2, ...8, 9 and every number is expressed as sum of one-digit multiple of tens, hundreds, thousands etc (which are powers of base 10). 34593 is essentially
+Let us quickly recall how we represent numbers. What we usually refer to as decimal system, consists of using a unique sequence of digits for any number. For examples the number **34593**, *thirty four thousand five hundred and ninety three*, is five digits. We have ten digits, namely 0, 1, 2, ...8, 9 and every number is expressed as sum of one-digit multiple of tens, hundreds, thousands etc (which are powers of base 10). 34593 is essentially
 
 $$
 \begin{align*}
@@ -85,9 +85,9 @@ $$
 \end{align*}
 $$
 
-Thus, 34593 is actually a decimal encoded representation of the number which by practice we identify as 34593. However, by choosing different base, we can represent the same number in different encoding. In computer science, for various purposes most commonly used encodings are Binary, Octal and Hexadecimal. In these representations, the numbers are expressed as the sum of one-digit multiples of powers of the base, which is 8 for octal, 16 for hexadecimal, and 2 for binary.
+Thus, 34593 is actually a decimal encoded representation of the number which by practice we identify as 34593. However, by choosing different base, we can represent the same number in a different encoding. In computer science, for various purposes, the most commonly used encodings are Binary, Octal and Hexadecimal. In these representations, the numbers are expressed as the sum of one-digit multiples of powers of the base, which is 8 for octal, 16 for hexadecimal, and 2 for binary.
 
-At hardware level everything is expressed in binary, so let's see how binary encoding looks like. We can use a repeated division method to get the digits of a decimal number in a binary system, the example below shows how we can extract the binary representaion of the number 146 to get that the number ${\color{red}146}$ is representated by the no ${\color{blue} 10010010}$. See the expansions below for decimal:
+At hardware level, everything is expressed in binary, so let's see what the binary encoding looks like. We can use a repeated division method to get the digits of a decimal number in the binary system. The example below shows how we can extract the binary representaion of the number 146 as ${\color{blue} 10010010}$. See the expansions below for decimal:
 
 $$
 \begin{aligned}
@@ -107,9 +107,9 @@ $$
 $$
 
 
-The figure below show base 10 to base 2 conversion by repeated division of 2. 
+The figure below show base 10 to base 2 conversion works by repeated division by 2. 
 
-```{image} ./images/binary.png
+```{image} ./images/BinaryDecimal.png
 :align: center
 :width: 720px
 ```
@@ -297,6 +297,9 @@ The figure below show base 10 to base 2 conversion by repeated division of 2.
 - Addition follows the same rules in binary as they do in decimal however since there are only two digits we have a few changes we need to implement.
 - The following rule table represents the addition in binary digits clearly.
 
+| | | | |
+
+
 - 0 + 0 = Sum : 0, Carry:0 
 - 0 + 1 = Sum : 1, Carry:0 
 - 1 + 0 = Sum : 1, Carry:0 
@@ -451,194 +454,8 @@ Before moving to Qubits and Quantum Computing, let's list down all the important
 
 
 
-### Quantum effects and Quantum computing
-
-- As the transistors get smaller and smaller, we start to run into some strange effects. So for instance, some of the bits that these transistors are encoding start flipping from their zeros state and to their one state, and sometimes when one bit is going through some process, it ends up affecting bits near it. All of this is problematic for classical computing.
-
-- This is due to the fact that we are entering the quantum realm. So at this really small scale of energies and distances we start running into quantum effects that aren't really noticeable at a larger scale. And because these chips and transistors are getting smaller the quantum effects within them become more apparent, these are known as miniaturisation effects.
-
-## Back to Qubits
-
-Now that we have completed a fundamental review of topics in Classical Computing, it is now a good time to revisit Quantum Computing through the lens of the knowledge we've acquired in this lecture so far.
-
-- Is it possible for us to leverage the effects that we were observing as the transistors started entering into the Quantum realm to our advantage.
-- It will first be useful to understand what is the equivalent of a Bit in the Quantum regime.
-- The fundamental unit of Quantum Information is said to be a Qubit.
-- Like a Bit a Qubit is a way of storing information. However they display a set of quantum features which make them different from a classical Bit.
-- Similar to how a Bit has 2 states 0 and 1, a qubit also posesses **two independent states**. We will further discuss the meaning of the word independent in the upcoming sections.
-- To be able to use a Qubit effectively for computation we need to be able to deterministically manipulate the Qubits using gates, similar to what we had with Classical Computations.
-- There are several different physical architectures for qubits which are currently being developed, but to build our current understanding of Quantum Information and how Qubits behave differently from their classical counterparts we will use the photonic architecture as an example.
-
-## Photons as qubits
-
-Let's begin by understanding what exactly is a photon. A photon is a single particle of light and we know that light is an electromagnetic wave and just like every wave has a direction of oscillation, a photon has a direction of oscillation called it's polarization.
-
-
-```{table}
-:align: center
-
-|${\LARGE \begin{pmatrix} 1\\ 0 \end{pmatrix} = \vert 1\rangle}$ | ${\LARGE \begin{pmatrix} 0\\ 1 \end{pmatrix} = \vert 1\rangle}$          |
-|:-----------:         |:----------:                      |
-| ![](./images/photon-0.gif) | ![](./images/photon-1.gif)|
-```
-
-
-- The above two polarization states: Vertical and Horizontal, are labelled 0 and 1 and behave as the 2 independent states within Quantum Computation.
-
-- These quantum states are differentiated from classical bits by using the ket notation. The qubits are represented with $|0\rangle$ known as the ket notation or Dirac notation.
-
-- How do photons behave differently from classical information, showing behaviour of polarised photons in different basis gives a clear understanding about the need for a new model of understanding information.
-
-## Quantum Superposition
-
-Although quantum states can exist in the two directions (Vertical and Horizontal as mentioned in the previous section) it can in general be any arbitrary direction, as shown below: two diagonal quantum states which are rotated at a 45 degree angle.
-
-|${\LARGE \frac {1}{\sqrt{2}}\begin{pmatrix} 1\\ 1 \end{pmatrix} = \vert+ \rangle}$            | ${\LARGE \frac {1}{\sqrt{2}}\begin{pmatrix} 1\\-1 \end{pmatrix} = \vert -\rangle}$          |
-|:---:                       |:---:                      |
-| ![](./images/photon-p.gif) | ![](./images/photon-m.gif)|
-
-
-It can be shown however that these two states labelled $|+\rangle$ and $|-\rangle$ can be written as a combination of the states  $|0\rangle$ and $|1\rangle$ as introduced in the previous section. This combination of states to describe another new state is known as **Quantum Superposition**
-
-To understand what this combination implied both intuitively and mathematically implies, it's useful to first understand the nature of quantum measurement and see how it is different from the general idea of measurement we are familiar with.
-
-## Quantum Measurement
-
-We can only ever make a quantum measurement device that asks if we are in one of the two independent states, zero or one state. This is a key difference between the ideas of quantum measurement in comparison to classical measurement of mass or distance for example, in which we can generally measure any of the many continuous values. Let's say we have the zero state going into some measurement device. We will always measure zero and the zero state will come out.
-
-If we have a one state going into the measurement, a one will be measured and the one state will come out.
-However, with a plus state, if measured, sometimes this happens: A zero is measured and the zero state comes out. And if we measure at another time, what might happen is we might measure a one and a one state will come out. This is described in the image below:
-
-```{figure} ./images/measure.png
-:align: center
-:width: 100%
---
-**Measurement example**
-```
-
-
-```{figure} ./images/QMeasurement.gif
-:align: center
-:width: 100%
-
-**Measurement example**
-```
-
-
-
-
-So this is a really important property of quantum measurement. It collapses superpositions. So we saw that the plus state is an equal superposition of zero and one, and this superposition is collapsed into one of the two states. So measurement changes states and it changes into one of the two states that we are measuring for. Another point is taht we don't get the same result every time. There is a probability associated to each outcome.
-
-## Quantum Gates and Operations
-
-Now let as look at Quantum Gates, the equivalent of Classical Gates in the quantum regime. We'll first start with a set of fundamental gates and then compare the features of Quantum Gates in comparison to Classical Gates.
-
-### The X Gate
-
-The $X$ gate behaves similar to the classical NOT gate for the states $|0\rangle$ and $|1\rangle$ causing the state to flip, i.e., $X|0\rangle = |1\rangle$ and $X|1\rangle = |0\rangle$. The diagram below shows the action of the X gate on some Quantum states.
-
-```{figure} ./images/xgate.png
-:align: center
-:width: 100%
-:label: x-gate
---
-**X-Gate**
-```
-
-
-### The Hadamard Gate
-This gate takes the $|0\rangle$ and $|1\rangle$ states to the $|+\rangle$ and $|-\rangle$  states and vice-versa, Classically there is gate which acts as an analogue to such a gate
-
-$$
-\rule[0.7em]{2em}{1.5pt}{\Huge\boxed{H}}\rule[0.7em]{2em}{1.5pt}
-\quad \quad H = \frac{1}{\sqrt{2}}
-\begin{bmatrix}
-  1 & 1 \\
-  1 & -1
-\end{bmatrix}
-$$
-
-
-### The P Gate
-
-The P-gate, also called a phase gate, is a parametrised gate, i.e., it need a number $\phi$ to define it. It performs the rotation of the state with angle $\phi$ around Z-axis.
-It's matrix form is 
-
-$$
-\rule[0.7em]{2em}{1.5pt}{\Huge\boxed{P}}\rule[0.7em]{2em}{1.5pt}
-\quad \quad P(\phi) = 
-\begin{bmatrix}
-  1 & 0 \\
-  0 & e^{i\phi}
-\end{bmatrix}
-$$
-
-Notice that $P(\phi_1)P(\phi_2) = P(\phi_1 + \phi_2)$, i.e., successive operation of phase gate with two angles is equivalent to a single operation with added angles.
-
-### The S Gate
-
-The S-gate, sometimes also known as the $\sqrt{Z}$-gate, is essentially P-gate with $\phi=\frac{\pi}{2}$. It does a quarter-turn around the Bloch sphere.
-It's called $\sqrt{Z}$-gate because $S^2 = Z$. The matrix form is simply as below
-
-$$
-\rule[0.7em]{2em}{1.5pt}{\Huge\boxed{S}}\rule[0.7em]{2em}{1.5pt}
-\quad \quad S = 
-\begin{bmatrix}
-  1 & 0 \\
-  0 & e^{i\frac{\pi}{2}}
-\end{bmatrix}
-$$
-
-
-### The T Gate
-
-The T-gate is a very commonly used gate, and it is also a special case of P-gate with $\phi=\frac{\pi}{4}$:
-
-$$
-\rule[0.7em]{2em}{1.5pt}{\Huge\boxed{T}}\rule[0.7em]{2em}{1.5pt}
-\quad \quad T = 
-\begin{bmatrix}
-  1 & 0 \\
-  0 & e^{i\frac{\pi}{4}}
-\end{bmatrix}
-$$
-
-
-### The CNOT Gate
-
-This gate is a conditional gate, that acts as X-gate on the second qubit, if the first qubit is in $|1\rangle$ state.
-The first qubit is called _control_, and the second qubit is called _target_. It's also called CX-gate. It's matrix form is looks like the following:
-
-$$
-CNOT = 
-\begin{bmatrix}
-  1 & 0 & 0 & 0\\
-  0 & 1 & 0 & 0\\
-  0 & 0 & 0 & 1\\
-  0 & 0 & 1 & 0
-\end{bmatrix} \equiv 
-\begin{bmatrix}
-  I & O \\
-  O & X
-\end{bmatrix}
-$$
-
-
-The gates such as X or CNOT seem similar to classical gate, where the `flip` a qubit, however other gates such as Hadamard don't have any classical Analogy, as classical gate don't have notion of superposition. They also don't have notion of `phase` as in P, S and T gates.
-
-```{admonition} Universal Gate set
-:class: note
-
-Any well defined procedure to transform one or more qubit can be a quantum gate, and in this sense, there are infinitely many quantum gate. However, one can simplify things by seeking whether there is a minimal set of gates, with which one can arbitrary quantum operation. Such a set is called a set of **universal quantum gates**. This is very similar to classical computing (are there some key differences?).
-```
-
-
-Combining gates if different ways results in different quantum circuits.
-
-
-
 ## [References](#reference)
 
 The following references are optional reading material:
-1. The following chapters of the textbook Introduction to Classical and Quantum Computing([pdf](https://www.thomaswong.net/introduction-to-classical-and-quantum-computing-1e3p.pdf)) : 1.1, 1.2, 1.3, 2.2, 2.3, 2.6, 4.4
+1. The following chapters of the textbook Introduction to Classical and Quantum Computing([pdf](https://www.thomaswong.net/introduction-to-classical-and-quantum-computing-1e3p.pdf)) : 1.1, 1.2, 1.3.
 
