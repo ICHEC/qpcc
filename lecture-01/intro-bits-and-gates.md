@@ -4,7 +4,7 @@ layout: post
 ---
 
 (lecture-1b)=
-# Introduction to classical Bits and Gates
+# Introduction to Classical Bits and Gates
 
 ```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture. 
 ```
@@ -381,11 +381,45 @@ b --> c
 ``````
 
 
-- We can notice that the AND gate unlike the NOT gate is not reversible we can\t recover both the input qubits from the output of the AND gates.
+- We can notice that the AND gate unlike the NOT gate is not reversible we can't recover both the input qubits from the output of the AND gates.
+
+###  OR gate
+
+- Another fundamental 2-bit gate is the OR gate, it gives the output 1 when at least one of the inputs is 1 and it is 0 only when both inputs are 0.
+
+
+``````{grid}
+:label: or-gate
+
+````{grid-item-card}
+:columns: 6
+
+```{figure} https://upload.wikimedia.org/wikipedia/commons/1/16/OR_ANSI_Labelled.svg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original
+:width: 100%
+:align: center
+```
+
+````
+
+````{grid-item-card}
+:columns: 6
+
+|Input A|Input B| Output Q|
+|:---:  |:---: | :---: |
+|0      |0     | 0     |
+|0      |1     | 1     |
+|1      |0     | 1     |
+|1      |1     | 1     |
+
+````
+``````
+
+
+- Like the AND gate, the OR gate is also irreversible, given only the output we can't recover both the input bits that produced it.
 
 ###  XOR gate
 
-- A slightly more complicated 2-bit gate is the XOR gate, whose truth table is mentioned below.
+- Finally we look at the XOR gate, whose truth table is shown below.
 
 ``````{grid}
 :label: xor-gate
@@ -413,9 +447,9 @@ b --> c
 ```
 ``````
 
-- It is not common to introduce an XOR gate as part of the fundamental gates of Classical computing however it provides an important analag to gates within Quantum Computing
+- It is not common to introduce an XOR gate as part of the fundamental gates of Classical computing however it provides an important analog to gates within Quantum Computing
 
-- Similar to the AND gate we can observe that XOR gate is also irreversible and we can't recover both the input qubits from the output of the AND gates.
+- Similar to the AND gate we can observe that XOR gate is also irreversible and we can't recover both the input qubits from the output.
 
 ### Classical Half-Adder using gates
 
@@ -457,5 +491,5 @@ Before moving to Qubits and Quantum Computing, let's list down all the important
 ## [References](#reference)
 
 The following references are optional reading material:
-1. The following chapters of the textbook Introduction to Classical and Quantum Computing([pdf](https://www.thomaswong.net/introduction-to-classical-and-quantum-computing-1e3p.pdf)) : 1.1, 1.2, 1.3.
+1. The following chapters of the textbook Introduction to Classical and Quantum Computing ([pdf](https://www.thomaswong.net/introduction-to-classical-and-quantum-computing-1e3p.pdf)) : 1.1, 1.2, 1.3.
 
