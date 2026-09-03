@@ -746,13 +746,12 @@ window.runMermaid = runMermaid;</script>
 </li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#lecture-1b-integrating-classical-and-quantum-computing">Lecture 1b: Integrating Classical and Quantum Computing</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#integrating-classical-and-quantum-computing">Integrating Classical and Quantum Computing</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-integrate-classical-quantum-computing">Why integrate classical &amp; Quantum Computing</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-high-performance-computing">Classical High-Performance Computing</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#co-existence-of-classical-quantum-computing">Co-existence of Classical &amp; Quantum Computing</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-computation-workflow">Quantum Computation Workflow</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-computing-as-an-accelerator">Quantum computing as an accelerator</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-does-qpcc-offer-you">What does QPCC offer you</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
 </li>
@@ -778,11 +777,14 @@ window.runMermaid = runMermaid;</script>
 </div>
 <div class="tip admonition">
 <p class="admonition-title">Learning outcomes</p>
-<p>This is an introductory module, which sets the stage for the remaining course by discussing some very elementary question into computing, and delves into quantum computing. As we go through the sections below, we will:</p>
+<p>This is an introductory module, which sets the stage for the remaining course by discussing some basics of computing, and delves into quantum computing. As we go through the sections below, we will:</p>
 <ul class="simple">
 <li><p>Gain knowledge to evaluate the capabilities, limitations and potential areas for applying quantum computing.</p></li>
 <li><p>Demonstrate an understanding of the value chain and value proposition of quantum computing alongside classical high-performance computing.</p></li>
 <li><p>Demonstrate ability to identify key high-level tipping points to reach practical quantum computing.</p></li>
+<li><p>Understand the reasons and opportunities for integrating classical high-performance computing &amp; quantum computing systems.</p></li>
+<li><p>Demonstrate a high-level technical understanding of hybrid high-performance computing &amp; quantum computing systems.</p></li>
+<li><p>Acquire knowledge of ongoing efforts towards integrating classical high-performance &amp; quantum computing systems.</p></li>
 </ul>
 </div>
 <img alt="../_images/quant.png" class="align-center" src="../_images/quant.png" />
@@ -1008,20 +1010,8 @@ mindmap
     </pre></section>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="lecture-1b-integrating-classical-and-quantum-computing">
-<span id="lecture-1b"></span><h1>Lecture 1b: Integrating Classical and Quantum Computing<a class="headerlink" href="#lecture-1b-integrating-classical-and-quantum-computing" title="Link to this heading">#</a></h1>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>These lecture notes are a work in progress and are not a replacement for watching the lecture video, it’s intended to be supplementary reading after watching the lecture.</p>
-</div>
-<div class="tip admonition">
-<p class="admonition-title">Learning outcomes</p>
-<ol class="arabic simple">
-<li><p>Understand the reasons and opportunities for integrating classical high-performance computing &amp; quantum computing systems.</p></li>
-<li><p>Demonstrate a high-level technical understanding of hybrid high-performance computing &amp; quantum computing systems.</p></li>
-<li><p>Acquire knowledge of ongoing efforts towards integrating classical high-performance &amp; quantum computing systems.</p></li>
-</ol>
-</div>
+<section class="tex2jax_ignore mathjax_ignore" id="integrating-classical-and-quantum-computing">
+<h1>Integrating Classical and Quantum Computing<a class="headerlink" href="#integrating-classical-and-quantum-computing" title="Link to this heading">#</a></h1>
 <section id="why-integrate-classical-quantum-computing">
 <h2>Why integrate classical &amp; Quantum Computing<a class="headerlink" href="#why-integrate-classical-quantum-computing" title="Link to this heading">#</a></h2>
 <section id="classical-high-performance-computing">
@@ -1094,18 +1084,14 @@ And, QQ is where quantum data is processed by quantum computers. This quantum da
 <p>But large datasets like those used to train machine learning or deep learning models will be very expensive to encode, and hence any quantum advantage due to quantum processing may be negated by the cost of quantum encoding. This is a key dictator of what types of data and problems have an advantage for using quantum computing.
 Also, at present due to the low-level of programming abstraction that we discussed earlier, it is quite complex to define a quantum program using quantum operators. A combination of skills spanning quantum mechanics, quantum information processing, advanced algebra, software development and domain expertise are required together. This is where advancement of software tools and libraries as well as skills development is important for programming quantum computers.</p>
 <p>Finally, reading out the results from a quantum computer is also an area of active development to improve accuracy of the measurements and one of the places where error correction can be applied.</p>
-<p>More details on these will be discussed in other QPCC lectures.</p>
+<p>More details on these will be discussed in future lectures.</p>
 </section>
 <section id="quantum-computing-as-an-accelerator">
 <h3>Quantum computing as an accelerator<a class="headerlink" href="#quantum-computing-as-an-accelerator" title="Link to this heading">#</a></h3>
 <p>Now, having looked a bit more into the detail of what a quantum computing workflow generally involves, let us fit this into the larger picture that we had discussed earlier.</p>
 <p>For classical computing using CPUs, GPUs and FPGAs, the classical application program natively takes classical data as input and produces classical data as output.
 When using quantum computing systems and QPUs as accelerators alongside the classical computing systems and processors, the result is that the entire quantum workflow that we discussed earlier needs to be implemented in order to offload an application kernel and its data from the classical computer that has to be accelerated by the quantum computer.</p>
-<p>Consequently, this is the primary reason that necessitates integration of classical high-performance and quantum computing systems at different levels of the stack, from physical location, communication network, processing, data storage, several payers of software and programming tools, algorithms and applications. This full-stack integration is essential for efficiently and effectively using quantum computing as an accelerator, is non-trivial, and is discussed in a bit more detail later in this lecture.</p>
-<p>In the meantime, let us have a look at some application examples from a few select sectors to understand why integrated hybrid high-performance quantum computing could be beneficial and impactful.</p>
-</section>
-<section id="what-does-qpcc-offer-you">
-<h3>What does QPCC offer you<a class="headerlink" href="#what-does-qpcc-offer-you" title="Link to this heading">#</a></h3>
+<p>Consequently, this is the primary reason that necessitates integration of classical high-performance and quantum computing systems at different levels of the stack, from physical location, communication network, processing, data storage, software and programming tools, algorithms and applications. This full-stack integration is essential for efficiently and effectively using quantum computing as an accelerator.</p>
 </section>
 <section id="references">
 <h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
@@ -1202,13 +1188,12 @@ When using quantum computing systems and QPUs as accelerators alongside the clas
 </li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#lecture-1b-integrating-classical-and-quantum-computing">Lecture 1b: Integrating Classical and Quantum Computing</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#integrating-classical-and-quantum-computing">Integrating Classical and Quantum Computing</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-integrate-classical-quantum-computing">Why integrate classical &amp; Quantum Computing</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-high-performance-computing">Classical High-Performance Computing</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#co-existence-of-classical-quantum-computing">Co-existence of Classical &amp; Quantum Computing</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-computation-workflow">Quantum Computation Workflow</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-computing-as-an-accelerator">Quantum computing as an accelerator</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-does-qpcc-offer-you">What does QPCC offer you</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
 </li>
