@@ -154,7 +154,7 @@ Rather than controlling a flow of electrons, and using that to represent zero or
 
 Therefore, fundamentally, representation and processing of data works at a much smaller scale in quantum computing devices compared to classical computing devices.​
 
-Often, these quantum effects are presented in many articles as quantum tunnelling, entanglement, superposition, etc.. Further details on these quantum effects are discussed in the {ref}`lecture-3`.​
+Often, these quantum effects are presented in many articles as quantum tunnelling, entanglement, superposition, etc.. Further details on these quantum effects are discussed in Lectures 2 and 5.​
 
 Now, to implement a quantum processor, different particles are being explored to present the state of data and the methods used to control the particles also vary – this is what we observe from different technology developers pursuing superconducting, trapped ion, neutral atom, silicon dots, diamond-based or topological qubit technologies.​
 
