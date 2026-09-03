@@ -13,13 +13,19 @@ layout: post
 ```{admonition} Learning outcomes
 :class: tip
 
-This is an introductory module, which sets the stage for the remaining course by discussing some very elementary question into computing, and delves into quantum computing. As we go through the sections below, we will:
+This is an introductory module, which sets the stage for the remaining course by discussing some basics of computing, and delves into quantum computing. As we go through the sections below, we will:
 
 - Gain knowledge to evaluate the capabilities, limitations and potential areas for applying quantum computing.
 
 - Demonstrate an understanding of the value chain and value proposition of quantum computing alongside classical high-performance computing.
 
 - Demonstrate ability to identify key high-level tipping points to reach practical quantum computing.
+
+- Understand the reasons and opportunities for integrating classical high-performance computing & quantum computing systems.
+
+- Demonstrate a high-level technical understanding of hybrid high-performance computing & quantum computing systems.
+
+- Acquire knowledge of ongoing efforts towards integrating classical high-performance & quantum computing systems.
 ```
 
 ```{image} ../prep/images/quant.png
@@ -228,21 +234,8 @@ mindmap
 ```
 
 
-(lecture-1b)=
-# Lecture 1b: Integrating Classical and Quantum Computing
 
-
-```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be supplementary reading after watching the lecture. 
-```
-
-```{admonition} Learning outcomes
-:class: tip
-1. Understand the reasons and opportunities for integrating classical high-performance computing & quantum computing systems.
-2. Demonstrate a high-level technical understanding of hybrid high-performance computing & quantum computing systems.
-3. Acquire knowledge of ongoing efforts towards integrating classical high-performance & quantum computing systems.
-```
-
-
+# Integrating Classical and Quantum Computing
 
 ## Why integrate classical & Quantum Computing
 
@@ -336,7 +329,7 @@ Also, at present due to the low-level of programming abstraction that we discuss
 
 Finally, reading out the results from a quantum computer is also an area of active development to improve accuracy of the measurements and one of the places where error correction can be applied.
 
-More details on these will be discussed in other QPCC lectures.
+More details on these will be discussed in future lectures.
 
 ### Quantum computing as an accelerator
 
@@ -345,12 +338,8 @@ Now, having looked a bit more into the detail of what a quantum computing workfl
 For classical computing using CPUs, GPUs and FPGAs, the classical application program natively takes classical data as input and produces classical data as output.
 When using quantum computing systems and QPUs as accelerators alongside the classical computing systems and processors, the result is that the entire quantum workflow that we discussed earlier needs to be implemented in order to offload an application kernel and its data from the classical computer that has to be accelerated by the quantum computer.
 
-Consequently, this is the primary reason that necessitates integration of classical high-performance and quantum computing systems at different levels of the stack, from physical location, communication network, processing, data storage, several payers of software and programming tools, algorithms and applications. This full-stack integration is essential for efficiently and effectively using quantum computing as an accelerator, is non-trivial, and is discussed in a bit more detail later in this lecture.
+Consequently, this is the primary reason that necessitates integration of classical high-performance and quantum computing systems at different levels of the stack, from physical location, communication network, processing, data storage, software and programming tools, algorithms and applications. This full-stack integration is essential for efficiently and effectively using quantum computing as an accelerator.
 
-In the meantime, let us have a look at some application examples from a few select sectors to understand why integrated hybrid high-performance quantum computing could be beneficial and impactful.
-
-
-### What does QPCC offer you
 
 
 ### References

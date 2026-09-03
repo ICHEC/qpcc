@@ -480,8 +480,8 @@ b --> c
 ## Features of Classical computing
 
 Before moving to Qubits and Quantum Computing, let's list down all the important features of Classical Computing that we have encountered so far.
-- We've seen that **bits carry determistic pieces of information.**
-- We've also observed that **Classical Gates can be both reversible and irreversible in nature**. For example, NOT gate is reversible in nature whereas the 2-bit gates such as AND gate and XOR gate are irreversible.
+- We've seen that **bits carry deterministic pieces of information.**
+- We've also observed that **classical gates can be both reversible and irreversible in nature**. For example, NOT gate is reversible in nature whereas the 2-bit gates such as AND gate and XOR gate are irreversible.
 - It can be a shown that a small subset of all the existing gates can be used to be build all the logical operations that can exist.
 - These complete subsets of Gates are said to form a **universal gate set.**
 - The AND, OR and NOT is one example of a universal gate set.
@@ -491,5 +491,6 @@ Before moving to Qubits and Quantum Computing, let's list down all the important
 ## [References](#reference)
 
 The following references are optional reading material:
-1. The following chapters of the textbook Introduction to Classical and Quantum Computing ([pdf](https://www.thomaswong.net/introduction-to-classical-and-quantum-computing-1e3p.pdf)) : 1.1, 1.2, 1.3.
+1. The following chapters of the textbook *Introduction to Classical and Quantum Computing* ([pdf](https://www.thomaswong.net/introduction-to-classical-and-quantum-computing-1e3p.pdf)) : 1.1, 1.2, 1.3.
 
+2.  **Section 3.1.2 - Circuits** of the textbook *Nielsen, M.A. and Chuang, I.L. (2010) Quantum Computation and Quantum Information: 10th Anniversary Edition. Cambridge: Cambridge University Press.* 
