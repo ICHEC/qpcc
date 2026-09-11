@@ -64,364 +64,6 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
-
-
-
-
-
-const initStyles = () => {
-    const defaultStyle = document.createElement('style');
-    defaultStyle.textContent = "pre.mermaid {\n    /* Same as .mermaid-container > pre */\n    display: block;\n    width: 100%;\n}\n\npre.mermaid > svg {\n    /* Same as .mermaid-container > pre > svg */\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}";
-    document.head.appendChild(defaultStyle);
-
-    const fullscreenStyle = document.createElement('style');
-    fullscreenStyle.textContent = ".mermaid-container {\n    position: relative;\n    display: flex;\n    flex-direction: row;\n    width: 100%;\n}\n\n.mermaid-container > pre {\n    display: block;\n    width: 100%;\n}\n\n.mermaid-container > pre > svg {\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}\n\n.mermaid-fullscreen-btn {\n    position: absolute;\n    width: 28px;\n    height: 28px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.3);\n    border-radius: 4px;\n    cursor: pointer;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    transition: all 0.2s;\n    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);\n    font-size: 14px;\n    line-height: 1;\n    padding: 0;\n    color: #333;\n}\n\n.mermaid-fullscreen-btn:hover {\n    opacity: 100% !important;\n    background: rgba(255, 255, 255, 1);\n    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-btn.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.3);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-btn.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal {\n    display: none;\n    position: fixed !important;\n    top: 0 !important;\n    left: 0 !important;\n    width: 95vw;\n    height: 100vh;\n    background: rgba(255, 255, 255, 0.98);\n    z-index: 9999;\n    padding: 20px;\n    overflow: auto;\n}\n\n.mermaid-fullscreen-modal.dark-theme {\n    background: rgba(0, 0, 0, 0.98);\n}\n\n.mermaid-fullscreen-modal.active {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen {\n    position: relative;\n    width: 95vw;\n    height: 90vh;\n    max-width: 95vw;\n    max-height: 90vh;\n    background: white;\n    border-radius: 8px;\n    padding: 20px;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);\n    overflow: auto;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen.dark-theme {\n    background: #1a1a1a;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);\n}\n\n.mermaid-container-fullscreen pre.mermaid {\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen .mermaid svg {\n    height: 100% !important;\n    width: 100% !important;\n    cursor: grab;\n}\n\n.mermaid-fullscreen-close {\n    position: fixed !important;\n    top: 20px !important;\n    right: 20px !important;\n    width: 40px;\n    height: 40px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.2);\n    border-radius: 50%;\n    cursor: pointer;\n    z-index: 10000;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);\n    transition: all 0.2s;\n    font-size: 24px;\n    line-height: 1;\n    color: #333;\n}\n\n.mermaid-fullscreen-close:hover {\n    background: white;\n    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-close.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.2);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-close.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal .mermaid-fullscreen-btn {\n    display: none !important;\n}";
-    document.head.appendChild(fullscreenStyle);
-}
-
-// Detect if page has dark background
-const isDarkTheme = () => {
-    // We use a set of heuristics:
-    // 1. Check for common dark mode classes or attributes
-    // 2. Check computed background color brightness
-    if (document.documentElement.classList.contains('dark') ||
-        document.documentElement.getAttribute('data-theme') === 'dark' ||
-        document.body.classList.contains('dark') ||
-        document.body.getAttribute('data-theme') === 'dark') {
-        // console.log("Dark theme detected via class/attribute");
-        return true;
-    }
-    if (document.documentElement.classList.contains('light') ||
-        document.documentElement.getAttribute('data-theme') === 'light' ||
-        document.body.classList.contains('light') ||
-        document.body.getAttribute('data-theme') === 'light') {
-        // console.log("Light theme detected via class/attribute");
-        return false;
-    }
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        // console.log("Dark theme detected via prefers-color-scheme");
-        return true;
-    }
-    const bgColor = window.getComputedStyle(document.body).backgroundColor;
-    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
-    if (match) {
-        const r = parseInt(match[1]);
-        const g = parseInt(match[2]);
-        const b = parseInt(match[3]);
-        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-        // console.log("Background color brightness:", brightness);
-        return brightness < 128;
-    }
-    // console.log("No dark or light theme detected, defaulting to light theme");
-    return false;
-};
-
-let darkTheme = isDarkTheme();
-let modal = null;
-let modalContent = null;
-let previousScrollOffset = [window.scrollX, window.scrollY];
-let _lazyObserver = null;
-let _renderQueue = Promise.resolve();
-let closeModal = () => {};
-
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal?.classList.contains('active')) {
-        closeModal();
-    }
-});
-
-// Apply d3 zoom to each SVG. Idempotent: an SVG already wrapped is skipped,
-// so this is safe to call both for the initial batch and for diagrams that
-// render lazily once they become visible.
-const addZoomToSvgs = (svgs) => {
-    svgs.each(function() {
-        if (this.getAttribute('data-zoom-applied') === 'true') return;
-        var svg = d3.select(this);
-        svg.html("<g class='wrapper'>" + svg.html() + "</g>");
-        var inner = svg.select("g");
-        var zoom = d3.zoom().on("zoom", function(event) {
-            inner.attr("transform", event.transform);
-        });
-        svg.call(zoom);
-        this.setAttribute('data-zoom-applied', 'true');
-    });
-};
-
-const runMermaid = async (rerun) => {
-    console.log("Running mermaid diagrams, rerun =", rerun);
-    // clear all existing mermaid charts
-    let all_mermaids = document.querySelectorAll(".mermaid");
-
-    if (rerun) {
-        // Disconnect any previous lazy rendering observer
-        if (_lazyObserver) {
-            _lazyObserver.disconnect();
-            _lazyObserver = null;
-        }
-
-        all_mermaids.forEach((el) => {
-            el.removeAttribute('data-mermaid-deferred');
-            el.removeAttribute('data-mermaid-render-failed');
-            if(!el.hasAttribute("data-original-code")) {
-                // store original code
-                // console.log(`Storing original code for first run: `, el.innerHTML);
-                el.setAttribute('data-original-code', el.innerHTML);
-            }
-            if(el.getAttribute("data-processed") === "true") {
-                // remove and restore original
-                el.removeAttribute("data-processed");
-                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
-                el.innerHTML = el.getAttribute('data-original-code');
-            } else {
-                // store original code
-                // console.log(`Storing original code for re-run: `, el.innerHTML);
-                el.setAttribute('data-original-code', el.innerHTML);
-            }
-        });
-
-        // Separate visible and hidden elements. Mermaid's layout engine measures
-        // text dimensions via the DOM, which fails for elements hidden by a parent
-        // (e.g., Reveal.js non-active slides, sphinx-design unopened tabs),
-        // producing broken SVGs. Render visible elements now, defer hidden ones.
-        const visible = [];
-        const hidden = [];
-        all_mermaids.forEach((el) => {
-            // offsetParent is null for display:none ancestors.
-            // getClientRects().length > 0 catches position:fixed elements
-            // (which also have null offsetParent but are still visible).
-            if (el.offsetParent !== null || el.getClientRects().length > 0) {
-                visible.push(el);
-            } else {
-                hidden.push(el);
-                el.setAttribute('data-mermaid-deferred', 'true');
-            }
-        });
-
-        if (visible.length > 0) {
-            try {
-                await mermaid.run({ nodes: visible });
-            } catch (e) {
-                console.error("Mermaid rendering failed:", e);
-            }
-        }
-
-        // Lazily render hidden elements when they become visible.
-        // Uses a promise chain (_renderQueue) to serialize rendering,
-        // since IntersectionObserver may report multiple entries at once
-        // and mermaid.run() is not safe to call concurrently.
-        if (hidden.length > 0) {
-            if (typeof IntersectionObserver === 'undefined') {
-                console.warn("IntersectionObserver not available; hidden mermaid diagrams will not render.");
-            } else {
-                _renderQueue = Promise.resolve();
-                _lazyObserver = new IntersectionObserver((entries) => {
-                    for (const entry of entries) {
-                        if (entry.isIntersecting && entry.target.getAttribute("data-processed") !== "true") {
-                            _lazyObserver.unobserve(entry.target);
-                            const el = entry.target;
-                            _renderQueue = _renderQueue.then(async () => {
-                                try {
-                                    await mermaid.run({ nodes: [el] });
-                                    el.removeAttribute('data-mermaid-deferred');
-                                    // Apply zoom to the now-rendered diagram, matching
-                                    // the decoration visible diagrams receive.
-                                    if (false) {
-                                        addZoomToSvgs(d3.selectAll("").select(function() {
-                                            return this.querySelector("svg");
-                                        }));
-                                    }
-                                } catch (e) {
-                                    console.error("Mermaid deferred rendering failed:", e);
-                                    el.removeAttribute('data-mermaid-deferred');
-                                    el.setAttribute('data-mermaid-render-failed', 'true');
-                                }
-                            });
-                        }
-                    }
-                });
-                hidden.forEach((el) => _lazyObserver.observe(el));
-            }
-        }
-    }
-
-    all_mermaids = document.querySelectorAll(".mermaid");
-    // Exclude deferred (hidden) and render-failed elements from completion checks
-    const mermaids_active = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])");
-    const mermaids_processed = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])[data-processed='true']");
-
-    if (false) {
-        const mermaids_to_add_zoom = 0 === -1 ? mermaids_active.length : 0;
-        if(mermaids_to_add_zoom > 0) {
-            var svgs = d3.selectAll("").select(function() {
-                return this.querySelector("svg");
-            });
-            // Wait until every active (visible) diagram has rendered. Deferred
-            // diagrams are excluded, so a fixed d3_node_count that counts a
-            // hidden diagram no longer loops forever waiting for its SVG.
-            if(mermaids_active.length !== mermaids_processed.length) {
-                setTimeout(() => runMermaid(false), 200);
-                return;
-            }
-            addZoomToSvgs(svgs);
-        }
-    } else if(mermaids_active.length !== mermaids_processed.length) {
-        // Wait for mermaid to process all diagrams
-        setTimeout(() => runMermaid(false), 200);
-        return;
-    }
-
-    // Stop here if not adding fullscreen capability
-    if (!true) return;
-
-    if (modal !== null ) {
-        // Destroy existing modal
-        modal.remove();
-        modal = null;
-        modalContent = null;
-    }
-
-    modal = document.createElement('div');
-    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
-    modal.setAttribute('role', 'dialog');
-    modal.setAttribute('aria-modal', 'true');
-    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
-    modal.innerHTML = `
-        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
-        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
-    `;
-    document.body.appendChild(modal);
-
-    modalContent = modal.querySelector('.mermaid-container-fullscreen');
-    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
-
-    closeModal = () => {
-        modal.classList.remove('active');
-        modalContent.innerHTML = '';
-        document.body.style.overflow = ''
-        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
-    };
-
-    closeBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-    });
-    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
-        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
-            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
-            // Already processed, adjust button class if needed
-            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
-            if (existingBtn) {
-                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
-            }
-            return;
-        }
-
-        const container = document.createElement('div');
-        container.className = 'mermaid-container';
-        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
-        container.appendChild(mermaidDiv);
-
-        const fullscreenBtn = document.createElement('button');
-        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
-        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
-        fullscreenBtn.textContent = "\u26f6";
-        fullscreenBtn.style.opacity = "50%";
-
-        // Calculate dynamic position based on diagram's margin and padding
-        const diagramStyle = window.getComputedStyle(mermaidDiv);
-        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
-        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
-        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
-        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
-        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
-        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
-
-        fullscreenBtn.addEventListener('click', () => {
-            previousScrollOffset = [window.scrollX, window.scrollY];
-            const clone = mermaidDiv.cloneNode(true);
-            modalContent.innerHTML = '';
-            modalContent.appendChild(clone);
-
-            const svg = clone.querySelector('svg');
-            if (svg) {
-                svg.removeAttribute('width');
-                svg.removeAttribute('height');
-                svg.style.width = '100%';
-                svg.style.height = 'auto';
-                svg.style.maxWidth = '100%';
-                svg.style.display = 'block';
-
-                if (false) {
-                    setTimeout(() => {
-                        const g = svg.querySelector('g');
-                        if (g) {
-                            var svgD3 = d3.select(svg);
-                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
-                            var inner = svgD3.select("g");
-                            var zoom = d3.zoom().on("zoom", function(event) {
-                                inner.attr("transform", event.transform);
-                            });
-                            svgD3.call(zoom);
-                        }
-                    }, 100);
-                }
-            }
-
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-        container.appendChild(fullscreenBtn);
-    });
-};
-
-
-
-const load = async () => {
-    initStyles();
-
-
-    await runMermaid(true);
-
-    const reRunIfThemeChanges = async () => {
-        const newDarkTheme = isDarkTheme();
-        if (newDarkTheme !== darkTheme) {
-            darkTheme = newDarkTheme;
-            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
-            await mermaid.initialize(
-                {...{"startOnLoad": false},
-                ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
-                }
-            );
-            await runMermaid(true);
-        }
-    };
-
-    // Update theme classes when theme changes
-    const themeObserver = new MutationObserver(reRunIfThemeChanges);
-    themeObserver.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ['class', 'style', 'data-theme']
-    });
-    themeObserver.observe(document.body, {
-        attributes: true,
-        attributeFilter: ['class', 'style', 'data-theme']
-    });
-};
-
-
-
-
-
-console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
-mermaid.initialize(
-    {...{"startOnLoad": false},
-    ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
-    }
-);
-
-window.addEventListener("load", load);
-window.runMermaid = runMermaid;</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-02/bits-to-qubits';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -589,6 +231,43 @@ window.runMermaid = runMermaid;</script>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 2</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 2: From Bits to Qubits</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </ul>
 
     </div>
@@ -734,39 +413,73 @@ window.runMermaid = runMermaid;</script>
             </div>
             <nav aria-label="Page">
                 <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lecture 2: From Bits to Qubits</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-data">Binary Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bit">Bit</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#physical-representation-and-why-quantum">Physical Representation and why Quantum</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conversion-from-decimal-to-binary">Conversion from Decimal to binary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-in-binary">Adding in Binary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gates-and-operations-in-binary">Gates and Operations in Binary</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#not-gate">NOT gate</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#and-gate">AND gate</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xor-gate">XOR gate</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-half-adder-using-gates">Classical Half-Adder using gates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-bits-and-gates">Recap: Bits and Gates</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#features-of-classical-computing">Features of Classical computing</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-effects-and-quantum-computing">Quantum effects and Quantum computing</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-qubits-and-quantum-gates">Preview: Qubits and Quantum Gates</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-vs-quantum-scaling">Classical vs Quantum Scaling</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-comparative-overview-of-how-computing-paradigms-expand-over-time">A comparative overview of how computing paradigms expand over time.</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#back-to-qubits">Back to Qubits</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#photons-as-qubits">Photons as qubits</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-superposition">Quantum Superposition</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-measurement">Quantum Measurement</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-gates-and-operations">Quantum Gates and Operations</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-x-gate">The X Gate</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-hadamard-gate">The Hadamard Gate</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-p-gate">The P Gate</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-s-gate">The S Gate</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-t-gate">The T Gate</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cnot-gate">The CNOT Gate</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#stern-gerlach-sg-experiment">Stern Gerlach (SG) Experiment</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#sg-experiment-setup">SG experiment: Setup</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sg-experiment-expectation">The SG Experiment: Expectation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sg-experiment-reality">The SG Experiment: Reality</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">Interpretation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#a-quantum-state">A Quantum State</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#complex-weights">Complex weights</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-axis-measurement-sequence">Multi-Axis Measurement Sequence</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#need-for-complex-weights">Need for Complex Weights</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-counterintuitive-things-happened">Two counterintuitive things happened.</a></li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#decoding-the-coefficients">Decoding the Coefficients</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dirac-notation">Dirac Notation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-the-qubit">Defining the Qubit</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-state-vector">The State vector</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bloch-sphere">The Bloch Sphere</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#key-reference-states">Key Reference States</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#overlap-measurement">Overlap, Measurement</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#inner-product">Inner Product</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-operators">Quantum Operators</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#operators-in-action">Operators in Action</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#special-directions-states">Special directions &amp; states</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#special-operators">Special Operators</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-measurement">Quantum Measurement</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measurement-basis">Measurement Basis</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#demystifying-quantum-computation">Demystifying Quantum Computation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-operation">Quantum Operation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-operation-vs-quantum-circuits">Quantum operation vs. Quantum Circuits</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layout-section">layout: section</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#single-qubit-gates">Single qubit Gates</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#hadamard-gate">Hadamard Gate</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pauli-x-gate">Pauli-X Gate</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pauli-y-gate">Pauli-Y Gate</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pauli-z-gate">Pauli-Z Gate</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#s-gate">S Gate</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#t-gate">T Gate</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#rotation-gates-rx-ry-rz">Rotation Gates (Rx, Ry, Rz)</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transition-fade-out">transition: fade-out</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#wrap-up">Wrap up</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layout-section-transition-fade-out">layout: section
+transition: fade-out</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#thank-you">Thank you</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Introduction</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references"><span class="xref myst">References</span></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><span class="xref myst">References</span></a></li>
 </ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -785,674 +498,1896 @@ window.runMermaid = runMermaid;</script>
 </div>
 <div class="tip admonition">
 <p class="admonition-title">Learning outcomes</p>
-<p>In this lecture we revise the good old and simpler concepts of bits and their manipulations to set the stage for the fundamental blocks of quantum computing, i.e., qubits and their manipulation. As we go through the sections below, we will:</p>
+<p>In this lecture we introduce what a quantum state is through the Stern Gerlach experiments. We use the lessons from the experiment to introduce quantum states, and specifically how does a description of qubit looks like.</p>
 <ul class="simple">
-<li><p>Learn the features of bits and qubits from phenomenological perspective, and through comparison of their similarities and differences. - We will also learn how manipulating bits and a qubits forms a building block for basic computations.</p></li>
+<li><p>We touch upon the necessary mathematical framework for defining and and interpreting a qubit’s state.</p></li>
+<li><p>We discuss quantum measurement, and how operators change qubit’s state.</p></li>
+<li><p>We also describe how quantum measurement is used in computation, and what quantum computing workflow looks like.</p></li>
+<li><p>Lastly, we establish a basic visual framework of quantum circuits, and identify that quantum gates are essentially linear operators.</p></li>
 </ul>
 </div>
+<!--
+Welcome to the second lecture of Quantum Programming Foundations. 
+
+In this lecture, we are going to rethink how computers process information, and step out of the classical world into the quantum one.
+-->
+<hr class="docutils" />
 <section id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
-<p>In classical computing, which we usually call just computing, we transform or map every mathematical problem into a sequence of tasks, which is performed by computer, and towards the end, we get the desired result. These sequences of tasks, are what we call algorithms, consists of an exact sequence of simpler tasks that can be understood by computer. When this exact sequence is expressed in a way that computer understand, we call it a computer program. To understand, and organise well, the algorithms are often broken down to smallest possible building blocks. We  will discuss some of these building blocks now, and see how the role of bits comes into play.</p>
+<p>Let us take a dive into the the fundamental unit of quantum computing, namely <strong>Qubit</strong>, and underlying mathematical ingredients. 
+Later, in the lecture we learn how to manipulate qubits using Gates for basic computations, and the mathematical framework containing it.
+Our primary goal today is to get comfortable with the fundamental building block of a quantum computer: the qubit. We’ll look at what it is, and we’ll build up just enough of the mathematical framework so you understand how it behaves. We’ll also learn how to manipulate these qubits to actually compute things.</p>
+<p>This note is largely divided into two parts</p>
+<ul class="simple">
+<li><p><strong>Qubits and Quantum state</strong></p></li>
+<li><p><strong>Quantum Gates</strong></p></li>
+</ul>
 </section>
-<section id="binary-data">
-<h2>Binary Data<a class="headerlink" href="#binary-data" title="Link to this heading">#</a></h2>
-<p>Most algorithms require an input in some form, which is required to feed into the algorithm, and we get some result in the end. For example, <em>addition</em> is an algorithm, that requires input of two numbers, and gives the result, that is the sum of two numbers.</p>
-<pre align="center" class="mermaid align-center">
-        graph LR;
-A(Input) --&gt; |Feed into| B{Algorithm} --&gt; |Computation finished| C(Result)
+<section id="recap-bits-and-gates">
+<h2>Recap: Bits and Gates<a class="headerlink" href="#recap-bits-and-gates" title="Link to this heading">#</a></h2>
+<p>To truly appreciate what makes a qubit so special, we first need to quickly remind
+ourselves how our everyday, classical computers work.</p>
+<p>We already know that classical computation is built entirely on two things: <code class="docutils literal notranslate"><span class="pre">bits</span></code> and <code class="docutils literal notranslate"><span class="pre">gates</span></code>.
+A bit is the simplest piece of information in the universe. It is a simple binary choice—it
+carries either a <code class="docutils literal notranslate"><span class="pre">0</span></code>, or a <code class="docutils literal notranslate"><span class="pre">1</span></code>. Think of it like a light switch that is strictly <code class="docutils literal notranslate"><span class="pre">off</span></code> or <code class="docutils literal notranslate"><span class="pre">on</span></code>.</p>
+<p>Bits carry binary informations: <code class="docutils literal notranslate"><span class="pre">0</span></code>, or <code class="docutils literal notranslate"><span class="pre">1</span></code> that gates manipulate, to perform computation.
+Of course, a single bit doesn’t do much. But as we group multiple bits together, the amount of data we can work with grows.
+Having multiple bits rapidly increases the input data we can work with, as <span class="math notranslate nohighlight">\(N\)</span> bit combinatorially
+contains <span class="math notranslate nohighlight">\(2^N\)</span> binary data. See table below:</p>
+<div class="pst-scrollable-table-container"><table class="table" id="tab-bits">
+<caption><span class="caption-number">Table 1 </span><span class="caption-text">Combinations with Bits</span><a class="headerlink" href="#tab-bits" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>No</p></th>
+<th class="head"><p>size</p></th>
+<th class="head"><p>Permutations</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>4</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">00</span></code>, <code class="docutils literal notranslate"><span class="pre">01</span></code>, <code class="docutils literal notranslate"><span class="pre">10</span></code>, <code class="docutils literal notranslate"><span class="pre">11</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>8</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">000</span></code>, <code class="docutils literal notranslate"><span class="pre">001</span></code>, <code class="docutils literal notranslate"><span class="pre">010</span></code>, <code class="docutils literal notranslate"><span class="pre">011</span></code>, <code class="docutils literal notranslate"><span class="pre">100</span></code>, <code class="docutils literal notranslate"><span class="pre">101</span></code>, <code class="docutils literal notranslate"><span class="pre">110</span></code>, <code class="docutils literal notranslate"><span class="pre">111</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>As you can see in the <a class="reference internal" href="#tab-bits"><span class="std std-numref">Table 1</span></a>, 2 bits give us 4 possible combinations. 3 bits give us 8 combinations, and it scales up from there. Now, to actually process this data, we send these bits through classical logic gates. These gates do something very straightforward: they either flip a bit, or they leave it alone, depending on a set of rules.</p>
+<p>The entire mathematical framework behind this is called <strong>Boolean algebra</strong>.</p>
+<!--
+It's the logic that powers simple operations, like the 'AND' gate you see here. It is highly predictable, strictly binary, and it's the foundation of all classical software. But as we're about to see, the quantum world plays by a completely different set of rules.
+-->
+<div class="math notranslate nohighlight">
+\[OUT = A + B\]</div>
+<LogicGateTable type="AND" :interval="1500" :scale=".6" />
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="preview-qubits-and-quantum-gates">
+<h1>Preview: Qubits and Quantum Gates<a class="headerlink" href="#preview-qubits-and-quantum-gates" title="Link to this heading">#</a></h1>
+<Grid cols="3-1" gap="0">
+<Banner title="The Quantum Paradigm Shift" class="scale-95 text-sm">
+<v-clicks every="2">
+<ul class="simple">
+<li><p>In quantum computing the corresponding objects are <span class="inline-box"> Qubits</span>  and <span class="inline-box"> Quantum Gates </span></p></li>
+</ul>
+<br>
+<ul class="simple">
+<li><p><span class="inline-box"> Qubits</span> act like a spinning coin; holding multiple possibilities at the same time.</p></li>
+</ul>
+<br>
+<ul class="simple">
+<li><p>Working with multiple qubits increases processing capacity exponentially.</p></li>
+</ul>
+<br>
+<ul class="simple">
+<li><p>A group of bits can only express one combination, qubits explore them all at once.</p></li>
+</ul>
+<br>
+<ul class="simple">
+<li><p><span class="inline-box">Quantum Gates</span> alter these states by smoothly tilting or blending the possibilities.</p></li>
+</ul>
+<br>
+<ul class="simple">
+<li><p>Instead of simple on/off logic, operations blend and entangle possibilities of final outcome.</p></li>
+</ul>
+<br>
+<ul class="simple">
+<li><p>The underlying framework shifts from <strong>Boolean algebra</strong> to <strong>Linear algebra</strong>.</p></li>
+</ul>
+</Banner>
+<div>
+<FancyTable class="scale-90 -py-4" v-click=4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Items</p></th>
+<th class="head text-left"><p>Classical Capacity</p></th>
+<th class="head text-left"><p>Quantum Capacity</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>1</p></td>
+<td class="text-left"><p>1 option out of 2</p></td>
+<td class="text-left"><p>Both options simultaneously</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>2</p></td>
+<td class="text-left"><p>1 option out of 4</p></td>
+<td class="text-left"><p>All 4 options explored together</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>3</p></td>
+<td class="text-left"><p>1 option out of 8</p></td>
+<td class="text-left"><p>All 8 options explored together</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>…</p></td>
+<td class="text-left"><p><em>One path at a time</em></p></td>
+<td class="text-left"><p><em>Every possible path instantly</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</FancyTable>
+<div class="text-center -my-0 text-xs font-semibold text-purple-400" v-click="8">
+  Illustrative Quantum Circuit
+</div>
+<div class="flex bg-gray-50 m-3 rounded-xl" v-click="8">
+<p><QuantumCircuit 
+  :qubits="2" 
+  gates="H:0, CNOT:1:0, M:0, M:1" 
+  scale="0.85" 
+/></p>
+</div>
+</div>
+</Grid>
+<!--
+Now, let's step into the quantum paradigm.
 
-a(12) &amp; b(15) --&gt; add{Addition} --&gt; sum(27)
-    </pre><p>The input information, can in principle be anything, however over the decades we have learnt to represent it in some standardised format which is easily understood by computers. For most applications, the input can be broken down to a list or collection of simpler objects, and the simpler objects are either a number, or a text. The numbers themselves can be integers, or real numbers. The text can be english, or any other language, and within each language, a text is an ordered sequence of characters of alphabets and symbols.</p>
+
+Instead of classical bits and gates, the corresponding object in quantum computing are Qubits and Quantum Gates.
+
+
+Think of a classical bit like a coin sitting flat on a table—it's either heads or tails. A qubit is like a spinning coin. While it's spinning, it exists in a blur, holding the possibility of being heads and tails at the exact same time.
+
+
+Because of this, when you link qubits together, the processing power doesn't just increase—it explodes exponentially.
+
+
+As you can see in the table, a classical computer walks down one path at a time. A quantum computer can walk down every possible path instantly.
+
+
+To manipulate these qubits, we use Quantum Gates. Instead of just flipping a rigid switch, these gates act smoothly—like tilting that spinning coin to favor one outcome over another.
+
+
+We are blending possibilities together, rather than just crunching on/off logic.
+
+
+Because of this fluidity, our mathematical language has to change from basic Boolean algebra to Linear algebra.
+
+
+And finally, instead of logic circuits, we draw out these operations using quantum circuits, which follow similar flow of operation from left to right.
+-->
 </section>
-<section id="bit">
-<h2>Bit<a class="headerlink" href="#bit" title="Link to this heading">#</a></h2>
-<p>The smallest unit of input, logically for us, and also for a computer, is something called <strong>bit</strong> that is mapped to <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>. This minimalistic information exist as one of the two mutually exclusive possibilities. Below are some more examples of such pair of possible ‘states’.</p>
-<pre align="center" class="mermaid align-center">
-        graph TD;
-True &lt;---&gt; False;
-Head &lt;---&gt; Tail;
-Yes &lt;---&gt; No;
-Good &lt;---&gt; Bad;
-Like &lt;---&gt; Dislike;
-1 &lt;---&gt; 0;
-    </pre></section>
-<section id="physical-representation-and-why-quantum">
-<h2>Physical Representation and why Quantum<a class="headerlink" href="#physical-representation-and-why-quantum" title="Link to this heading">#</a></h2>
-<p>The above are some of the daily life analogies of properties/informations that can be described by choosing one of the two possibilities. We say that such properties have 1 bit of information, and the two states are usually represented as 0 and 1. More and complex information can be represented by multitude of such bits, and is usually stored in computers, or other forms of modern storage using technologies which can (i) prepare an object in one of two clearly distinguishable physical states, and (ii) have tools available that can detect in which of the two states the object is in. Typical examples include:</p>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="classical-vs-quantum-scaling">
+<h1>Classical vs Quantum Scaling<a class="headerlink" href="#classical-vs-quantum-scaling" title="Link to this heading">#</a></h1>
+<section id="a-comparative-overview-of-how-computing-paradigms-expand-over-time">
+<h2>A comparative overview of how computing paradigms expand over time.<a class="headerlink" href="#a-comparative-overview-of-how-computing-paradigms-expand-over-time" title="Link to this heading">#</a></h2>
+<Grid cols="2" gap="1">
+<Banner title="Moore's Law" class="scale-100 text-sm -translate-y-0" v-click="1">
 <ul class="simple">
-<li><p>Switches and wires use voltages to store bits where a high voltage corresponds to 1 and a low voltage corresponds to zero.</p></li>
-<li><p>CD’s consist of very large number of tiny pits that are either etched or not, and based on that, the pits are either reflective or not. We use this information to store and detect 0s and 1s.</p></li>
-<li><p>Hard drives consists of similar to pits of CDs, tiny blocks of magnetic materials, and we store the bits by orienting the magnetic fields of those blocks.</p></li>
+<li><p>Driven by physical miniaturization of transisters.</p></li>
+<li><p>Linear increase in components yields linear growth in classical bits.</p></li>
+<li><p>Main bottleneck: Thermal dissipation and atomic limits.</p></li>
 </ul>
-<p>Modern computers have tiny circuits composed of transistors to (i) store and (ii) manipulate bits. The transistors are very small in size. In fact they were already <span class="math notranslate nohighlight">\(10\mu m\)</span> in 1970s, and with technological advances, their sizes kept reducing, to about <span class="math notranslate nohighlight">\(3 nm\)</span> in 2022. This means we can fit larger number of transistors in a smaller area, making it easier to build complex computing hardware in smaller size. This behaviour was well perceived by Gordon Moore (see graph below), and is known as anemperical law called Moore’s Law which observes a trend in which the no. of transistors on an Integrated circuit chip doubles approximately every two years.</p>
-<center>
-<iframe src="https://ourworldindata.org/grapher/transistors-per-microprocessor?time=earliest..2021" loading="lazy" style="width: 90%; height: 800px; border: 1px none;"></iframe>
-</center>
-<p>Now we know that smallest information is a <strong>bit</strong> (pun intended), and can be represented by either <strong>0</strong> or <strong>1</strong>. It is easy to see that using combinatorics, it’s possible to encode information of more complex systems. For example, if we have two coins, they both can exist independently, upon flipping, in either of the Head or Tail state, or equivalently, in 1 or 0 state. The possible outcomes of the pair of coins are 4 possible states, namely 00, 01, 10, and 11. Thus, with 2 bits, we can distinguish among 4 possibilities, and any system that can exist in four possible distinct states, its state information can be encoded in 2 bits.
-Recall the lecture where we use the example of tossing coins as a means of conveying information, Bits or Binary data is a means of storing and transmitting information using 0’s and 1’s. The more the bits we have the greater the amount of information we can convey.</p>
-<p>So to generalise, 3 bits can describe 8 possibilities, and in general <span class="math notranslate nohighlight">\(n\)</span> bits can describe <span class="math notranslate nohighlight">\(2^n\)</span> possibilities. It’s easy to now see that adding 1 bit doubles the amount of information you can convey.</p>
-<p>Most common examples of such ‘binary encoding’ include the following:</p>
+</Banner>
+<Banner title="Rose's Law" class="scale-100 text-sm -translate-y-0" v-click="4">
 <ul class="simple">
-<li><p><strong>Numbers</strong>: There is natural mathematical correspondence between numbers expressed in decimal notation that we use everyday to binary representation. We will discuss it soon below.</p></li>
-<li><p><strong>Strings</strong>: <a class="reference external" href="https://en.wikipedia.org/wiki/ASCII">ASCII</a> system provides binary encoding to English alphabet, decimal numbers and most commonly used special characters and symbols. It uses 8 bit for each character and each of the characters is mapped to a unique 8 bit sequence. There are total <span class="math notranslate nohighlight">\(2^8=256\)</span> distinct bit sequences, each mapped to one unique character.</p></li>
+<li><p>Driven by quantum coherence and entanglement.</p></li>
+<li><p>Linear increase in qubits yields exponential growth in state space <span class="math notranslate nohighlight">\(2^{n}\)</span>.</p></li>
+<li><p>Main bottleneck: Quantum noise and error correction.</p></li>
 </ul>
+</Banner>
+</Grid>
+<div class="inline-box -my-3 mx-72 px-6" v-click>
+$$
+\Large{2^n \text{~~bits} \quad\equiv\quad\ n \text{~~qubits}}
+$$
+</div>
+<FancyTable color="blue" class="translate-y-3" v-click>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Dimension</p></th>
+<th class="head"><p>Scale Metric</p></th>
+<th class="head"><p>Growth Pattern</p></th>
+<th class="head"><p>Doubling Period</p></th>
+<th class="head"><p>Capability Metric</p></th>
+<th class="head"><p>Limiting Factor</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Moore’s Law (Classical)</p></td>
+<td><p>Transistor Count</p></td>
+<td><p>Linear growth of components</p></td>
+<td><p>~18 to 24 Months</p></td>
+<td><p>Clock Speed &amp; Instructions/Sec (Flops)</p></td>
+<td><p>Quantum Tunneling (Physical Wall)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Rose’s Law (Quantum)</p></td>
+<td><p>Qubit Count (Physical/Logical)</p></td>
+<td><p>Exponential growth of state space</p></td>
+<td><p>~12 to 18 Months</p></td>
+<td><p>Quantum Volume &amp; Logical Error Rates</p></td>
+<td><p>Decoherence &amp; Environmental Noise</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</FancyTable>
+<!--
+Why does this fundamental shift matter? It all comes down to scaling.
+
+
+You've likely heard of Moore's Law.
+
+
+It's the classical computing trend where we just keep packing more and more microscopic transistors onto a chip.
+
+
+But we are hitting a physical wall. We can only make things so small before atomic interference ruins the chip.
+
+
+Quantum computing follows a different trajectory, often called Rose's Law.
+
+
+Because of how qubits hold multiple states, just adding a few more qubits exponentially grows the computer's capacity.
+
+
+The main hurdle here isn't physical space, but "noise"—keeping those delicate spinning coins from falling over before the calculation is done.
+
+
+To put this immense power in perspective, look at this equation: to get the processing space of a handful of 'n' qubits, you would need two-to-the-power-of-'n' classical bits.
+
+
+This table summarizes our crossroads: we are moving from linear, physical growth, into an era of exponential, quantum growth.
+-->
 </section>
-<section id="conversion-from-decimal-to-binary">
-<h2>Conversion from Decimal to binary<a class="headerlink" href="#conversion-from-decimal-to-binary" title="Link to this heading">#</a></h2>
-<p>Let us quickly recall how we represent numbers. What we usually refer to as decimal system, consists of using a unique sequence of digits for any number. For examples the number <strong>34593</strong>, <em>thirty four thousands five hundreds and ninety three</em>, is five digits. We have ten digits, namely 0, 1, 2, …8, 9 and every number is expressed as sum of one-digit multiple of tens, hundreds, thousands etc (which are powers of base 10). 34593 is essentially</p>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="stern-gerlach-sg-experiment">
+<h1>Stern Gerlach (SG) Experiment<a class="headerlink" href="#stern-gerlach-sg-experiment" title="Link to this heading">#</a></h1>
+<Grid cols="3-1" gap="2">
+<div>
+<AnimatedBanner h-30 rounded-none v-click>
+<p>A foundational physics demonstration in 1922 by Otto Stern and Walther Gerlach, that proved the quantization of angular momentum.</p>
+</AnimatedBanner>
+<Banner title="" scale-100 translate-x-0 v-click>
+<ul class="simple">
+<li><p>Atoms contain intrinsic tiny magnetic moment, called <strong>spin</strong>.</p></li>
+<li><p>The experiment showed how they respond to external magnet.</p></li>
+</ul>
+</Banner>
+<a class="reference internal image-reference" href="figures/L02/atom-spin.png"><img alt="figures/L02/atom-spin.png" src="figures/L02/atom-spin.png" style="width: 50%;" />
+</a>
+</div>
+<div>
+<Image src="https://upload.wikimedia.org/wikipedia/commons/8/88/Otto_Stern.jpg" width="120" />
+<div class="inline-box translate-x-12" > Otto Stern </div>
+<Image src="https://upload.wikimedia.org/wikipedia/en/9/9e/Walther_Gerlach.jpg" width="120" />
+<div class="inline-box translate-x-12" > Walther Gerlach </div>
+</div>
+</Grid>
+<!--
+So, how do we actually prove that a qubit exists in this weird, spinning state in the physical world? For that, we have to go back to 1922.
+
+
+Two physicists, Otto Stern and Walther Gerlach, set up a now-famous experiment.
+
+
+They wanted to test the idea that atoms act like tiny, intrinsic magnets—a property we now call "spin". They wanted to see exactly how these tiny magnets would react when pushed by a big, external magnet.
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="sg-experiment-setup">
+<h1>SG experiment: Setup<a class="headerlink" href="#sg-experiment-setup" title="Link to this heading">#</a></h1>
+<Grid cols="3-1" gap="2">
+<div v-click>
+<!--<img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Stern-Gerlach_experiment.svg" width="100%" crop v-click> -->
+<img src="/figures/L02/sg-exp.png" width="90%" />
+</div>
+<div 
+    class="absolute border-2 border-amber-400 bg-amber-400/10 rounded-12 transition-all duration-500 ease-in-out pointer-events-none"
+    :class="{
+      'opacity-0': $clicks < 2,
+      'top-[85px] left-[550px] w-[80px] h-[80px] opacity-100': $clicks === 2,
+      'top-[115px] left-[280px] w-[150px] h-[60px] opacity-100 -rotate-9': $clicks === 3,
+      'top-[150px] left-[120px] w-[150px] h-[60px] opacity-100 -rotate-9': $clicks === 4,
+      'top-[150px] left-[33px] w-[50px] h-[100px] opacity-100 -rotate-6': $clicks === 5,
+      'opacity-0 scale-95': $clicks > 4
+    }"
+  />
+<div class="scale-90 bg-gray-400/10 p-3" v-click="1">
+<ol class="arabic simple">
+<li><p>Furnace</p></li>
+<li><p>Beam of atoms</p></li>
+<li><p>Magnetic field</p></li>
+<li><p>classically expectation</p></li>
+<li><p>observed result</p></li>
+</ol>
+</div>
+<Banner title="Experiment steps" class="scale-90 -my-3" v-click=1>
+<ul class="simple">
+<li><p>Silver atoms are vaporised in an oven and fired like a beam.</p></li>
+<li><p>They pass through a strong magnetic field.</p></li>
+<li><p>It causes a force relative to atom’s intrinsic spin to deflect them.</p></li>
+<li><p>The deflected atoms hit the screen, which shows bright spots where hit.</p></li>
+</ul>
+</Banner>
+<Banner title="Key lessons" class="scale-90 -translate-y-9" v-click>
+<ul class="simple">
+<li><p>How the beam deformed, surprise everyone at the time.</p></li>
+<li><p>The first decisive experiment to show spatial quantisation.</p></li>
+</ul>
+</Banner>
+</Grid>
+<!--
+Let's look at how they built this experiment.
+
+
+This is the sketch of the experiment
+
+
+First, the silver atoms are vapourised in a furnace and fired like a straight beam.
+
+
+Then beam of atoms passes through a strong magnetic field
+
+
+This beam was shot directly through a very strong, uneven magnetic field.
+
+
+Finally, the atoms would hit a detection screen at the far end, leaving a mark where they landed.
+
+
+The idea was that the magnetic field would deflect the atoms depending on their internal spin.
+
+But the pattern that actually appeared on that screen surprised everyone.
+It was the first experiment to show spatial quantusation, and it perfectly illustrates our quantum coin. Let's see why.
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="the-sg-experiment-expectation">
+<h1>The SG Experiment: Expectation<a class="headerlink" href="#the-sg-experiment-expectation" title="Link to this heading">#</a></h1>
+<Banner title="Prediction:" v-click>
+<p>Silver atoms possess random magnetic moments, which should result in a continuous smear across the detection screen.</p>
+</Banner>
+<SternGerlach mode="classical" particleColor="#1cc277" :particleSpeed="6.0" :spawnRate="3" size="100%" v-click/>
+<Banner title="Reasoning" v-click>
+<ul class="simple">
+<li><p>The magnetic field is felt by each atom depending on its orientation, and deflects the atom accordingly.</p></li>
+<li><p>Since spin orientations must be random from the oven, the scattering pattern should be spread out.</p></li>
+</ul>
+</Banner>
+<!--
+Before they turned the machine on, classical physics made a very confident prediction.
+
+
+Since the silver atoms are bouncing around randomly inside that hot oven, their tiny magnetic spins should be pointing in every possible random direction.
+
+
+Because of that, as they pass through the magnet, they should be deflected by all sorts of random amounts.
+
+
+As you can see in the simulation, classical physics expected the atoms to just hit the screen in a giant, continuous smear. Random orientations in, smeared line out. It made perfect sense. But the quantum world had a massive surprise waiting for them.
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="the-sg-experiment-reality">
+<h1>The SG Experiment: Reality<a class="headerlink" href="#the-sg-experiment-reality" title="Link to this heading">#</a></h1>
+<Banner title="Reality:" v-click>
+<p>Angular momentum is quantized. The beam splits into exactly two discrete orientations:</p>
+<ul class="simple">
+<li><p>Spin <code class="docutils literal notranslate"><span class="pre">Up</span></code> (<span class="math notranslate nohighlight">\(\uparrow\)</span>) and,</p></li>
+<li><p>Spin <code class="docutils literal notranslate"><span class="pre">Down</span></code> (<span class="math notranslate nohighlight">\(\downarrow\)</span>)</p></li>
+</ul>
+</Banner>
+<SternGerlach mode="quantum" particleColor="#1cc277" :particleSpeed="6.0" :spawnRate="3" size="100%" v-click/>
+<AnimatedBanner v-click>
+<p>Atom’s <strong>spin</strong> were in random orientation. The magnet <strong>Influenced</strong> the orientation. The screen <strong>detected</strong> the orientation.</p>
+</AnimatedBanner>
+<!--
+But here is what actually happened when they turned the machine on.
+
+
+Instead of a continuous smear, the beam split cleanly into exactly two distinct spots. Some atoms went straight up, and the others went straight down.
+
+
+Nothing in between. Even though the atoms went into the magnet spinning completely randomly, the magnet forced them to pick a side. The measurement itself determined the reality.
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="interpretation">
+<h1>Interpretation<a class="headerlink" href="#interpretation" title="Link to this heading">#</a></h1>
+<Grid cols="4-1" gap="0">
+<Box title="Atomic spin: Measuring direction" type="warning" class="text-sm  -translate-x-0 -translate-y-0" >
+<v-clicks every="1">
+<ul class="simple">
+<li><p>Let’s look closely at the atom’s <code class="docutils literal notranslate"><span class="pre">spin</span></code>, and consider its direction as it passes from the oven, through the magnet, to the screen.</p></li>
+<li><p>In the oven the spins can point in every possible random direction, completely uncoordinated.</p></li>
+<li><p>Yet, the moment they pass through the magnetic field, they don’t spread out into a continuous smudge; they deflect cleanly into two discrete paths.</p></li>
+<li><p>Prior to detection, the spin had all possibilities of orientation, but the measurement forces it to collapse into just one configuration.</p>
+<ul>
+<li><p>Outcomes of such measurements are quantised, descrete.</p></li>
+</ul>
+</li>
+<li><p>This collapse is fundamentally probabilistic: If we throw one atom at a time, it either goes <strong>up</strong>, or <strong>down</strong>.</p></li>
+<li><p>After several such measurements, we map a distribution of <strong>up</strong>’s and <strong>down</strong>’s clicks on the screen.</p></li>
+<li><p>The experiment revealed equal brightness between both dots: <span class="math notranslate nohighlight">\(\longrightarrow\)</span> equal probability of <strong>up</strong> or <strong>down</strong>.</p></li>
+</ul>
+</Box>
+<div>
+<p><br><br><br></p>
+<SGspin option="random" class="scale-150 translate-x-0" v-click="2"/>
+<p><br><br><br></p>
+<SGspin option="polarized" class="scale-150 translate-x-0" v-click="3"/>
+</div>
+</Grid>
+<span class="inline-box rounded-auto text-center" v-click>
+💡 Takeaway: The spin state must be described by a mathematical framework that has probability built right into it.
+</span>
+<!--
+Let's break down exactly why this is so weird, and what it means for us.
+
+
+
+In the oven, these atomic spins are a complete mess—they point in every possible direction.
+
+
+But the instant they pass through the magnetic field, they don't smear. They snap into one of two discrete paths.
+
+
+Before hitting the screen, the atom has the potential to be in any orientation, but the act of measuring it forces a collapse into a single choice.
+
+
+And this choice is fundamentally random. If you shoot just one atom, it's a coin toss whether it goes up or down.
+
+
+But if you shoot thousands of them, a pattern emerges.
+
+
+The experiment showed the two spots were equally bright, meaning there is exactly a 50/50 probability of getting Up or Down.
+
+
+
+
+The big takeaway? Whatever mathematical language we use to program quantum computers, it has to have probability baked right into its core.
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="a-quantum-state">
+<h1>A Quantum State<a class="headerlink" href="#a-quantum-state" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>A system’s state is a mathematical descriptor that captures every detail of that system at a given instant.</p></li>
+<li><p>For a classical system, this snapshot is expressed entirely through a fixed set of coordinates and properties.</p></li>
+</ul>
+<Banner title="Classical State" class="scale-90 -translate-y-6 text-4" v-click="3">
+<ul class="simple">
+<li><p>Example: A single physical particle moving through space.</p></li>
+<li><p>Its exact state is locked into its position <span class="math notranslate nohighlight">\((x, y, z)\)</span> and its momentum <span class="math notranslate nohighlight">\((p_x, p_y, p_z)\)</span>.</p></li>
+<li><p>Measuring the location or speed simply reveals these pre-existing numbers.</p></li>
+</ul>
+</Banner>
+<Banner title="Quantum State" type="warning" class="scale-90 text-4 -translate-y-15" v-click="6">
+<ul class="simple">
+<li><p>A quantum state is sensitive to the measurement apparatus, existing as a fluid combination of potential measurement outcomes.</p></li>
+<li><p>Because <code class="docutils literal notranslate"><span class="pre">Up</span></code> and <code class="docutils literal notranslate"><span class="pre">Down</span></code> were the distinct outcomes of our spin experiment, we write the state using an abstract blend:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[|\psi\rangle = \alpha|\text{Up}\rangle + \beta|\text{Down}\rangle\]</div>
+<ul class="simple">
+<li><p>The values <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> are weighting factors that control the likelihood of landing on a specific outcome.</p></li>
+<li><p>If we square their absolute values, they reveal the physical probability of reading a state as <code class="docutils literal notranslate"><span class="pre">Up</span></code> or <code class="docutils literal notranslate"><span class="pre">Down</span></code>.</p></li>
+</ul>
+</Banner>
+<!--
+So how do we mathematically write this down? We use something called a "state."
+
+
+A state is just a mathematical snapshot of a system.
+
+
+For classical system, this snapshot is expressed entirely through a fixed set of numbers which could be coordinates and other properties.
+
+
+For example, If you have a particle,
+
+
+it has a definite speed and location. 
+
+
+Measuring it just reveals those numbers to you.
+
+
+
+But a quantum state is completely different. It's fluid. It is literally a combination of potential outcomes before you measure it.
+
+
+Since our experiment gave us "Up" and "Down", we write our quantum state as a blend of both possibilities.
+
+
+Here the state psi equals alpha times UP and beta times DOWN.
+
+
+The symbols alpha and beta—as are the weights that control likelihood of a specific outcome.
+
+
+If you take these weights and square them, they give you the exact percentage chance that the qubit will snap into the "Up" state or the "Down" state when you finally look at it.
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="complex-weights">
+<h1>Complex weights<a class="headerlink" href="#complex-weights" title="Link to this heading">#</a></h1>
+<div class="w-200 translate-x-9 translate-y-18" v-click="1">
+<Banner title="The Necessity of Complex Weights" class="scale-90" v-click="1">
+<ul class="simple">
+<li><p>One may think that the simplest description could involve using real numbers as weights.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[|\psi\rangle = \alpha|\text{Up}\rangle + \beta|\text{Down}\rangle\]</div>
+<ul class="simple">
+<li><p>But one quickly learns how treating real numbers as weights becomes tricky.</p></li>
+<li><p>We illustrate this by doing a Lego like exercise with the SG experiment.</p></li>
+</ul>
+</Banner>
+</div>
+<!--
+Now, you might be wondering about those weights, alpha and beta.
+
+
+It's incredibly tempting to just use regular, everyday numbers for them—like 0.5 or 0.8.
+
+
+But very early on, physicists realized that using regular real numbers completely breaks down.
+
+
+To show you why, let's play a little game with our SG experiment.
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="multi-axis-measurement-sequence">
+<h1>Multi-Axis Measurement Sequence<a class="headerlink" href="#multi-axis-measurement-sequence" title="Link to this heading">#</a></h1>
+<div class="flex bg-yellow-100 text-sm">
+<ul class="simple">
+<li><p>Recall the SG setup. The magnet was oriented to deflect atoms along <span class="math notranslate nohighlight">\(Z\)</span> axis.</p></li>
+<li><p>Let’s call this arrangement <span class="math notranslate nohighlight">\(\text{magnet-}Z\)</span>, and the two outcomes <span class="math notranslate nohighlight">\(|z+\rangle\)</span> and <span class="math notranslate nohighlight">\(|z-\rangle\)</span>.</p>
+<ul>
+<li><p>Rotating the whole apparatus along <span class="math notranslate nohighlight">\(X\)</span> or <span class="math notranslate nohighlight">\(Y\)</span> axis, changes the beam to deflect along <span class="math notranslate nohighlight">\(X\)</span>, or <span class="math notranslate nohighlight">\(Y\)</span> axes with outcomes <span class="math notranslate nohighlight">\(|x\pm\rangle\)</span> or <span class="math notranslate nohighlight">\(|y\pm\rangle\)</span></p></li>
+</ul>
+</li>
+<li><p>Let’s run three SG experiments sequentially, in two ways</p></li>
+</ul>
+</div>
+<Grid cols="2" gap="1">
+<Banner title="Z-X-Z" type="success" class=" text-sm" v-click="4">
+<p>We pass the <span class="math notranslate nohighlight">\(|z+\rangle\)</span> atoms through second <span class="math notranslate nohighlight">\(\text{magnet-}X\)</span>, which splits them in <span class="math notranslate nohighlight">\(|x\pm\rangle\)</span>. We take the
+<span class="math notranslate nohighlight">\(|x+\rangle\)</span> out, and pass it to third <span class="math notranslate nohighlight">\(\text{magnet-}Z\)</span>, which splits them into <span class="math notranslate nohighlight">\(|z\pm\rangle\)</span> again.</p>
+</Banner>
+<Banner title="Z-Y-Z" class=" text-sm" v-click="5">
+<p>We pass the <span class="math notranslate nohighlight">\(|z+\rangle\)</span> atoms through second <span class="math notranslate nohighlight">\(\text{magnet-}Y\)</span>, which splits them in <span class="math notranslate nohighlight">\(|y\pm\rangle\)</span>. We take the
+<span class="math notranslate nohighlight">\(|y+\rangle\)</span> out, and pass it to third <span class="math notranslate nohighlight">\(\text{magnet-}Z\)</span>, which splits them into <span class="math notranslate nohighlight">\(|z\pm\rangle\)</span> again.</p>
+</Banner>
+</Grid>
+<div class="flex relative -translate-y-9" >
+<!-- Click 1: Reveals the First Z-Magnet and its ket states -->
+<SGxyFlow :animated="true" :step="1" class="absolute inset-0" v-click="1" />
+<!-- Click 2: Reveals the upper Green X-Magnet pathway -->
+<SGxyFlow :animated="true" :step="2" class="absolute inset-0" v-click="4" />
+<!-- Click 3: Reveals the lower Blue Y-Magnet pathway -->
+<SGxyFlow :animated="true" :step="3" class="absolute inset-0" v-click="5" />
+</div>
+<!--
+Let's imagine we line up multiple magnets in a sequence.
+
+
+First, our standard vertical magnet—the Z-axis. It splits the beam Up and Down.
+
+
+Let's call this arrangement magnet-z and the two outcomes as z+ and z- .
+Rotating the whole apparatus along X or Y axis, deflects the beam along X, or Y, with outcomes x+- or y+-.
+
+
+Let's run this sequentially in two ways.
+
+
+First, the Z-X-Z sequence.
+Here we take only the "Up" or z+ atoms and pass them through a second magnet that is rotated along X-axis.
+
+Then, we pass those through a third vertical Z-axis magnet.
+
+
+We could also run a second version of this experiment in Z-Y-Z arrangement, where we tilt the middle magnet in a completely different direction—the Y-axis.
+
+In both the case, we get equal mixture of z+ and z- towards the end.
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="need-for-complex-weights">
+<h1>Need for Complex Weights<a class="headerlink" href="#need-for-complex-weights" title="Link to this heading">#</a></h1>
+<section id="two-counterintuitive-things-happened">
+<h2>Two counterintuitive things happened.<a class="headerlink" href="#two-counterintuitive-things-happened" title="Link to this heading">#</a></h2>
+<Banner title="The Reappearing State Paradox" class="scale-90 -translate-y-4 -mb-1 text-4" v-click>
+<ul class="simple">
+<li><p>A <span class="math notranslate nohighlight">\(|z+\rangle\)</span> state became an equal blend of <span class="math notranslate nohighlight">\(|z+\rangle\)</span> and <span class="math notranslate nohighlight">\(|z-\rangle\)</span> when passed through <span class="math notranslate nohighlight">\(\text{magnet-}X\)</span>/<span class="math notranslate nohighlight">\(\text{magnet-}Y\)</span>.</p></li>
+<li><p>How did <span class="math notranslate nohighlight">\(|z+\rangle\)</span> in both cases, got mixed with <span class="math notranslate nohighlight">\(|z-\rangle\)</span>?</p></li>
+</ul>
+</Banner>
+<Banner title="Incomplete description" class="scale-90 -translate-y-12 -mb-1 text-4" v-click>
+<ul class="simple">
+<li><p>In the <span class="math notranslate nohighlight">\(Z-X-Z\)</span> pathway, the <span class="math notranslate nohighlight">\(|x+\rangle\)</span> state is an equal blend of <span class="math notranslate nohighlight">\(|z+\rangle\)</span>, and <span class="math notranslate nohighlight">\(|z-\rangle\)</span>.</p></li>
+<li><p>In the <span class="math notranslate nohighlight">\(Z-Y-Z\)</span> pathway, the <span class="math notranslate nohighlight">\(|y+\rangle\)</span> state is an equal blend of <span class="math notranslate nohighlight">\(|z+\rangle\)</span>, and <span class="math notranslate nohighlight">\(|z-\rangle\)</span>.
+$<span class="math notranslate nohighlight">\(|x+\rangle := |z+\rangle + |z-\rangle; \qquad\text{yet also} \qquad |y+\rangle := |z+\rangle + |z-\rangle \)</span>$
+</Banner></p></li>
+</ul>
+<Banner title="Real Numbers Are Not Enough" type="warning" class="scale-90 -translate-y-20 text-4" v-click>
+<ul class="simple">
+<li><p>Using only real numbers (<span class="math notranslate nohighlight">\(+\)</span> or <span class="math notranslate nohighlight">\(-\)</span>), we cannot write mathematically unique descriptions for both <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> states.</p></li>
+<li><p>Complex numbers provide the extra geometric dimension needed to uniquely represent independent physical directions.</p></li>
+</ul>
+</Banner>
+<!--
+When you actually run this experiment, two maddening things happen.
+
+
+First, atoms that were strictly "Up" on the Z-axis somehow forget their orientation after passing through the second magnets When they hit the final Z-magnet, they split into Up and Down all over again!
+
+
+Second, and more importantly for our math: if we try to write the equations for the X pathway and the Y pathway using only regular real numbers, the equations end up looking exactly identical. somehow both x+ and y+ states are equal blend of z+ and z- states!
+
+
+But physically, they are completely different setups! Regular numbers just don't give us enough dimensions to uniquely describe reality. We have to use complex numbers.
+-->
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="decoding-the-coefficients">
+<h1>Decoding the Coefficients<a class="headerlink" href="#decoding-the-coefficients" title="Link to this heading">#</a></h1>
+<Box class="scale-90 -translate-y-3">
+<div class="math notranslate nohighlight">
+\[|\psi\rangle = \alpha|\text{Up}\rangle + \beta|\text{Down}\rangle\]</div>
+<ul class="simple">
+<li><p>The values <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> are weighting factors that control the likelihood of landing on a specific outcome.</p></li>
+<li><p>If we square these numbers, they reveal the exact physical probability of reading a state as <code class="docutils literal notranslate"><span class="pre">Up</span></code> or <code class="docutils literal notranslate"><span class="pre">Down</span></code>.</p></li>
+<li><p>Because the atom must land in one of the two spots, the total probability must always equal <span class="math notranslate nohighlight">\(100\%\)</span>.</p></li>
+<li><p>Mathematically, this means sum of their norm squared is always:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[|\alpha|^2 + |\beta|^2 = 1\]</div>
+<ul class="simple">
+<li><p>If we kept the coefficients real, we would still be facing the second issue we had:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[|x+\rangle := \frac{1}{\sqrt{2}}|z+\rangle + \frac{1}{\sqrt{2}}|z-\rangle; \qquad\text{yet also} \qquad |y+\rangle := \frac{1}{\sqrt{2}}|z+\rangle + \frac{1}{\sqrt{2}}|z-\rangle \]</div>
+<ul class="simple">
+<li><p>Complex numbers have magnitude and <strong>phase</strong>, which gives the necessary detail in description to distinguish the above two states. In fact</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[|x+\rangle = \frac{1}{\sqrt{2}}|z+\rangle + \frac{1}{\sqrt{2}}|z-\rangle; \qquad\text{while} \qquad |y+\rangle = \frac{1}{\sqrt{2}}|z+\rangle + i\frac{1}{\sqrt{2}}|z-\rangle \]</div>
+</Box>
+<!--
+Let's look at how complex numbers solve this.
+
+
+
+Remember, our weights—alpha and beta—give us our probabilities.
+
+
+
+And because the atom has to land somewhere, the total probability always has to add up to exactly 1, or 100%.
+
+
+
+If we forced these weights to be regular numbers, we'd be stuck with those identical equations for the X and Y paths.
+
+
+But complex numbers have a secret weapon: they have a magnitude, and a phase. This phase acts like a hidden internal compass. As you can see in the bottom equation, that little 'i' allows the math to perfectly distinguish between our different physical setups.
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="dirac-notation">
+<h1>Dirac Notation<a class="headerlink" href="#dirac-notation" title="Link to this heading">#</a></h1>
+<Box v-click>
+<p>Dirac, or Ket notation expresses a quantum state as <span class="math notranslate nohighlight">\(\color{red}|\text{descriptor}\rangle\)</span> where the “descriptor” is something that describes the measurement outcome.</p>
+</Box>
+<ul class="simple">
+<li><p>In case of spin, there were two outcomes, so corresponding states are expressed as <span class="math notranslate nohighlight">\(|\text{Up}\rangle\)</span>, and <span class="math notranslate nohighlight">\(|\text{Down}\rangle\)</span></p></li>
+<li><p>These states are special. They are called <strong>Basis States</strong> for the given measurement.</p></li>
+<li><p>A generic state is expressed as linear combination of the Basis states with complex coefficients.</p></li>
+</ul>
+<div class="w-fit bg-green-400/20 border-2 border-green-800/20 p-1 rounded-2 translate-x-80">
+<div class="math notranslate nohighlight">
+\[|\psi\rangle = \alpha|\text{Up}\rangle + \beta|\text{Down}\rangle\]</div>
+</div>
+<Box class="translate-y-2" v-click>
+<p>A Quantum system, in which the measurement gives only two outcomes, is identified as a <strong>qubit</strong></p>
+</Box>
+<ul class="simple">
+<li><p>In general, the measurement of a more complex system can yield several descrete outcomes: <span class="math notranslate nohighlight">\(o_1, o_2, o_3, ...\)</span>, then the state would be expressed as</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+|\Psi\rangle = \alpha_1{\color{red}|o_1\rangle} + \alpha_2{\color{green}|o_2\rangle} + \alpha_3{\color{blue}|o_3\rangle} + \dots
+\]</div>
+<!--
+To keep all this math tidy, we use a special shorthand called Dirac notation, or Ket notation.
+
+
+It's just a vertical bar, a word, and an angled bracket. The word inside describes the outcome.
+
+
+For our magnet, the outcomes were Up and Down.
+
+
+These foundational outcomes are called Basis States.
+
+
+Any generic quantum state is just a mix of these Basis States.
+
+
+And here is the big reveal: any quantum system where a measurement gives you exactly two possible outcomes is what we call a "qubit."
+
+
+
+(If a system has more than two outcomes, we just add more kets to the equation, but for this course, we're sticking to the two-outcome qubit!)
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="defining-the-qubit">
+<h1>Defining the Qubit<a class="headerlink" href="#defining-the-qubit" title="Link to this heading">#</a></h1>
+<Banner title="Definitions, conventions">
+<ul class="simple">
+<li><p>Recall: The two outcomes in <strong>SG</strong> experiment were <code class="docutils literal notranslate"><span class="pre">up</span></code> and <code class="docutils literal notranslate"><span class="pre">down</span></code>.</p></li>
+<li><p>In a different quantum experiment they could be any two different exclusive outcomes.</p></li>
+<li><p>We standardise the two outcomes as <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">1</span></code> states, or <span class="math notranslate nohighlight">\(\mathbf{|0\rangle}\)</span>, and <span class="math notranslate nohighlight">\(\mathbf{|1\rangle}\)</span>.</p></li>
+</ul>
+</Banner>
+<div w-fit mx-auto>
+<Banner title="Qubit" class="scale-100" v-click>
+<div class="math notranslate nohighlight">
+\[\Large{|\psi\rangle = \alpha|0\rangle + \beta|1\rangle}\]</div>
+<p><span class="math notranslate nohighlight">\(\alpha, \beta\)</span> are complex numbers.
+</Banner></p>
+</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\alpha, \beta\)</span> are also called <strong>probability amplitudes</strong> as their magnitude squared gives the probability.</p></li>
+<li><p>These coefficients represent different orientation possibilities before the measurement.</p></li>
+</ul>
+<!--
+Let's formalize our qubit so we can start programming with it.
+
+
+
+We don't want to talk about "Up" and "Down" magnets all day. We want to talk about computing.
+
+
+So, we standardize these two exclusive outcomes as the state "0" and the state "1".
+
+
+Here is your official, mathematical definition of a qubit: It is a fluid combination of State 0 and State 1.
+
+
+
+Alpha and beta are complex numbers, which we call "probability amplitudes." They represent the orientation of our spinning quantum coin right before we force it to stop and show us a 0 or a 1.
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="the-state-vector">
+<h1>The State vector<a class="headerlink" href="#the-state-vector" title="Link to this heading">#</a></h1>
+<Grid cols="4-1" gap="1">
+<Banner title="The State Vector" class="scale-100 text-sm -translate-y-0">
+<ul class="simple">
+<li><p>A computation and visualisation friendly way of expressing a qubit’s quantum state is through vectors.</p></li>
+<li><p>So the general single-qubit can be expressed as a column vector <span class="math notranslate nohighlight">\((\alpha, \beta)\)</span>.</p></li>
+<li><p>Since complex numbers are expressed in terms of magnitude and phase, we can express <span class="math notranslate nohighlight">\(\alpha = r_1 e^{i\phi_1}, \beta = r_2 e^{i\phi_2}\)</span>. The state becomes</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}|\psi\rangle = \begin{pmatrix} r_1 e^{i\phi_1} \\ r_2 e^{i\phi_2} \end{pmatrix}
+= e^{i\phi_1} \begin{pmatrix} r_1 \\ r_2 e^{i(\phi_2-\phi_1)} \end{pmatrix}
+\end{split}\]</div>
+<ul class="simple">
+<li><p>The term <span class="math notranslate nohighlight">\(e^{i\phi_1}\)</span> is overall phase, so we assume <span class="math notranslate nohighlight">\(\phi_1 = 0\)</span>, and choose <span class="math notranslate nohighlight">\(\phi_2 = \phi\)</span>.</p></li>
+<li><p>The probability must sum to 1, so we require <span class="math notranslate nohighlight">\(|\alpha|^2 + |\beta|^2 = 1\)</span>, or <span class="math notranslate nohighlight">\(r_1^2 + r_2^2 = 1\)</span>.</p></li>
+<li><p>This constraint gives us single parameter, and we write</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[r_1 = \cos{(\frac{\theta}{2})}, \quad \text{and}\quad r_2 = \sin{(\frac{\theta}{2})}\]</div>
+<ul class="simple">
+<li><p>This description let’s us parameterise a qubit in terms of <span class="math notranslate nohighlight">\((\theta, \phi)\)</span> and visualise on unit sphere.</p></li>
+</ul>
+</Banner>
+<div>
+<Box class="scale-80 translate-x-6" v-click="1">
+<div class="math notranslate nohighlight">
+\[\begin{split}|0\rangle = \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \quad |1\rangle = \begin{pmatrix} 0 \\ 1 \end{pmatrix}\end{split}\]</div>
+</Box>
+<Box class="scale-80 translate-x-6" v-click="2">
+<div class="math notranslate nohighlight">
+\[\begin{split}|\psi\rangle = \alpha \begin{pmatrix} 1 \\ 0 \end{pmatrix} + \beta \begin{pmatrix} 0 \\ 1 \end{pmatrix} = \begin{pmatrix} \alpha \\ \beta \end{pmatrix}\end{split}\]</div>
+</Box>
+<Banner title="Spherical Parametrisation" class="scale-80 translate-x-6 translate-y-19" v-click="7">
+<div class="math notranslate nohighlight">
+\[|\psi\rangle = \cos\!\left(\tfrac{\theta}{2}\right)|0\rangle + e^{i\phi}\sin\!\left(\tfrac{\theta}{2}\right)|1\rangle\]</div>
+</Banner>
+</div>
+</Grid>
+<!--
+Finally, to make writing code and doing calculations easier, we often write these states as column vectors.
+
+
+State 0 is a vector with a 1 on top and 0 on the bottom. State 1 is the reverse.
+
+
+This means our generic qubit is just a vector with our alpha and beta weights.
+
+
+Now, because alpha and beta are complex numbers, the math can look a bit messy.
+
+
+
+But by factoring out some shared numbers and using a bit of algebra...
+
+
+
+...we can boil all of this down to just two meaningful variables: two angles, which we call Theta and Phi.
+
+
+Why is this amazing? Because two angles are exactly what you need to point to any specific spot on the surface of a sphere. This means we can visualize any qubit, with all its complex math, as a single point on a 3D globe.
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="the-bloch-sphere">
+<h1>The Bloch Sphere<a class="headerlink" href="#the-bloch-sphere" title="Link to this heading">#</a></h1>
+<Grid cols="2" gap="2">
+<Banner title="Spherical Parametrisation" class="scale-100 text-sm">
+<div class="math notranslate nohighlight">
+\[|\psi\rangle = \cos\!\left(\tfrac{\theta}{2}\right)|0\rangle + e^{i\phi}\sin\!\left(\tfrac{\theta}{2}\right)|1\rangle\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\theta \in [0, \pi]\)</span> — polar angle (latitude)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\phi \in [0, 2\pi)\)</span> — azimuthal angle (longitude)</p></li>
+<li><p>With these <span class="math notranslate nohighlight">\(\theta\)</span> and <span class="math notranslate nohighlight">\(\phi\)</span>, there is 1-to-1 correspondence between the state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> and a point on unit sphere.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+{\bf p} = \small \begin{pmatrix} \sin{\theta}\sin{\phi} &amp; \sin{\theta}\cos{\phi} &amp; \cos{\theta}\end{pmatrix}
+\]</div>
+<Box type="warning" v-click>
+<ul class="simple">
+<li><p>Starts at the North Pole state vector: <span class="math notranslate nohighlight">\(\lvert0\rangle\)</span>.</p></li>
+<li><p>Tilted vertically down onto the equator: <span class="math notranslate nohighlight">\(\lvert+\rangle\)</span>.</p></li>
+<li><p>Rotated horizontally across phases: <span class="math notranslate nohighlight">\(\lvert+i\rangle\)</span>.</p></li>
+<li><p>Pulled down cleanly to the South Pole: <span class="math notranslate nohighlight">\(\lvert1\rangle\)</span>.</p></li>
+</ul>
+</Box>
+</Banner>
+<div class="p-4" v-click>
+  <BlochPath3D size="400" speed="0.3" />
+</div>
+</Grid>
+<!--
+Now that we know we can map a qubit using just two angles—Theta and Phi—we get one of the most beautiful visualization tools in quantum mechanics: The Bloch Sphere.
+
+Think of the Bloch Sphere exactly like a globe. Theta is your latitude, and Phi is your longitude. Every single valid quantum state corresponds perfectly to one specific point on the surface of this sphere.
+
+
+Our standard starting point, state 0, sits right at the North Pole.
+
+State 1 sits exactly opposite, down at the South Pole.
+
+If you tilt that point exactly halfway down onto the equator, you get a perfectly balanced 50/50 blend of 0 and 1.
+
+And if you rotate it horizontally around the equator, you are changing the complex phase—shifting the internal compass we talked about earlier. Let's see this in motion.
+
+
+Here is an animation of how the state moves on Bloch sphere as theta, phi change.
+(Pause as 3D sphere animation plays)
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="key-reference-states">
+<h1>Key Reference States<a class="headerlink" href="#key-reference-states" title="Link to this heading">#</a></h1>
+<FancyTable class="scale-120 max-w-120 mx-auto mt-24">
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>State</p></th>
+<th class="head text-left"><p><span class="math notranslate nohighlight">\(\theta, \phi\)</span></p></th>
+<th class="head text-left"><p>Sphere Position</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\vert0\rangle\)</span></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(0,\,*\)</span></p></td>
+<td class="text-left"><p>North Pole <span class="math notranslate nohighlight">\(+z\)</span></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\vert 1\rangle\)</span></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(\pi,\,*\)</span></p></td>
+<td class="text-left"><p>South Pole <span class="math notranslate nohighlight">\(-z\)</span></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\vert {+}\rangle = \frac{\vert 0\rangle + \vert 1\rangle}{\sqrt{2}}\)</span></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(\pi/2,\,0\)</span></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(+x\)</span> equator</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\vert{-}\rangle = \frac{\vert 0\rangle - \vert 1\rangle}{\sqrt{2}}\)</span></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(\pi/2,\,\pi\)</span></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(-x\)</span> equator</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\vert{+i}\rangle = \frac{\vert 0\rangle + i\vert 1\rangle}{\sqrt{2}}\)</span></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(\pi/2,\,\pi/2\)</span></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(+y\)</span> equator</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\vert{-i}\rangle = \frac{\vert 0\rangle - i\vert 1\rangle}{\sqrt{2}}\)</span></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(\pi/2,\,-\pi/2\)</span></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(-y\)</span> equator</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</FancyTable>
+<!--
+Because this sphere is so central to quantum computing, there are a few landmark locations we use all the time.
+
+
+As we said, State 0 is the North Pole.
+
+
+State 1 is the South Pole.
+
+
+The state we call "Plus" sits on the equator, facing the positive X direction. It’s an equal, positive blend of 0 and 1.
+
+
+"Minus" sits on the opposite side of the equator, facing negative X.
+
+
+And the states "Plus i" and "Minus i" sit on the Y-axis of the equator, representing our complex, imaginary phases. Every quantum algorithm is just a journey moving a point between these coordinates on the globe.
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="overlap-measurement">
+<h1>Overlap, Measurement<a class="headerlink" href="#overlap-measurement" title="Link to this heading">#</a></h1>
+<AnimatedBanner v-click>
+We know how to express quantum state as complex vector, we can use linear algebra to connect to quantum computing. Let's define a few terms to proceed:
+</AnimatedBanner>
+<Grid cols="2" gap="2" class="translate-y-3">
+<Banner title="Ket |ψ⟩ — State Vector" class="scale-80 text-lg" v-click>
+<p>Column vector: representing a quantum state.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}|\psi\rangle = \alpha|0\rangle + \beta |1\rangle \equiv \begin{pmatrix}\alpha\\\beta\end{pmatrix}\end{split}\]</div>
+</Banner>
+<Banner title="Bra ⟨ψ| — Dual Vector" class="scale-80 text-lg" v-click>
+<p>Row vector: the <strong>conjugate transpose</strong> of its ket.</p>
+<div class="math notranslate nohighlight">
+\[\langle\psi| = \alpha\langle 0| + \beta \langle 1| \equiv |\psi\rangle^\dagger = \begin{pmatrix}\alpha^* &amp; \beta^*\end{pmatrix}\]</div>
+<br>
+</Banner>
+</Grid>
+<!--<arrow v-click x1="424" x2="517" y1="280"  y2="280" color="#6666ff" width="1" arrowSize="2" two-way/> -->
+<ul class="simple">
+<li><p>There is a one-to-one correspondence between a <span class="math notranslate nohighlight">\(|\text{Ket}\rangle\)</span> and <span class="math notranslate nohighlight">\(\langle\text{Bra}|\)</span>.</p></li>
+<li><p>Any one of these can be used to define the quantum state.</p></li>
+<li><p>Its easy to see that they are conjugate of each other: <span class="math notranslate nohighlight">\(\qquad\Large\langle \psi|^\dagger = (|\psi\rangle^\dagger)^\dagger = |\psi\rangle\)</span></p></li>
+</ul>
+<!--
+To actually calculate these journeys, we use vectors.
+
+
+Let's define a few terms.
+
+
+First, we have the "Ket". This is what we've been using so far. It's simply a column vector that represents our quantum state.
+
+
+Second, we have its mirror image: the "Bra". This is a row vector. To get a Bra, you just take your Ket, lay it flat, and flip the sign on any imaginary numbers.
+
+
+There is a perfect one-to-one match between every Bra and Ket.
+
+
+You can think of them like matching puzzle pieces.
+
+
+And they are conjugates of each other. But why do we need both? We need them so they can snap together to do math.
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="inner-product">
+<h1>Inner Product<a class="headerlink" href="#inner-product" title="Link to this heading">#</a></h1>
+<Grid cols="2" gap="1">
+<Banner title="Inner Product" class="text-sm" v-click="1">
+<p>It is analogous to dot product of two ordinary vectors. <br>  If <span class="math notranslate nohighlight">\(|\psi\rangle = \begin{pmatrix}a_1\\ a_2\end{pmatrix}\)</span>, and <span class="math notranslate nohighlight">\(|\phi\rangle = \begin{pmatrix}b_1\\ b_2\end{pmatrix}\)</span>, the inner product <span class="math notranslate nohighlight">\(\langle \phi|\psi\rangle\)</span> is defined as:</p>
+<v-click >
+<div class="translate-y-2 p-1.3">
+<div class="math notranslate nohighlight">
+\[\begin{split}\langle\phi|\psi\rangle = \begin{pmatrix} b_1^* &amp; b_2^* \end{pmatrix} \begin{pmatrix}a_1\\ a_2\end{pmatrix} = b_1^* a_1 + b_2^* a_2\end{split}\]</div>
+</div>
+<div class="absolute translate-x-60 -translate-y-22 text-red-600" v-click>
+<p><strong>Note</strong>: <span class="math notranslate nohighlight">\(\langle\phi|\psi\rangle = \langle\psi|\phi\rangle^*\)</span></p>
+</div>
+</Banner>
+<Banner title="Norm" class="text-sm" v-click="5">
+<p>The <strong>Norm</strong> of a state represents it’s length, and is computed as the inner product of the state with itself:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
-{\color{red}34593} &amp;= 30000 + 4000 + 500 + 90 + 3
-\\
-&amp;= {\color{red}3}\times 10^4 + {\color{red}4}\times 10^3 + {\color{red}5}\times 10^2 + {\color{red}9}\times 10^1 + {\color{red}3}\times 10^0
+  
+|\langle \psi|\psi\rangle| &amp;= \sqrt{\langle \psi|\psi\rangle} = 
+\sqrt{\begin{pmatrix} a_1^* &amp; a_2^* \end{pmatrix} \begin{pmatrix}a_1\\ a_2\end{pmatrix}}\\
+ \lVert\psi\rangle\rVert &amp;= \sqrt{a_1^* a_1 + a_2^* a_2} = \sqrt{|a_1|^2 + |a_2|^2}
 \end{align*}
 \end{split}\]</div>
-<p>Thus, 34593 is actually a decimal encoded representation of the number which by practice we identify as 34593. However, by choosing different base, we can represent the same number in different encoding. In computer science, for various purposes most commonly used encodings are Binary, Octal and Hexadecimal. In these representations, the numbers are expressed as the sum of one-digit multiples of powers of the base, which is 8 for octal, 16 for hexadecimal, and 2 for binary.</p>
-<p>At hardware level everything is expressed in binary, so let’s see how binary encoding looks like. We can use a repeated division method to get the digits of a decimal number in a binary system, the example below shows how we can extract the binary representaion of the number 146 to get that the number <span class="math notranslate nohighlight">\({\color{red}146}\)</span> is representated by the no <span class="math notranslate nohighlight">\({\color{blue} 10010010}\)</span>. See the expansions below for decimal:</p>
+</Banner>
+</Grid>
+<ul class="simple">
+<li><p>The usual dot product, defines the angle between two vectors. The inner product defines the angle between the state vectors. This angle is interpeted as probabilistic overlap, as opposed to directional overlap.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\text{Usual vectors:} \quad \theta = \cos^{-1}{\left(\frac{a\cdot b}{|a||b|}\right)}\quad
+\text{State vectors:} \quad \theta = \cos^{-1}{\left(\frac{|\langle \phi|\psi\rangle|}{\lVert\phi\rangle\rVert\lVert\psi\rangle\rVert}\right)}
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\langle\phi|\psi\rangle = 0\)</span> means the two states are <strong>orthogonal</strong> in sense of angle (<span class="math notranslate nohighlight">\(\theta = \pi/2\)</span>). In terms of probability, it means that these states are mutually exclusive. — e.g. <span class="math notranslate nohighlight">\(\langle 0|1\rangle = 0\)</span>.</p></li>
+</ul>
+<!--
+When you snap a Bra and a Ket together, you get the Inner Product.
+
+
+If you remember classical physics, this is exactly like taking the dot product of two arrows.
+
+
+You just line up the row vector and the column vector...
+
+
+...and multiply them together to get a single number.
+
+
+(Note that the order matters here!)
+
+
+We use this Inner Product for two big things. First, the "Norm".
+
+
+If you take the inner product of a state with itself, you get its total length. Because probability must equal 100%, the length of a valid quantum state is always exactly 1.
+
+
+Second, if you take the inner product of two different states, you find their angle. But in quantum mechanics, this angle isn't just physical space—it's a measure of probability overlap.
+
+
+If the inner product is exactly zero, the states are orthogonal. That means they are mutually exclusive. If you are at the North Pole, there is a zero percent chance you are also at the South Pole.
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="quantum-operators">
+<h1>Quantum Operators<a class="headerlink" href="#quantum-operators" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Once we define a qubit as a <strong>complex vector</strong> <span class="math notranslate nohighlight">\(\vert\psi\rangle\)</span>, we need a way to model physical changes.</p></li>
+<li><p>Any physical process evolving a qubit from state <span class="math notranslate nohighlight">\(\vert\psi\rangle\)</span> to a new state <span class="math notranslate nohighlight">\(\vert\psi'\rangle\)</span> is modeled as a <strong>Linear Operator</strong> <span class="math notranslate nohighlight">\(\hat{A}\)</span>.</p></li>
+<li><p>In practice, an operator is just a square matrix. It multiplies our state vector: <span class="math notranslate nohighlight">\(\vert\psi'\rangle = \hat{A}\vert\psi\rangle\)</span></p></li>
+<li><p>For a single qubit, these linear operators are represented simply as <span class="math notranslate nohighlight">\(2\times 2\)</span> complex matrices.</p></li>
+</ul>
+<!-- Footnote or warning 
+<div v-click="4" class="mt-8 p-4 bg-orange-500/10 border border-orange-500/30 rounded text-sm text-orange-400">
+  ⚠️ <strong>Important Distinction:</strong> This applies to undisturbed physical evolution (like logic gates). Measurement is a special, non-unitary operation that we will cover next.
+</div>
+-->
+<Banner title="The Adjoint Operator" class="max-w-200 mx-auto" v-click>
+<p>If an operator <span class="math notranslate nohighlight">\(A\)</span> acts on a column vector, its <strong>adjoint</strong> (or Hermitian conjugate) <span class="math notranslate nohighlight">\(A^\dagger\)</span> is the operator that acts on the row vector.</p>
+</Banner>
+<Grid cols="3-1" gap="1">
+<div>
+<ul class="simple">
+<li><p><strong>The Matrix Recipe:</strong> Flip the matrix over its diagonal (transpose) and change the sign of all imaginary numbers (complex conjugate).</p></li>
+</ul>
+<br>
+<ul class="simple">
+<li><p><strong>The “Bra-Ket” Action:</strong> When moving an operator from a Ket to a Bra inside an inner product, it converts into its adjoint:</p></li>
+</ul>
+</div>
+<div>
+<br>
+<div v-click="6">
+<div class="math notranslate nohighlight">
+\[A^\dagger = (A^T)^*\quad\text{or} A^\dagger_{ij} = A_{ji}^*\]</div>
+</div>
+<br>
+<div v-click="7">
+<div class="math notranslate nohighlight">
+\[\langle\phi \vert \big( A\vert\psi\rangle \big) = \big(\langle\phi\vert A \big) \vert\psi\rangle = \langle A^\dagger\phi \vert\psi\rangle\]</div>
+</div>
+</div>
+</Grid>
+<!--
+Okay, so we have our state vectors. But how do we actually do computing? We need a way to change the states.
+
+
+For that, we use Quantum Operators.
+
+
+Whenever you physically change a qubit—like applying a logic gate—you are applying a Linear Operator.
+
+
+Mathematically, an operator is just a matrix. You multiply your state vector by this matrix, and it spits out a new state vector.
+
+
+For a single qubit, this is just a standard 2-by-2 grid of complex numbers.
+
+
+And just like our vectors had a mirror image, operators do too, called the Adjoint.
+
+
+To find it, you just flip the matrix diagonally and change the signs on the imaginary numbers.
+
+
+
+
+This Adjoint lets us easily shift our operators back and forth between our Bra and Ket puzzle pieces when we are doing calculations.
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="operators-in-action">
+<h1>Operators in Action<a class="headerlink" href="#operators-in-action" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>What does a matrix actually do to a state vector?</p></li>
+</ul>
+<Banner title="Geometric Action" class="-my-4" v-click="2">
+<div v-click>
+<p>In a complex vector space, a general operator <span class="math notranslate nohighlight">\(\hat{A}\)</span> transforms a state by doing three things:</p>
+</div>
+<ul class="simple">
+<li><p><strong>Scaling:</strong> Stretching or shrinking the vector’s magnitude.</p></li>
+<li><p><strong>Rotating:</strong> Shifting the physical direction of the state.</p></li>
+<li><p><strong>Phase Shifting:</strong> Twisting the components into the complex plane.</p></li>
+</ul>
+</Banner>
+<div class="text-ml my-2">
+<p>Let’s apply a general operator <span class="math notranslate nohighlight">\(\hat{A} = \begin{pmatrix} 2 &amp; 0 \\ 0 &amp; i \end{pmatrix}\)</span> to a balanced qubit state <span class="math notranslate nohighlight">\(\vert\psi\rangle = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ 1 \end{pmatrix}\)</span>.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\begin{aligned}
-{\color{red}146} &amp; = {\color{red}1}\times100 + {\color{red}4}\times10 + {\color{red}6}\times1 \\
-&amp; = {\color{red}1}\times10^2 + {\color{red}4}\times10^1 + {\color{red}6}\times10^0
-\end{aligned}
+|\psi'\rangle = \hat{A}\vert\psi\rangle = \frac{1}{\sqrt{2}} \begin{pmatrix} 2 &amp; 0 \\ 0 &amp; i \end{pmatrix} \begin{pmatrix} 1 \\ 1 \end{pmatrix} = \frac{1}{\sqrt{2}} \begin{pmatrix} 2 \\ i \end{pmatrix} = \sqrt{2}\vert0\rangle + \frac{i}{\sqrt{2}}\vert1\rangle
 \end{split}\]</div>
-<p>and the same expansion, but in powers of 2:</p>
+<ul class="simple">
+<li><p><strong>1. Scale:</strong> The overall vector length is no longer 1, but stretched to <span class="math notranslate nohighlight">\(1 \to \sqrt{2.5}\)</span>.</p></li>
+<li><p><strong>2. Rotation:</strong> The relative balance between <span class="math notranslate nohighlight">\(\vert0\rangle\)</span> and <span class="math notranslate nohighlight">\(\vert1\rangle\)</span> changed, and is higher towards <span class="math notranslate nohighlight">\(\vert0\rangle\)</span> axis (<span class="math notranslate nohighlight">\(2\)</span> vs <span class="math notranslate nohighlight">\(1\)</span>).</p></li>
+<li><p><strong>3. Phase Twist:</strong> The <span class="math notranslate nohighlight">\(\vert1\rangle\)</span> component gained an <span class="math notranslate nohighlight">\(i\)</span> factor (<span class="math notranslate nohighlight">\(e^{i\pi/2}\)</span>), or <span class="math notranslate nohighlight">\(90^\circ\)</span> into the complex plane relative to <span class="math notranslate nohighlight">\(\vert0\rangle\)</span>.</p></li>
+</ul>
+</div>
+<!--
+But what does multiplying a matrix actually look like in reality?
+
+
+
+When an operator hits a quantum state, it can do three things simultaneously.
+
+
+First, it can Scale: stretching or shrinking the vector.
+
+
+Second, it can Rotate: physically changing the direction it points on the Bloch sphere.
+
+
+And third, Phase Shifting: twisting the state into the complex plane.
+
+
+Let's look at a quick example. Here is a matrix with a 2 and an 'i'. Let's apply it to a balanced qubit.
+
+
+When we multiply them together, we get a new state. Let's decode what happened.
+
+
+First, Scaling: The total length stretched.
+
+
+Second, Rotation: The top number is now larger than the bottom, meaning the state rotated closer to the North pole.
+
+
+Third, Phase Twist: The bottom number picked up an 'i', meaning the state twisted 90 degrees around the sphere's equator.
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="special-directions-states">
+<h1>Special directions &amp; states<a class="headerlink" href="#special-directions-states" title="Link to this heading">#</a></h1>
+<Grid cols="2" gap="2">
+<Banner title="✨ The Special Exception">
+<p>For any operator, there exist privileged, “anchor” directions called <strong>Eigenvectors</strong> (or Eigenstates).</p>
+<p>When an operator acts on its own eigenvector:</p>
+<ul class="simple">
+<li><p>It <strong>cannot</strong> rotate it.</p></li>
+<li><p>It <strong>cannot</strong> twist its relative phase.</p></li>
+<li><p>It <strong>only</strong> scales its magnitude.</p></li>
+</ul>
+</Banner>
+<div>
+<Box title="The Eigenvalue Equation" type="error" class="m-auto" v-click>
+Mathematically, eigenvalues and eigenvectors are defined by following equation.
 <div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{aligned}
-{\color{blue}10010010}_{2} &amp; = {\color{blue}1}\times 2^7 + {\color{blue}0}\times 2^6 + {\color{blue}0}\times 2^5 + {\color{blue}1}\times 2^4 + {\color{blue}0}\times 2^3 + {\color{blue}0}\times 2^2 + {\color{blue}1}\times 2^1 + {\color{blue}0}\times 2^0 \\
-&amp; = 128 + 16 + 2 \\
-&amp; = {\color{red}146}
-\end{aligned}
-\end{split}\]</div>
-<p>The figure below show base 10 to base 2 conversion by repeated division of 2.</p>
-<a class="reference internal image-reference" href="lecture-02/images/binary.png"><img alt="lecture-02/images/binary.png" class="align-center" src="lecture-02/images/binary.png" style="width: 720px;" />
-</a>
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Decimal vs Binary Conversion Animation</title>
-  <style>
-    :root { --panel-height: 500px; }
-
-    body {
-      font-family: sans-serif;
-      padding: 20px;
-    }
-
-    .container {
-      display: flex;
-      justify-content: space-around;
-      align-items: flex-start;
-      gap: 20px;
-    }
-
-    .panel {
-      width: 45%;
-      border: 1px solid #ddd;
-      padding: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      height: var(--panel-height);     
-      overflow: hidden;                
-    }
-
-    .panel h3 {
-      text-align: center;
-      margin: 0 0 8px;
-    }
-
-    #decimal-animation, #binary-animation {
-      flex: 1 1 auto;
-      overflow-y: hidden;  /* no scrollbars, larger height ensures fit */
-      padding-right: 6px;
-    }
-
-    .step {
-      margin: 8px 0;
-      font-size: 1.05em;
-      text-align: center;
-      white-space: nowrap;
-    }
-
-    .arrow {
-      font-size: 1.5em;
-      color: #007acc;
-      margin: 0 10px;
-    }
-
-    .remainder {
-      font-weight: bold;
-      color: #d9534f;
-      margin-left: 10px;
-    }
-
-    .result {
-      margin-top: 10px;
-      font-size: 1.05em;
-      text-align: center;
-      color: #007acc;
-      flex: 0 0 auto; 
-      white-space: nowrap;
-    }
-
-    .binary-digit {
-      display: inline-block;
-      width: 20px;
-      text-align: center;
-      font-family: monospace;
-    }
-  </style>
-</head>
-<body>
-  <h2>Decimal vs Binary Conversion Animation</h2>
-  <div class="container">
-    <!-- Decimal Panel -->
-    <div class="panel" id="decimal-panel">
-      <h3>Base 10</h3>
-      <div id="decimal-animation" aria-live="polite"></div>
-      <div class="result" id="decimal-result"></div>
-    </div>
-    <!-- Binary Panel -->
-    <div class="panel" id="binary-panel">
-      <h3>Base 2</h3>
-      <div id="binary-animation" aria-live="polite"></div>
-      <div class="result" id="binary-result"></div>
-    </div>
-  </div>
-
-  <script>
-    const number = 146;
-    const stepTime = 500; 
-    const waitTime = 2000; 
-
-    // Decimal division steps
-    let decSteps = [];
-    let decVal = number;
-    while (decVal > 0) {
-      const remainder = decVal % 10;
-      decSteps.push({ quotient: decVal, remainder: remainder });
-      decVal = Math.floor(decVal / 10);
-    }
-    const decimalDigits = decSteps.map(s => s.remainder).reverse().join(' ');
-
-    // Binary division steps
-    let binSteps = [];
-    let binVal = number;
-    while (binVal > 0) {
-      const remainder = binVal % 2;
-      binSteps.push({ quotient: binVal, remainder: remainder });
-      binVal = Math.floor(binVal / 2);
-    }
-    const binaryDigits = binSteps.map(s => s.remainder).reverse().join('');
-
-    const totalFrames = Math.max(decSteps.length, binSteps.length) + Math.floor(waitTime / stepTime);
-
-    const decAnimationDiv = document.getElementById("decimal-animation");
-    const decResultDiv = document.getElementById("decimal-result");
-    const binAnimationDiv = document.getElementById("binary-animation");
-    const binResultDiv = document.getElementById("binary-result");
-
-    let globalFrame = 0;
-    let timer;
-
-    function updateAnimations() {
-      // Decimal panel
-      decAnimationDiv.innerHTML = "";
-      for (let i = 0; i < Math.min(globalFrame + 1, decSteps.length); i++) {
-        const current = decSteps[i];
-        const next = (i < decSteps.length - 1) ? decSteps[i + 1].quotient : 0;
-        decAnimationDiv.innerHTML += 
-          `<div class="step">${current.quotient} <span class="arrow">↓</span> ${next} <span class="remainder">${current.remainder}</span></div>`;
-      }
-      if (globalFrame >= decSteps.length) {
-        decResultDiv.innerHTML = `<strong>Digits:</strong> ${decimalDigits}`;
-      } else {
-        decResultDiv.innerHTML = "";
-      }
-
-      // Binary panel
-      binAnimationDiv.innerHTML = "";
-      for (let i = 0; i < Math.min(globalFrame + 1, binSteps.length); i++) {
-        const current = binSteps[i];
-        const next = (i < binSteps.length - 1) ? binSteps[i + 1].quotient : 0;
-        binAnimationDiv.innerHTML += 
-          `<div class="step">${current.quotient} <span class="arrow">↓</span> ${next} <span class="remainder">${current.remainder}</span></div>`;
-      }
-      if (globalFrame >= binSteps.length) {
-        const formattedBinary = binaryDigits.split('').map(d => `<span class="binary-digit">${d}</span>`).join('');
-        binResultDiv.innerHTML = `<strong>Bits:</strong> ${formattedBinary}`;
-      } else {
-        binResultDiv.innerHTML = "";
-      }
-
-      globalFrame++;
-      if (globalFrame > totalFrames) {
-        globalFrame = 0;
-      }
-    }
-
-    timer = setInterval(updateAnimations, stepTime);
-  </script>
-</body>
-</html></section>
-<section id="adding-in-binary">
-<h2>Adding in Binary<a class="headerlink" href="#adding-in-binary" title="Link to this heading">#</a></h2>
+\[\hat{A} \vert \psi \rangle = \lambda \vert \psi \rangle\]</div>
+</Box>
+</div>
+</Grid>
 <ul class="simple">
-<li><p>Addition follows the same rules in binary as they do in decimal however since there are only two digits we have a few changes we need to implement.</p></li>
-<li><p>The following rule table represents the addition in binary digits clearly.</p></li>
-<li><p>0 + 0 = Sum : 0, Carry:0</p></li>
-<li><p>0 + 1 = Sum : 1, Carry:0</p></li>
-<li><p>1 + 0 = Sum : 1, Carry:0</p></li>
-<li><p>1+ 1 = Sum : 0, Carry:1</p></li>
+<li><p><strong><span class="math notranslate nohighlight">\(\vert \psi \rangle\)</span> is the Eigenvector:</strong> The specific state whose physical direction remains completely unchanged by the operator <span class="math notranslate nohighlight">\(\hat{A}\)</span>.</p></li>
+<li><p><strong><span class="math notranslate nohighlight">\(\lambda\)</span> is the Eigenvalue:</strong> A simple scaler number (complex or real) that represents the exact factor by which the vector was stretched.</p></li>
+<li><p><strong>The Quantum Connection:</strong>
+When you measure a physical property (like spin), the system <strong>collapses</strong> into one of <span class="math notranslate nohighlight">\(\hat{A}\)</span>’s eigenvectors (<span class="math notranslate nohighlight">\(\vert \psi \rangle\)</span>), and the instrument reads out its corresponding eigenvalue (<span class="math notranslate nohighlight">\(\lambda\)</span>).</p></li>
 </ul>
-<pre align="center" class="mermaid align-center">
-        graph LR;
-a --&gt; s(sum = a or b);
-a --&gt; c(carry = a and b);
-b --&gt; s;
-b --&gt; c
-    </pre></section>
-<section id="gates-and-operations-in-binary">
-<h2>Gates and Operations in Binary<a class="headerlink" href="#gates-and-operations-in-binary" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Now that we’ve understood what Bits are, we need to understand how do we manipulate bits to perform and compute operations on this information which might be useful to us.</p></li>
-<li><p>Gates represent the types of manipulation we can perform on Bits, Gates act on a bit or a group of bits to provide a deterministic output.</p></li>
-<li><p>Let’s look at some of the basic gates in Classical Computing.</p></li>
-</ul>
-<section id="not-gate">
-<h3>NOT gate<a class="headerlink" href="#not-gate" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p>The most simple gate we can perform on a Bit is the NOT gate, it simply flips a bit, taking it from 0 to 1 and from 1 to Zero.</p></li>
-</ul>
-<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
-<div class="sd-row docutils">
-<div class="sd-col sd-d-flex-row sd-col-6 sd-col-xs-6 sd-col-sm-6 sd-col-md-6 sd-col-lg-6 docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<p class="sd-card-text"><img alt="" src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Not-gate-en.svg" /></p>
-</div>
-</div>
-</div>
-<div class="sd-col sd-d-flex-row sd-col-6 sd-col-xs-6 sd-col-sm-6 sd-col-md-6 sd-col-lg-6 docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head text-center"><p class="sd-card-text">Input</p></th>
-<th class="head text-center"><p class="sd-card-text">Output</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-center"><p class="sd-card-text">0</p></td>
-<td class="text-center"><p class="sd-card-text">1</p></td>
-</tr>
-<tr class="row-odd"><td class="text-center"><p class="sd-card-text">1</p></td>
-<td class="text-center"><p class="sd-card-text">0</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<ul class="simple">
-<li><p>The NOT gate can be observed to be a reversible gate, the input can always be recovered from the output, we can just flip the output to recover the original input. This is an important feature and we will come back to it later.</p></li>
-</ul>
+<!--
+Now, there is a magical exception to this.
+
+
+For every operator, there are specific, privileged directions called Eigenvectors, or Eigenstates.
+
+
+When an operator hits its own eigenvector...
+
+
+It completely fails to rotate it.
+
+
+It fails to twist its phase.
+
+
+It can only scale its length. It acts like an anchor.
+
+
+Mathematically, we write this as the Eigenvalue equation.
+
+
+The vector is the anchor state.
+
+
+And Lambda, the eigenvalue, is just the simple number it gets stretched by.
+
+
+Why do we care? Because this is the secret to reality. When you measure a quantum system, it doesn't just pick a random direction. It always collapses into one of the measurement instrument's specific eigenvectors, and it spits out the eigenvalue onto the scientist's screen.
+-->
 </section>
-<section id="and-gate">
-<h3>AND gate<a class="headerlink" href="#and-gate" title="Link to this heading">#</a></h3>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="special-operators">
+<h1>Special Operators<a class="headerlink" href="#special-operators" title="Link to this heading">#</a></h1>
 <ul class="simple">
-<li><p>The second gate is a 2 bit gate called AND gate, it gives the output 1 when both the Inputs are 1 and it is 0 for all other cases.</p></li>
+<li><p>There are two special types of operators we use frequently in quantum science and computing.</p></li>
+<li><p><strong>Hermitian</strong> or Self Adoint operators</p></li>
+<li><p><strong>Unitary</strong>, probability preserving operators.</p></li>
 </ul>
-<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
-<div class="sd-row docutils">
-<div class="sd-col sd-d-flex-row sd-col-6 sd-col-xs-6 sd-col-sm-6 sd-col-md-6 sd-col-lg-6 docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<figure class="align-center">
-<a class="reference internal image-reference" href="https://upload.wikimedia.org/wikipedia/commons/b/b9/AND_ANSI_Labelled.svg"><img alt="https://upload.wikimedia.org/wikipedia/commons/b/b9/AND_ANSI_Labelled.svg" src="https://upload.wikimedia.org/wikipedia/commons/b/b9/AND_ANSI_Labelled.svg" style="width: 100%;" />
-</a>
-</figure>
-</div>
-</div>
-</div>
-<div class="sd-col sd-d-flex-row sd-col-6 sd-col-xs-6 sd-col-sm-6 sd-col-md-6 sd-col-lg-6 docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head text-center"><p class="sd-card-text">Input A</p></th>
-<th class="head text-center"><p class="sd-card-text">Input B</p></th>
-<th class="head text-center"><p class="sd-card-text">Output Q</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-center"><p class="sd-card-text">0</p></td>
-<td class="text-center"><p class="sd-card-text">0</p></td>
-<td class="text-center"><p class="sd-card-text">0</p></td>
-</tr>
-<tr class="row-odd"><td class="text-center"><p class="sd-card-text">0</p></td>
-<td class="text-center"><p class="sd-card-text">1</p></td>
-<td class="text-center"><p class="sd-card-text">0</p></td>
-</tr>
-<tr class="row-even"><td class="text-center"><p class="sd-card-text">1</p></td>
-<td class="text-center"><p class="sd-card-text">0</p></td>
-<td class="text-center"><p class="sd-card-text">0</p></td>
-</tr>
-<tr class="row-odd"><td class="text-center"><p class="sd-card-text">1</p></td>
-<td class="text-center"><p class="sd-card-text">1</p></td>
-<td class="text-center"><p class="sd-card-text">1</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+<Grid cols="2" gap="4" class="mt-4">
+<Banner title="Hermitian Operators: Measurements" type="warning" v-click="2">
 <ul class="simple">
-<li><p>We can notice that the AND gate unlike the NOT gate is not reversible we can\t recover both the input qubits from the output of the AND gates.</p></li>
+<li><p>They satisfy <span class="math notranslate nohighlight">\(H^\dagger = H\)</span>, which mathematically forces all of their outputs to be <strong>real</strong> numbers.</p></li>
+<li><p>Every physical <strong>quantum measurement</strong> or detector screen is represented by a Hermitian matrix.</p></li>
+<li><p>Because their outputs are real, they translate abstract math into readable laboratory metrics.</p></li>
 </ul>
+</Banner>
+<Banner title="Unitary Operators: Gates" v-click="3">
+<ul class="simple">
+<li><p>They satisfy <span class="math notranslate nohighlight">\(U^\dagger U = I\)</span>, preserving the total <span class="math notranslate nohighlight">\(100\%\)</span> probability length of state vectors.</p></li>
+<li><p>All physical <strong>quantum gates</strong> or timeline actions are mathematically represented by unitary matrices.</p></li>
+<li><p>Because they conserve probability, these gate transformations can always be reversed in time.</p></li>
+</ul>
+</Banner>
+</Grid>
+<!--
+In quantum computing, there are two VIP operators that run the whole show.
+
+
+Hermitian operators, and Unitary operators.
+
+
+
+Hermitian operators represent our physical measurements.
+
+
+They are mathematically restricted so that they only spit out real numbers.
+
+
+This is crucial. You can't read an imaginary number off a computer monitor in a lab. Hermitian matrices force the abstract math to translate into a real-world, readable metric.
+
+
+
+Unitary operators represent our Quantum Gates.
+
+
+They are mathematically restricted to preserve probability at exactly 100%. They never stretch the vector, they only rotate it.
+
+
+Because no probability is lost, Unitary operations are perfectly reversible. You can always rewind your quantum code.
+-->
 </section>
-<section id="xor-gate">
-<h3>XOR gate<a class="headerlink" href="#xor-gate" title="Link to this heading">#</a></h3>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="quantum-measurement">
+<h1>Quantum Measurement<a class="headerlink" href="#quantum-measurement" title="Link to this heading">#</a></h1>
+<section id="measurement-basis">
+<h2>Measurement Basis<a class="headerlink" href="#measurement-basis" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>A slightly more complicated 2-bit gate is the XOR gate, whose truth table is mentioned below.</p></li>
+<li><p>To measure a quantum system, we use a Hermitian operator <span class="math notranslate nohighlight">\(\hat{A}\)</span> representing an observable measurement.</p></li>
+<li><p><strong>The Outcomes:</strong> The operator’s eigenvalues (<span class="math notranslate nohighlight">\(a_1, a_2, a_3..\)</span>) are the only valid physical results we can read out.</p></li>
+<li><p><strong>The Basis:</strong> The corresponding eigenvectors (<span class="math notranslate nohighlight">\(|a_1\rangle, |a_2\rangle, |a_3\rangle,..\)</span>) form an <strong>orthonormal basis</strong> (<span class="math notranslate nohighlight">\(\langle a_i|a_j\rangle = \delta_{ij}\)</span>).</p></li>
+<li><p><strong>The Superposition:</strong> Before we look, the system exists as a blend of all possibilities:
+$<span class="math notranslate nohighlight">\(|\psi\rangle = \alpha_1|a_1\rangle + \alpha_2|a_2\rangle + \alpha_3|a_3\rangle\dots\)</span>$</p></li>
 </ul>
-<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
-<div class="sd-row docutils">
-<div class="sd-col sd-d-flex-row sd-col-6 sd-col-xs-6 sd-col-sm-6 sd-col-md-6 sd-col-lg-6 docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<figure class="align-center">
-<a class="reference internal image-reference" href="https://upload.wikimedia.org/wikipedia/commons/1/17/XOR_ANSI_Labelled.svg"><img alt="https://upload.wikimedia.org/wikipedia/commons/1/17/XOR_ANSI_Labelled.svg" src="https://upload.wikimedia.org/wikipedia/commons/1/17/XOR_ANSI_Labelled.svg" style="width: 100%;" />
-</a>
-</figure>
-</div>
-</div>
-</div>
-<div class="sd-col sd-d-flex-row sd-col-6 sd-col-xs-6 sd-col-sm-6 sd-col-md-6 sd-col-lg-6 docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head text-center"><p class="sd-card-text">Input A</p></th>
-<th class="head text-center"><p class="sd-card-text">Input B</p></th>
-<th class="head text-center"><p class="sd-card-text">Output Q</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-center"><p class="sd-card-text">0</p></td>
-<td class="text-center"><p class="sd-card-text">0</p></td>
-<td class="text-center"><p class="sd-card-text">0</p></td>
-</tr>
-<tr class="row-odd"><td class="text-center"><p class="sd-card-text">0</p></td>
-<td class="text-center"><p class="sd-card-text">1</p></td>
-<td class="text-center"><p class="sd-card-text">1</p></td>
-</tr>
-<tr class="row-even"><td class="text-center"><p class="sd-card-text">1</p></td>
-<td class="text-center"><p class="sd-card-text">0</p></td>
-<td class="text-center"><p class="sd-card-text">1</p></td>
-</tr>
-<tr class="row-odd"><td class="text-center"><p class="sd-card-text">1</p></td>
-<td class="text-center"><p class="sd-card-text">1</p></td>
-<td class="text-center"><p class="sd-card-text">0</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+<p><span class="inline-box font-bold" v-click>💥 The Act of Observation</span> <span v-click>When a measurement is performed, two things happen instantly:</span></p>
 <ul class="simple">
-<li><p>It is not common to introduce an XOR gate as part of the fundamental gates of Classical computing however it provides an important analag to gates within Quantum Computing</p></li>
-<li><p>Similar to the AND gate we can observe that XOR gate is also irreversible and we can’t recover both the input qubits from the output of the AND gates.</p></li>
+<li><p><strong>1. Born’s Rule:</strong> The probability of getting outcome <span class="math notranslate nohighlight">\(a_i\)</span> depends strictly on the state’s overlap with that basis vector:
+$<span class="math notranslate nohighlight">\(P(a_i) = |\langle a_i|\psi\rangle|^2 = |\alpha_i|^2\)</span>$</p></li>
+<li><p><strong>2. Wavefunction Collapse:</strong> The system abruptly forces itself into that single state <span class="math notranslate nohighlight">\(|a_i\rangle\)</span>. All other branches vanish.</p></li>
 </ul>
-</section>
-<section id="classical-half-adder-using-gates">
-<h3>Classical Half-Adder using gates<a class="headerlink" href="#classical-half-adder-using-gates" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p>We can define a circuit that performs the additon operation we had defined previously using only the gates that we have introduced previously</p></li>
-</ul>
-<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
-<div class="sd-row docutils">
-<div class="sd-col sd-d-flex-row docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<figure class="align-center">
-<a class="reference internal image-reference" href="lecture-02/images/half_add.png"><img alt="lecture-02/images/half_add.png" src="lecture-02/images/half_add.png" style="width: 400px;" />
-</a>
-</figure>
-</div>
-</div>
-</div>
-<div class="sd-col sd-d-flex-row docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<figure class="align-center">
-<a class="reference internal image-reference" href="lecture-02/images/add_truth.png"><img alt="lecture-02/images/add_truth.png" src="lecture-02/images/add_truth.png" style="width: 300px;" />
-</a>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
-<ul class="simple">
-<li><p>Classical half-adder circuit shown above has the same input-output characteristics that we expected from the addition operations defined in the previous sections described by the truth table below.</p></li>
-<li><p>It is important to notice another key feture of the above circuit, we were <strong>able to copy the inputs</strong> A and B, i.e the single wire carrying the signal A could be split into two wires both carrying the same bit A, this feature will introduce us to an important difference between classical and quantum information later in the lecture.</p></li>
-</ul>
+<!--
+Let's pull all of this together and see how a measurement actually works.
+
+
+To measure something, we pick a Hermitian operator.
+
+
+The eigenvalues it spits out are our actual, readable outcomes.
+
+
+The eigenvectors form our distinct choices—like Up and Down.
+
+
+Before we look, the qubit exists as a fluid superposition of all these choices.
+
+
+But the instant we make an observation...
+
+
+First, Born's Rule kicks in. The universe squares our weights to calculate the exact probability of each outcome.
+
+
+Second, the Wavefunction Collapses. The qubit snaps instantly into a single state, and every other possibility vanishes.
+-->
 </section>
 </section>
-<section id="features-of-classical-computing">
-<h2>Features of Classical computing<a class="headerlink" href="#features-of-classical-computing" title="Link to this heading">#</a></h2>
-<p>Before moving to Qubits and Quantum Computing, let’s list down all the important features of Classical Computing that we have encountered so far.</p>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="demystifying-quantum-computation">
+<h1>Demystifying Quantum Computation<a class="headerlink" href="#demystifying-quantum-computation" title="Link to this heading">#</a></h1>
 <ul class="simple">
-<li><p>We’ve seen that <strong>bits carry determistic pieces of information.</strong></p></li>
-<li><p>We’ve also observed that <strong>Classical Gates can be both reversible and irreversible in nature</strong>. For example, NOT gate is reversible in nature whereas the 2-bit gates such as AND gate and XOR gate are irreversible.</p></li>
-<li><p>It can be a shown that a small subset of all the existing gates can be used to be build all the logical operations that can exist.</p></li>
-<li><p>These complete subsets of Gates are said to form a <strong>universal gate set.</strong></p></li>
-<li><p>The AND, OR and NOT is one example of a universal gate set.</p></li>
+<li><p>Quantum computing strips away the complex physics and treats this measurement framework as a programmable architecture.</p></li>
+<li><p><strong>The Qubit Baseline:</strong> If a system has exactly two measurement outcomes, we call its vectors the <strong>computational basis</strong>, labeled simply as <span class="math notranslate nohighlight">\(|0\rangle\)</span> and <span class="math notranslate nohighlight">\(|1\rangle\)</span>.</p></li>
+<li><p><strong>The Hardware Pipeline:</strong> A quantum program follows three strict, mechanical phases:</p></li>
 </ul>
-<section id="quantum-effects-and-quantum-computing">
-<h3>Quantum effects and Quantum computing<a class="headerlink" href="#quantum-effects-and-quantum-computing" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p>As the transistors get smaller and smaller, we start to run into some strange effects. So for instance, some of the bits that these transistors are encoding start flipping from their zeros state and to their one state, and sometimes when one bit is going through some process, it ends up affecting bits near it. All of this is problematic for classical computing.</p></li>
-<li><p>This is due to the fact that we are entering the quantum realm. So at this really small scale of energies and distances we start running into quantum effects that aren’t really noticeable at a larger scale. And because these chips and transistors are getting smaller the quantum effects within them become more apparent, these are known as miniaturisation effects.</p></li>
-</ul>
-</section>
-</section>
-<section id="back-to-qubits">
-<h2>Back to Qubits<a class="headerlink" href="#back-to-qubits" title="Link to this heading">#</a></h2>
-<p>Now that we have completed a fundamental review of topics in Classical Computing, it is now a good time to revisit Quantum Computing through the lens of the knowledge we’ve acquired in this lecture so far.</p>
-<ul class="simple">
-<li><p>Is it possible for us to leverage the effects that we were observing as the transistors started entering into the Quantum realm to our advantage.</p></li>
-<li><p>It will first be useful to understand what is the equivalent of a Bit in the Quantum regime.</p></li>
-<li><p>The fundamental unit of Quantum Information is said to be a Qubit.</p></li>
-<li><p>Like a Bit a Qubit is a way of storing information. However they display a set of quantum features which make them different from a classical Bit.</p></li>
-<li><p>Similar to how a Bit has 2 states 0 and 1, a qubit also posesses <strong>two independent states</strong>. We will further discuss the meaning of the word independent in the upcoming sections.</p></li>
-<li><p>To be able to use a Qubit effectively for computation we need to be able to deterministically manipulate the Qubits using gates, similar to what we had with Classical Computations.</p></li>
-<li><p>There are several different physical architectures for qubits which are currently being developed, but to build our current understanding of Quantum Information and how Qubits behave differently from their classical counterparts we will use the photonic architecture as an example.</p></li>
-</ul>
-</section>
-<section id="photons-as-qubits">
-<h2>Photons as qubits<a class="headerlink" href="#photons-as-qubits" title="Link to this heading">#</a></h2>
-<p>Let’s begin by understanding what exactly is a photon. A photon is a single particle of light and we know that light is an electromagnetic wave and just like every wave has a direction of oscillation, a photon has a direction of oscillation called it’s polarization.</p>
-<div class="pst-scrollable-table-container"><table class="table table-center">
-<thead>
-<tr class="row-odd"><th class="head text-center"><p><span class="math notranslate nohighlight">\({\LARGE \begin{pmatrix} 1\\ 0 \end{pmatrix} = \vert 1\rangle}\)</span></p></th>
-<th class="head text-center"><p><span class="math notranslate nohighlight">\({\LARGE \begin{pmatrix} 0\\ 1 \end{pmatrix} = \vert 1\rangle}\)</span></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-center"><p><img alt="" src="lecture-02/images/photon-0.gif" /></p></td>
-<td class="text-center"><p><img alt="" src="lecture-02/images/photon-1.gif" /></p></td>
-</tr>
-</tbody>
-</table>
+<div class="mx-auto my-auto"> 
+<p><span class="inline-box py-3" v-click><span class="math notranslate nohighlight">\(\left[\text{Prepare}~|0\rangle\right]\quad\longrightarrow\)</span></span> <span class="inline-box py-3" v-click><span class="math notranslate nohighlight">\(\left[\text{Apply Unitary Gates}~(U_1, U_2, U_3)\right]\longrightarrow\)</span></span> <span class="inline-box py-3" v-click><span class="math notranslate nohighlight">\(\left[\text{Measure Result}\right]\)</span></span></p>
 </div>
 <ul class="simple">
-<li><p>The above two polarization states: Vertical and Horizontal, are labelled 0 and 1 and behave as the 2 independent states within Quantum Computation.</p></li>
-<li><p>These quantum states are differentiated from classical bits by using the ket notation. The qubits are represented with <span class="math notranslate nohighlight">\(|0\rangle\)</span> known as the ket notation or Dirac notation.</p></li>
-<li><p>How do photons behave differently from classical information, showing behaviour of polarised photons in different basis gives a clear understanding about the need for a new model of understanding information.</p></li>
+<li><p><strong>The Mathematical Flow:</strong> We start at <span class="math notranslate nohighlight">\(|0\rangle\)</span>, apply a cascade of rotation matrices, and produce a final engineered state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span>:
+$<span class="math notranslate nohighlight">\(|\psi\rangle = (U_n \dots U_3 U_2 U_1)|0\rangle\)</span>$</p></li>
 </ul>
+<Banner title="🎯 What is a Quantum Algorithm?" v-click class="-mt-6">
+<p>It is the art of choosing a specific sequence of unitary matrices (<span class="math notranslate nohighlight">\(U_i\)</span>) such that constructive interference boosts the probability (<span class="math notranslate nohighlight">\(|\alpha_i|^2\)</span>) of the <em>correct answer</em>, making it the most likely outcome to collapse upon measurement.</p>
+</Banner>
+<!--
+If you understand this, you understand the core mechanics of Quantum Computing.
+
+
+We strip away all the messy lab physics and treat this as a programmable software architecture.
+
+
+Our baseline is a two-outcome system: states 0 and 1.
+
+
+Every single quantum program follows the exact same three-step pipeline:
+
+
+Step 1: We prepare our qubits, usually setting them all to State 0.
+
+
+Step 2: We apply our Unitary Gates—our code—which smoothly rotates the states around the Bloch Sphere.
+
+
+Step 3: We perform a Measurement, collapsing the fluid state into a hard, classical answer.
+
+
+Mathematically, it's just multiplying a starting vector by a long string of matrices.
+
+
+So, what is a quantum algorithm? It is the delicate art of picking the perfect sequence of rotations, so that the right answer constructively interferes and becomes the brightest, most probable outcome when the wave finally collapses.
+
+Here is the narration script for slides 31 through 40, concluding your presentation.
+-->
 </section>
-<section id="quantum-superposition">
-<h2>Quantum Superposition<a class="headerlink" href="#quantum-superposition" title="Link to this heading">#</a></h2>
-<p>Although quantum states can exist in the two directions (Vertical and Horizontal as mentioned in the previous section) it can in general be any arbitrary direction, as shown below: two diagonal quantum states which are rotated at a 45 degree angle.</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head text-center"><p><span class="math notranslate nohighlight">\({\LARGE \frac {1}{\sqrt{2}}\begin{pmatrix} 1\\ 1 \end{pmatrix} = \vert+ \rangle}\)</span></p></th>
-<th class="head text-center"><p><span class="math notranslate nohighlight">\({\LARGE \frac {1}{\sqrt{2}}\begin{pmatrix} 1\\-1 \end{pmatrix} = \vert -\rangle}\)</span></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-center"><p><img alt="" src="lecture-02/images/photon-p.gif" /></p></td>
-<td class="text-center"><p><img alt="" src="lecture-02/images/photon-m.gif" /></p></td>
-</tr>
-</tbody>
-</table>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="quantum-operation">
+<h1>Quantum Operation<a class="headerlink" href="#quantum-operation" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Say a qubit is initially in state <span class="math notranslate nohighlight">\(|\psi\rangle = \alpha_0 |0\rangle + \alpha_1 |1\rangle\)</span>.</p></li>
+<li><p>When an external factor affect a system, we track the change by multiplying the Operator: <span class="math notranslate nohighlight">\(U|\psi\rangle\)</span>.</p></li>
+<li><p>For a sequence of three actions, the final state is calculated as: <span class="math notranslate nohighlight">\(|\text{OUT}\rangle = U_3 \cdot U_2 \cdot U_1 \cdot |\psi\rangle\)</span>.</p></li>
+</ul>
+<!-- PHYSICAL FLOW TIMELINE MAP -->
+<div class="max-w-3xl mx-auto mt-4 border-0 border-gray-700/20 pt-4 select-none flex flex-col items-center -translate-y-6" v-click>
+<p><span class="px-2 py-1 rounded border border-gray-500/40 font-bold text-gray-400"> Initial State <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> </span>
+<span class="text-purple-400 font-bold">➔</span>
+<span class="px-2 py-1 rounded border border-red-500/40 font-bold text-red-400">[ Action 1: <span class="math notranslate nohighlight">\(U_1\)</span> ]</span>
+<span class="text-purple-400 font-bold">➔</span>
+<span class="px-2 py-1 rounded border border-green-500/40 font-bold text-green-400">[ Action 2: <span class="math notranslate nohighlight">\(U_2\)</span> ]</span>
+<span class="text-purple-400 font-bold">➔</span>
+<span class="px-2 py-1 rounded border border-blue-500/40 font-bold text-blue-400">[ Action 3: <span class="math notranslate nohighlight">\(U_3\)</span> ]</span>
+<span class="text-purple-400 font-bold">➔</span>
+<span class="px-2 py-1 rounded border border-purple-500 font-bold text-purple-400">Final State <span class="math notranslate nohighlight">\(|\text{OUT}\rangle\)</span></span></p>
 </div>
-<p>It can be shown however that these two states labelled <span class="math notranslate nohighlight">\(|+\rangle\)</span> and <span class="math notranslate nohighlight">\(|-\rangle\)</span> can be written as a combination of the states  <span class="math notranslate nohighlight">\(|0\rangle\)</span> and <span class="math notranslate nohighlight">\(|1\rangle\)</span> as introduced in the previous section. This combination of states to describe another new state is known as <strong>Quantum Superposition</strong></p>
-<p>To understand what this combination implied both intuitively and mathematically implies, it’s useful to first understand the nature of quantum measurement and see how it is different from the general idea of measurement we are familiar with.</p>
+<Grid cols="2" gap="4" class="mt-2">
+<Banner title="The Mathematical View" class="text-sm" v-click="5">
+<ul class="simple">
+<li><p>Operations are applied as successive matrix multiplication on state vector.</p></li>
+<li><p>The state vector is modified by <span class="math notranslate nohighlight">\(U_1\)</span> first, yielding <span class="math notranslate nohighlight">\(U_1|\psi\rangle\)</span>.</p></li>
+<li><p>Next, <span class="math notranslate nohighlight">\(U_2\)</span> acts on the resulting state from the left side
+$<span class="math notranslate nohighlight">\(U_2 (U_1|\psi\rangle) = U_2U_1|\psi\rangle\)</span>$</p></li>
+<li><p>Then <span class="math notranslate nohighlight">\(U_3\)</span> acts on the resulting state from the left side
+$<span class="math notranslate nohighlight">\(U3 (U_2 U_1|\psi\rangle) = U_3U_2U_1|\psi\rangle\)</span>$</p></li>
+</ul>
+</Banner>
+<Banner title="The Physical Interpretation" type="warning" class="text-sm" v-click="9">
+<ul class="simple">
+<li><p>Each operator acts as a local physical manipulation environment.</p></li>
+<li><p>It could represent a particle passing through three successive magnets.</p></li>
+<li><p>It could also represent a single qubit hit by three timed radar pulses.</p></li>
+<li><p>The compound effect steers the probability weights across space.</p></li>
+</ul>
+</Banner>
+</Grid>
+<!--
+So, let's look at how we string these operations together to actually build a program.
+
+
+We start with an initial qubit state.
+
+
+When we want to change that state—like hitting it with a laser pulse or a magnetic field—we multiply our state by an Operator.
+
+
+If we want to apply three actions in a row, we just multiply by three operators.
+
+
+
+But here is a quirk of the math: we write these matrix multiplications from right to left.
+
+
+So, Action 1, which we'll call U1, gets written closest to the starting state.
+
+
+Then Action 2, U2, multiplies from the left side.
+
+
+And finally Action 3, U3, hits it again from the left.
+
+
+
+Physically, you can think of this as a particle flying out of an oven and passing through three successive magnets.
+
+
+Or, it could be a single stationary atom being zapped by three precisely timed microwave pulses.
+
+
+Each operator steers the probability of the atom, guiding it toward our desired outcome.
+-->
 </section>
-<section id="quantum-measurement">
-<h2>Quantum Measurement<a class="headerlink" href="#quantum-measurement" title="Link to this heading">#</a></h2>
-<p>We can only ever make a quantum measurement device that asks if we are in one of the two independent states, zero or one state. This is a key difference between the ideas of quantum measurement in comparison to classical measurement of mass or distance for example, in which we can generally measure any of the many continuous values. Let’s say we have the zero state going into some measurement device. We will always measure zero and the zero state will come out.</p>
-<p>If we have a one state going into the measurement, a one will be measured and the one state will come out.
-However, with a plus state, if measured, sometimes this happens: A zero is measured and the zero state comes out. And if we measure at another time, what might happen is we might measure a one and a one state will come out. This is described in the image below:</p>
-<figure class="align-center" id="id2">
-<a class="reference internal image-reference" href="lecture-02/images/measure.png"><img alt="lecture-02/images/measure.png" src="lecture-02/images/measure.png" style="width: 100%;" />
-</a>
-<figcaption>
-<p><span class="caption-number">Fig. 3 </span><span class="caption-text">–
-<strong>Measurement example</strong></span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
-<figure class="align-center" id="id3">
-<a class="reference internal image-reference" href="lecture-02/images/QMeasurement.gif"><img alt="lecture-02/images/QMeasurement.gif" src="lecture-02/images/QMeasurement.gif" style="width: 100%;" />
-</a>
-<figcaption>
-<p><span class="caption-number">Fig. 4 </span><span class="caption-text"><strong>Measurement example</strong></span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
-<p>So this is a really important property of quantum measurement. It collapses superpositions. So we saw that the plus state is an equal superposition of zero and one, and this superposition is collapsed into one of the two states. So measurement changes states and it changes into one of the two states that we are measuring for. Another point is taht we don’t get the same result every time. There is a probability associated to each outcome.</p>
-</section>
-<section id="quantum-gates-and-operations">
-<h2>Quantum Gates and Operations<a class="headerlink" href="#quantum-gates-and-operations" title="Link to this heading">#</a></h2>
-<p>Now let as look at Quantum Gates, the equivalent of Classical Gates in the quantum regime. We’ll first start with a set of fundamental gates and then compare the features of Quantum Gates in comparison to Classical Gates.</p>
-<section id="the-x-gate">
-<h3>The X Gate<a class="headerlink" href="#the-x-gate" title="Link to this heading">#</a></h3>
-<p>The <span class="math notranslate nohighlight">\(X\)</span> gate behaves similar to the classical NOT gate for the states <span class="math notranslate nohighlight">\(|0\rangle\)</span> and <span class="math notranslate nohighlight">\(|1\rangle\)</span> causing the state to flip, i.e., <span class="math notranslate nohighlight">\(X|0\rangle = |1\rangle\)</span> and <span class="math notranslate nohighlight">\(X|1\rangle = |0\rangle\)</span>. The diagram below shows the action of the X gate on some Quantum states.</p>
-<figure class="align-center" id="id4">
-<a class="reference internal image-reference" href="lecture-02/images/xgate.png"><img alt="lecture-02/images/xgate.png" src="lecture-02/images/xgate.png" style="width: 100%;" />
-</a>
-<figcaption>
-<p><span class="caption-number">Fig. 5 </span><span class="caption-text">–
-<strong>X-Gate</strong></span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
-</section>
-<section id="the-hadamard-gate">
-<h3>The Hadamard Gate<a class="headerlink" href="#the-hadamard-gate" title="Link to this heading">#</a></h3>
-<p>This gate takes the <span class="math notranslate nohighlight">\(|0\rangle\)</span> and <span class="math notranslate nohighlight">\(|1\rangle\)</span> states to the <span class="math notranslate nohighlight">\(|+\rangle\)</span> and <span class="math notranslate nohighlight">\(|-\rangle\)</span>  states and vice-versa, Classically there is gate which acts as an analogue to such a gate</p>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="quantum-operation-vs-quantum-circuits">
+<h1>Quantum operation vs. Quantum Circuits<a class="headerlink" href="#quantum-operation-vs-quantum-circuits" title="Link to this heading">#</a></h1>
+<div class="text-4">
+<ul class="simple">
+<li><p>Recall how successive operators apply on a state from <strong>right to left</strong>, closest to the starting state vector <span class="math notranslate nohighlight">\(|\psi\rangle\)</span>.</p></li>
+<li><p>A quantum circuit, is a visual layout, where we replace the equations with clean, horizontal flow or wire grids.</p></li>
+<li><p>The Unitary operators applied on the state are visualised as <strong>gates</strong>.</p></li>
+<li><p>Let’s look at how a three-step algorithmic chain maps across these two alternative views.</p></li>
+</ul>
+</div>
+<Grid cols="3-2" gap="2" class="mt-4">
+<Banner title="The Equation View" class="text-sm -translate-y-3" v-click="5">
+<ul class="simple">
+<li><p>Operations are ordered as nested functions, reading right to left:</p></li>
+</ul>
 <div class="math notranslate nohighlight">
-\[\begin{split}
-\rule[0.7em]{2em}{1.5pt}{\Huge\boxed{H}}\rule[0.7em]{2em}{1.5pt}
-\quad \quad H = \frac{1}{\sqrt{2}}
-\begin{bmatrix}
-  1 &amp; 1 \\
-  1 &amp; -1
-\end{bmatrix}
-\end{split}\]</div>
-</section>
-<section id="the-p-gate">
-<h3>The P Gate<a class="headerlink" href="#the-p-gate" title="Link to this heading">#</a></h3>
-<p>The P-gate, also called a phase gate, is a parametrised gate, i.e., it need a number <span class="math notranslate nohighlight">\(\phi\)</span> to define it. It performs the rotation of the state with angle <span class="math notranslate nohighlight">\(\phi\)</span> around Z-axis.
-It’s matrix form is</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\rule[0.7em]{2em}{1.5pt}{\Huge\boxed{P}}\rule[0.7em]{2em}{1.5pt}
-\quad \quad P(\phi) = 
-\begin{bmatrix}
-  1 &amp; 0 \\
-  0 &amp; e^{i\phi}
-\end{bmatrix}
-\end{split}\]</div>
-<p>Notice that <span class="math notranslate nohighlight">\(P(\phi_1)P(\phi_2) = P(\phi_1 + \phi_2)\)</span>, i.e., successive operation of phase gate with two angles is equivalent to a single operation with added angles.</p>
-</section>
-<section id="the-s-gate">
-<h3>The S Gate<a class="headerlink" href="#the-s-gate" title="Link to this heading">#</a></h3>
-<p>The S-gate, sometimes also known as the <span class="math notranslate nohighlight">\(\sqrt{Z}\)</span>-gate, is essentially P-gate with <span class="math notranslate nohighlight">\(\phi=\frac{\pi}{2}\)</span>. It does a quarter-turn around the Bloch sphere.
-It’s called <span class="math notranslate nohighlight">\(\sqrt{Z}\)</span>-gate because <span class="math notranslate nohighlight">\(S^2 = Z\)</span>. The matrix form is simply as below</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\rule[0.7em]{2em}{1.5pt}{\Huge\boxed{S}}\rule[0.7em]{2em}{1.5pt}
-\quad \quad S = 
-\begin{bmatrix}
-  1 &amp; 0 \\
-  0 &amp; e^{i\frac{\pi}{2}}
-\end{bmatrix}
-\end{split}\]</div>
-</section>
-<section id="the-t-gate">
-<h3>The T Gate<a class="headerlink" href="#the-t-gate" title="Link to this heading">#</a></h3>
-<p>The T-gate is a very commonly used gate, and it is also a special case of P-gate with <span class="math notranslate nohighlight">\(\phi=\frac{\pi}{4}\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\rule[0.7em]{2em}{1.5pt}{\Huge\boxed{T}}\rule[0.7em]{2em}{1.5pt}
-\quad \quad T = 
-\begin{bmatrix}
-  1 &amp; 0 \\
-  0 &amp; e^{i\frac{\pi}{4}}
-\end{bmatrix}
-\end{split}\]</div>
-</section>
-<section id="the-cnot-gate">
-<h3>The CNOT Gate<a class="headerlink" href="#the-cnot-gate" title="Link to this heading">#</a></h3>
-<p>This gate is a conditional gate, that acts as X-gate on the second qubit, if the first qubit is in <span class="math notranslate nohighlight">\(|1\rangle\)</span> state.
-The first qubit is called <em>control</em>, and the second qubit is called <em>target</em>. It’s also called CX-gate. It’s matrix form is looks like the following:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-CNOT = 
-\begin{bmatrix}
-  1 &amp; 0 &amp; 0 &amp; 0\\
-  0 &amp; 1 &amp; 0 &amp; 0\\
-  0 &amp; 0 &amp; 0 &amp; 1\\
-  0 &amp; 0 &amp; 1 &amp; 0
-\end{bmatrix} \equiv 
-\begin{bmatrix}
-  I &amp; O \\
-  O &amp; X
-\end{bmatrix}
-\end{split}\]</div>
-<p>The gates such as X or CNOT seem similar to classical gate, where the <code class="docutils literal notranslate"><span class="pre">flip</span></code> a qubit, however other gates such as Hadamard don’t have any classical Analogy, as classical gate don’t have notion of superposition. They also don’t have notion of <code class="docutils literal notranslate"><span class="pre">phase</span></code> as in P, S and T gates.</p>
-<div class="note admonition">
-<p class="admonition-title">Universal Gate set</p>
-<p>Any well defined procedure to transform one or more qubit can be a quantum gate, and in this sense, there are infinitely many quantum gate. However, one can simplify things by seeking whether there is a minimal set of gates, with which one can arbitrary quantum operation. Such a set is called a set of <strong>universal quantum gates</strong>. This is very similar to classical computing (are there some key differences?).</p>
+\[\lvert\text{OUT}\rangle = U_3 \cdot U_2 \cdot U_1 \cdot \lvert\psi\rangle\]</div>
+<ul class="simple">
+<li><p>The state vector is modified by <span class="math notranslate nohighlight">\(U_1\)</span>, then <span class="math notranslate nohighlight">\(U_2\)</span>, and finally <span class="math notranslate nohighlight">\(U_3\)</span>.</p></li>
+<li><p>While compact, tracking long chains of text quickly becomes a dense reading bottleneck.</p></li>
+<li><p>A measurement involves computing the overlap of the modified state with initial one.
+$<span class="math notranslate nohighlight">\(\langle\psi|\text{OUT}\rangle = \langle\psi|U_3 \cdot U_2 \cdot U_1 \cdot \lvert\psi\rangle\)</span>$</p></li>
+<li><p>The measured outcomes is the squared magnitude: <span class="math notranslate nohighlight">\(|\langle\psi|\text{OUT}\rangle|^2\)</span>
+</Banner></p></li>
+</ul>
+<Banner title="The Circuit View" class="text-sm" type="warning" v-click="6">
+<ul class="simple">
+<li><p>We compress this exact sequence into a single timeline wire flowing left to right:</p></li>
+</ul>
+<div class="my-4">
+  <QuantumCircuit :qubits="1" gates="U1:0, U2:0, U3:0, M:0" scale="1.5" />
 </div>
-<p>Combining gates if different ways results in different quantum circuits.</p>
+<ul class="simple">
+<li><p>The line represents the timeline, and each block maps to an action in the lab.</p></li>
+<li><p>This format allows us to read complex cascades sequentially without tracking formulas.</p></li>
+</ul>
+</Banner>
+</Grid>
+<!--
+While that math is exact, reading long chains of matrix equations right-to-left gets really tedious, really fast.
+
+
+
+
+
+
+
+So, in quantum computing, we translate this right-to-left mathematical view into a much cleaner visual layout called a Quantum Circuit.
+
+
+Instead of dense equations...
+
+
+...we draw a wire moving from left to right, representing the timeline.
+
+
+Our Unitary operators are drawn as "Gates" placed on that wire in the exact order they happen. The measurement at the end is drawn as a little meter symbol.
+
+
+This circuit view means you can read a complex quantum algorithm just like reading a piece of sheet music, without having to do any matrix multiplication in your head.
+-->
+<hr class="docutils" />
+<section id="layout-section">
+<h2>layout: section<a class="headerlink" href="#layout-section" title="Link to this heading">#</a></h2>
 </section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="single-qubit-gates">
+<h1>Single qubit Gates<a class="headerlink" href="#single-qubit-gates" title="Link to this heading">#</a></h1>
+<!--
+Now that we have our sheet music, let's look at the basic notes we can play. Let's look at the most common single-qubit gates.
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="hadamard-gate">
+<h1>Hadamard Gate<a class="headerlink" href="#hadamard-gate" title="Link to this heading">#</a></h1>
+<Grid cols="3-1" gap="4" class="translate-y-0">
+<Banner title="Hadamard (Superposition)" class="scale-100" v-click>
+<ul class="simple">
+<li><p>Blends the basis states into a balanced, equal probability configuration.</p></li>
+<li><p>Acts as a symmetric reflection operator to create or undo splits:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}H = \frac{1}{\sqrt{2}}\begin{pmatrix}1&amp;1\\1&amp;-1\end{pmatrix}, \quad H\lvert0\rangle = \lvert+\rangle, \quad H\lvert1\rangle = \lvert-\rangle\end{split}\]</div>
+</Banner>
+<Box class="max-w-40">
+  <QuantumCircuit :qubits="1" gates="H:0" scale="1.5" />
+</Box>
+<ul class="simple">
+<li><p>The primary tool used to boot up <strong>quantum parallelism</strong> inside an algorithm.</p></li>
+<li><p>Physically maps the poles of your state sphere straight down onto the equator.</p></li>
+<li><p>It transforms a fixed deterministic switch into an active probability wave.</p></li>
+</ul>
+</Grid>
+<!--
+Next is the Hadamard Gate, arguably the most important gate in quantum computing.
+
+
+This is the gate that creates superposition. If you feed it a rigid State 0, it blends it into a perfectly balanced 50/50 probability wave.
+
+
+
+
+On the Bloch sphere, it grabs the North Pole and pulls it directly down onto the equator.
+
+
+This is the spark of quantum parallelism. It takes a boring, deterministic bit and turns it into an active quantum state that explores multiple paths at once.
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="pauli-x-gate">
+<h1>Pauli-X Gate<a class="headerlink" href="#pauli-x-gate" title="Link to this heading">#</a></h1>
+<Grid cols="3-1" gap="4" class="translate-y-0">
+<Banner title="Pauli-X (Bit Flip)" class="scale-100" v-click>
+<ul class="simple">
+<li><p>Swaps the basis states completely: <span class="math notranslate nohighlight">\(\lvert0\rangle \leftrightarrow \lvert1\rangle\)</span>.</p></li>
+<li><p>Inverts the probability weights of your single-column state vector:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}X = \begin{pmatrix}0&amp;1\\1&amp;0\end{pmatrix}, \quad X\begin{pmatrix}\alpha\\\beta\end{pmatrix} = \begin{pmatrix}\beta\\\alpha\end{pmatrix}\end{split}\]</div>
+</Banner>
+<Box class="max-w-40">
+  <QuantumCircuit :qubits="1" gates="X:0" scale="1.5" />
+</Box>
+</Grid>
+<ul class="simple">
+<li><p>The physical analogue of a classical <strong>NOT gate</strong> or digital bit-flip operation.</p></li>
+<li><p>In the laboratory, it acts as a perfect <span class="math notranslate nohighlight">\(\pi\)</span> rotation directly around the <span class="math notranslate nohighlight">\(X\)</span>-axis.</p></li>
+<li><p>It is primarily used to initialize registers or flip target control channels.</p></li>
+</ul>
+<!--
+First up is the Pauli-X Gate.
+
+
+This is the closest thing we have to a classical NOT gate. It is a straight bit-flip. It completely swaps State 0 and State 1.
+
+
+If you look at the matrix math, it simply inverts the top and bottom numbers of your state vector.
+
+
+
+Physically, on the Bloch Sphere, this is a 180-degree rotation straight over the top.
+
+
+We usually use this at the beginning of a program to flip a qubit from zero to one so we have something to work with.
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="pauli-y-gate">
+<h1>Pauli-Y Gate<a class="headerlink" href="#pauli-y-gate" title="Link to this heading">#</a></h1>
+<Grid cols="3-1" gap="4" class="translate-y-0">
+<Banner title="Pauli-Y (Bit and Phase Flip)" class="scale-100" v-click>
+<ul class="simple">
+<li><p>Applies a simultaneous bit flip and a complex phase twist.</p></li>
+<li><p>Inverts the probability weights and multiplies by the imaginary unit <span class="math notranslate nohighlight">\(i\)</span>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}Y = \begin{pmatrix}0&amp;-i\\i&amp;0\end{pmatrix}, \quad Y\begin{pmatrix}\alpha\\\beta\end{pmatrix} = \begin{pmatrix}-i\beta\\i\alpha\end{pmatrix}\end{split}\]</div>
+</Banner>
+<Box class="max-w-40">
+  <QuantumCircuit :qubits="1" gates="Y:0" scale="1.5" />
+</Box>
+</Grid>
+<ul class="simple">
+<li><p>It is mathematically equivalent to combining both the <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Z\)</span> gates into a single operation.</p></li>
+<li><p>In the laboratory, it acts as a perfect <span class="math notranslate nohighlight">\(\pi\)</span> rotation directly around the <span class="math notranslate nohighlight">\(Y\)</span>-axis on the Bloch sphere.</p></li>
+<li><p>It takes states lying on the standard <span class="math notranslate nohighlight">\(X\)</span>-<span class="math notranslate nohighlight">\(Z\)</span> plane and twists them out into the complex <span class="math notranslate nohighlight">\(Y\)</span> dimension.</p></li>
+</ul>
+<!--
+Now, we can't talk about the X and Z gates without mentioning the third member of that trio: the Pauli-Y gate.
+
+
+Think of the Y gate as the ultimate multitasker. It applies a bit flip AND a phase flip at the exact same time.
+
+
+
+Because it involves that phase flip, it injects the imaginary unit 'i' directly into our state vectors.
+
+
+
+
+If you look at our Bloch sphere globe, the Y axis is the one pointing straight out of the screen at you. The Y gate is a perfect 180-degree spin around that specific axis. It takes standard, real-number states and completely twists them into the complex plane.
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="pauli-z-gate">
+<h1>Pauli-Z Gate<a class="headerlink" href="#pauli-z-gate" title="Link to this heading">#</a></h1>
+<Grid cols="3-1" gap="4" class="translate-y-0">
+<Banner title="Pauli-Z (Phase Flip)" class="scale-100" v-click>
+<ul class="simple">
+<li><p>Flips the relative sign of the target state: <span class="math notranslate nohighlight">\(\lvert1\rangle \rightarrow -\lvert1\rangle\)</span>.</p></li>
+<li><p>Negates the complex amplitude of the lower vector coefficient slot:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}Z = \begin{pmatrix}1&amp;0\\0&amp;-1\end{pmatrix}, \quad Z\begin{pmatrix}\alpha\\\beta\end{pmatrix} = \begin{pmatrix}\alpha\\-\beta\end{pmatrix}\end{split}\]</div>
+</Banner>
+<Box class="max-w-40">
+  <QuantumCircuit :qubits="1" gates="Z:0" scale="1.5" />
+</Box>
+</Grid>
+<ul class="simple">
+<li><p>Reverses the internal timing alignment without changing the raw probability.</p></li>
+<li><p>In the laboratory, it triggers a clean <span class="math notranslate nohighlight">\(\pi\)</span> rotation right around the vertical <span class="math notranslate nohighlight">\(Z\)</span>-axis.</p></li>
+<li><p>Essential for controlling interference patterns and marking correct search options.</p></li>
+</ul>
+<!--
+Next, we have the Pauli-Z Gate.
+
+
+This is called a Phase Flip. It doesn't change the physical probabilities—if it was a 50/50 split before, it stays a 50/50 split. But it flips the mathematical sign on State 1.
+
+
+
+
+On our globe, this is a 180-degree horizontal spin right around the equator.
+
+
+This internal phase shift is absolutely vital for setting up interference patterns later in an algorithm, allowing us to cancel out wrong answers.
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="s-gate">
+<h1>S Gate<a class="headerlink" href="#s-gate" title="Link to this heading">#</a></h1>
+<Grid cols="3-1" gap="4" class="translate-y-0">
+<Banner title="S Gate (Quarter Turn)" class="scale-100" v-click>
+<ul class="simple">
+<li><p>Advances the complex phase angle of the <span class="math notranslate nohighlight">\(\lvert1\rangle\)</span> component by exactly <span class="math notranslate nohighlight">\(90^{\circ}\)</span>.</p></li>
+<li><p>Injects the imaginary unit coefficient into the matrix equation:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}S = \begin{pmatrix}1&amp;0\\0&amp;i\end{pmatrix}, \quad S\lvert+\rangle = \lvert+i\rangle\end{split}\]</div>
+</Banner>
+<Box class="max-w-40">
+  <QuantumCircuit :qubits="1" gates="S:0" scale="1.5" />
+</Box>
+</Grid>
+<ul class="simple">
+<li><p>Known as the <strong>Phase Gate</strong>, it acts as the exact mathematical square root of <span class="math notranslate nohighlight">\(Z\)</span>.</p></li>
+<li><p>Performs a fractional <span class="math notranslate nohighlight">\(\pi/2\)</span> horizontal rotation across the equatorial map.</p></li>
+<li><p>Used to shift vectors between the standard <span class="math notranslate nohighlight">\(X\)</span>-basis and the complex <span class="math notranslate nohighlight">\(Y\)</span>-basis.</p></li>
+</ul>
+<!--
+Next is the S Gate.
+
+
+If the Z-gate was a 180-degree spin around the equator, the S Gate is exactly half of that: a 90-degree quarter turn.
+
+
+Because it stops halfway, it injects an imaginary number—an 'i'—into our state vector.
+
+
+
+
+It is literally the mathematical square root of the Z-Gate.
+
+
+It shifts our states smoothly between the standard real axes and the complex imaginary axes on our sphere.
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="t-gate">
+<h1>T Gate<a class="headerlink" href="#t-gate" title="Link to this heading">#</a></h1>
+<Grid cols="3-1" gap="4" class="translate-y-0">
+<Banner title="T Gate (Eighth Turn)" class="scale-100" v-click>
+<ul class="simple">
+<li><p>Advances the phase angle of the <span class="math notranslate nohighlight">\(\lvert1\rangle\)</span> component by exactly <span class="math notranslate nohighlight">\(45^{\circ}\)</span>.</p></li>
+<li><p>Introduces an Euler exponent multiplier into the complex matrix:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}T = \begin{pmatrix}1&amp;0\\0&amp;e^{i\pi/4}\end{pmatrix}, \quad T^2 = S, \quad T^4 = Z\end{split}\]</div>
+</Banner>
+<Box class="max-w-40">
+  <QuantumCircuit :qubits="1" gates="T:0" scale="1.5" />
+</Box>
+</Grid>
+<ul class="simple">
+<li><p>Known as the <span class="math notranslate nohighlight">\(\pi/8\)</span> gate, it acts as the mathematical square root of <span class="math notranslate nohighlight">\(S\)</span>.</p></li>
+<li><p>Performs an incremental <span class="math notranslate nohighlight">\(\pi/4\)</span> rotation around the vertical tracking line.</p></li>
+<li><p>Absolutely critical for building universal fault-tolerant computation compilers.</p></li>
+</ul>
+<!--
+Finally, we have the T Gate.
+
+
+This goes one step smaller. It is an eighth of a turn, advancing the phase by exactly 45 degrees.
+
+
+
+
+It is the square root of the S Gate.
+
+
+
+While a 45-degree rotation might sound arbitrary, it is incredibly important. Without the T Gate, you cannot build a universal quantum computer capable of running complex, error-corrected algorithms. It is the final piece of our basic toolkit.
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="rotation-gates-rx-ry-rz">
+<h1>Rotation Gates (Rx, Ry, Rz)<a class="headerlink" href="#rotation-gates-rx-ry-rz" title="Link to this heading">#</a></h1>
+<Grid cols="3-1" gap="4" class="translate-y-0">
+<Banner title="Continuous Rotations" class="scale-100" v-click>
+<ul class="simple">
+<li><p>Allows for arbitrary, fine-tuned rotations by a custom angle <span class="math notranslate nohighlight">\(\theta\)</span>.</p></li>
+<li><p>Generalizes the fixed flips into smooth, continuous matrix functions:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}R_x(\theta) = \begin{pmatrix}\cos(\tfrac{\theta}{2})&amp;-i\sin(\tfrac{\theta}{2})\\-i\sin(\tfrac{\theta}{2})&amp;\cos(\tfrac{\theta}{2})\end{pmatrix}\end{split}\]</div>
+</Banner>
+<Box class="max-w-40">
+  <QuantumCircuit :qubits="1" gates="Rx:0" scale="1.5" />
+</Box>
+</Grid>
+<ul class="simple">
+<li><p>Unlike the Pauli gates which are strict <span class="math notranslate nohighlight">\(180^{\circ}\)</span> flips, these act as continuous tuning dials.</p></li>
+<li><p>We can define independent <span class="math notranslate nohighlight">\(R_x, R_y,\)</span> and <span class="math notranslate nohighlight">\(R_z\)</span> gates for all three spatial dimensions.</p></li>
+<li><p>Absolutely essential for variational quantum algorithms, where angles are updated continuously by an optimizer.</p></li>
+</ul>
+<!--
+Up until now, every gate we've looked at has been fixed. A 180-degree flip, a 90-degree turn, a 45-degree turn. But what if you want to rotate your state by exactly 12 degrees?
+
+
+For that, we use Parameterized Rotation Gates—specifically Rx, Ry, and Rz.
+
+
+Instead of fixed numbers, these matrices use sine and cosine functions that accept any custom angle, which we call Theta.
+
+
+
+
+Instead of a strict light switch, think of these as smooth volume dials. You can dial in the exact orientation you want along any of the three axes.
+
+
+While we won't dive too deep into them today, these continuous dials are the secret sauce behind modern quantum machine learning, where classical computers constantly tweak these angles to find the best possible algorithmic answers.
+-->
+<hr class="docutils" />
+<section id="transition-fade-out">
+<h2>transition: fade-out<a class="headerlink" href="#transition-fade-out" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="wrap-up">
+<h1>Wrap up<a class="headerlink" href="#wrap-up" title="Link to this heading">#</a></h1>
+<Grid cols="2" gap="2">
+<Banner title="Summary" type="warning" v-click>
+<ul class="simple">
+<li><p>Recap of Classical vs Quantum</p></li>
+<li><p>Stern Gerlach Experiment</p></li>
+<li><p>Quantum state</p></li>
+<li><p>Superposition</p></li>
+<li><p>The maths of qubits</p></li>
+<li><p>State Vector, Basis, Linear Operators</p></li>
+<li><p>Linear combination, Inner product</p></li>
+<li><p>Quantum operations</p></li>
+<li><p>Quantum measurement</p></li>
+<li><p>Quantum computing workflow</p></li>
+<li><p>Single qubit gates</p></li>
+</ul>
+</Banner>
+<Banner title="Learning outcome" type="success" class="text-lg" v-click>
+<br>
+<ul class="simple">
+<li><p>Understanding a quantum state</p></li>
+</ul>
+<br>
+<ul class="simple">
+<li><p>Visualising quantum state</p></li>
+</ul>
+<br>
+<ul class="simple">
+<li><p>Operations on quantum state</p></li>
+</ul>
+<br>
+<ul class="simple">
+<li><p>Single qubit gates</p></li>
+</ul>
+<br>
+<ul class="simple">
+<li><p>Quantum computing workflow</p></li>
+</ul>
+</Banner>
+</Grid>
+<Banner class="-translate-y-3" v-click>
+<p>In the next lecture we expand to quantum system of multiple qubits.</p>
+</Banner>
+<!--
+Let's wrap up what we've covered today.
+
+
+We took a massive leap today. We moved from the classical world of rigid bits into the quantum world of fluid probabilities. We looked at the Stern Gerlach experiment to prove that quantum states are real, and we learned how to map those states using vectors, complex numbers, and the Bloch Sphere. We then built a framework for operating on these states using Unitary matrices, and we looked at the fundamental gates that make up a quantum circuit.
+
+
+You now have the mathematical and visual vocabulary to understand what a qubit is, how we manipulate it, and the basic workflow of a quantum program.
+
+
+In our next lecture, we are going to take these individual qubits and link them together to explore entanglement and multi-qubit systems.
+-->
+<hr class="docutils" />
+<section id="layout-section-transition-fade-out">
+<h2>layout: section
+transition: fade-out<a class="headerlink" href="#layout-section-transition-fade-out" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="thank-you">
+<h1>Thank you<a class="headerlink" href="#thank-you" title="Link to this heading">#</a></h1>
+<!--
+Thank you for your time, and I'll see you in the next session!
+-->
+<section id="id1">
+<h2>Introduction<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>In classical computing, which we usually call just computing, we transform or map every mathematical problem into a sequence of tasks, which is performed by computer, and towards the end, we get the desired result. These sequences of tasks, are what we call algorithms, consists of an exact sequence of simpler tasks that can be understood by computer. When this exact sequence is expressed in a way that computer understand, we call it a computer program. To understand, and organise well, the algorithms are often broken down to smallest possible building blocks. We  will discuss some of these building blocks now, and see how the role of bits comes into play.</p>
 </section>
 <section id="references">
 <h2><a class="reference internal" href="#reference"><span class="xref myst">References</span></a><a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
-<p>The following references are optional reading material:</p>
-<ol class="arabic simple">
-<li><p>The following chapters of the textbook Introduction to Classical and Quantum Computing(<a class="reference external" href="https://www.thomaswong.net/introduction-to-classical-and-quantum-computing-1e3p.pdf">pdf</a>) : 1.1, 1.2, 1.3, 2.2, 2.3, 2.6, 4.4</p></li>
-</ol>
-</section>
-<section id="id1">
-<h2><a class="reference internal" href="#reference"><span class="xref myst">References</span></a><a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <p>The following references are optional reading material:</p>
 <ol class="arabic simple">
 <li><p>The following chapters of the textbook Introduction to Classical and Quantum Computing(<a class="reference external" href="https://www.thomaswong.net/introduction-to-classical-and-quantum-computing-1e3p.pdf">pdf</a>) : 1.1, 1.2, 1.3, 2.2, 2.3, 2.6, 4.4</p></li>
@@ -1517,39 +2452,73 @@ CNOT =
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lecture 2: From Bits to Qubits</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-data">Binary Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bit">Bit</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#physical-representation-and-why-quantum">Physical Representation and why Quantum</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conversion-from-decimal-to-binary">Conversion from Decimal to binary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-in-binary">Adding in Binary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gates-and-operations-in-binary">Gates and Operations in Binary</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#not-gate">NOT gate</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#and-gate">AND gate</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xor-gate">XOR gate</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-half-adder-using-gates">Classical Half-Adder using gates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-bits-and-gates">Recap: Bits and Gates</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#features-of-classical-computing">Features of Classical computing</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-effects-and-quantum-computing">Quantum effects and Quantum computing</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-qubits-and-quantum-gates">Preview: Qubits and Quantum Gates</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-vs-quantum-scaling">Classical vs Quantum Scaling</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-comparative-overview-of-how-computing-paradigms-expand-over-time">A comparative overview of how computing paradigms expand over time.</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#back-to-qubits">Back to Qubits</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#photons-as-qubits">Photons as qubits</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-superposition">Quantum Superposition</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-measurement">Quantum Measurement</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-gates-and-operations">Quantum Gates and Operations</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-x-gate">The X Gate</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-hadamard-gate">The Hadamard Gate</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-p-gate">The P Gate</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-s-gate">The S Gate</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-t-gate">The T Gate</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cnot-gate">The CNOT Gate</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#stern-gerlach-sg-experiment">Stern Gerlach (SG) Experiment</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#sg-experiment-setup">SG experiment: Setup</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sg-experiment-expectation">The SG Experiment: Expectation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sg-experiment-reality">The SG Experiment: Reality</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">Interpretation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#a-quantum-state">A Quantum State</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#complex-weights">Complex weights</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-axis-measurement-sequence">Multi-Axis Measurement Sequence</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#need-for-complex-weights">Need for Complex Weights</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-counterintuitive-things-happened">Two counterintuitive things happened.</a></li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#decoding-the-coefficients">Decoding the Coefficients</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dirac-notation">Dirac Notation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-the-qubit">Defining the Qubit</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-state-vector">The State vector</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bloch-sphere">The Bloch Sphere</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#key-reference-states">Key Reference States</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#overlap-measurement">Overlap, Measurement</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#inner-product">Inner Product</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-operators">Quantum Operators</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#operators-in-action">Operators in Action</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#special-directions-states">Special directions &amp; states</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#special-operators">Special Operators</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-measurement">Quantum Measurement</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measurement-basis">Measurement Basis</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#demystifying-quantum-computation">Demystifying Quantum Computation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-operation">Quantum Operation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-operation-vs-quantum-circuits">Quantum operation vs. Quantum Circuits</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layout-section">layout: section</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#single-qubit-gates">Single qubit Gates</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#hadamard-gate">Hadamard Gate</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pauli-x-gate">Pauli-X Gate</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pauli-y-gate">Pauli-Y Gate</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pauli-z-gate">Pauli-Z Gate</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#s-gate">S Gate</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#t-gate">T Gate</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#rotation-gates-rx-ry-rz">Rotation Gates (Rx, Ry, Rz)</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transition-fade-out">transition: fade-out</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#wrap-up">Wrap up</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layout-section-transition-fade-out">layout: section
+transition: fade-out</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#thank-you">Thank you</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Introduction</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references"><span class="xref myst">References</span></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><span class="xref myst">References</span></a></li>
 </ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>
