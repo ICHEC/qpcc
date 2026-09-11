@@ -10,8 +10,8 @@ parts:
     - file: lecture-01/intro-cc-qc.md
     - file: lecture-01/intro-bits-and-gates.md
     - caption: Topic 2
-     chapters:
-       - file: lecture-02/bits-to-qubits.md
+    chapters:
+    - file: lecture-02/bits-to-qubits.md
 #  - caption: Topic 3
 #    chapters:
 #    - file: lecture-03/quantum-gates.md
