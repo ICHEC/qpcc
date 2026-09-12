@@ -20,17 +20,9 @@ In this lecture we introduce what a quantum state is through the Stern Gerlach e
 - Lastly, we establish a basic visual framework of quantum circuits, and identify that quantum gates are essentially linear operators.
 ``` 
 
-<!--
-Welcome to the second lecture of Quantum Programming Foundations. 
-
-In this lecture, we are going to rethink how computers process information, and step out of the classical world into the quantum one.
--->
-
 ---
 
 ## Introduction
-
-
 
 Let us take a dive into the the fundamental unit of quantum computing, namely **Qubit**, and underlying mathematical ingredients. 
 Later, in the lecture we learn how to manipulate qubits using Gates for basic computations, and the mathematical framework containing it.
@@ -71,265 +63,174 @@ contains $2^N$ binary data. See table below:
 
 As you can see in the {numref}`tab-bits`, 2 bits give us 4 possible combinations. 3 bits give us 8 combinations, and it scales up from there. Now, to actually process this data, we send these bits through classical logic gates. These gates do something very straightforward: they either flip a bit, or they leave it alone, depending on a set of rules.
 
-The entire mathematical framework behind this is called **Boolean algebra**. 
+The entire mathematical framework behind this is called **Boolean algebra**. It's the logic that powers simple operations, like the 'AND' gate you see below.
+It is highly predictable, strictly binary, and it's the foundation of all classical software.
 
-<!--
-It's the logic that powers simple operations, like the 'AND' gate you see here. It is highly predictable, strictly binary, and it's the foundation of all classical software. But as we're about to see, the quantum world plays by a completely different set of rules.
--->
+```{raw} html
+<logic-gate type="AND" interval="1500" scale="1"></logic-gate>
+<!-- Make sure to load the script (only needed once per page) -->
+<script src="../_static/logic-gate.js"></script>
+```
 
-$$OUT = A + B$$
-
-<LogicGateTable type="AND" :interval="1500" :scale=".6" />
-
+But as we will see, the quantum world plays by a completely different set of rules.
 
 ---
 
-# Preview: Qubits and Quantum Gates
+## Preview: Qubits and Quantum Gates
 
-<Grid cols="3-1" gap="0">
+Now, let's step into the quantum paradigm.
+Instead of classical bits and gates, the corresponding object in quantum computing are `Qubits` and `Quantum Gates`.
+Think of a classical bit like a coin sitting flat on a table—it's either heads or tails. A qubit is like a spinning coin.
 
-<Banner title="The Quantum Paradigm Shift" class="scale-95 text-sm">
+```{figure} https://cdn.pixabay.com/animation/2023/03/23/17/00/17-00-52-997_256.gif
+:name: fig-coin
 
-<v-clicks every="2">
+A spinning coin
+```
 
-- In quantum computing the corresponding objects are <span class="inline-box"> Qubits</span>  and <span class="inline-box"> Quantum Gates </span>
+While it's spinning, it exists in a blur, holding the possibility of being heads and tails at the exact same time.
+Because of this, when you link qubits together, the processing power doesn't just increase—it explodes exponentially.
 
-<br>
+As you can see in the {numref}`qc-path`, a classical computer walks down one path at a time.
+A quantum computer can walk down every possible path instantly.
 
-- <span class="inline-box"> Qubits</span> act like a spinning coin; holding multiple possibilities at the same time.
-
-<br>
-
-- Working with multiple qubits increases processing capacity exponentially.
-
-<br>
-
-- A group of bits can only express one combination, qubits explore them all at once.
-
-<br>
-
-- <span class="inline-box">Quantum Gates</span> alter these states by smoothly tilting or blending the possibilities.
-
-<br>
-
-- Instead of simple on/off logic, operations blend and entangle possibilities of final outcome.
-
-<br>
-
-- The underlying framework shifts from **Boolean algebra** to **Linear algebra**.
-
-
-
-</Banner>
-
-<div>
-
-<FancyTable class="scale-90 -py-4" v-click=4>
+```{table} Scaling with size.
+:name: qc-path
 
 | Items | Classical Capacity | Quantum Capacity |
 | :--- | :--- | :--- |
 | 1 | 1 option out of 2 | Both options simultaneously |
 | 2 | 1 option out of 4 | All 4 options explored together |
 | 3 | 1 option out of 8 | All 8 options explored together |
+| ...| ... | ... |
+|$n$ | 1 option out of $2^n$ | All $2^n$ options explored together |
 | ... | *One path at a time* | *Every possible path instantly* |
 
-</FancyTable>
-
-<div class="text-center -my-0 text-xs font-semibold text-purple-400" v-click="8">
-  Illustrative Quantum Circuit
-</div>
-
-
-<div class="flex bg-gray-50 m-3 rounded-xl" v-click="8">
-
-<QuantumCircuit 
-  :qubits="2" 
-  gates="H:0, CNOT:1:0, M:0, M:1" 
-  scale="0.85" 
-/>  
-</div>
-
-</div>
-
-</Grid>
-
-<!--
-Now, let's step into the quantum paradigm.
-
-
-Instead of classical bits and gates, the corresponding object in quantum computing are Qubits and Quantum Gates.
-
-
-Think of a classical bit like a coin sitting flat on a table—it's either heads or tails. A qubit is like a spinning coin. While it's spinning, it exists in a blur, holding the possibility of being heads and tails at the exact same time.
-
-
-Because of this, when you link qubits together, the processing power doesn't just increase—it explodes exponentially.
-
-
-As you can see in the table, a classical computer walks down one path at a time. A quantum computer can walk down every possible path instantly.
-
+```
 
 To manipulate these qubits, we use Quantum Gates. Instead of just flipping a rigid switch, these gates act smoothly—like tilting that spinning coin to favor one outcome over another.
 
+``````{admonition} The Quantum Paradigm Shift
 
 We are blending possibilities together, rather than just crunching on/off logic.
-
-
-Because of this fluidity, our mathematical language has to change from basic Boolean algebra to Linear algebra.
-
-
+Because of this fluidity, our mathematical language has to change from basic `Boolean algebra` to `Linear algebra`.
 And finally, instead of logic circuits, we draw out these operations using quantum circuits, which follow similar flow of operation from left to right.
--->
+Here is an example of an illustrative quantum circuit:
+
+```{raw} html
+<!-- Load the Web Component script -->
+<script src="../_static/quantum-circuit.js"></script>
+<quantum-circuit qubits="2" gates="H:0, CNOT:1:0, M:0, M:1" scale="2.0" classical="false"></quantum-circuit>
+```
+
+``````
 
 ---
 
-# Classical vs Quantum Scaling
 
-#### A comparative overview of how computing paradigms expand over time.
+### Classical vs Quantum Scaling
 
-<Grid cols="2" gap="1">
+Why does this fundamental shift matter? It all comes down to scaling. You've likely heard of Moore's Law.
 
-<Banner title="Moore's Law" class="scale-100 text-sm -translate-y-0" v-click="1">
+```{admonition} Moore's Law"
+:class: info
 
-
+It's the classical computing trend where we just keep packing more and more microscopic transistors onto a chip.
+But we are hitting a physical wall. We can only make things so small before atomic interference ruins the chip.
 
 - Driven by physical miniaturization of transisters.
 - Linear increase in components yields linear growth in classical bits.
 - Main bottleneck: Thermal dissipation and atomic limits.
 
+```
 
-</Banner>
+Quantum computing follows a different trajectory, often called Rose's Law.
 
-<Banner title="Rose's Law" class="scale-100 text-sm -translate-y-0" v-click="4">
+```{admonition} Rose's Law
+:class: tip
 
-
+Because of how qubits hold multiple states, just adding a few more qubits exponentially grows the computer's capacity.
+The main hurdle here isn't physical space, but "noise"—keeping those delicate spinning coins from falling over before the calculation is done.
 
 - Driven by quantum coherence and entanglement.
 - Linear increase in qubits yields exponential growth in state space $2^{n}$.
 - Main bottleneck: Quantum noise and error correction.
 
-
-</Banner>
-
-</Grid>
-
-<div class="inline-box -my-3 mx-72 px-6" v-click>
-$$
-\Large{2^n \text{~~bits} \quad\equiv\quad\ n \text{~~qubits}}
-$$
-
-</div>
-
-<FancyTable color="blue" class="translate-y-3" v-click>
-
-| Dimension               | Scale Metric | Growth Pattern | Doubling Period | Capability Metric | Limiting Factor |
-| ----------------------- | ----------- | -------------- | --------------- | ---------------------- | --------------- |
-| Moore's Law (Classical) | Transistor Count | Linear growth of components | ~18 to 24 Months | Clock Speed & Instructions/Sec (Flops) | Quantum Tunneling (Physical Wall) |
-| Rose's Law (Quantum)    | Qubit Count (Physical/Logical) | Exponential growth of state space | ~12 to 18 Months |Quantum Volume & Logical Error Rates | Decoherence & Environmental Noise|
-
-</FancyTable>
-
-<!--
-Why does this fundamental shift matter? It all comes down to scaling.
-
-
-You've likely heard of Moore's Law.
-
-
-It's the classical computing trend where we just keep packing more and more microscopic transistors onto a chip.
-
-
-But we are hitting a physical wall. We can only make things so small before atomic interference ruins the chip.
-
-
-Quantum computing follows a different trajectory, often called Rose's Law.
-
-
-Because of how qubits hold multiple states, just adding a few more qubits exponentially grows the computer's capacity.
-
-
-The main hurdle here isn't physical space, but "noise"—keeping those delicate spinning coins from falling over before the calculation is done.
-
+```
 
 To put this immense power in perspective, look at this equation: to get the processing space of a handful of 'n' qubits, you would need two-to-the-power-of-'n' classical bits.
 
+$$
+\Large{2^n ~~\text{bits} \quad\equiv\quad\ n~~ \text{qubits}}
+$$
 
 This table summarizes our crossroads: we are moving from linear, physical growth, into an era of exponential, quantum growth.
--->
+
+
+```{table} A comparative overview of how computing paradigms expand over time.
+:name: qc-scaling
+
+
+| Dimension         | Moore's Law (Classical)                | Rose's Law (Quantum)                 |
+| ----------------- | -------------------------------------- | ------------------------------------ |
+| Scale Metric      | Transistor Count                       | Qubit Count (Physical/Logical)       |
+| Growth Pattern    | Linear growth of components            | Exponential growth of state space    |
+| Doubling Period   | ~18 to 24 Months                       | ~12 to 18 Months                     |
+| Capability Metric | Clock Speed & Instructions/Sec (Flops) | Quantum Volume & Logical Error Rates |
+| Limiting Factor   | Quantum Tunneling (Physical Wall)      | Decoherence & Environmental Noise    |
+
+```
+
 
 ---
 
-# Stern Gerlach (SG) Experiment
+## Stern Gerlach (SG) Experiment
 
-<Grid cols="3-1" gap="2">
-
-<div>
-<AnimatedBanner h-30 rounded-none v-click>
+```{card}
 
 A foundational physics demonstration in 1922 by Otto Stern and Walther Gerlach, that proved the quantization of angular momentum.
 
-</AnimatedBanner>
+```
 
-<Banner title="" scale-100 translate-x-0 v-click>
+So, how do we actually prove that a qubit exists in this weird, spinning state in the physical world? For that, we have to go back to 1922.
+Two physicists, Otto Stern and Walther Gerlach, set up a now-famous experiment.
+
+``````{grid}
+
+```{grid-item-card} [Otto Stern: wiki](https://en.wikipedia.org/wiki/Otto_Stern)
+
+![](https://upload.wikimedia.org/wikipedia/commons/8/88/Otto_Stern.jpg)
+```
+
+```{grid-item-card} [Walther Gerlach: wiki](https://en.wikipedia.org/wiki/Walther_Gerlach)
+
+![](https://upload.wikimedia.org/wikipedia/en/9/9e/Walther_Gerlach.jpg)
+```
+``````
+
+They wanted to test the idea that atoms act like tiny, intrinsic magnets—a property we now call "spin".
+They wanted to see exactly how these tiny magnets would react when pushed by a big, external magnet.
+
+
+
+``````{tip}
 
 - Atoms contain intrinsic tiny magnetic moment, called **spin**.
 - The experiment showed how they respond to external magnet.
 
-</Banner>
-
-<img src="/figures/L02/atom-spin.png" width="50%" translate-x-30/>
-
-</div>
-
-<div>
+```{figure} ./atom-spin.png
+:align: center
+``````
 
 
-
-<Image src="https://upload.wikimedia.org/wikipedia/commons/8/88/Otto_Stern.jpg" width="120" />
-
-<div class="inline-box translate-x-12" > Otto Stern </div>
-
-<Image src="https://upload.wikimedia.org/wikipedia/en/9/9e/Walther_Gerlach.jpg" width="120" />
-<div class="inline-box translate-x-12" > Walther Gerlach </div>
-
-</div>
-
-</Grid>
-
-<!--
-So, how do we actually prove that a qubit exists in this weird, spinning state in the physical world? For that, we have to go back to 1922.
-
-
-Two physicists, Otto Stern and Walther Gerlach, set up a now-famous experiment.
-
-
-They wanted to test the idea that atoms act like tiny, intrinsic magnets—a property we now call "spin". They wanted to see exactly how these tiny magnets would react when pushed by a big, external magnet.
--->
 
 ---
 
-# SG experiment: Setup
+## SG experiment: Setup
 
-<Grid cols="3-1" gap="2">
+Let's look at how they built this experiment. Following is the sketch of the experiment:
 
-<div v-click>
-<!--<img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Stern-Gerlach_experiment.svg" width="100%" crop v-click> -->
-<img src="/figures/L02/sg-exp.png" width="90%" />
-</div>
-
-<div 
-    class="absolute border-2 border-amber-400 bg-amber-400/10 rounded-12 transition-all duration-500 ease-in-out pointer-events-none"
-    :class="{
-      'opacity-0': $clicks < 2,
-      'top-[85px] left-[550px] w-[80px] h-[80px] opacity-100': $clicks === 2,
-      'top-[115px] left-[280px] w-[150px] h-[60px] opacity-100 -rotate-9': $clicks === 3,
-      'top-[150px] left-[120px] w-[150px] h-[60px] opacity-100 -rotate-9': $clicks === 4,
-      'top-[150px] left-[33px] w-[50px] h-[100px] opacity-100 -rotate-6': $clicks === 5,
-      'opacity-0 scale-95': $clicks > 4
-    }"
-  />
-
-<div class="scale-90 bg-gray-400/10 p-3" v-click="1">
+<img src="./sg-exp.png" width="100%" />
 
 1) Furnace
 2) Beam of atoms 
@@ -337,91 +238,61 @@ They wanted to test the idea that atoms act like tiny, intrinsic magnets—a pro
 4) classically expectation 
 5) observed result
 
-</div>
-
-
-<Banner title="Experiment steps" class="scale-90 -my-3" v-click=1>
-
-
-
-- Silver atoms are vaporised in an oven and fired like a beam.
-- They pass through a strong magnetic field.
-- It causes a force relative to atom's intrinsic spin to deflect them.
-- The deflected atoms hit the screen, which shows bright spots where hit.
-
-
-</Banner>
-
-<Banner title="Key lessons" class="scale-90 -translate-y-9" v-click>
-
-- How the beam deformed, surprise everyone at the time.
-- The first decisive experiment to show spatial quantisation.
-
-</Banner>
-</Grid>
-
-<!--
-Let's look at how they built this experiment.
-
-
-This is the sketch of the experiment
 
 
 First, the silver atoms are vapourised in a furnace and fired like a straight beam.
-
-
-Then beam of atoms passes through a strong magnetic field
-
-
-This beam was shot directly through a very strong, uneven magnetic field.
-
-
-Finally, the atoms would hit a detection screen at the far end, leaving a mark where they landed.
-
+Then beam of atoms passes through a strong magnetic field. This beam was shot directly
+through a very strong, uneven magnetic field. Finally, the atoms would hit a detection
+screen at the far end, leaving a mark where they landed.
 
 The idea was that the magnetic field would deflect the atoms depending on their internal spin.
+But the pattern that actually appeared on that screen surprised everyone. It was the first
+experiment to show spatial quantusation, and it perfectly illustrates our quantum coin. Let's see why.
 
-But the pattern that actually appeared on that screen surprised everyone.
-It was the first experiment to show spatial quantusation, and it perfectly illustrates our quantum coin. Let's see why.
--->
 
----
 
-# The SG Experiment: Expectation
 
-<Banner title="Prediction:" v-click>
+### SG Experiment: Expectation
+
+```{admonition} Prediction
+:class: tip
 
 Silver atoms possess random magnetic moments, which should result in a continuous smear across the detection screen.
 
-</Banner>
 
-<SternGerlach mode="classical" particleColor="#1cc277" :particleSpeed="6.0" :spawnRate="3" size="100%" v-click/>
+```
 
-<Banner title="Reasoning" v-click>
+Before they turned the machine on, classical physics made a very confident prediction.
+Since the silver atoms are bouncing around randomly inside that hot oven, their tiny magnetic spins should be pointing in every possible random direction. Because of that, as they pass through the magnet, they should be deflected by all sorts of random amounts.
+
+```{admonition} Reasoning
+:class: info
 
 - The magnetic field is felt by each atom depending on its orientation, and deflects the atom accordingly.
 - Since spin orientations must be random from the oven, the scattering pattern should be spread out.
 
-</Banner>
-
-<!--
-Before they turned the machine on, classical physics made a very confident prediction.
-
-
-Since the silver atoms are bouncing around randomly inside that hot oven, their tiny magnetic spins should be pointing in every possible random direction.
-
-
-Because of that, as they pass through the magnet, they should be deflected by all sorts of random amounts.
-
+```
 
 As you can see in the simulation, classical physics expected the atoms to just hit the screen in a giant, continuous smear. Random orientations in, smeared line out. It made perfect sense. But the quantum world had a massive surprise waiting for them.
--->
+
+```{raw} html
+<!-- Load dependencies (only need to do this once per page) -->
+<script src="../_static/stern-gerlach.js"></script>
+
+<!-- Classical Expectation -->
+<stern-gerlach mode="classical"></stern-gerlach>
+```
+
+
+
+
 
 ---
 
-# The SG Experiment: Reality
+### SG Experiment: Reality
 
-<Banner title="Reality:" v-click>
+```{admonition} Reality
+:class: warning
 
 Angular momentum is quantized. The beam splits into exactly two discrete orientations:
 
@@ -429,36 +300,29 @@ Angular momentum is quantized. The beam splits into exactly two discrete orienta
 
 - Spin `Down` ($\downarrow$)
 
+```
 
-</Banner>
-
-<SternGerlach mode="quantum" particleColor="#1cc277" :particleSpeed="6.0" :spawnRate="3" size="100%" v-click/>
-
-<AnimatedBanner v-click>
-
-Atom's **spin** were in random orientation. The magnet **Influenced** the orientation. The screen **detected** the orientation.
- 
-</AnimatedBanner>
-
-<!--
 But here is what actually happened when they turned the machine on.
-
-
 Instead of a continuous smear, the beam split cleanly into exactly two distinct spots. Some atoms went straight up, and the others went straight down.
 
+```{raw} html
+<!-- Quantum Reality -->
+<stern-gerlach mode="quantum"></stern-gerlach>
+```
 
 Nothing in between. Even though the atoms went into the magnet spinning completely randomly, the magnet forced them to pick a side. The measurement itself determined the reality.
--->
+
+```{admonition} Observation
+:class: info
+
+Atom's **spin** were in random orientation. The magnet **Influenced** the orientation. The screen **detected** the orientation.
+```
 
 ---
 
-# Interpretation
+### Interpretation
 
-<Grid cols="4-1" gap="0">
-<Box title="Atomic spin: Measuring direction" type="warning" class="text-sm  -translate-x-0 -translate-y-0" >
-
-
-<v-clicks every="1">
+Let's break down exactly why this is so weird, and what it means for us.
 
 - Let's look closely at the atom's `spin`, and consider its direction as it passes from the oven, through the magnet, to the screen.
 
@@ -475,270 +339,220 @@ Nothing in between. Even though the atoms went into the magnet spinning complete
 
 - The experiment revealed equal brightness between both dots: $\longrightarrow$ equal probability of **up** or **down**.
 
+```{raw} html
+<div style="width: 100%; max-width: 1200px; margin: 2rem auto;">
+  <svg viewBox="0 0 700 340" width="100%" xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)">
+    <style>
+      .label-title { font-family: sans-serif; font-size: 18px; font-weight: bold; fill: #64748b; }
+      .label-sub { font-family: monospace; font-size: 13px; fill: #94a3b8; }
+      .divider { stroke: #cbd5e1; stroke-width: 2; stroke-dasharray: 8 8; }
+      .atom-body { fill: var(--jp-layout-color1, #ffffff); stroke: #94a3b8; stroke-width: 2; }
+      
+      /* Pedagogical Color Coding */
+      .arrow-rand { stroke: #6366f1; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .arrow-up { stroke: #10b981; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .arrow-down { stroke: #f59e0b; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
 
+    <!-- Panel Dividers & Backgrounds -->
+    <line x1="350" y1="20" x2="350" y2="320" class="divider" />
+    
+    <!-- Left Panel: Oven Output -->
+    <g transform="translate(0, 0)">
+      <text x="175" y="30" text-anchor="middle" class="label-title">Oven Output</text>
+      <text x="175" y="50" text-anchor="middle" class="label-sub">Random Magnetic Moments</text>
+      
+      <!-- 12 Randomly Oriented Atoms -->
+      <g transform="translate(100, 90) rotate(45)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-rand"/></g>
+      <g transform="translate(160, 80) rotate(-30)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-rand"/></g>
+      <g transform="translate(230, 95) rotate(120)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-rand"/></g>
+      
+      <g transform="translate(120, 140) rotate(-110)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-rand"/></g>
+      <g transform="translate(180, 135) rotate(15)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-rand"/></g>
+      <g transform="translate(240, 150) rotate(85)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-rand"/></g>
 
-</Box>
+      <g transform="translate(90, 195) rotate(-160)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-rand"/></g>
+      <g transform="translate(165, 200) rotate(210)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-rand"/></g>
+      <g transform="translate(225, 205) rotate(-55)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-rand"/></g>
 
+      <g transform="translate(110, 255) rotate(70)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-rand"/></g>
+      <g transform="translate(175, 260) rotate(-5)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-rand"/></g>
+      <g transform="translate(250, 250) rotate(140)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-rand"/></g>
+    </g>
 
-<div>
+    <!-- Right Panel: Split Beam -->
+    <g transform="translate(350, 0)">
+      <text x="175" y="30" text-anchor="middle" class="label-title">After SG Magnet</text>
+      <text x="175" y="50" text-anchor="middle" class="label-sub">Quantized Spin States</text>
+      
+      <!-- Upper Beam (Spin UP - 6 Atoms) -->
+      <g transform="translate(100, 100)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-up"/></g>
+      <g transform="translate(160, 85)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-up"/></g>
+      <g transform="translate(225, 95)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-up"/></g>
+      <g transform="translate(125, 150)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-up"/></g>
+      <g transform="translate(185, 140)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-up"/></g>
+      <g transform="translate(250, 145)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-up"/></g>
 
-<br><br><br>
-
-<SGspin option="random" class="scale-150 translate-x-0" v-click="2"/>
-
-<br><br><br>
-
-<SGspin option="polarized" class="scale-150 translate-x-0" v-click="3"/>
-
+      <!-- Lower Beam (Spin DOWN - 6 Atoms) -->
+      <!-- Rotate(180) perfectly flips the arrow down -->
+      <g transform="translate(100, 210) rotate(180)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-down"/></g>
+      <g transform="translate(160, 200) rotate(180)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-down"/></g>
+      <g transform="translate(230, 215) rotate(180)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-down"/></g>
+      <g transform="translate(120, 260) rotate(180)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-down"/></g>
+      <g transform="translate(180, 255) rotate(180)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-down"/></g>
+      <g transform="translate(245, 270) rotate(180)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-down"/></g>
+    </g>
+  </svg>
 </div>
-
-</Grid>
-
-<span class="inline-box rounded-auto text-center" v-click>
-💡 Takeaway: The spin state must be described by a mathematical framework that has probability built right into it.
-</span>
-
-<!--
-Let's break down exactly why this is so weird, and what it means for us.
+```
 
 
+```{admonition} 💡 Takeaway
+:class: tip
 
-In the oven, these atomic spins are a complete mess—they point in every possible direction.
-
-
-But the instant they pass through the magnetic field, they don't smear. They snap into one of two discrete paths.
-
-
-Before hitting the screen, the atom has the potential to be in any orientation, but the act of measuring it forces a collapse into a single choice.
-
-
-And this choice is fundamentally random. If you shoot just one atom, it's a coin toss whether it goes up or down.
-
-
-But if you shoot thousands of them, a pattern emerges.
-
-
-The experiment showed the two spots were equally bright, meaning there is exactly a 50/50 probability of getting Up or Down.
-
-
-
-
-The big takeaway? Whatever mathematical language we use to program quantum computers, it has to have probability baked right into its core.
--->
+Whatever mathematical language we use to program quantum computers, it has to have probability baked right into its core.
+```
 
 ---
 
-# A Quantum State
+## A Quantum State
+
+So how do we mathematically write this down? We use something called a "state."
+
+```{admonition} State
+:class: tip
+
+A state is just a mathematical snapshot of a system.
+It is a mathematical descriptor that captures every detail of that system at a given instant.
+```
+
+For a classical system, this snapshot is expressed entirely through a fixed set of coordinates and properties.
+
+### Classical State
+
+Take an example of a single physical particle moving through space. We live in three dimensions, so we
+need three coordinates, say $(x, y, z)$ to specify its position, and three components of momentum $(p_x, p_y, p_z)$
+or equivalently velocity to specify its motion.
+
+Thus the exact state of the particle is locked into its position  and its momentum.
+Measuring the location or speed simply reveals these pre-existing numbers.
 
 
+```{admonition} Definition
+:class: tip
 
-- A system's state is a mathematical descriptor that captures every detail of that system at a given instant.
-- For a classical system, this snapshot is expressed entirely through a fixed set of coordinates and properties.
+The minimal set of numbers or quantities required to specify the position of a system is called its **degrees of freedom**.
+```
 
+Thus a particle moving in space has 3 degrees of freedom. If the particle also has finite geometry, a rigid body, then
+it has 6 degrees of freedom; three positional coordinates, and three rotational angles.
 
-
-
-<Banner title="Classical State" class="scale-90 -translate-y-6 text-4" v-click="3">
-
-
-
-- Example: A single physical particle moving through space.
-- Its exact state is locked into its position $(x, y, z)$ and its momentum $(p_x, p_y, p_z)$.
-- Measuring the location or speed simply reveals these pre-existing numbers.
+For each degree of freedom, there must be a corresponding component of momenta, or velocity to specify the motion. Together,
+they define the state of the system.
 
 
-</Banner>
+### Quantum State
 
-<Banner title="Quantum State" type="warning" class="scale-90 text-4 -translate-y-15" v-click="6">
+But a quantum state is completely different. It's fluid. It is literally a combination of potential outcomes before you measure it.
+A quantum state is sensitive to the measurement apparatus, existing as a fluid combination of potential measurement outcomes.
 
-
-- A quantum state is sensitive to the measurement apparatus, existing as a fluid combination of potential measurement outcomes.
-
-- Because `Up` and `Down` were the distinct outcomes of our spin experiment, we write the state using an abstract blend:
-
-
-
-
+Since our experiment gave us `Up` and `Down` as distinct outcomes of our experiment, we write our quantum state as an abstract
+blend of both possibilities.
 
 $$|\psi\rangle = \alpha|\text{Up}\rangle + \beta|\text{Down}\rangle$$ 
 
-
-
+For now we read it as: The state $\psi$ equals $\alpha$ times state `Up` plus $\beta$ times state `Down`.
 
 - The values $\alpha$ and $\beta$ are weighting factors that control the likelihood of landing on a specific outcome.
 
 - If we square their absolute values, they reveal the physical probability of reading a state as `Up` or `Down`.
 
 
-</Banner>
 
-<!--
-So how do we mathematically write this down? We use something called a "state."
-
-
-A state is just a mathematical snapshot of a system.
-
-
-For classical system, this snapshot is expressed entirely through a fixed set of numbers which could be coordinates and other properties.
-
-
-For example, If you have a particle,
-
-
-it has a definite speed and location. 
-
-
-Measuring it just reveals those numbers to you.
-
-
-
-But a quantum state is completely different. It's fluid. It is literally a combination of potential outcomes before you measure it.
-
-
-Since our experiment gave us "Up" and "Down", we write our quantum state as a blend of both possibilities.
-
-
-Here the state psi equals alpha times UP and beta times DOWN.
-
-
-The symbols alpha and beta—as are the weights that control likelihood of a specific outcome.
-
-
-If you take these weights and square them, they give you the exact percentage chance that the qubit will snap into the "Up" state or the "Down" state when you finally look at it.
--->
 
 ---
 
-# Complex weights
+### The necessity of complex weights
 
-<div class="w-200 translate-x-9 translate-y-18" v-click="1">
-<Banner title="The Necessity of Complex Weights" class="scale-90" v-click="1">
-
-
-
-- One may think that the simplest description could involve using real numbers as weights.
+Now, you might be wondering about those weights, alpha and beta.
+It's incredibly tempting to just use regular, everyday numbers for them—like 0.5 or 0.8.
 
 $$|\psi\rangle = \alpha|\text{Up}\rangle + \beta|\text{Down}\rangle$$ 
 
-
-
-
-
-- But one quickly learns how treating real numbers as weights becomes tricky.
-
-- We illustrate this by doing a Lego like exercise with the SG experiment.
-
-
-
-</Banner>
-</div>
-
-<!--
-Now, you might be wondering about those weights, alpha and beta.
-
-
-It's incredibly tempting to just use regular, everyday numbers for them—like 0.5 or 0.8.
-
-
+However, if we assumed, we will quickly learn how treating real numbers as weights becomes tricky.
 But very early on, physicists realized that using regular real numbers completely breaks down.
 
+We illustrate this by doing a Lego like exercise with the SG experiment.
 
-To show you why, let's play a little game with our SG experiment.
--->
-
----
-
-# Multi-Axis Measurement Sequence
-
-
-<div class="flex bg-yellow-100 text-sm">
-
-
+#### Multi-Axis Measurement Sequence
 
 - Recall the SG setup. The magnet was oriented to deflect atoms along $Z$ axis. 
 - Let's call this arrangement $\text{magnet-}Z$, and the two outcomes $|z+\rangle$ and $|z-\rangle$.
   - Rotating the whole apparatus along $X$ or $Y$ axis, changes the beam to deflect along $X$, or $Y$ axes with outcomes $|x\pm\rangle$ or $|y\pm\rangle$
-- Let's run three SG experiments sequentially, in two ways
 
+Let's run three SG experiments sequentially, in two ways.
 
-</div>
+```{info} "Z-X-Z"
 
-<Grid cols="2" gap="1">
-
-<Banner title="Z-X-Z" type="success" class=" text-sm" v-click="4">
+First, the Z-X-Z sequence.
 
 We pass the $|z+\rangle$ atoms through second $\text{magnet-}X$, which splits them in $|x\pm\rangle$. We take the
 $|x+\rangle$ out, and pass it to third $\text{magnet-}Z$, which splits them into $|z\pm\rangle$ again.
+```
 
-</Banner>
+```{info} "Z-Y-Z"
 
-<Banner title="Z-Y-Z" class=" text-sm" v-click="5">
+Next, the Z-Y-Z sequence.
 
 We pass the $|z+\rangle$ atoms through second $\text{magnet-}Y$, which splits them in $|y\pm\rangle$. We take the
 $|y+\rangle$ out, and pass it to third $\text{magnet-}Z$, which splits them into $|z\pm\rangle$ again.
 
-</Banner>
+```
 
-</Grid>
+```{figure} ./sgxyflow.svg
+:width: 120%
+:align: center
+:name: fig-sgxy
 
+SG experiment, Z-X-Z and Z-Y-Z pathways.
+```
 
-<div class="flex relative -translate-y-9" >
-
-<!-- Click 1: Reveals the First Z-Magnet and its ket states -->
-<SGxyFlow :animated="true" :step="1" class="absolute inset-0" v-click="1" />
-
-<!-- Click 2: Reveals the upper Green X-Magnet pathway -->
-<SGxyFlow :animated="true" :step="2" class="absolute inset-0" v-click="4" />
-
-<!-- Click 3: Reveals the lower Blue Y-Magnet pathway -->
-<SGxyFlow :animated="true" :step="3" class="absolute inset-0" v-click="5" />
-
-</div>
-
-<!--
-Let's imagine we line up multiple magnets in a sequence.
+In both the case, we get equal mixture of $|z+\rangle$ and $|z-\rangle$ towards the end.
 
 
-First, our standard vertical magnet—the Z-axis. It splits the beam Up and Down.
 
-
-Let's call this arrangement magnet-z and the two outcomes as z+ and z- .
-Rotating the whole apparatus along X or Y axis, deflects the beam along X, or Y, with outcomes x+- or y+-.
-
-
-Let's run this sequentially in two ways.
-
-
-First, the Z-X-Z sequence.
-Here we take only the "Up" or z+ atoms and pass them through a second magnet that is rotated along X-axis.
-
-Then, we pass those through a third vertical Z-axis magnet.
-
-
-We could also run a second version of this experiment in Z-Y-Z arrangement, where we tilt the middle magnet in a completely different direction—the Y-axis.
-
-In both the case, we get equal mixture of z+ and z- towards the end.
--->
 
 ---
 
-# Need for Complex Weights
+#### The counterintuitive
 
-#### Two counterintuitive things happened.
+When you actually run this experiment, two strange things happen, as illustrated by {numref}`fig-sgxy`.
 
-<Banner title="The Reappearing State Paradox" class="scale-90 -translate-y-4 -mb-1 text-4" v-click>
+First, atoms that were strictly "Up" on the Z-axis somehow forget their orientation after passing through the second magnets When they hit the final Z-magnet, they split into Up and Down all over again!
+
+```{warning} The Reappearing State Paradox
 
 - A $|z+\rangle$ state became an equal blend of $|z+\rangle$ and $|z-\rangle$ when passed through $\text{magnet-}X$/$\text{magnet-}Y$.
 - How did $|z+\rangle$ in both cases, got mixed with $|z-\rangle$?
 
-</Banner>
+```
 
-<Banner title="Incomplete description" class="scale-90 -translate-y-12 -mb-1 text-4" v-click>
+Second, and more importantly for our math: if we try to write the equations for the X pathway and the Y pathway using only regular real numbers, the equations end up looking exactly identical. somehow both $|x+\rangle$ and $|y+\rangle$ states are equal blend of $|z+\rangle$ and $|z-\rangle$ states!
+
+```{warning} Incomplete description
 
 - In the $Z-X-Z$ pathway, the $|x+\rangle$ state is an equal blend of $|z+\rangle$, and $|z-\rangle$. 
 - In the $Z-Y-Z$ pathway, the $|y+\rangle$ state is an equal blend of $|z+\rangle$, and $|z-\rangle$. 
-  $$|x+\rangle := |z+\rangle + |z-\rangle; \qquad\text{yet also} \qquad |y+\rangle := |z+\rangle + |z-\rangle $$
-</Banner>
+
+$$|x+\rangle := |z+\rangle + |z-\rangle; \qquad\text{yet also} \qquad |y+\rangle := |z+\rangle + |z-\rangle $$
+
+```
+
+But physically, they are completely different setups! 
+
+Regular numbers just don't give us enough dimensions to uniquely describe reality. We have to use complex numbers.
+
+
 
 <Banner title="Real Numbers Are Not Enough" type="warning" class="scale-90 -translate-y-20 text-4" v-click>
 
@@ -747,18 +561,6 @@ In both the case, we get equal mixture of z+ and z- towards the end.
 
 </Banner>
 
-<!--
-When you actually run this experiment, two maddening things happen.
-
-
-First, atoms that were strictly "Up" on the Z-axis somehow forget their orientation after passing through the second magnets When they hit the final Z-magnet, they split into Up and Down all over again!
-
-
-Second, and more importantly for our math: if we try to write the equations for the X pathway and the Y pathway using only regular real numbers, the equations end up looking exactly identical. somehow both x+ and y+ states are equal blend of z+ and z- states!
-
-
-But physically, they are completely different setups! Regular numbers just don't give us enough dimensions to uniquely describe reality. We have to use complex numbers.
--->
 
 ---
 
@@ -2253,20 +2055,6 @@ You now have the mathematical and visual vocabulary to understand what a qubit i
 
 In our next lecture, we are going to take these individual qubits and link them together to explore entanglement and multi-qubit systems.
 -->
-
----
-layout: section
-transition: fade-out
----
-
-# Thank you
-
-<!--
-Thank you for your time, and I'll see you in the next session!
--->
-
-## Introduction
-In classical computing, which we usually call just computing, we transform or map every mathematical problem into a sequence of tasks, which is performed by computer, and towards the end, we get the desired result. These sequences of tasks, are what we call algorithms, consists of an exact sequence of simpler tasks that can be understood by computer. When this exact sequence is expressed in a way that computer understand, we call it a computer program. To understand, and organise well, the algorithms are often broken down to smallest possible building blocks. We  will discuss some of these building blocks now, and see how the role of bits comes into play.
 
 
 
