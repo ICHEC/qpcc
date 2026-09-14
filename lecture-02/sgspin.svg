@@ -1,0 +1,62 @@
+<svg viewBox="0 0 700 340" width="100%" xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)">
+    <style>
+      .label-title { font-family: sans-serif; font-size: 18px; font-weight: bold; fill: #64748b; }
+      .label-sub { font-family: monospace; font-size: 13px; fill: #94a3b8; }
+      .divider { stroke: #cbd5e1; stroke-width: 2; stroke-dasharray: 8 8; }
+      .atom-body { fill: var(--jp-layout-color1, #ffffff); stroke: #94a3b8; stroke-width: 2; }
+      
+      /* Pedagogical Color Coding */
+      .arrow-rand { stroke: #6366f1; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .arrow-up { stroke: #10b981; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .arrow-down { stroke: #f59e0b; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+
+    <!-- Panel Dividers & Backgrounds -->
+    <line x1="350" y1="20" x2="350" y2="320" class="divider" />
+    
+    <!-- Left Panel: Oven Output -->
+    <g transform="translate(0, 0)">
+      <text x="175" y="30" text-anchor="middle" class="label-title">Oven Output</text>
+      <text x="175" y="50" text-anchor="middle" class="label-sub">Random Magnetic Moments</text>
+      
+      <!-- 12 Randomly Oriented Atoms -->
+      <g transform="translate(100, 90) rotate(45)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-rand"/></g>
+      <g transform="translate(160, 80) rotate(-30)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-rand"/></g>
+      <g transform="translate(230, 95) rotate(120)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-rand"/></g>
+      
+      <g transform="translate(120, 140) rotate(-110)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-rand"/></g>
+      <g transform="translate(180, 135) rotate(15)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-rand"/></g>
+      <g transform="translate(240, 150) rotate(85)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-rand"/></g>
+
+      <g transform="translate(90, 195) rotate(-160)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-rand"/></g>
+      <g transform="translate(165, 200) rotate(210)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-rand"/></g>
+      <g transform="translate(225, 205) rotate(-55)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-rand"/></g>
+
+      <g transform="translate(110, 255) rotate(70)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-rand"/></g>
+      <g transform="translate(175, 260) rotate(-5)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-rand"/></g>
+      <g transform="translate(250, 250) rotate(140)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-rand"/></g>
+    </g>
+
+    <!-- Right Panel: Split Beam -->
+    <g transform="translate(350, 0)">
+      <text x="175" y="30" text-anchor="middle" class="label-title">After SG Magnet</text>
+      <text x="175" y="50" text-anchor="middle" class="label-sub">Quantized Spin States</text>
+      
+      <!-- Upper Beam (Spin UP - 6 Atoms) -->
+      <g transform="translate(100, 100)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-up"/></g>
+      <g transform="translate(160, 85)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-up"/></g>
+      <g transform="translate(225, 95)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-up"/></g>
+      <g transform="translate(125, 150)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-up"/></g>
+      <g transform="translate(185, 140)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-up"/></g>
+      <g transform="translate(250, 145)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-up"/></g>
+
+      <!-- Lower Beam (Spin DOWN - 6 Atoms) -->
+      <!-- Rotate(180) perfectly flips the arrow down -->
+      <g transform="translate(100, 210) rotate(180)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-down"/></g>
+      <g transform="translate(160, 200) rotate(180)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-down"/></g>
+      <g transform="translate(230, 215) rotate(180)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-down"/></g>
+      <g transform="translate(120, 260) rotate(180)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-down"/></g>
+      <g transform="translate(180, 255) rotate(180)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-down"/></g>
+      <g transform="translate(245, 270) rotate(180)"><circle r="14" class="atom-body"/><path d="M0,8 L0,-8 M-4,-4 L0,-10 L4,-4" class="arrow-down"/></g>
+    </g>
+</svg>
