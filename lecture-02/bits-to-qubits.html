@@ -245,9 +245,6 @@
 
 
 
-
-
-
 </ul>
 
     </div>
@@ -394,9 +391,9 @@
             <nav aria-label="Page">
                 <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lecture 2: From Bits to Qubits</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-bits-and-gates">Recap: Bits and Gates</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-qubits-and-quantum-gates">Preview: Qubits and Quantum Gates</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-bits-and-gates">Recap: Bits and Gates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-qubits-and-quantum-gates">Preview: Qubits and Quantum Gates</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-vs-quantum-scaling">Classical vs Quantum Scaling</a></li>
 </ul>
 </li>
@@ -432,16 +429,16 @@
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#operators-in-action">Operators in Action</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalues-eigenstates">Eigenvalues &amp; Eigenstates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#special-operators">Special Operators</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-measurement">Quantum Measurement</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#measurement-basis">Measurement Basis</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#special-operators">Special Operators</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-measurement">Quantum Measurement</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measurement-basis">Measurement Basis</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#demystifying-quantum-computation">Demystifying Quantum Computation</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-operation">Quantum Operation</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-operation-vs-quantum-circuits">Quantum operation vs. Quantum Circuits</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-operation">Quantum Operation</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-operation-vs-quantum-circuits">Quantum operation vs. Quantum Circuits</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#single-qubit-gates">Single qubit Gates</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hadamard-gate">Hadamard Gate</a></li>
 </ul>
@@ -497,9 +494,8 @@ Our primary goal today is to get comfortable with the fundamental building block
 <li><p><strong>Qubits and Quantum state</strong></p></li>
 <li><p><strong>Quantum Gates</strong></p></li>
 </ul>
-</section>
 <section id="recap-bits-and-gates">
-<h2>Recap: Bits and Gates<a class="headerlink" href="#recap-bits-and-gates" title="Link to this heading">#</a></h2>
+<h3>Recap: Bits and Gates<a class="headerlink" href="#recap-bits-and-gates" title="Link to this heading">#</a></h3>
 <p>To truly appreciate what makes a qubit so special, we first need to quickly remind
 ourselves how our everyday, classical computers work.</p>
 <p>We already know that classical computation is built entirely on two things: <code class="docutils literal notranslate"><span class="pre">bits</span></code> and <code class="docutils literal notranslate"><span class="pre">gates</span></code>.
@@ -546,7 +542,7 @@ It is highly predictable, strictly binary, and it’s the foundation of all clas
 </section>
 <hr class="docutils" />
 <section id="preview-qubits-and-quantum-gates">
-<h2>Preview: Qubits and Quantum Gates<a class="headerlink" href="#preview-qubits-and-quantum-gates" title="Link to this heading">#</a></h2>
+<h3>Preview: Qubits and Quantum Gates<a class="headerlink" href="#preview-qubits-and-quantum-gates" title="Link to this heading">#</a></h3>
 <p>Now, let’s step into the quantum paradigm.
 Instead of classical bits and gates, the corresponding object in quantum computing are <code class="docutils literal notranslate"><span class="pre">Qubits</span></code> and <code class="docutils literal notranslate"><span class="pre">Quantum</span> <span class="pre">Gates</span></code>.
 Think of a classical bit like a coin sitting flat on a table—it’s either heads or tails. A qubit is like a spinning coin.</p>
@@ -606,6 +602,7 @@ Here is an example of an illustrative quantum circuit:</p>
 <!-- Load the Web Component script -->
 <script src="../_static/quantum-circuit.js"></script>
 <quantum-circuit qubits="2" gates="H:0, CNOT:1:0, M:0, M:1" scale="2.0" classical="false"></quantum-circuit></div>
+</section>
 <hr class="docutils" />
 <section id="classical-vs-quantum-scaling">
 <h3>Classical vs Quantum Scaling<a class="headerlink" href="#classical-vs-quantum-scaling" title="Link to this heading">#</a></h3>
@@ -858,7 +855,7 @@ Instead of a continuous smear, the beam split cleanly into exactly two distinct 
     </g>
   </svg>
 </div><div class="tip admonition">
-<p class="admonition-title">💡 Takeaway</p>
+<p class="admonition-title">Takeaway</p>
 <p>Whatever mathematical language we use to program quantum computers, it has to have probability baked right into its core.</p>
 </div>
 </section>
@@ -868,7 +865,7 @@ Instead of a continuous smear, the beam split cleanly into exactly two distinct 
 <h2>A Quantum State<a class="headerlink" href="#a-quantum-state" title="Link to this heading">#</a></h2>
 <p>So how do we mathematically write this down? We use something called a “state.”</p>
 <div class="tip admonition">
-<p class="admonition-title">State</p>
+<p class="admonition-title">What is state?</p>
 <p>A state is just a mathematical snapshot of a system.
 It is a mathematical descriptor that captures every detail of that system at a given instant.</p>
 </div>
@@ -938,18 +935,16 @@ But very early on, physicists realized that using regular real numbers completel
 <h4>The counterintuitive outcome<a class="headerlink" href="#the-counterintuitive-outcome" title="Link to this heading">#</a></h4>
 <p>When you actually run this experiment, two strange things happen, as illustrated by <a class="reference internal" href="#fig-sgxy"><span class="std std-numref">Fig. 4</span></a>.</p>
 <p>First, atoms that were strictly “Up” on the Z-axis somehow forget their orientation after passing through the second magnets When they hit the final Z-magnet, they split into Up and Down all over again!</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The Reappearing State Paradox</p>
+<div class="warning admonition">
+<p class="admonition-title">The Reappearing State Paradox</p>
 <ul class="simple">
 <li><p>A <span class="math notranslate nohighlight">\(|z+\rangle\)</span> state became an equal blend of <span class="math notranslate nohighlight">\(|z+\rangle\)</span> and <span class="math notranslate nohighlight">\(|z-\rangle\)</span> when passed through <span class="math notranslate nohighlight">\(\text{magnet-}X\)</span>/<span class="math notranslate nohighlight">\(\text{magnet-}Y\)</span>.</p></li>
 <li><p>How did <span class="math notranslate nohighlight">\(|z+\rangle\)</span> in both cases, got mixed with <span class="math notranslate nohighlight">\(|z-\rangle\)</span>?</p></li>
 </ul>
 </div>
 <p>Second, and more importantly for our math: if we try to write the equations for the X pathway and the Y pathway using only regular real numbers, the equations end up looking exactly identical. somehow both <span class="math notranslate nohighlight">\(|x+\rangle\)</span> and <span class="math notranslate nohighlight">\(|y+\rangle\)</span> states are equal blend of <span class="math notranslate nohighlight">\(|z+\rangle\)</span> and <span class="math notranslate nohighlight">\(|z-\rangle\)</span> states!</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Incomplete description</p>
+<div class="warning admonition">
+<p class="admonition-title">Incomplete description</p>
 <ul class="simple">
 <li><p>In the <span class="math notranslate nohighlight">\(Z-X-Z\)</span> pathway, the <span class="math notranslate nohighlight">\(|x+\rangle\)</span> state is an equal blend of <span class="math notranslate nohighlight">\(|z+\rangle\)</span>, and <span class="math notranslate nohighlight">\(|z-\rangle\)</span>.</p></li>
 <li><p>In the <span class="math notranslate nohighlight">\(Z-Y-Z\)</span> pathway, the <span class="math notranslate nohighlight">\(|y+\rangle\)</span> state is an equal blend of <span class="math notranslate nohighlight">\(|z+\rangle\)</span>, and <span class="math notranslate nohighlight">\(|z-\rangle\)</span>.</p></li>
@@ -974,9 +969,8 @@ Which gives us one free parameter that one can vary to change the description of
 orientational freedom is parameterised by minimum <code class="docutils literal notranslate"><span class="pre">two</span></code> parameters. More can be okay, but not less.</p>
 <p>That is why we use complex numbers, as each complex number is a two parameter object.
 Let’s look at how complex numbers solve this.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>Definition</p>
+<div class="tip admonition">
+<p class="admonition-title">Definition</p>
 <p>A <strong>Complex number</strong> <span class="math notranslate nohighlight">\(z\)</span> consists of two part, a real part and an imaginary part: <span class="math notranslate nohighlight">\(z = x + iy\)</span>
 where <span class="math notranslate nohighlight">\(i=\sqrt{-1}\)</span> is the imaginary number. <span class="math notranslate nohighlight">\(x, y\)</span> are two real number that collectively define
 a complex number.</p>
@@ -1022,9 +1016,8 @@ It’s just a vertical bar, a word, and an angled bracket. The word inside descr
 <li><p>A generic state is expressed as linear combination of the Basis states with complex coefficients.</p></li>
 </ul>
 <p>And here is the big reveal: any quantum system where a measurement gives you exactly two possible outcomes is what we call a “qubit.”</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>Definition</p>
+<div class="tip admonition">
+<p class="admonition-title">Definition</p>
 <p>A Quantum system, in which the measurement gives only two outcomes, is identified as a <strong>qubit</strong>.</p>
 </div>
 <div class="math notranslate nohighlight">
@@ -1249,7 +1242,7 @@ If you are at the North Pole, there is a zero percent chance you are also at the
 <section id="quantum-operators">
 <h2>Quantum Operators<a class="headerlink" href="#quantum-operators" title="Link to this heading">#</a></h2>
 <p>Okay, so we have our state vectors. But how do we actually do computing? We need a way to change the states.
-For that, we use Quantum Operators. Whenever you physically change a qubit—like applying a logic gate—you are applying a Linear Operator.</p>
+For that, we use Quantum Operators. Whenever you physically change a qubit, like applying a logic gate, you are applying a Linear Operator.</p>
 <ul class="simple">
 <li><p>Once we define a qubit as a <strong>complex vector</strong> <span class="math notranslate nohighlight">\(\vert\psi\rangle\)</span>, we need a way to model physical changes.</p></li>
 <li><p>Any physical process evolving a qubit from state <span class="math notranslate nohighlight">\(\vert\psi\rangle\)</span> to a new state <span class="math notranslate nohighlight">\(\vert\psi'\rangle\)</span> is modeled as a <strong>Linear Operator</strong> <span class="math notranslate nohighlight">\(\hat{A}\)</span>.</p></li>
@@ -1292,11 +1285,19 @@ When we multiply them together, we get a new state. Let’s decode what happened
 \[\begin{split}
 |\psi'\rangle = \hat{A}\vert\psi\rangle = \frac{1}{\sqrt{2}} \begin{pmatrix} 2 &amp; 0 \\ 0 &amp; i \end{pmatrix} \begin{pmatrix} 1 \\ 1 \end{pmatrix} = \frac{1}{\sqrt{2}} \begin{pmatrix} 2 \\ i \end{pmatrix} = \sqrt{2}\vert0\rangle + \frac{i}{\sqrt{2}}\vert1\rangle
 \end{split}\]</div>
+<p>Look carefully at the final state that we got. We find three categorical changes.</p>
 <ul class="simple">
 <li><p><strong>1. Scale:</strong> The overall vector length is no longer 1, but stretched to <span class="math notranslate nohighlight">\(1 \to \sqrt{2.5}\)</span>.</p></li>
 <li><p><strong>2. Rotation:</strong> The relative balance between <span class="math notranslate nohighlight">\(\vert0\rangle\)</span> and <span class="math notranslate nohighlight">\(\vert1\rangle\)</span> changed, and is higher towards <span class="math notranslate nohighlight">\(\vert0\rangle\)</span> axis (<span class="math notranslate nohighlight">\(2\)</span> vs <span class="math notranslate nohighlight">\(1\)</span>).</p></li>
 <li><p><strong>3. Phase Twist:</strong> The <span class="math notranslate nohighlight">\(\vert1\rangle\)</span> component gained an <span class="math notranslate nohighlight">\(i\)</span> factor (<span class="math notranslate nohighlight">\(e^{i\pi/2}\)</span>), or <span class="math notranslate nohighlight">\(90^\circ\)</span> into the complex plane relative to <span class="math notranslate nohighlight">\(\vert0\rangle\)</span>.</p></li>
 </ul>
+<p>This was intentionally chosen operator/matrix that does all three things, and a generic operator can do all three things.
+However, there are some categories of operators, that do only a subset of things like:</p>
+<ul class="simple">
+<li><p>Only rotation, no scaling</p></li>
+<li><p>Only scaling, no rotation</p></li>
+</ul>
+<p>We discuss some of these special cases next, and see how they are relevant in quantum computing.</p>
 <hr class="docutils" />
 <section id="eigenvalues-eigenstates">
 <h2>Eigenvalues &amp; Eigenstates<a class="headerlink" href="#eigenvalues-eigenstates" title="Link to this heading">#</a></h2>
@@ -1316,46 +1317,18 @@ When an operator acts on its own eigenvector:</p>
 <ul class="simple">
 <li><p><strong><span class="math notranslate nohighlight">\(\vert \psi \rangle\)</span> is the Eigenvector:</strong> The specific state whose physical direction remains completely unchanged by the operator <span class="math notranslate nohighlight">\(\hat{A}\)</span>.</p></li>
 <li><p><strong><span class="math notranslate nohighlight">\(\lambda\)</span> is the Eigenvalue:</strong> A simple scaler number (complex or real) that represents the exact factor by which the vector was stretched.</p></li>
-<li><p><strong>The Quantum Connection:</strong>
-When you measure a physical property (like spin), the system <strong>collapses</strong> into one of <span class="math notranslate nohighlight">\(\hat{A}\)</span>’s eigenvectors (<span class="math notranslate nohighlight">\(\vert \psi \rangle\)</span>), and the instrument reads out its corresponding eigenvalue (<span class="math notranslate nohighlight">\(\lambda\)</span>).</p></li>
 </ul>
-<!--
-Now, there is a magical exception to this.
-
-
-For every operator, there are specific, privileged directions called Eigenvectors, or Eigenstates.
-
-
-When an operator hits its own eigenvector...
-
-
-It completely fails to rotate it.
-
-
-It fails to twist its phase.
-
-
-It can only scale its length. It acts like an anchor.
-
-
-Mathematically, we write this as the Eigenvalue equation.
-
-
-The vector is the anchor state.
-
-
-And Lambda, the eigenvalue, is just the simple number it gets stretched by.
-
-
-Why do we care? Because this is the secret to reality. When you measure a quantum system, it doesn't just pick a random direction. It always collapses into one of the measurement instrument's specific eigenvectors, and it spits out the eigenvalue onto the scientist's screen.
--->
-</section>
+<div class="admonition-the-quantum-connection admonition">
+<p class="admonition-title">The Quantum Connection</p>
+<p>When you measure a physical property (like spin), the quantum system doesn’t just pick a random direction. It always <strong>collapses</strong> into one of
+the measurement instrument’s specific eigenvectors (<span class="math notranslate nohighlight">\(\hat{A}\)</span>’s eigenvectors <span class="math notranslate nohighlight">\(\vert \psi \rangle\)</span>), and the instrument reads out its corresponding eigenvalue (<span class="math notranslate nohighlight">\(\lambda\)</span>).</p>
+</div>
 </section>
 <hr class="docutils" />
-<section class="tex2jax_ignore mathjax_ignore" id="special-operators">
-<h1>Special Operators<a class="headerlink" href="#special-operators" title="Link to this heading">#</a></h1>
+<section id="special-operators">
+<h2>Special Operators<a class="headerlink" href="#special-operators" title="Link to this heading">#</a></h2>
+<p>In quantum computing, there are two special types of operators that run the whole show, and we use them frequently in quantum science and computing.</p>
 <ul class="simple">
-<li><p>There are two special types of operators we use frequently in quantum science and computing.</p></li>
 <li><p><strong>Hermitian</strong> or Self Adoint operators</p></li>
 <li><p><strong>Unitary</strong>, probability preserving operators.</p></li>
 </ul>
@@ -1367,6 +1340,7 @@ Why do we care? Because this is the secret to reality. When you measure a quantu
 <li><p>Because their outputs are real, they translate abstract math into readable laboratory metrics.</p></li>
 </ul>
 </div>
+<p>This is crucial. You can’t read an imaginary number off a computer monitor in a lab. Hermitian matrices force the abstract math to translate into a real-world, readable metric.</p>
 <div class="info admonition">
 <p class="admonition-title">“Unitary Operators: Gates”</p>
 <ul class="simple">
@@ -1375,214 +1349,120 @@ Why do we care? Because this is the secret to reality. When you measure a quantu
 <li><p>Because they conserve probability, these gate transformations can always be reversed in time.</p></li>
 </ul>
 </div>
-<!--
-In quantum computing, there are two VIP operators that run the whole show.
-
-
-Hermitian operators, and Unitary operators.
-
-
-
-Hermitian operators represent our physical measurements.
-
-
-They are mathematically restricted so that they only spit out real numbers.
-
-
-This is crucial. You can't read an imaginary number off a computer monitor in a lab. Hermitian matrices force the abstract math to translate into a real-world, readable metric.
-
-
-
-Unitary operators represent our Quantum Gates.
-
-
+<p>Unitary operators represent our Quantum Gates.
 They are mathematically restricted to preserve probability at exactly 100%. They never stretch the vector, they only rotate it.
-
-
-Because no probability is lost, Unitary operations are perfectly reversible. You can always rewind your quantum code.
--->
+Because no probability is lost, Unitary operations are perfectly reversible. You can always rewind your quantum code.</p>
 </section>
 <hr class="docutils" />
-<section class="tex2jax_ignore mathjax_ignore" id="quantum-measurement">
-<h1>Quantum Measurement<a class="headerlink" href="#quantum-measurement" title="Link to this heading">#</a></h1>
+<section id="quantum-measurement">
+<h2>Quantum Measurement<a class="headerlink" href="#quantum-measurement" title="Link to this heading">#</a></h2>
+<p>Let’s touch upon the quantum measurement a bit more formally.</p>
 <section id="measurement-basis">
-<h2>Measurement Basis<a class="headerlink" href="#measurement-basis" title="Link to this heading">#</a></h2>
+<h3>Measurement Basis<a class="headerlink" href="#measurement-basis" title="Link to this heading">#</a></h3>
+<p>To measure a quantum system, we use a Hermitian operator <span class="math notranslate nohighlight">\(\hat{A}\)</span> representing an observable measurement.</p>
 <ul class="simple">
-<li><p>To measure a quantum system, we use a Hermitian operator <span class="math notranslate nohighlight">\(\hat{A}\)</span> representing an observable measurement.</p></li>
 <li><p><strong>The Outcomes:</strong> The operator’s eigenvalues (<span class="math notranslate nohighlight">\(a_1, a_2, a_3..\)</span>) are the only valid physical results we can read out.</p></li>
 <li><p><strong>The Basis:</strong> The corresponding eigenvectors (<span class="math notranslate nohighlight">\(|a_1\rangle, |a_2\rangle, |a_3\rangle,..\)</span>) form an <strong>orthonormal basis</strong> (<span class="math notranslate nohighlight">\(\langle a_i|a_j\rangle = \delta_{ij}\)</span>).</p></li>
-<li><p><strong>The Superposition:</strong> Before we look, the system exists as a blend of all possibilities:
-$<span class="math notranslate nohighlight">\(|\psi\rangle = \alpha_1|a_1\rangle + \alpha_2|a_2\rangle + \alpha_3|a_3\rangle\dots\)</span>$</p></li>
+<li><p><strong>The Superposition:</strong> Before we look, the system exists as a blend of all possibilities:</p></li>
 </ul>
-<p><span class="inline-box font-bold" v-click>💥 The Act of Observation</span> <span v-click>When a measurement is performed, two things happen instantly:</span></p>
+<div class="math notranslate nohighlight">
+\[|\psi\rangle = \alpha_1|a_1\rangle + \alpha_2|a_2\rangle + \alpha_3|a_3\rangle\dots\]</div>
+<div class="info admonition">
+<p class="admonition-title">The Act of Observation</p>
+<p>When a measurement is performed, two things happen instantly:</p>
 <ul class="simple">
-<li><p><strong>1. Born’s Rule:</strong> The probability of getting outcome <span class="math notranslate nohighlight">\(a_i\)</span> depends strictly on the state’s overlap with that basis vector:
-$<span class="math notranslate nohighlight">\(P(a_i) = |\langle a_i|\psi\rangle|^2 = |\alpha_i|^2\)</span>$</p></li>
+<li><p><strong>1. Born’s Rule:</strong> The probability of getting outcome <span class="math notranslate nohighlight">\(a_i\)</span> depends strictly on the state’s overlap with that basis vector:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[P(a_i) = |\langle a_i|\psi\rangle|^2 = |\alpha_i|^2\]</div>
+<ul class="simple">
 <li><p><strong>2. Wavefunction Collapse:</strong> The system abruptly forces itself into that single state <span class="math notranslate nohighlight">\(|a_i\rangle\)</span>. All other branches vanish.</p></li>
 </ul>
-<!--
-Let's pull all of this together and see how a measurement actually works.
-
-
-To measure something, we pick a Hermitian operator.
-
-
-The eigenvalues it spits out are our actual, readable outcomes.
-
-
-The eigenvectors form our distinct choices—like Up and Down.
-
-
-Before we look, the qubit exists as a fluid superposition of all these choices.
-
-
-But the instant we make an observation...
-
-
-First, Born's Rule kicks in. The universe squares our weights to calculate the exact probability of each outcome.
-
-
-Second, the Wavefunction Collapses. The qubit snaps instantly into a single state, and every other possibility vanishes.
--->
+</div>
+</section>
 </section>
 </section>
 <hr class="docutils" />
 <section class="tex2jax_ignore mathjax_ignore" id="demystifying-quantum-computation">
 <h1>Demystifying Quantum Computation<a class="headerlink" href="#demystifying-quantum-computation" title="Link to this heading">#</a></h1>
+<p>If you followed the lecture so far, you understand the core mechanics of Quantum Computing.</p>
+<p>Quantum computing strips away the complex physics and treats this measurement framework as a programmable architecture.</p>
 <ul class="simple">
-<li><p>Quantum computing strips away the complex physics and treats this measurement framework as a programmable architecture.</p></li>
 <li><p><strong>The Qubit Baseline:</strong> If a system has exactly two measurement outcomes, we call its vectors the <strong>computational basis</strong>, labeled simply as <span class="math notranslate nohighlight">\(|0\rangle\)</span> and <span class="math notranslate nohighlight">\(|1\rangle\)</span>.</p></li>
 <li><p><strong>The Hardware Pipeline:</strong> A quantum program follows three strict, mechanical phases:</p></li>
 </ul>
-<div class="mx-auto my-auto"> 
-<p><span class="inline-box py-3" v-click><span class="math notranslate nohighlight">\(\left[\text{Prepare}~|0\rangle\right]\quad\longrightarrow\)</span></span> <span class="inline-box py-3" v-click><span class="math notranslate nohighlight">\(\left[\text{Apply Unitary Gates}~(U_1, U_2, U_3)\right]\longrightarrow\)</span></span> <span class="inline-box py-3" v-click><span class="math notranslate nohighlight">\(\left[\text{Measure Result}\right]\)</span></span></p>
-</div>
+<div class="math notranslate nohighlight">
+\[
+\boxed{\large
+\left[\text{Prepare}~|0\rangle\right]~~\longrightarrow
+\left[\text{Apply Unitary Gates}~(U_1, U_2, U_3)\right]~~\longrightarrow
+\left[\text{Measure Result}\right]
+}
+\]</div>
 <ul class="simple">
-<li><p><strong>The Mathematical Flow:</strong> We start at <span class="math notranslate nohighlight">\(|0\rangle\)</span>, apply a cascade of rotation matrices, and produce a final engineered state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span>:
-$<span class="math notranslate nohighlight">\(|\psi\rangle = (U_n \dots U_3 U_2 U_1)|0\rangle\)</span>$</p></li>
+<li><p><strong>The Mathematical Flow:</strong> We start at <span class="math notranslate nohighlight">\(|0\rangle\)</span>, apply a cascade of rotation matrices, and produce a final engineered state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span>:</p></li>
 </ul>
-<Banner title="🎯 What is a Quantum Algorithm?" v-click class="-mt-6">
+<div class="math notranslate nohighlight">
+\[{\Large |\psi\rangle = (U_n \dots U_3 U_2 U_1)|0\rangle}\]</div>
+<p>Mathematically, it’s just multiplying a starting vector by a sequence of matrices.</p>
+<div class="tip admonition">
+<p class="admonition-title">🎯 What is a Quantum Algorithm?</p>
 <p>It is the art of choosing a specific sequence of unitary matrices (<span class="math notranslate nohighlight">\(U_i\)</span>) such that constructive interference boosts the probability (<span class="math notranslate nohighlight">\(|\alpha_i|^2\)</span>) of the <em>correct answer</em>, making it the most likely outcome to collapse upon measurement.</p>
-</Banner>
-<!--
-If you understand this, you understand the core mechanics of Quantum Computing.
-
-
-We strip away all the messy lab physics and treat this as a programmable software architecture.
-
-
-Our baseline is a two-outcome system: states 0 and 1.
-
-
-Every single quantum program follows the exact same three-step pipeline:
-
-
-Step 1: We prepare our qubits, usually setting them all to State 0.
-
-
-Step 2: We apply our Unitary Gates—our code—which smoothly rotates the states around the Bloch Sphere.
-
-
-Step 3: We perform a Measurement, collapsing the fluid state into a hard, classical answer.
-
-
-Mathematically, it's just multiplying a starting vector by a long string of matrices.
-
-
-So, what is a quantum algorithm? It is the delicate art of picking the perfect sequence of rotations, so that the right answer constructively interferes and becomes the brightest, most probable outcome when the wave finally collapses.
-
-Here is the narration script for slides 31 through 40, concluding your presentation.
--->
+</div>
 </section>
 <hr class="docutils" />
 <section class="tex2jax_ignore mathjax_ignore" id="quantum-operation">
 <h1>Quantum Operation<a class="headerlink" href="#quantum-operation" title="Link to this heading">#</a></h1>
+<p>Let’s do another walk-through with single qubit system.</p>
 <ul class="simple">
 <li><p>Say a qubit is initially in state <span class="math notranslate nohighlight">\(|\psi\rangle = \alpha_0 |0\rangle + \alpha_1 |1\rangle\)</span>.</p></li>
 <li><p>When an external factor affect a system, we track the change by multiplying the Operator: <span class="math notranslate nohighlight">\(U|\psi\rangle\)</span>.</p></li>
 <li><p>For a sequence of three actions, the final state is calculated as: <span class="math notranslate nohighlight">\(|\text{OUT}\rangle = U_3 \cdot U_2 \cdot U_1 \cdot |\psi\rangle\)</span>.</p></li>
 </ul>
-<!-- PHYSICAL FLOW TIMELINE MAP -->
-<div class="max-w-3xl mx-auto mt-4 border-0 border-gray-700/20 pt-4 select-none flex flex-col items-center -translate-y-6" v-click>
-<p><span class="px-2 py-1 rounded border border-gray-500/40 font-bold text-gray-400"> Initial State <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> </span>
-<span class="text-purple-400 font-bold">➔</span>
-<span class="px-2 py-1 rounded border border-red-500/40 font-bold text-red-400">[ Action 1: <span class="math notranslate nohighlight">\(U_1\)</span> ]</span>
-<span class="text-purple-400 font-bold">➔</span>
-<span class="px-2 py-1 rounded border border-green-500/40 font-bold text-green-400">[ Action 2: <span class="math notranslate nohighlight">\(U_2\)</span> ]</span>
-<span class="text-purple-400 font-bold">➔</span>
-<span class="px-2 py-1 rounded border border-blue-500/40 font-bold text-blue-400">[ Action 3: <span class="math notranslate nohighlight">\(U_3\)</span> ]</span>
-<span class="text-purple-400 font-bold">➔</span>
-<span class="px-2 py-1 rounded border border-purple-500 font-bold text-purple-400">Final State <span class="math notranslate nohighlight">\(|\text{OUT}\rangle\)</span></span></p>
-</div>
-<Grid cols="2" gap="4" class="mt-2">
-<Banner title="The Mathematical View" class="text-sm" v-click="5">
-<ul class="simple">
+<br>
+<p>Initial State <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> <span class="text-purple-400 font-bold">➔</span>
+[ Action 1: <span class="math notranslate nohighlight">\(U_1\)</span> ] <span class="text-purple-400 font-bold">➔</span>
+[ Action 2: <span class="math notranslate nohighlight">\(U_2\)</span> ] <span class="text-purple-400 font-bold">➔</span>
+[ Action 3: <span class="math notranslate nohighlight">\(U_3\)</span> ] <span class="text-purple-400 font-bold">➔</span>
+Final State <span class="math notranslate nohighlight">\(|\text{OUT}\rangle\)</span></p>
+<br>
+<p>Below is the mathematical view, very similar to earlier.</p>
+<div class="admonition-the-mathematical-view admonition">
+<p class="admonition-title">The Mathematical View</p>
+<ul>
 <li><p>Operations are applied as successive matrix multiplication on state vector.</p></li>
 <li><p>The state vector is modified by <span class="math notranslate nohighlight">\(U_1\)</span> first, yielding <span class="math notranslate nohighlight">\(U_1|\psi\rangle\)</span>.</p></li>
-<li><p>Next, <span class="math notranslate nohighlight">\(U_2\)</span> acts on the resulting state from the left side
-$<span class="math notranslate nohighlight">\(U_2 (U_1|\psi\rangle) = U_2U_1|\psi\rangle\)</span>$</p></li>
-<li><p>Then <span class="math notranslate nohighlight">\(U_3\)</span> acts on the resulting state from the left side
-$<span class="math notranslate nohighlight">\(U3 (U_2 U_1|\psi\rangle) = U_3U_2U_1|\psi\rangle\)</span>$</p></li>
+<li><p>Next, <span class="math notranslate nohighlight">\(U_2\)</span> acts on the resulting state from the left side</p>
+<div class="math notranslate nohighlight">
+\[U_2 (U_1|\psi\rangle) = U_2U_1|\psi\rangle\]</div>
+</li>
+<li><p>Then <span class="math notranslate nohighlight">\(U_3\)</span> acts on the resulting state from the left side</p>
+<div class="math notranslate nohighlight">
+\[U3 (U_2 U_1|\psi\rangle) = U_3U_2U_1|\psi\rangle\]</div>
+</li>
 </ul>
-</Banner>
-<Banner title="The Physical Interpretation" type="warning" class="text-sm" v-click="9">
+</div>
+<p>Below is how we interpret it physically.</p>
+<div class="admonition-the-physical-interpretation admonition">
+<p class="admonition-title">The Physical Interpretation</p>
 <ul class="simple">
 <li><p>Each operator acts as a local physical manipulation environment.</p></li>
 <li><p>It could represent a particle passing through three successive magnets.</p></li>
 <li><p>It could also represent a single qubit hit by three timed radar pulses.</p></li>
 <li><p>The compound effect steers the probability weights across space.</p></li>
 </ul>
-</Banner>
-</Grid>
-<!--
-So, let's look at how we string these operations together to actually build a program.
-
-
-We start with an initial qubit state.
-
-
-When we want to change that state—like hitting it with a laser pulse or a magnetic field—we multiply our state by an Operator.
-
-
-If we want to apply three actions in a row, we just multiply by three operators.
-
-
-
-But here is a quirk of the math: we write these matrix multiplications from right to left.
-
-
-So, Action 1, which we'll call U1, gets written closest to the starting state.
-
-
-Then Action 2, U2, multiplies from the left side.
-
-
-And finally Action 3, U3, hits it again from the left.
-
-
-
-Physically, you can think of this as a particle flying out of an oven and passing through three successive magnets.
-
-
-Or, it could be a single stationary atom being zapped by three precisely timed microwave pulses.
-
-
-Each operator steers the probability of the atom, guiding it toward our desired outcome.
--->
-</section>
+</div>
 <hr class="docutils" />
-<section class="tex2jax_ignore mathjax_ignore" id="quantum-operation-vs-quantum-circuits">
-<h1>Quantum operation vs. Quantum Circuits<a class="headerlink" href="#quantum-operation-vs-quantum-circuits" title="Link to this heading">#</a></h1>
-<div class="text-4">
+<section id="quantum-operation-vs-quantum-circuits">
+<h2>Quantum operation vs. Quantum Circuits<a class="headerlink" href="#quantum-operation-vs-quantum-circuits" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Recall how successive operators apply on a state from <strong>right to left</strong>, closest to the starting state vector <span class="math notranslate nohighlight">\(|\psi\rangle\)</span>.</p></li>
 <li><p>A quantum circuit, is a visual layout, where we replace the equations with clean, horizontal flow or wire grids.</p></li>
 <li><p>The Unitary operators applied on the state are visualised as <strong>gates</strong>.</p></li>
 <li><p>Let’s look at how a three-step algorithmic chain maps across these two alternative views.</p></li>
 </ul>
-</div>
-<Grid cols="3-2" gap="2" class="mt-4">
-<Banner title="The Equation View" class="text-sm -translate-y-3" v-click="5">
+<div class="admonition-the-equation-view admonition">
+<p class="admonition-title">The Equation View</p>
 <ul class="simple">
 <li><p>Operations are ordered as nested functions, reading right to left:</p></li>
 </ul>
@@ -1593,45 +1473,34 @@ Each operator steers the probability of the atom, guiding it toward our desired 
 <li><p>While compact, tracking long chains of text quickly becomes a dense reading bottleneck.</p></li>
 <li><p>A measurement involves computing the overlap of the modified state with initial one.
 $<span class="math notranslate nohighlight">\(\langle\psi|\text{OUT}\rangle = \langle\psi|U_3 \cdot U_2 \cdot U_1 \cdot \lvert\psi\rangle\)</span>$</p></li>
-<li><p>The measured outcomes is the squared magnitude: <span class="math notranslate nohighlight">\(|\langle\psi|\text{OUT}\rangle|^2\)</span>
-</Banner></p></li>
+<li><p>The measured outcomes is the squared magnitude: <span class="math notranslate nohighlight">\(|\langle\psi|\text{OUT}\rangle|^2\)</span></p></li>
 </ul>
-<Banner title="The Circuit View" class="text-sm" type="warning" v-click="6">
+</div>
+<div class="admonition-the-circuit-view admonition">
+<p class="admonition-title">The Circuit View</p>
 <ul class="simple">
 <li><p>We compress this exact sequence into a single timeline wire flowing left to right:</p></li>
 </ul>
 <div class="my-4">
   <QuantumCircuit :qubits="1" gates="U1:0, U2:0, U3:0, M:0" scale="1.5" />
 </div>
+<p><quantum-circuit qubits="1" gates="U1:0, U2:0, U3:0, M:0" scale="3.0" classical="false"></quantum-circuit></p>
 <ul class="simple">
 <li><p>The line represents the timeline, and each block maps to an action in the lab.</p></li>
 <li><p>This format allows us to read complex cascades sequentially without tracking formulas.</p></li>
 </ul>
-</Banner>
-</Grid>
+</div>
 <!--
 While that math is exact, reading long chains of matrix equations right-to-left gets really tedious, really fast.
-
-
-
-
-
-
-
 So, in quantum computing, we translate this right-to-left mathematical view into a much cleaner visual layout called a Quantum Circuit.
 
-
 Instead of dense equations...
-
-
 ...we draw a wire moving from left to right, representing the timeline.
 
-
 Our Unitary operators are drawn as "Gates" placed on that wire in the exact order they happen. The measurement at the end is drawn as a little meter symbol.
-
-
 This circuit view means you can read a complex quantum algorithm just like reading a piece of sheet music, without having to do any matrix multiplication in your head.
 -->
+</section>
 <hr class="docutils" />
 <section id="single-qubit-gates">
 <h2>Single qubit Gates<a class="headerlink" href="#single-qubit-gates" title="Link to this heading">#</a></h2>
@@ -1870,9 +1739,9 @@ In our next lecture, we are going to take these individual qubits and link them 
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lecture 2: From Bits to Qubits</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-bits-and-gates">Recap: Bits and Gates</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-qubits-and-quantum-gates">Preview: Qubits and Quantum Gates</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-bits-and-gates">Recap: Bits and Gates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-qubits-and-quantum-gates">Preview: Qubits and Quantum Gates</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-vs-quantum-scaling">Classical vs Quantum Scaling</a></li>
 </ul>
 </li>
@@ -1908,16 +1777,16 @@ In our next lecture, we are going to take these individual qubits and link them 
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#operators-in-action">Operators in Action</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalues-eigenstates">Eigenvalues &amp; Eigenstates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#special-operators">Special Operators</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-measurement">Quantum Measurement</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#measurement-basis">Measurement Basis</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#special-operators">Special Operators</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-measurement">Quantum Measurement</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measurement-basis">Measurement Basis</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#demystifying-quantum-computation">Demystifying Quantum Computation</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-operation">Quantum Operation</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-operation-vs-quantum-circuits">Quantum operation vs. Quantum Circuits</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-operation">Quantum Operation</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-operation-vs-quantum-circuits">Quantum operation vs. Quantum Circuits</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#single-qubit-gates">Single qubit Gates</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hadamard-gate">Hadamard Gate</a></li>
 </ul>
