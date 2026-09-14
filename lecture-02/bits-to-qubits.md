@@ -35,7 +35,7 @@ This note is largely divided into two parts
 
 
 
-## Recap: Bits and Gates
+### Recap: Bits and Gates
 
 To truly appreciate what makes a qubit so special, we first need to quickly remind
 ourselves how our everyday, classical computers work.
@@ -76,7 +76,7 @@ But as we will see, the quantum world plays by a completely different set of rul
 
 ---
 
-## Preview: Qubits and Quantum Gates
+### Preview: Qubits and Quantum Gates
 
 Now, let's step into the quantum paradigm.
 Instead of classical bits and gates, the corresponding object in quantum computing are `Qubits` and `Quantum Gates`.
@@ -283,10 +283,6 @@ As you can see in the simulation, classical physics expected the atoms to just h
 <stern-gerlach mode="classical"></stern-gerlach>
 ```
 
-
-
-
-
 ---
 
 ### SG Experiment: Reality
@@ -407,7 +403,7 @@ Let's break down exactly why this is so weird, and what it means for us.
 ```
 
 
-```{admonition} 💡 Takeaway
+```{admonition} Takeaway
 :class: tip
 
 Whatever mathematical language we use to program quantum computers, it has to have probability baked right into its core.
@@ -419,7 +415,7 @@ Whatever mathematical language we use to program quantum computers, it has to ha
 
 So how do we mathematically write this down? We use something called a "state."
 
-```{admonition} State
+```{admonition} What is state?
 :class: tip
 
 A state is just a mathematical snapshot of a system.
@@ -530,7 +526,8 @@ When you actually run this experiment, two strange things happen, as illustrated
 
 First, atoms that were strictly "Up" on the Z-axis somehow forget their orientation after passing through the second magnets When they hit the final Z-magnet, they split into Up and Down all over again!
 
-```{warning} The Reappearing State Paradox
+```{admonition} The Reappearing State Paradox
+:class: warning
 
 - A $|z+\rangle$ state became an equal blend of $|z+\rangle$ and $|z-\rangle$ when passed through $\text{magnet-}X$/$\text{magnet-}Y$.
 - How did $|z+\rangle$ in both cases, got mixed with $|z-\rangle$?
@@ -539,7 +536,8 @@ First, atoms that were strictly "Up" on the Z-axis somehow forget their orientat
 
 Second, and more importantly for our math: if we try to write the equations for the X pathway and the Y pathway using only regular real numbers, the equations end up looking exactly identical. somehow both $|x+\rangle$ and $|y+\rangle$ states are equal blend of $|z+\rangle$ and $|z-\rangle$ states!
 
-```{warning} Incomplete description
+```{admonition} Incomplete description
+:class: warning
 
 - In the $Z-X-Z$ pathway, the $|x+\rangle$ state is an equal blend of $|z+\rangle$, and $|z-\rangle$. 
 - In the $Z-Y-Z$ pathway, the $|y+\rangle$ state is an equal blend of $|z+\rangle$, and $|z-\rangle$. 
@@ -568,7 +566,8 @@ orientational freedom is parameterised by minimum `two` parameters. More can be 
 That is why we use complex numbers, as each complex number is a two parameter object.
 Let's look at how complex numbers solve this.
 
-```{tip} Definition
+```{admonition} Definition
+:class: tip
 
 A **Complex number** $z$ consists of two part, a real part and an imaginary part: $z = x + iy$
 where $i=\sqrt{-1}$ is the imaginary number. $x, y$ are two real number that collectively define
@@ -619,7 +618,8 @@ It's just a vertical bar, a word, and an angled bracket. The word inside describ
 
 And here is the big reveal: any quantum system where a measurement gives you exactly two possible outcomes is what we call a "qubit."
 
-```{tip} Definition
+```{admonition} Definition
+:class: tip
 
 A Quantum system, in which the measurement gives only two outcomes, is identified as a **qubit**.
 ```
@@ -870,7 +870,7 @@ If you are at the North Pole, there is a zero percent chance you are also at the
 ## Quantum Operators
 
 Okay, so we have our state vectors. But how do we actually do computing? We need a way to change the states.
-For that, we use Quantum Operators. Whenever you physically change a qubit—like applying a logic gate—you are applying a Linear Operator.
+For that, we use Quantum Operators. Whenever you physically change a qubit, like applying a logic gate, you are applying a Linear Operator.
 
 - Once we define a qubit as a **complex vector** $\vert\psi\rangle$, we need a way to model physical changes.
 - Any physical process evolving a qubit from state $\vert\psi\rangle$ to a new state $\vert\psi'\rangle$ is modeled as a **Linear Operator** $\hat{A}$.
@@ -923,11 +923,22 @@ $$
 |\psi'\rangle = \hat{A}\vert\psi\rangle = \frac{1}{\sqrt{2}} \begin{pmatrix} 2 & 0 \\ 0 & i \end{pmatrix} \begin{pmatrix} 1 \\ 1 \end{pmatrix} = \frac{1}{\sqrt{2}} \begin{pmatrix} 2 \\ i \end{pmatrix} = \sqrt{2}\vert0\rangle + \frac{i}{\sqrt{2}}\vert1\rangle
 $$
 
+Look carefully at the final state that we got. We find three categorical changes.
+
 * **1. Scale:** The overall vector length is no longer 1, but stretched to $1 \to \sqrt{2.5}$.
 * **2. Rotation:** The relative balance between $\vert0\rangle$ and $\vert1\rangle$ changed, and is higher towards $\vert0\rangle$ axis ($2$ vs $1$).
 * **3. Phase Twist:** The $\vert1\rangle$ component gained an $i$ factor ($e^{i\pi/2}$), or $90^\circ$ into the complex plane relative to $\vert0\rangle$.
 
+This was intentionally chosen operator/matrix that does all three things, and a generic operator can do all three things.
+However, there are some categories of operators, that do only a subset of things like:
+
+- Only rotation, no scaling
+- Only scaling, no rotation
+
+We discuss some of these special cases next, and see how they are relevant in quantum computing.
+
 ---
+
 
 ### Eigenvalues & Eigenstates
 
@@ -949,47 +960,20 @@ $${\Large \hat{A} \vert \psi \rangle = \lambda \vert \psi \rangle}$$
 
 - **$\vert \psi \rangle$ is the Eigenvector:** The specific state whose physical direction remains completely unchanged by the operator $\hat{A}$.
 - **$\lambda$ is the Eigenvalue:** A simple scaler number (complex or real) that represents the exact factor by which the vector was stretched.
-- **The Quantum Connection:** 
-  When you measure a physical property (like spin), the system **collapses** into one of $\hat{A}$'s eigenvectors ($\vert \psi \rangle$), and the instrument reads out its corresponding eigenvalue ($\lambda$).
 
+```{admonition} The Quantum Connection
 
+When you measure a physical property (like spin), the quantum system doesn't just pick a random direction. It always **collapses** into one of
+the measurement instrument's specific eigenvectors ($\hat{A}$'s eigenvectors $\vert \psi \rangle$), and the instrument reads out its corresponding eigenvalue ($\lambda$).
+```
 
-<!--
-Now, there is a magical exception to this.
-
-
-For every operator, there are specific, privileged directions called Eigenvectors, or Eigenstates.
-
-
-When an operator hits its own eigenvector...
-
-
-It completely fails to rotate it.
-
-
-It fails to twist its phase.
-
-
-It can only scale its length. It acts like an anchor.
-
-
-Mathematically, we write this as the Eigenvalue equation.
-
-
-The vector is the anchor state.
-
-
-And Lambda, the eigenvalue, is just the simple number it gets stretched by.
-
-
-Why do we care? Because this is the secret to reality. When you measure a quantum system, it doesn't just pick a random direction. It always collapses into one of the measurement instrument's specific eigenvectors, and it spits out the eigenvalue onto the scientist's screen.
--->
 
 ---
 
-# Special Operators
+## Special Operators
 
-- There are two special types of operators we use frequently in quantum science and computing.
+In quantum computing, there are two special types of operators that run the whole show, and we use them frequently in quantum science and computing.
+
 - **Hermitian** or Self Adoint operators
 - **Unitary**, probability preserving operators.
 
@@ -1002,6 +986,9 @@ Why do we care? Because this is the secret to reality. When you measure a quantu
 - Because their outputs are real, they translate abstract math into readable laboratory metrics.
 ```
 
+This is crucial. You can't read an imaginary number off a computer monitor in a lab. Hermitian matrices force the abstract math to translate into a real-world, readable metric.
+
+
 ```{admonition} "Unitary Operators: Gates"
 :class: info
 
@@ -1010,193 +997,116 @@ Why do we care? Because this is the secret to reality. When you measure a quantu
 - Because they conserve probability, these gate transformations can always be reversed in time.
 ```
 
-<!--
-In quantum computing, there are two VIP operators that run the whole show.
-
-
-Hermitian operators, and Unitary operators.
-
-
-
-Hermitian operators represent our physical measurements.
-
-
-They are mathematically restricted so that they only spit out real numbers.
-
-
-This is crucial. You can't read an imaginary number off a computer monitor in a lab. Hermitian matrices force the abstract math to translate into a real-world, readable metric.
-
-
-
 Unitary operators represent our Quantum Gates.
-
-
 They are mathematically restricted to preserve probability at exactly 100%. They never stretch the vector, they only rotate it.
-
-
 Because no probability is lost, Unitary operations are perfectly reversible. You can always rewind your quantum code.
--->
+
 
 ---
 
-# Quantum Measurement
+## Quantum Measurement
+
+Let's touch upon the quantum measurement a bit more formally.
 
 ### Measurement Basis
 
-
-- To measure a quantum system, we use a Hermitian operator $\hat{A}$ representing an observable measurement.
+To measure a quantum system, we use a Hermitian operator $\hat{A}$ representing an observable measurement.
 
 - **The Outcomes:** The operator's eigenvalues ($a_1, a_2, a_3..$) are the only valid physical results we can read out.
 
 - **The Basis:** The corresponding eigenvectors ($|a_1\rangle, |a_2\rangle, |a_3\rangle,..$) form an **orthonormal basis** ($\langle a_i|a_j\rangle = \delta_{ij}$).
 
 - **The Superposition:** Before we look, the system exists as a blend of all possibilities:
-    $$|\psi\rangle = \alpha_1|a_1\rangle + \alpha_2|a_2\rangle + \alpha_3|a_3\rangle\dots$$
 
+$$|\psi\rangle = \alpha_1|a_1\rangle + \alpha_2|a_2\rangle + \alpha_3|a_3\rangle\dots$$
 
+```{admonition} The Act of Observation
+:class: info
 
-<span class="inline-box font-bold" v-click>💥 The Act of Observation</span> <span v-click>When a measurement is performed, two things happen instantly:</span>
-
-
+When a measurement is performed, two things happen instantly:
 
 - **1. Born's Rule:** The probability of getting outcome $a_i$ depends strictly on the state's overlap with that basis vector:
-  $$P(a_i) = |\langle a_i|\psi\rangle|^2 = |\alpha_i|^2$$
+
+$$P(a_i) = |\langle a_i|\psi\rangle|^2 = |\alpha_i|^2$$
+
 - **2. Wavefunction Collapse:** The system abruptly forces itself into that single state $|a_i\rangle$. All other branches vanish.
+```
 
-
-
-<!--
-Let's pull all of this together and see how a measurement actually works.
-
-
-To measure something, we pick a Hermitian operator.
-
-
-The eigenvalues it spits out are our actual, readable outcomes.
-
-
-The eigenvectors form our distinct choices—like Up and Down.
-
-
-Before we look, the qubit exists as a fluid superposition of all these choices.
-
-
-But the instant we make an observation...
-
-
-First, Born's Rule kicks in. The universe squares our weights to calculate the exact probability of each outcome.
-
-
-Second, the Wavefunction Collapses. The qubit snaps instantly into a single state, and every other possibility vanishes.
--->
 
 ---
 
 # Demystifying Quantum Computation
 
-- Quantum computing strips away the complex physics and treats this measurement framework as a programmable architecture.
+If you followed the lecture so far, you understand the core mechanics of Quantum Computing.
 
-
+Quantum computing strips away the complex physics and treats this measurement framework as a programmable architecture.
 
 - **The Qubit Baseline:** If a system has exactly two measurement outcomes, we call its vectors the **computational basis**, labeled simply as $|0\rangle$ and $|1\rangle$.
+
 - **The Hardware Pipeline:** A quantum program follows three strict, mechanical phases:
 
-
-<div class="mx-auto my-auto"> 
-
-<span class="inline-box py-3" v-click>$\left[\text{Prepare}~|0\rangle\right]\quad\longrightarrow$</span> <span class="inline-box py-3" v-click>$\left[\text{Apply Unitary Gates}~(U_1, U_2, U_3)\right]\longrightarrow$</span> <span class="inline-box py-3" v-click>$\left[\text{Measure Result}\right]$</span>
-
-</div>
-
+$$
+\boxed{\large
+\left[\text{Prepare}~|0\rangle\right]~~\longrightarrow
+\left[\text{Apply Unitary Gates}~(U_1, U_2, U_3)\right]~~\longrightarrow
+\left[\text{Measure Result}\right]
+}
+$$
 
 
 - **The Mathematical Flow:** We start at $|0\rangle$, apply a cascade of rotation matrices, and produce a final engineered state $|\psi\rangle$:
-$$|\psi\rangle = (U_n \dots U_3 U_2 U_1)|0\rangle$$
+
+$${\Large |\psi\rangle = (U_n \dots U_3 U_2 U_1)|0\rangle}$$
+
+Mathematically, it's just multiplying a starting vector by a sequence of matrices.
 
 
-
-<Banner title="🎯 What is a Quantum Algorithm?" v-click class="-mt-6">
+```{admonition} 🎯 What is a Quantum Algorithm?
+:class: tip
 
 It is the art of choosing a specific sequence of unitary matrices ($U_i$) such that constructive interference boosts the probability ($|\alpha_i|^2$) of the <em>correct answer</em>, making it the most likely outcome to collapse upon measurement.
 
-</Banner>
+```
 
-<!--
-If you understand this, you understand the core mechanics of Quantum Computing.
-
-
-We strip away all the messy lab physics and treat this as a programmable software architecture.
-
-
-Our baseline is a two-outcome system: states 0 and 1.
-
-
-Every single quantum program follows the exact same three-step pipeline:
-
-
-Step 1: We prepare our qubits, usually setting them all to State 0.
-
-
-Step 2: We apply our Unitary Gates—our code—which smoothly rotates the states around the Bloch Sphere.
-
-
-Step 3: We perform a Measurement, collapsing the fluid state into a hard, classical answer.
-
-
-Mathematically, it's just multiplying a starting vector by a long string of matrices.
-
-
-So, what is a quantum algorithm? It is the delicate art of picking the perfect sequence of rotations, so that the right answer constructively interferes and becomes the brightest, most probable outcome when the wave finally collapses.
-
-Here is the narration script for slides 31 through 40, concluding your presentation.
--->
 
 ---
 
 # Quantum Operation
 
-
+Let's do another walk-through with single qubit system.
 
 - Say a qubit is initially in state $|\psi\rangle = \alpha_0 |0\rangle + \alpha_1 |1\rangle$.
 - When an external factor affect a system, we track the change by multiplying the Operator: $U|\psi\rangle$.
 - For a sequence of three actions, the final state is calculated as: $|\text{OUT}\rangle = U_3 \cdot U_2 \cdot U_1 \cdot |\psi\rangle$.
 
+<br>
 
+Initial State $|\psi\rangle$ <span class="text-purple-400 font-bold">➔</span>
+[ Action 1: $U_1$ ] <span class="text-purple-400 font-bold">➔</span>
+[ Action 2: $U_2$ ] <span class="text-purple-400 font-bold">➔</span>
+[ Action 3: $U_3$ ] <span class="text-purple-400 font-bold">➔</span>
+Final State $|\text{OUT}\rangle$
 
-<!-- PHYSICAL FLOW TIMELINE MAP -->
-<div class="max-w-3xl mx-auto mt-4 border-0 border-gray-700/20 pt-4 select-none flex flex-col items-center -translate-y-6" v-click>
-  
-<span class="px-2 py-1 rounded border border-gray-500/40 font-bold text-gray-400"> Initial State $|\psi\rangle$ </span>
-<span class="text-purple-400 font-bold">➔</span>
-<span class="px-2 py-1 rounded border border-red-500/40 font-bold text-red-400">[ Action 1: $U_1$ ]</span>
-<span class="text-purple-400 font-bold">➔</span>
-<span class="px-2 py-1 rounded border border-green-500/40 font-bold text-green-400">[ Action 2: $U_2$ ]</span>
-<span class="text-purple-400 font-bold">➔</span>
-<span class="px-2 py-1 rounded border border-blue-500/40 font-bold text-blue-400">[ Action 3: $U_3$ ]</span>
-<span class="text-purple-400 font-bold">➔</span>
-<span class="px-2 py-1 rounded border border-purple-500 font-bold text-purple-400">Final State $|\text{OUT}\rangle$</span>
+<br>
 
-</div>
+Below is the mathematical view, very similar to earlier.
 
-<Grid cols="2" gap="4" class="mt-2">
-
-<Banner title="The Mathematical View" class="text-sm" v-click="5">
-
-
+```{admonition} The Mathematical View
 
 - Operations are applied as successive matrix multiplication on state vector.
 - The state vector is modified by $U_1$ first, yielding $U_1|\psi\rangle$.
 - Next, $U_2$ acts on the resulting state from the left side 
+
   $$U_2 (U_1|\psi\rangle) = U_2U_1|\psi\rangle$$
+
 - Then $U_3$ acts on the resulting state from the left side 
+
   $$U3 (U_2 U_1|\psi\rangle) = U_3U_2U_1|\psi\rangle$$
+```
 
+Below is how we interpret it physically.
 
-</Banner>
-
-<Banner title="The Physical Interpretation" type="warning" class="text-sm" v-click="9">
-
-
+```{admonition} The Physical Interpretation
 
 - Each operator acts as a local physical manipulation environment.
 
@@ -1205,55 +1115,12 @@ Here is the narration script for slides 31 through 40, concluding your presentat
 - It could also represent a single qubit hit by three timed radar pulses.
 
 - The compound effect steers the probability weights across space.
+```
 
-
-</Banner>
-
-</Grid>
-
-<!--
-So, let's look at how we string these operations together to actually build a program.
-
-
-We start with an initial qubit state.
-
-
-When we want to change that state—like hitting it with a laser pulse or a magnetic field—we multiply our state by an Operator.
-
-
-If we want to apply three actions in a row, we just multiply by three operators.
-
-
-
-But here is a quirk of the math: we write these matrix multiplications from right to left.
-
-
-So, Action 1, which we'll call U1, gets written closest to the starting state.
-
-
-Then Action 2, U2, multiplies from the left side.
-
-
-And finally Action 3, U3, hits it again from the left.
-
-
-
-Physically, you can think of this as a particle flying out of an oven and passing through three successive magnets.
-
-
-Or, it could be a single stationary atom being zapped by three precisely timed microwave pulses.
-
-
-Each operator steers the probability of the atom, guiding it toward our desired outcome.
--->
 
 ---
 
-# Quantum operation vs. Quantum Circuits
-
-<div class="text-4">
-
-
+## Quantum operation vs. Quantum Circuits
 
 - Recall how successive operators apply on a state from **right to left**, closest to the starting state vector $|\psi\rangle$.
 - A quantum circuit, is a visual layout, where we replace the equations with clean, horizontal flow or wire grids.
@@ -1261,11 +1128,7 @@ Each operator steers the probability of the atom, guiding it toward our desired 
 - Let's look at how a three-step algorithmic chain maps across these two alternative views.
 
 
-</div>
-
-<Grid cols="3-2" gap="2" class="mt-4">
-
-<Banner title="The Equation View" class="text-sm -translate-y-3" v-click="5">
+```{admonition} The Equation View
 
 - Operations are ordered as nested functions, reading right to left:
 
@@ -1277,9 +1140,9 @@ $$\lvert\text{OUT}\rangle = U_3 \cdot U_2 \cdot U_1 \cdot \lvert\psi\rangle$$
 - A measurement involves computing the overlap of the modified state with initial one.
 $$\langle\psi|\text{OUT}\rangle = \langle\psi|U_3 \cdot U_2 \cdot U_1 \cdot \lvert\psi\rangle$$
 - The measured outcomes is the squared magnitude: $|\langle\psi|\text{OUT}\rangle|^2$
-</Banner>
+```
 
-<Banner title="The Circuit View" class="text-sm" type="warning" v-click="6">
+```{admonition} The Circuit View
 
 - We compress this exact sequence into a single timeline wire flowing left to right:
 
@@ -1287,34 +1150,21 @@ $$\langle\psi|\text{OUT}\rangle = \langle\psi|U_3 \cdot U_2 \cdot U_1 \cdot \lve
   <QuantumCircuit :qubits="1" gates="U1:0, U2:0, U3:0, M:0" scale="1.5" />
 </div>
 
+<quantum-circuit qubits="1" gates="U1:0, U2:0, U3:0, M:0" scale="3.0" classical="false"></quantum-circuit>
+
 - The line represents the timeline, and each block maps to an action in the lab.
 - This format allows us to read complex cascades sequentially without tracking formulas.
 
-</Banner>
-
-</Grid>
+```
 
 <!--
 While that math is exact, reading long chains of matrix equations right-to-left gets really tedious, really fast.
-
-
-
-
-
-
-
 So, in quantum computing, we translate this right-to-left mathematical view into a much cleaner visual layout called a Quantum Circuit.
 
-
 Instead of dense equations...
-
-
 ...we draw a wire moving from left to right, representing the timeline.
 
-
 Our Unitary operators are drawn as "Gates" placed on that wire in the exact order they happen. The measurement at the end is drawn as a little meter symbol.
-
-
 This circuit view means you can read a complex quantum algorithm just like reading a piece of sheet music, without having to do any matrix multiplication in your head.
 -->
 
