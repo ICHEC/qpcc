@@ -14,7 +14,7 @@ mystnb:
 ---
 
 (lecture-3)=
-# Lecture 3: Mathematical framework for Quantum Computing
+# Lecture 3: Connecting Qubits Together
 
 ```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture 
 ```
@@ -23,10 +23,1251 @@ mystnb:
 ```{admonition} Learning outcomes
 :class: tip
 
-In this lecture we discuss the mathematical framework and tools required to properly understand how quantum system works. We give a short introduction to notion of sets, vector spaces, linear operators and maps.
-
+In this lecture we discuss how we connect multiple qubits. Combining qubits brings the full potential of quantum computing.
+We learn about multi qubit gates and their role in quantum computing. We familiarise ourselves with features of quantum physics that make quantum computing different from classical computing. We touch upon the necessary mathematical framework and tools to enable us working with multi-qubit system through gates.
 
 ```
+
+
+---
+
+# Introduction
+
+
+- Understand multi-qubit gates and their role in quantum computing
+- Familiarity with the features of quantum physics that make quantum computing different from classical computing
+- Connect mathematical framework of quantum computing to experimental implementations
+
+
+## Agenda
+
+- Multi-qubit systems
+- Multi-qubit gates
+- Features of quantum physics 
+- Connecting mathematical framework to experiment
+
+
+---
+layout: section
+---
+
+# Multi-qubit systems
+
+---
+
+# Unitary matrices (recap)
+
+- A matrix $U$ is **unitary** if $\,U^\dagger U = U U^\dagger = I\,$, where $U^\dagger$ is the conjugate transpose.
+- Unitary matrices preserve the norm of a vector: $\lVert U|\psi\rangle \rVert = \lVert |\psi\rangle \rVert$
+  - This is what keeps quantum states normalized (probabilities sum to 1) after a gate is applied.
+- Every quantum gate is represented by a unitary matrix — this is why quantum gates are **reversible**: $U^{-1} = U^\dagger$
+- Single-qubit gates are $2\times2$ unitary matrices, e.g.
+
+$$
+X = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}, \quad
+H = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}
+$$
+
+- For $n$ qubits, gates are represented by $2^n \times 2^n$ unitary matrices.
+
+---
+
+# Tensor product of states
+
+<Grid cols="1 1" gap="8">
+
+<div>
+
+- The **tensor product** ($\otimes$) is how we combine individual qubit states (or operators) into a description of a joint, multi-qubit system.
+- For two single-qubit states:
+
+$$
+|\psi_1\rangle \otimes |\psi_2\rangle =
+\begin{pmatrix} a_1 \\ b_1 \end{pmatrix} \otimes \begin{pmatrix} a_2 \\ b_2 \end{pmatrix} =
+\begin{pmatrix} a_1 a_2 \\ a_1 b_2 \\ b_1 a_2 \\ b_1 b_2 \end{pmatrix}
+$$
+
+- A system of $n$ qubits lives in a Hilbert space of dimension $2^n$ — this exponential growth is a key resource (and challenge) in quantum computing.
+- Shorthand: $|\psi_1\rangle \otimes |\psi_2\rangle$ is often written $|\psi_1\rangle|\psi_2\rangle$ or $|\psi_1 \psi_2\rangle$
+
+</div>
+
+
+<div>
+
+
+<Banner type="info">
+
+Examples: 
+
+1. $$|0\rangle \otimes |1\rangle = \begin{pmatrix} 1 \\ 0 \end{pmatrix} \otimes \begin{pmatrix} 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}$$
+
+2. $$|+\rangle \otimes |0\rangle = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ 1 \end{pmatrix} \otimes \begin{pmatrix} 1 \\ 0 \end{pmatrix} = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ 0 \\ 1 \\ 0 \end{pmatrix}$$
+
+</Banner>
+
+</div>
+
+</Grid>
+
+---
+
+# Multi-qubit basis
+
+<Grid cols="1 1" gap="1">
+
+<div>
+
+- For a single qubit, the computational basis is $\{|0\rangle, |1\rangle\}$.
+- For $n=2$ qubits, the basis consists of all $2^n=4$ combinations of 0s and 1s: $\{|00\rangle, |01\rangle, |10\rangle, |11\rangle\}$.
+
+- General 2-qubit state is superposition over 4 basis states:
+$$
+\begin{align*}
+|\psi\rangle &= \alpha_{00}|00\rangle + \alpha_{01}|01\rangle + \alpha_{10}|10\rangle + \alpha_{11}|11\rangle \\
+\\
+&=\begin{pmatrix} \alpha_{00} \\ \alpha_{01} \\ \alpha_{10} \\ \alpha_{11} \end{pmatrix}
+\end{align*}
+$$
+- Normalization: $|\alpha_{00}|^2 + |\alpha_{01}|^2 + |\alpha_{10}|^2 + |\alpha_{11}|^2 = 1$
+
+</div>
+
+<div>
+
+<Banner type="warning">
+
+<div class="text-sm">
+
+- For $n$ qubits, the basis has $2^n$ states — e.g. 10 qubits already gives 1024 basis states.
+- Exponential scaling $\rightarrow$ classical simulation becomes intractable, opportunity for quantum advantage.
+
+</div>
+
+</Banner>
+
+
+<Banner type="info" title="Examples">
+
+<div class="text-sm">
+
+1. $|0\rangle \otimes |1\rangle = \begin{pmatrix} 1 \\ 0 \end{pmatrix} \otimes \begin{pmatrix} 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}=|01\rangle$
+
+ 
+$$
+\begin{align*}
+2. \;|+\rangle \otimes &|0\rangle = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ 1 \end{pmatrix} \otimes \begin{pmatrix} 1 \\ 0 \end{pmatrix} = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ 0 \\ 1 \\ 0 \end{pmatrix} \\
+&= \frac{1}{\sqrt{2}}(|00\rangle+|10\rangle)= \frac{1}{\sqrt{2}}(|0\rangle+|1\rangle)|0\rangle = |+\rangle|0\rangle
+\end{align*}
+$$
+
+</div>
+
+</Banner>
+
+</div>
+
+</Grid>
+
+---
+
+# Tensor product of gates - matrix notation
+
+Example: applying $H$ to qubit 1 and $X$ to qubit 2:
+
+$$
+H \otimes X = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix} \otimes \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} = \frac{1}{\sqrt{2}}\begin{pmatrix} 0 & 1 & 0 & 1 \\ 1 & 0 & 1 & 0 \\ 0 & 1 & 0 & -1 \\ 1 & 0 & -1 & 0 \end{pmatrix}
+$$      
+
+Acting on the 2-qubit state $|00\rangle = \begin{pmatrix}1\\0\end{pmatrix}\otimes\begin{pmatrix}1\\0\end{pmatrix} = \begin{pmatrix}1 \\ 0 \\ 0 \\ 0 \end{pmatrix}$ gives:
+
+$$
+H \otimes X|00\rangle = \frac{1}{\sqrt{2}}\begin{pmatrix} 0 & 1 & 0 & 1 \\ 1 & 0 & 1 & 0 \\ 0 & 1 & 0 & -1 \\ 1 & 0 & -1 & 0 \end{pmatrix}\begin{pmatrix}1 \\ 0 \\ 0 \\ 0 \end{pmatrix} = \frac{1}{\sqrt{2}}\begin{pmatrix} 0 \\ 1 \\ 0 \\ 1 \end{pmatrix} = \frac{1}{\sqrt{2}}(|01\rangle + |10\rangle)
+$$
+
+
+---
+
+# Tensor product of gates - Dirac notation
+
+Alternatively we can perform the same calculation using kets as:
+
+$$
+(H \otimes X)|00\rangle = H|0\rangle \otimes X|0\rangle = |+\rangle \otimes |1\rangle = \frac{1}{\sqrt{2}}(|0\rangle+|1\rangle)\otimes |1\rangle = \frac{1}{\sqrt{2}}(|01\rangle + |10\rangle)
+$$      
+
+- We see that the gates act independently on their respective qubits -- $H$ acts on qubit 1, giving $|+\rangle$ and $X$ acts on qubit 2, giving $|1\rangle$.
+
+- We can also write this as $H_1 X_2 |00\rangle$, where the subscript indicates which qubit the gate acts on.
+
+- It is important to note that $H_1 X_2 \neq X_2 H_1$ — the order of operations matters, and in general multi-qubit gates do **not** commute.
+
+---
+
+# Separable operations
+
+<Grid cols="1 1" gap="4">
+
+<div>
+
+- A multi-qubit operation is **separable** if it can be written as a tensor product of single-qubit (or single-subsystem) operations:
+
+$$
+U = U_1 \otimes U_2 \otimes \cdots \otimes U_n
+$$
+
+- Applying a separable operation to a product state gives another product state — **no correlations between qubits are created**.
+- Separable operations are the natural extension of single-qubit gates to multiple qubits — but they alone are **not enough** for quantum advantage.
+- For this, we need to generate *entanglement*.
+
+</div>
+
+<div>
+
+<Banner type="warning" align="center">
+
+**Multi-qubit circuit diagrams**
+
+- Each horizontal line represents a qubit, and gates are applied from left to right.
+- Tensor products of single-qubit gates are represented by gates on separate qubit lines.
+
+<div class="flex justify-center mt-2">
+<img src="/figures/L03/HotimesX.png" width="200" />
+</div>
+
+</Banner>
+
+</div>
+
+</Grid>
+
+---
+
+# Entanglement (mathematically)
+
+- Consider a two-qubit system with Hilbert space $\mathcal{H} = \mathcal{H}_A ⊗ \mathcal{H} _B$. 
+- A general state of the system can be written as a linear combination of the basis states:
+$$
+|\psi\rangle_{AB} = \sum_{i,j} c_{ij} |i\rangle_A \otimes |j\rangle_B
+$$
+- If $|\psi\rangle_{AB}$ can be written as $|x\rangle_A \otimes |y\rangle_B$ then the state is **separable**. Otherwise, it is **entangled**.
+
+
+<Box title="Examples">
+
+<Banner type="success">
+
+The Bell state $|\Phi^+\rangle = \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)$ is entangled because it cannot be written as a product of single-qubit states.
+
+</Banner>
+
+<Banner type="warning">
+
+The state $|\psi\rangle = \frac{1}{\sqrt{2}}(|00\rangle + |01\rangle)$ is separable because it can be written as $|0\rangle \otimes \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)$.
+
+</Banner>
+
+</Box>
+
+---
+layout: section
+---
+
+# Multi-qubit gates
+
+---
+
+# CNOT gate
+
+<Grid cols="1 1" gap="2">
+
+<div>
+
+
+ 
+ <Banner>
+
+The Controlled-NOT (CNOT) gate acts on two qubits — a **control** and a **target**.
+
+- If control is $|0\rangle$, target is unchanged.
+- If control is $|1\rangle$, target is flipped (X applied).
+
+</Banner>
+
+
+
+
+
+- Matrix representation in the computational basis:
+$$
+\text{CNOT} = \begin{pmatrix}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1 \\
+0 & 0 & 1 & 0
+\end{pmatrix}
+$$
+
+
+
+
+
+- Circuit diagram representation:
+<div class="flex justify-center">
+<img src="/figures/L03/CNOT.png" width="200" />
+
+</div>
+
+
+
+</div>
+
+<div>
+
+
+
+<FancyTable>
+
+<table class="cnot-truth-table">
+<thead>
+<tr>
+<th colspan="2">Input</th>
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<th>Control</th>
+<th>Target</th>
+<th>Control</th>
+<th>Target</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+<tr><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+<tr><td>1</td><td>1</td><td>1</td><td>0</td></tr>
+</tbody>
+</table>
+
+</FancyTable>
+
+
+
+<style>
+.cnot-truth-table th,
+.cnot-truth-table td {
+  text-align: center;
+}
+.cnot-truth-table th:nth-child(2),
+.cnot-truth-table td:nth-child(2) {
+  border-right: 2px solid #999;
+}
+</style>
+
+
+
+
+<Banner type="success">
+
+**Key point: CNOT is entangling**
+
+- CNOT **cannot** be written as $U_1 \otimes U_2$.
+
+- Applying CNOT can create entanglement:
+
+$$
+\text{CNOT}\left(\frac{|0\rangle+|1\rangle}{\sqrt2} \otimes |0\rangle\right) = \frac{|00\rangle+|11\rangle}{\sqrt2}
+$$
+
+This is a **Bell state**: maximally entangled, impossible to reach with only separable gates.
+
+</Banner>
+
+
+
+</div>
+
+</Grid>
+
+---
+
+# Controlled-U gate
+
+<Grid cols="1 1" gap="2">
+
+<div>
+
+
+
+<Banner type="info">
+
+- CNOT is a controlled-X gate -- it performs a bitflip on the target if the control is in state $|1\rangle$.
+- We can generalise this to a controlled version of *any* single-qubit unitary
+
+</Banner>
+
+
+
+
+
+<Banner type="success" title="Definition">
+
+The Controlled-$U$ gate acts on two qubits — a **control** and a **target**.
+
+- If control qubit is $|0\rangle$, target is unchanged.
+- If control qubit is $|1\rangle$, $U$ is applied to the target.
+
+</Banner>
+
+
+
+</div>
+
+<div>
+
+
+
+- Matrix representation in the computational basis:
+
+$$
+\text{C-}U = \begin{pmatrix}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & u_{00} & u_{01} \\
+0 & 0 & u_{10} & u_{11}
+\end{pmatrix}
+$$
+
+
+
+
+
+- Circuit diagram representation:
+
+<img src="/figures/L03/CU.png" width="200" />
+
+
+
+</div>
+
+</Grid>
+
+---
+
+# Controlled-U gate
+
+**Action on basis states:**
+
+<FancyTable class="!w-[500px]">
+
+| Control in | Target in |  Control out | Target out |
+|---|---|---|---|
+| 0 | $\vert\psi\rangle$ | 0 | $\vert\psi\rangle$ |
+| 1 | $\vert\psi\rangle$ | 1 | $U\vert\psi\rangle$ |
+
+</FancyTable>
+
+
+
+<Banner type="success">
+
+**Key point: C-U recovers CNOT — and more**
+
+- Setting $U = X$ gives back the ordinary CNOT gate.
+- Any single-qubit $U$ can be controlled this way, giving gates like **controlled-Z**, **controlled-phase**, or **controlled-H**.
+- Like CNOT, a generic C-U is entangling: it **cannot** usually be written as $U_1 \otimes U_2$
+- Controlled versions of arbitrary single-qubit gates are a key ingredient for building **universal gate sets**.
+
+</Banner>
+
+
+
+---
+
+# SWAP gate
+
+<Grid cols="1 1" gap="2">
+
+<div>
+
+
+
+<Banner type="success" title="Definition">
+
+The SWAP gate acts on two qubits, **exchanging** their states:
+
+$$
+|q_1, q_2\rangle \rightarrow |q_2, q_1\rangle
+$$
+
+
+</Banner>
+
+
+
+
+
+<FancyTable>
+
+| | | | |
+|---|---|---|---|
+| Qubit 1 in | Qubit 2 in | Qubit 1 out | Qubit 2 out |
+| 0 | 0 | 0 | 0 |
+| 0 | 1 | 1 | 0 |
+| 1 | 0 | 0 | 1 |
+| 1 | 1 | 1 | 1 |
+
+</FancyTable>
+
+
+
+
+
+- Circuit diagram representation: 
+<div class="flex justify-center">
+<img src="/figures/L03/SWAP.png" width="100" />
+</div>
+
+
+
+</div>
+
+<div>
+
+
+
+- Matrix representation in the computational basis:
+
+$$
+\text{SWAP} = \begin{pmatrix}
+1 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix}
+$$
+
+
+
+
+
+
+<Banner type="info">
+
+- SWAP is its own inverse: applying it twice returns the original state.
+- Can be decomposed into **three CNOT gates**
+<QuantumCircuit :qubits="2" gates="CNOT:1:0,CNOT:0:1,CNOT:1:0" />
+
+</Banner>
+
+
+
+</div>
+
+</Grid>
+
+
+
+<Banner type="success">
+
+**Key point: SWAP is separable, not entangling** — unlike CNOT and Toffoli, SWAP maps product states to product states, so it can be built entirely from CNOTs and never generates entanglement on its own.
+
+</Banner>
+
+
+
+
+---
+
+# Toffoli gate (CCNOT)
+
+<Grid cols="1 1" gap="2">
+
+<div>
+
+
+
+<Banner type="info">
+
+- The Toffoli gate generalises CNOT to **two** control qubits.
+- It is a **reversible, classically universal** gate — enough to build any classical circuit.
+
+</Banner>
+
+
+
+
+
+<Banner type="success" title="Definition">
+
+The Toffoli gate (CCNOT) acts on three qubits — two **controls** and one **target**.
+
+- If **both** controls are $|1\rangle$, the target is flipped.
+- Otherwise, the target is unchanged.
+
+</Banner>
+
+
+
+</div>
+
+<div>
+
+
+
+- Matrix representation in the computational basis (8×8):
+
+$$
+\text{CCX} = \begin{pmatrix}
+1&0&0&0&0&0&0&0\\
+0&1&0&0&0&0&0&0\\
+0&0&1&0&0&0&0&0\\
+0&0&0&1&0&0&0&0\\
+0&0&0&0&1&0&0&0\\
+0&0&0&0&0&1&0&0\\
+0&0&0&0&0&0&0&1\\
+0&0&0&0&0&0&1&0
+\end{pmatrix}
+$$
+
+
+
+
+
+- Circuit diagram representation:
+
+
+<div class="flex justify-center">
+<img src="/figures/L03/toffoli.png" width="200" />
+</div>
+
+
+
+
+
+<FancyTable class="!w-[500px]">
+
+| | | | | | |
+|---|---|---|---|---|---|
+| C1 in | C2 in | Target in | C1 out | C2 out | Target out |
+| 0 | 0 | 0 | 0 | 0 | 0 |
+| 0 | 0 | 1 | 0 | 0 | 1 |
+| 0 | 1 | 0 | 0 | 1 | 0 |
+| 0 | 1 | 1 | 0 | 1 | 1 |
+| 1 | 0 | 0 | 1 | 0 | 0 |
+| 1 | 0 | 1 | 1 | 0 | 1 |
+| 1 | 1 | 0 | 1 | 1 | 1 |
+| 1 | 1 | 1 | 1 | 1 | 0 |
+
+</FancyTable>
+
+
+
+</div>
+
+</Grid>
+
+---
+
+# Universal quantum gate set
+
+<Grid cols="1 1" gap="2">
+
+<div>
+
+
+
+<Banner title="Classical Recap" type="success">
+
+- Remember in classical computing, the `NAND` gate alone is a universal set
+- All other classical logic gates can be built from combinations of `NAND` gates
+
+</Banner>
+
+
+
+
+
+<Banner title="The Quantum Case">
+
+A universal quantum gate set is a set of gates which can be combined to reproduce the function of **any unitary operation** with *arbitrary accuracy*.
+
+</Banner>
+
+
+
+</div>
+
+<div>
+
+<v-clicks>
+
+- Example of a universal **quantum** gate set:
+
+<img src="/figures/L03/UnivSetQ.png" width="600" />
+
+
+
+- $S$ and $T$ are two phase gates related to the Pauli $Z$ gate:
+
+$$
+S=\begin{pmatrix} 1 & 0 \\ 0 & e^{i \pi/2} \end{pmatrix}=\sqrt{Z}
+$$
+
+$$
+T=\begin{pmatrix} 1 & 0 \\ 0 & e^{i \pi/4} \end{pmatrix}=\sqrt[4]{Z}
+$$
+
+</v-clicks>
+
+</div>
+
+</Grid>
+
+---
+layout: section
+---
+
+# Features of quantum physics
+
+---
+
+# Entanglement (physically)
+
+<v-clicks>
+
+- Entangled systems share a quantum state. ​
+- A measurement performed on one
+subsystem instantaneously collapses the
+state of the other subsystem, no matter how far apart they may be.​
+- Einstein called this ‘spooky action at a distance’. 
+
+<img src="/figures/L03/Entanglement.png" width="600" />
+
+</v-clicks>
+
+---
+
+# Superposition principle
+
+
+
+<Banner type="info">
+
+If $|\alpha\rangle$ and $|\beta\rangle$ are two states of a quantum system, then any linear combination (or superposition) of these states, given by 
+$$c_1 |\alpha\rangle+c_2 |\beta\rangle$$
+is a possible state of the system, where $c_1, c_2$ are complex numbers, and $|c_1|^2+|c_2|^2=1$.
+
+</Banner>
+
+
+
+
+
+<div class="flex justify-center">
+<img src="/figures/L03/Cat.png" width="400" />
+</div>
+
+
+
+---
+
+#  Uncertainty principle
+
+<Grid cols="1 1" gap="2">
+
+<div>
+
+<v-clicks>
+
+<p class="text-center text-xl italic mt-16">
+"Certain pairs of observables cannot be simultaneously measured with arbitrary precision"
+</p>
+
+$$
+\Delta x \Delta p \geq \hbar/2
+$$
+
+- $\Delta$ means the standard deviation or **uncertainty** in the quantity that follows
+- $x$=position
+- $p$=momentum
+- $h = 6.63\times10^{-34}\,\text{m}^2\text{kgs}^{-1}$ is Planck's constant
+- $\hbar = h/2\pi$ is the reduced Planck's constant
+
+$$
+\Delta E \Delta t \geq \hbar/2
+$$
+
+- $E$=energy
+- $t$=time
+
+</v-clicks>
+
+</div>
+
+<div>
+
+<img src="/figures/L03/uncertainty1.png" width="350" v-click/>
+
+<img src="/figures/L03/uncertainty2.png" width="1000" v-click/>
+
+</div>
+
+</Grid>
+
+<!--
+Heisenberg’s uncertainty principle states that there is a maximum precision with which we can measure certain observables simultaneously. This applies to various pairs of physical quantities, including position x and momentum p, as well as energy E and time t. These operators are non-commuting observables, which means that 𝑥𝑝≠𝑝𝑥, so the order of operators matters in quantum mechanics.
+
+This minimum uncertainty is related to another uniquely quantum feature: wave-particle duality, which tells us that a quantum particle can also be described as a wave. If that wave contains a single frequency this means it has small uncertainty in energy or momentum, but large uncertainty in position. If on the other hand the wave contains many frequencies, it has a large uncertainty in momentum and small uncertainty in position.
+-->
+
+---
+
+# No-cloning theorem
+
+<Grid>
+
+<div>
+
+<Banner type="success"  class="!w-[430px]" title="Classical">
+
+Classically we can copy an unknown bit using the following simple process:
+
+<v-clicks>
+
+1. We receive an unknown bit. This means we don’t know its state. **We don’t know if it is 0 or 1**.
+2. Measure the bit and record the outcome. We either get 0 or 1. Say for example we obtain 1.
+3. Using this information, <mark>prepare a new bit</mark> matching the original bit.
+4. Now we have 11, i.e. *original bit plus a copy*.
+
+</v-clicks>
+
+</Banner>
+
+</div>
+
+<div>
+
+<Banner type="error" title="Quantum">
+
+
+
+What happens if we try to copy a qubit using this procedure?
+
+
+
+<v-clicks>
+
+1. We receive an unknown qubit. We don’t know its state $\psi=\alpha|0\rangle+\beta|1\rangle$. **We don’t know the coefficients** $\alpha$ and $\beta$.
+2. Measure the qubit and record the outcome. We either get 0 or 1. Say for example we obtain 1.
+3. We <mark>cannot prepare a new qubit</mark> matching the old one! We still don’t know 𝛼 and 𝛽.
+4. Plus the *original qubit is now destroyed*!
+
+</v-clicks>
+
+</Banner>
+
+</div>
+
+</Grid>
+
+---
+
+# No-cloning theorem
+
+<div class="h-16"></div>
+
+
+
+<Banner type="info">
+
+<p class="text-center text-xl">
+
+"An <span class="highlight-pink">unknown</span> quantum state cannot be <span class="highlight-green">precisely</span> recreated, it cannot be **cloned**."
+
+</p>
+
+</Banner>
+
+
+
+<v-clicks>
+
+<div class="grid grid-cols-2 gap-8 mt-12">
+
+<div class="caveat-box caveat-pink">
+
+**Caveat:**
+- Known states can be copied infinitely many times!
+- By repeating the known algorithm used to prepare them.
+
+</div>
+
+<div class="caveat-box caveat-green">
+
+**Caveat:**
+- Approximate cloning is possible!
+- By taking thousands of measurements in different bases. \[Bužek & Hillery. PRL 81 22 (1998)\]
+
+</div>
+
+</div>
+
+</v-clicks>
+
+<style>
+.highlight-pink {
+  background-color: magenta;
+  padding: 0 4px;
+}
+.highlight-green {
+  background-color: lime;
+  padding: 0 4px;
+}
+.caveat-box {
+  border: 2px solid;
+  border-radius: 4px;
+  padding: 16px;
+}
+.caveat-pink {
+  border-color: magenta;
+}
+.caveat-green {
+  border-color: lime;
+}
+</style>
+
+---
+
+# Tunneling
+
+<Grid>
+
+<div>
+
+**Classical:**
+
+<img src="/figures/L03/CBarrier.png" width="400" />
+
+- Particle with $E>U$ passes through
+- Particle with $E<U$ is reflected
+
+</div>
+
+<div>
+
+**Quantum:**
+
+<img src="/figures/L03/QBarrier.png" width="400" />
+
+- Quantum particle behaves as wave – partially reflected and partially transmitted
+- There is a non-zero probability of finding the quantum particle beyond the classically insurmountable barrier!
+- The probability decreases exponentially with the width of the barrier
+
+</div>
+
+</Grid>
+
+---
+
+# Summary of the features of quantum physics
+
+ <vclicks>
+
+<div class="flex flex-col gap-8 mt-4">
+</div>
+
+**Postulates of quantum mechanics**
+
+<div class="flex flex-col gap-8 mt--4">
+</div>
+
+<div class="plain-table text-sm">
+
+| | |
+|---|---|
+| **State as abstract vector** | Quantum states are represented by abstract vectors, which are not measurable objects. |
+| **Observables** | Observable in classical mechanics $\leftrightarrow$ linear Hermitian operator in quantum mechanics |
+| **Uncertainty principle** | Certain pairs of physical properties can't be measured simultaneously with arbitrary precision |
+| **Superposition principle** | If a system can exist in two states, it can also exist in any linear combination of those states |
+| **Measurement** | Measuring an operator gives one of its eigenvalues, and changes the state of the system. |
+
+</div>
+
+<div class="flex flex-col gap-8 mt-8">
+</div>
+
+**Consequences of the postulates**
+
+<div class="flex flex-col gap-8 mt--4">
+</div>
+
+<div class="plain-table text-sm">
+
+| | |
+|---|---|
+| **Interference** | Probability amplitudes interfere leading to diminished or amplified probability. |
+| **No-Cloning** | It is impossible to make an independent and identical copy of an unknown quantum state. |
+| **Entanglement** | When the state of a subset of quantum particles can't be described independently of the others. |
+| **Tunneling** | When a quantum particle passes through an energy barrier forbidden by classical physics. |
+
+</div>
+
+</vclicks>
+
+<style>
+.table-heading {
+  font-weight: bold;
+  font-size: 1rem;
+  margin: 0 0 4px 0;
+}
+.plain-table {
+  margin-bottom: 16px;
+}
+.plain-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.plain-table td:first-child {
+  width: 20%;
+  font-weight: bold;
+  border-right: 1px solid #ccc;
+}
+.plain-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #eee;
+}
+</style>
+
+---
+layout: section
+---
+
+# Connecting mathematical framework to experiment
+
+---
+
+# Putting it all together: qubits, gates & measurements  
+
+
+<FancyTable class="!w-[800px]">
+
+| | | |
+|---|---|---|
+| **Physical** | **Mathematical** |  **Example** |
+| State | Vector | $\vert\psi\rangle=\alpha\vert 0\rangle + \beta\vert 1\rangle$ |
+| Gate | Unitary matrix | $H=\frac{1}{\sqrt{2}}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}$ |
+| Observable | Hermitian matrix | $Z=\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}$ |
+| Measurement outcome | Eigenvalue | $+1$ or $-1$ for $Z$ |
+| State after measurement | Eigenvector | $\vert 0\rangle$ or $\vert 1\rangle$ for $Z$ |
+| Probability of outcome | Squared magnitude of probability amplitudes | $\vert\langle 0\vert\psi\rangle\vert^2 = \vert\alpha\vert^2$ for outcome $+1$ of $Z$ |
+
+</FancyTable>
+
+---
+
+# Quantum measurement
+
+Probabilistic -- depends on the state of the system and the observable being measured.
+
+<img src="/figures/L03/CoinMeasurement.png" width="1000" />
+
+
+<Banner title="Born rule">
+
+For a system initially in state $|s\rangle$, the probability of measuring outcome $a_h$ is given by:
+$$
+P(a_h) = |\langle h|s\rangle|^2=\left|\langle h|\left(c_1|h\rangle+c_2|t\rangle\right)\right|^2=|c_1|^2
+$$
+
+Similarly, the probability of measuring outcome $a_t$ is $P(a_t) = |c_2|^2$
+
+</Banner>
+
+---
+
+# Expectation value
+
+<Grid cols="1 1" gap="2">
+
+<div>
+
+
+
+<Banner type="info">
+
+- A single measurement gives one random outcome — but if we repeat the experiment many times, the **average** outcome is well-defined and predictable.
+
+</Banner>
+
+
+
+
+
+<Banner type="success" title="Definition">
+
+For an observable represented by a Hermitian operator $\hat{O}$ and a state $|\psi\rangle$, the expectation value is
+
+$$
+\langle \hat{O} \rangle = \langle\psi|\hat{O}|\psi\rangle
+$$
+
+This is the average result you'd get measuring $\hat{O}$ on **many identically prepared copies** of $|\psi\rangle$.
+
+</Banner>
+
+
+
+</div>
+
+<div>
+
+
+
+- Individual measurement outcomes are eigenvalues of $\hat{O}$, denoted $\lambda_i$.
+- Hence we can equivalently calculate the average as a sum over all these outcomes weighted by probability:
+
+$$
+\langle \hat{O} \rangle = \sum_i \lambda_i \, P(\lambda_i)=|\langle \lambda_i|\psi\rangle|^2
+$$
+
+where $|\lambda_i \rangle$ are the eigenvectors of $\hat{O}$.
+
+
+
+</div>
+
+</Grid>
+
+---
+
+# Expectation value: worked example
+
+<Grid cols="1 1" gap="2">
+
+<div>
+
+
+
+**Setup:** measure the observable $Z$ on the state
+
+$$
+|\psi\rangle = \alpha|0\rangle + \beta|1\rangle
+$$
+
+$$
+Z = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}
+$$
+
+
+
+
+
+**Step 1:** identify the possible outcomes — the eigenvalues of $Z$:
+- $+1$ for $|0\rangle$
+- $-1$ for $|1\rangle$
+
+
+
+
+
+**Step 2:** compute each outcome's probability from the Born rule
+
+$$
+P(+1) = |\langle 0|\psi\rangle|^2 = |\alpha|^2,
+$$
+$$
+P(-1) = |\langle 1|\psi\rangle|^2 = |\beta|^2
+$$
+
+
+
+</div>
+
+<div>
+
+
+
+<FancyTable class="!w-[420px]">
+
+| | | |
+|---|---|---|
+| Outcome | Probability | Contribution |
+| $+1$ | $\lvert\alpha\rvert^2$ | $+\lvert\alpha\rvert^2$ |
+| $-1$ | $\lvert\beta\rvert^2$ | $-\lvert\beta\rvert^2$ |
+
+</FancyTable>
+
+
+
+
+
+**Step 3:** sum the contributions
+
+$$
+\langle Z \rangle = (+1)|\alpha|^2 + (-1)|\beta|^2 = |\alpha|^2 - |\beta|^2
+$$
+
+
+
+
+
+<Banner type="success">
+
+**Key point:** 
+- $\langle O \rangle$ is always a **real** number and lies **between the smallest and largest eigenvalues** of $O$ 
+- In this case, $\langle Z \rangle$ lies between -1 and 1, reaching $\pm1$ only for the eigenstates $|0\rangle$ and $|1\rangle$.  
+- For an equal superposition $\langle Z \rangle=0$.
+
+</Banner>
+
+
+
+</div>
+
+</Grid>
+
+---
+
+# Wrap-up
+
+<v-clicks>
+
+- We use the **tensor product**, denoted as $\otimes$, to combine qubits together to create multi-qubit systems.
+- Multi-qubit gates and entanglement are essential for quantum algorithms.
+- Universal gate sets allow for the construction of any quantum operation.
+- Features which are used in quantum algorithms: 
+  - superposition
+  - interference
+  - entanglement.
+- We use the mathematical framework of vectors to represent states and matrices to represent gates and observables.
+
+</v-clicks>
+
+---
+layout: end
+---
+
+# Thank You
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Mathematical Structure
 

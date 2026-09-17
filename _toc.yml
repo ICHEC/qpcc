@@ -12,9 +12,9 @@ parts:
   - caption: Topic 2
     chapters:
     - file: lecture-02/bits-to-qubits.md
-#  - caption: Topic 3
-#    chapters:
-#    - file: lecture-03/quantum-gates.md
+  - caption: Topic 3
+    chapters:
+    - file: lecture-03/connecting-qubits.md
 #  - caption: Topic 4
 #    chapters:
 #    - file: lecture-04/lecture-04-fqa.md
