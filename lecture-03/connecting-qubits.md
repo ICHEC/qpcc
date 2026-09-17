@@ -24,7 +24,8 @@ mystnb:
 :class: tip
 
 In this lecture we discuss how we connect multiple qubits. Combining qubits brings the full potential of quantum computing.
-We touch upon the necessary mathematical framework and tools to enable us working with multi-qubit system through gates.
+We learn about multi qubit gates and their role in quantum computing. We familiarise ourselves with features of quantum physics that make quantum computing different from classical computing. We touch upon the necessary mathematical framework and tools to enable us working with multi-qubit system through gates.
+
 ```
 
 
@@ -282,7 +283,7 @@ layout: section
 
 <div>
 
-<v-click>
+
  
  <Banner>
 
@@ -293,9 +294,9 @@ The Controlled-NOT (CNOT) gate acts on two qubits — a **control** and a **targ
 
 </Banner>
 
-</v-click>
 
-<v-click>
+
+
 
 - Matrix representation in the computational basis:
 $$
@@ -307,9 +308,9 @@ $$
 \end{pmatrix}
 $$
 
-</v-click>
 
-<v-click>
+
+
 
 - Circuit diagram representation:
 <div class="flex justify-center">
@@ -317,13 +318,13 @@ $$
 
 </div>
 
-</v-click>
+
 
 </div>
 
 <div>
 
-<v-click>
+
 
 <FancyTable>
 
@@ -350,7 +351,7 @@ $$
 
 </FancyTable>
 
-</v-click>
+
 
 <style>
 .cnot-truth-table th,
@@ -364,7 +365,7 @@ $$
 </style>
 
 
-<v-click>
+
 
 <Banner type="success">
 
@@ -382,7 +383,7 @@ This is a **Bell state**: maximally entangled, impossible to reach with only sep
 
 </Banner>
 
-</v-click>
+
 
 </div>
 
@@ -396,7 +397,7 @@ This is a **Bell state**: maximally entangled, impossible to reach with only sep
 
 <div>
 
-<v-click>
+
 
 <Banner type="info">
 
@@ -405,9 +406,9 @@ This is a **Bell state**: maximally entangled, impossible to reach with only sep
 
 </Banner>
 
-</v-click>
 
-<v-click>
+
+
 
 <Banner type="success" title="Definition">
 
@@ -418,13 +419,13 @@ The Controlled-$U$ gate acts on two qubits — a **control** and a **target**.
 
 </Banner>
 
-</v-click>
+
 
 </div>
 
 <div>
 
-<v-click>
+
 
 - Matrix representation in the computational basis:
 
@@ -437,15 +438,15 @@ $$
 \end{pmatrix}
 $$
 
-</v-click>
 
-<v-click>
+
+
 
 - Circuit diagram representation:
 
 <img src="/figures/L03/CU.png" width="200" />
 
-</v-click>
+
 
 </div>
 
@@ -466,7 +467,7 @@ $$
 
 </FancyTable>
 
-<v-click>
+
 
 <Banner type="success">
 
@@ -479,7 +480,7 @@ $$
 
 </Banner>
 
-</v-click>
+
 
 ---
 
@@ -489,7 +490,7 @@ $$
 
 <div>
 
-<v-click>
+
 
 <Banner type="success" title="Definition">
 
@@ -502,9 +503,9 @@ $$
 
 </Banner>
 
-</v-click>
 
-<v-click>
+
+
 
 <FancyTable>
 
@@ -518,22 +519,22 @@ $$
 
 </FancyTable>
 
-</v-click>
 
-<v-click>
+
+
 
 - Circuit diagram representation: 
 <div class="flex justify-center">
 <img src="/figures/L03/SWAP.png" width="100" />
 </div>
 
-</v-click>
+
 
 </div>
 
 <div>
 
-<v-click>
+
 
 - Matrix representation in the computational basis:
 
@@ -546,10 +547,10 @@ $$
 \end{pmatrix}
 $$
 
-</v-click>
 
 
-<v-click>
+
+
 
 <Banner type="info">
 
@@ -559,13 +560,13 @@ $$
 
 </Banner>
 
-</v-click>
+
 
 </div>
 
 </Grid>
 
-<v-click>
+
 
 <Banner type="success">
 
@@ -573,7 +574,7 @@ $$
 
 </Banner>
 
-</v-click>
+
 
 
 ---
@@ -584,7 +585,7 @@ $$
 
 <div>
 
-<v-click>
+
 
 <Banner type="info">
 
@@ -593,9 +594,9 @@ $$
 
 </Banner>
 
-</v-click>
 
-<v-click>
+
+
 
 <Banner type="success" title="Definition">
 
@@ -606,13 +607,13 @@ The Toffoli gate (CCNOT) acts on three qubits — two **controls** and one **tar
 
 </Banner>
 
-</v-click>
+
 
 </div>
 
 <div>
 
-<v-click>
+
 
 - Matrix representation in the computational basis (8×8):
 
@@ -629,9 +630,9 @@ $$
 \end{pmatrix}
 $$
 
-</v-click>
 
-<v-click>
+
+
 
 - Circuit diagram representation:
 
@@ -640,9 +641,9 @@ $$
 <img src="/figures/L03/toffoli.png" width="200" />
 </div>
 
-</v-click>
 
-<v-click>
+
+
 
 <FancyTable class="!w-[500px]">
 
@@ -660,7 +661,7 @@ $$
 
 </FancyTable>
 
-</v-click>
+
 
 </div>
 
@@ -674,7 +675,7 @@ $$
 
 <div>
 
-<v-click>
+
 
 <Banner title="Classical Recap" type="success">
 
@@ -683,9 +684,9 @@ $$
 
 </Banner>
 
-</v-click>
 
-<v-click>
+
+
 
 <Banner title="The Quantum Case">
 
@@ -693,7 +694,7 @@ A universal quantum gate set is a set of gates which can be combined to reproduc
 
 </Banner>
 
-</v-click>
+
 
 </div>
 
@@ -749,7 +750,7 @@ state of the other subsystem, no matter how far apart they may be.​
 
 # Superposition principle
 
-<v-click>
+
 
 <Banner type="info">
 
@@ -759,15 +760,15 @@ is a possible state of the system, where $c_1, c_2$ are complex numbers, and $|c
 
 </Banner>
 
-</v-click>
 
-<v-click>
+
+
 
 <div class="flex justify-center">
 <img src="/figures/L03/Cat.png" width="400" />
 </div>
 
-</v-click>
+
 
 ---
 
@@ -849,11 +850,11 @@ Classically we can copy an unknown bit using the following simple process:
 
 <Banner type="error" title="Quantum">
 
-<v-click>
+
 
 What happens if we try to copy a qubit using this procedure?
 
-</v-click>
+
 
 <v-clicks>
 
@@ -876,7 +877,7 @@ What happens if we try to copy a qubit using this procedure?
 
 <div class="h-16"></div>
 
-<v-click>
+
 
 <Banner type="info">
 
@@ -888,7 +889,7 @@ What happens if we try to copy a qubit using this procedure?
 
 </Banner>
 
-</v-click>
+
 
 <v-clicks>
 
@@ -1091,7 +1092,7 @@ Similarly, the probability of measuring outcome $a_t$ is $P(a_t) = |c_2|^2$
 
 <div>
 
-<v-click>
+
 
 <Banner type="info">
 
@@ -1099,9 +1100,9 @@ Similarly, the probability of measuring outcome $a_t$ is $P(a_t) = |c_2|^2$
 
 </Banner>
 
-</v-click>
 
-<v-click>
+
+
 
 <Banner type="success" title="Definition">
 
@@ -1115,13 +1116,13 @@ This is the average result you'd get measuring $\hat{O}$ on **many identically p
 
 </Banner>
 
-</v-click>
+
 
 </div>
 
 <div>
 
-<v-click>
+
 
 - Individual measurement outcomes are eigenvalues of $\hat{O}$, denoted $\lambda_i$.
 - Hence we can equivalently calculate the average as a sum over all these outcomes weighted by probability:
@@ -1132,7 +1133,7 @@ $$
 
 where $|\lambda_i \rangle$ are the eigenvectors of $\hat{O}$.
 
-</v-click>
+
 
 </div>
 
@@ -1146,7 +1147,7 @@ where $|\lambda_i \rangle$ are the eigenvectors of $\hat{O}$.
 
 <div>
 
-<v-click>
+
 
 **Setup:** measure the observable $Z$ on the state
 
@@ -1158,17 +1159,17 @@ $$
 Z = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}
 $$
 
-</v-click>
 
-<v-click>
+
+
 
 **Step 1:** identify the possible outcomes — the eigenvalues of $Z$:
 - $+1$ for $|0\rangle$
 - $-1$ for $|1\rangle$
 
-</v-click>
 
-<v-click>
+
+
 
 **Step 2:** compute each outcome's probability from the Born rule
 
@@ -1179,13 +1180,13 @@ $$
 P(-1) = |\langle 1|\psi\rangle|^2 = |\beta|^2
 $$
 
-</v-click>
+
 
 </div>
 
 <div>
 
-<v-click>
+
 
 <FancyTable class="!w-[420px]">
 
@@ -1197,9 +1198,9 @@ $$
 
 </FancyTable>
 
-</v-click>
 
-<v-click>
+
+
 
 **Step 3:** sum the contributions
 
@@ -1207,9 +1208,9 @@ $$
 \langle Z \rangle = (+1)|\alpha|^2 + (-1)|\beta|^2 = |\alpha|^2 - |\beta|^2
 $$
 
-</v-click>
 
-<v-click>
+
+
 
 <Banner type="success">
 
@@ -1220,7 +1221,7 @@ $$
 
 </Banner>
 
-</v-click>
+
 
 </div>
 
