@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Lecture 3: Mathematical framework for Quantum Computing &#8212; Lecture Notes for CT4106</title>
+    <title>Lecture 3: Connecting Qubits Together &#8212; Lecture Notes for CT4106</title>
   
   
   
@@ -422,7 +422,7 @@ mermaid.initialize(
 
 window.addEventListener("load", load);
 window.runMermaid = runMermaid;</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-03/quantum-gates';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-03/connecting-qubits';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <script src="../_static/quantum-circuit.js?v=8c43a845"></script>
     <script src="../_static/bloch-path.js?v=fbcfb0fb"></script>
@@ -430,6 +430,7 @@ window.runMermaid = runMermaid;</script>
     <script src="../_static/logic-gate.js?v=1548f47a"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Lecture 2: From Bits to Qubits" href="../lecture-02/bits-to-qubits.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -531,8 +532,6 @@ window.runMermaid = runMermaid;</script>
       
       
       
-        
-      
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
@@ -605,6 +604,41 @@ window.runMermaid = runMermaid;</script>
 
 
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 3</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 3: Connecting Qubits Together</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
 
     </div>
 </nav></div>
@@ -663,7 +697,7 @@ window.runMermaid = runMermaid;</script>
       
       
       
-      <li><a href="../_sources/lecture-03/quantum-gates.md" target="_blank"
+      <li><a href="../_sources/lecture-03/connecting-qubits.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -739,7 +773,7 @@ window.runMermaid = runMermaid;</script>
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Lecture 3: Mathematical framework for Quantum Computing</h1>
+    <h1>Lecture 3: Connecting Qubits Together</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -749,6 +783,54 @@ window.runMermaid = runMermaid;</script>
             </div>
             <nav aria-label="Page">
                 <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lecture 3: Connecting Qubits Together</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agenda">Agenda</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layout-section">layout: section</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-qubit-systems">Multi-qubit systems</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#unitary-matrices-recap">Unitary matrices (recap)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tensor-product-of-states">Tensor product of states</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-qubit-basis">Multi-qubit basis</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tensor-product-of-gates-matrix-notation">Tensor product of gates - matrix notation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tensor-product-of-gates-dirac-notation">Tensor product of gates - Dirac notation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#separable-operations">Separable operations</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#entanglement-mathematically">Entanglement (mathematically)</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">layout: section</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-qubit-gates">Multi-qubit gates</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#cnot-gate">CNOT gate</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#controlled-u-gate">Controlled-U gate</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Controlled-U gate</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#swap-gate">SWAP gate</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#toffoli-gate-ccnot">Toffoli gate (CCNOT)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#universal-quantum-gate-set">Universal quantum gate set</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">layout: section</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#features-of-quantum-physics">Features of quantum physics</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#entanglement-physically">Entanglement (physically)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#superposition-principle">Superposition principle</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#uncertainty-principle">Uncertainty principle</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#no-cloning-theorem">No-cloning theorem</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">No-cloning theorem</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tunneling">Tunneling</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-the-features-of-quantum-physics">Summary of the features of quantum physics</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">layout: section</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-mathematical-framework-to-experiment">Connecting mathematical framework to experiment</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-qubits-gates-measurements">Putting it all together: qubits, gates &amp; measurements</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-measurement">Quantum measurement</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-value">Expectation value</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-value-worked-example">Expectation value: worked example</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#wrap-up">Wrap-up</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layout-end">layout: end</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#thank-you">Thank You</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-structure">Mathematical Structure</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scalar-vs-vector">Scalar vs Vector</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set">Set</a><ul class="nav section-nav flex-column">
@@ -804,6 +886,9 @@ window.runMermaid = runMermaid;</script>
 </ul>
 </li>
 </ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -814,16 +899,1098 @@ window.runMermaid = runMermaid;</script>
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="lecture-3-mathematical-framework-for-quantum-computing">
-<span id="lecture-3"></span><h1>Lecture 3: Mathematical framework for Quantum Computing<a class="headerlink" href="#lecture-3-mathematical-framework-for-quantum-computing" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-3-connecting-qubits-together">
+<span id="lecture-3"></span><h1>Lecture 3: Connecting Qubits Together<a class="headerlink" href="#lecture-3-connecting-qubits-together" title="Link to this heading">#</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>These lecture notes are a work in progress and are not a replacement for watching the lecture video, it’s intended to be a supplementary reading after watching the lecture</p>
 </div>
 <div class="tip admonition">
 <p class="admonition-title">Learning outcomes</p>
-<p>In this lecture we discuss the mathematical framework and tools required to properly understand how quantum system works. We give a short introduction to notion of sets, vector spaces, linear operators and maps.</p>
+<p>In this lecture we discuss how we connect multiple qubits. Combining qubits brings the full potential of quantum computing.
+We learn about multi qubit gates and their role in quantum computing. We familiarise ourselves with features of quantum physics that make quantum computing different from classical computing. We touch upon the necessary mathematical framework and tools to enable us working with multi-qubit system through gates.</p>
 </div>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Understand multi-qubit gates and their role in quantum computing</p></li>
+<li><p>Familiarity with the features of quantum physics that make quantum computing different from classical computing</p></li>
+<li><p>Connect mathematical framework of quantum computing to experimental implementations</p></li>
+</ul>
+<section id="agenda">
+<h2>Agenda<a class="headerlink" href="#agenda" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Multi-qubit systems</p></li>
+<li><p>Multi-qubit gates</p></li>
+<li><p>Features of quantum physics</p></li>
+<li><p>Connecting mathematical framework to experiment</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="layout-section">
+<h2>layout: section<a class="headerlink" href="#layout-section" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="multi-qubit-systems">
+<h1>Multi-qubit systems<a class="headerlink" href="#multi-qubit-systems" title="Link to this heading">#</a></h1>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="unitary-matrices-recap">
+<h1>Unitary matrices (recap)<a class="headerlink" href="#unitary-matrices-recap" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>A matrix <span class="math notranslate nohighlight">\(U\)</span> is <strong>unitary</strong> if <span class="math notranslate nohighlight">\(\,U^\dagger U = U U^\dagger = I\,\)</span>, where <span class="math notranslate nohighlight">\(U^\dagger\)</span> is the conjugate transpose.</p></li>
+<li><p>Unitary matrices preserve the norm of a vector: <span class="math notranslate nohighlight">\(\lVert U|\psi\rangle \rVert = \lVert |\psi\rangle \rVert\)</span></p>
+<ul>
+<li><p>This is what keeps quantum states normalized (probabilities sum to 1) after a gate is applied.</p></li>
+</ul>
+</li>
+<li><p>Every quantum gate is represented by a unitary matrix — this is why quantum gates are <strong>reversible</strong>: <span class="math notranslate nohighlight">\(U^{-1} = U^\dagger\)</span></p></li>
+<li><p>Single-qubit gates are <span class="math notranslate nohighlight">\(2\times2\)</span> unitary matrices, e.g.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+X = \begin{pmatrix} 0 &amp; 1 \\ 1 &amp; 0 \end{pmatrix}, \quad
+H = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 &amp; 1 \\ 1 &amp; -1 \end{pmatrix}
+\end{split}\]</div>
+<ul class="simple">
+<li><p>For <span class="math notranslate nohighlight">\(n\)</span> qubits, gates are represented by <span class="math notranslate nohighlight">\(2^n \times 2^n\)</span> unitary matrices.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="tensor-product-of-states">
+<h1>Tensor product of states<a class="headerlink" href="#tensor-product-of-states" title="Link to this heading">#</a></h1>
+<Grid cols="1 1" gap="8">
+<div>
+<ul class="simple">
+<li><p>The <strong>tensor product</strong> (<span class="math notranslate nohighlight">\(\otimes\)</span>) is how we combine individual qubit states (or operators) into a description of a joint, multi-qubit system.</p></li>
+<li><p>For two single-qubit states:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+|\psi_1\rangle \otimes |\psi_2\rangle =
+\begin{pmatrix} a_1 \\ b_1 \end{pmatrix} \otimes \begin{pmatrix} a_2 \\ b_2 \end{pmatrix} =
+\begin{pmatrix} a_1 a_2 \\ a_1 b_2 \\ b_1 a_2 \\ b_1 b_2 \end{pmatrix}
+\end{split}\]</div>
+<ul class="simple">
+<li><p>A system of <span class="math notranslate nohighlight">\(n\)</span> qubits lives in a Hilbert space of dimension <span class="math notranslate nohighlight">\(2^n\)</span> — this exponential growth is a key resource (and challenge) in quantum computing.</p></li>
+<li><p>Shorthand: <span class="math notranslate nohighlight">\(|\psi_1\rangle \otimes |\psi_2\rangle\)</span> is often written <span class="math notranslate nohighlight">\(|\psi_1\rangle|\psi_2\rangle\)</span> or <span class="math notranslate nohighlight">\(|\psi_1 \psi_2\rangle\)</span></p></li>
+</ul>
+</div>
+<div>
+<Banner type="info">
+<p>Examples:</p>
+<ol class="arabic">
+<li><div class="math notranslate nohighlight">
+\[\begin{split}|0\rangle \otimes |1\rangle = \begin{pmatrix} 1 \\ 0 \end{pmatrix} \otimes \begin{pmatrix} 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}\end{split}\]</div>
+</li>
+<li><div class="math notranslate nohighlight">
+\[\begin{split}|+\rangle \otimes |0\rangle = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ 1 \end{pmatrix} \otimes \begin{pmatrix} 1 \\ 0 \end{pmatrix} = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ 0 \\ 1 \\ 0 \end{pmatrix}\end{split}\]</div>
+</li>
+</ol>
+</Banner>
+</div>
+</Grid>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="multi-qubit-basis">
+<h1>Multi-qubit basis<a class="headerlink" href="#multi-qubit-basis" title="Link to this heading">#</a></h1>
+<Grid cols="1 1" gap="1">
+<div>
+<ul class="simple">
+<li><p>For a single qubit, the computational basis is <span class="math notranslate nohighlight">\(\{|0\rangle, |1\rangle\}\)</span>.</p></li>
+<li><p>For <span class="math notranslate nohighlight">\(n=2\)</span> qubits, the basis consists of all <span class="math notranslate nohighlight">\(2^n=4\)</span> combinations of 0s and 1s: <span class="math notranslate nohighlight">\(\{|00\rangle, |01\rangle, |10\rangle, |11\rangle\}\)</span>.</p></li>
+<li><p>General 2-qubit state is superposition over 4 basis states:
+$<span class="math notranslate nohighlight">\(
+\begin{align*}
+|\psi\rangle &amp;= \alpha_{00}|00\rangle + \alpha_{01}|01\rangle + \alpha_{10}|10\rangle + \alpha_{11}|11\rangle \\
+\\
+&amp;=\begin{pmatrix} \alpha_{00} \\ \alpha_{01} \\ \alpha_{10} \\ \alpha_{11} \end{pmatrix}
+\end{align*}
+\)</span>$</p></li>
+<li><p>Normalization: <span class="math notranslate nohighlight">\(|\alpha_{00}|^2 + |\alpha_{01}|^2 + |\alpha_{10}|^2 + |\alpha_{11}|^2 = 1\)</span></p></li>
+</ul>
+</div>
+<div>
+<Banner type="warning">
+<div class="text-sm">
+<ul class="simple">
+<li><p>For <span class="math notranslate nohighlight">\(n\)</span> qubits, the basis has <span class="math notranslate nohighlight">\(2^n\)</span> states — e.g. 10 qubits already gives 1024 basis states.</p></li>
+<li><p>Exponential scaling <span class="math notranslate nohighlight">\(\rightarrow\)</span> classical simulation becomes intractable, opportunity for quantum advantage.</p></li>
+</ul>
+</div>
+</Banner>
+<Banner type="info" title="Examples">
+<div class="text-sm">
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(|0\rangle \otimes |1\rangle = \begin{pmatrix} 1 \\ 0 \end{pmatrix} \otimes \begin{pmatrix} 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}=|01\rangle\)</span></p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+2. \;|+\rangle \otimes &amp;|0\rangle = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ 1 \end{pmatrix} \otimes \begin{pmatrix} 1 \\ 0 \end{pmatrix} = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ 0 \\ 1 \\ 0 \end{pmatrix} \\
+&amp;= \frac{1}{\sqrt{2}}(|00\rangle+|10\rangle)= \frac{1}{\sqrt{2}}(|0\rangle+|1\rangle)|0\rangle = |+\rangle|0\rangle
+\end{align*}
+\end{split}\]</div>
+</div>
+</Banner>
+</div>
+</Grid>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="tensor-product-of-gates-matrix-notation">
+<h1>Tensor product of gates - matrix notation<a class="headerlink" href="#tensor-product-of-gates-matrix-notation" title="Link to this heading">#</a></h1>
+<p>Example: applying <span class="math notranslate nohighlight">\(H\)</span> to qubit 1 and <span class="math notranslate nohighlight">\(X\)</span> to qubit 2:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+H \otimes X = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 &amp; 1 \\ 1 &amp; -1 \end{pmatrix} \otimes \begin{pmatrix} 0 &amp; 1 \\ 1 &amp; 0 \end{pmatrix} = \frac{1}{\sqrt{2}}\begin{pmatrix} 0 &amp; 1 &amp; 0 &amp; 1 \\ 1 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; -1 \\ 1 &amp; 0 &amp; -1 &amp; 0 \end{pmatrix}
+\end{split}\]</div>
+<p>Acting on the 2-qubit state <span class="math notranslate nohighlight">\(|00\rangle = \begin{pmatrix}1\\0\end{pmatrix}\otimes\begin{pmatrix}1\\0\end{pmatrix} = \begin{pmatrix}1 \\ 0 \\ 0 \\ 0 \end{pmatrix}\)</span> gives:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+H \otimes X|00\rangle = \frac{1}{\sqrt{2}}\begin{pmatrix} 0 &amp; 1 &amp; 0 &amp; 1 \\ 1 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; -1 \\ 1 &amp; 0 &amp; -1 &amp; 0 \end{pmatrix}\begin{pmatrix}1 \\ 0 \\ 0 \\ 0 \end{pmatrix} = \frac{1}{\sqrt{2}}\begin{pmatrix} 0 \\ 1 \\ 0 \\ 1 \end{pmatrix} = \frac{1}{\sqrt{2}}(|01\rangle + |10\rangle)
+\end{split}\]</div>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="tensor-product-of-gates-dirac-notation">
+<h1>Tensor product of gates - Dirac notation<a class="headerlink" href="#tensor-product-of-gates-dirac-notation" title="Link to this heading">#</a></h1>
+<p>Alternatively we can perform the same calculation using kets as:</p>
+<div class="math notranslate nohighlight">
+\[
+(H \otimes X)|00\rangle = H|0\rangle \otimes X|0\rangle = |+\rangle \otimes |1\rangle = \frac{1}{\sqrt{2}}(|0\rangle+|1\rangle)\otimes |1\rangle = \frac{1}{\sqrt{2}}(|01\rangle + |10\rangle)
+\]</div>
+<ul class="simple">
+<li><p>We see that the gates act independently on their respective qubits – <span class="math notranslate nohighlight">\(H\)</span> acts on qubit 1, giving <span class="math notranslate nohighlight">\(|+\rangle\)</span> and <span class="math notranslate nohighlight">\(X\)</span> acts on qubit 2, giving <span class="math notranslate nohighlight">\(|1\rangle\)</span>.</p></li>
+<li><p>We can also write this as <span class="math notranslate nohighlight">\(H_1 X_2 |00\rangle\)</span>, where the subscript indicates which qubit the gate acts on.</p></li>
+<li><p>It is important to note that <span class="math notranslate nohighlight">\(H_1 X_2 \neq X_2 H_1\)</span> — the order of operations matters, and in general multi-qubit gates do <strong>not</strong> commute.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="separable-operations">
+<h1>Separable operations<a class="headerlink" href="#separable-operations" title="Link to this heading">#</a></h1>
+<Grid cols="1 1" gap="4">
+<div>
+<ul class="simple">
+<li><p>A multi-qubit operation is <strong>separable</strong> if it can be written as a tensor product of single-qubit (or single-subsystem) operations:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+U = U_1 \otimes U_2 \otimes \cdots \otimes U_n
+\]</div>
+<ul class="simple">
+<li><p>Applying a separable operation to a product state gives another product state — <strong>no correlations between qubits are created</strong>.</p></li>
+<li><p>Separable operations are the natural extension of single-qubit gates to multiple qubits — but they alone are <strong>not enough</strong> for quantum advantage.</p></li>
+<li><p>For this, we need to generate <em>entanglement</em>.</p></li>
+</ul>
+</div>
+<div>
+<Banner type="warning" align="center">
+<p><strong>Multi-qubit circuit diagrams</strong></p>
+<ul class="simple">
+<li><p>Each horizontal line represents a qubit, and gates are applied from left to right.</p></li>
+<li><p>Tensor products of single-qubit gates are represented by gates on separate qubit lines.</p></li>
+</ul>
+<div class="flex justify-center mt-2">
+<img src="/figures/L03/HotimesX.png" width="200" />
+</div>
+</Banner>
+</div>
+</Grid>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="entanglement-mathematically">
+<h1>Entanglement (mathematically)<a class="headerlink" href="#entanglement-mathematically" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Consider a two-qubit system with Hilbert space <span class="math notranslate nohighlight">\(\mathcal{H} = \mathcal{H}_A ⊗ \mathcal{H} _B\)</span>.</p></li>
+<li><p>A general state of the system can be written as a linear combination of the basis states:
+$<span class="math notranslate nohighlight">\(
+|\psi\rangle_{AB} = \sum_{i,j} c_{ij} |i\rangle_A \otimes |j\rangle_B
+\)</span>$</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(|\psi\rangle_{AB}\)</span> can be written as <span class="math notranslate nohighlight">\(|x\rangle_A \otimes |y\rangle_B\)</span> then the state is <strong>separable</strong>. Otherwise, it is <strong>entangled</strong>.</p></li>
+</ul>
+<Box title="Examples">
+<Banner type="success">
+<p>The Bell state <span class="math notranslate nohighlight">\(|\Phi^+\rangle = \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)\)</span> is entangled because it cannot be written as a product of single-qubit states.</p>
+</Banner>
+<Banner type="warning">
+<p>The state <span class="math notranslate nohighlight">\(|\psi\rangle = \frac{1}{\sqrt{2}}(|00\rangle + |01\rangle)\)</span> is separable because it can be written as <span class="math notranslate nohighlight">\(|0\rangle \otimes \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)\)</span>.</p>
+</Banner>
+</Box>
+<hr class="docutils" />
+<section id="id1">
+<h2>layout: section<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="multi-qubit-gates">
+<h1>Multi-qubit gates<a class="headerlink" href="#multi-qubit-gates" title="Link to this heading">#</a></h1>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="cnot-gate">
+<h1>CNOT gate<a class="headerlink" href="#cnot-gate" title="Link to this heading">#</a></h1>
+<Grid cols="1 1" gap="2">
+<div>
+ <Banner>
+<p>The Controlled-NOT (CNOT) gate acts on two qubits — a <strong>control</strong> and a <strong>target</strong>.</p>
+<ul class="simple">
+<li><p>If control is <span class="math notranslate nohighlight">\(|0\rangle\)</span>, target is unchanged.</p></li>
+<li><p>If control is <span class="math notranslate nohighlight">\(|1\rangle\)</span>, target is flipped (X applied).</p></li>
+</ul>
+</Banner>
+<ul class="simple">
+<li><p>Matrix representation in the computational basis:
+$<span class="math notranslate nohighlight">\(
+\text{CNOT} = \begin{pmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 \\
+0 &amp; 0 &amp; 1 &amp; 0
+\end{pmatrix}
+\)</span>$</p></li>
+<li><p>Circuit diagram representation:</p></li>
+</ul>
+<div class="flex justify-center">
+<img src="/figures/L03/CNOT.png" width="200" />
+</div>
+</div>
+<div>
+<FancyTable>
+<table class="cnot-truth-table">
+<thead>
+<tr>
+<th colspan="2">Input</th>
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<th>Control</th>
+<th>Target</th>
+<th>Control</th>
+<th>Target</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+<tr><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+<tr><td>1</td><td>1</td><td>1</td><td>0</td></tr>
+</tbody>
+</table>
+</FancyTable>
+<style>
+.cnot-truth-table th,
+.cnot-truth-table td {
+  text-align: center;
+}
+.cnot-truth-table th:nth-child(2),
+.cnot-truth-table td:nth-child(2) {
+  border-right: 2px solid #999;
+}
+</style>
+<Banner type="success">
+<p><strong>Key point: CNOT is entangling</strong></p>
+<ul class="simple">
+<li><p>CNOT <strong>cannot</strong> be written as <span class="math notranslate nohighlight">\(U_1 \otimes U_2\)</span>.</p></li>
+<li><p>Applying CNOT can create entanglement:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\text{CNOT}\left(\frac{|0\rangle+|1\rangle}{\sqrt2} \otimes |0\rangle\right) = \frac{|00\rangle+|11\rangle}{\sqrt2}
+\]</div>
+<p>This is a <strong>Bell state</strong>: maximally entangled, impossible to reach with only separable gates.</p>
+</Banner>
+</div>
+</Grid>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="controlled-u-gate">
+<h1>Controlled-U gate<a class="headerlink" href="#controlled-u-gate" title="Link to this heading">#</a></h1>
+<Grid cols="1 1" gap="2">
+<div>
+<Banner type="info">
+<ul class="simple">
+<li><p>CNOT is a controlled-X gate – it performs a bitflip on the target if the control is in state <span class="math notranslate nohighlight">\(|1\rangle\)</span>.</p></li>
+<li><p>We can generalise this to a controlled version of <em>any</em> single-qubit unitary</p></li>
+</ul>
+</Banner>
+<Banner type="success" title="Definition">
+<p>The Controlled-<span class="math notranslate nohighlight">\(U\)</span> gate acts on two qubits — a <strong>control</strong> and a <strong>target</strong>.</p>
+<ul class="simple">
+<li><p>If control qubit is <span class="math notranslate nohighlight">\(|0\rangle\)</span>, target is unchanged.</p></li>
+<li><p>If control qubit is <span class="math notranslate nohighlight">\(|1\rangle\)</span>, <span class="math notranslate nohighlight">\(U\)</span> is applied to the target.</p></li>
+</ul>
+</Banner>
+</div>
+<div>
+<ul class="simple">
+<li><p>Matrix representation in the computational basis:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\text{C-}U = \begin{pmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; u_{00} &amp; u_{01} \\
+0 &amp; 0 &amp; u_{10} &amp; u_{11}
+\end{pmatrix}
+\end{split}\]</div>
+<ul class="simple">
+<li><p>Circuit diagram representation:</p></li>
+</ul>
+<a class="reference internal image-reference" href="figures/L03/CU.png"><img alt="figures/L03/CU.png" src="figures/L03/CU.png" style="width: 200px;" />
+</a>
+</div>
+</Grid>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="id2">
+<h1>Controlled-U gate<a class="headerlink" href="#id2" title="Link to this heading">#</a></h1>
+<p><strong>Action on basis states:</strong></p>
+<FancyTable class="!w-[500px]">
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Control in</p></th>
+<th class="head"><p>Target in</p></th>
+<th class="head"><p>Control out</p></th>
+<th class="head"><p>Target out</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p><span class="math notranslate nohighlight">\(\vert\psi\rangle\)</span></p></td>
+<td><p>0</p></td>
+<td><p><span class="math notranslate nohighlight">\(\vert\psi\rangle\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p><span class="math notranslate nohighlight">\(\vert\psi\rangle\)</span></p></td>
+<td><p>1</p></td>
+<td><p><span class="math notranslate nohighlight">\(U\vert\psi\rangle\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</FancyTable>
+<Banner type="success">
+<p><strong>Key point: C-U recovers CNOT — and more</strong></p>
+<ul class="simple">
+<li><p>Setting <span class="math notranslate nohighlight">\(U = X\)</span> gives back the ordinary CNOT gate.</p></li>
+<li><p>Any single-qubit <span class="math notranslate nohighlight">\(U\)</span> can be controlled this way, giving gates like <strong>controlled-Z</strong>, <strong>controlled-phase</strong>, or <strong>controlled-H</strong>.</p></li>
+<li><p>Like CNOT, a generic C-U is entangling: it <strong>cannot</strong> usually be written as <span class="math notranslate nohighlight">\(U_1 \otimes U_2\)</span></p></li>
+<li><p>Controlled versions of arbitrary single-qubit gates are a key ingredient for building <strong>universal gate sets</strong>.</p></li>
+</ul>
+</Banner>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="swap-gate">
+<h1>SWAP gate<a class="headerlink" href="#swap-gate" title="Link to this heading">#</a></h1>
+<Grid cols="1 1" gap="2">
+<div>
+<Banner type="success" title="Definition">
+<p>The SWAP gate acts on two qubits, <strong>exchanging</strong> their states:</p>
+<div class="math notranslate nohighlight">
+\[
+|q_1, q_2\rangle \rightarrow |q_2, q_1\rangle
+\]</div>
+</Banner>
+<FancyTable>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+<th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Qubit 1 in</p></td>
+<td><p>Qubit 2 in</p></td>
+<td><p>Qubit 1 out</p></td>
+<td><p>Qubit 2 out</p></td>
+</tr>
+<tr class="row-odd"><td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</FancyTable>
+<ul class="simple">
+<li><p>Circuit diagram representation:</p></li>
+</ul>
+<div class="flex justify-center">
+<img src="/figures/L03/SWAP.png" width="100" />
+</div>
+</div>
+<div>
+<ul class="simple">
+<li><p>Matrix representation in the computational basis:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\text{SWAP} = \begin{pmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1
+\end{pmatrix}
+\end{split}\]</div>
+<Banner type="info">
+<ul class="simple">
+<li><p>SWAP is its own inverse: applying it twice returns the original state.</p></li>
+<li><p>Can be decomposed into <strong>three CNOT gates</strong>
+<QuantumCircuit :qubits="2" gates="CNOT:1:0,CNOT:0:1,CNOT:1:0" /></p></li>
+</ul>
+</Banner>
+</div>
+</Grid>
+<Banner type="success">
+<p><strong>Key point: SWAP is separable, not entangling</strong> — unlike CNOT and Toffoli, SWAP maps product states to product states, so it can be built entirely from CNOTs and never generates entanglement on its own.</p>
+</Banner>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="toffoli-gate-ccnot">
+<h1>Toffoli gate (CCNOT)<a class="headerlink" href="#toffoli-gate-ccnot" title="Link to this heading">#</a></h1>
+<Grid cols="1 1" gap="2">
+<div>
+<Banner type="info">
+<ul class="simple">
+<li><p>The Toffoli gate generalises CNOT to <strong>two</strong> control qubits.</p></li>
+<li><p>It is a <strong>reversible, classically universal</strong> gate — enough to build any classical circuit.</p></li>
+</ul>
+</Banner>
+<Banner type="success" title="Definition">
+<p>The Toffoli gate (CCNOT) acts on three qubits — two <strong>controls</strong> and one <strong>target</strong>.</p>
+<ul class="simple">
+<li><p>If <strong>both</strong> controls are <span class="math notranslate nohighlight">\(|1\rangle\)</span>, the target is flipped.</p></li>
+<li><p>Otherwise, the target is unchanged.</p></li>
+</ul>
+</Banner>
+</div>
+<div>
+<ul class="simple">
+<li><p>Matrix representation in the computational basis (8×8):</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\text{CCX} = \begin{pmatrix}
+1&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0\\
+0&amp;1&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0\\
+0&amp;0&amp;1&amp;0&amp;0&amp;0&amp;0&amp;0\\
+0&amp;0&amp;0&amp;1&amp;0&amp;0&amp;0&amp;0\\
+0&amp;0&amp;0&amp;0&amp;1&amp;0&amp;0&amp;0\\
+0&amp;0&amp;0&amp;0&amp;0&amp;1&amp;0&amp;0\\
+0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;1\\
+0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;1&amp;0
+\end{pmatrix}
+\end{split}\]</div>
+<ul class="simple">
+<li><p>Circuit diagram representation:</p></li>
+</ul>
+<div class="flex justify-center">
+<img src="/figures/L03/toffoli.png" width="200" />
+</div>
+<FancyTable class="!w-[500px]">
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+<th class="head"><p></p></th>
+<th class="head"><p></p></th>
+<th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>C1 in</p></td>
+<td><p>C2 in</p></td>
+<td><p>Target in</p></td>
+<td><p>C1 out</p></td>
+<td><p>C2 out</p></td>
+<td><p>Target out</p></td>
+</tr>
+<tr class="row-odd"><td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</FancyTable>
+</div>
+</Grid>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="universal-quantum-gate-set">
+<h1>Universal quantum gate set<a class="headerlink" href="#universal-quantum-gate-set" title="Link to this heading">#</a></h1>
+<Grid cols="1 1" gap="2">
+<div>
+<Banner title="Classical Recap" type="success">
+<ul class="simple">
+<li><p>Remember in classical computing, the <code class="docutils literal notranslate"><span class="pre">NAND</span></code> gate alone is a universal set</p></li>
+<li><p>All other classical logic gates can be built from combinations of <code class="docutils literal notranslate"><span class="pre">NAND</span></code> gates</p></li>
+</ul>
+</Banner>
+<Banner title="The Quantum Case">
+<p>A universal quantum gate set is a set of gates which can be combined to reproduce the function of <strong>any unitary operation</strong> with <em>arbitrary accuracy</em>.</p>
+</Banner>
+</div>
+<div>
+<v-clicks>
+<ul class="simple">
+<li><p>Example of a universal <strong>quantum</strong> gate set:</p></li>
+</ul>
+<a class="reference internal image-reference" href="figures/L03/UnivSetQ.png"><img alt="figures/L03/UnivSetQ.png" src="figures/L03/UnivSetQ.png" style="width: 600px;" />
+</a>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(S\)</span> and <span class="math notranslate nohighlight">\(T\)</span> are two phase gates related to the Pauli <span class="math notranslate nohighlight">\(Z\)</span> gate:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+S=\begin{pmatrix} 1 &amp; 0 \\ 0 &amp; e^{i \pi/2} \end{pmatrix}=\sqrt{Z}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+T=\begin{pmatrix} 1 &amp; 0 \\ 0 &amp; e^{i \pi/4} \end{pmatrix}=\sqrt[4]{Z}
+\end{split}\]</div>
+</v-clicks>
+</div>
+</Grid>
+<hr class="docutils" />
+<section id="id3">
+<h2>layout: section<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="features-of-quantum-physics">
+<h1>Features of quantum physics<a class="headerlink" href="#features-of-quantum-physics" title="Link to this heading">#</a></h1>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="entanglement-physically">
+<h1>Entanglement (physically)<a class="headerlink" href="#entanglement-physically" title="Link to this heading">#</a></h1>
+<v-clicks>
+<ul class="simple">
+<li><p>Entangled systems share a quantum state. ​</p></li>
+<li><p>A measurement performed on one
+subsystem instantaneously collapses the
+state of the other subsystem, no matter how far apart they may be.​</p></li>
+<li><p>Einstein called this ‘spooky action at a distance’.</p></li>
+</ul>
+<a class="reference internal image-reference" href="figures/L03/Entanglement.png"><img alt="figures/L03/Entanglement.png" src="figures/L03/Entanglement.png" style="width: 600px;" />
+</a>
+</v-clicks>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="superposition-principle">
+<h1>Superposition principle<a class="headerlink" href="#superposition-principle" title="Link to this heading">#</a></h1>
+<Banner type="info">
+<p>If <span class="math notranslate nohighlight">\(|\alpha\rangle\)</span> and <span class="math notranslate nohighlight">\(|\beta\rangle\)</span> are two states of a quantum system, then any linear combination (or superposition) of these states, given by
+$<span class="math notranslate nohighlight">\(c_1 |\alpha\rangle+c_2 |\beta\rangle\)</span><span class="math notranslate nohighlight">\(
+is a possible state of the system, where \)</span>c_1, c_2<span class="math notranslate nohighlight">\( are complex numbers, and \)</span>|c_1|^2+|c_2|^2=1$.</p>
+</Banner>
+<div class="flex justify-center">
+<img src="/figures/L03/Cat.png" width="400" />
+</div>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="uncertainty-principle">
+<h1>Uncertainty principle<a class="headerlink" href="#uncertainty-principle" title="Link to this heading">#</a></h1>
+<Grid cols="1 1" gap="2">
+<div>
+<v-clicks>
+<p class="text-center text-xl italic mt-16">
+"Certain pairs of observables cannot be simultaneously measured with arbitrary precision"
+</p>
+<div class="math notranslate nohighlight">
+\[
+\Delta x \Delta p \geq \hbar/2
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\Delta\)</span> means the standard deviation or <strong>uncertainty</strong> in the quantity that follows</p></li>
+<li><p><span class="math notranslate nohighlight">\(x\)</span>=position</p></li>
+<li><p><span class="math notranslate nohighlight">\(p\)</span>=momentum</p></li>
+<li><p><span class="math notranslate nohighlight">\(h = 6.63\times10^{-34}\,\text{m}^2\text{kgs}^{-1}\)</span> is Planck’s constant</p></li>
+<li><p><span class="math notranslate nohighlight">\(\hbar = h/2\pi\)</span> is the reduced Planck’s constant</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\Delta E \Delta t \geq \hbar/2
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(E\)</span>=energy</p></li>
+<li><p><span class="math notranslate nohighlight">\(t\)</span>=time</p></li>
+</ul>
+</v-clicks>
+</div>
+<div>
+<a class="reference internal image-reference" href="figures/L03/uncertainty1.png"><img alt="figures/L03/uncertainty1.png" src="figures/L03/uncertainty1.png" style="width: 350px;" />
+</a>
+<a class="reference internal image-reference" href="figures/L03/uncertainty2.png"><img alt="figures/L03/uncertainty2.png" src="figures/L03/uncertainty2.png" style="width: 1000px;" />
+</a>
+</div>
+</Grid>
+<!--
+Heisenberg’s uncertainty principle states that there is a maximum precision with which we can measure certain observables simultaneously. This applies to various pairs of physical quantities, including position x and momentum p, as well as energy E and time t. These operators are non-commuting observables, which means that 𝑥𝑝≠𝑝𝑥, so the order of operators matters in quantum mechanics.
+
+This minimum uncertainty is related to another uniquely quantum feature: wave-particle duality, which tells us that a quantum particle can also be described as a wave. If that wave contains a single frequency this means it has small uncertainty in energy or momentum, but large uncertainty in position. If on the other hand the wave contains many frequencies, it has a large uncertainty in momentum and small uncertainty in position.
+-->
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="no-cloning-theorem">
+<h1>No-cloning theorem<a class="headerlink" href="#no-cloning-theorem" title="Link to this heading">#</a></h1>
+<Grid>
+<div>
+<Banner type="success"  class="!w-[430px]" title="Classical">
+<p>Classically we can copy an unknown bit using the following simple process:</p>
+<v-clicks>
+<ol class="arabic simple">
+<li><p>We receive an unknown bit. This means we don’t know its state. <strong>We don’t know if it is 0 or 1</strong>.</p></li>
+<li><p>Measure the bit and record the outcome. We either get 0 or 1. Say for example we obtain 1.</p></li>
+<li><p>Using this information, <mark>prepare a new bit</mark> matching the original bit.</p></li>
+<li><p>Now we have 11, i.e. <em>original bit plus a copy</em>.</p></li>
+</ol>
+</v-clicks>
+</Banner>
+</div>
+<div>
+<Banner type="error" title="Quantum">
+<p>What happens if we try to copy a qubit using this procedure?</p>
+<v-clicks>
+<ol class="arabic simple">
+<li><p>We receive an unknown qubit. We don’t know its state <span class="math notranslate nohighlight">\(\psi=\alpha|0\rangle+\beta|1\rangle\)</span>. <strong>We don’t know the coefficients</strong> <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>.</p></li>
+<li><p>Measure the qubit and record the outcome. We either get 0 or 1. Say for example we obtain 1.</p></li>
+<li><p>We <mark>cannot prepare a new qubit</mark> matching the old one! We still don’t know 𝛼 and 𝛽.</p></li>
+<li><p>Plus the <em>original qubit is now destroyed</em>!</p></li>
+</ol>
+</v-clicks>
+</Banner>
+</div>
+</Grid>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="id4">
+<h1>No-cloning theorem<a class="headerlink" href="#id4" title="Link to this heading">#</a></h1>
+<div class="h-16"></div>
+<Banner type="info">
+<p class="text-center text-xl">
+<p>“An <span class="highlight-pink">unknown</span> quantum state cannot be <span class="highlight-green">precisely</span> recreated, it cannot be <strong>cloned</strong>.”</p>
+</p>
+</Banner>
+<v-clicks>
+<div class="grid grid-cols-2 gap-8 mt-12">
+<div class="caveat-box caveat-pink">
+<p><strong>Caveat:</strong></p>
+<ul class="simple">
+<li><p>Known states can be copied infinitely many times!</p></li>
+<li><p>By repeating the known algorithm used to prepare them.</p></li>
+</ul>
+</div>
+<div class="caveat-box caveat-green">
+<p><strong>Caveat:</strong></p>
+<ul class="simple">
+<li><p>Approximate cloning is possible!</p></li>
+<li><p>By taking thousands of measurements in different bases. [Bužek &amp; Hillery. PRL 81 22 (1998)]</p></li>
+</ul>
+</div>
+</div>
+</v-clicks>
+<style>
+.highlight-pink {
+  background-color: magenta;
+  padding: 0 4px;
+}
+.highlight-green {
+  background-color: lime;
+  padding: 0 4px;
+}
+.caveat-box {
+  border: 2px solid;
+  border-radius: 4px;
+  padding: 16px;
+}
+.caveat-pink {
+  border-color: magenta;
+}
+.caveat-green {
+  border-color: lime;
+}
+</style>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="tunneling">
+<h1>Tunneling<a class="headerlink" href="#tunneling" title="Link to this heading">#</a></h1>
+<Grid>
+<div>
+<p><strong>Classical:</strong></p>
+<a class="reference internal image-reference" href="figures/L03/CBarrier.png"><img alt="figures/L03/CBarrier.png" src="figures/L03/CBarrier.png" style="width: 400px;" />
+</a>
+<ul class="simple">
+<li><p>Particle with <span class="math notranslate nohighlight">\(E&gt;U\)</span> passes through</p></li>
+<li><p>Particle with <span class="math notranslate nohighlight">\(E&lt;U\)</span> is reflected</p></li>
+</ul>
+</div>
+<div>
+<p><strong>Quantum:</strong></p>
+<a class="reference internal image-reference" href="figures/L03/QBarrier.png"><img alt="figures/L03/QBarrier.png" src="figures/L03/QBarrier.png" style="width: 400px;" />
+</a>
+<ul class="simple">
+<li><p>Quantum particle behaves as wave – partially reflected and partially transmitted</p></li>
+<li><p>There is a non-zero probability of finding the quantum particle beyond the classically insurmountable barrier!</p></li>
+<li><p>The probability decreases exponentially with the width of the barrier</p></li>
+</ul>
+</div>
+</Grid>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="summary-of-the-features-of-quantum-physics">
+<h1>Summary of the features of quantum physics<a class="headerlink" href="#summary-of-the-features-of-quantum-physics" title="Link to this heading">#</a></h1>
+ <vclicks>
+<div class="flex flex-col gap-8 mt-4">
+</div>
+<p><strong>Postulates of quantum mechanics</strong></p>
+<div class="flex flex-col gap-8 mt--4">
+</div>
+<div class="plain-table text-sm">
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>State as abstract vector</strong></p></td>
+<td><p>Quantum states are represented by abstract vectors, which are not measurable objects.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Observables</strong></p></td>
+<td><p>Observable in classical mechanics <span class="math notranslate nohighlight">\(\leftrightarrow\)</span> linear Hermitian operator in quantum mechanics</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Uncertainty principle</strong></p></td>
+<td><p>Certain pairs of physical properties can’t be measured simultaneously with arbitrary precision</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Superposition principle</strong></p></td>
+<td><p>If a system can exist in two states, it can also exist in any linear combination of those states</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Measurement</strong></p></td>
+<td><p>Measuring an operator gives one of its eigenvalues, and changes the state of the system.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="flex flex-col gap-8 mt-8">
+</div>
+<p><strong>Consequences of the postulates</strong></p>
+<div class="flex flex-col gap-8 mt--4">
+</div>
+<div class="plain-table text-sm">
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Interference</strong></p></td>
+<td><p>Probability amplitudes interfere leading to diminished or amplified probability.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>No-Cloning</strong></p></td>
+<td><p>It is impossible to make an independent and identical copy of an unknown quantum state.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Entanglement</strong></p></td>
+<td><p>When the state of a subset of quantum particles can’t be described independently of the others.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Tunneling</strong></p></td>
+<td><p>When a quantum particle passes through an energy barrier forbidden by classical physics.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</vclicks>
+<style>
+.table-heading {
+  font-weight: bold;
+  font-size: 1rem;
+  margin: 0 0 4px 0;
+}
+.plain-table {
+  margin-bottom: 16px;
+}
+.plain-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.plain-table td:first-child {
+  width: 20%;
+  font-weight: bold;
+  border-right: 1px solid #ccc;
+}
+.plain-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #eee;
+}
+</style>
+<hr class="docutils" />
+<section id="id5">
+<h2>layout: section<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="connecting-mathematical-framework-to-experiment">
+<h1>Connecting mathematical framework to experiment<a class="headerlink" href="#connecting-mathematical-framework-to-experiment" title="Link to this heading">#</a></h1>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="putting-it-all-together-qubits-gates-measurements">
+<h1>Putting it all together: qubits, gates &amp; measurements<a class="headerlink" href="#putting-it-all-together-qubits-gates-measurements" title="Link to this heading">#</a></h1>
+<FancyTable class="!w-[800px]">
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Physical</strong></p></td>
+<td><p><strong>Mathematical</strong></p></td>
+<td><p><strong>Example</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>State</p></td>
+<td><p>Vector</p></td>
+<td><p><span class="math notranslate nohighlight">\(\vert\psi\rangle=\alpha\vert 0\rangle + \beta\vert 1\rangle\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Gate</p></td>
+<td><p>Unitary matrix</p></td>
+<td><p><span class="math notranslate nohighlight">\(H=\frac{1}{\sqrt{2}}\begin{pmatrix} 1 &amp; 1 \\ 1 &amp; -1 \end{pmatrix}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Observable</p></td>
+<td><p>Hermitian matrix</p></td>
+<td><p><span class="math notranslate nohighlight">\(Z=\begin{pmatrix} 1 &amp; 0 \\ 0 &amp; -1 \end{pmatrix}\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Measurement outcome</p></td>
+<td><p>Eigenvalue</p></td>
+<td><p><span class="math notranslate nohighlight">\(+1\)</span> or <span class="math notranslate nohighlight">\(-1\)</span> for <span class="math notranslate nohighlight">\(Z\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>State after measurement</p></td>
+<td><p>Eigenvector</p></td>
+<td><p><span class="math notranslate nohighlight">\(\vert 0\rangle\)</span> or <span class="math notranslate nohighlight">\(\vert 1\rangle\)</span> for <span class="math notranslate nohighlight">\(Z\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Probability of outcome</p></td>
+<td><p>Squared magnitude of probability amplitudes</p></td>
+<td><p><span class="math notranslate nohighlight">\(\vert\langle 0\vert\psi\rangle\vert^2 = \vert\alpha\vert^2\)</span> for outcome <span class="math notranslate nohighlight">\(+1\)</span> of <span class="math notranslate nohighlight">\(Z\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</FancyTable>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="quantum-measurement">
+<h1>Quantum measurement<a class="headerlink" href="#quantum-measurement" title="Link to this heading">#</a></h1>
+<p>Probabilistic – depends on the state of the system and the observable being measured.</p>
+<a class="reference internal image-reference" href="figures/L03/CoinMeasurement.png"><img alt="figures/L03/CoinMeasurement.png" src="figures/L03/CoinMeasurement.png" style="width: 1000px;" />
+</a>
+<Banner title="Born rule">
+<p>For a system initially in state <span class="math notranslate nohighlight">\(|s\rangle\)</span>, the probability of measuring outcome <span class="math notranslate nohighlight">\(a_h\)</span> is given by:
+$<span class="math notranslate nohighlight">\(
+P(a_h) = |\langle h|s\rangle|^2=\left|\langle h|\left(c_1|h\rangle+c_2|t\rangle\right)\right|^2=|c_1|^2
+\)</span>$</p>
+<p>Similarly, the probability of measuring outcome <span class="math notranslate nohighlight">\(a_t\)</span> is <span class="math notranslate nohighlight">\(P(a_t) = |c_2|^2\)</span></p>
+</Banner>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="expectation-value">
+<h1>Expectation value<a class="headerlink" href="#expectation-value" title="Link to this heading">#</a></h1>
+<Grid cols="1 1" gap="2">
+<div>
+<Banner type="info">
+<ul class="simple">
+<li><p>A single measurement gives one random outcome — but if we repeat the experiment many times, the <strong>average</strong> outcome is well-defined and predictable.</p></li>
+</ul>
+</Banner>
+<Banner type="success" title="Definition">
+<p>For an observable represented by a Hermitian operator <span class="math notranslate nohighlight">\(\hat{O}\)</span> and a state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span>, the expectation value is</p>
+<div class="math notranslate nohighlight">
+\[
+\langle \hat{O} \rangle = \langle\psi|\hat{O}|\psi\rangle
+\]</div>
+<p>This is the average result you’d get measuring <span class="math notranslate nohighlight">\(\hat{O}\)</span> on <strong>many identically prepared copies</strong> of <span class="math notranslate nohighlight">\(|\psi\rangle\)</span>.</p>
+</Banner>
+</div>
+<div>
+<ul class="simple">
+<li><p>Individual measurement outcomes are eigenvalues of <span class="math notranslate nohighlight">\(\hat{O}\)</span>, denoted <span class="math notranslate nohighlight">\(\lambda_i\)</span>.</p></li>
+<li><p>Hence we can equivalently calculate the average as a sum over all these outcomes weighted by probability:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\langle \hat{O} \rangle = \sum_i \lambda_i \, P(\lambda_i)=|\langle \lambda_i|\psi\rangle|^2
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(|\lambda_i \rangle\)</span> are the eigenvectors of <span class="math notranslate nohighlight">\(\hat{O}\)</span>.</p>
+</div>
+</Grid>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="expectation-value-worked-example">
+<h1>Expectation value: worked example<a class="headerlink" href="#expectation-value-worked-example" title="Link to this heading">#</a></h1>
+<Grid cols="1 1" gap="2">
+<div>
+<p><strong>Setup:</strong> measure the observable <span class="math notranslate nohighlight">\(Z\)</span> on the state</p>
+<div class="math notranslate nohighlight">
+\[
+|\psi\rangle = \alpha|0\rangle + \beta|1\rangle
+\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+Z = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; -1 \end{pmatrix}
+\end{split}\]</div>
+<p><strong>Step 1:</strong> identify the possible outcomes — the eigenvalues of <span class="math notranslate nohighlight">\(Z\)</span>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(+1\)</span> for <span class="math notranslate nohighlight">\(|0\rangle\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(-1\)</span> for <span class="math notranslate nohighlight">\(|1\rangle\)</span></p></li>
+</ul>
+<p><strong>Step 2:</strong> compute each outcome’s probability from the Born rule</p>
+<div class="math notranslate nohighlight">
+\[
+P(+1) = |\langle 0|\psi\rangle|^2 = |\alpha|^2,
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+P(-1) = |\langle 1|\psi\rangle|^2 = |\beta|^2
+\]</div>
+</div>
+<div>
+<FancyTable class="!w-[420px]">
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Outcome</p></td>
+<td><p>Probability</p></td>
+<td><p>Contribution</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(+1\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\lvert\alpha\rvert^2\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(+\lvert\alpha\rvert^2\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(-1\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\lvert\beta\rvert^2\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(-\lvert\beta\rvert^2\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</FancyTable>
+<p><strong>Step 3:</strong> sum the contributions</p>
+<div class="math notranslate nohighlight">
+\[
+\langle Z \rangle = (+1)|\alpha|^2 + (-1)|\beta|^2 = |\alpha|^2 - |\beta|^2
+\]</div>
+<Banner type="success">
+<p><strong>Key point:</strong></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\langle O \rangle\)</span> is always a <strong>real</strong> number and lies <strong>between the smallest and largest eigenvalues</strong> of <span class="math notranslate nohighlight">\(O\)</span></p></li>
+<li><p>In this case, <span class="math notranslate nohighlight">\(\langle Z \rangle\)</span> lies between -1 and 1, reaching <span class="math notranslate nohighlight">\(\pm1\)</span> only for the eigenstates <span class="math notranslate nohighlight">\(|0\rangle\)</span> and <span class="math notranslate nohighlight">\(|1\rangle\)</span>.</p></li>
+<li><p>For an equal superposition <span class="math notranslate nohighlight">\(\langle Z \rangle=0\)</span>.</p></li>
+</ul>
+</Banner>
+</div>
+</Grid>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="wrap-up">
+<h1>Wrap-up<a class="headerlink" href="#wrap-up" title="Link to this heading">#</a></h1>
+<v-clicks>
+<ul class="simple">
+<li><p>We use the <strong>tensor product</strong>, denoted as <span class="math notranslate nohighlight">\(\otimes\)</span>, to combine qubits together to create multi-qubit systems.</p></li>
+<li><p>Multi-qubit gates and entanglement are essential for quantum algorithms.</p></li>
+<li><p>Universal gate sets allow for the construction of any quantum operation.</p></li>
+<li><p>Features which are used in quantum algorithms:</p>
+<ul>
+<li><p>superposition</p></li>
+<li><p>interference</p></li>
+<li><p>entanglement.</p></li>
+</ul>
+</li>
+<li><p>We use the mathematical framework of vectors to represent states and matrices to represent gates and observables.</p></li>
+</ul>
+</v-clicks>
+<hr class="docutils" />
+<section id="layout-end">
+<h2>layout: end<a class="headerlink" href="#layout-end" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="thank-you">
+<h1>Thank You<a class="headerlink" href="#thank-you" title="Link to this heading">#</a></h1>
 <section id="mathematical-structure">
 <h2>Mathematical Structure<a class="headerlink" href="#mathematical-structure" title="Link to this heading">#</a></h2>
 <p>Here we discuss in brevity the necessary mathematical structures upon which the formulation of quantum mechanics relies.
@@ -888,18 +2055,18 @@ B = \{a| a\in \mathbb{Z}, \text{ and } a \text{ is even}\}
 <p>Naturally, every set is subset and superset of itself. We a call a set A to be a <strong>proper subset</strong> of B, if every element of A is in B, but at least one element exists in B that is not in A. In this case, B is called a <strong>proper superset</strong> of A.</p>
 <p>For finite sets, their proper subsets have strictly lower number of element than the set itself. However for infinite sets, a proper subset may
 have same cardinality as the set itself.</p>
-<figure class="align-center" id="id1">
+<figure class="align-center" id="id6">
 <a class="reference internal image-reference" href="https://upload.wikimedia.org/wikipedia/commons/b/b0/Venn_A_subset_B.svg"><img alt="https://upload.wikimedia.org/wikipedia/commons/b/b0/Venn_A_subset_B.svg" src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Venn_A_subset_B.svg" style="width: 400px;" />
 </a>
 <figcaption>
-<p><span class="caption-text">A is subset of B, and B is superset of A</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">A is subset of B, and B is superset of A</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<figure class="align-center" id="id2">
+<figure class="align-center" id="id7">
 <a class="reference internal image-reference" href="https://upload.wikimedia.org/wikipedia/commons/a/a0/NumberSetinC.svg"><img alt="https://upload.wikimedia.org/wikipedia/commons/a/a0/NumberSetinC.svg" src="https://upload.wikimedia.org/wikipedia/commons/a/a0/NumberSetinC.svg" style="width: 400px;" />
 </a>
 <figcaption>
-<p><span class="caption-text">Visualisation of the set of numbers, natural numbers <span class="math notranslate nohighlight">\(\mathbb{N}\)</span>, integers <span class="math notranslate nohighlight">\(\mathbb{Z}\)</span>, rational numbers <span class="math notranslate nohighlight">\(\mathbb{Q}\)</span>, real numbers <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>, and complex numbers <span class="math notranslate nohighlight">\(\mathbb{C}\)</span>. We have following <span class="math notranslate nohighlight">\(\mathbb{N}\subset \mathbb{Z}\subset \mathbb{Q}\subset \mathbb{R}\subset \mathbb{C}\)</span></span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Visualisation of the set of numbers, natural numbers <span class="math notranslate nohighlight">\(\mathbb{N}\)</span>, integers <span class="math notranslate nohighlight">\(\mathbb{Z}\)</span>, rational numbers <span class="math notranslate nohighlight">\(\mathbb{Q}\)</span>, real numbers <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>, and complex numbers <span class="math notranslate nohighlight">\(\mathbb{C}\)</span>. We have following <span class="math notranslate nohighlight">\(\mathbb{N}\subset \mathbb{Z}\subset \mathbb{Q}\subset \mathbb{R}\subset \mathbb{C}\)</span></span><a class="headerlink" href="#id7" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="cell tag_remove-input docutils container">
@@ -914,10 +2081,10 @@ have same cardinality as the set itself.</p>
 </ul>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
-<figure class="align-default" id="id3">
+<figure class="align-default" id="id8">
 <img alt="../_images/set-union-inters-diff.jpg" src="../_images/set-union-inters-diff.jpg" />
 <figcaption>
-<p><span class="caption-text">Set Union, intersection and set difference.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">Set Union, intersection and set difference.</span><a class="headerlink" href="#id8" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </aside>
@@ -1093,7 +2260,7 @@ o : A\times A \longrightarrow A
 <figure class="align-center" id="rgb">
 <img alt="https://upload.wikimedia.org/wikipedia/commons/4/4c/Permutations_RGB.svg" src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Permutations_RGB.svg" />
 <figcaption>
-<p><span class="caption-text">Each row represents an arrangement of the three balls of colour red, green and blue. There are 6 such arrangements.</span><a class="headerlink" href="#rgb" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 8 </span><span class="caption-text">Each row represents an arrangement of the three balls of colour red, green and blue. There are 6 such arrangements.</span><a class="headerlink" href="#rgb" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -1644,10 +2811,10 @@ $<span class="math notranslate nohighlight">\(
 S_\infty = 1 -\frac 13 + \frac 15 - \frac 17+\dots = \frac{\pi}{4}
 \)</span>$</p>
 <p>This illustrates, that an infinite summation of rational numbers is actually not rational, but an irrational number. This is what completeness is about. In a complete metric space, the limit of an infinite sequence lies in the set. Thus, <span class="math notranslate nohighlight">\(\mathbb{Q}\)</span> is not complete, though the set of real numbers <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> is complete.</p>
-<figure class="align-default" id="id4">
+<figure class="align-default" id="id9">
 <img alt="https://upload.wikimedia.org/wikipedia/commons/8/89/Completeness_in_Hilbert_space.png" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Completeness_in_Hilbert_space.png" />
 <figcaption>
-<p><span class="caption-text">An infinite series of sum of vectors results in a well defined net displacement vector.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 9 </span><span class="caption-text">An infinite series of sum of vectors results in a well defined net displacement vector.</span><a class="headerlink" href="#id9" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>In case of vectors in a vector space, this translates to the property that linear combination of infinitely many vectors is still a vector in the vector space. Having this property insures we do not end up in an unphysical state outside the vector space.</p>
@@ -1958,6 +3125,15 @@ If the state is <span class="math notranslate nohighlight">\(l\rangle\)</span>, 
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="../lecture-02/bits-to-qubits.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 2: From Bits to Qubits</p>
+      </div>
+    </a>
 </div>
                 </footer>
               
@@ -1976,6 +3152,54 @@ If the state is <span class="math notranslate nohighlight">\(l\rangle\)</span>, 
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lecture 3: Connecting Qubits Together</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agenda">Agenda</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layout-section">layout: section</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-qubit-systems">Multi-qubit systems</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#unitary-matrices-recap">Unitary matrices (recap)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tensor-product-of-states">Tensor product of states</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-qubit-basis">Multi-qubit basis</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tensor-product-of-gates-matrix-notation">Tensor product of gates - matrix notation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tensor-product-of-gates-dirac-notation">Tensor product of gates - Dirac notation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#separable-operations">Separable operations</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#entanglement-mathematically">Entanglement (mathematically)</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">layout: section</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-qubit-gates">Multi-qubit gates</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#cnot-gate">CNOT gate</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#controlled-u-gate">Controlled-U gate</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Controlled-U gate</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#swap-gate">SWAP gate</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#toffoli-gate-ccnot">Toffoli gate (CCNOT)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#universal-quantum-gate-set">Universal quantum gate set</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">layout: section</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#features-of-quantum-physics">Features of quantum physics</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#entanglement-physically">Entanglement (physically)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#superposition-principle">Superposition principle</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#uncertainty-principle">Uncertainty principle</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#no-cloning-theorem">No-cloning theorem</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">No-cloning theorem</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tunneling">Tunneling</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-the-features-of-quantum-physics">Summary of the features of quantum physics</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">layout: section</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-mathematical-framework-to-experiment">Connecting mathematical framework to experiment</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-qubits-gates-measurements">Putting it all together: qubits, gates &amp; measurements</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-measurement">Quantum measurement</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-value">Expectation value</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-value-worked-example">Expectation value: worked example</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#wrap-up">Wrap-up</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layout-end">layout: end</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#thank-you">Thank You</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-structure">Mathematical Structure</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scalar-vs-vector">Scalar vs Vector</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set">Set</a><ul class="nav section-nav flex-column">
@@ -2031,6 +3255,9 @@ If the state is <span class="math notranslate nohighlight">\(l\rangle\)</span>, 
 </ul>
 </li>
 </ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>
