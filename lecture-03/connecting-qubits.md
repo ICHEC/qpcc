@@ -31,36 +31,39 @@ We learn about multi qubit gates and their role in quantum computing. We familia
 
 ---
 
-# Introduction
+## Introduction
 
+In the previous lecture {ref}`lecture-2` we learnt that a qubit is one of the simplest example of a quantum system, and how unitary operators manipulate a qubit's state.
+We also identified that quantum gates are unitary operators. But there very little one can do with single qubit, much like a classical bit. Things become interesting,
+when we have multiple qubits to work with.
 
-- Understand multi-qubit gates and their role in quantum computing
-- Familiarity with the features of quantum physics that make quantum computing different from classical computing
-- Connect mathematical framework of quantum computing to experimental implementations
+So here we learn what happens when one combines several qubits, and for such system how does quantum gate look like. We discuss the relevant mathematical background
+to get comprehension of multi qubit quantum system, as well as how quantum computing becomes interesting with several qubits.
 
-
-## Agenda
-
-- Multi-qubit systems
-- Multi-qubit gates
-- Features of quantum physics 
-- Connecting mathematical framework to experiment
+We also familiarise with the features of quantum physics that make quantum computing different from classical computing, especially aspect that become relevant in
+combining qubits. We already disussed some key aspect of quantum physics in previous lecture, here we touch upon some other aspects.
 
 
 ---
-layout: section
----
 
-# Multi-qubit systems
+## Multi-qubit systems
 
 ---
 
-# Unitary matrices (recap)
+### Unitary matrices (recap)
 
-- A matrix $U$ is **unitary** if $\,U^\dagger U = U U^\dagger = I\,$, where $U^\dagger$ is the conjugate transpose.
-- Unitary matrices preserve the norm of a vector: $\lVert U|\psi\rangle \rVert = \lVert |\psi\rangle \rVert$
-  - This is what keeps quantum states normalized (probabilities sum to 1) after a gate is applied.
-- Every quantum gate is represented by a unitary matrix — this is why quantum gates are **reversible**: $U^{-1} = U^\dagger$
+Let's do a quick recall about the unitary matrices: A matrix $U$ is **unitary** if 
+
+$$\Large {U^\dagger U = U U^\dagger = {\bf I}}$$
+
+where $U^\dagger$ is the conjugate transpose. Unitary matrices preserve the norm of a vector: 
+
+$$\Large{\lVert U|\psi\rangle \rVert = \lVert |\psi\rangle \rVert}$$
+
+This is what keeps quantum states normalized (probabilities sum to 1) after a gate is applied.
+
+- Every quantum gate is represented by a unitary matrix
+- This is why quantum gates are **reversible**: $U^{-1} = U^\dagger$
 - Single-qubit gates are $2\times2$ unitary matrices, e.g.
 
 $$
@@ -68,15 +71,13 @@ X = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}, \quad
 H = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}
 $$
 
-- For $n$ qubits, gates are represented by $2^n \times 2^n$ unitary matrices.
+We briefly mentioned in previous lecture, that for $n$ qubits, gates are represented by $2^n \times 2^n$ unitary matrices.
+We will see how later in the sections below.
 
 ---
 
-# Tensor product of states
+## Tensor product of states
 
-<Grid cols="1 1" gap="8">
-
-<div>
 
 - The **tensor product** ($\otimes$) is how we combine individual qubit states (or operators) into a description of a joint, multi-qubit system.
 - For two single-qubit states:
@@ -90,33 +91,21 @@ $$
 - A system of $n$ qubits lives in a Hilbert space of dimension $2^n$ — this exponential growth is a key resource (and challenge) in quantum computing.
 - Shorthand: $|\psi_1\rangle \otimes |\psi_2\rangle$ is often written $|\psi_1\rangle|\psi_2\rangle$ or $|\psi_1 \psi_2\rangle$
 
-</div>
-
-
-<div>
-
 
 <Banner type="info">
 
-Examples: 
+```{admonition} Examples
 
 1. $$|0\rangle \otimes |1\rangle = \begin{pmatrix} 1 \\ 0 \end{pmatrix} \otimes \begin{pmatrix} 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}$$
 
 2. $$|+\rangle \otimes |0\rangle = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ 1 \end{pmatrix} \otimes \begin{pmatrix} 1 \\ 0 \end{pmatrix} = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ 0 \\ 1 \\ 0 \end{pmatrix}$$
 
-</Banner>
-
-</div>
-
-</Grid>
+```
 
 ---
 
-# Multi-qubit basis
+## Multi-qubit basis
 
-<Grid cols="1 1" gap="1">
-
-<div>
 
 - For a single qubit, the computational basis is $\{|0\rangle, |1\rangle\}$.
 - For $n=2$ qubits, the basis consists of all $2^n=4$ combinations of 0s and 1s: $\{|00\rangle, |01\rangle, |10\rangle, |11\rangle\}$.
@@ -131,25 +120,16 @@ $$
 $$
 - Normalization: $|\alpha_{00}|^2 + |\alpha_{01}|^2 + |\alpha_{10}|^2 + |\alpha_{11}|^2 = 1$
 
-</div>
 
-<div>
-
-<Banner type="warning">
-
-<div class="text-sm">
+```{admonition}
+:class: warning
 
 - For $n$ qubits, the basis has $2^n$ states — e.g. 10 qubits already gives 1024 basis states.
 - Exponential scaling $\rightarrow$ classical simulation becomes intractable, opportunity for quantum advantage.
 
-</div>
+```
 
-</Banner>
-
-
-<Banner type="info" title="Examples">
-
-<div class="text-sm">
+```{info}
 
 1. $|0\rangle \otimes |1\rangle = \begin{pmatrix} 1 \\ 0 \end{pmatrix} \otimes \begin{pmatrix} 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}=|01\rangle$
 
@@ -161,17 +141,11 @@ $$
 \end{align*}
 $$
 
-</div>
-
-</Banner>
-
-</div>
-
-</Grid>
+```
 
 ---
 
-# Tensor product of gates - matrix notation
+## Tensor product of gates - matrix notation
 
 Example: applying $H$ to qubit 1 and $X$ to qubit 2:
 
@@ -204,11 +178,8 @@ $$
 
 ---
 
-# Separable operations
+## Separable operations
 
-<Grid cols="1 1" gap="4">
-
-<div>
 
 - A multi-qubit operation is **separable** if it can be written as a tensor product of single-qubit (or single-subsystem) operations:
 
@@ -220,30 +191,21 @@ $$
 - Separable operations are the natural extension of single-qubit gates to multiple qubits — but they alone are **not enough** for quantum advantage.
 - For this, we need to generate *entanglement*.
 
-</div>
 
-<div>
-
-<Banner type="warning" align="center">
-
-**Multi-qubit circuit diagrams**
+``````{admonition} **Multi-qubit circuit diagrams**
 
 - Each horizontal line represents a qubit, and gates are applied from left to right.
 - Tensor products of single-qubit gates are represented by gates on separate qubit lines.
 
-<div class="flex justify-center mt-2">
-<img src="/figures/L03/HotimesX.png" width="200" />
-</div>
-
-</Banner>
-
-</div>
-
-</Grid>
+```{image} ./HotimesX.png
+:align: center
+:width: 50%
+```
+``````
 
 ---
 
-# Entanglement (mathematically)
+## Entanglement (mathematically)
 
 - Consider a two-qubit system with Hilbert space $\mathcal{H} = \mathcal{H}_A ⊗ \mathcal{H} _B$. 
 - A general state of the system can be written as a linear combination of the basis states:
@@ -270,22 +232,15 @@ The state $|\psi\rangle = \frac{1}{\sqrt{2}}(|00\rangle + |01\rangle)$ is separa
 </Box>
 
 ---
-layout: section
+
+
+## Multi-qubit gates
+
 ---
 
-# Multi-qubit gates
+### CNOT gate
 
----
-
-# CNOT gate
-
-<Grid cols="1 1" gap="2">
-
-<div>
-
-
- 
- <Banner>
+<Banner>
 
 The Controlled-NOT (CNOT) gate acts on two qubits — a **control** and a **target**.
 
@@ -295,10 +250,8 @@ The Controlled-NOT (CNOT) gate acts on two qubits — a **control** and a **targ
 </Banner>
 
 
-
-
-
 - Matrix representation in the computational basis:
+
 $$
 \text{CNOT} = \begin{pmatrix}
 1 & 0 & 0 & 0 \\
@@ -314,19 +267,13 @@ $$
 
 - Circuit diagram representation:
 <div class="flex justify-center">
-<img src="/figures/L03/CNOT.png" width="200" />
 
+```{image} ./CNOT.png
+:width: 200
+
+```
 </div>
 
-
-
-</div>
-
-<div>
-
-
-
-<FancyTable>
 
 <table class="cnot-truth-table">
 <thead>
@@ -348,9 +295,6 @@ $$
 <tr><td>1</td><td>1</td><td>1</td><td>0</td></tr>
 </tbody>
 </table>
-
-</FancyTable>
-
 
 
 <style>
@@ -383,11 +327,6 @@ This is a **Bell state**: maximally entangled, impossible to reach with only sep
 
 </Banner>
 
-
-
-</div>
-
-</Grid>
 
 ---
 
@@ -444,7 +383,7 @@ $$
 
 - Circuit diagram representation:
 
-<img src="/figures/L03/CU.png" width="200" />
+<img src="./CU.png" width="200" />
 
 
 
@@ -525,7 +464,7 @@ $$
 
 - Circuit diagram representation: 
 <div class="flex justify-center">
-<img src="/figures/L03/SWAP.png" width="100" />
+<img src="./SWAP.png" width="100" />
 </div>
 
 
@@ -637,19 +576,16 @@ $$
 - Circuit diagram representation:
 
 
-<div class="flex justify-center">
-<img src="/figures/L03/toffoli.png" width="200" />
-</div>
+```{image} ./toffoli.png
+:width: 200
+:align: center
+```
 
 
+```{table}
 
-
-
-<FancyTable class="!w-[500px]">
-
-| | | | | | |
-|---|---|---|---|---|---|
 | C1 in | C2 in | Target in | C1 out | C2 out | Target out |
+|---|---|---|---|---|---|
 | 0 | 0 | 0 | 0 | 0 | 0 |
 | 0 | 0 | 1 | 0 | 0 | 1 |
 | 0 | 1 | 0 | 0 | 1 | 0 |
@@ -659,9 +595,7 @@ $$
 | 1 | 1 | 0 | 1 | 1 | 1 |
 | 1 | 1 | 1 | 1 | 1 | 0 |
 
-</FancyTable>
-
-
+```
 
 </div>
 
@@ -704,7 +638,7 @@ A universal quantum gate set is a set of gates which can be combined to reproduc
 
 - Example of a universal **quantum** gate set:
 
-<img src="/figures/L03/UnivSetQ.png" width="600" />
+<img src="./UnivSetQ.png" width="600" />
 
 
 
@@ -742,7 +676,7 @@ subsystem instantaneously collapses the
 state of the other subsystem, no matter how far apart they may be.​
 - Einstein called this ‘spooky action at a distance’. 
 
-<img src="/figures/L03/Entanglement.png" width="600" />
+<img src="./Entanglement.png" width="600" />
 
 </v-clicks>
 
@@ -763,10 +697,10 @@ is a possible state of the system, where $c_1, c_2$ are complex numbers, and $|c
 
 
 
-
-<div class="flex justify-center">
-<img src="/figures/L03/Cat.png" width="400" />
-</div>
+```{image} ./Cat.png
+:width: 400
+:align: center
+```
 
 
 
@@ -807,9 +741,9 @@ $$
 
 <div>
 
-<img src="/figures/L03/uncertainty1.png" width="350" v-click/>
+<img src="./uncertainty1.png" width="350" v-click/>
 
-<img src="/figures/L03/uncertainty2.png" width="1000" v-click/>
+<img src="./uncertainty2.png" width="1000" v-click/>
 
 </div>
 
@@ -947,7 +881,7 @@ What happens if we try to copy a qubit using this procedure?
 
 **Classical:**
 
-<img src="/figures/L03/CBarrier.png" width="400" />
+<img src="./CBarrier.png" width="400" />
 
 - Particle with $E>U$ passes through
 - Particle with $E<U$ is reflected
@@ -958,7 +892,7 @@ What happens if we try to copy a qubit using this procedure?
 
 **Quantum:**
 
-<img src="/figures/L03/QBarrier.png" width="400" />
+<img src="./QBarrier.png" width="400" />
 
 - Quantum particle behaves as wave – partially reflected and partially transmitted
 - There is a non-zero probability of finding the quantum particle beyond the classically insurmountable barrier!
@@ -1070,7 +1004,7 @@ layout: section
 
 Probabilistic -- depends on the state of the system and the observable being measured.
 
-<img src="/figures/L03/CoinMeasurement.png" width="1000" />
+<img src="./CoinMeasurement.png" width="1000" />
 
 
 <Banner title="Born rule">
@@ -1229,9 +1163,8 @@ $$
 
 ---
 
-# Wrap-up
+# Summary
 
-<v-clicks>
 
 - We use the **tensor product**, denoted as $\otimes$, to combine qubits together to create multi-qubit systems.
 - Multi-qubit gates and entanglement are essential for quantum algorithms.
@@ -1241,23 +1174,6 @@ $$
   - interference
   - entanglement.
 - We use the mathematical framework of vectors to represent states and matrices to represent gates and observables.
-
-</v-clicks>
-
----
-layout: end
----
-
-# Thank You
-
-
-
-
-
-
-
-
-
 
 
 
