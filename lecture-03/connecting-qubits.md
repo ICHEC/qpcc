@@ -1,5 +1,5 @@
 ---
-title: Mathematical framework for Quantum Computing
+title: Connecting Qubits Together
 jupytext:
     formats: md:myst
     text_representation:
@@ -992,3 +992,6 @@ $$
 - We use the mathematical framework of vectors to represent states and matrices to represent gates and observables.
 
 
+## Reference
+
+- For details on some of the math, you can see {ref}`math-la` which goes a bit more in details about mathematical frameworks.

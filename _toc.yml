@@ -42,3 +42,6 @@ parts:
 #  - caption: Topic 12
 #    chapters:
 #    - file: lecture-12/quantum-computing-ireland.md
+  - caption: Miscellaneous Topics
+    chapters:
+    - file: topics/math-la.md    
