@@ -68,7 +68,7 @@ mindmap
   - [Introduction to Quantum Computing](./lecture-01/intro-cc-qc.md)
   - [Introduction to Classical Bits and Gates](./lecture-01/intro-bits-and-gates.md)
 - [Lecture 2 - From Bits to Qubits](./lecture-02/bits-to-qubits.md)
-- [Lecture 3 - Quantum Gates](./lecture-03/connecting-qubits.md)
+- [Lecture 3 - Connecting Qubits Together](./lecture-03/connecting-qubits.md)
 - [Lecture 4 - First Quantum Algorithm](./lecture-04/first-quantum-algorithm.md)
 - [Lecture 5 - Hardware and Physics of Quantum Computer](./lecture-05/hardware-and-physics-of-quantum-computer.md)
 - [Lecture 6 - Early Quantum Algorithms I: QFT & QPE](./lecture-06/early-quantum-algorithms-qft-qpe.md)
