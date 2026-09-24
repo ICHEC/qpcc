@@ -15,9 +15,9 @@ parts:
   - caption: Topic 3
     chapters:
     - file: lecture-03/connecting-qubits.md
-#  - caption: Topic 4
-#    chapters:
-#    - file: lecture-04/lecture-04-fqa.md
+  - caption: Topic 4
+    chapters:
+    - file: lecture-04/lecture-04-fqa.md
 #  - caption: Topic 5
 #    chapters:
 #    - file: lecture-05/hardware-physics-qc.md
