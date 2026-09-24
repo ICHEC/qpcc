@@ -236,7 +236,7 @@ Quantum circuit example.
 
 $$\begin{aligned}
 SHX\ket{q_0} &= SHX\ket{0} = SH\ket{1}= \\
-&= S\frac{1}{\sqrt{2}}\left(\ket{0}-\ket{1}\right) = S\frac{1}{\sqrt{2}}\left(\ket{0}-i\ket{1}\right)
+&= S\frac{1}{\sqrt{2}}\left(\ket{0}-\ket{1}\right) = \frac{1}{\sqrt{2}}\left(\ket{0}-i\ket{1}\right)
 \end{aligned}$$
 
 ### Multi-Qubit Circuits
