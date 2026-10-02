@@ -19,6 +19,14 @@ mystnb:
 ```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture.
 ```
 
+## Landscape of Quantum Algorithms
+
+```{figure} ./images/algorithm_landscape.png
+:align: center
+
+Landscape of quantum algorithms.
+```
+
 ## Fourier Analysis
 
 - Invented by <span class="hl-blue">Joseph Fourier</span> in the early 19th century, while studying <span class="hl-blue">heat transfer</span>.
@@ -103,11 +111,11 @@ $$\Delta t \cdot \Delta f \geq \frac{1}{4\pi}$$
 
 - <span class="hl-red">Discrete Fourier Transform (DFT)</span>: Discrete analogue of FT. Transforms a <span class="hl-green">vector</span> of $N$ complex numbers $(x_0,x_1,\dots,x_{N-1})\in\mathbb{C}$ to a vector $(y_0,y_1,\dots,y_{N-1})\in\mathbb{C}$:
 
-$$y_k = \sum_{j=0}^{N-1}x_j e^{-i2\pi jk/N},\quad k=0,1,\dots,N-1$$
+$$y_j = \sum_{k=0}^{N-1}x_k e^{-i2\pi jk/N},\quad j=0,1,\dots,N-1$$
 
-- <span class="hl-red">Quantum Fourier Transform (QFT)</span>: Converts a <span class="hl-green">basis state</span> $\ket{k}$ to a superposition of all basis states, weighted by a complex phase encoding <span class="hl-green">frequencies</span> information:
+- <span class="hl-red">Quantum Fourier Transform (QFT)</span>: Converts a <span class="hl-green">basis state</span> $\ket{j}$ to a superposition of all basis states, weighted by a complex phase encoding <span class="hl-green">frequencies</span> information:
 
-$$\ket{k} = \frac{1}{\sqrt{N}}\sum_{j=0}^{N-1}e^{i2\pi jk/N}\ket{j},\quad k=0,1,\dots,N-1$$
+$$\ket{j} = \frac{1}{\sqrt{N}}\sum_{k=0}^{N-1}e^{i2\pi jk/N}\ket{k},\quad j=0,1,\dots,N-1$$
 
 - <span class="hl-blue">QFT</span> is very similar to <span class="hl-blue">DFT</span>, but:
 
@@ -125,7 +133,7 @@ QFT of state $\ket{0}$ (source: IBM Quantum Learning).
 $$\text{QFT} \ket{0} = \frac{1}{2} \left( e^{i 2\pi \cdot \textcolor{red}{0} \cdot 0 / 4} \ket{0} + e^{i 2\pi \cdot \textcolor{red}{0} \cdot 1 / 4} \ket{1} + e^{i 2\pi \cdot \textcolor{red}{0} \cdot 2 / 4} \ket{2} + e^{i 2\pi \cdot \textcolor{red}{0} \cdot 3 / 4} \ket{3} \right)
 = \frac{1}{2} \left( \ket{0} + \ket{1} + \ket{2} + \ket{3} \right)$$
 
-- $\textcolor{red}{\text{QFT}\ket{k=0}}$ state produces an <span class="hl-blue">uniform superposition</span> of all 4 basis states. All <span class="hl-red">phases</span> are 0.
+- $\textcolor{red}{\text{QFT}\ket{j=0}}$ state produces an <span class="hl-blue">uniform superposition</span> of all 4 basis states. All <span class="hl-red">phases</span> are 0.
 
 ```{figure} ./images/qft_2.png
 :align: center
@@ -136,7 +144,7 @@ QFT of state $\ket{1}$ (source: IBM Quantum Learning).
 $$\text{QFT} \ket{1} = \frac{1}{2} \left( e^{i 2\pi \cdot \textcolor{red}{1} \cdot 0 / 4} \ket{0} + e^{i 2\pi \cdot \textcolor{red}{1} \cdot 1 / 4} \ket{1} + e^{i 2\pi \cdot \textcolor{red}{1} \cdot 2 / 4} \ket{2} + e^{i 2\pi \cdot \textcolor{red}{1} \cdot 3 / 4} \ket{3} \right)
 = \frac{1}{2} \left( \ket{0} + i\ket{1} - \ket{2} - i\ket{3} \right)$$
 
-- $\textcolor{red}{\text{QFT}\ket{k}}$ will apply a <span class="hl-blue">phase increase</span> of $2\pi jk/N$ to each of the $\ket{j}=0,1,...,N$ superposed states obtained.
+- $\textcolor{red}{\text{QFT}\ket{j}}$ will apply a <span class="hl-blue">phase increase</span> of $2\pi jk/N$ to each of the $\ket{k}=0,1,...,N$ superposed states obtained.
 
 ```{figure} ./images/qft_3.png
 :align: center
@@ -147,7 +155,7 @@ QFT of state $\ket{2}$ (source: IBM Quantum Learning).
 $$\text{QFT} \ket{2} = \frac{1}{2} \left( e^{i 2\pi \cdot \textcolor{red}{2} \cdot 0 / 4} \ket{0} + e^{i 2\pi \cdot \textcolor{red}{2} \cdot 1 / 4} \ket{1} + e^{i 2\pi \cdot \textcolor{red}{2} \cdot 2 / 4} \ket{2} + e^{i 2\pi \cdot \textcolor{red}{2} \cdot 3 / 4} \ket{3} \right)
 = \frac{1}{2} \left( \ket{0} - \ket{1} + \ket{2} - \ket{3} \right)$$
 
-- As we increase $\textcolor{red}{\ket{k}}$ the rate of phase change will increase.
+- As we increase $\textcolor{red}{\ket{j}}$ the rate of phase change will increase.
 
 ```{figure} ./images/qft_4.png
 :align: center
@@ -159,20 +167,20 @@ $$\text{QFT} \ket{3} = \frac{1}{2} \left( e^{i 2\pi \cdot \textcolor{red}{3} \cd
 = \frac{1}{2} \left( \ket{0} - i\ket{1} - \ket{2} + i\ket{3} \right)$$
 
 ```{attention}
-Like in FT, in all cases we see that a <span class="hl-blue">narrow signal</span> (the basis vector $\textcolor{red}{\ket{k}}$) is spread into a <span class="hl-blue">superposition of states</span>, with phases varying with $\textcolor{red}{k}$.
+Like in FT, in all cases we see that a <span class="hl-blue">narrow signal</span> (the basis vector $\textcolor{red}{\ket{j}}$) is spread into a <span class="hl-blue">superposition of states</span>, with phases varying with $\textcolor{red}{j}$.
 ```
 
 ### General States and the Inverse QFT
 
-- For a <span class="hl-blue">general state</span> $\ket{\psi}=\sum_{k=0}^{N-1}x_k\ket{k}$:
+- For a <span class="hl-blue">general state</span> $\ket{\psi}=\sum_{j=0}^{N-1}x_j\ket{j}$:
 
-$$\text{QFT} \ket{\psi} = \sum_{k=0}^{N-1} x_k \colorbox{#86efac}{\(\displaystyle\frac{1}{\sqrt{N}} \sum_{j=0}^{N-1} e^{i 2\pi j k / N} \ket{j}\)}$$
+$$\text{QFT} \ket{\psi} = \sum_{j=0}^{N-1} x_j \colorbox{#86efac}{\(\displaystyle\frac{1}{\sqrt{N}} \sum_{k=0}^{N-1} e^{i 2\pi j k / N} \ket{k}\)}$$
 
 The highlighted term is the <span class="hl-green">QFT applied to the basis vectors</span>.
 
 - The QFT also has an <span class="hl-red">inverse</span> (IQFT):
 
-$$\text{QFT}^\dagger \ket{\psi} = \sum_{k=0}^{N-1} x_k \left( \frac{1}{\sqrt{N}} \sum_{j=0}^{N-1} e^{\colorbox{#bfdbfe}{$\displaystyle-$}i 2\pi j k / N} \ket{j}\right)$$
+$$\text{QFT}^\dagger \ket{\psi} = \sum_{j=0}^{N-1} x_j \left( \frac{1}{\sqrt{N}} \sum_{k=0}^{N-1} e^{\colorbox{#bfdbfe}{$\displaystyle-$}i 2\pi j k / N} \ket{k}\right)$$
 
 Only the <span class="hl-blue">sign</span> changes with respect to the QFT.
 
@@ -200,11 +208,19 @@ $$\textcolor{blue}{\boldsymbol{\rightarrow}}\begin{array}{c} H\ket{0}=\ket{0}+e^
 
 - Using some algebra we get the <span class="hl-green">product representation</span> of QFT:
 
-$$\ket{j}\rightarrow\frac{1}{\sqrt{N}}
-\left(\ket{0} + e^{i2\pi \, 0.j_n}\ket{1}\right)
-\left(\ket{0} + e^{i2\pi \, 0.j_{n-1}j_n}\ket{1}\right)
+$$\begin{aligned}
+\ket{j} &\rightarrow \frac{1}{2^{n/2}} \sum_{k=0}^{2^n - 1} e^{2\pi i jk / 2^n} \ket{k} \\
+&= \frac{1}{2^{n/2}} \sum_{k_1 = 0}^{1} \cdots \sum_{k_n = 0}^{1}
+e^{2\pi i j \sum_{l=1}^{n} k_l 2^{-l}} \ket{k_1 \dots k_n} \\
+&= \frac{1}{2^{n/2}} \sum_{k_1 = 0}^{1} \cdots \sum_{k_n = 0}^{1} \bigotimes_{l=1}^{n} e^{2\pi i jk_l 2^{-l}}\ket{k_l} \\
+&= \frac{1}{2^{n/2}} \bigotimes_{l=1}^{n}\left(\sum_{k_l=0}^{1} e^{2\pi i jk_l2^{-l}} \ket{k_l} \right) \\
+&= \frac{1}{2^{n/2}} \bigotimes_{l=1}^{n} \left( \ket{0} + e^{2\pi i j 2^{-l}} \ket{1} \right) \\
+&= \frac{1}{2^{n/2}}
+\left( \ket{0} + e^{2\pi i \, 0.j_n} \ket{1} \right)
+\left( \ket{0} + e^{2\pi i \, 0.j_{n-1} j_n} \ket{1} \right)
 \cdots
-\left(\ket{0} + e^{i2\pi \, 0.j_1 j_2 \cdots j_n}\ket{1}\right)$$
+\left( \ket{0} + e^{2\pi i \, 0.j_1 j_2 \cdots j_n} \ket{1} \right)
+\end{aligned}$$
 
 Expanding the notation:
 
@@ -268,21 +284,14 @@ $$\ket{\psi_3} = \left(\textcolor{blue}{\ket{0}+e^{i2\pi0.j_3}}\right)\left({\ke
 
 ## Quantum Fourier Transform vs Classical Fourier Transform
 
-### <span class="hl-blue">Quantum FT</span>
+|  | <span class="hl-red">Quantum Fourier Transform</span> | <span class="hl-green">Classical Fourier Transform</span> |
+|---|---|---|
+| **Data** | $N$ amplitudes held in only $n = \log N$ qubits | $N$ numbers stored explicitly |
+| **Cost** | $O(\log N \log N)$ gates | $O(N \log N)$ operations |
+| **Output** | Cannot read the amplitudes; a measurement returns one $k$, sampled with probability $\lvert y_k\rvert^2$ | Can read all $N$ values $y_k$ |
+| **Input** | Need the state $\sum_j x_j\ket{j}$ already prepared, which can itself be expensive | Any vector you can write down |
 
-- Acts on <span class="hl-blue">n qubits</span> encoding <span class="hl-blue">N = 2ⁿ amplitudes</span>.
-- Requires <span class="hl-green">Θ(log N log N)</span> gates.
-- Exponentially fewer operations than FFT.
-- <span class="hl-red">Cannot read out</span> all amplitudes directly, measurement collapses the state.
-
-### <span class="hl-red">Classical FFT</span>
-
-- Acts on <span class="hl-red">N = 2ⁿ</span> complex numbers.
-- Requires <span class="hl-green">Θ(N log N)</span> operations.
-- Output is fully <span class="hl-blue">readable and usable</span>.
-- No restriction on how results are accessed.
-
-- The QFT is <span class="hl-green">exponentially faster</span> in gate count, but its speedup only materialises when embedded in a larger quantum algorithm (e.g. <span class="hl-blue">Shor's</span>, <span class="hl-blue">phase estimation</span>).
+- The QFT has better <span class="hl-red">computational complexity</span> in terms of <span class="hl-green">input size</span>, but its speedup only materialises when embedded in a larger quantum algorithm.
 
 ```{attention}
 Even though <span class="hl-red">quantum amplitudes are not directly accessible</span>, the QFT plays a <span class="hl-green">central role</span> in powerful quantum algorithms such as <span class="hl-blue">Shor's factoring algorithm</span> and <span class="hl-blue">Quantum Phase Estimation (QPE)</span>.
@@ -398,20 +407,35 @@ Result of QPE for an eigenvalue of 1/6.
 
 - For $\phi = \tfrac{1}{6}=0.166...$ we obtain the result $\alpha=\ket{001}$ with <span class="hl-blue">highest probability</span> (higher than $\frac{4}{\pi^{2}}$).
 
-- If we want to estimate $\phi$ to <span class="hl-red">$n$ bits of precision</span>, the number of qubits in the first register $t$ is given by:
+- To estimate $\phi$ to <span class="hl-red">$n$ bits of precision</span> with <span class="hl-green">failure probability</span> at most $\varepsilon$, the number of qubits $t$ in the first register is given by:
 
-$$\textcolor{red}{t=O(n)}$$
+$$t = \textcolor{red}{n} + \textcolor{green}{\left\lceil \log\left(2 + \frac{1}{2\varepsilon}\right)\right\rceil}$$
 
-- For a <span class="hl-green">failure probability</span> $\varepsilon$:
+```{figure} ./images/qpe_extra_qubits.png
+:align: center
 
-$$\textcolor{green}{t = O\!\left(\log\frac{1}{\varepsilon}\right)}$$
+Extra qubits needed to reach a given failure probability.
+```
+
+```{figure} ./images/qpe_success_probability.png
+:align: center
+
+Success probability vs. extra qubits.
+```
 
 ### Why It Matters
 
 - <span class="hl-green">Comparison to classical</span>: estimating eigenvalues of an $N\times N$ unitary <span class="hl-red">classically</span> requires resources that scale with $N=2^{n}$, whereas QPE needs only <span class="hl-blue">$O(n)$ qubits</span> and a number of controlled-$U$ calls that is <span class="hl-green">polynomial</span> in $n$, an <span class="hl-green">exponential advantage</span> whenever $U$ can be implemented efficiently.
 
-- <span class="hl-blue">QPE</span> is a <span class="hl-blue">core subroutine</span> that powers many of the most important quantum algorithms, e.g.:
+- Apart from having <span class="hl-green">many applications</span> of its own, <span class="hl-blue">QPE</span> is a <span class="hl-blue">core subroutine</span> that powers many of the most important quantum algorithms, e.g.:
   - <span class="hl-red">Shor's algorithm</span> for factoring.
   - <span class="hl-red">Quantum chemistry</span> and <span class="hl-red">material sciences</span>.
   - Solving <span class="hl-red">linear systems</span> (<span class="hl-red">HHL algorithm</span>).
   - <span class="hl-red">Quantum walk</span> and <span class="hl-red">search</span> algorithms.
+
+## Wrap-up
+
+- The <span class="hl-red">Fourier Transform</span> decomposes a function into its <span class="hl-blue">frequency components</span>, trading localisation in time for localisation in frequency.
+- The <span class="hl-red">Quantum Fourier Transform (QFT)</span> is the quantum analogue of the Discrete Fourier Transform, computable with exponentially fewer operations than the classical FFT, though its amplitudes cannot be read out directly.
+- <span class="hl-red">Quantum Phase Estimation (QPE)</span> uses the QFT to estimate the eigenvalue phase $\phi$ of a unitary operator $U$.
+- <span class="hl-blue">QPE and QFT are a core subroutine</span> underlying many of the most important quantum algorithms, such as Shor's algorithm, quantum chemistry simulation, and the HHL algorithm for linear systems.
