@@ -994,14 +994,21 @@ window.runMermaid = runMermaid;</script>
 <li><p>Ground state and first excited state of circuit energy levels form a qubit.</p></li>
 <li><p>Most common variant: <strong>transmon</strong>, insensitive to charge noise.</p></li>
 </ul>
-<a class="reference internal image-reference" href="../_images/Supercond.png"><img alt="../_images/Supercond.png" class="align-center" src="../_images/Supercond.png" style="width: 700px;" />
-</a>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p><strong>Superconductivity:</strong> certain materials exhibit <em>zero electrical resistance</em> and expel magnetic fields when <em>cooled</em> below a critical temperature.</p>
 <p><strong>Josephson junction:</strong> consists of two <em>superconductors</em> separated by a thin insulating <em>barrier</em>, allowing electrons to pass through via quantum <em>tunneling</em>.</p>
 </div>
 <a class="reference internal image-reference" href="../_images/joseph_junct.png"><img alt="../_images/joseph_junct.png" class="align-center" src="../_images/joseph_junct.png" style="width: 100%;" />
+</a>
+<p>Consider the electrical circuit on the left in the diagram below. Its energy levels are approximately equally spaced. Adding a Josephson junction (right hand side of image) separates the lowest two levels from the higher levels. The ground state and first excited state can then be used as the qubit states:</p>
+<div class="math notranslate nohighlight">
+\[
+\lvert 0\rangle \equiv \text{ground state},
+\qquad
+\lvert 1\rangle \equiv \text{first excited state}.
+\]</div>
+<a class="reference internal image-reference" href="../_images/Supercond.png"><img alt="../_images/Supercond.png" class="align-center" src="../_images/Supercond.png" style="width: 700px;" />
 </a>
 <ul class="simple">
 <li><p>Control and readout via <strong>microwave pulses</strong> delivered through waveguides / resonators.</p></li>
@@ -1048,10 +1055,11 @@ window.runMermaid = runMermaid;</script>
 <section id="trapped-ions">
 <h2>Trapped Ions<a class="headerlink" href="#trapped-ions" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Qubits encoded in internal electronic states of ions in a <strong>Paul trap</strong> (oscillating electromagnetic fields).</p></li>
+<li><p>Qubits encoded in internal electronic states of ions in a <strong>Paul trap</strong>, which uses oscillating electromagnetic fields to confine charged ions in a small region of space.</p></li>
+<li><p>The ions are kept in an ultra-high vacuum so that collisions with surrounding particles do not disturb the quantum states.</p></li>
 <li><p>Ions are laser-cooled to their motional ground state and arranged in a chain or 2D array.</p></li>
 <li><p>Single-qubit gates: laser/microwave pulses applied to individual ions.</p></li>
-<li><p>Two-qubit gates: mediated through the ions’ shared collective motion.</p></li>
+<li><p>Two-qubit gates: mediated through the ions’ shared collective motion. This gives trapped-ion systems a major connectivity advantage: ions in the same trap do not have to be physically adjacent to interact.</p></li>
 <li><p><span style="color:#4caf50"><strong>All-to-all connectivity</strong></span> within a trap: any ion can be entangled with any other.</p></li>
 <li><p><span style="color:#4caf50">Very long coherence times (seconds) and high gate fidelities.</span></p></li>
 <li><p><span style="color:#e05252">Slower gates than superconducting qubits (μs range)</span>, and <span style="color:#e05252">scaling requires interconnects between traps</span>.</p></li>
@@ -1090,10 +1098,14 @@ window.runMermaid = runMermaid;</script>
 <p class="admonition-title">What is a photon?</p>
 <p>Einstein proposed in 1905 that light is composed of discrete packets of energy which we now call <strong>photons</strong>. Each photon carries energy <span class="math notranslate nohighlight">\(E=hf\)</span>, where <span class="math notranslate nohighlight">\(h\)</span> is Planck’s constant and <span class="math notranslate nohighlight">\(f\)</span> is the frequency (colour) of the light.</p>
 </div>
+<p>A photonic quantum computer can be thought of as a pipeline:</p>
+<p><strong>single-photon source → optical circuit → photon detectors</strong></p>
+<p>The quantum processing can largely take place at room temperature, while the source and detector components may require cooling. This is one reason photonics can avoid the large dilution refrigerators required by superconducting processors.</p>
+<p>Photonic quantum computers encode quantum information in properties of <strong>single photons</strong>. Unlike light from an ordinary lamp, which contains an enormous number of photons, a quantum photonic processor needs controlled single-photon sources.</p>
 <ul class="simple">
 <li><p>Qubits encoded in properties of <strong>single photons</strong>.</p></li>
 <li><p>Manipulated using <strong>linear optical elements</strong>: beam splitters, phase shifters, waveguides.</p></li>
-<li><p><strong>Universal</strong> computation is possible with linear optics, single-photon sources, and measurement-based feedforward.</p></li>
+<li><p><strong>Universal</strong> computation is possible with linear optics, single-photon sources, and measurement-based feedforward (where an earlier measurement result determines a later operation).</p></li>
 <li><p><strong>Photonic integrated circuits</strong> fit all optical components on a chip, enabling scaling.</p></li>
 <li><p>Companies: <strong>PsiQuantum, Xanadu, Quandela</strong>.</p></li>
 </ul>
@@ -1108,6 +1120,7 @@ window.runMermaid = runMermaid;</script>
 <hr class="docutils" />
 <section id="encoding-qubits-with-photons">
 <h2>Encoding qubits with photons<a class="headerlink" href="#encoding-qubits-with-photons" title="Link to this heading">#</a></h2>
+<p>There are several ways to encode a qubit in a photon. The important point is that the logical states <span class="math notranslate nohighlight">\(\lvert0\rangle\)</span> and <span class="math notranslate nohighlight">\(\lvert1\rangle\)</span> are represented by two distinguishable physical states.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p></p></th>
@@ -1130,6 +1143,11 @@ window.runMermaid = runMermaid;</script>
 </tbody>
 </table>
 </div>
+<ul class="simple">
+<li><p><strong>Polarization encoding:</strong> uses the polarization (direction of oscillation) of the photon’s electric field. For example, vertical polarization represents <span class="math notranslate nohighlight">\(|0\rangle\)</span> and horizontal polarization represents <span class="math notranslate nohighlight">\(|1\rangle\)</span>.</p></li>
+<li><p><strong>Dual-rail encoding:</strong> uses two optical paths. A photon in the upper path and no photon in the lower path represents <span class="math notranslate nohighlight">\(|0\rangle\)</span>; the opposite configuration represents <span class="math notranslate nohighlight">\(|1\rangle\)</span>.</p></li>
+<li><p><strong>Time-bin encoding:</strong> uses the arrival time of the photon. A photon taking a short optical path arrives earlier and represents <span class="math notranslate nohighlight">\(|0\rangle\)</span>, while a photon taking a longer path arrives later and represents <span class="math notranslate nohighlight">\(|1\rangle\)</span>.</p></li>
+</ul>
 </section>
 <section id="pros-and-cons-of-photonics">
 <h2>Pros and cons of photonics<a class="headerlink" href="#pros-and-cons-of-photonics" title="Link to this heading">#</a></h2>
@@ -1389,8 +1407,10 @@ X =
 <li><p>Rydberg atoms are neutral atoms which possess a ground state and a highly-excited Rydberg state, which can be used to encode a qubit.</p></li>
 <li><p>These atoms can be arranged in an array and controlled using lasers</p></li>
 </ul>
-<a class="reference internal image-reference" href="lecture-05/figures/L05/RydbSim.jpg"><img alt="lecture-05/figures/L05/RydbSim.jpg" src="lecture-05/figures/L05/RydbSim.jpg" style="width: 500px;" />
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/RydbSim.jpg"><img alt="../_images/RydbSim.jpg" src="../_images/RydbSim.jpg" style="width: 100%;" />
 </a>
+</figure>
 <ul class="simple">
 <li><p>Useful for problems which map to the Rydberg Hamiltonian, which may be time-dependent:</p></li>
 </ul>
@@ -1430,13 +1450,16 @@ in a physical quantum system.</p></li>
 <p><span class="caption-number">Fig. 38 </span><span class="caption-text"><a class="reference external" href="https://medium.com/%40deltorobarba/the-many-worlds-of-quantum-inspired-cd608cb9a7d2">https://medium.com/%40deltorobarba/the-many-worlds-of-quantum-inspired-cd608cb9a7d2</a></span><a class="headerlink" href="#id10" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
+<p>The idea behind quantum annealing can be visualised as an <strong>energy landscape</strong>. The desired solution corresponds to a low-energy configuration, ideally the global minimum. Classical optimisation may have to cross an energy barrier to move between configurations, whereas quantum tunnelling can provide another route between regions of the landscape.</p>
 <p><strong>Example: D-Wave Advantage</strong></p>
 <ul class="simple">
 <li><p>5000+ qubits, but is not fault-tolerant and cannot run arbitrary quantum algorithms.</p></li>
 <li><p>Designed to solve problems that can be mapped to a specific type of Hamiltonian (Ising model or QUBO).</p></li>
 <li><p>Finds low-energy configurations of the Hamiltonian, which correspond to optimal or near-optimal solutions to the original problem.</p></li>
 </ul>
-<img alt="../_images/d-wave-adv2-chip.jpg" src="../_images/d-wave-adv2-chip.jpg" />
+<a class="reference internal image-reference" href="../_images/d-wave-adv2-chip.jpg"><img alt="../_images/d-wave-adv2-chip.jpg" src="../_images/d-wave-adv2-chip.jpg" style="width: 70%;" />
+</a>
+<p>Photo credit: D-Wave Quantum Inc.</p>
 </section>
 <hr class="docutils" />
 <section id="noise">
@@ -1642,10 +1665,10 @@ Y\ket{\psi} &amp;= Y(\alpha\ket{0}+\beta\ket{1}) \\
 <ul>
 <li><p>Encode in the <span class="math notranslate nohighlight">\(\ket{+},\ket{-}\)</span> basis</p></li>
 <li><p><span class="math notranslate nohighlight">\(\ket{0}_L=\ket{+++}\)</span>, <span class="math notranslate nohighlight">\(\ket{1}_L=\ket{---}\)</span></p></li>
-<li><p>Detect a <span class="math notranslate nohighlight">\(Z\)</span> error the same way, after a basis change</p></li>
+<li><p>Detect a <span class="math notranslate nohighlight">\(Z\)</span> error the same way, after a basis change. A phase flip in the computational basis can be treated like a bit flip in the appropriate rotated basis. This lets the same basic redundancy idea be used to protect against a different type of quantum error.</p></li>
 </ul>
 </li>
-<li><p><strong>Shor code</strong>: concatenates the two (9 physical qubits per logical qubit) to correct an <em>arbitrary</em> single-qubit error (<span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span>, or <span class="math notranslate nohighlight">\(Z\)</span>)</p></li>
+<li><p><strong>Shor code</strong>: concatenates the two (9 physical qubits per logical qubit) to correct an <em>arbitrary</em> single-qubit error (<span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span>, or <span class="math notranslate nohighlight">\(Z\)</span>) since a <span class="math notranslate nohighlight">\(Y\)</span> error is a combination of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Z\)</span></p></li>
 <li><p>Modern devices mostly use the <strong>surface code</strong>, which extends
 bit-flip/phase-flip protection to a 2D lattice</p></li>
 </ul>
@@ -1682,6 +1705,10 @@ bit-flip/phase-flip protection to a 2D lattice</p></li>
 <hr class="docutils" />
 <section id="qc-hardware-vs-software-simulators">
 <h2>QC Hardware vs Software Simulators<a class="headerlink" href="#qc-hardware-vs-software-simulators" title="Link to this heading">#</a></h2>
+<p>A software simulator represents the quantum state and operations using a <strong>classical computer</strong>. This makes simulation extremely useful for development and debugging, but the classical resources required can grow exponentially with the number of qubits.</p>
+<p>For a general <span class="math notranslate nohighlight">\(n\)</span>-qubit statevector, the state is described by <span class="math notranslate nohighlight">\(2^n\)</span> complex amplitudes. Consequently, increasing the number of simulated qubits quickly increases memory and computational requirements.</p>
+<p>Simulators also provide a major debugging advantage. On real quantum hardware, inserting measurements in the middle of a computation can disturb or destroy the quantum state being used by the algorithm. In a simulator, intermediate states can be inspected without physically disturbing a quantum system.</p>
+<p>Another important distinction is <strong>noise</strong>. Real hardware has unavoidable physical noise. In a simulator, noise can be switched off, added deliberately, or varied to study its effect. This makes simulators useful for understanding and improving algorithms before they are run on hardware.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p></p></th>
@@ -1755,8 +1782,8 @@ bit-flip/phase-flip protection to a 2D lattice</p></li>
     A --&gt; B[&quot;Gate-based&quot;]
     A --&gt; C[&quot;Analog&quot;]
 
-    B --&gt; B1[&quot;Discrete&lt;br/&gt;quantum gates&quot;]
-    C --&gt; C1[&quot;Continuous&lt;br/&gt;tunable dynamics&quot;]
+    B --&gt; B1[&quot;Discrete quantum gates&quot;]
+    C --&gt; C1[&quot;Continuous tunable dynamics&quot;]
     </pre><ul class="simple">
 <li><p>Different physical modalities have different strengths and weaknesses, and no single modality dominates across all performance metrics.</p></li>
 <li><p>Noise is a major challenge for current quantum computers, causing errors in state preparation, gate operations, and readout.</p></li>
