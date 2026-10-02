@@ -162,13 +162,6 @@ Following are the key metrics one uses to compare different gate-based quantum c
 - Ground state and first excited state of circuit energy levels form a qubit.
 - Most common variant: **transmon**, insensitive to charge noise.
 
-
-```{image} ./images/Supercond.png
-:width: 700
-:align: center
-```
-
-
 :::{tip}
 **Superconductivity:** certain materials exhibit *zero electrical resistance* and expel magnetic fields when *cooled* below a critical temperature.
 
@@ -179,6 +172,23 @@ Following are the key metrics one uses to compare different gate-based quantum c
 :width: 100%
 :align: center
 ```
+
+Consider the electrical circuit on the left in the diagram below. Its energy levels are approximately equally spaced. Adding a Josephson junction (right hand side of image) separates the lowest two levels from the higher levels. The ground state and first excited state can then be used as the qubit states:
+
+$$
+\lvert 0\rangle \equiv \text{ground state},
+\qquad
+\lvert 1\rangle \equiv \text{first excited state}.
+$$
+
+
+```{image} ./images/Supercond.png
+:width: 700
+:align: center
+```
+
+
+
 
 
 - Control and readout via **microwave pulses** delivered through waveguides / resonators.
@@ -241,10 +251,11 @@ IBM Quantum System One, as installed at Shin-Kawaski for the University of Tokyo
 
 ## Trapped Ions
 
-- Qubits encoded in internal electronic states of ions in a **Paul trap** (oscillating electromagnetic fields).
+- Qubits encoded in internal electronic states of ions in a **Paul trap**, which uses oscillating electromagnetic fields to confine charged ions in a small region of space. 
+- The ions are kept in an ultra-high vacuum so that collisions with surrounding particles do not disturb the quantum states.
 - Ions are laser-cooled to their motional ground state and arranged in a chain or 2D array.
 - Single-qubit gates: laser/microwave pulses applied to individual ions.
-- Two-qubit gates: mediated through the ions' shared collective motion.
+- Two-qubit gates: mediated through the ions' shared collective motion. This gives trapped-ion systems a major connectivity advantage: ions in the same trap do not have to be physically adjacent to interact.
 - <span style="color:#4caf50">**All-to-all connectivity**</span> within a trap: any ion can be entangled with any other.
 - <span style="color:#4caf50">Very long coherence times (seconds) and high gate fidelities.</span>
 - <span style="color:#e05252">Slower gates than superconducting qubits (μs range)</span>, and <span style="color:#e05252">scaling requires interconnects between traps</span>.
@@ -293,10 +304,19 @@ Einstein proposed in 1905 that light is composed of discrete packets of energy w
 
 :::
 
+A photonic quantum computer can be thought of as a pipeline:
+
+**single-photon source → optical circuit → photon detectors**
+
+The quantum processing can largely take place at room temperature, while the source and detector components may require cooling. This is one reason photonics can avoid the large dilution refrigerators required by superconducting processors.
+
+
+Photonic quantum computers encode quantum information in properties of **single photons**. Unlike light from an ordinary lamp, which contains an enormous number of photons, a quantum photonic processor needs controlled single-photon sources.
+
 
 - Qubits encoded in properties of **single photons**.
 - Manipulated using **linear optical elements**: beam splitters, phase shifters, waveguides.
-- **Universal** computation is possible with linear optics, single-photon sources, and measurement-based feedforward.
+- **Universal** computation is possible with linear optics, single-photon sources, and measurement-based feedforward (where an earlier measurement result determines a later operation).
 - **Photonic integrated circuits** fit all optical components on a chip, enabling scaling.
 - Companies: **PsiQuantum, Xanadu, Quandela**.
 
@@ -312,11 +332,18 @@ https://www.quandela.com/resources/blog/what-is-a-quantum-computer/
 
 ## Encoding qubits with photons
 
+There are several ways to encode a qubit in a photon. The important point is that the logical states $\lvert0\rangle$ and $\lvert1\rangle$ are represented by two distinguishable physical states.
+
 
 | | Polarization | Dual rail | Time-bin |
 |---|---|---|---|
 | $\lvert0\rangle$ | ![](./images/polarization-0-crop.gif) | ![](./images/DualRail0.png) | ![](./images/timebin_0.png) |
 | $\lvert1\rangle$ | ![](./images/polarization-1-crop.gif) | ![](./images/DualRail1.png) | ![](./images/timebin_1.png) |
+
+- **Polarization encoding:** uses the polarization (direction of oscillation) of the photon's electric field. For example, vertical polarization represents $|0\rangle$ and horizontal polarization represents $|1\rangle$.
+- **Dual-rail encoding:** uses two optical paths. A photon in the upper path and no photon in the lower path represents $|0\rangle$; the opposite configuration represents $|1\rangle$.
+- **Time-bin encoding:** uses the arrival time of the photon. A photon taking a short optical path arrives earlier and represents $|0\rangle$, while a photon taking a longer path arrives later and represents $|1\rangle$.
+
 
 
 
@@ -545,8 +572,10 @@ $$
 - Rydberg atoms are neutral atoms which possess a ground state and a highly-excited Rydberg state, which can be used to encode a qubit.
 - These atoms can be arranged in an array and controlled using lasers
 
-<img src="./figures/L05/RydbSim.jpg" width="500" style="vertical-align:middle">
-
+```{figure} ./images/RydbSim.jpg
+:align: center
+:width: 100%
+```
 
 - Useful for problems which map to the Rydberg Hamiltonian, which may be time-dependent:
 
@@ -583,16 +612,17 @@ $$
 
 https://medium.com/%40deltorobarba/the-many-worlds-of-quantum-inspired-cd608cb9a7d2
 ```
+The idea behind quantum annealing can be visualised as an **energy landscape**. The desired solution corresponds to a low-energy configuration, ideally the global minimum. Classical optimisation may have to cross an energy barrier to move between configurations, whereas quantum tunnelling can provide another route between regions of the landscape.
 
 **Example: D-Wave Advantage**
 - 5000+ qubits, but is not fault-tolerant and cannot run arbitrary quantum algorithms.
 - Designed to solve problems that can be mapped to a specific type of Hamiltonian (Ising model or QUBO).
 - Finds low-energy configurations of the Hamiltonian, which correspond to optimal or near-optimal solutions to the original problem.
 
-```{image} ./images/d-wave-adv2-chip.jpg
-
-Photo credit: D-Wave Quantum Inc. 
+```{image} ./images/d-wave-adv2-chip.jpg 
+:width: 70%
 ```
+Photo credit: D-Wave Quantum Inc.
 
 ---
 
@@ -742,8 +772,8 @@ Suppose a single bit-flip error occurs during transmission:
 - **Phase-flip code**:
   - Encode in the $\ket{+},\ket{-}$ basis 
   - $\ket{0}_L=\ket{+++}$, $\ket{1}_L=\ket{---}$
-  - Detect a $Z$ error the same way, after a basis change
-- **Shor code**: concatenates the two (9 physical qubits per logical qubit) to correct an *arbitrary* single-qubit error ($X$, $Y$, or $Z$)
+  - Detect a $Z$ error the same way, after a basis change. A phase flip in the computational basis can be treated like a bit flip in the appropriate rotated basis. This lets the same basic redundancy idea be used to protect against a different type of quantum error.
+- **Shor code**: concatenates the two (9 physical qubits per logical qubit) to correct an *arbitrary* single-qubit error ($X$, $Y$, or $Z$) since a $Y$ error is a combination of $X$ and $Z$
 - Modern devices mostly use the **surface code**, which extends 
 bit-flip/phase-flip protection to a 2D lattice
 
@@ -783,6 +813,14 @@ We can also use post-processing techniques to reduce the effect of noise on fina
 
 ## QC Hardware vs Software Simulators
 
+A software simulator represents the quantum state and operations using a **classical computer**. This makes simulation extremely useful for development and debugging, but the classical resources required can grow exponentially with the number of qubits.
+
+For a general $n$-qubit statevector, the state is described by $2^n$ complex amplitudes. Consequently, increasing the number of simulated qubits quickly increases memory and computational requirements.
+
+Simulators also provide a major debugging advantage. On real quantum hardware, inserting measurements in the middle of a computation can disturb or destroy the quantum state being used by the algorithm. In a simulator, intermediate states can be inspected without physically disturbing a quantum system.
+
+Another important distinction is **noise**. Real hardware has unavoidable physical noise. In a simulator, noise can be switched off, added deliberately, or varied to study its effect. This makes simulators useful for understanding and improving algorithms before they are run on hardware.
+
 
 | | Quantum Computing Hardware | Quantum Computing Software Simulators |
 |---|---|---|
@@ -812,8 +850,8 @@ flowchart LR
     A --> B["Gate-based"]
     A --> C["Analog"]
 
-    B --> B1["Discrete<br/>quantum gates"]
-    C --> C1["Continuous<br/>tunable dynamics"]
+    B --> B1["Discrete quantum gates"]
+    C --> C1["Continuous tunable dynamics"]
 ```
 
 
