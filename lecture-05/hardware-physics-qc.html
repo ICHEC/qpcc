@@ -1117,15 +1117,15 @@ window.runMermaid = runMermaid;</script>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\;\;\;\;\;\;\;\;\;\lvert0\rangle\)</span></p></td>
-<td><p><a class="reference internal" href="lecture-05/figures/L05/polarization-0-crop.gif"><img alt="lecture-05/figures/L05/polarization-0-crop.gif" src="lecture-05/figures/L05/polarization-0-crop.gif" style="width: 110px;" /></a></p></td>
-<td><p><a class="reference internal" href="lecture-05/figures/L05/DualRail0.png"><img alt="lecture-05/figures/L05/DualRail0.png" src="lecture-05/figures/L05/DualRail0.png" style="width: 150px;" /></a></p></td>
-<td><p><a class="reference internal" href="lecture-05/figures/L05/timebin_0.png"><img alt="lecture-05/figures/L05/timebin_0.png" src="lecture-05/figures/L05/timebin_0.png" style="width: 250px;" /></a></p></td>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\lvert0\rangle\)</span></p></td>
+<td><p><img alt="" src="../_images/polarization-0-crop.gif" /></p></td>
+<td><p><img alt="" src="../_images/DualRail0.png" /></p></td>
+<td><p><img alt="" src="../_images/timebin_0.png" /></p></td>
 </tr>
-<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\;\;\;\;\;\;\;\;\;\lvert1\rangle\)</span></p></td>
-<td><p><a class="reference internal" href="lecture-05/figures/L05/polarization-1-crop.gif"><img alt="lecture-05/figures/L05/polarization-1-crop.gif" src="lecture-05/figures/L05/polarization-1-crop.gif" style="width: 150px;" /></a></p></td>
-<td><p><a class="reference internal" href="lecture-05/figures/L05/DualRail1.png"><img alt="lecture-05/figures/L05/DualRail1.png" src="lecture-05/figures/L05/DualRail1.png" style="width: 150px;" /></a></p></td>
-<td><p><a class="reference internal" href="lecture-05/figures/L05/timebin_1.png"><img alt="lecture-05/figures/L05/timebin_1.png" src="lecture-05/figures/L05/timebin_1.png" style="width: 250px;" /></a></p></td>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\lvert1\rangle\)</span></p></td>
+<td><p><img alt="" src="../_images/polarization-1-crop.gif" /></p></td>
+<td><p><img alt="" src="../_images/DualRail1.png" /></p></td>
+<td><p><img alt="" src="../_images/timebin_1.png" /></p></td>
 </tr>
 </tbody>
 </table>
@@ -1232,9 +1232,10 @@ No single modality currently wins on all criteria.
 <li><p>It determines how the system evolves in time, through the Schrödinger equation:</p></li>
 </ul>
 <div class="math notranslate nohighlight">
-\[
+\[\Large{
 i\hbar \frac{d}{dt}\lvert\psi(t)\rangle
 = H\lvert\psi(t)\rangle
+}
 \]</div>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\hbar\)</span> is the reduced Planck’s constant</p></li>
@@ -1242,18 +1243,22 @@ i\hbar \frac{d}{dt}\lvert\psi(t)\rangle
 <li><p>The eigenstates of <span class="math notranslate nohighlight">\(H\)</span> have energies <span class="math notranslate nohighlight">\(E_n\)</span>:</p></li>
 </ul>
 <div class="math notranslate nohighlight">
-\[
+\[\Large{
 H\lvert E_n\rangle = E_n\lvert E_n\rangle
+}
 \]</div>
 <div class="success admonition">
 <p class="admonition-title">Ground state - definition</p>
-<p>The eigenstate with the lowest energy.</p>
+<p>The ground state of a quantum system is the eigenstate with the lowest energy.</p>
 </div>
-<img src="./images/Bohr-Model-H.png" width="150">
-  https://unifyphysics.com/bohr-model-of-hydrogen-atom/
-</img>
-<a class="reference internal image-reference" href="../_images/Energy-levels.png"><img alt="../_images/Energy-levels.png" src="../_images/Energy-levels.png" style="width: 150px;" />
+<p>In the figure below, the eigenstates of Hydrogen atom are illustrated as circular
+orbitals with labels <span class="math notranslate nohighlight">\(n=1,2,3,...\)</span>.</p>
+<a class="reference internal image-reference" href="../_images/Bohr-Model-H.png"><img alt="../_images/Bohr-Model-H.png" class="align-center" src="../_images/Bohr-Model-H.png" style="width: 60%;" />
 </a>
+<p>Their actual energies are plotted below -</p>
+<a class="reference internal image-reference" href="../_images/Energy-levels.png"><img alt="../_images/Energy-levels.png" class="align-center" src="../_images/Energy-levels.png" style="width: 40%;" />
+</a>
+<p>source: <a class="reference external" href="https://unifyphysics.com/bohr-model-of-hydrogen-atom/">https://unifyphysics.com/bohr-model-of-hydrogen-atom/</a></p>
 </section>
 </section>
 <hr class="docutils" />
@@ -1265,29 +1270,35 @@ H\lvert E_n\rangle = E_n\lvert E_n\rangle
 </ul>
 <div class="math notranslate nohighlight">
 \[
+\Large{
 \lvert\psi(t)\rangle = e^{-iHt/\hbar}\lvert\psi(0)\rangle = U(t)\lvert\psi(0)\rangle
+}
 \]</div>
 <ul class="simple">
-<li><p>The evolution operator <span class="math notranslate nohighlight">\(U(t)\)</span> is <strong>unitary</strong>: <span class="math notranslate nohighlight">\(U^\dagger U = I\)</span></p>
-<ul>
+<li><p>The evolution operator <span class="math notranslate nohighlight">\(U(t)\)</span> is <strong>unitary</strong>: <span class="math notranslate nohighlight">\(U^\dagger U = I\)</span></p></li>
 <li><p>Total probability stays equal to 1 (the state stays normalised)</p></li>
 <li><p>Evolution is <strong>reversible</strong>: <span class="math notranslate nohighlight">\(U^{-1} = U^\dagger\)</span></p></li>
 <li><p>Quantum gates are unitaries too, so analog evolution under <span class="math notranslate nohighlight">\(H\)</span> is one long, continuous “gate”</p></li>
 </ul>
-</li>
-</ul>
 <div class="success admonition">
 <p class="admonition-title">Eigenstates are stationary</p>
 <ul class="simple">
-<li><p>If the system starts in an eigenstate <span class="math notranslate nohighlight">\(\lvert E_n\rangle\)</span> of <span class="math notranslate nohighlight">\(H\)</span>:
-$<span class="math notranslate nohighlight">\(
+<li><p>If the system starts in an eigenstate <span class="math notranslate nohighlight">\(\lvert E_n\rangle\)</span> of <span class="math notranslate nohighlight">\(H\)</span>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\Large{
 \lvert\psi(t)\rangle = e^{-iHt/\hbar}\lvert E_n\rangle
-\)</span>$</p></li>
+}
+\]</div>
+<ul class="simple">
 <li><p>Remember <span class="math notranslate nohighlight">\(H\lvert E_n\rangle = E_n\lvert E_n\rangle\)</span>, so</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[
+\Large{
 \lvert\psi(t)\rangle =e^{-iE_n t/\hbar}\lvert E_n\rangle
+}
 \]</div>
 <ul class="simple">
 <li><p>The state only picks up a phase; measurement probabilities never change.</p></li>
@@ -1384,11 +1395,12 @@ X =
 <li><p>Useful for problems which map to the Rydberg Hamiltonian, which may be time-dependent:</p></li>
 </ul>
 <div class="math notranslate nohighlight">
-\[\begin{split}
+\[\begin{split}\Large{
 \begin{align*}
 \hat H(t) = \frac{\hbar\Omega(t)}{2}\sum_j\hat\sigma_j^x - \hbar\delta(t)\sum_j\hat\sigma_j^z \\
 +\sum_{i\neq j} J_{ij}\hat\sigma_i^z\hat\sigma_j^z,
 \end{align*}
+}
 \end{split}\]</div>
 <ul class="simple">
 <li><p>Simulating the dynamics of a many-body system on a classical computer
@@ -1411,18 +1423,20 @@ in a physical quantum system.</p></li>
 </ul>
 </li>
 </ul>
-<img src="./images/Qannealing.jpg" width=400>
-  https://medium.com/%40deltorobarba/the-many-worlds-of-quantum-inspired-cd608cb9a7d2
-</img>
+<figure class="align-center" id="id10">
+<a class="reference internal image-reference" href="../_images/Qannealing.jpg"><img alt="../_images/Qannealing.jpg" src="../_images/Qannealing.jpg" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 38 </span><span class="caption-text"><a class="reference external" href="https://medium.com/%40deltorobarba/the-many-worlds-of-quantum-inspired-cd608cb9a7d2">https://medium.com/%40deltorobarba/the-many-worlds-of-quantum-inspired-cd608cb9a7d2</a></span><a class="headerlink" href="#id10" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 <p><strong>Example: D-Wave Advantage</strong></p>
 <ul class="simple">
 <li><p>5000+ qubits, but is not fault-tolerant and cannot run arbitrary quantum algorithms.</p></li>
 <li><p>Designed to solve problems that can be mapped to a specific type of Hamiltonian (Ising model or QUBO).</p></li>
 <li><p>Finds low-energy configurations of the Hamiltonian, which correspond to optimal or near-optimal solutions to the original problem.</p></li>
 </ul>
-<img src="./images/d-wave-adv2-chip.jpg" width=200>
-Photo credit: D-Wave Quantum Inc. 
-</img>
+<img alt="../_images/d-wave-adv2-chip.jpg" src="../_images/d-wave-adv2-chip.jpg" />
 </section>
 <hr class="docutils" />
 <section id="noise">
@@ -1545,11 +1559,11 @@ Y\ket{\psi} &amp;= Y(\alpha\ket{0}+\beta\ket{1}) \\
 </ul>
 </li>
 </ul>
-<figure class="align-center" id="id10">
+<figure class="align-center" id="id11">
 <a class="reference internal image-reference" href="../_images/cooling.png"><img alt="../_images/cooling.png" src="../_images/cooling.png" style="width: 75%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 38 </span><span class="caption-text">source: <a class="reference external" href="https://web.physics.ucsb.edu/~martinisgroup/theses/Bialczak2011.pdf">https://web.physics.ucsb.edu/~martinisgroup/theses/Bialczak2011.pdf</a></span><a class="headerlink" href="#id10" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 39 </span><span class="caption-text">source: <a class="reference external" href="https://web.physics.ucsb.edu/~martinisgroup/theses/Bialczak2011.pdf">https://web.physics.ucsb.edu/~martinisgroup/theses/Bialczak2011.pdf</a></span><a class="headerlink" href="#id11" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
