@@ -312,10 +312,11 @@ https://www.quandela.com/resources/blog/what-is-a-quantum-computer/
 
 ## Encoding qubits with photons
 
+
 | | Polarization | Dual rail | Time-bin |
 |---|---|---|---|
-| $\;\;\;\;\;\;\;\;\;\lvert0\rangle$ | <img src="./figures/L05/polarization-0-crop.gif" width="110" /> | <img src="./figures/L05/DualRail0.png" width="150" /> | <img src="./figures/L05/timebin_0.png" width="250" /> |
-| $\;\;\;\;\;\;\;\;\;\lvert1\rangle$ | <img src="./figures/L05/polarization-1-crop.gif" width="150" /> | <img src="./figures/L05/DualRail1.png" width="150" /> | <img src="./figures/L05/timebin_1.png" width="250" /> |
+| $\lvert0\rangle$ | ![](./images/polarization-0-crop.gif) | ![](./images/DualRail0.png) | ![](./images/timebin_0.png) |
+| $\lvert1\rangle$ | ![](./images/polarization-1-crop.gif) | ![](./images/DualRail1.png) | ![](./images/timebin_1.png) |
 
 
 
@@ -389,34 +390,45 @@ No single modality currently wins on all criteria.
 - The Hamiltonian $H$ is the operator associated with the total energy of a system.
 - It determines how the system evolves in time, through the Schrödinger equation:
 
-$$
+$$\Large{
 i\hbar \frac{d}{dt}\lvert\psi(t)\rangle
 = H\lvert\psi(t)\rangle
+}
 $$
 
 - $\hbar$ is the reduced Planck's constant
 - $\frac{d}{dt}$ denotes the time derivative — how the quantum state changes with time.
 - The eigenstates of $H$ have energies $E_n$:
 
-$$
+$$\Large{
 H\lvert E_n\rangle = E_n\lvert E_n\rangle
+}
 $$
 
 :::{admonition} Ground state - definition
 :class: success
 
-The eigenstate with the lowest energy.
+The ground state of a quantum system is the eigenstate with the lowest energy.
 
 :::
 
+In the figure below, the eigenstates of Hydrogen atom are illustrated as circular
+orbitals with labels $n=1,2,3,...$.
 
-<img src="./images/Bohr-Model-H.png" width="150">
-  https://unifyphysics.com/bohr-model-of-hydrogen-atom/
-</img>
+```{image} ./images/Bohr-Model-H.png
+:width: 60%
+:align: center
+```
 
+Their actual energies are plotted below -
 
-<img src="./images/Energy-levels.png" width="150">
-</img>
+```{image} ./images/Energy-levels.png
+:width: 40%
+:align: center
+
+```
+
+source: https://unifyphysics.com/bohr-model-of-hydrogen-atom/
 
 
 ---
@@ -428,27 +440,34 @@ The eigenstate with the lowest energy.
 - For a time-independent $H$, the Schrödinger equation is solved by:
 
 $$
+\Large{
 \lvert\psi(t)\rangle = e^{-iHt/\hbar}\lvert\psi(0)\rangle = U(t)\lvert\psi(0)\rangle
+}
 $$
 
 - The evolution operator $U(t)$ is **unitary**: $U^\dagger U = I$
-  - Total probability stays equal to 1 (the state stays normalised)
-  - Evolution is **reversible**: $U^{-1} = U^\dagger$
-  - Quantum gates are unitaries too, so analog evolution under $H$ is one long, continuous "gate"
+- Total probability stays equal to 1 (the state stays normalised)
+- Evolution is **reversible**: $U^{-1} = U^\dagger$
+- Quantum gates are unitaries too, so analog evolution under $H$ is one long, continuous "gate"
 
 
 :::{admonition} Eigenstates are stationary
 :class: success
 
 - If the system starts in an eigenstate $\lvert E_n\rangle$ of $H$:
+
 $$
+\Large{
 \lvert\psi(t)\rangle = e^{-iHt/\hbar}\lvert E_n\rangle
+}
 $$
 
 - Remember $H\lvert E_n\rangle = E_n\lvert E_n\rangle$, so
 
 $$
+\Large{
 \lvert\psi(t)\rangle =e^{-iE_n t/\hbar}\lvert E_n\rangle
+}
 $$
 
 - The state only picks up a phase; measurement probabilities never change.
@@ -531,11 +550,12 @@ $$
 
 - Useful for problems which map to the Rydberg Hamiltonian, which may be time-dependent:
 
-$$
+$$\Large{
 \begin{align*}
 \hat H(t) = \frac{\hbar\Omega(t)}{2}\sum_j\hat\sigma_j^x - \hbar\delta(t)\sum_j\hat\sigma_j^z \\
 +\sum_{i\neq j} J_{ij}\hat\sigma_i^z\hat\sigma_j^z,
 \end{align*}
+}
 $$
 
 
@@ -557,20 +577,22 @@ $$
   - **Finance:** portfolio optimisation
   - **Machine learning, scientific computing, scheduling, routing**
 
-<img src="./images/Qannealing.jpg" width=400>
-  https://medium.com/%40deltorobarba/the-many-worlds-of-quantum-inspired-cd608cb9a7d2
-</img>
+```{figure} ./images/Qannealing.jpg
+:align: center
+:width: 100%
 
+https://medium.com/%40deltorobarba/the-many-worlds-of-quantum-inspired-cd608cb9a7d2
+```
 
 **Example: D-Wave Advantage**
 - 5000+ qubits, but is not fault-tolerant and cannot run arbitrary quantum algorithms.
 - Designed to solve problems that can be mapped to a specific type of Hamiltonian (Ising model or QUBO).
 - Finds low-energy configurations of the Hamiltonian, which correspond to optimal or near-optimal solutions to the original problem.
 
-<img src="./images/d-wave-adv2-chip.jpg" width=200>
-Photo credit: D-Wave Quantum Inc. 
-</img>
+```{image} ./images/d-wave-adv2-chip.jpg
 
+Photo credit: D-Wave Quantum Inc. 
+```
 
 ---
 
