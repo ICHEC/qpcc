@@ -62,6 +62,366 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
+
+
+
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = "pre.mermaid {\n    /* Same as .mermaid-container > pre */\n    display: block;\n    width: 100%;\n}\n\npre.mermaid > svg {\n    /* Same as .mermaid-container > pre > svg */\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}";
+    document.head.appendChild(defaultStyle);
+
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = ".mermaid-container {\n    position: relative;\n    display: flex;\n    flex-direction: row;\n    width: 100%;\n}\n\n.mermaid-container > pre {\n    display: block;\n    width: 100%;\n}\n\n.mermaid-container > pre > svg {\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}\n\n.mermaid-fullscreen-btn {\n    position: absolute;\n    width: 28px;\n    height: 28px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.3);\n    border-radius: 4px;\n    cursor: pointer;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    transition: all 0.2s;\n    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);\n    font-size: 14px;\n    line-height: 1;\n    padding: 0;\n    color: #333;\n}\n\n.mermaid-fullscreen-btn:hover {\n    opacity: 100% !important;\n    background: rgba(255, 255, 255, 1);\n    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-btn.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.3);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-btn.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal {\n    display: none;\n    position: fixed !important;\n    top: 0 !important;\n    left: 0 !important;\n    width: 95vw;\n    height: 100vh;\n    background: rgba(255, 255, 255, 0.98);\n    z-index: 9999;\n    padding: 20px;\n    overflow: auto;\n}\n\n.mermaid-fullscreen-modal.dark-theme {\n    background: rgba(0, 0, 0, 0.98);\n}\n\n.mermaid-fullscreen-modal.active {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen {\n    position: relative;\n    width: 95vw;\n    height: 90vh;\n    max-width: 95vw;\n    max-height: 90vh;\n    background: white;\n    border-radius: 8px;\n    padding: 20px;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);\n    overflow: auto;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen.dark-theme {\n    background: #1a1a1a;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);\n}\n\n.mermaid-container-fullscreen pre.mermaid {\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen .mermaid svg {\n    height: 100% !important;\n    width: 100% !important;\n    cursor: grab;\n}\n\n.mermaid-fullscreen-close {\n    position: fixed !important;\n    top: 20px !important;\n    right: 20px !important;\n    width: 40px;\n    height: 40px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.2);\n    border-radius: 50%;\n    cursor: pointer;\n    z-index: 10000;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);\n    transition: all 0.2s;\n    font-size: 24px;\n    line-height: 1;\n    color: #333;\n}\n\n.mermaid-fullscreen-close:hover {\n    background: white;\n    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-close.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.2);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-close.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal .mermaid-fullscreen-btn {\n    display: none !important;\n}";
+    document.head.appendChild(fullscreenStyle);
+}
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
+        return brightness < 128;
+    }
+    // console.log("No dark or light theme detected, defaulting to light theme");
+    return false;
+};
+
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
+let _lazyObserver = null;
+let _renderQueue = Promise.resolve();
+let closeModal = () => {};
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal?.classList.contains('active')) {
+        closeModal();
+    }
+});
+
+// Apply d3 zoom to each SVG. Idempotent: an SVG already wrapped is skipped,
+// so this is safe to call both for the initial batch and for diagrams that
+// render lazily once they become visible.
+const addZoomToSvgs = (svgs) => {
+    svgs.each(function() {
+        if (this.getAttribute('data-zoom-applied') === 'true') return;
+        var svg = d3.select(this);
+        svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+        var inner = svg.select("g");
+        var zoom = d3.zoom().on("zoom", function(event) {
+            inner.attr("transform", event.transform);
+        });
+        svg.call(zoom);
+        this.setAttribute('data-zoom-applied', 'true');
+    });
+};
+
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        // Disconnect any previous lazy rendering observer
+        if (_lazyObserver) {
+            _lazyObserver.disconnect();
+            _lazyObserver = null;
+        }
+
+        all_mermaids.forEach((el) => {
+            el.removeAttribute('data-mermaid-deferred');
+            el.removeAttribute('data-mermaid-render-failed');
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+
+        // Separate visible and hidden elements. Mermaid's layout engine measures
+        // text dimensions via the DOM, which fails for elements hidden by a parent
+        // (e.g., Reveal.js non-active slides, sphinx-design unopened tabs),
+        // producing broken SVGs. Render visible elements now, defer hidden ones.
+        const visible = [];
+        const hidden = [];
+        all_mermaids.forEach((el) => {
+            // offsetParent is null for display:none ancestors.
+            // getClientRects().length > 0 catches position:fixed elements
+            // (which also have null offsetParent but are still visible).
+            if (el.offsetParent !== null || el.getClientRects().length > 0) {
+                visible.push(el);
+            } else {
+                hidden.push(el);
+                el.setAttribute('data-mermaid-deferred', 'true');
+            }
+        });
+
+        if (visible.length > 0) {
+            try {
+                await mermaid.run({ nodes: visible });
+            } catch (e) {
+                console.error("Mermaid rendering failed:", e);
+            }
+        }
+
+        // Lazily render hidden elements when they become visible.
+        // Uses a promise chain (_renderQueue) to serialize rendering,
+        // since IntersectionObserver may report multiple entries at once
+        // and mermaid.run() is not safe to call concurrently.
+        if (hidden.length > 0) {
+            if (typeof IntersectionObserver === 'undefined') {
+                console.warn("IntersectionObserver not available; hidden mermaid diagrams will not render.");
+            } else {
+                _renderQueue = Promise.resolve();
+                _lazyObserver = new IntersectionObserver((entries) => {
+                    for (const entry of entries) {
+                        if (entry.isIntersecting && entry.target.getAttribute("data-processed") !== "true") {
+                            _lazyObserver.unobserve(entry.target);
+                            const el = entry.target;
+                            _renderQueue = _renderQueue.then(async () => {
+                                try {
+                                    await mermaid.run({ nodes: [el] });
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    // Apply zoom to the now-rendered diagram, matching
+                                    // the decoration visible diagrams receive.
+                                    if (false) {
+                                        addZoomToSvgs(d3.selectAll("").select(function() {
+                                            return this.querySelector("svg");
+                                        }));
+                                    }
+                                } catch (e) {
+                                    console.error("Mermaid deferred rendering failed:", e);
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    el.setAttribute('data-mermaid-render-failed', 'true');
+                                }
+                            });
+                        }
+                    }
+                });
+                hidden.forEach((el) => _lazyObserver.observe(el));
+            }
+        }
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
+    // Exclude deferred (hidden) and render-failed elements from completion checks
+    const mermaids_active = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])");
+    const mermaids_processed = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])[data-processed='true']");
+
+    if (false) {
+        const mermaids_to_add_zoom = 0 === -1 ? mermaids_active.length : 0;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll("").select(function() {
+                return this.querySelector("svg");
+            });
+            // Wait until every active (visible) diagram has rendered. Deferred
+            // diagrams are excluded, so a fixed d3_node_count that counts a
+            // hidden diagram no longer loops forever waiting for its SVG.
+            if(mermaids_active.length !== mermaids_processed.length) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            }
+            addZoomToSvgs(svgs);
+        }
+    } else if(mermaids_active.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(() => runMermaid(false), 200);
+        return;
+    }
+
+    // Stop here if not adding fullscreen capability
+    if (!true) return;
+
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = "\u26f6";
+        fullscreenBtn.style.opacity = "50%";
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scrollX, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.display = 'block';
+
+                if (false) {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        container.appendChild(fullscreenBtn);
+    });
+};
+
+
+
+const load = async () => {
+    initStyles();
+
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...{"startOnLoad": false},
+                ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...{"startOnLoad": false},
+    ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+    }
+);
+
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-05/hardware-physics-qc';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <script src="../_static/parallel-sg.js?v=fc6e2f92"></script>
@@ -71,6 +431,8 @@
     <script src="../_static/bloch-path.js?v=fbcfb0fb"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Mathematical Structure" href="../topics/math-la.html" />
+    <link rel="prev" title="Lecture 4: First Quantum Algorithm" href="../lecture-04/lecture-04-fqa.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -158,6 +520,10 @@
   
 
   
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
 </div>
 
     </header>
@@ -167,8 +533,6 @@
     <div class="bd-container__inner bd-page-width">
       
       
-      
-        
       
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
@@ -250,6 +614,10 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 4</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../lecture-04/lecture-04-fqa.html">Lecture 4: First Quantum Algorithm</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 5</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Hardware &amp; Physics of Quantum Computers</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous Topics</span></p>
 <ul class="nav bd-sidenav">
@@ -376,7 +744,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -392,6 +762,85 @@
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#divincenzos-criteria">DiVincenzo’s Criteria</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features-of-quantum-physics">Key Features of Quantum Physics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-computing-hardware">Quantum Computing Hardware</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gate-based-vs-analog-quantum-computing">Gate-based vs Analog Quantum Computing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gate-based">Gate-based</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analog">Analog</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gate-based-quantum-computing">Gate-based quantum computing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-metrics">Performance Metrics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#superconducting-qubits">Superconducting Qubits</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pros-and-cons-of-superconducting-qubits">Pros and cons of superconducting qubits</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#advantages">✅ Advantages</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges">❌ Challenges</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trapped-ions">Trapped Ions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pros-and-cons-of-trapped-ions">Pros and cons of trapped ions</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">✅ Advantages</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">❌ Challenges</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#photonics">Photonics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#encoding-qubits-with-photons">Encoding qubits with photons</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pros-and-cons-of-photonics">Pros and cons of photonics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">✅ Advantages</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">❌ Challenges</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison">Comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analog-quantum-computing">Analog Quantum Computing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-hamiltonian">What is a Hamiltonian?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-evolution">Time-evolution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hamiltonian-example">Hamiltonian Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Analog Quantum Computing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rydberg-platforms">Rydberg Platforms</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-annealers">Quantum Annealers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#noise">Noise</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#errors-in-quantum-circuits">Errors in quantum circuits</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Errors in quantum circuits</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-quantum-errors">Types of Quantum Errors</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bit-flip-error-x-error">1. Bit-flip error (X error)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#phase-flip-error-z-error">2. Phase-flip error (Z error)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bit-phase-flip-error-y-error">3. Bit-phase-flip error (Y error)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tackling-noise">Tackling Noise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-3-bit-repetition-code">Classical 3-Bit Repetition Code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-error-correction">Quantum error correction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-computing-hardware-vs-simulators">Quantum Computing Hardware vs Simulators</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#executing-programs-on-quantum-hardware">Executing Programs on Quantum Hardware</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Advantages</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#disadvantages">Disadvantages</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qc-hardware-vs-software-simulators">QC Hardware vs Software Simulators</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -402,7 +851,904 @@
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="hardware-physics-of-quantum-computers">
-<h1>Hardware &amp; Physics of Quantum Computers<a class="headerlink" href="#hardware-physics-of-quantum-computers" title="Link to this heading">#</a></h1>
+<span id="lecture-5"></span><h1>Hardware &amp; Physics of Quantum Computers<a class="headerlink" href="#hardware-physics-of-quantum-computers" title="Link to this heading">#</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>These lecture notes are a work in progress and are not a replacement for watching the lecture video, it’s intended to be a supplementary reading after watching the lecture.</p>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Learning outcomes</p>
+<p>In this lecture we will try to understand the requirements for a useful quantum computer, learn the similarities and differences between several quantum computing modalities, both Gate-based and analogue, to understand the effect of noise on these computers, and to discuss the advantages and limitations of quantum computing hardware and software simulators.</p>
+</div>
+<ul class="simple">
+<li><p>Understand the requirements for a useful quantum computer</p></li>
+<li><p>Learn similarities and differences between several quantum computing modalities, both gate-based and analog</p></li>
+<li><p>Understand the effect of noise on quantum computers</p></li>
+<li><p>Discuss the advantages and limitations of quantum computing hardware and software simulators</p></li>
+</ul>
+<hr class="docutils" />
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Building a Quantum Computer, requires significant planning and strategy in terms of choosing the scientific pathway, well before other elements of industry are brought in, such as finance, availability of resource etc.</p>
+<p>We will just touch upon the common modalities that have yielded success, and the challenges they come with. We start by DiVincenso’s Criteria to define what qualifies as a quantum computer, and then go on to explore some of the technologies and how they are implemented.</p>
+<p>We also address the errors that are introduced due to noise in quantum system, and elaborate on how they affect the outcome of quantum computing, along with available methods to address them.</p>
+</section>
+<hr class="docutils" />
+<section id="divincenzos-criteria">
+<h2>DiVincenzo’s Criteria<a class="headerlink" href="#divincenzos-criteria" title="Link to this heading">#</a></h2>
+<p>David P. DiVincenzo was a prominant American theoretical physicist and one of the foundational figure in quantum information research. In 1999/2000 he laid out the physical requirements a platform must satisfy to be a viable quantum computer.</p>
+<ol class="arabic simple">
+<li><p><strong>A scalable physical system with well-characterized qubits</strong> — the Hilbert space must have two well-defined, distinguishable states per qubit</p></li>
+<li><p><strong>Ability to initialize the qubits to a simple state</strong>, e.g. <span class="math notranslate nohighlight">\(\ket{00\ldots0}\)</span></p></li>
+<li><p><strong>Long decoherence times</strong>, qubit lifetime much longer than the gate operation time</p></li>
+<li><p><strong>A “universal” set of quantum gates</strong> — enough single- and two-qubit gates to approximate any unitary</p></li>
+<li><p><strong>A qubit-specific measurement capability</strong> — read out individual qubits without destroying the rest of the computation</p></li>
+</ol>
+<div class="tip admonition">
+<p class="admonition-title">Definition</p>
+<p><strong>Decoherence</strong> is the process by which a quantum system loses its quantum properties due to interaction with the environment.</p>
+<p><strong>Decoherence time</strong> is how long a qubit can maintain its quantum state before decoherence occurs.</p>
+</div>
+<hr class="docutils" />
+<section id="key-features-of-quantum-physics">
+<h3>Key Features of Quantum Physics<a class="headerlink" href="#key-features-of-quantum-physics" title="Link to this heading">#</a></h3>
+<p>We have discussed this in previous lectures, but its neverthless a good idea to recall: Quantum computers are built from physical systems which are so small that they are governed by the rules of quantum mechanics -</p>
+<ul class="simple">
+<li><p><strong>Superposition</strong> — a qubit can occupy <span class="math notranslate nohighlight">\(\alpha\ket{0} + \beta\ket{1}\)</span>, not just <span class="math notranslate nohighlight">\(\ket{0}\)</span> or <span class="math notranslate nohighlight">\(\ket{1}\)</span></p></li>
+<li><p><strong>Entanglement</strong> — correlations between qubits with no classical analog, the resource behind quantum speedups</p></li>
+<li><p><strong>Interference</strong> — amplitudes combine constructively/destructively; algorithms are designed to interfere towards the correct answer</p></li>
+<li><p><strong>Measurement &amp; collapse</strong> — observing a qubit projects it onto an eigenstate, irreversibly destroying superposition</p></li>
+<li><p><strong>No-cloning theorem</strong> — an unknown quantum state cannot be copied exactly, which shapes how error correction and communication protocols must work</p></li>
+</ul>
+<p>Together, these features are simultaneously the <em>source</em> of quantum advantage and the <em>source</em> of the engineering difficulty in building hardware.</p>
+</section>
+</section>
+<section id="quantum-computing-hardware">
+<h2>Quantum Computing Hardware<a class="headerlink" href="#quantum-computing-hardware" title="Link to this heading">#</a></h2>
+<section id="gate-based-vs-analog-quantum-computing">
+<h3>Gate-based vs Analog Quantum Computing<a class="headerlink" href="#gate-based-vs-analog-quantum-computing" title="Link to this heading">#</a></h3>
+</section>
+<section id="gate-based">
+<h3>Gate-based<a class="headerlink" href="#gate-based" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Computation is built from a sequence of discrete quantum gates</p></li>
+<li><p>Gates implement unitary operations such as <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(H\)</span>, or <span class="math notranslate nohighlight">\(CNOT\)</span></p></li>
+<li><p>The quantum circuit specifies which operations to apply and in what order</p></li>
+<li><p>General-purpose: can implement arbitrary quantum algorithms</p></li>
+</ul>
+</section>
+<section id="analog">
+<h3>Analog<a class="headerlink" href="#analog" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Computation is performed by continuous evolution of the quantum system in time</p></li>
+<li><p>The problem is encoded within the dynamics of the system, and the solution is read out after evolution</p></li>
+<li><p>Physical parameters control the interactions and energy landscape</p></li>
+<li><p>Particularly suited to quantum simulation and optimisation</p></li>
+</ul>
+<div class="info admonition">
+<p class="admonition-title">Key Idea</p>
+<p>Gate-based computing programs a quantum system by specifying gates; analog computing programs it by specifying a time-evolution.</p>
+</div>
+</section>
+</section>
+<section id="gate-based-quantum-computing">
+<h2>Gate-based quantum computing<a class="headerlink" href="#gate-based-quantum-computing" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Different physical systems can be used to build <strong>gate-based quantum computers</strong>.</p></li>
+<li><p>The qubit technology determines how we <strong>control, couple and read out</strong> the qubits.</p></li>
+</ul>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Modality</strong></p></th>
+<th class="head"><p><strong>Qubit</strong></p></th>
+<th class="head"><p><strong>Example companies</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Superconducting</strong> ⭐</p></td>
+<td><p>Microwave circuits / Josephson junctions</p></td>
+<td><p>IBM, Google, Rigetti, IQM, Alice &amp; Bob</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Trapped ions</strong> ⭐</p></td>
+<td><p>Internal states of trapped ions</p></td>
+<td><p>IonQ, Quantinuum, AQT</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Photonic</strong> ⭐</p></td>
+<td><p>Properties of single photons</p></td>
+<td><p>PsiQuantum, Xanadu, Quandela</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Silicon spin</strong></p></td>
+<td><p>Electron spins in silicon quantum dots</p></td>
+<td><p>Equal1, Quobly, Intel, Diraq</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Neutral atoms</strong></p></td>
+<td><p>Atomic ground / Rydberg states</p></td>
+<td><p>QuEra, Pasqal, Atom Computing</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Topological</strong></p></td>
+<td><p>Topologically protected states</p></td>
+<td><p>Microsoft</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The modalities marked with ⭐  are the ones we explore in more detail below.</p>
+</section>
+<section id="performance-metrics">
+<h2>Performance Metrics<a class="headerlink" href="#performance-metrics" title="Link to this heading">#</a></h2>
+<p>Following are the key metrics one uses to compare different gate-based quantum computers:</p>
+<ul class="simple">
+<li><p><strong>Scalability</strong> : Ability to increase the number of qubits</p></li>
+<li><p><strong>Operating temperature</strong> : At what temperature do we require to maintain the qubits?</p></li>
+<li><p><strong>Coherence Times</strong> : How long do the qubits stay in a given state?</p></li>
+<li><p><strong>Fidelity</strong> : A measure of “closeness” of the actual qubit state in comparison to the ideal state.</p></li>
+<li><p><strong>Gate Operation times</strong> : How long does it take to act a particular gate on a given qubit.</p></li>
+<li><p><strong>Quantum Volume</strong> : A composite metric that aims to combine all the metrics above into one.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="superconducting-qubits">
+<h2>Superconducting Qubits<a class="headerlink" href="#superconducting-qubits" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Electrical circuit containing a <strong>Josephson junction</strong> cooled to very low temperatures resulting in <strong>superconductivity</strong>.</p></li>
+<li><p>Ground state and first excited state of circuit energy levels form a qubit.</p></li>
+<li><p>Most common variant: <strong>transmon</strong>, insensitive to charge noise.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/Supercond.png"><img alt="../_images/Supercond.png" class="align-center" src="../_images/Supercond.png" style="width: 700px;" />
+</a>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><strong>Superconductivity:</strong> certain materials exhibit <em>zero electrical resistance</em> and expel magnetic fields when <em>cooled</em> below a critical temperature.</p>
+<p><strong>Josephson junction:</strong> consists of two <em>superconductors</em> separated by a thin insulating <em>barrier</em>, allowing electrons to pass through via quantum <em>tunneling</em>.</p>
+</div>
+<a class="reference internal image-reference" href="../_images/joseph_junct.png"><img alt="../_images/joseph_junct.png" class="align-center" src="../_images/joseph_junct.png" style="width: 100%;" />
+</a>
+<ul class="simple">
+<li><p>Control and readout via <strong>microwave pulses</strong> delivered through waveguides / resonators.</p></li>
+<li><p>Require <span style="color:#e05252">extremely low temperatures (~10–20 mK)</span> to keep thermal excitations below the qubit energy gap.</p></li>
+<li><p>Two-qubit gates via tunable couplers between neighbouring qubits.</p></li>
+<li><p>Connectivity is typically <span style="color:#e05252">nearest-neighbour</span>.</p></li>
+<li><p>Gate times are <span style="color:#4caf50">fast (tens of ns)</span>, but coherence times are <span style="color:#e0a800">comparatively short (~100 μs)</span>.</p></li>
+<li><p><span style="color:#4caf50">Most widely used quantum computing platform today.</span></p></li>
+<li><p>Companies: <strong>IBM, Google, Rigetti, IQM, Alice &amp; Bob</strong>.</p></li>
+</ul>
+<figure class="align-default" id="id8">
+<a class="reference internal image-reference" href="../_images/IBM_tokyo.jpg"><img alt="../_images/IBM_tokyo.jpg" src="../_images/IBM_tokyo.jpg" style="width: 280px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 36 </span><span class="caption-text">IBM Quantum System One, as installed at Shin-Kawaski for the University of Tokyo. Photo: IBM Research, CC BY-ND 2.0</span><a class="headerlink" href="#id8" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<hr class="docutils" />
+<section id="pros-and-cons-of-superconducting-qubits">
+<h3>Pros and cons of superconducting qubits<a class="headerlink" href="#pros-and-cons-of-superconducting-qubits" title="Link to this heading">#</a></h3>
+<section id="advantages">
+<h4>✅ Advantages<a class="headerlink" href="#advantages" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Fast gates</strong>: tens of nanoseconds, so many operations fit within the coherence time.</p></li>
+<li><p><strong>Mature fabrication</strong>: built with lithographic techniques borrowed from the semiconductor industry, so chips can be mass-produced and designed flexibly.</p></li>
+<li><p><strong>Tunable couplers</strong> and allow engineering of qubit interactions.</p></li>
+<li><p>Most <strong>developed ecosystem</strong>: largest industry investment, cloud access, and the most advanced qubit counts among gate-based platforms.</p></li>
+<li><p>Compatible with <strong>microwave control electronics</strong>, and readout is fast.</p></li>
+</ul>
+</section>
+<section id="challenges">
+<h4>❌ Challenges<a class="headerlink" href="#challenges" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Extreme cryogenics</strong>: dilution refrigerators at ~10–20 mK, which are expensive and limit how much hardware fits inside.</p></li>
+<li><p><strong>Short coherence times</strong> (~100 μs) compared with ions.</p></li>
+<li><p><strong>Nearest-neighbour connectivity</strong> means extra SWAP gates for distant qubits, adding depth and errors.</p></li>
+<li><p><strong>Crosstalk and fabrication variability</strong>: qubit frequencies differ between devices, and material defects add noise.</p></li>
+<li><p><strong>Wiring bottleneck</strong>: every qubit needs control lines running from room temperature down to the chip.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="trapped-ions">
+<h2>Trapped Ions<a class="headerlink" href="#trapped-ions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Qubits encoded in internal electronic states of ions in a <strong>Paul trap</strong> (oscillating electromagnetic fields).</p></li>
+<li><p>Ions are laser-cooled to their motional ground state and arranged in a chain or 2D array.</p></li>
+<li><p>Single-qubit gates: laser/microwave pulses applied to individual ions.</p></li>
+<li><p>Two-qubit gates: mediated through the ions’ shared collective motion.</p></li>
+<li><p><span style="color:#4caf50"><strong>All-to-all connectivity</strong></span> within a trap: any ion can be entangled with any other.</p></li>
+<li><p><span style="color:#4caf50">Very long coherence times (seconds) and high gate fidelities.</span></p></li>
+<li><p><span style="color:#e05252">Slower gates than superconducting qubits (μs range)</span>, and <span style="color:#e05252">scaling requires interconnects between traps</span>.</p></li>
+<li><p>Companies: <strong>IonQ, Quantinuum, Alpine Quantum Technologies</strong>.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/TrapIons.png"><img alt="../_images/TrapIons.png" src="../_images/TrapIons.png" style="width: 100%;" />
+</a>
+<section id="pros-and-cons-of-trapped-ions">
+<h3>Pros and cons of trapped ions<a class="headerlink" href="#pros-and-cons-of-trapped-ions" title="Link to this heading">#</a></h3>
+<section id="id1">
+<h4>✅ Advantages<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Very long coherence times</strong>: seconds or longer, far beyond superconducting qubits.</p></li>
+<li><p><strong>Highest gate fidelities</strong> demonstrated of any platform.</p></li>
+<li><p><strong>All-to-all connectivity</strong> within a trap, so no SWAP overhead.</p></li>
+<li><p><strong>Identical qubits</strong>: every ion of a given species is the same, so there is no fabrication variability.</p></li>
+<li><p><strong>High-fidelity readout</strong> of measurement outcomes.</p></li>
+</ul>
+</section>
+<section id="id2">
+<h4>❌ Challenges<a class="headerlink" href="#id2" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Slow gates</strong>: microseconds to milliseconds, so deep circuits take a long time to run.</p></li>
+<li><p><strong>Scaling</strong>: long ion chains need ion <strong>shuttling</strong> between zones or <strong>photonic links</strong> between traps.</p></li>
+<li><p><strong>Complex laser systems</strong>: precise, stable optical control of individual ions is demanding.</p></li>
+<li><p><strong>Ultra-high vacuum</strong> and trap engineering add hardware complexity.</p></li>
+<li><p>Lower <strong>clock speed</strong> limits throughput for algorithms needing many repeated runs.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="photonics">
+<h2>Photonics<a class="headerlink" href="#photonics" title="Link to this heading">#</a></h2>
+<div class="info admonition">
+<p class="admonition-title">What is a photon?</p>
+<p>Einstein proposed in 1905 that light is composed of discrete packets of energy which we now call <strong>photons</strong>. Each photon carries energy <span class="math notranslate nohighlight">\(E=hf\)</span>, where <span class="math notranslate nohighlight">\(h\)</span> is Planck’s constant and <span class="math notranslate nohighlight">\(f\)</span> is the frequency (colour) of the light.</p>
+</div>
+<ul class="simple">
+<li><p>Qubits encoded in properties of <strong>single photons</strong>.</p></li>
+<li><p>Manipulated using <strong>linear optical elements</strong>: beam splitters, phase shifters, waveguides.</p></li>
+<li><p><strong>Universal</strong> computation is possible with linear optics, single-photon sources, and measurement-based feedforward.</p></li>
+<li><p><strong>Photonic integrated circuits</strong> fit all optical components on a chip, enabling scaling.</p></li>
+<li><p>Companies: <strong>PsiQuantum, Xanadu, Quandela</strong>.</p></li>
+</ul>
+<figure class="align-default" id="id9">
+<a class="reference internal image-reference" href="../_images/photonics.png"><img alt="../_images/photonics.png" src="../_images/photonics.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 37 </span><span class="caption-text"><a class="reference external" href="https://www.quandela.com/resources/blog/what-is-a-quantum-computer/">https://www.quandela.com/resources/blog/what-is-a-quantum-computer/</a></span><a class="headerlink" href="#id9" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<hr class="docutils" />
+<section id="encoding-qubits-with-photons">
+<h2>Encoding qubits with photons<a class="headerlink" href="#encoding-qubits-with-photons" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Polarization</p></th>
+<th class="head"><p>Dual rail</p></th>
+<th class="head"><p>Time-bin</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\;\;\;\;\;\;\;\;\;\lvert0\rangle\)</span></p></td>
+<td><p><a class="reference internal" href="lecture-05/figures/L05/polarization-0-crop.gif"><img alt="lecture-05/figures/L05/polarization-0-crop.gif" src="lecture-05/figures/L05/polarization-0-crop.gif" style="width: 110px;" /></a></p></td>
+<td><p><a class="reference internal" href="lecture-05/figures/L05/DualRail0.png"><img alt="lecture-05/figures/L05/DualRail0.png" src="lecture-05/figures/L05/DualRail0.png" style="width: 150px;" /></a></p></td>
+<td><p><a class="reference internal" href="lecture-05/figures/L05/timebin_0.png"><img alt="lecture-05/figures/L05/timebin_0.png" src="lecture-05/figures/L05/timebin_0.png" style="width: 250px;" /></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\;\;\;\;\;\;\;\;\;\lvert1\rangle\)</span></p></td>
+<td><p><a class="reference internal" href="lecture-05/figures/L05/polarization-1-crop.gif"><img alt="lecture-05/figures/L05/polarization-1-crop.gif" src="lecture-05/figures/L05/polarization-1-crop.gif" style="width: 150px;" /></a></p></td>
+<td><p><a class="reference internal" href="lecture-05/figures/L05/DualRail1.png"><img alt="lecture-05/figures/L05/DualRail1.png" src="lecture-05/figures/L05/DualRail1.png" style="width: 150px;" /></a></p></td>
+<td><p><a class="reference internal" href="lecture-05/figures/L05/timebin_1.png"><img alt="lecture-05/figures/L05/timebin_1.png" src="lecture-05/figures/L05/timebin_1.png" style="width: 250px;" /></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="pros-and-cons-of-photonics">
+<h2>Pros and cons of photonics<a class="headerlink" href="#pros-and-cons-of-photonics" title="Link to this heading">#</a></h2>
+<section id="id3">
+<h3>✅ Advantages<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Room temperature</strong> operation — refrigerators only needed for single-photon sources and detectors.</p></li>
+<li><p><strong>Low decoherence</strong>: photons barely interact with the environment, preserving coherence over long distances.</p></li>
+<li><p>Naturally suited to <strong>networking and communication</strong> — photons are the native carrier for quantum links between nodes.</p></li>
+<li><p>Existing <strong>telecom infrastructure</strong> (fibre, integrated photonics) can be leveraged.</p></li>
+<li><p>High potential <strong>clock speeds</strong>, since photons travel at the speed of light.</p></li>
+</ul>
+</section>
+<section id="id4">
+<h3>❌ Challenges<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Deterministic single-photon sources</strong> are hard to engineer — most sources are probabilistic.</p></li>
+<li><p><strong>Photon loss</strong> accumulates with circuit depth and distance, limiting scalability.</p></li>
+<li><p>Two-photon gates are inherently <strong>probabilistic</strong> (no direct photon-photon interaction)</p></li>
+<li><p><strong>Detector inefficiency</strong> further compounds loss: photon-number-resolving detectors are difficult to build and operate.</p></li>
+<li><p>Requires many auxiliary photons and fast feed-forward electronics to reach fault tolerance.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="comparison">
+<h2>Comparison<a class="headerlink" href="#comparison" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p><strong>Superconducting</strong></p></th>
+<th class="head"><p><strong>Trapped Ion</strong></p></th>
+<th class="head"><p><strong>Photonic</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Qubit</strong></p></td>
+<td><p>Josephson junction</p></td>
+<td><p>Ion internal states</p></td>
+<td><p>Photon</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Connectivity</strong></p></td>
+<td><p><span style="color:#e05252">Nearest-neighbour</span></p></td>
+<td><p><span style="color:#4caf50">All-to-all</span></p></td>
+<td><p><span style="color:#4caf50">Reconfigurable via optics</span></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Gate speed</strong></p></td>
+<td><p><span style="color:#4caf50">~10–100 ns (fast)</span></p></td>
+<td><p><span style="color:#e05252">~1–100 μs (slower)</span></p></td>
+<td><p><span style="color:#e0a800">Very fast, but probabilistic</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Coherence time</strong></p></td>
+<td><p><span style="color:#e0a800">~100 μs</span></p></td>
+<td><p><span style="color:#4caf50">Seconds (very long)</span></p></td>
+<td><p><span style="color:#4caf50"> ~1ms (long) </span></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Temperature</strong></p></td>
+<td><p><span style="color:#e05252">~10–20 mK</span></p></td>
+<td><p><span style="color:#4caf50">Room temp (ions laser-cooled)</span></p></td>
+<td><p><span style="color:#4caf50">Room temp</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span style="color:#4caf50"><strong>Main advantage</strong></span></p></td>
+<td><p>Fast gates, mature ecosystem</p></td>
+<td><p>All-to-all connectivity</p></td>
+<td><p>Low decoherence</p></td>
+</tr>
+<tr class="row-even"><td><p><span style="color:#e05252"><strong>Main challenge</strong></span></p></td>
+<td><p>Decoherence, crosstalk</p></td>
+<td><p>Scaling / shuttling, slower gates</p></td>
+<td><p>Deterministic sources, photon loss</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Companies</strong></p></td>
+<td><p>IBM, Google, Rigetti, IQM, Alice&amp;Bob</p></td>
+<td><p>IonQ, Quantinuum, AQT</p></td>
+<td><p>PsiQuantum, Xanadu, Quandela</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<!--- 
+NB for trapped ion cooling:
+
+Two different things are being cooled
+
+- The apparatus (vacuum chamber, electrodes, surrounding hardware) sits at room temperature — no dilution refrigerator required, unlike superconducting qubits.
+
+- The ions themselves are cooled, but not thermally via a fridge — they're cooled with lasers down to near their motional ground state, often µK-level.
+
+No single modality currently wins on all criteria. 
+
+-->
+</section>
+<hr class="docutils" />
+<section id="analog-quantum-computing">
+<h2>Analog Quantum Computing<a class="headerlink" href="#analog-quantum-computing" title="Link to this heading">#</a></h2>
+<section id="what-is-a-hamiltonian">
+<h3>What is a Hamiltonian?<a class="headerlink" href="#what-is-a-hamiltonian" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The Hamiltonian <span class="math notranslate nohighlight">\(H\)</span> is the operator associated with the total energy of a system.</p></li>
+<li><p>It determines how the system evolves in time, through the Schrödinger equation:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+i\hbar \frac{d}{dt}\lvert\psi(t)\rangle
+= H\lvert\psi(t)\rangle
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\hbar\)</span> is the reduced Planck’s constant</p></li>
+<li><p><span class="math notranslate nohighlight">\(\frac{d}{dt}\)</span> denotes the time derivative — how the quantum state changes with time.</p></li>
+<li><p>The eigenstates of <span class="math notranslate nohighlight">\(H\)</span> have energies <span class="math notranslate nohighlight">\(E_n\)</span>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+H\lvert E_n\rangle = E_n\lvert E_n\rangle
+\]</div>
+<div class="success admonition">
+<p class="admonition-title">Ground state - definition</p>
+<p>The eigenstate with the lowest energy.</p>
+</div>
+<img src="./images/Bohr-Model-H.png" width="150">
+  https://unifyphysics.com/bohr-model-of-hydrogen-atom/
+</img>
+<a class="reference internal image-reference" href="../_images/Energy-levels.png"><img alt="../_images/Energy-levels.png" src="../_images/Energy-levels.png" style="width: 150px;" />
+</a>
+</section>
+</section>
+<hr class="docutils" />
+<section id="time-evolution">
+<h2>Time-evolution<a class="headerlink" href="#time-evolution" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\lvert\psi(t)\rangle\)</span> is the <strong>state of the system at time <span class="math notranslate nohighlight">\(t\)</span></strong>, given the starting state <span class="math notranslate nohighlight">\(\lvert\psi(0)\rangle\)</span>.</p></li>
+<li><p>For a time-independent <span class="math notranslate nohighlight">\(H\)</span>, the Schrödinger equation is solved by:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\lvert\psi(t)\rangle = e^{-iHt/\hbar}\lvert\psi(0)\rangle = U(t)\lvert\psi(0)\rangle
+\]</div>
+<ul class="simple">
+<li><p>The evolution operator <span class="math notranslate nohighlight">\(U(t)\)</span> is <strong>unitary</strong>: <span class="math notranslate nohighlight">\(U^\dagger U = I\)</span></p>
+<ul>
+<li><p>Total probability stays equal to 1 (the state stays normalised)</p></li>
+<li><p>Evolution is <strong>reversible</strong>: <span class="math notranslate nohighlight">\(U^{-1} = U^\dagger\)</span></p></li>
+<li><p>Quantum gates are unitaries too, so analog evolution under <span class="math notranslate nohighlight">\(H\)</span> is one long, continuous “gate”</p></li>
+</ul>
+</li>
+</ul>
+<div class="success admonition">
+<p class="admonition-title">Eigenstates are stationary</p>
+<ul class="simple">
+<li><p>If the system starts in an eigenstate <span class="math notranslate nohighlight">\(\lvert E_n\rangle\)</span> of <span class="math notranslate nohighlight">\(H\)</span>:
+$<span class="math notranslate nohighlight">\(
+\lvert\psi(t)\rangle = e^{-iHt/\hbar}\lvert E_n\rangle
+\)</span>$</p></li>
+<li><p>Remember <span class="math notranslate nohighlight">\(H\lvert E_n\rangle = E_n\lvert E_n\rangle\)</span>, so</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\lvert\psi(t)\rangle =e^{-iE_n t/\hbar}\lvert E_n\rangle
+\]</div>
+<ul class="simple">
+<li><p>The state only picks up a phase; measurement probabilities never change.</p></li>
+<li><p>Hence eigenstates are known as <strong>stationary states</strong> of the Hamiltonian</p></li>
+</ul>
+</div>
+</section>
+<hr class="docutils" />
+<section id="hamiltonian-example">
+<h2>Hamiltonian Example<a class="headerlink" href="#hamiltonian-example" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>For a qubit, a simple Hamiltonian might combine an energy splitting with a driving term, e.g.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+H = \frac{\Delta}{2}Z + \frac{\Omega}{2}X
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(Z\)</span> and <span class="math notranslate nohighlight">\(X\)</span> are the Pauli operators:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+Z =
+\begin{pmatrix}
+1 &amp; 0\\
+0 &amp; -1
+\end{pmatrix},
+\qquad
+X =
+\begin{pmatrix}
+0 &amp; 1\\
+1 &amp; 0
+\end{pmatrix}.
+\end{split}\]</div>
+<ul class="simple">
+<li><p>Here, <span class="math notranslate nohighlight">\(\Delta\)</span> sets the energy splitting and <span class="math notranslate nohighlight">\(\Omega\)</span> controls the strength of the drive.</p></li>
+<li><p>In gate-based quantum computing, carefully engineered interactions are used to implement short, discrete unitary gates.</p></li>
+<li><p>In analog quantum computing, the Hamiltonian itself is the program: physical parameters such as detuning <span class="math notranslate nohighlight">\(\Delta\)</span> and coupling <span class="math notranslate nohighlight">\(\Omega\)</span> are controlled continuously, and the system evolves under the resulting Hamiltonian to perform the computation.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id5">
+<h2>Analog Quantum Computing<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Type of analog computing</p></th>
+<th class="head"><p>Physical implementation</p></th>
+<th class="head"><p>Applications</p></th>
+<th class="head"><p>Companies</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Neutral-atom computing</strong></p></td>
+<td><p>Rydberg platforms</p></td>
+<td><p>Quantum simulation — e.g. Bose–Hubbard and Ising models</p></td>
+<td><p>Pasqal, QuEra</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Quantum annealing</strong></p></td>
+<td><p>Superconducting qubits</p></td>
+<td><p>Combinatorial optimisation — e.g. Max-Cut, travelling salesman</p></td>
+<td><p>D-Wave</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p><strong>Neutral-atom platforms</strong>:</p>
+<ul>
+<li><p>Atoms arranged in array, evolved under a Hamiltonian which encodes the problem</p></li>
+</ul>
+</li>
+<li><p><strong>Quantum annealers</strong>:</p>
+<ul>
+<li><p>Evolve system slowly from an easy initial Hamiltonian to a problem Hamiltonian</p></li>
+<li><p>Aiming to remain in the ground state (this encodes the solution)</p></li>
+</ul>
+</li>
+</ul>
+<div class="warning admonition">
+<p class="admonition-title">Analog vs gate-based trade-off</p>
+<ul class="simple">
+<li><p>Analog systems can reach very large qubit counts and natively simulate certain physics</p></li>
+<li><p>But offer less fine-grained general-purpose control and less researched error-correction schemes</p></li>
+</ul>
+</div>
+<hr class="docutils" />
+<section id="rydberg-platforms">
+<h3>Rydberg Platforms<a class="headerlink" href="#rydberg-platforms" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Rydberg atoms are neutral atoms which possess a ground state and a highly-excited Rydberg state, which can be used to encode a qubit.</p></li>
+<li><p>These atoms can be arranged in an array and controlled using lasers</p></li>
+</ul>
+<a class="reference internal image-reference" href="lecture-05/figures/L05/RydbSim.jpg"><img alt="lecture-05/figures/L05/RydbSim.jpg" src="lecture-05/figures/L05/RydbSim.jpg" style="width: 500px;" />
+</a>
+<ul class="simple">
+<li><p>Useful for problems which map to the Rydberg Hamiltonian, which may be time-dependent:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\hat H(t) = \frac{\hbar\Omega(t)}{2}\sum_j\hat\sigma_j^x - \hbar\delta(t)\sum_j\hat\sigma_j^z \\
++\sum_{i\neq j} J_{ij}\hat\sigma_i^z\hat\sigma_j^z,
+\end{align*}
+\end{split}\]</div>
+<ul class="simple">
+<li><p>Simulating the dynamics of a many-body system on a classical computer
+generally becomes <strong>exponentially costly</strong> with system size.</p></li>
+<li><p>Rydberg platforms can <strong>directly realise the Hamiltonian dynamics</strong>
+in a physical quantum system.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="quantum-annealers">
+<h2>Quantum Annealers<a class="headerlink" href="#quantum-annealers" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Not universal quantum computers</p></li>
+<li><p>Particularly suited for solving combinatorial optimization problems:</p>
+<ul>
+<li><p><strong>Graph problems:</strong> Max-Cut, graph colouring</p></li>
+<li><p><strong>Finance:</strong> portfolio optimisation</p></li>
+<li><p><strong>Machine learning, scientific computing, scheduling, routing</strong></p></li>
+</ul>
+</li>
+</ul>
+<img src="./images/Qannealing.jpg" width=400>
+  https://medium.com/%40deltorobarba/the-many-worlds-of-quantum-inspired-cd608cb9a7d2
+</img>
+<p><strong>Example: D-Wave Advantage</strong></p>
+<ul class="simple">
+<li><p>5000+ qubits, but is not fault-tolerant and cannot run arbitrary quantum algorithms.</p></li>
+<li><p>Designed to solve problems that can be mapped to a specific type of Hamiltonian (Ising model or QUBO).</p></li>
+<li><p>Finds low-energy configurations of the Hamiltonian, which correspond to optimal or near-optimal solutions to the original problem.</p></li>
+</ul>
+<img src="./images/d-wave-adv2-chip.jpg" width=200>
+Photo credit: D-Wave Quantum Inc. 
+</img>
+</section>
+<hr class="docutils" />
+<section id="noise">
+<h2>Noise<a class="headerlink" href="#noise" title="Link to this heading">#</a></h2>
+<section id="errors-in-quantum-circuits">
+<h3>Errors in quantum circuits<a class="headerlink" href="#errors-in-quantum-circuits" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>State prep error</p></th>
+<th class="head"><p>Gate error</p></th>
+<th class="head"><p>Crosstalk</p></th>
+<th class="head"><p>Readout error</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>initial state ↓</p></td>
+<td><p>over/under-rotation ↓</p></td>
+<td><p>gates disturb neighbours ↓</p></td>
+<td><p>↓ measurement</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><quantum-circuit qubits="4" gates="H:0, X:1, CNOT:2:1, H:2, X:3, Z:2, H:2, M:0, M:1, M:2, M:3" scale="3"></quantum-circuit></p>
+<p>Decoherence accumulates over the full circuit duration →</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id6">
+<h2>Errors in quantum circuits<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>State preparation errors</strong> — the initial state is not perfectly prepared</p></li>
+<li><p><strong>Gate errors</strong> — imperfect physical implementation (control pulses/laser timing) leads to over/under-rotation, systematic or random</p></li>
+<li><p><strong>Crosstalk</strong> — operations on one qubit unintentionally affect neighbouring qubits</p></li>
+<li><p><strong>Decoherence</strong> — unwanted interaction with the environment degrades quantum information</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(T_1\)</span> (relaxation time): timescale for energy loss, <span class="math notranslate nohighlight">\(\ket{1}\to\ket{0}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(T_2\)</span> (dephasing time): timescale for loss of phase coherence between <span class="math notranslate nohighlight">\(\ket{0}\)</span> and <span class="math notranslate nohighlight">\(\ket{1}\)</span></p></li>
+</ul>
+</li>
+<li><p><strong>Readout errors</strong> — measurement outcomes are misassigned (e.g. a <span class="math notranslate nohighlight">\(\ket{1}\)</span> read as <span class="math notranslate nohighlight">\(\ket{0}\)</span>)</p></li>
+</ul>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>These error sources are why today’s devices are called <strong>NISQ</strong> (Noisy Intermediate-Scale Quantum) machines, and why quantum error correction / error mitigation is central to reaching fault-tolerant quantum computing.</p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="types-of-quantum-errors">
+<h2>Types of Quantum Errors<a class="headerlink" href="#types-of-quantum-errors" title="Link to this heading">#</a></h2>
+<section id="bit-flip-error-x-error">
+<h3>1. Bit-flip error (X error)<a class="headerlink" href="#bit-flip-error-x-error" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\ket{0} \leftrightarrow \ket{1}\;\)</span> :</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+X\ket{\psi} = X(\alpha\ket{0}+\beta\ket{1}) = \alpha\ket{1}+\beta\ket{0}
+\]</div>
+<ul class="simple">
+<li><p>Analogous to a classical bit flip; caused e.g. by unwanted energy exchange with the environment.</p></li>
+</ul>
+</section>
+<section id="phase-flip-error-z-error">
+<h3>2. Phase-flip error (Z error)<a class="headerlink" href="#phase-flip-error-z-error" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Relative phase between <span class="math notranslate nohighlight">\(\ket{0}\)</span> and <span class="math notranslate nohighlight">\(\ket{1}\)</span> is flipped:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[Z\ket{\psi} = Z(\alpha\ket{0}+\beta\ket{1}) = \alpha\ket{0}-\beta\ket{1}\]</div>
+<ul class="simple">
+<li><p>Has no classical analog; the dominant error from <strong>dephasing</strong>.</p></li>
+</ul>
+</section>
+<section id="bit-phase-flip-error-y-error">
+<h3>3. Bit-phase-flip error (Y error)<a class="headerlink" href="#bit-phase-flip-error-y-error" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Combination of both <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Z\)</span> errors</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+Y\ket{\psi} &amp;= Y(\alpha\ket{0}+\beta\ket{1}) \\
+&amp;= i(\alpha\ket{1}-\beta\ket{0})
+\end{align*}
+\end{split}\]</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<ul class="simple">
+<li><p>Any single-qubit error can be written as a combination of <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span>, <span class="math notranslate nohighlight">\(Z\)</span> — the Pauli operators</p></li>
+<li><p>Therefore correcting bit- and phase-flips is sufficient to correct <em>arbitrary</em> small errors</p></li>
+</ul>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="tackling-noise">
+<h2>Tackling Noise<a class="headerlink" href="#tackling-noise" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Cooling / isolation</strong></p>
+<ul>
+<li><p>Thermal fluctuations adversely impact the performance of quantum computers</p></li>
+<li><p>At lower temperatures, we can keep the thermal energy lower than the energy gap between qubit states, reducing unwanted excitations.</p></li>
+</ul>
+</li>
+<li><p><strong>How cold?</strong></p>
+<ul>
+<li><p>Very! In some cases colder than deep space (~2K or -271<span class="math notranslate nohighlight">\(^\circ\)</span>C). For example:</p>
+<ul>
+<li><p>Superconducting qubits: ~10–20mK (~ -273<span class="math notranslate nohighlight">\(^\circ\)</span>C) using dilution refrigerator</p></li>
+<li><p>Trapped ions: overall apparatus room temperature, but ions laser-cooled to near motional ground state (~μK)</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Techniques</strong></p>
+<ul>
+<li><p>Helium dilution refrigeration</p></li>
+<li><p>Laser cooling</p></li>
+</ul>
+</li>
+</ul>
+<figure class="align-center" id="id10">
+<a class="reference internal image-reference" href="../_images/cooling.png"><img alt="../_images/cooling.png" src="../_images/cooling.png" style="width: 75%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 38 </span><span class="caption-text">source: <a class="reference external" href="https://web.physics.ucsb.edu/~martinisgroup/theses/Bialczak2011.pdf">https://web.physics.ucsb.edu/~martinisgroup/theses/Bialczak2011.pdf</a></span><a class="headerlink" href="#id10" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<hr class="docutils" />
+<section id="classical-3-bit-repetition-code">
+<h2>Classical 3-Bit Repetition Code<a class="headerlink" href="#classical-3-bit-repetition-code" title="Link to this heading">#</a></h2>
+<p>Bit-Flip Error Protection</p>
+<ul class="simple">
+<li><p><strong>3-bit repetition code</strong>: Encode a single bit as three copies (<span class="math notranslate nohighlight">\(0 \to 000\)</span>, <span class="math notranslate nohighlight">\(1 \to 111\)</span>)</p></li>
+<li><p><strong>Decoding</strong>: Take a majority vote of the three bits to recover the original bit</p></li>
+<li><p><strong>Capability</strong>: Detects and corrects a single bit-flip error (fails if <span class="math notranslate nohighlight">\(\ge 2\)</span> bits flip)</p></li>
+</ul>
+<p>Suppose a single bit-flip error occurs during transmission:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Scenario</strong></p></th>
+<th class="head"><p><strong>Input Bit</strong></p></th>
+<th class="head"><p><strong>Encoded</strong></p></th>
+<th class="head"><p><strong>Received</strong></p></th>
+<th class="head"><p><strong>Decoded / Output</strong></p></th>
+<th class="head"><p><strong>Result</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Without Encoding</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\(0\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(0\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(1\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(1\)</span></p></td>
+<td><p>❌ Uncorrected</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Without Encoding</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\(1\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(1\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(0\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(0\)</span></p></td>
+<td><p>❌ Uncorrected</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>3-Bit Repetition</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\(0\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(000\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(100\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(0\)</span> <em>(Majority Vote)</em></p></td>
+<td><p>✅ Corrected</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>3-Bit Repetition</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\(1\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(111\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(101\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(1\)</span> <em>(Majority Vote)</em></p></td>
+<td><p>✅ Corrected</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="important admonition">
+<p class="admonition-title">Quantum error-correcting codes face two extra challenges</p>
+<ul class="simple">
+<li><p><strong>No-cloning theorem</strong> prevents simple state duplication</p></li>
+<li><p><strong>Noise complexity</strong>: Quantum noise includes both bit-flips (<span class="math notranslate nohighlight">\(X\)</span>) and phase-flips (<span class="math notranslate nohighlight">\(Z\)</span>)</p></li>
+</ul>
+</div>
+</section>
+<hr class="docutils" />
+<section id="quantum-error-correction">
+<h2>Quantum error correction<a class="headerlink" href="#quantum-error-correction" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Encode logical qubits into multiple physical qubits, detect and correct errors without measuring the quantum information directly</p></li>
+<li><p><strong>Bit-flip code</strong>:</p>
+<ul>
+<li><p>Encode <span class="math notranslate nohighlight">\(\ket{0}_L=\ket{000}\)</span>, <span class="math notranslate nohighlight">\(\ket{1}_L=\ket{111}\)</span></p></li>
+<li><p>Detect a single <span class="math notranslate nohighlight">\(X\)</span> error</p></li>
+</ul>
+</li>
+<li><p><strong>Phase-flip code</strong>:</p>
+<ul>
+<li><p>Encode in the <span class="math notranslate nohighlight">\(\ket{+},\ket{-}\)</span> basis</p></li>
+<li><p><span class="math notranslate nohighlight">\(\ket{0}_L=\ket{+++}\)</span>, <span class="math notranslate nohighlight">\(\ket{1}_L=\ket{---}\)</span></p></li>
+<li><p>Detect a <span class="math notranslate nohighlight">\(Z\)</span> error the same way, after a basis change</p></li>
+</ul>
+</li>
+<li><p><strong>Shor code</strong>: concatenates the two (9 physical qubits per logical qubit) to correct an <em>arbitrary</em> single-qubit error (<span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span>, or <span class="math notranslate nohighlight">\(Z\)</span>)</p></li>
+<li><p>Modern devices mostly use the <strong>surface code</strong>, which extends
+bit-flip/phase-flip protection to a 2D lattice</p></li>
+</ul>
+<div class="warning admonition">
+<p class="admonition-title">Error mitigation</p>
+<p>We can also use post-processing techniques to reduce the effect of noise on final measurements</p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="quantum-computing-hardware-vs-simulators">
+<h2>Quantum Computing Hardware vs Simulators<a class="headerlink" href="#quantum-computing-hardware-vs-simulators" title="Link to this heading">#</a></h2>
+<section id="executing-programs-on-quantum-hardware">
+<h3>Executing Programs on Quantum Hardware<a class="headerlink" href="#executing-programs-on-quantum-hardware" title="Link to this heading">#</a></h3>
+<section id="id7">
+<h4>Advantages<a class="headerlink" href="#id7" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Runs on <span class="text-blue-500 font-semibold">real quantum hardware</span>, not an approximation.</p></li>
+<li><p>Validates algorithms under actual <span class="text-blue-500 font-semibold">noise and constraints</span>.</p></li>
+<li><p>Only way to reach <span class="text-blue-500 font-semibold">quantum advantage</span> at scale.</p></li>
+<li><p>Accesses qubit counts beyond what simulators can handle.</p></li>
+</ul>
+</section>
+<section id="disadvantages">
+<h4>Disadvantages<a class="headerlink" href="#disadvantages" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Subject to <span class="text-red-500 font-semibold">noise and decoherence</span>.</p></li>
+<li><p>Limited <span class="text-red-500 font-semibold">connectivity</span> and coherence times.</p></li>
+<li><p><span class="text-red-500 font-semibold">Queue times</span> and limited hardware access.</p></li>
+<li><p>Results often need <span class="text-red-500 font-semibold">error mitigation</span>.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="qc-hardware-vs-software-simulators">
+<h2>QC Hardware vs Software Simulators<a class="headerlink" href="#qc-hardware-vs-software-simulators" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Quantum Computing Hardware</p></th>
+<th class="head"><p>Quantum Computing Software Simulators</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Comparison to reality</strong></p></td>
+<td><p><span class="text-green-500 font-semibold">Actual qubits</span></p></td>
+<td><p><span class="text-red-500 font-semibold">Software objects mimicking qubits</span></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><span class="text-green-500 font-semibold">Quantum entanglement and superposition</span></p></td>
+<td><p><span class="text-red-500 font-semibold">Simulated quantum behavior</span></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p></p></td>
+<td><p><span class="text-red-500 font-semibold">Classical backends, heavy on resources</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Noise</strong></p></td>
+<td><p><span class="text-red-500 font-semibold">Inherently exists, need to employ error mitigation/correction</span></p></td>
+<td><p><span class="text-green-500 font-semibold">Controllable</span></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p></p></td>
+<td><p><span class="text-green-500 font-semibold">Helps understand &amp; improve real QC</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Cost</strong></p></td>
+<td><p><span class="text-red-500 font-semibold">Very expensive</span></p></td>
+<td><p><span class="text-green-500 font-semibold">Mostly free &amp; open source</span></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><span class="text-red-500 font-semibold">Require heavy maintenance</span></p></td>
+<td><p><span class="text-green-500 font-semibold">Easily setup on laptop/desktops/servers</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Access and Control</strong></p></td>
+<td><p><span class="text-red-500 font-semibold">Very limited public access</span></p></td>
+<td><p><span class="text-green-500 font-semibold">Widely accessible, easy to install</span></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><span class="text-red-500 font-semibold">You can’t really debug on QC</span></p></td>
+<td><p><span class="text-green-500 font-semibold">Debug, analyze, develop easily</span></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><span class="text-red-500 font-semibold">Little control on runtime</span></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Scalability</strong></p></td>
+<td><p><span class="text-red-500 font-semibold">Limited qubits</span></p></td>
+<td><p><span class="text-red-500 font-semibold">Due to classical backends, actual computation cost grows exponentially</span></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><span class="text-green-500 font-semibold">Future research will open new possibilities</span></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>There are two broad categories of quantum computers:</p></li>
+</ul>
+<pre  class="mermaid">
+        flowchart LR
+    A[&quot;Quantum Computing Hardware&quot;]
+
+    A --&gt; B[&quot;Gate-based&quot;]
+    A --&gt; C[&quot;Analog&quot;]
+
+    B --&gt; B1[&quot;Discrete&lt;br/&gt;quantum gates&quot;]
+    C --&gt; C1[&quot;Continuous&lt;br/&gt;tunable dynamics&quot;]
+    </pre><ul class="simple">
+<li><p>Different physical modalities have different strengths and weaknesses, and no single modality dominates across all performance metrics.</p></li>
+<li><p>Noise is a major challenge for current quantum computers, causing errors in state preparation, gate operations, and readout.</p></li>
+<li><p>Quantum software simulators replicate the behavior of quantum computers on classical hardware, but are limited in scale and do not capture all real-world noise effects.</p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -435,12 +1781,118 @@
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="../lecture-04/lecture-04-fqa.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 4: First Quantum Algorithm</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../topics/math-la.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Mathematical Structure</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#divincenzos-criteria">DiVincenzo’s Criteria</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features-of-quantum-physics">Key Features of Quantum Physics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-computing-hardware">Quantum Computing Hardware</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gate-based-vs-analog-quantum-computing">Gate-based vs Analog Quantum Computing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gate-based">Gate-based</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analog">Analog</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gate-based-quantum-computing">Gate-based quantum computing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-metrics">Performance Metrics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#superconducting-qubits">Superconducting Qubits</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pros-and-cons-of-superconducting-qubits">Pros and cons of superconducting qubits</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#advantages">✅ Advantages</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges">❌ Challenges</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trapped-ions">Trapped Ions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pros-and-cons-of-trapped-ions">Pros and cons of trapped ions</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">✅ Advantages</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">❌ Challenges</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#photonics">Photonics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#encoding-qubits-with-photons">Encoding qubits with photons</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pros-and-cons-of-photonics">Pros and cons of photonics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">✅ Advantages</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">❌ Challenges</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison">Comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analog-quantum-computing">Analog Quantum Computing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-hamiltonian">What is a Hamiltonian?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-evolution">Time-evolution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hamiltonian-example">Hamiltonian Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Analog Quantum Computing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rydberg-platforms">Rydberg Platforms</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-annealers">Quantum Annealers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#noise">Noise</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#errors-in-quantum-circuits">Errors in quantum circuits</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Errors in quantum circuits</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-quantum-errors">Types of Quantum Errors</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bit-flip-error-x-error">1. Bit-flip error (X error)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#phase-flip-error-z-error">2. Phase-flip error (Z error)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bit-phase-flip-error-y-error">3. Bit-phase-flip error (Y error)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tackling-noise">Tackling Noise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-3-bit-repetition-code">Classical 3-Bit Repetition Code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-error-correction">Quantum error correction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-computing-hardware-vs-simulators">Quantum Computing Hardware vs Simulators</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#executing-programs-on-quantum-hardware">Executing Programs on Quantum Hardware</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Advantages</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#disadvantages">Disadvantages</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qc-hardware-vs-software-simulators">QC Hardware vs Software Simulators</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
