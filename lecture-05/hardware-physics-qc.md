@@ -7,88 +7,42 @@ layout: post
 # Hardware & Physics of Quantum Computers
 
 
----
-transition: fade-out
----
+```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture. 
+```
 
-# Focus of Lecture
+```{admonition} Learning outcomes
+:class: tip
 
-<Grid cols="2" gap="2">
+In this lecture we will try to understand the requirements for a useful quantum computer, learn the similarities and differences between several quantum computing modalities, both Gate-based and analogue, to understand the effect of noise on these computers, and to discuss the advantages and limitations of quantum computing hardware and software simulators.
+```
 
-<div>
-
-## Learning Outcomes
-
-<v-clicks every=2>
 
 - Understand the requirements for a useful quantum computer
 
-<br>
-
 - Learn similarities and differences between several quantum computing modalities, both gate-based and analog
-
-<br>
 
 - Understand the effect of noise on quantum computers
 
-<br>
-
 - Discuss the advantages and limitations of quantum computing hardware and software simulators
 
-</v-clicks>
-
-</div>
-
-<div>
-
-## Agenda
-
-<v-clicks every=2>
-
-- Building a Quantum Computer
-
-<br>
-
-- Quantum Computing Hardware
-  - Gate-based Quantum Computing
-  - Analog Quantum Computing
-
-<br>
-
-- Noise
-
-<br>
-
-- Quantum Computing Hardware vs Simulators
-
-</v-clicks>
-
-</div>
-
-</Grid>
-
----
-layout: section
 ---
 
-# Building a Quantum Computer
+## Introduction
+
+Building a Quantum Computer, requires significant planning and strategy in terms of choosing the scientific pathway, well before other elements of industry are brought in, such as finance, availability of resource etc.
+
+We will just touch upon the common modalities that have yielded success, and the challenges they come with. We start by DiVincenso's Criteria to define what qualifies as a quantum computer, and then go on to explore some of the technologies and how they are implemented.
+
+We also address the errors that are introduced due to noise in quantum system, and elaborate on how they affect the outcome of quantum computing, along with available methods to address them.
 
 
 
 
 ---
 
-# DiVincenzo's Criteria
+## DiVincenzo's Criteria
 
-<div v-click>
-
-David DiVincenzo (2000) laid out the physical requirements a platform must satisfy to be a viable quantum computer.
-
-</div>
-
-<br>
-
-<v-clicks>
+David P. DiVincenzo was a prominant American theoretical physicist and one of the foundational figure in quantum information research. In 1999/2000 he laid out the physical requirements a platform must satisfy to be a viable quantum computer.
 
 1. **A scalable physical system with well-characterized qubits** — the Hilbert space must have two well-defined, distinguishable states per qubit
 
@@ -100,33 +54,23 @@ David DiVincenzo (2000) laid out the physical requirements a platform must satis
 
 5. **A qubit-specific measurement capability** — read out individual qubits without destroying the rest of the computation
 
-</v-clicks>
 
-<Banner class="my-auto">
+```{admonition} Definition
+:class: tip
 
 **Decoherence** is the process by which a quantum system loses its quantum properties due to interaction with the environment.
 
-</Banner>
-
-<Banner class="my-auto">
-
 **Decoherence time** is how long a qubit can maintain its quantum state before decoherence occurs.
 
-</Banner>
-
+```
 
 
 ---
 
-# Key Features of Quantum Physics
+### Key Features of Quantum Physics
 
-<div v-click>
 
-Quantum computers are built from physical systems which are so small that they are governed by the rules of quantum mechanics:
-
-</div>
-
-<v-clicks>
+We have discussed this in previous lectures, but its neverthless a good idea to recall: Quantum computers are built from physical systems which are so small that they are governed by the rules of quantum mechanics -
 
 - **Superposition** — a qubit can occupy $\alpha\ket{0} + \beta\ket{1}$, not just $\ket{0}$ or $\ket{1}$
 
@@ -138,31 +82,16 @@ Quantum computers are built from physical systems which are so small that they a
 
 - **No-cloning theorem** — an unknown quantum state cannot be copied exactly, which shapes how error correction and communication protocols must work
 
-</v-clicks>
-
-<Box class="translate-y-12" v-click>
 
 Together, these features are simultaneously the *source* of quantum advantage and the *source* of the engineering difficulty in building hardware.
 
-</Box>
 
----
-layout: section
----
+## Quantum Computing Hardware
 
-# Quantum Computing Hardware
 
----
+### Gate-based vs Analog Quantum Computing
 
-# Gate-based vs Analog Quantum Computing
-
-<Grid cols="1 1">
-
-<div>
-
-## Gate-based
-
-<v-clicks>
+### Gate-based
 
 - Computation is built from a sequence of discrete quantum gates
 
@@ -172,15 +101,7 @@ layout: section
 
 - General-purpose: can implement arbitrary quantum algorithms
 
-</v-clicks>
-
-</div>
-
-<div>
-
-## Analog
-
-<v-clicks>
+### Analog
 
 - Computation is performed by continuous evolution of the quantum system in time
 
@@ -190,40 +111,19 @@ layout: section
 
 - Particularly suited to quantum simulation and optimisation
 
-</v-clicks>
 
-</div>
-
-</Grid>
-
-<v-click>
-
-<Banner type="info" title="Key Idea">
+```{admonition} Key Idea
+:class: info
 
 Gate-based computing programs a quantum system by specifying gates; analog computing programs it by specifying a time-evolution.
+```
 
-</Banner>
 
-</v-click>
-
----
-layout: section
----
-
-# Gate-based Quantum Computing
-
----
-
-# Gate-based quantum computing
-
-<div v-clicks>
+## Gate-based quantum computing
 
 - Different physical systems can be used to build **gate-based quantum computers**.
 - The qubit technology determines how we **control, couple and read out** the qubits.
 
-</div>
-
-<div class="table text-4 bg-yellow-400/10" v-click>
 
 | **Modality**          | **Qubit**                                | **Example companies**                  |
 | --------------------- | ---------------------------------------- | -------------------------------------- |
@@ -234,193 +134,112 @@ layout: section
 | **Neutral atoms**     | Atomic ground / Rydberg states           | QuEra, Pasqal, Atom Computing          |
 | **Topological**       | Topologically protected states           | Microsoft                              |
 
-</div>
 
-<v-click>
+The modalities marked with ⭐  are the ones we explore in more detail below.
 
-<Banner type="info">
+## Performance Metrics
 
-⭐ Modalities we will explore in more detail
-
-</Banner>
-
-</v-click>
-
----
-
-# Performance Metrics
-
-<div class="inline-box text-4 mx-auto" > How to compare different gate-based quantum computers </div>
-
-<v-clicks every="2">
+Following are the key metrics one uses to compare different gate-based quantum computers:
 
 - **Scalability** : Ability to increase the number of qubits
 
-<br>
-
 - **Operating temperature** : At what temperature do we require to maintain the qubits?
-
-<br>
 
 - **Coherence Times** : How long do the qubits stay in a given state?
 
-<br>
-
 - **Fidelity** : A measure of “closeness” of the actual qubit state in comparison to the ideal state.
-
-<br>
 
 - **Gate Operation times** : How long does it take to act a particular gate on a given qubit.
 
-<br>
-
 - **Quantum Volume** : A composite metric that aims to combine all the metrics above into one.
 
-</v-clicks>
 
 ---
 
-# Superconducting Qubits
-
-<Grid cols="1 1">
-
-<div>
+## Superconducting Qubits
 
 - Electrical circuit containing a **Josephson junction** cooled to very low temperatures resulting in **superconductivity**.
 - Ground state and first excited state of circuit energy levels form a qubit.
 - Most common variant: **transmon**, insensitive to charge noise.
 
-<div style="height: 2rem"></div> <!vspace>
 
-<img src="./figures/L05/Supercond.png" width="700" style="vertical-align:middle">
+```{image} ./images/Supercond.png
+:width: 700
+:align: center
+```
 
-</div>
 
-<div>
-
-<Banner>
-
+:::{tip}
 **Superconductivity:** certain materials exhibit *zero electrical resistance* and expel magnetic fields when *cooled* below a critical temperature.
 
-</Banner>
-
-<Banner type="success">
-
 **Josephson junction:** consists of two *superconductors* separated by a thin insulating *barrier*, allowing electrons to pass through via quantum *tunneling*.
+:::
 
-<img src="./figures/L05/joseph_junct.png" width="420">
+```{image} ./images/joseph_junct.png
+:width: 100%
+:align: center
+```
 
-</Banner>
-
-</div>
-
-</Grid>
-
----
-
-# Superconducting Qubits
-
-<Grid cols="3-2" gap="1">
-
-<div scale-95>
-
-<v-clicks every=2>
 
 - Control and readout via **microwave pulses** delivered through waveguides / resonators.
 
-<br>
-
 - Require <span style="color:#e05252">extremely low temperatures (~10–20 mK)</span> to keep thermal excitations below the qubit energy gap.
-
-<br>
 
 - Two-qubit gates via tunable couplers between neighbouring qubits.
 
-<br>
-
 - Connectivity is typically <span style="color:#e05252">nearest-neighbour</span>.
-
-<br>
 
 - Gate times are <span style="color:#4caf50">fast (tens of ns)</span>, but coherence times are <span style="color:#e0a800">comparatively short (~100 μs)</span>.
 
-<br>
-
 - <span style="color:#4caf50">Most widely used quantum computing platform today.</span>
-
-<br>
 
 - Companies: **IBM, Google, Rigetti, IQM, Alice & Bob**.
 
-</v-clicks>
+:::{figure} ./images/IBM_tokyo.jpg
+:width: 280
 
-</div>
+IBM Quantum System One, as installed at Shin-Kawaski for the University of Tokyo. Photo: IBM Research, CC BY-ND 2.0
+:::
 
-<div>
-
-<Image src="./figures/L05/IBM_tokyo.jpg" rounded="lg" width="280">
-  IBM Quantum System One, as installed at Shin-Kawaski for the University of Tokyo. Photo: IBM Research, CC BY-ND 2.0
-</Image>
-
-</div>
-
-</Grid>
 
 ---
 
-# Pros and cons of superconducting qubits
+### Pros and cons of superconducting qubits
 
-<Grid cols="1 1">
 
-<div>
-
-### ✅ Advantages
-
-<v-clicks>
+#### ✅ Advantages
 
 - **Fast gates**: tens of nanoseconds, so many operations fit within the coherence time.
+
 - **Mature fabrication**: built with lithographic techniques borrowed from the semiconductor industry, so chips can be mass-produced and designed flexibly.
+
 - **Tunable couplers** and allow engineering of qubit interactions.
+
 - Most **developed ecosystem**: largest industry investment, cloud access, and the most advanced qubit counts among gate-based platforms.
+
 - Compatible with **microwave control electronics**, and readout is fast.
 
-</v-clicks>
 
-</div>
-
-<div>
-
-### ❌ Challenges
-
-<v-clicks>
+#### ❌ Challenges
 
 - **Extreme cryogenics**: dilution refrigerators at ~10–20 mK, which are expensive and limit how much hardware fits inside.
+
 - **Short coherence times** (~100 μs) compared with ions.
+
 - **Nearest-neighbour connectivity** means extra SWAP gates for distant qubits, adding depth and errors.
+
 - **Crosstalk and fabrication variability**: qubit frequencies differ between devices, and material defects add noise.
+
 - **Wiring bottleneck**: every qubit needs control lines running from room temperature down to the chip.
 
-</v-clicks>
 
-</div>
-
-</Grid>
-
-<v-click>
-
-<Banner type="info">
-
+:::{info}
 **Current state:** the most widely deployed platform today, with fast gates and a mature supply chain, but scaling to fault tolerance is limited by coherence, cryogenic infrastructure, and wiring.
-
-</Banner>
-
-</v-click>
+:::
 
 ---
 
-# Trapped Ions
-
-<v-clicks>
+## Trapped Ions
 
 - Qubits encoded in internal electronic states of ions in a **Paul trap** (oscillating electromagnetic fields).
 - Ions are laser-cooled to their motional ground state and arranged in a chain or 2D array.
@@ -431,23 +250,15 @@ layout: section
 - <span style="color:#e05252">Slower gates than superconducting qubits (μs range)</span>, and <span style="color:#e05252">scaling requires interconnects between traps</span>.
 - Companies: **IonQ, Quantinuum, Alpine Quantum Technologies**.
 
-</v-clicks>
 
-<div class="flex justify-center">
-<img src="./figures/L05/TrapIons.png" width="550" style="vertical-align:middle">
-</div>
+```{image} ./images/TrapIons.png
+:width: 100%
+```
 
----
+### Pros and cons of trapped ions
 
-# Pros and cons of trapped ions
 
-<Grid cols="1 1">
-
-<div>
-
-### ✅ Advantages
-
-<v-clicks>
+#### ✅ Advantages
 
 - **Very long coherence times**: seconds or longer, far beyond superconducting qubits.
 - **Highest gate fidelities** demonstrated of any platform.
@@ -455,15 +266,9 @@ layout: section
 - **Identical qubits**: every ion of a given species is the same, so there is no fabrication variability.
 - **High-fidelity readout** of measurement outcomes.
 
-</v-clicks>
 
-</div>
+#### ❌ Challenges
 
-<div>
-
-### ❌ Challenges
-
-<v-clicks>
 
 - **Slow gates**: microseconds to milliseconds, so deep circuits take a long time to run.
 - **Scaling**: long ion chains need ion **shuttling** between zones or **photonic links** between traps.
@@ -471,42 +276,23 @@ layout: section
 - **Ultra-high vacuum** and trap engineering add hardware complexity.
 - Lower **clock speed** limits throughput for algorithms needing many repeated runs.
 
-</v-clicks>
 
-</div>
-
-</Grid>
-
-<v-click>
-
-<Banner type="info">
-
+:::{info}
 **Current state:** leading in fidelity and connectivity, with modular architectures based on shuttling and photonic interconnects as the route to scale.
-
-</Banner>
-
-</v-click>
+:::
 
 
 ---
 
-# Photonics
+## Photonics
 
-<Grid cols="1 1">
-
-<div>
-
-<v-clicks>
-
-<Banner type="info" title="What is a photon?">
+:::{admonition} What is a photon?
+:class: info
 
 Einstein proposed in 1905 that light is composed of discrete packets of energy which we now call **photons**. Each photon carries energy $E=hf$, where $h$ is Planck's constant and $f$ is the frequency (colour) of the light.
 
-</Banner>
+:::
 
-</v-clicks>
-
-<v-clicks>
 
 - Qubits encoded in properties of **single photons**.
 - Manipulated using **linear optical elements**: beam splitters, phase shifters, waveguides.
@@ -514,40 +300,30 @@ Einstein proposed in 1905 that light is composed of discrete packets of energy w
 - **Photonic integrated circuits** fit all optical components on a chip, enabling scaling.
 - Companies: **PsiQuantum, Xanadu, Quandela**.
 
-</v-clicks>
 
-</div>
+```{figure} ./images/photonics.png
+:width: 100%
 
-<div>
+https://www.quandela.com/resources/blog/what-is-a-quantum-computer/
+```
 
-<Image src="./figures/L05/Photonics.png" width="500" style="vertical-align:middle">
-  https://www.quandela.com/resources/blog/what-is-a-quantum-computer/
-</Image>
-
-</div>
-
-</Grid>
 
 ---
 
-# Encoding qubits with photons
+## Encoding qubits with photons
 
 | | Polarization | Dual rail | Time-bin |
 |---|---|---|---|
 | $\;\;\;\;\;\;\;\;\;\lvert0\rangle$ | <img src="./figures/L05/polarization-0-crop.gif" width="110" /> | <img src="./figures/L05/DualRail0.png" width="150" /> | <img src="./figures/L05/timebin_0.png" width="250" /> |
 | $\;\;\;\;\;\;\;\;\;\lvert1\rangle$ | <img src="./figures/L05/polarization-1-crop.gif" width="150" /> | <img src="./figures/L05/DualRail1.png" width="150" /> | <img src="./figures/L05/timebin_1.png" width="250" /> |
 
----
 
-# Pros and cons of photonics
 
-<Grid cols="1 1">
+## Pros and cons of photonics
 
-<div>
 
 ### ✅ Advantages
 
-<v-clicks>
 
 - **Room temperature** operation — refrigerators only needed for single-photon sources and detectors.
 - **Low decoherence**: photons barely interact with the environment, preserving coherence over long distances.
@@ -555,15 +331,9 @@ Einstein proposed in 1905 that light is composed of discrete packets of energy w
 - Existing **telecom infrastructure** (fibre, integrated photonics) can be leveraged.
 - High potential **clock speeds**, since photons travel at the speed of light.
 
-</v-clicks>
-
-</div>
-
-<div>
 
 ### ❌ Challenges
 
-<v-clicks>
 
 - **Deterministic single-photon sources** are hard to engineer — most sources are probabilistic.
 - **Photon loss** accumulates with circuit depth and distance, limiting scalability.
@@ -571,31 +341,17 @@ Einstein proposed in 1905 that light is composed of discrete packets of energy w
 - **Detector inefficiency** further compounds loss: photon-number-resolving detectors are difficult to build and operate.
 - Requires many auxiliary photons and fast feed-forward electronics to reach fault tolerance.
 
-</v-clicks>
 
-</div>
-
-</Grid>
-
-<v-click>
-
-<Banner type="info">
+:::{info}
 
 **Current state:** photonic platforms are leading candidates for quantum *networking* and *distributed* quantum computing, while scaling to large, fault-tolerant processors remains an open engineering challenge.
 
-</Banner>
-
-</v-click>
+:::
 
 ---
 
-# Comparison
+## Comparison
 
-
-
-<FancyTable>
-
-<v-clicks>
 
 | | **Superconducting** | **Trapped Ion** | **Photonic** |
 |---|---|---|---|
@@ -607,12 +363,6 @@ Einstein proposed in 1905 that light is composed of discrete packets of energy w
 | <span style="color:#4caf50">**Main advantage**</span> | Fast gates, mature ecosystem | All-to-all connectivity | Low decoherence |
 | <span style="color:#e05252">**Main challenge**</span> | Decoherence, crosstalk | Scaling / shuttling, slower gates | Deterministic sources, photon loss |
 | **Companies** | IBM, Google, Rigetti, IQM, Alice&Bob | IonQ, Quantinuum, AQT | PsiQuantum, Xanadu, Quandela |
-
-</v-clicks>
-
-</FancyTable>
-
-
 
 
 <!--- 
@@ -629,23 +379,16 @@ No single modality currently wins on all criteria.
 -->
 
 ---
-layout: section
----
 
-# Analog Quantum Computing
+## Analog Quantum Computing
 
----
 
-# What is a Hamiltonian?
+### What is a Hamiltonian?
 
-<Grid cols="1 1">
-
-<div>
-
-<v-clicks>
 
 - The Hamiltonian $H$ is the operator associated with the total energy of a system.
 - It determines how the system evolves in time, through the Schrödinger equation:
+
 $$
 i\hbar \frac{d}{dt}\lvert\psi(t)\rangle
 = H\lvert\psi(t)\rangle
@@ -654,74 +397,48 @@ $$
 - $\hbar$ is the reduced Planck's constant
 - $\frac{d}{dt}$ denotes the time derivative — how the quantum state changes with time.
 - The eigenstates of $H$ have energies $E_n$:
+
 $$
 H\lvert E_n\rangle = E_n\lvert E_n\rangle
 $$
 
-<Banner title="Ground state: definition" type="success">
+:::{admonition} Ground state - definition
+:class: success
 
 The eigenstate with the lowest energy.
 
-</Banner>
+:::
 
-</v-clicks>
 
-</div>
-
-<v-click>
-
-<div>
-
-<v-click>
-
-<Image src="./figures/L05/Bohr-Model-H.png" width="150" v-click>
+<img src="./images/Bohr-Model-H.png" width="150">
   https://unifyphysics.com/bohr-model-of-hydrogen-atom/
-</Image>
+</img>
 
-</v-click>
 
-<v-click>
+<img src="./images/Energy-levels.png" width="150">
+</img>
 
-<Image src="./figures/L05/Energy-levels.png" width="150" v-click>
-</Image>
-
-</v-click>
-
-</div>
-
-</v-click>
-
-</Grid>
 
 ---
 
-# Time-evolution
+## Time-evolution
 
-<Grid cols="1 1">
-
-<div>
-
-<v-clicks>
 
 - $\lvert\psi(t)\rangle$ is the **state of the system at time $t$**, given the starting state $\lvert\psi(0)\rangle$.
 - For a time-independent $H$, the Schrödinger equation is solved by:
+
 $$
 \lvert\psi(t)\rangle = e^{-iHt/\hbar}\lvert\psi(0)\rangle = U(t)\lvert\psi(0)\rangle
 $$
+
 - The evolution operator $U(t)$ is **unitary**: $U^\dagger U = I$
   - Total probability stays equal to 1 (the state stays normalised)
   - Evolution is **reversible**: $U^{-1} = U^\dagger$
   - Quantum gates are unitaries too, so analog evolution under $H$ is one long, continuous "gate"
 
-</v-clicks>
 
-</div>
-
-<div>
-
-<v-clicks>
-
-<Banner title="Eigenstates are stationary" type="success">
+:::{admonition} Eigenstates are stationary
+:class: success
 
 - If the system starts in an eigenstate $\lvert E_n\rangle$ of $H$:
 $$
@@ -737,25 +454,21 @@ $$
 - The state only picks up a phase; measurement probabilities never change.
 - Hence eigenstates are known as **stationary states** of the Hamiltonian
 
-</Banner>
+:::
 
-</v-clicks>
-
-</div>
-
-</Grid>
 
 ---
 
-# Hamiltonian Example
-
-<v-clicks>
+## Hamiltonian Example
 
 - For a qubit, a simple Hamiltonian might combine an energy splitting with a driving term, e.g.
+
 $$
 H = \frac{\Delta}{2}Z + \frac{\Omega}{2}X
 $$
+
 where $Z$ and $X$ are the Pauli operators:
+
 $$
 Z =
 \begin{pmatrix}
@@ -776,23 +489,18 @@ $$
 
 - In analog quantum computing, the Hamiltonian itself is the program: physical parameters such as detuning $\Delta$ and coupling $\Omega$ are controlled continuously, and the system evolves under the resulting Hamiltonian to perform the computation.
 
-</v-clicks>
 
 ---
 
-# Analog Quantum Computing
+## Analog Quantum Computing
 
-<FancyTable>
 
 | Type of analog computing | Physical implementation | Applications | Companies
 |---|---|---|---|
 | **Neutral-atom computing** | Rydberg platforms | Quantum simulation — e.g. Bose–Hubbard and Ising models | Pasqal, QuEra
 | **Quantum annealing** | Superconducting qubits | Combinatorial optimisation — e.g. Max-Cut, travelling salesman | D-Wave
 
-</FancyTable>
 
-
-<v-clicks>
 
 - **Neutral-atom platforms**: 
   - Atoms arranged in array, evolved under a Hamiltonian which encodes the problem
@@ -801,34 +509,25 @@ $$
   - Evolve system slowly from an easy initial Hamiltonian to a problem Hamiltonian
   - Aiming to remain in the ground state (this encodes the solution)
 
-<Banner type="warning" title="Analog vs gate-based trade-off">
+:::{admonition} Analog vs gate-based trade-off
+:class: warning
 
 - Analog systems can reach very large qubit counts and natively simulate certain physics
 - But offer less fine-grained general-purpose control and less researched error-correction schemes
 
-</Banner>
+:::
 
-</v-clicks>
 
 ---
 
-# Rydberg Platforms
+### Rydberg Platforms
 
-<Grid cols="1 1">
-
-<div>
 
 - Rydberg atoms are neutral atoms which possess a ground state and a highly-excited Rydberg state, which can be used to encode a qubit.
 - These atoms can be arranged in an array and controlled using lasers
 
 <img src="./figures/L05/RydbSim.jpg" width="500" style="vertical-align:middle">
 
-
-</div>
-
-<div>
-
-<Banner v-click>
 
 - Useful for problems which map to the Rydberg Hamiltonian, which may be time-dependent:
 
@@ -839,9 +538,6 @@ $$
 \end{align*}
 $$
 
-</Banner>
-
-<Banner v-click>
 
 - Simulating the dynamics of a many-body system on a classical computer
   generally becomes **exponentially costly** with system size.
@@ -849,23 +545,11 @@ $$
 - Rydberg platforms can **directly realise the Hamiltonian dynamics**
   in a physical quantum system.
 
-</Banner>
-
-</div>
-
-</Grid>
 
 ---
 
-# Quantum Annealers
+## Quantum Annealers
 
-<Grid cols="1 1">
-
-<v-click>
-
-<div>
-
-<v-clicks>
 
 - Not universal quantum computers
 - Particularly suited for solving combinatorial optimization problems:
@@ -873,80 +557,38 @@ $$
   - **Finance:** portfolio optimisation
   - **Machine learning, scientific computing, scheduling, routing**
 
-<Image src="./figures/L05/Qannealing.jpg" width=400 v-click>
+<img src="./images/Qannealing.jpg" width=400>
   https://medium.com/%40deltorobarba/the-many-worlds-of-quantum-inspired-cd608cb9a7d2
-</Image>
+</img>
 
-</v-clicks>
-
-</div>
-
-</v-click>
-
-<v-click>
-
-<div>
 
 **Example: D-Wave Advantage**
 - 5000+ qubits, but is not fault-tolerant and cannot run arbitrary quantum algorithms.
 - Designed to solve problems that can be mapped to a specific type of Hamiltonian (Ising model or QUBO).
 - Finds low-energy configurations of the Hamiltonian, which correspond to optimal or near-optimal solutions to the original problem.
 
-<Image src="./figures/L05/d-wave-adv2-chip.jpg" width=200>
+<img src="./images/d-wave-adv2-chip.jpg" width=200>
 Photo credit: D-Wave Quantum Inc. 
-</Image>
+</img>
 
-</div>
-
-</v-click>
-
-</Grid>
-
----
-layout: section
----
-
-# Noise
 
 ---
 
-# Errors in quantum circuits
+## Noise
 
-<div class="relative inline-block mt-16">
+### Errors in quantum circuits
 
-<QuantumCircuit :qubits="4" gates="H:0,X:1,CNOT:2:1,H:2,X:3,Z:2,H:2,M:0,M:1,M:2,M:3" scale="2"/>
+|State prep error |Gate error           |Crosstalk                 |Readout error |
+|---------------- |-------------------- |------------------------- |------------- |
+|initial state ↓  |over/under-rotation ↓|gates disturb neighbours ↓|↓ measurement |
 
-<div v-click="1" class="absolute text-center" style="top:-34px; left:15%; width:180px; transform:translateX(-50%);">
-  <div class="text-s font-semibold" style="color:grey;">State prep error</div>
-  <div class="text-s" style="color:grey;"> initial state ↓</div>
-</div>
+<quantum-circuit qubits="4" gates="H:0, X:1, CNOT:2:1, H:2, X:3, Z:2, H:2, M:0, M:1, M:2, M:3" scale="3"></quantum-circuit>
 
-<div v-click="2" class="absolute text-center" style="top:-34px; left:37%; width:180px; transform:translateX(-50%);">
-  <div class="text-s font-semibold" style="color:blue;">Gate error</div>
-  <div class="text-s" style="color:blue;"> over/under-rotation ↓</div>
-</div>
-
-<div v-click="3" class="absolute text-center" style="top:-34px; left:58%; width:200px; transform:translateX(-50%);">
-  <div class="text-s font-semibold" style="color:blue;">Crosstalk</div>
-  <div class="text-s" style="color:blue;">gates disturb neighbours ↓</div>
-</div>
-
-<div v-click="4" class="absolute text-center" style="top:-34px; left:83%; width:180px; transform:translateX(-50%);">
-  <div class="text-s font-semibold" style="color:orange;">Readout error</div>
-  <div class="text-s" style="color:orange;">↓ measurement</div>
-</div>
-
-<div v-click="5" class="absolute text-center" style="bottom:-26px; left:0; width:100%;">
-  <div class="text-s font-semibold" style="color:red;">Decoherence accumulates over the full circuit duration →</div>
-</div>
-
-</div>
+Decoherence accumulates over the full circuit duration →
 
 ---
 
-# Errors in quantum circuits
-
-<v-clicks>
+## Errors in quantum circuits
 
 - **State preparation errors** — the initial state is not perfectly prepared
 - **Gate errors** — imperfect physical implementation (control pulses/laser timing) leads to over/under-rotation, systematic or random
@@ -956,61 +598,44 @@ layout: section
   - $T_2$ (dephasing time): timescale for loss of phase coherence between $\ket{0}$ and $\ket{1}$
 - **Readout errors** — measurement outcomes are misassigned (e.g. a $\ket{1}$ read as $\ket{0}$)
 
-</v-clicks>
 
-<v-click>
-
-<Banner type="error">
+:::{admonition} Note
+:class: note
 
 These error sources are why today's devices are called **NISQ** (Noisy Intermediate-Scale Quantum) machines, and why quantum error correction / error mitigation is central to reaching fault-tolerant quantum computing.
 
-</Banner>
+:::
 
-</v-click>
 
 ---
 
-# Types of Quantum Errors
+## Types of Quantum Errors
 
-<Grid cols="1 1">
 
-<div>
-
-<v-click>
-
-<Banner title="1. Bit-flip error (X error)">
+### 1. Bit-flip error (X error)
 
 - $\ket{0} \leftrightarrow \ket{1}\;$ :
+
 $$
 X\ket{\psi} = X(\alpha\ket{0}+\beta\ket{1}) = \alpha\ket{1}+\beta\ket{0}
 $$
+
 - Analogous to a classical bit flip; caused e.g. by unwanted energy exchange with the environment.
 
-</Banner>
 
-</v-click>
-
-<v-clicks>
-
-<Banner title="2. Phase-flip error (Z error)">
+### 2. Phase-flip error (Z error)
 
 - Relative phase between $\ket{0}$ and $\ket{1}$ is flipped:
+
 $$Z\ket{\psi} = Z(\alpha\ket{0}+\beta\ket{1}) = \alpha\ket{0}-\beta\ket{1}$$
+
 - Has no classical analog; the dominant error from **dephasing**.
 
-</Banner>
 
-</v-clicks>
-
-</div>
-
-<div>
-
-<v-clicks>
-
-<Banner title="3. Bit-phase-flip error (Y error)">
+### 3. Bit-phase-flip error (Y error)
 
 - Combination of both $X$ and $Z$ errors
+
 $$
 \begin{align*}
 Y\ket{\psi} &= Y(\alpha\ket{0}+\beta\ket{1}) \\
@@ -1018,34 +643,18 @@ Y\ket{\psi} &= Y(\alpha\ket{0}+\beta\ket{1}) \\
 \end{align*}
 $$
 
-</Banner>
-
-</v-clicks>
-
-<v-clicks>
-
-<Banner type="success">
+:::{tip}
 
 - Any single-qubit error can be written as a combination of $X$, $Y$, $Z$ — the Pauli operators
 - Therefore correcting bit- and phase-flips is sufficient to correct *arbitrary* small errors
 
-</Banner>
+:::
 
-</v-clicks>
-
-</div>
-
-</Grid>
 
 ---
 
-# Tackling Noise
+## Tackling Noise
 
-<Grid cols="1 1">
-
-<div>
-
-<v-clicks>
 
 - **Cooling / isolation** 
   - Thermal fluctuations adversely impact the performance of quantum computers
@@ -1060,41 +669,27 @@ $$
   - Helium dilution refrigeration
   - Laser cooling
 
-</v-clicks>
 
-</div>
+:::{figure} ./images/cooling.png
+:align: center
+:width: 75%
 
-<div class="flex flex-col items-center justify-center h-full">
-
-<img src="/figures/L05/cooling.png" width="75%"/>
-
-<div class="text-xs text-gray-500 text-center mt-1">
-https://web.physics.ucsb.edu/~martinisgroup/theses/Bialczak2011.pdf
-</div>
-
-</div>
-
-</Grid>
+source: https://web.physics.ucsb.edu/~martinisgroup/theses/Bialczak2011.pdf
+:::
 
 ---
 
-# Classical 3-Bit Repetition Code
+## Classical 3-Bit Repetition Code
 
 Bit-Flip Error Protection
-
-<v-clicks>
 
 - **3-bit repetition code**: Encode a single bit as three copies ($0 \to 000$, $1 \to 111$)
 - **Decoding**: Take a majority vote of the three bits to recover the original bit
 - **Capability**: Detects and corrects a single bit-flip error (fails if $\ge 2$ bits flip)
 
-</v-clicks>
-
-<div v-click>
 
 Suppose a single bit-flip error occurs during transmission:
 
-<FancyTable>
 
 | **Scenario** | **Input Bit** | **Encoded** | **Received** | **Decoded / Output** | **Result** |
 |---|---|---|---|---|---|
@@ -1103,22 +698,20 @@ Suppose a single bit-flip error occurs during transmission:
 | **3-Bit Repetition** | $0$ | $000$ | $100$ | $0$ *(Majority Vote)* | ✅ Corrected |
 | **3-Bit Repetition** | $1$ | $111$ | $101$ | $1$ *(Majority Vote)* | ✅ Corrected |
 
-</FancyTable>
 
-</div>
 
-<Banner title="Quantum error-correcting codes face two extra challenges" type="error" v-click>
+:::{admonition} Quantum error-correcting codes face two extra challenges
+:class: important
 
 - **No-cloning theorem** prevents simple state duplication
 - **Noise complexity**: Quantum noise includes both bit-flips ($X$) and phase-flips ($Z$)
 
-</Banner>
+:::
 
 ---
 
-# Quantum error correction
+## Quantum error correction
 
-<v-clicks>
 
 - Encode logical qubits into multiple physical qubits, detect and correct errors without measuring the quantum information directly
 - **Bit-flip code**: 
@@ -1132,68 +725,42 @@ Suppose a single bit-flip error occurs during transmission:
 - Modern devices mostly use the **surface code**, which extends 
 bit-flip/phase-flip protection to a 2D lattice
 
-</v-clicks>
 
-<Banner type="warning" title="Error mitigation" v-click>
+:::{admonition} Error mitigation
+:class: warning
 
 We can also use post-processing techniques to reduce the effect of noise on final measurements
 
-</Banner>
-
-
----
-layout: section
----
-
-# Quantum Computing Hardware vs Simulators
+:::
 
 ---
 
-# Executing Programs on Quantum Hardware
+## Quantum Computing Hardware vs Simulators
 
-<Grid cols="1 1">
+### Executing Programs on Quantum Hardware
 
-<div>
+#### Advantages
 
-<span class="text-blue-500 font-semibold text-lg">Advantages</span>
-
-<v-clicks>
 
 - Runs on <span class="text-blue-500 font-semibold">real quantum hardware</span>, not an approximation.
 - Validates algorithms under actual <span class="text-blue-500 font-semibold">noise and constraints</span>.
 - Only way to reach <span class="text-blue-500 font-semibold">quantum advantage</span> at scale.
 - Accesses qubit counts beyond what simulators can handle.
 
-</v-clicks>
 
-</div>
+#### Disadvantages
 
-<div>
-
-<span class="text-red-500 font-semibold text-lg">Disadvantages</span>
-
-<v-clicks>
 
 - Subject to <span class="text-red-500 font-semibold">noise and decoherence</span>.
 - Limited <span class="text-red-500 font-semibold">connectivity</span> and coherence times.
 - <span class="text-red-500 font-semibold">Queue times</span> and limited hardware access.
 - Results often need <span class="text-red-500 font-semibold">error mitigation</span>.
 
-</v-clicks>
-
-</div>
-
-</Grid>
 
 ---
 
-# QC Hardware vs Software Simulators
+## QC Hardware vs Software Simulators
 
-<div class="text-sm leading-tight">
-
-<FancyTable color="blue" direction="horizontal">
-
-<v-clicks>
 
 | | Quantum Computing Hardware | Quantum Computing Software Simulators |
 |---|---|---|
@@ -1210,34 +777,13 @@ layout: section
 | **Scalability** | <span class="text-red-500 font-semibold">Limited qubits</span> | <span class="text-red-500 font-semibold">Due to classical backends, actual computation cost grows exponentially</span> |
 | | <span class="text-green-500 font-semibold">Future research will open new possibilities</span> | |
 
-</v-clicks>
-
-</FancyTable>
-
-</div>
-
-<style scoped>
-:deep(tbody tr:nth-child(4) td),
-:deep(tbody tr:nth-child(6) td),
-:deep(tbody tr:nth-child(8) td),
-:deep(tbody tr:nth-child(11) td) {
-  border-top: 2px solid #94a3b8;
-  padding-top: 10px;
-}
-:deep(td), :deep(th) {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-</style>
 
 ---
 
-# Wrap-up
-
-<v-clicks>
+## Summary
 
 - There are two broad categories of quantum computers:
-```mermaid
+```{mermaid}
 flowchart LR
     A["Quantum Computing Hardware"]
 
@@ -1248,19 +794,8 @@ flowchart LR
     C --> C1["Continuous<br/>tunable dynamics"]
 ```
 
-</v-clicks>
-
-<v-clicks>
 
 - Different physical modalities have different strengths and weaknesses, and no single modality dominates across all performance metrics.
 - Noise is a major challenge for current quantum computers, causing errors in state preparation, gate operations, and readout.
 - Quantum software simulators replicate the behavior of quantum computers on classical hardware, but are limited in scale and do not capture all real-world noise effects.
-
-</v-clicks>
-
----
-layout: end
----
-
-# Thank You
 
