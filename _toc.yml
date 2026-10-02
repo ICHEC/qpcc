@@ -18,9 +18,9 @@ parts:
   - caption: Topic 4
     chapters:
     - file: lecture-04/lecture-04-fqa.md
-#  - caption: Topic 5
-#    chapters:
-#    - file: lecture-05/hardware-physics-qc.md
+  - caption: Topic 5
+    chapters:
+    - file: lecture-05/hardware-physics-qc.md
 #  - caption: Topic 6
 #    chapters:
 #    - file: lecture-06/early-qa1.md
