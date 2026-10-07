@@ -66,11 +66,11 @@ Wide variety of <span class="hl-green">applications</span>:
 - <span class="hl-red">Fourier Transform (FT)</span>: Converts a function into a representation of its frequency components:
 
 
-$$\hat{f}(\xi) = \int_{-\infty}^{\infty}f(t)e^{-i2\pi\xi t}dt$$
+$$\hat{f}(\omega) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}f(t)e^{-i\omega t}dt$$
 
 - <span class="hl-red">Inverse Fourier Transform (IFT)</span>: Reconstructs a function from its frequency domain back to the original time domain:
 
-$${f}(t) = \int_{-\infty}^{\infty}f(\xi)e^{i2\pi\xi t}d\xi$$
+$${f}(t) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}\hat{f}(\omega)e^{i\omega t}d\omega$$
 
 ### Frequency Composition
 
@@ -103,7 +103,7 @@ Fourier transform of different square functions.
 
 - Fourier transforms follow an <span class="hl-blue">uncertainty principle</span> similar to Heisenberg's one in quantum mechanics. A signal can't be <span class="hl-red">both</span> localised in <span class="hl-red">time</span> and <span class="hl-red">frequency</span>:
 
-$$\Delta t \cdot \Delta f \geq \frac{1}{4\pi}$$
+$$\Delta t \cdot \Delta \omega \geq \frac{1}{2}$$
 
 ## Quantum Fourier Transform
 
@@ -115,7 +115,7 @@ $$y_j = \sum_{k=0}^{N-1}x_k e^{-i2\pi jk/N},\quad j=0,1,\dots,N-1$$
 
 - <span class="hl-red">Quantum Fourier Transform (QFT)</span>: Converts a <span class="hl-green">basis state</span> $\ket{j}$ to a superposition of all basis states, weighted by a complex phase encoding <span class="hl-green">frequencies</span> information:
 
-$$\ket{j} = \frac{1}{\sqrt{N}}\sum_{k=0}^{N-1}e^{i2\pi jk/N}\ket{k},\quad j=0,1,\dots,N-1$$
+$$\text{QFT}\ket{j} = \frac{1}{\sqrt{N}}\sum_{k=0}^{N-1}e^{i2\pi jk/N}\ket{k},\quad j=0,1,\dots,N-1$$
 
 - <span class="hl-blue">QFT</span> is very similar to <span class="hl-blue">DFT</span>, but:
 
@@ -200,9 +200,9 @@ $$\textcolor{blue}{\boldsymbol{\rightarrow}}\begin{array}{c}\textcolor{green}{j_
 
 - <span class="hl-red">Hadamard</span> gate in <span class="hl-red">binary fraction</span> notation:
 
-$$H\ket{j_1}=\ket{0}+e^{i2\pi 0.j_1}\ket{1}$$
+$$H\ket{j_1}=\frac{1}{\sqrt{2}}\left(\ket{0}+e^{i2\pi 0.j_1}\ket{1}\right)$$
 
-$$\textcolor{blue}{\boldsymbol{\rightarrow}}\begin{array}{c} H\ket{0}=\ket{0}+e^{i2\pi\cdot\textcolor{red}{0}/2}\ket{1}=\ket{0}+\ket{1}\\H\ket{1}=\ket{0}+e^{i2\pi\cdot\textcolor{red}{1}/2}\ket{1}=\ket{0}-\ket{1}\end{array}$$
+$$\textcolor{blue}{\boldsymbol{\rightarrow}}\begin{array}{c} H\ket{0}=\frac{1}{\sqrt{2}}\left(\ket{0}+e^{i2\pi\cdot\textcolor{red}{0}/2}\ket{1}\right)=\frac{1}{\sqrt{2}}\left(\ket{0}+\ket{1}\right)\\H\ket{1}=\frac{1}{\sqrt{2}}\left(\ket{0}+e^{i2\pi\cdot\textcolor{red}{1}/2}\ket{1}\right)=\frac{1}{\sqrt{2}}\left(\ket{0}-\ket{1}\right)\end{array}$$
 
 ### Product Representation
 
@@ -264,7 +264,7 @@ $$\ket{\psi_1} = \left(\textcolor{blue}{\ket{0}+e^{i2\pi0.j_1j_2j_3}\ket{1}}\rig
 
 $$\ket{\psi_2} = \left({\ket{0}+e^{i2\pi0.j_1j_2j_3}\ket{1}}\right)\left(\textcolor{blue}{\ket{0}+e^{i2\pi0.j_2j_3}\ket{1}}\right)\ket{j_3}$$
 
-$$\ket{\psi_3} = \left(\textcolor{blue}{\ket{0}+e^{i2\pi0.j_3}}\right)\left({\ket{0}+e^{i2\pi0.j_2j_3}\ket{1}}\right)\left({\ket{0}+e^{i2\pi0.j_1j_2j_3}\ket{1}}\right)$$
+$$\ket{\psi_3} = \left(\textcolor{blue}{\ket{0}+e^{i2\pi0.j_3}\ket{1}}\right)\left({\ket{0}+e^{i2\pi0.j_2j_3}\ket{1}}\right)\left({\ket{0}+e^{i2\pi0.j_1j_2j_3}\ket{1}}\right)$$
 
 ### Inverse Circuit
 
@@ -389,7 +389,7 @@ QPE full circuit.
 
 - If $\phi$ can be exactly expressed as a <span class="hl-red">binary fraction</span>, QPE yields the <span class="hl-green">correct result 100% of the time</span>. For example, $\phi=\tfrac{3}{8} = \tfrac{0}{2}+\tfrac{1}{4}+\tfrac{1}{8}$, so <span class="hl-blue">QPE outputs</span> $\ket{011}$ with <span class="hl-green">probability = 1</span>.
 
-- If $\phi$ can't be exactly expressed as a <span class="hl-red">binary fraction</span>, e.g. $\phi = \tfrac{1}{6}=0.16666...$, it has a <span class="hl-red">repeating</span> binary expansion $\tfrac{1}{6} = 0.00\overline{1}\ldots$ that never terminates. <span class="hl-blue">QPE outputs</span> the closest value to $\phi$ with <span class="hl-green">probability</span> $\textcolor{green}{\geq\frac{4}{\pi^{2}}\approx 0.40}$.
+- If $\phi$ can't be exactly expressed as a <span class="hl-red">binary fraction</span>, e.g. $\phi = \tfrac{1}{6}=0.16666...$, it has a <span class="hl-red">repeating</span> binary expansion $\tfrac{1}{6} = 0.00\overline{10}\ldots$ that never terminates. <span class="hl-blue">QPE outputs</span> the closest value to $\phi$ with <span class="hl-green">probability</span> $\textcolor{green}{\geq\frac{4}{\pi^{2}}\approx 0.40}$.
 
 - Increasing the <span class="hl-blue">number of qubits</span> in the first register improves the approximation:
 
