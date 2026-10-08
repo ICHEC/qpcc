@@ -4,7 +4,7 @@ layout: post
 ---
 
 (lecture-5)=
-# Hardware & Physics of Quantum Computers
+# Lecture 5: Hardware & Physics of Quantum Computers
 
 
 ```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture. 
