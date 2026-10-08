@@ -1,0 +1,1171 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lecture 6: Early Quantum Algorithms I &#8212; Lecture Notes for CT4106</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/drawio.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/style.css?v=66ade4b8" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-06/lecture-06-eqa1';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/parallel-sg.js?v=fc6e2f92"></script>
+    <script src="../_static/stern-gerlach.js?v=4e52aa77"></script>
+    <script src="../_static/logic-gate.js?v=1548f47a"></script>
+    <script src="../_static/quantum-circuit.js?v=8c43a845"></script>
+    <script src="../_static/bloch-path.js?v=fbcfb0fb"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Mathematical Structure" href="../topics/math-la.html" />
+    <link rel="prev" title="Lecture 5: Hardware &amp; Physics of Quantum Computers" href="../lecture-05/hardware-physics-qc.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Lecture Notes for CT4106 - Home"/>
+    <img src="../_static/logo.png" class="logo__image only-dark pst-js-only" alt="Lecture Notes for CT4106 - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    CT4110 Lectures Overview
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 1</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-01/intro-cc-qc.html">Introduction to Classical and Quantum Computing</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../lecture-01/intro-bits-and-gates.html">Introduction to Classical Bits and Gates</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-02/bits-to-qubits.html">Lecture 2: From Bits to Qubits</a></li>
+
+
+
+
+
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 3</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-03/connecting-qubits.html">Lecture 3: Connecting Qubits Together</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 4</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-04/lecture-04-fqa.html">Lecture 4: First Quantum Algorithm</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 5</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lecture-05/hardware-physics-qc.html">Lecture 5: Hardware &amp; Physics of Quantum Computers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 6</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 6: Early Quantum Algorithms I</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous Topics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../topics/math-la.html">Mathematical Structure</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lecture-06/lecture-06-eqa1.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 6: Early Quantum Algorithms I</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#focus-of-lecture">Focus of Lecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#landscape-of-quantum-algorithms">Landscape of Quantum Algorithms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-analysis">Fourier Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-transform-definition">Fourier Transform: Definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-transform-frequency-composition">Fourier Transform: Frequency Composition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-transform-square-function">Fourier Transform: Square Function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-fourier-transform-definition">Quantum Fourier Transform: Definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qft-basis-states">QFT: Basis States</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qft-general-states-and-inverse">QFT: General States and Inverse</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qft-product-representation-i">QFT: Product representation I</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qft-product-representation-ii">QFT: Product representation II</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qft-circuit-i">QFT: Circuit I</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qft-circuit-ii">QFT: Circuit II</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iqft-circuit">IQFT: Circuit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qft-and-ft">QFT and FT</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-phase-estimation-definition">Quantum Phase Estimation: Definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qpe-circuit-preliminaries-i">QPE: Circuit Preliminaries I</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qpe-circuit-preliminaries-ii">QPE: Circuit Preliminaries II</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qpe-circuit-i">QPE: Circuit I</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qpe-circuit-ii">QPE: Circuit II</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qpe-circuit-iii">QPE: Circuit III</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qpe-complexity-and-performance-i">QPE: Complexity and performance I</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qpe-complexity-and-performance-ii">QPE: Complexity and performance II</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qpe-why-it-matters">QPE: Why it matters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wrap-up">Wrap-up</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-6-early-quantum-algorithms-i">
+<span id="lecture-6"></span><h1>Lecture 6: Early Quantum Algorithms I<a class="headerlink" href="#lecture-6-early-quantum-algorithms-i" title="Link to this heading">#</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>These lecture notes are a work in progress and are not a replacement for watching the lecture video, it’s intended to be a supplementary reading after watching the lecture.</p>
+</div>
+<section id="focus-of-lecture">
+<h2>Focus of Lecture<a class="headerlink" href="#focus-of-lecture" title="Link to this heading">#</a></h2>
+<p>After this lecture you should be able to:</p>
+<ul class="simple">
+<li><p>Get an overview on the <span class="hl-green">landscape of quantum algorithms</span> that will be studied during the rest of the course.</p></li>
+<li><p>Understand the <span class="hl-red">Fourier transform</span> and what it is used for.</p></li>
+<li><p>Understand the <span class="hl-red">quantum Fourier transform</span>, how to make its circuit, and how it differs from the classical Fourier transform.</p></li>
+<li><p>Introduce <span class="hl-blue">quantum phase estimation</span> and its circuit.</p></li>
+<li><p>Study the <span class="hl-blue">complexity and performance</span> of quantum phase estimation.</p></li>
+</ul>
+</section>
+<section id="landscape-of-quantum-algorithms">
+<h2>Landscape of Quantum Algorithms<a class="headerlink" href="#landscape-of-quantum-algorithms" title="Link to this heading">#</a></h2>
+<figure class="align-center" id="id1">
+<img alt="../_images/algorithm_landscape.png" src="../_images/algorithm_landscape.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 40 </span><span class="caption-text">Landscape of quantum algorithms.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="fourier-analysis">
+<h2>Fourier Analysis<a class="headerlink" href="#fourier-analysis" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Invented by <span class="hl-blue">Joseph Fourier</span> in the early 19th century, while studying <span class="hl-blue">heat transfer</span>.</p></li>
+</ul>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../_images/joseph_fourier.png"><img alt="../_images/joseph_fourier.png" src="../_images/joseph_fourier.png" style="width: 200px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 41 </span><span class="caption-text">Joseph Fourier.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="information admonition">
+<p class="admonition-title">Fourier Analysis</p>
+<p>Studies how <span class="hl-red">complex functions</span> can be approximated by sums of <span class="hl-red">sines</span> and <span class="hl-red">cosines</span>.</p>
+</div>
+<figure class="align-center" id="id3">
+<img alt="../_images/sincos.png" src="../_images/sincos.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 42 </span><span class="caption-text">Sine and cosine plots.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Wide variety of <span class="hl-green">applications</span>:</p>
+<ul class="simple">
+<li><p>Signal processing.</p></li>
+<li><p>Electronics.</p></li>
+<li><p>Machine learning.</p></li>
+<li><p>Time series analysis.</p></li>
+<li><p>Even <span class="hl-green">quantum mechanics</span> itself!</p></li>
+</ul>
+</section>
+<section id="fourier-transform-definition">
+<h2>Fourier Transform: Definition<a class="headerlink" href="#fourier-transform-definition" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><span class="hl-red">Fourier Transform (FT)</span>: Converts a function into a representation of its frequency components:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\hat{f}(\omega) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}f(t)e^{-i\omega t}dt\]</div>
+<ul class="simple">
+<li><p><span class="hl-red">Inverse Fourier Transform (IFT)</span>: Reconstructs a function from its frequency domain back to the original time domain:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[{f}(t) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}\hat{f}(\omega)e^{i\omega t}d\omega\]</div>
+</section>
+<section id="fourier-transform-frequency-composition">
+<h2>Fourier Transform: Frequency Composition<a class="headerlink" href="#fourier-transform-frequency-composition" title="Link to this heading">#</a></h2>
+<figure class="align-center" id="id4">
+<img alt="../_images/fourier.gif" src="../_images/fourier.gif" />
+<figcaption>
+<p><span class="caption-number">Fig. 43 </span><span class="caption-text">Fourier transform animation (source: <a class="reference external" href="http://commons.wikipedia.org">commons.wikipedia.org</a>).</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>The <span class="hl-red">function</span> can be expressed by a sum of <span class="hl-green">trigonometric functions</span>.</p></li>
+</ul>
+<div class="information admonition">
+<p class="admonition-title">Note</p>
+<p>The <span class="hl-blue">Fourier Transform</span> gives us the <span class="hl-blue">frequencies</span> of the functions composing the signal.</p>
+</div>
+<ul class="simple">
+<li><p>Remember the <span class="hl-green">Euler formula</span>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[e^{i\theta} = \cos\theta + i\sin\theta\]</div>
+</section>
+<section id="fourier-transform-square-function">
+<h2>Fourier Transform: Square Function<a class="headerlink" href="#fourier-transform-square-function" title="Link to this heading">#</a></h2>
+<figure class="align-center" id="id5">
+<img alt="../_images/fourier_spread.png" src="../_images/fourier_spread.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 44 </span><span class="caption-text">Fourier transform of different square functions.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>Functions that are <span class="hl-green">narrow</span> in time are <span class="hl-green">spread</span> in frequency and vice versa.</p></li>
+<li><p>Fourier transforms follow an <span class="hl-blue">uncertainty principle</span> similar to Heisenberg’s one in quantum mechanics. A signal can’t be <span class="hl-red">both</span> localised in <span class="hl-red">time</span> and <span class="hl-red">frequency</span>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\Delta t \cdot \Delta \omega \geq \frac{1}{2}\]</div>
+</section>
+<section id="quantum-fourier-transform-definition">
+<h2>Quantum Fourier Transform: Definition<a class="headerlink" href="#quantum-fourier-transform-definition" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><span class="hl-red">Discrete Fourier Transform (DFT)</span>: Discrete analogue of FT. Transforms a <span class="hl-green">vector</span> of <span class="math notranslate nohighlight">\(N\)</span> complex numbers <span class="math notranslate nohighlight">\((x_0,x_1,\dots,x_{N-1})\in\mathbb{C}\)</span> to a vector <span class="math notranslate nohighlight">\((y_0,y_1,\dots,y_{N-1})\in\mathbb{C}\)</span>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[y_j = \sum_{k=0}^{N-1}x_k e^{-i2\pi jk/N},\quad j=0,1,\dots,N-1\]</div>
+<ul class="simple">
+<li><p><span class="hl-red">Quantum Fourier Transform (QFT)</span>: Converts a <span class="hl-green">basis state</span> <span class="math notranslate nohighlight">\(\ket{j}\)</span> to a superposition of all basis states, weighted by a complex phase encoding <span class="hl-green">frequencies</span> information:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\text{QFT}\ket{j} = \frac{1}{\sqrt{N}}\sum_{k=0}^{N-1}e^{i2\pi jk/N}\ket{k},\quad j=0,1,\dots,N-1\]</div>
+<ul class="simple">
+<li><p><span class="hl-blue">QFT</span> is very similar to <span class="hl-blue">DFT</span>, but:</p>
+<ol class="arabic simple">
+<li><p>A <span class="hl-green">normalisation term</span> <span class="math notranslate nohighlight">\(\frac{1}{\sqrt{N}}\)</span> appears.</p></li>
+<li><p>The <span class="hl-green">sign</span> of the exponential is different (it is just a convention).</p></li>
+</ol>
+</li>
+</ul>
+</section>
+<section id="qft-basis-states">
+<h2>QFT: Basis States<a class="headerlink" href="#qft-basis-states" title="Link to this heading">#</a></h2>
+<figure class="align-center" id="id6">
+<img alt="../_images/qft_1.png" src="../_images/qft_1.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 45 </span><span class="caption-text">QFT of state <span class="math notranslate nohighlight">\(\ket{0}\)</span> (source: IBM Quantum Learning).</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="math notranslate nohighlight">
+\[\text{QFT} \ket{0} = \frac{1}{2} \left( e^{i 2\pi \cdot \textcolor{red}{0} \cdot 0 / 4} \ket{0} + e^{i 2\pi \cdot \textcolor{red}{0} \cdot 1 / 4} \ket{1} + e^{i 2\pi \cdot \textcolor{red}{0} \cdot 2 / 4} \ket{2} + e^{i 2\pi \cdot \textcolor{red}{0} \cdot 3 / 4} \ket{3} \right)
+= \frac{1}{2} \left( \ket{0} + \ket{1} + \ket{2} + \ket{3} \right)\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\textcolor{red}{\text{QFT}\ket{j=0}}\)</span> state produces an <span class="hl-blue">uniform superposition</span> of all 4 basis states. All <span class="hl-red">phases</span> are 0.</p></li>
+</ul>
+<figure class="align-center" id="id7">
+<img alt="../_images/qft_2.png" src="../_images/qft_2.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 46 </span><span class="caption-text">QFT of state <span class="math notranslate nohighlight">\(\ket{1}\)</span> (source: IBM Quantum Learning).</span><a class="headerlink" href="#id7" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="math notranslate nohighlight">
+\[\text{QFT} \ket{1} = \frac{1}{2} \left( e^{i 2\pi \cdot \textcolor{red}{1} \cdot 0 / 4} \ket{0} + e^{i 2\pi \cdot \textcolor{red}{1} \cdot 1 / 4} \ket{1} + e^{i 2\pi \cdot \textcolor{red}{1} \cdot 2 / 4} \ket{2} + e^{i 2\pi \cdot \textcolor{red}{1} \cdot 3 / 4} \ket{3} \right)
+= \frac{1}{2} \left( \ket{0} + i\ket{1} - \ket{2} - i\ket{3} \right)\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\textcolor{red}{\text{QFT}\ket{j}}\)</span> will apply a <span class="hl-blue">phase increase</span> of <span class="math notranslate nohighlight">\(2\pi jk/N\)</span> to each of the <span class="math notranslate nohighlight">\(\ket{k}=0,1,...,N\)</span> superposed states obtained.</p></li>
+</ul>
+<figure class="align-center" id="id8">
+<img alt="../_images/qft_3.png" src="../_images/qft_3.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 47 </span><span class="caption-text">QFT of state <span class="math notranslate nohighlight">\(\ket{2}\)</span> (source: IBM Quantum Learning).</span><a class="headerlink" href="#id8" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="math notranslate nohighlight">
+\[\text{QFT} \ket{2} = \frac{1}{2} \left( e^{i 2\pi \cdot \textcolor{red}{2} \cdot 0 / 4} \ket{0} + e^{i 2\pi \cdot \textcolor{red}{2} \cdot 1 / 4} \ket{1} + e^{i 2\pi \cdot \textcolor{red}{2} \cdot 2 / 4} \ket{2} + e^{i 2\pi \cdot \textcolor{red}{2} \cdot 3 / 4} \ket{3} \right)
+= \frac{1}{2} \left( \ket{0} - \ket{1} + \ket{2} - \ket{3} \right)\]</div>
+<ul class="simple">
+<li><p>As we increase <span class="math notranslate nohighlight">\(\textcolor{red}{\ket{j}}\)</span> the rate of phase change will increase.</p></li>
+</ul>
+<figure class="align-center" id="id9">
+<img alt="../_images/qft_4.png" src="../_images/qft_4.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 48 </span><span class="caption-text">QFT of state <span class="math notranslate nohighlight">\(\ket{3}\)</span> (source: IBM Quantum Learning).</span><a class="headerlink" href="#id9" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="math notranslate nohighlight">
+\[\text{QFT} \ket{3} = \frac{1}{2} \left( e^{i 2\pi \cdot \textcolor{red}{3} \cdot 0 / 4} \ket{0} + e^{i 2\pi \cdot \textcolor{red}{3} \cdot 1 / 4} \ket{1} + e^{i 2\pi \cdot \textcolor{red}{3} \cdot 2 / 4} \ket{2} + e^{i 2\pi \cdot \textcolor{red}{3} \cdot 3 / 4} \ket{3} \right)
+= \frac{1}{2} \left( \ket{0} - i\ket{1} - \ket{2} + i\ket{3} \right)\]</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Like in FT, in all cases we see that a <span class="hl-blue">narrow signal</span> (the basis vector <span class="math notranslate nohighlight">\(\textcolor{red}{\ket{j}}\)</span>) is spread into a <span class="hl-blue">superposition of states</span>, with phases varying with <span class="math notranslate nohighlight">\(\textcolor{red}{j}\)</span>.</p>
+</div>
+</section>
+<section id="qft-general-states-and-inverse">
+<h2>QFT: General States and Inverse<a class="headerlink" href="#qft-general-states-and-inverse" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>For a <span class="hl-blue">general state</span> <span class="math notranslate nohighlight">\(\ket{\psi}=\sum_{j=0}^{N-1}x_j\ket{j}\)</span>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\text{QFT} \ket{\psi} = \sum_{j=0}^{N-1} x_j \colorbox{#86efac}{\(\displaystyle\frac{1}{\sqrt{N}} \sum_{k=0}^{N-1} e^{i 2\pi j k / N} \ket{k}\)}\]</div>
+<p>The highlighted term is the <span class="hl-green">QFT applied to the basis vectors</span>.</p>
+<ul class="simple">
+<li><p>The QFT also has an <span class="hl-red">inverse</span> (IQFT):</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\text{QFT}^\dagger \ket{\psi} = \sum_{j=0}^{N-1} x_j \left( \frac{1}{\sqrt{N}} \sum_{k=0}^{N-1} e^{\colorbox{#bfdbfe}{$\displaystyle-$}i 2\pi j k / N} \ket{k}\right)\]</div>
+<p>Only the <span class="hl-blue">sign</span> changes with respect to the QFT.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\textcolor{red}{\text{QFT}^\dagger\text{QFT}}\ket{\psi}=\ket{\psi}\)</span>. From the previous section: <span class="math notranslate nohighlight">\(\text{QFT}^\dagger\left (\frac{1}{2}\sum_{i=0}^{N-1}\ket{i}\right )=\ket{0}\)</span></p></li>
+</ul>
+</section>
+<section id="qft-product-representation-i">
+<h2>QFT: Product representation I<a class="headerlink" href="#qft-product-representation-i" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><span class="hl-red">Binary representation</span> of a <span class="hl-red">n-qubit basis</span>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\ket{j} = \ket{j_{1}2^{n-1} + j_{2}2^{n-2} + \cdots + j_{n}2^{0}} \equiv \textcolor{red}{\ket{j_1j_2\cdots j_n}}\]</div>
+<ul class="simple">
+<li><p><span class="hl-red">Binary fraction</span> notation:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[0. j_{l}j_{l+1}\dots j_{m}=\frac{j_l}{2}+\frac{j_{l+1}}{4}+\cdots+\frac{j_m}{2^{m-l+1}}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\textcolor{blue}{\boldsymbol{\rightarrow}}\begin{array}{c}\textcolor{green}{j_1}=1 \\ \textcolor{blue}{j_2} =0 \\ \textcolor{green}{j_3} =1 \end{array}\rightarrow 0.j_1j_2j_3=\frac{\textcolor{green}{1}}{2}+\frac{\textcolor{blue}{0}}{4}+\frac{\textcolor{green}{1}}{8}\end{split}\]</div>
+<ul class="simple">
+<li><p><span class="hl-red">Hadamard</span> gate in <span class="hl-red">binary fraction</span> notation:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[H\ket{j_1}=\frac{1}{\sqrt{2}}\left(\ket{0}+e^{i2\pi 0.j_1}\ket{1}\right)\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\textcolor{blue}{\boldsymbol{\rightarrow}}\begin{array}{c} H\ket{0}=\frac{1}{\sqrt{2}}\left(\ket{0}+e^{i2\pi\cdot\textcolor{red}{0}/2}\ket{1}\right)=\frac{1}{\sqrt{2}}\left(\ket{0}+\ket{1}\right)\\H\ket{1}=\frac{1}{\sqrt{2}}\left(\ket{0}+e^{i2\pi\cdot\textcolor{red}{1}/2}\ket{1}\right)=\frac{1}{\sqrt{2}}\left(\ket{0}-\ket{1}\right)\end{array}\end{split}\]</div>
+</section>
+<section id="qft-product-representation-ii">
+<h2>QFT: Product representation II<a class="headerlink" href="#qft-product-representation-ii" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Using some algebra we get the <span class="hl-green">product representation</span> of QFT:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\ket{j} &amp;\rightarrow \frac{1}{2^{n/2}} \sum_{k=0}^{2^n - 1} e^{2\pi i jk / 2^n} \ket{k} \\
+&amp;= \frac{1}{2^{n/2}} \sum_{k_1 = 0}^{1} \cdots \sum_{k_n = 0}^{1}
+e^{2\pi i j \sum_{l=1}^{n} k_l 2^{-l}} \ket{k_1 \dots k_n} \\
+&amp;= \frac{1}{2^{n/2}} \sum_{k_1 = 0}^{1} \cdots \sum_{k_n = 0}^{1} \bigotimes_{l=1}^{n} e^{2\pi i jk_l 2^{-l}}\ket{k_l} \\
+&amp;= \frac{1}{2^{n/2}} \bigotimes_{l=1}^{n}\left(\sum_{k_l=0}^{1} e^{2\pi i jk_l2^{-l}} \ket{k_l} \right) \\
+&amp;= \frac{1}{2^{n/2}} \bigotimes_{l=1}^{n} \left( \ket{0} + e^{2\pi i j 2^{-l}} \ket{1} \right) \\
+&amp;= \frac{1}{2^{n/2}}
+\left( \ket{0} + e^{2\pi i \, 0.j_n} \ket{1} \right)
+\left( \ket{0} + e^{2\pi i \, 0.j_{n-1} j_n} \ket{1} \right)
+\cdots
+\left( \ket{0} + e^{2\pi i \, 0.j_1 j_2 \cdots j_n} \ket{1} \right)
+\end{aligned}\end{split}\]</div>
+<p>Expanding the notation:</p>
+<div class="math notranslate nohighlight">
+\[\ket{j_1 j_2 \cdots j_n}\rightarrow\frac{1}{\sqrt{N}}
+\left(\ket{0} + e^{i2\pi \frac{j_n}{2}}\ket{1}\right)
+\left(\ket{0} + e^{i2\pi \left(\frac{j_{n-1}}{2}+\frac{j_n}{4}\right)}\ket{1}\right)
+\cdots
+\left(\ket{0} + e^{i2\pi \left(\frac{j_1}{2}+\frac{j_2}{4}+\cdots+\frac{j_n}{2^n}\right)}\ket{1}\right)\]</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p><span class="hl-green">Product representation</span> will help us understanding how the QFT <span class="hl-blue">circuit</span> is built!</p>
+</div>
+</section>
+<section id="qft-circuit-i">
+<h2>QFT: Circuit I<a class="headerlink" href="#qft-circuit-i" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><span class="hl-green">Parameterised</span> version of <span class="hl-green">phase rotation</span> gate:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split} R_k = \left(\begin{array}{cc}1 &amp; 0 \\ 0 &amp; e^{i2\pi/2^{k}}\end{array}\right) \rightarrow R_k\ket{j_1} = e^{i2\pi j_1/2^{k}}\ket{j_1}\end{split}\]</div>
+<ul class="simple">
+<li><p><span class="hl-blue">Controlled phase rotation</span> (<span class="math notranslate nohighlight">\(CR_k\)</span>) gate:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[CR_k\ket{j_1j_2} = \ket{j_1}e^{i2\pi j_1j_2/2^{k}}\ket{j_2}\]</div>
+<figure class="align-center" id="id10">
+<img alt="../_images/cr_gate.png" src="../_images/cr_gate.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 49 </span><span class="caption-text">Building block of the QFT circuit.</span><a class="headerlink" href="#id10" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="math notranslate nohighlight">
+\[\ket{\psi_1}=\left(\ket{0} + e^{i2\pi0.j_1}\ket{1}\right)\ket{j_2}\]</div>
+<div class="math notranslate nohighlight">
+\[\ket{\psi_2}=\left(\ket{0} + e^{i2\pi0.j_1j_2}\ket{1}\right)\ket{j_2}\]</div>
+</section>
+<section id="qft-circuit-ii">
+<h2>QFT: Circuit II<a class="headerlink" href="#qft-circuit-ii" title="Link to this heading">#</a></h2>
+<figure class="align-center" id="id11">
+<img alt="../_images/qft_circuit.png" src="../_images/qft_circuit.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 50 </span><span class="caption-text">3 qubit QFT circuit.</span><a class="headerlink" href="#id11" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="math notranslate nohighlight">
+\[\ket{\psi_1} = \left(\textcolor{blue}{\ket{0}+e^{i2\pi0.j_1j_2j_3}\ket{1}}\right)\ket{j_2}\ket{j_3}\]</div>
+<div class="math notranslate nohighlight">
+\[\ket{\psi_2} = \left({\ket{0}+e^{i2\pi0.j_1j_2j_3}\ket{1}}\right)\left(\textcolor{blue}{\ket{0}+e^{i2\pi0.j_2j_3}\ket{1}}\right)\ket{j_3}\]</div>
+<div class="math notranslate nohighlight">
+\[\ket{\psi_3} = \left(\textcolor{blue}{\ket{0}+e^{i2\pi0.j_3}\ket{1}}\right)\left({\ket{0}+e^{i2\pi0.j_2j_3}\ket{1}}\right)\left({\ket{0}+e^{i2\pi0.j_1j_2j_3}\ket{1}}\right)\]</div>
+</section>
+<section id="iqft-circuit">
+<h2>IQFT: Circuit<a class="headerlink" href="#iqft-circuit" title="Link to this heading">#</a></h2>
+<figure class="align-center" id="id12">
+<img alt="../_images/iqft_circuit.png" src="../_images/iqft_circuit.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 51 </span><span class="caption-text">3 qubit IQFT circuit.</span><a class="headerlink" href="#id12" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>The order of <span class="hl-blue">gates</span> is inverted.</p></li>
+<li><p>The order of <span class="hl-blue">qubits</span> is inverted.</p></li>
+<li><p>We use the <span class="hl-blue">adjoints</span> of the operators.</p></li>
+<li><p><span class="hl-green">Hadamard</span> and <span class="hl-green">SWAP</span> are <span class="hl-red">hermitian operators</span>, so they are equal to their adjoints.</p></li>
+</ul>
+</section>
+<section id="qft-and-ft">
+<h2>QFT and FT<a class="headerlink" href="#qft-and-ft" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p><span class="hl-red">Quantum Fourier Transform</span></p></th>
+<th class="head"><p><span class="hl-green">Classical Fourier Transform</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Data</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\(N\)</span> amplitudes held in only <span class="math notranslate nohighlight">\(n = \log N\)</span> qubits</p></td>
+<td><p><span class="math notranslate nohighlight">\(N\)</span> numbers stored explicitly</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Cost</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\(O(\log N \log N)\)</span> gates</p></td>
+<td><p><span class="math notranslate nohighlight">\(O(N \log N)\)</span> operations</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Output</strong></p></td>
+<td><p>Cannot read the amplitudes; a measurement returns one <span class="math notranslate nohighlight">\(k\)</span>, sampled with probability <span class="math notranslate nohighlight">\(\lvert y_k\rvert^2\)</span></p></td>
+<td><p>Can read all <span class="math notranslate nohighlight">\(N\)</span> values <span class="math notranslate nohighlight">\(y_k\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Input</strong></p></td>
+<td><p>Need the state <span class="math notranslate nohighlight">\(\sum_j x_j\ket{j}\)</span> already prepared, which can itself be expensive</p></td>
+<td><p>Any vector you can write down</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p>The QFT has better <span class="hl-red">computational complexity</span> in terms of <span class="hl-green">input size</span>, but its speedup only materialises when embedded in a larger quantum algorithm.</p></li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Even though <span class="hl-red">quantum amplitudes are not directly accessible</span>, the QFT plays a <span class="hl-green">central role</span> in powerful quantum algorithms such as <span class="hl-blue">Shor’s factoring algorithm</span> and <span class="hl-blue">Quantum Phase Estimation (QPE)</span>.</p>
+</div>
+</section>
+<section id="quantum-phase-estimation-definition">
+<h2>Quantum Phase Estimation: Definition<a class="headerlink" href="#quantum-phase-estimation-definition" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Initially introduced by <span class="hl-blue">Alexei Kitaev</span> in 1995.</p></li>
+</ul>
+<figure class="align-center" id="id13">
+<a class="reference internal image-reference" href="../_images/kitaev.png"><img alt="../_images/kitaev.png" src="../_images/kitaev.png" style="width: 200px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 52 </span><span class="caption-text">Alexei Kitaev.</span><a class="headerlink" href="#id13" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>A <span class="hl-green">unitary operator</span> <span class="math notranslate nohighlight">\(U\)</span> has <span class="hl-green">norm-1 eigenvalues</span>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[U\ket{u} = e^{i2\pi\phi}\ket{u}\]</div>
+<div class="information admonition">
+<p class="admonition-title">Quantum Phase Estimation</p>
+<p><span class="hl-red">Quantum Phase Estimation (QPE)</span> tries to <span class="hl-red">estimate</span> <span class="math notranslate nohighlight">\(\phi\)</span>.</p>
+</div>
+<ul class="simple">
+<li><p>QPE <span class="hl-blue">assumes</span> that:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\textcolor{blue}{\ket{u}}\)</span> can be efficiently prepared.</p></li>
+<li><p>A controlled-<span class="math notranslate nohighlight">\(\textcolor{blue}{U^{2^{t}}}\)</span> gate can be prepared.</p></li>
+</ol>
+</li>
+</ul>
+<p>This is a reasonable assumption because:</p>
+<ol class="arabic simple">
+<li><p><span class="hl-blue">Extracting eigenvalues</span> classically is <span class="hl-blue">hard</span>.</p></li>
+<li><p><span class="hl-blue">Many problems</span> in quantum mechanics and physics involve <span class="hl-blue">finding eigenvalues</span> of an operator.</p></li>
+</ol>
+</section>
+<section id="qpe-circuit-preliminaries-i">
+<h2>QPE: Circuit Preliminaries I<a class="headerlink" href="#qpe-circuit-preliminaries-i" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>A <span class="hl-green">unitary operator</span> <span class="math notranslate nohighlight">\(U\)</span> verifies that:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[U^{2^t} \ket{u} = \underbrace{U \cdots U}_{\textcolor{red}{2^t}} \ket{u} = \underbrace{e^{i 2\pi  \phi} \cdots e^{i 2\pi \phi}}_{\textcolor{red}{2^t}} \ket{u} = e^{i 2\pi {\textcolor{red}{2^t}}\phi} \ket{u}\]</div>
+<ul class="simple">
+<li><p>We can build a <span class="hl-green">controlled version</span> of this gate <span class="math notranslate nohighlight">\(C\text{-}U^{2^t}\)</span> so that:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{c} C\text{-}U^{2^t}\ket{0}\ket{u} = \ket{0}\ket{u} \\[10pt] C\text{-}U^{2^t}\ket{1}\ket{u} = \ket{1}e^{i2\pi {\textcolor{red}{2^t}}\phi}\ket{u}\end{array}\end{split}\]</div>
+</section>
+<section id="qpe-circuit-preliminaries-ii">
+<h2>QPE: Circuit Preliminaries II<a class="headerlink" href="#qpe-circuit-preliminaries-ii" title="Link to this heading">#</a></h2>
+<figure class="align-center" id="id14">
+<img alt="../_images/qpe_1.png" src="../_images/qpe_1.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 53 </span><span class="caption-text">Building block of the QPE circuit.</span><a class="headerlink" href="#id14" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="math notranslate nohighlight">
+\[\ket{\psi_1} = \ket{0}\ket{u}\]</div>
+<div class="math notranslate nohighlight">
+\[\ket{\psi_2} = \frac{1}{\sqrt{2}}\left(\ket{0}\ket{u}+\ket{1}\ket{u}\right)\]</div>
+<div class="math notranslate nohighlight">
+\[\ket{\psi_3} = \frac{1}{\sqrt{2}}\left(\ket{0}\ket{u}+\ket{1}e^{i 2\pi 2^{t}\phi}\ket{u}\right) = \frac{1}{\sqrt{2}}\left(\ket{0}+\ket{1}e^{i 2\pi 2^{t}\phi}\right)\ket{u}\]</div>
+</section>
+<section id="qpe-circuit-i">
+<h2>QPE: Circuit I<a class="headerlink" href="#qpe-circuit-i" title="Link to this heading">#</a></h2>
+<figure class="align-center" id="id15">
+<img alt="../_images/qpe_2.png" src="../_images/qpe_2.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 54 </span><span class="caption-text">QPE first step circuit.</span><a class="headerlink" href="#id15" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>The state of the <span class="hl-green">first register</span> will be:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\frac{1}{2^{t/2}} \left(\ket{0} + e^{2\pi i 2^{t-1}\phi}\ket{1}\right) \cdots \left(\ket{0} + e^{2\pi i 2^{1}\phi}\ket{1}\right) \left(\ket{0} + e^{2\pi i 2^{0}\phi}\ket{1}\right)\]</div>
+</section>
+<section id="qpe-circuit-ii">
+<h2>QPE: Circuit II<a class="headerlink" href="#qpe-circuit-ii" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Recalling the <span class="hl-red">binary fraction</span> notation for <span class="math notranslate nohighlight">\(\phi\)</span>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[0.\phi_1\phi_2\cdots\phi_t = \frac{\phi_1}{2} + \frac{\phi_2}{4} + \cdots + \frac{\phi_t}{2^t}\]</div>
+<ul class="simple">
+<li><p>We can rewrite the state of the <span class="hl-green">first register</span> as:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\frac{1}{2^{t/2}} \left(\ket{0} + e^{2\pi i \,0.\phi_t}\ket{1}\right) \left(\ket{0} + e^{2\pi i \,0.\phi_{t-1}\phi_t}\ket{1}\right) \cdots \left(\ket{0} + e^{2\pi i \,0.\phi_1\phi_2\cdots\phi_t}\ket{1}\right)\]</div>
+<p><strong>Demonstration.</strong> The qubit with the power <span class="math notranslate nohighlight">\(2^k\)</span>, for <span class="math notranslate nohighlight">\(k=0,1,\dots,t-1\)</span>, is in the state:</p>
+<div class="math notranslate nohighlight">
+\[\ket{0} + e^{2\pi i\, 2^{k}\phi}\ket{1}\]</div>
+<p>Using the binary fraction expansion of <span class="math notranslate nohighlight">\(\phi\)</span>, multiplying by <span class="math notranslate nohighlight">\(2^k\)</span> shifts every bit <span class="math notranslate nohighlight">\(k\)</span> places to the left:</p>
+<div class="math notranslate nohighlight">
+\[2^k\phi = \sum_{m=1}^{t}\phi_m\,2^{k-m}\]</div>
+<p>We split the sum at <span class="math notranslate nohighlight">\(m=k\)</span>. The terms with <span class="math notranslate nohighlight">\(m\leq k\)</span> have a non-negative exponent, so they add up to an integer <span class="math notranslate nohighlight">\(N_k\)</span>. The terms with <span class="math notranslate nohighlight">\(m&gt;k\)</span> have a negative exponent, so they are a binary fraction:</p>
+<div class="math notranslate nohighlight">
+\[2^k\phi = \underbrace{\sum_{m=1}^{k}\phi_m\,2^{k-m}}_{\text{integer } N_k} + \underbrace{\sum_{m=k+1}^{t}\frac{\phi_m}{2^{\,m-k}}}_{=\,0.\phi_{k+1}\phi_{k+2}\cdots\phi_t}\]</div>
+<p>Since <span class="math notranslate nohighlight">\(e^{2\pi i N_k}=1\)</span> for any integer <span class="math notranslate nohighlight">\(N_k\)</span>, the integer part has no effect on the phase:</p>
+<div class="math notranslate nohighlight">
+\[e^{2\pi i\, 2^{k}\phi} = e^{2\pi i N_k}\,e^{2\pi i\,0.\phi_{k+1}\cdots\phi_t} = e^{2\pi i\,0.\phi_{k+1}\cdots\phi_t}\]</div>
+<p>Only the bits to the right of the binary point survive, so each qubit keeps a different number of bits of <span class="math notranslate nohighlight">\(\phi\)</span>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Power</p></th>
+<th class="head text-center"><p>Qubit state</p></th>
+<th class="head text-center"><p>Bits kept</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><span class="math notranslate nohighlight">\(k=t-1\)</span></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\ket{0} + e^{2\pi i \,0.\phi_t}\ket{1}\)</span></p></td>
+<td class="text-center"><p>last bit</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><span class="math notranslate nohighlight">\(k=t-2\)</span></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\ket{0} + e^{2\pi i \,0.\phi_{t-1}\phi_t}\ket{1}\)</span></p></td>
+<td class="text-center"><p>last two bits</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><span class="math notranslate nohighlight">\(\vdots\)</span></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\vdots\)</span></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\vdots\)</span></p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><span class="math notranslate nohighlight">\(k=0\)</span></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\ket{0} + e^{2\pi i \,0.\phi_1\phi_2\cdots\phi_t}\ket{1}\)</span></p></td>
+<td class="text-center"><p>all bits</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Taking the product of the <span class="math notranslate nohighlight">\(t\)</span> qubits, with the <span class="math notranslate nohighlight">\(\frac{1}{\sqrt{2}}\)</span> of each Hadamard giving the global factor <span class="math notranslate nohighlight">\(\frac{1}{2^{t/2}}\)</span>, we obtain the expression above. For example, for <span class="math notranslate nohighlight">\(t=3\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+4\phi &amp;= 2\phi_1+\phi_2+\tfrac{\phi_3}{2} \;\rightarrow\; 0.\phi_3 \\
+2\phi &amp;= \phi_1+\tfrac{\phi_2}{2}+\tfrac{\phi_3}{4} \;\rightarrow\; 0.\phi_2\phi_3 \\
+\phi &amp;= \tfrac{\phi_1}{2}+\tfrac{\phi_2}{4}+\tfrac{\phi_3}{8} \;\rightarrow\; 0.\phi_1\phi_2\phi_3
+\end{aligned}\end{split}\]</div>
+<p>This derivation assumes that <span class="math notranslate nohighlight">\(\phi\)</span> can be written exactly with <span class="math notranslate nohighlight">\(t\)</span> bits.</p>
+<ul class="simple">
+<li><p>This is the <span class="hl-blue">QFT</span> acting on <span class="math notranslate nohighlight">\(\phi = 0.\phi_1\phi_2\cdots\phi_t\)</span></p></li>
+</ul>
+<div class="information admonition">
+<p class="admonition-title">Quantum Phase Estimation</p>
+<p>Applying the <span class="hl-blue">inverse QFT</span> to the <span class="hl-green">first register</span> yields <span class="math notranslate nohighlight">\(\ket{\phi_1\phi_2\cdots\phi_t}\)</span>, and therefore the desired <span class="hl-red">eigenvalue</span>.</p>
+</div>
+</section>
+<section id="qpe-circuit-iii">
+<h2>QPE: Circuit III<a class="headerlink" href="#qpe-circuit-iii" title="Link to this heading">#</a></h2>
+<figure class="align-center" id="id16">
+<a class="reference internal image-reference" href="../_images/qpe_3.png"><img alt="../_images/qpe_3.png" src="../_images/qpe_3.png" style="width: 500px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 55 </span><span class="caption-text">QPE full circuit.</span><a class="headerlink" href="#id16" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="qpe-complexity-and-performance-i">
+<h2>QPE: Complexity and performance I<a class="headerlink" href="#qpe-complexity-and-performance-i" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>If <span class="math notranslate nohighlight">\(\phi\)</span> can be exactly expressed as a <span class="hl-red">binary fraction</span>, QPE yields the <span class="hl-green">correct result 100% of the time</span>. For example, <span class="math notranslate nohighlight">\(\phi=\tfrac{3}{8} = \tfrac{0}{2}+\tfrac{1}{4}+\tfrac{1}{8}\)</span>, so <span class="hl-blue">QPE outputs</span> <span class="math notranslate nohighlight">\(\ket{011}\)</span> with <span class="hl-green">probability = 1</span>.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(\phi\)</span> can’t be exactly expressed as a <span class="hl-red">binary fraction</span>, e.g. <span class="math notranslate nohighlight">\(\phi = \tfrac{1}{6}=0.16666...\)</span>, it has a <span class="hl-red">repeating</span> binary expansion <span class="math notranslate nohighlight">\(\tfrac{1}{6} = 0.00\overline{10}\ldots\)</span> that never terminates. <span class="hl-blue">QPE outputs</span> the closest value to <span class="math notranslate nohighlight">\(\phi\)</span> with <span class="hl-green">probability</span> <span class="math notranslate nohighlight">\(\textcolor{green}{\geq\frac{4}{\pi^{2}}\approx 0.40}\)</span>.</p></li>
+<li><p>Increasing the <span class="hl-blue">number of qubits</span> in the first register improves the approximation:</p></li>
+</ul>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p><span class="math notranslate nohighlight">\(t\)</span> qubits</p></th>
+<th class="head text-center"><p>Best approximation of <span class="math notranslate nohighlight">\(\tfrac{1}{6}\)</span></p></th>
+<th class="head text-center"><p>Error</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>3</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\tfrac{1}{8} = 0.125\)</span></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(0.042\)</span></p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>4</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\tfrac{3}{16} = 0.1875\)</span></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(0.021\)</span></p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>5</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\tfrac{5}{32} = 0.15625\)</span></p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(0.010\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="qpe-complexity-and-performance-ii">
+<h2>QPE: Complexity and performance II<a class="headerlink" href="#qpe-complexity-and-performance-ii" title="Link to this heading">#</a></h2>
+<figure class="align-center" id="id17">
+<img alt="../_images/qpe_results.png" src="../_images/qpe_results.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 56 </span><span class="caption-text">Result of QPE for an eigenvalue of 1/6.</span><a class="headerlink" href="#id17" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>For <span class="math notranslate nohighlight">\(\phi = \tfrac{1}{6}=0.166...\)</span> we obtain the result <span class="math notranslate nohighlight">\(\alpha=\ket{001}\)</span> with <span class="hl-blue">highest probability</span> (higher than <span class="math notranslate nohighlight">\(\frac{4}{\pi^{2}}\)</span>).</p></li>
+<li><p>To estimate <span class="math notranslate nohighlight">\(\phi\)</span> to <span class="hl-red"><span class="math notranslate nohighlight">\(n\)</span> bits of precision</span> with <span class="hl-green">failure probability</span> at most <span class="math notranslate nohighlight">\(\varepsilon\)</span>, the number of qubits <span class="math notranslate nohighlight">\(t\)</span> in the first register is given by:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[t = \textcolor{red}{n} + \textcolor{green}{\left\lceil \log\left(2 + \frac{1}{2\varepsilon}\right)\right\rceil}\]</div>
+<figure class="align-center" id="id18">
+<img alt="../_images/qpe_extra_qubits.png" src="../_images/qpe_extra_qubits.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 57 </span><span class="caption-text">Extra qubits needed to reach a given failure probability.</span><a class="headerlink" href="#id18" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id19">
+<img alt="../_images/qpe_success_probability.png" src="../_images/qpe_success_probability.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 58 </span><span class="caption-text">Success probability vs. extra qubits.</span><a class="headerlink" href="#id19" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="qpe-why-it-matters">
+<h2>QPE: Why it matters<a class="headerlink" href="#qpe-why-it-matters" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><span class="hl-green">Comparison to classical</span>: estimating eigenvalues of an <span class="math notranslate nohighlight">\(N\times N\)</span> unitary <span class="hl-red">classically</span> requires resources that scale with <span class="math notranslate nohighlight">\(N=2^{n}\)</span>, whereas QPE needs only <span class="hl-blue"><span class="math notranslate nohighlight">\(O(n)\)</span> qubits</span> and a number of controlled-<span class="math notranslate nohighlight">\(U\)</span> calls that is <span class="hl-green">polynomial</span> in <span class="math notranslate nohighlight">\(n\)</span>, an <span class="hl-green">exponential advantage</span> whenever <span class="math notranslate nohighlight">\(U\)</span> can be implemented efficiently.</p></li>
+<li><p>Apart from having <span class="hl-green">many applications</span> of its own, <span class="hl-blue">QPE</span> is a <span class="hl-blue">core subroutine</span> that powers many of the most important quantum algorithms, e.g.:</p>
+<ul>
+<li><p><span class="hl-red">Shor’s algorithm</span> for factoring.</p></li>
+<li><p><span class="hl-red">Quantum chemistry</span> and <span class="hl-red">material sciences</span>.</p></li>
+<li><p>Solving <span class="hl-red">linear systems</span> (<span class="hl-red">HHL algorithm</span>).</p></li>
+<li><p><span class="hl-red">Quantum walk</span> and <span class="hl-red">search</span> algorithms.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="wrap-up">
+<h2>Wrap-up<a class="headerlink" href="#wrap-up" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The <span class="hl-red">Fourier Transform</span> decomposes a function into its <span class="hl-blue">frequency components</span>, trading localisation in time for localisation in frequency.</p></li>
+<li><p>The <span class="hl-red">Quantum Fourier Transform (QFT)</span> is the quantum analogue of the Discrete Fourier Transform, computable with exponentially fewer operations than the classical FFT, though its amplitudes cannot be read out directly.</p></li>
+<li><p><span class="hl-red">Quantum Phase Estimation (QPE)</span> uses the QFT to estimate the eigenvalue phase <span class="math notranslate nohighlight">\(\phi\)</span> of a unitary operator <span class="math notranslate nohighlight">\(U\)</span>.</p></li>
+<li><p><span class="hl-blue">QPE and QFT are a core subroutine</span> underlying many of the most important quantum algorithms, such as Shor’s algorithm, quantum chemistry simulation, and the HHL algorithm for linear systems.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lecture-06"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../lecture-05/hardware-physics-qc.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 5: Hardware &amp; Physics of Quantum Computers</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../topics/math-la.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Mathematical Structure</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#focus-of-lecture">Focus of Lecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#landscape-of-quantum-algorithms">Landscape of Quantum Algorithms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-analysis">Fourier Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-transform-definition">Fourier Transform: Definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-transform-frequency-composition">Fourier Transform: Frequency Composition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-transform-square-function">Fourier Transform: Square Function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-fourier-transform-definition">Quantum Fourier Transform: Definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qft-basis-states">QFT: Basis States</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qft-general-states-and-inverse">QFT: General States and Inverse</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qft-product-representation-i">QFT: Product representation I</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qft-product-representation-ii">QFT: Product representation II</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qft-circuit-i">QFT: Circuit I</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qft-circuit-ii">QFT: Circuit II</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iqft-circuit">IQFT: Circuit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qft-and-ft">QFT and FT</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-phase-estimation-definition">Quantum Phase Estimation: Definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qpe-circuit-preliminaries-i">QPE: Circuit Preliminaries I</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qpe-circuit-preliminaries-ii">QPE: Circuit Preliminaries II</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qpe-circuit-i">QPE: Circuit I</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qpe-circuit-ii">QPE: Circuit II</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qpe-circuit-iii">QPE: Circuit III</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qpe-complexity-and-performance-i">QPE: Complexity and performance I</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qpe-complexity-and-performance-ii">QPE: Complexity and performance II</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qpe-why-it-matters">QPE: Why it matters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wrap-up">Wrap-up</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By ICHEC Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  Copyright@2024
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
