@@ -19,6 +19,16 @@ mystnb:
 ```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture.
 ```
 
+## Focus of Lecture
+
+After this lecture you should be able to:
+
+- Get an overview on the <span class="hl-green">landscape of quantum algorithms</span> that will be studied during the rest of the course.
+- Understand the <span class="hl-red">Fourier transform</span> and what it is used for.
+- Understand the <span class="hl-red">quantum Fourier transform</span>, how to make its circuit, and how it differs from the classical Fourier transform.
+- Introduce <span class="hl-blue">quantum phase estimation</span> and its circuit.
+- Study the <span class="hl-blue">complexity and performance</span> of quantum phase estimation.
+
 ## Landscape of Quantum Algorithms
 
 ```{figure} ./images/algorithm_landscape.png
@@ -57,9 +67,7 @@ Wide variety of <span class="hl-green">applications</span>:
 - Time series analysis.
 - Even <span class="hl-green">quantum mechanics</span> itself!
 
-## Fourier Transform
-
-### Definition
+## Fourier Transform: Definition
 
 
 
@@ -72,7 +80,7 @@ $$\hat{f}(\omega) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}f(t)e^{-i\omega 
 
 $${f}(t) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}\hat{f}(\omega)e^{i\omega t}d\omega$$
 
-### Frequency Composition
+## Fourier Transform: Frequency Composition
 
 ```{figure} ./images/fourier.gif
 :align: center
@@ -91,7 +99,7 @@ The <span class="hl-blue">Fourier Transform</span> gives us the <span class="hl-
 
 $$e^{i\theta} = \cos\theta + i\sin\theta$$
 
-### Square Function
+## Fourier Transform: Square Function
 
 ```{figure} ./images/fourier_spread.png
 :align: center
@@ -105,9 +113,7 @@ Fourier transform of different square functions.
 
 $$\Delta t \cdot \Delta \omega \geq \frac{1}{2}$$
 
-## Quantum Fourier Transform
-
-### Definition
+## Quantum Fourier Transform: Definition
 
 - <span class="hl-red">Discrete Fourier Transform (DFT)</span>: Discrete analogue of FT. Transforms a <span class="hl-green">vector</span> of $N$ complex numbers $(x_0,x_1,\dots,x_{N-1})\in\mathbb{C}$ to a vector $(y_0,y_1,\dots,y_{N-1})\in\mathbb{C}$:
 
@@ -122,7 +128,7 @@ $$\text{QFT}\ket{j} = \frac{1}{\sqrt{N}}\sum_{k=0}^{N-1}e^{i2\pi jk/N}\ket{k},\q
   1. A <span class="hl-green">normalisation term</span> $\frac{1}{\sqrt{N}}$ appears.
   2. The <span class="hl-green">sign</span> of the exponential is different (it is just a convention).
 
-### Basis States
+## QFT: Basis States
 
 ```{figure} ./images/qft_1.png
 :align: center
@@ -170,7 +176,7 @@ $$\text{QFT} \ket{3} = \frac{1}{2} \left( e^{i 2\pi \cdot \textcolor{red}{3} \cd
 Like in FT, in all cases we see that a <span class="hl-blue">narrow signal</span> (the basis vector $\textcolor{red}{\ket{j}}$) is spread into a <span class="hl-blue">superposition of states</span>, with phases varying with $\textcolor{red}{j}$.
 ```
 
-### General States and the Inverse QFT
+## QFT: General States and Inverse
 
 - For a <span class="hl-blue">general state</span> $\ket{\psi}=\sum_{j=0}^{N-1}x_j\ket{j}$:
 
@@ -186,7 +192,7 @@ Only the <span class="hl-blue">sign</span> changes with respect to the QFT.
 
 - $\textcolor{red}{\text{QFT}^\dagger\text{QFT}}\ket{\psi}=\ket{\psi}$. From the previous section: $\text{QFT}^\dagger\left (\frac{1}{2}\sum_{i=0}^{N-1}\ket{i}\right )=\ket{0}$
 
-### Binary Fraction Notation
+## QFT: Product representation I
 
 - <span class="hl-red">Binary representation</span> of a <span class="hl-red">n-qubit basis</span>:
 
@@ -204,7 +210,7 @@ $$H\ket{j_1}=\frac{1}{\sqrt{2}}\left(\ket{0}+e^{i2\pi 0.j_1}\ket{1}\right)$$
 
 $$\textcolor{blue}{\boldsymbol{\rightarrow}}\begin{array}{c} H\ket{0}=\frac{1}{\sqrt{2}}\left(\ket{0}+e^{i2\pi\cdot\textcolor{red}{0}/2}\ket{1}\right)=\frac{1}{\sqrt{2}}\left(\ket{0}+\ket{1}\right)\\H\ket{1}=\frac{1}{\sqrt{2}}\left(\ket{0}+e^{i2\pi\cdot\textcolor{red}{1}/2}\ket{1}\right)=\frac{1}{\sqrt{2}}\left(\ket{0}-\ket{1}\right)\end{array}$$
 
-### Product Representation
+## QFT: Product representation II
 
 - Using some algebra we get the <span class="hl-green">product representation</span> of QFT:
 
@@ -234,7 +240,7 @@ $$\ket{j_1 j_2 \cdots j_n}\rightarrow\frac{1}{\sqrt{N}}
 <span class="hl-green">Product representation</span> will help us understanding how the QFT <span class="hl-blue">circuit</span> is built!
 ```
 
-### Circuit
+## QFT: Circuit I
 
 - <span class="hl-green">Parameterised</span> version of <span class="hl-green">phase rotation</span> gate:
 
@@ -254,6 +260,8 @@ $$\ket{\psi_1}=\left(\ket{0} + e^{i2\pi0.j_1}\ket{1}\right)\ket{j_2}$$
 
 $$\ket{\psi_2}=\left(\ket{0} + e^{i2\pi0.j_1j_2}\ket{1}\right)\ket{j_2}$$
 
+## QFT: Circuit II
+
 ```{figure} ./images/qft_circuit.png
 :align: center
 
@@ -266,7 +274,7 @@ $$\ket{\psi_2} = \left({\ket{0}+e^{i2\pi0.j_1j_2j_3}\ket{1}}\right)\left(\textco
 
 $$\ket{\psi_3} = \left(\textcolor{blue}{\ket{0}+e^{i2\pi0.j_3}\ket{1}}\right)\left({\ket{0}+e^{i2\pi0.j_2j_3}\ket{1}}\right)\left({\ket{0}+e^{i2\pi0.j_1j_2j_3}\ket{1}}\right)$$
 
-### Inverse Circuit
+## IQFT: Circuit
 
 ```{figure} ./images/iqft_circuit.png
 :align: center
@@ -282,7 +290,7 @@ $$\ket{\psi_3} = \left(\textcolor{blue}{\ket{0}+e^{i2\pi0.j_3}\ket{1}}\right)\le
 
 - <span class="hl-green">Hadamard</span> and <span class="hl-green">SWAP</span> are <span class="hl-red">hermitian operators</span>, so they are equal to their adjoints.
 
-## Quantum Fourier Transform vs Classical Fourier Transform
+## QFT and FT
 
 |  | <span class="hl-red">Quantum Fourier Transform</span> | <span class="hl-green">Classical Fourier Transform</span> |
 |---|---|---|
@@ -297,9 +305,7 @@ $$\ket{\psi_3} = \left(\textcolor{blue}{\ket{0}+e^{i2\pi0.j_3}\ket{1}}\right)\le
 Even though <span class="hl-red">quantum amplitudes are not directly accessible</span>, the QFT plays a <span class="hl-green">central role</span> in powerful quantum algorithms such as <span class="hl-blue">Shor's factoring algorithm</span> and <span class="hl-blue">Quantum Phase Estimation (QPE)</span>.
 ```
 
-## Quantum Phase Estimation
-
-### Definition
+## Quantum Phase Estimation: Definition
 
 - Initially introduced by <span class="hl-blue">Alexei Kitaev</span> in 1995.
 
@@ -329,7 +335,7 @@ This is a reasonable assumption because:
 1. <span class="hl-blue">Extracting eigenvalues</span> classically is <span class="hl-blue">hard</span>.
 2. <span class="hl-blue">Many problems</span> in quantum mechanics and physics involve <span class="hl-blue">finding eigenvalues</span> of an operator.
 
-### Circuit Building Block
+## QPE: Circuit Preliminaries I
 
 - A <span class="hl-green">unitary operator</span> $U$ verifies that:
 
@@ -338,6 +344,8 @@ $$U^{2^t} \ket{u} = \underbrace{U \cdots U}_{\textcolor{red}{2^t}} \ket{u} = \un
 - We can build a <span class="hl-green">controlled version</span> of this gate $C\text{-}U^{2^t}$ so that:
 
 $$\begin{array}{c} C\text{-}U^{2^t}\ket{0}\ket{u} = \ket{0}\ket{u} \\[10pt] C\text{-}U^{2^t}\ket{1}\ket{u} = \ket{1}e^{i2\pi {\textcolor{red}{2^t}}\phi}\ket{u}\end{array}$$
+
+## QPE: Circuit Preliminaries II
 
 ```{figure} ./images/qpe_1.png
 :align: center
@@ -351,7 +359,7 @@ $$\ket{\psi_2} = \frac{1}{\sqrt{2}}\left(\ket{0}\ket{u}+\ket{1}\ket{u}\right)$$
 
 $$\ket{\psi_3} = \frac{1}{\sqrt{2}}\left(\ket{0}\ket{u}+\ket{1}e^{i 2\pi 2^{t}\phi}\ket{u}\right) = \frac{1}{\sqrt{2}}\left(\ket{0}+\ket{1}e^{i 2\pi 2^{t}\phi}\right)\ket{u}$$
 
-### Circuit
+## QPE: Circuit I
 
 ```{figure} ./images/qpe_2.png
 :align: center
@@ -363,6 +371,8 @@ QPE first step circuit.
 
 $$\frac{1}{2^{t/2}} \left(\ket{0} + e^{2\pi i 2^{t-1}\phi}\ket{1}\right) \cdots \left(\ket{0} + e^{2\pi i 2^{1}\phi}\ket{1}\right) \left(\ket{0} + e^{2\pi i 2^{0}\phi}\ket{1}\right)$$
 
+## QPE: Circuit II
+
 - Recalling the <span class="hl-red">binary fraction</span> notation for $\phi$:
 
 $$0.\phi_1\phi_2\cdots\phi_t = \frac{\phi_1}{2} + \frac{\phi_2}{4} + \cdots + \frac{\phi_t}{2^t}$$
@@ -371,12 +381,49 @@ $$0.\phi_1\phi_2\cdots\phi_t = \frac{\phi_1}{2} + \frac{\phi_2}{4} + \cdots + \f
 
 $$\frac{1}{2^{t/2}} \left(\ket{0} + e^{2\pi i \,0.\phi_t}\ket{1}\right) \left(\ket{0} + e^{2\pi i \,0.\phi_{t-1}\phi_t}\ket{1}\right) \cdots \left(\ket{0} + e^{2\pi i \,0.\phi_1\phi_2\cdots\phi_t}\ket{1}\right)$$
 
+**Demonstration.** The qubit with the power $2^k$, for $k=0,1,\dots,t-1$, is in the state:
+
+$$\ket{0} + e^{2\pi i\, 2^{k}\phi}\ket{1}$$
+
+Using the binary fraction expansion of $\phi$, multiplying by $2^k$ shifts every bit $k$ places to the left:
+
+$$2^k\phi = \sum_{m=1}^{t}\phi_m\,2^{k-m}$$
+
+We split the sum at $m=k$. The terms with $m\leq k$ have a non-negative exponent, so they add up to an integer $N_k$. The terms with $m>k$ have a negative exponent, so they are a binary fraction:
+
+$$2^k\phi = \underbrace{\sum_{m=1}^{k}\phi_m\,2^{k-m}}_{\text{integer } N_k} + \underbrace{\sum_{m=k+1}^{t}\frac{\phi_m}{2^{\,m-k}}}_{=\,0.\phi_{k+1}\phi_{k+2}\cdots\phi_t}$$
+
+Since $e^{2\pi i N_k}=1$ for any integer $N_k$, the integer part has no effect on the phase:
+
+$$e^{2\pi i\, 2^{k}\phi} = e^{2\pi i N_k}\,e^{2\pi i\,0.\phi_{k+1}\cdots\phi_t} = e^{2\pi i\,0.\phi_{k+1}\cdots\phi_t}$$
+
+Only the bits to the right of the binary point survive, so each qubit keeps a different number of bits of $\phi$:
+
+| Power | Qubit state | Bits kept |
+|:---:|:---:|:---:|
+| $k=t-1$ | $\ket{0} + e^{2\pi i \,0.\phi_t}\ket{1}$ | last bit |
+| $k=t-2$ | $\ket{0} + e^{2\pi i \,0.\phi_{t-1}\phi_t}\ket{1}$ | last two bits |
+| $\vdots$ | $\vdots$ | $\vdots$ |
+| $k=0$ | $\ket{0} + e^{2\pi i \,0.\phi_1\phi_2\cdots\phi_t}\ket{1}$ | all bits |
+
+Taking the product of the $t$ qubits, with the $\frac{1}{\sqrt{2}}$ of each Hadamard giving the global factor $\frac{1}{2^{t/2}}$, we obtain the expression above. For example, for $t=3$:
+
+$$\begin{aligned}
+4\phi &= 2\phi_1+\phi_2+\tfrac{\phi_3}{2} \;\rightarrow\; 0.\phi_3 \\
+2\phi &= \phi_1+\tfrac{\phi_2}{2}+\tfrac{\phi_3}{4} \;\rightarrow\; 0.\phi_2\phi_3 \\
+\phi &= \tfrac{\phi_1}{2}+\tfrac{\phi_2}{4}+\tfrac{\phi_3}{8} \;\rightarrow\; 0.\phi_1\phi_2\phi_3
+\end{aligned}$$
+
+This derivation assumes that $\phi$ can be written exactly with $t$ bits.
+
 - This is the <span class="hl-blue">QFT</span> acting on $\phi = 0.\phi_1\phi_2\cdots\phi_t$
 
 ```{admonition} Quantum Phase Estimation
 :class: information
 Applying the <span class="hl-blue">inverse QFT</span> to the <span class="hl-green">first register</span> yields $\ket{\phi_1\phi_2\cdots\phi_t}$, and therefore the desired <span class="hl-red">eigenvalue</span>.
 ```
+
+## QPE: Circuit III
 
 ```{figure} ./images/qpe_3.png
 :align: center
@@ -385,7 +432,7 @@ Applying the <span class="hl-blue">inverse QFT</span> to the <span class="hl-gre
 QPE full circuit.
 ```
 
-### Complexity and Performance
+## QPE: Complexity and performance I
 
 - If $\phi$ can be exactly expressed as a <span class="hl-red">binary fraction</span>, QPE yields the <span class="hl-green">correct result 100% of the time</span>. For example, $\phi=\tfrac{3}{8} = \tfrac{0}{2}+\tfrac{1}{4}+\tfrac{1}{8}$, so <span class="hl-blue">QPE outputs</span> $\ket{011}$ with <span class="hl-green">probability = 1</span>.
 
@@ -398,6 +445,8 @@ QPE full circuit.
 | 3 | $\tfrac{1}{8} = 0.125$ | $0.042$ |
 | 4 | $\tfrac{3}{16} = 0.1875$ | $0.021$ |
 | 5 | $\tfrac{5}{32} = 0.15625$ | $0.010$ |
+
+## QPE: Complexity and performance II
 
 ```{figure} ./images/qpe_results.png
 :align: center
@@ -423,7 +472,7 @@ Extra qubits needed to reach a given failure probability.
 Success probability vs. extra qubits.
 ```
 
-### Why It Matters
+## QPE: Why it matters
 
 - <span class="hl-green">Comparison to classical</span>: estimating eigenvalues of an $N\times N$ unitary <span class="hl-red">classically</span> requires resources that scale with $N=2^{n}$, whereas QPE needs only <span class="hl-blue">$O(n)$ qubits</span> and a number of controlled-$U$ calls that is <span class="hl-green">polynomial</span> in $n$, an <span class="hl-green">exponential advantage</span> whenever $U$ can be implemented efficiently.
 
