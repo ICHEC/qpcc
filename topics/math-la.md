@@ -1,34 +1,8 @@
----
-title: Mathematical framework for Quantum Computing
-jupytext:
-    formats: md:myst
-    text_representation:
-        extension: .md
-        format_name: myst
-kernelspec:
-    display_name: Python 3
-    language: python
-    name: python3
-mystnb:
-    render_markdown_format: myst
----
-
-(lecture-3)=
-# Lecture 3: Mathematical framework for Quantum Computing
-
-```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture 
-```
 
 
-```{admonition} Learning outcomes
-:class: tip
 
-In this lecture we discuss the mathematical framework and tools required to properly understand how quantum system works. We give a short introduction to notion of sets, vector spaces, linear operators and maps.
-
-
-```
-
-## Mathematical Structure
+(math-la)=
+# Mathematical Structure
 
 Here we discuss in brevity the necessary mathematical structures upon which the formulation of quantum mechanics relies.
 It progressively goes as follows -

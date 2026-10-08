@@ -1,0 +1,141 @@
+<svg width="640" height="210" viewBox="0 0 570 180" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    /* Base text styles */
+    text { font-family: sans-serif; }
+    .mono { font-family: monospace; }
+    
+    /* Animation Keyframes for a 12-second cycle */
+    .stage-1 { animation: animS1 12s infinite; transform-origin: 120px 105px; }
+    .stage-2 { animation: animS2 12s infinite; transform-origin: 375px 45px; }
+    .stage-3 { animation: animS3 12s infinite; transform-origin: 375px 145px; }
+
+    @keyframes animS1 {
+      0%, 10% { opacity: 0; transform: scale(0.98) translate(-4px, 0); }
+      15%, 90% { opacity: 1; transform: scale(1) translate(0, 0); }
+      95%, 100% { opacity: 0; transform: scale(0.98) translate(-4px, 0); }
+    }
+    @keyframes animS2 {
+      0%, 35% { opacity: 0; transform: scale(0.98) translate(-4px, 0); }
+      40%, 90% { opacity: 1; transform: scale(1) translate(0, 0); }
+      95%, 100% { opacity: 0; transform: scale(0.98) translate(-4px, 0); }
+    }
+    @keyframes animS3 {
+      0%, 60% { opacity: 0; transform: scale(0.98) translate(-4px, 0); }
+      65%, 90% { opacity: 1; transform: scale(1) translate(0, 0); }
+      95%, 100% { opacity: 0; transform: scale(0.98) translate(-4px, 0); }
+    }
+
+    /* Light/Dark mode dynamic colors */
+    .txt-dark { fill: #374151; }
+    .txt-gray { fill: #9ca3af; }
+    .bg-oven { fill: #f3f4f6; stroke: #9ca3af; }
+    .stroke-track { stroke: #d1d5db; }
+
+    @media (prefers-color-scheme: dark) {
+      .txt-dark { fill: #d1d5db; }
+      .txt-gray { fill: #6b7280; }
+      .bg-oven { fill: #1f2937; stroke: #4b5563; }
+      .stroke-track { stroke: #4b5563; }
+    }
+  </style>
+
+  <!-- ========================================== -->
+  <!-- STAGE 0: OVEN & INCOMING BEAM LINE         -->
+  <!-- ========================================== -->
+  <g>
+    <rect x="15" y="85" width="40" height="40" rx="4" class="bg-oven" stroke-width="1.5" />
+    <text x="35" y="109" font-size="10px" font-weight="bold" class="txt-dark" text-anchor="middle">Oven</text>
+    <line x1="55" y1="105" x2="90" y2="105" class="stroke-track" stroke-width="1.5" />
+  </g>
+
+  <!-- ========================================== -->
+  <!-- STAGE 1: FIRST Z MAGNET & REVEALED KETS    -->
+  <!-- ========================================== -->
+  <g class="stage-1">
+    <!-- Magnet Z-1 -->
+    <rect x="90" y="80" width="60" height="50" rx="6" fill="rgba(239, 68, 68, 0.05)" stroke="#ef4444" stroke-width="1.5" />
+    <text x="120" y="103" font-size="10px" font-weight="bold" fill="#dc2626" text-anchor="middle">Magnet</text>
+    <text x="120" y="119" font-size="11px" font-weight="900" fill="#dc2626" text-anchor="middle">Z</text>
+
+    <!-- Diverging Paths -->
+    <path d="M 150 105 Q 165 85, 175 85" fill="none" stroke="#ef4444" stroke-width="1.5" />
+    <path d="M 150 105 Q 165 125, 175 125" fill="none" stroke="#ef4444" stroke-dasharray="2 2" stroke-width="1.2" />
+
+    <!-- Nodes -->
+    <rect x="175" y="70" width="50" height="30" rx="4" fill="rgba(239, 68, 68, 0.1)" stroke="#ef4444" stroke-width="1.5" />
+    <text x="200" y="89" font-size="11px" font-weight="bold" fill="#dc2626" text-anchor="middle">|z+⟩</text>
+
+    <rect x="175" y="110" width="50" height="30" rx="4" fill="rgba(107, 114, 128, 0.05)" stroke="rgba(156, 163, 175, 0.4)" stroke-width="1" />
+    <text x="200" y="129" font-size="11px" font-weight="bold" class="txt-gray" text-anchor="middle">|z-⟩</text>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- STAGE 2: UPPER BRANCH (SEQUENCE X - GREEN) -->
+  <!-- ========================================== -->
+  <g class="stage-2">
+    <path d="M 225 85 Q 250 45, 265 45" fill="none" stroke="#4ade80" stroke-width="1.5" />
+    
+    <!-- Magnet X -->
+    <rect x="265" y="20" width="60" height="50" rx="6" fill="rgba(34, 197, 94, 0.05)" stroke="#22c55e" stroke-width="1.5" />
+    <text x="295" y="43" font-size="10px" font-weight="bold" fill="#16a34a" text-anchor="middle">Magnet</text>
+    <text x="295" y="59" font-size="11px" font-weight="900" fill="#16a34a" text-anchor="middle">X</text>
+
+    <path d="M 325 45 Q 340 30, 350 30" fill="none" stroke="#4ade80" stroke-width="1.5" />
+    <path d="M 325 45 Q 340 60, 350 60" fill="none" stroke="#4ade80" stroke-dasharray="2 2" stroke-width="1.2" />
+
+    <!-- Nodes -->
+    <rect x="350" y="15" width="50" height="30" rx="4" fill="rgba(34, 197, 94, 0.1)" stroke="#22c55e" stroke-width="1.5" />
+    <text x="375" y="34" font-size="11px" font-weight="bold" fill="#16a34a" text-anchor="middle">|x+⟩</text>
+
+    <rect x="350" y="50" width="50" height="30" rx="4" fill="rgba(107, 114, 128, 0.05)" stroke="rgba(156, 163, 175, 0.4)" stroke-width="1" />
+    <text x="375" y="69" font-size="11px" font-weight="bold" class="txt-gray" text-anchor="middle">|x-⟩</text>
+
+    <!-- Terminal Z Verification -->
+    <line x1="400" y1="30" x2="430" y2="30" stroke="#4ade80" stroke-width="1.5" />
+
+    <rect x="430" y="5" width="60" height="50" rx="6" fill="rgba(239, 68, 68, 0.05)" stroke="#ef4444" stroke-width="1.5" />
+    <text x="460" y="28" font-size="10px" font-weight="bold" fill="#dc2626" text-anchor="middle">Magnet</text>
+    <text x="460" y="44" font-size="11px" font-weight="900" fill="#dc2626" text-anchor="middle">Z</text>
+
+    <path d="M 490 30 Q 505 15, 540 15" fill="none" stroke="#f87171" stroke-width="1.2" />
+    <path d="M 490 30 Q 505 45, 540 45" fill="none" stroke="#f87171" stroke-width="1.2" />
+
+    <text x="545" y="19" font-size="10px" font-weight="bold" class="mono" fill="#dc2626">|z+⟩ 50%</text>
+    <text x="545" y="49" font-size="10px" font-weight="bold" class="mono" fill="#dc2626">|z-⟩ 50%</text>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- STAGE 3: LOWER BRANCH (SEQUENCE Y - BLUE)  -->
+  <!-- ========================================== -->
+  <g class="stage-3">
+    <path d="M 225 85 Q 250 145, 265 145" fill="none" stroke="#60a5fa" stroke-width="1.5" />
+    
+    <!-- Magnet Y -->
+    <rect x="265" y="120" width="60" height="50" rx="6" fill="rgba(59, 130, 246, 0.05)" stroke="#3b82f6" stroke-width="1.5" />
+    <text x="295" y="143" font-size="10px" font-weight="bold" fill="#2563eb" text-anchor="middle">Magnet</text>
+    <text x="295" y="159" font-size="11px" font-weight="900" fill="#2563eb" text-anchor="middle">Y</text>
+
+    <path d="M 325 145 Q 340 130, 350 130" fill="none" stroke="#60a5fa" stroke-width="1.5" />
+    <path d="M 325 145 Q 340 160, 350 160" fill="none" stroke="#60a5fa" stroke-dasharray="2 2" stroke-width="1.2" />
+
+    <!-- Nodes -->
+    <rect x="350" y="115" width="50" height="30" rx="4" fill="rgba(59, 130, 246, 0.1)" stroke="#3b82f6" stroke-width="1.5" />
+    <text x="375" y="134" font-size="11px" font-weight="bold" fill="#2563eb" text-anchor="middle">|y+⟩</text>
+
+    <rect x="350" y="150" width="50" height="30" rx="4" fill="rgba(107, 114, 128, 0.05)" stroke="rgba(156, 163, 175, 0.4)" stroke-width="1" />
+    <text x="375" y="169" font-size="11px" font-weight="bold" class="txt-gray" text-anchor="middle">|y-⟩</text>
+
+    <!-- Terminal Z Verification -->
+    <line x1="400" y1="130" x2="430" y2="130" stroke="#60a5fa" stroke-width="1.5" />
+
+    <rect x="430" y="105" width="60" height="50" rx="6" fill="rgba(239, 68, 68, 0.05)" stroke="#ef4444" stroke-width="1.5" />
+    <text x="460" y="128" font-size="10px" font-weight="bold" fill="#dc2626" text-anchor="middle">Magnet</text>
+    <text x="460" y="144" font-size="11px" font-weight="900" fill="#dc2626" text-anchor="middle">Z</text>
+
+    <path d="M 490 130 Q 505 115, 540 115" fill="none" stroke="#f87171" stroke-width="1.2" />
+    <path d="M 490 130 Q 505 145, 540 145" fill="none" stroke="#f87171" stroke-width="1.2" />
+
+    <text x="545" y="119" font-size="10px" font-weight="bold" class="mono" fill="#dc2626">|z+⟩ 50%</text>
+    <text x="545" y="149" font-size="10px" font-weight="bold" class="mono" fill="#dc2626">|z-⟩ 50%</text>
+  </g>
+</svg>

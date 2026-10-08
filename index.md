@@ -1,10 +1,11 @@
 ---
-title: Quantum Programming Foundations Course CT4100
+title: Quantum Programming Foundations Course CT4110
 layout: home
 ---
+
 # CT4110 Lectures Overview
 
-The Quantum Programming Foundations Course (CT4100) is offered by ICHEC and aims to provide an accessible introduction to quantum computing with minimal technical prerequisites.
+The Quantum Programming Foundations Course (CT4110) is offered by ICHEC and aims to provide an accessible introduction to quantum computing with minimal technical prerequisites.
 
 The course introduces the foundations of classical and quantum computing, the mathematical framework behind qubits and quantum gates, quantum hardware, quantum programming, and key quantum algorithms. It also explores current NISQ approaches and ongoing developments in the quantum computing ecosystem.
 
@@ -26,7 +27,7 @@ mindmap
         (Bloch sphere)
         (Single-qubit gates)
         (Quantum measurement)
-    lec3(**3. Quantum Gates**)
+    lec3(**3. Connecting Qubits Together**)
         (Multiple-qubit gates)
         (Connecting mathematics to experiment)
         (Universal gate sets)
@@ -65,18 +66,20 @@ mindmap
 ## List of Lectures
 
 - Lecture 1 - Introduction to Classical and Quantum Computing
-  - [Introduction to Quantum Computing](./lecture-01/introduction-to-quantum-computing.md)
-  - [Introduction to Classical Bits and Gates](./lecture-01/introduction-to-classical-bits-and-gates.md)
-- [Lecture 2 - From Bits to Qubits](./lecture-02/from-bits-to-qubits.md)
-- [Lecture 3 - Quantum Gates](./lecture-03/quantum-gates.md)
-- [Lecture 4 - First Quantum Algorithm](./lecture-04/first-quantum-algorithm.md)
-- [Lecture 5 - Hardware and Physics of Quantum Computer](./lecture-05/hardware-and-physics-of-quantum-computer.md)
+  - [Introduction to Quantum Computing](./lecture-01/intro-cc-qc.md)
+  - [Introduction to Classical Bits and Gates](./lecture-01/intro-bits-and-gates.md)
+- [Lecture 2 - From Bits to Qubits](./lecture-02/bits-to-qubits.md)
+- [Lecture 3 - Connecting Qubits Together](./lecture-03/connecting-qubits.md)
+- [Lecture 4 - First Quantum Algorithm](./lecture-04/lecture-04-fqa.md)
+- [Lecture 5 - Hardware and Physics of Quantum Computer](./lecture-05/hardware-physics-qc.md)
+<!--
 - [Lecture 6 - Early Quantum Algorithms I: QFT & QPE](./lecture-06/early-quantum-algorithms-qft-qpe.md)
 - [Lecture 7 - Early Quantum Algorithms II: Shor's Algorithm & Cryptography](./lecture-07/shors-algorithm-and-cryptography.md)
 - [Lecture 8 - Early Quantum Algorithms III: Grover's Algorithm & Quantum Random Walks](./lecture-08/grovers-algorithm-and-quantum-random-walks.md)
 - [Lecture 9 - NISQ Algorithms I: Introduction](./lecture-09/nisq-algorithms-introduction.md)
 - [Lecture 10 - NISQ Algorithms II: QUBO Optimization](./lecture-10/qubo-optimization.md)
 - [Lecture 11 - The Future of Quantum](./lecture-11/future-of-quantum.md)
+-->
 
 ---
 
