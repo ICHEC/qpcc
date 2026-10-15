@@ -72,9 +72,9 @@ mindmap
 - [Lecture 3 - Connecting Qubits Together](./lecture-03/connecting-qubits.md)
 - [Lecture 4 - First Quantum Algorithm](./lecture-04/lecture-04-fqa.md)
 - [Lecture 5 - Hardware and Physics of Quantum Computer](./lecture-05/hardware-physics-qc.md)
+- [Lecture 6 - Early Quantum Algorithms I: QFT & QPE](./lecture-06/lecture-06-eqa1.md)
+- [Lecture 7 - Early Quantum Algorithms II: Shor's Algorithm & Cryptography](./lecture-07/early-qa2.md)
 <!--
-- [Lecture 6 - Early Quantum Algorithms I: QFT & QPE](./lecture-06/early-quantum-algorithms-qft-qpe.md)
-- [Lecture 7 - Early Quantum Algorithms II: Shor's Algorithm & Cryptography](./lecture-07/shors-algorithm-and-cryptography.md)
 - [Lecture 8 - Early Quantum Algorithms III: Grover's Algorithm & Quantum Random Walks](./lecture-08/grovers-algorithm-and-quantum-random-walks.md)
 - [Lecture 9 - NISQ Algorithms I: Introduction](./lecture-09/nisq-algorithms-introduction.md)
 - [Lecture 10 - NISQ Algorithms II: QUBO Optimization](./lecture-10/qubo-optimization.md)

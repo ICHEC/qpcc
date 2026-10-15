@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Early Quantum Algorithms 2: Simon and Shor’s Algorithm &#8212; Lecture Notes for CT4106</title>
+    <title>Lecture 7: Early Quantum Algorithms II &#8212; Lecture Notes for CT4106</title>
   
   
   
@@ -62,6 +62,8 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-07/early-qa2';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <script src="../_static/parallel-sg.js?v=fc6e2f92"></script>
@@ -71,6 +73,8 @@
     <script src="../_static/bloch-path.js?v=fbcfb0fb"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Mathematical Structure" href="../topics/math-la.html" />
+    <link rel="prev" title="Lecture 6: Early Quantum Algorithms I" href="../lecture-06/lecture-06-eqa1.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -158,6 +162,10 @@
   
 
   
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
 </div>
 
     </header>
@@ -167,8 +175,6 @@
     <div class="bd-container__inner bd-page-width">
       
       
-      
-        
       
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
@@ -258,6 +264,10 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 6</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../lecture-06/lecture-06-eqa1.html">Lecture 6: Early Quantum Algorithms I</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 7</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 7: Early Quantum Algorithms II</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous Topics</span></p>
 <ul class="nav bd-sidenav">
@@ -384,7 +394,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -395,11 +407,27 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Early Quantum Algorithms 2: Simon and Shor’s Algorithm</h1>
+    <h1>Lecture 7: Early Quantum Algorithms II</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#focus-of-lecture">Focus of Lecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-algorithm">Simon’s Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-problem">Simon’s Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-circuit">Simon’s Circuit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-algorithm-conclusions">Simon’s Algorithm Conclusions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shors-algorithm">Shor’s Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-shors-algorithm">Overview of Shor’s Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implications-for-crytography">Implications for crytography</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shors-algorithm-conclusions">Shor’s Algorithm Conclusions</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -409,8 +437,158 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="early-quantum-algorithms-2-simon-and-shors-algorithm">
-<h1>Early Quantum Algorithms 2: Simon and Shor’s Algorithm<a class="headerlink" href="#early-quantum-algorithms-2-simon-and-shors-algorithm" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-7-early-quantum-algorithms-ii">
+<span id="lecture-7"></span><h1>Lecture 7: Early Quantum Algorithms II<a class="headerlink" href="#lecture-7-early-quantum-algorithms-ii" title="Link to this heading">#</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>These lecture notes are a work in progress and are not a replacement for watching the lecture video, it’s intended to be a supplementary reading after watching the lecture.</p>
+</div>
+<section id="focus-of-lecture">
+<h2>Focus of Lecture<a class="headerlink" href="#focus-of-lecture" title="Link to this heading">#</a></h2>
+<p>After this lecture you should be able to:</p>
+<ul class="simple">
+<li><p>Understand Simon’s Algorithm.</p></li>
+<li><p>Understand the idea behind common public key crytography schemes.</p></li>
+<li><p>Understand at a high level Shor’s Algorithm.</p></li>
+</ul>
+</section>
+<section id="simons-algorithm">
+<h2>Simon’s Algorithm<a class="headerlink" href="#simons-algorithm" title="Link to this heading">#</a></h2>
+<p>Simon’s algorithm was the first proposed quantum algorithm to demonstrate an exponential speed up over classical computers. While it doesn’t have a known practical use, it served as an inspiration for many other quantum algorithms.</p>
+</section>
+<section id="simons-problem">
+<h2>Simon’s Problem<a class="headerlink" href="#simons-problem" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(f:\{0, 1\}^n \rightarrow \{0,1\}^n\)</span> be a function with the following properties:</p>
+<ul class="simple">
+<li><p>It is 2-1 (for every <span class="math notranslate nohighlight">\(x\)</span> there is a <span class="math notranslate nohighlight">\(y\)</span> such that <span class="math notranslate nohighlight">\(f(x)=f(y)\)</span>)</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(f(x)=f(y)\)</span> then <span class="math notranslate nohighlight">\(x=y \oplus c\)</span> and <span class="math notranslate nohighlight">\(y=x\oplus c\)</span>.
+Our task is to find <span class="math notranslate nohighlight">\(c\)</span>.</p></li>
+</ul>
+<figure class="align-center" id="id1">
+<img alt="../_images/2_1_red.svg" src="../_images/2_1_red.svg" />
+<figcaption>
+<p><span class="caption-number">Fig. 59 </span><span class="caption-text">A 2-1 function, here for every output there are two inputs that map to it.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Here <span class="math notranslate nohighlight">\(x \oplus c\)</span> means to take the component-wise XOR between the n-bit strings <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(c\)</span>. If <span class="math notranslate nohighlight">\(x=1011\)</span> and <span class="math notranslate nohighlight">\(c=0101\)</span> then we would get <span class="math notranslate nohighlight">\(x\oplus c=1110\)</span>.</p>
+<p>Classically this can be solved with an average of <span class="math notranslate nohighlight">\(O(2^{n/2})\)</span> evaluations. While on a quantum computer on average we will require only <span class="math notranslate nohighlight">\(O(n)\)</span> evaluations.</p>
+</section>
+<section id="simons-circuit">
+<h2>Simon’s Circuit<a class="headerlink" href="#simons-circuit" title="Link to this heading">#</a></h2>
+<p>With <span class="math notranslate nohighlight">\(2n\)</span> qubits split into 2 n-bit registers, Simon’s algorithm consists in the following steps:</p>
+<p>Firstly we apply a Hadamard gate to each qubit in the first register, creating the state</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{2^{n/2}} \sum_x |x\rangle |0\rangle.
+\]</div>
+<p>Note that the sum is over all n-bit strings, so for <span class="math notranslate nohighlight">\(n=2\)</span> we sum over <span class="math notranslate nohighlight">\(00\)</span>, <span class="math notranslate nohighlight">\(01\)</span>, <span class="math notranslate nohighlight">\(10\)</span> and <span class="math notranslate nohighlight">\(11\)</span>.</p>
+<p>Then we apply the unitary <span class="math notranslate nohighlight">\(U|x\rangle|y\rangle=|x\rangle|y \oplus f(x) \rangle\)</span> getting the state</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{2^{n/2}} \sum_x |x\rangle |f(x)\rangle.
+\]</div>
+<p>Next we measure the qubits in the second register. Suppose we measured <span class="math notranslate nohighlight">\(f(z)\)</span>, where recall <span class="math notranslate nohighlight">\(f(z)\)</span> is an n-bit string, then we know that qubits in the first register must either be in <span class="math notranslate nohighlight">\(z\)</span> or <span class="math notranslate nohighlight">\(z \oplus c\)</span> and hence the qubits in the first register are in state</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{|z\rangle + |z \oplus c\rangle}{\sqrt 2}
+\]</div>
+<p>Now we apply a Hadamard gate again to each qubit in the first register producing the state</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+ \frac{1}{2^{(n+1)/2}} \sum_x [(-1)^{x\cdot z} + (-1)^{x\cdot (z \oplus c)}|x\rangle \\
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(x\cdot z=x_1 z_1 + x_2 z_2 + ... + x_n z_n\)</span>. Using the fact that <span class="math notranslate nohighlight">\((-1)^{a \oplus b}=(-1)^{a+b}\)</span> where <span class="math notranslate nohighlight">\(a,b\in\{0,1\}\)</span> we can rewrite this as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{split} 
+&amp; \frac{1}{2^{(n+1)/2}} \sum_x [(-1)^{x\cdot z} + (-1)^{x\cdot z} (-1)^{x\cdot c}|x\rangle \\
+=&amp; \frac{1}{2^{(n+1)/2}} \sum_x (-1)^{x\cdot z}[1 + (-1)^{x\cdot c}|x\rangle .\\
+\end{split}
+\end{split}\]</div>
+<p>When <span class="math notranslate nohighlight">\(x\cdot c\)</span> is an odd number <span class="math notranslate nohighlight">\(1 + (-1)^{x\cdot c}\)</span> will be zero, thus we can simplify this as</p>
+<div class="math notranslate nohighlight">
+\[ 
+\frac{1}{2^{(n+1)/2}} \sum_{x|x\cdot c \in\, \text{even}} (-1)^{x\cdot z} |x\rangle
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(x\cdot c \in\, \text{even}\)</span> means we only sum over bit strings for which <span class="math notranslate nohighlight">\(x\cdot c\)</span> is an even number.</p>
+<p>Thus running the above circuit once, the first register gives us a value of <span class="math notranslate nohighlight">\(x\)</span> for which <span class="math notranslate nohighlight">\(x\cdot c\)</span> is even. If we repeat this <span class="math notranslate nohighlight">\(n\)</span> times we will end up with <span class="math notranslate nohighlight">\(n\)</span> independent equations (assuming we don’t get duplicate values of <span class="math notranslate nohighlight">\(x\)</span>) for which we can easily solve for <span class="math notranslate nohighlight">\(c\)</span>.</p>
+<p>Note that any measurements performed midway through a circuit may be moved to the end. As we don’t need to record the measurements of the second register, we don’t in practice need to perform these measurements.</p>
+<figure class="align-center" id="id2">
+<img alt="../_images/simons_circuit_4.png" src="../_images/simons_circuit_4.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 60 </span><span class="caption-text">The circuit for Simon’s algorithm for <span class="math notranslate nohighlight">\(n=3\)</span>.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="simons-algorithm-conclusions">
+<h2>Simon’s Algorithm Conclusions<a class="headerlink" href="#simons-algorithm-conclusions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>As Simon’s algorithm requires running the circuit approximately <span class="math notranslate nohighlight">\(n\)</span> times it is <span class="math notranslate nohighlight">\(O(n)\)</span>.</p></li>
+<li><p>To solve classically we will generally require <span class="math notranslate nohighlight">\(O(2^{n/2})\)</span> evaluations.</p></li>
+<li><p>Thus Simon’s algorithm gives an exponential speed-up.</p></li>
+<li><p>However Simon’s problem is a toy problem with no known applications.</p></li>
+<li><p>It did serve as an important inspiration for subsequent algorithms including Shor’s.</p></li>
+</ul>
+</section>
+<section id="shors-algorithm">
+<h2>Shor’s Algorithm<a class="headerlink" href="#shors-algorithm" title="Link to this heading">#</a></h2>
+<p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Fundamental_theorem_of_arithmetic">fundamental theorem of arithmetic</a> states that every integer can be unique written as a product of primes. For example the number <span class="math notranslate nohighlight">\(42\)</span> can be written as <span class="math notranslate nohighlight">\(2*3*7\)</span>, all of which are prime.
+Shor’s algorithm can find the prime factors of a given integer exponentially faster than the best known classical algorithms.</p>
+</section>
+<section id="overview-of-shors-algorithm">
+<h2>Overview of Shor’s Algorithm<a class="headerlink" href="#overview-of-shors-algorithm" title="Link to this heading">#</a></h2>
+<p>Shor’s algorithm consists of two steps:</p>
+<ul class="simple">
+<li><p>Reduce the factoring problem to an order finding problem</p></li>
+<li><p>Efficiently solve the order finding problem using the QPE algorihm</p></li>
+</ul>
+<p>The order finding problem is to find a value of <span class="math notranslate nohighlight">\(r\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[
+x^r = 1\, \text{mod}\, N
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(0&lt;x&lt;N\)</span>. Here <span class="math notranslate nohighlight">\(\text{mod}\, N\)</span> means we divide by <span class="math notranslate nohighlight">\(N\)</span> and keep the remainder.
+It turns out that if we have a fast method for order finding, then we also have a fast method for factoring numbers.</p>
+<p>Order finding can be efficiently run on a quantum computer using the QPE algorithm with unitary</p>
+<div class="math notranslate nohighlight">
+\[
+U|y\rangle=|xy\,\text{mod}\,N\rangle.
+\]</div>
+</section>
+<section id="implications-for-crytography">
+<h2>Implications for crytography<a class="headerlink" href="#implications-for-crytography" title="Link to this heading">#</a></h2>
+<p>In public-key cryptography one party is able to to securely share information to another, by using a public key (available to anyone) to encrypt a message and a private key (kept private by the party receiving the message) to decryt the message.</p>
+<p>A common way to generate the public and private keys is to use the RSA algorithm.
+Here the protocal is as follows:</p>
+<ol class="arabic simple">
+<li><p>Choose two random prime numbers <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(q\)</span></p></li>
+<li><p>Compute <span class="math notranslate nohighlight">\(n=pq\)</span></p></li>
+<li><p>Compute <span class="math notranslate nohighlight">\(\phi=(p-1)(q-1)\)</span></p></li>
+<li><p>Select a random number <span class="math notranslate nohighlight">\(e\)</span> whose greatest common factor with <span class="math notranslate nohighlight">\(\phi\)</span> is 1</p></li>
+<li><p>Find <span class="math notranslate nohighlight">\(d\)</span> where <span class="math notranslate nohighlight">\(de=1\,\text{mod}\,\phi\)</span></p></li>
+</ol>
+<p>The public keys are <span class="math notranslate nohighlight">\((e, n)\)</span> and the private key is <span class="math notranslate nohighlight">\(d\)</span>.
+A message <span class="math notranslate nohighlight">\(m\)</span> can be encrypted using</p>
+<div class="math notranslate nohighlight">
+\[
+E(m) = m^e \,\text{mod}\, n
+\]</div>
+<p>and decrypted using</p>
+<div class="math notranslate nohighlight">
+\[
+m = E(m)^d \,\text{mod}\, n.
+\]</div>
+<p>The security of RSA relies on the assumption that factoring is difficult and can’t be done efficiently, as far as we know this is true on classical computers, but Shor’s algorithm shows it’s not the case for quantum computers. Currently quantum computers are not large enough to run Shor’s algorithm, but post quantum cryptography protocals are already being adopted.</p>
+</section>
+<section id="shors-algorithm-conclusions">
+<h2>Shor’s Algorithm Conclusions<a class="headerlink" href="#shors-algorithm-conclusions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Shor’s Algorithm can factor integers <strong>exponentially</strong> faster than the best known classical algorithms.</p></li>
+<li><p>Using Shor’s algorithm one could break many popular encryption schemes including RSA and Diffie–Hellman.</p></li>
+<li><p>Currently 10,000 qubits are required to break standard encryption schemes although this number will probably continue to fall in the future.</p></li>
+<li><p>This motivates moving to <strong>post quantum cryptographic algorithms</strong> which are designed to remain secure against future quantum computers.</p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -443,12 +621,55 @@
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="../lecture-06/lecture-06-eqa1.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 6: Early Quantum Algorithms I</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../topics/math-la.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Mathematical Structure</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#focus-of-lecture">Focus of Lecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-algorithm">Simon’s Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-problem">Simon’s Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-circuit">Simon’s Circuit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-algorithm-conclusions">Simon’s Algorithm Conclusions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shors-algorithm">Shor’s Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-shors-algorithm">Overview of Shor’s Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implications-for-crytography">Implications for crytography</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shors-algorithm-conclusions">Shor’s Algorithm Conclusions</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
