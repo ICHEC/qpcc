@@ -24,9 +24,9 @@ parts:
   - caption: Topic 6
     chapters:
     - file: lecture-06/lecture-06-eqa1.md
-#  - caption: Topic 7
-#    chapters:
-#    - file: lecture-07/early-qa2.md
+  - caption: Topic 7
+    chapters:
+    - file: lecture-07/early-qa2.md
 #  - caption: Topic 8
 #    chapters:
 #    - file: lecture-08/early-qa3.md
