@@ -67,10 +67,10 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-07/early-qa2';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <script src="../_static/parallel-sg.js?v=fc6e2f92"></script>
-    <script src="../_static/stern-gerlach.js?v=4e52aa77"></script>
-    <script src="../_static/logic-gate.js?v=1548f47a"></script>
-    <script src="../_static/quantum-circuit.js?v=8c43a845"></script>
     <script src="../_static/bloch-path.js?v=fbcfb0fb"></script>
+    <script src="../_static/quantum-circuit.js?v=8c43a845"></script>
+    <script src="../_static/logic-gate.js?v=1548f47a"></script>
+    <script src="../_static/stern-gerlach.js?v=4e52aa77"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Mathematical Structure" href="../topics/math-la.html" />
@@ -418,9 +418,13 @@
             <nav aria-label="Page">
                 <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#focus-of-lecture">Focus of Lecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xor">XOR</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-algorithm">Simon’s Algorithm</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-problem">Simon’s Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-2-bit-example">Simple 2 Bit Example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-circuit">Simon’s Circuit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-circuit-2-bit-example">Simon’s circuit 2 Bit example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-circuit-3-bit-example">Simon’s circuit 3 Bit example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-algorithm-conclusions">Simon’s Algorithm Conclusions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shors-algorithm">Shor’s Algorithm</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-shors-algorithm">Overview of Shor’s Algorithm</a></li>
@@ -452,6 +456,50 @@
 <li><p>Understand at a high level Shor’s Algorithm.</p></li>
 </ul>
 </section>
+<section id="xor">
+<h2>XOR<a class="headerlink" href="#xor" title="Link to this heading">#</a></h2>
+<p>Exclusive-or (XOR) denoted by <span class="math notranslate nohighlight">\(\oplus\)</span> is a classical logic
+gate defined by:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+a\oplus b = 
+\begin{cases}
+  0 &amp; \text{if} \quad a=b \\
+  1 &amp; \text{if} \quad a\ne b
+\end{cases}
+\end{split}\]</div>
+<p>The truth table is:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\(a\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(b\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(a\oplus b\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Note that XOR has the following addition property:</p>
+<div class="math notranslate nohighlight">
+\[y=x\oplus c \quad\rightarrow\quad c=x\oplus y\]</div>
+</section>
 <section id="simons-algorithm">
 <h2>Simon’s Algorithm<a class="headerlink" href="#simons-algorithm" title="Link to this heading">#</a></h2>
 <p>Simon’s algorithm was the first proposed quantum algorithm to demonstrate an exponential speed up over classical computers. While it doesn’t have a known practical use, it served as an inspiration for many other quantum algorithms.</p>
@@ -471,28 +519,101 @@ Our task is to find <span class="math notranslate nohighlight">\(c\)</span>.</p>
 </figcaption>
 </figure>
 <p>Here <span class="math notranslate nohighlight">\(x \oplus c\)</span> means to take the component-wise XOR between the n-bit strings <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(c\)</span>. If <span class="math notranslate nohighlight">\(x=1011\)</span> and <span class="math notranslate nohighlight">\(c=0101\)</span> then we would get <span class="math notranslate nohighlight">\(x\oplus c=1110\)</span>.</p>
-<p>Classically this can be solved with an average of <span class="math notranslate nohighlight">\(O(2^{n/2})\)</span> evaluations. While on a quantum computer on average we will require only <span class="math notranslate nohighlight">\(O(n)\)</span> evaluations.</p>
+<p>To solve this classical we just need to find two inputs that have the same output value, i.e. an <span class="math notranslate nohighlight">\(x\)</span> and a <span class="math notranslate nohighlight">\(y\)</span> that have <span class="math notranslate nohighlight">\(f(x)=f(y)\)</span>. We know that <span class="math notranslate nohighlight">\(x=c\oplus y\)</span> and we can use the addition property of XOR to find <span class="math notranslate nohighlight">\(c\)</span>, <span class="math notranslate nohighlight">\(c=x\oplus y\)</span>.</p>
+<p>Classically, we will on average find a pair after <span class="math notranslate nohighlight">\(O(2^{n/2})\)</span> evaluations. While on a quantum computer on average we will require only <span class="math notranslate nohighlight">\(O(n)\)</span> evaluations.</p>
+</section>
+<section id="simple-2-bit-example">
+<h2>Simple 2 Bit Example<a class="headerlink" href="#simple-2-bit-example" title="Link to this heading">#</a></h2>
+<p>Suppose we have <span class="math notranslate nohighlight">\(n=2\)</span> and <span class="math notranslate nohighlight">\(c=10\)</span>. For <span class="math notranslate nohighlight">\(n=2\)</span> there are 4 inputs, <span class="math notranslate nohighlight">\(00\)</span>, <span class="math notranslate nohighlight">\(01\)</span>, <span class="math notranslate nohighlight">\(10\)</span> and <span class="math notranslate nohighlight">\(11\)</span>, let’s compute the xor with <span class="math notranslate nohighlight">\(c\)</span> for each input:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\(x\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(x\oplus c\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(00\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(10\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(01\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(11\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(10\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(00\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(11\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(01\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Thus we see that for this example we would have <span class="math notranslate nohighlight">\(f(00)=f(10)\)</span> and <span class="math notranslate nohighlight">\(f(01)=f(11)\)</span>.
+An example of such a function is</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\(x\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(f(x)\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(00\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(11\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(01\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(01\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(10\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(11\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(11\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(01\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
 <section id="simons-circuit">
 <h2>Simon’s Circuit<a class="headerlink" href="#simons-circuit" title="Link to this heading">#</a></h2>
+<p>Recall that applying a Hadamard gate to an <span class="math notranslate nohighlight">\(n\)</span> qubit state <span class="math notranslate nohighlight">\(x\)</span> produces the state.</p>
+<div class="math notranslate nohighlight">
+\[
+H^{\otimes n}|x\rangle = \frac{1}{2^{n/2}} \sum_{y} (-1)^{x \cdot y}|y\rangle
+\]</div>
+<p>where  <span class="math notranslate nohighlight">\(x\cdot y=x_1y_1+x_2y_2+...+x_ny_n\)</span>. E.g. for <span class="math notranslate nohighlight">\(x=10\)</span> we have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{split}
+H^{\otimes 2}|10\rangle &amp;= H|1\rangle H|0\rangle\\
+&amp;=\frac{1}{\sqrt 2}(|0\rangle - |1\rangle) \frac{1}{\sqrt 2}(|0\rangle + |1\rangle) \\
+&amp;= \frac{1}{2}(|00\rangle + |01\rangle - |10\rangle - |11\rangle) \\
+\end{split}
+\end{split}\]</div>
 <p>With <span class="math notranslate nohighlight">\(2n\)</span> qubits split into 2 n-bit registers, Simon’s algorithm consists in the following steps:</p>
-<p>Firstly we apply a Hadamard gate to each qubit in the first register, creating the state</p>
+<ol class="arabic simple">
+<li><p>We apply a Hadamard gate to each qubit in the first register, creating the state</p></li>
+</ol>
 <div class="math notranslate nohighlight">
 \[
 \frac{1}{2^{n/2}} \sum_x |x\rangle |0\rangle.
 \]</div>
-<p>Note that the sum is over all n-bit strings, so for <span class="math notranslate nohighlight">\(n=2\)</span> we sum over <span class="math notranslate nohighlight">\(00\)</span>, <span class="math notranslate nohighlight">\(01\)</span>, <span class="math notranslate nohighlight">\(10\)</span> and <span class="math notranslate nohighlight">\(11\)</span>.</p>
-<p>Then we apply the unitary <span class="math notranslate nohighlight">\(U|x\rangle|y\rangle=|x\rangle|y \oplus f(x) \rangle\)</span> getting the state</p>
+<p>Note that the sum is over all n-bit strings, so for <span class="math notranslate nohighlight">\(n=2\)</span> we sum over <span class="math notranslate nohighlight">\(00\)</span>, <span class="math notranslate nohighlight">\(01\)</span>, <span class="math notranslate nohighlight">\(10\)</span> and <span class="math notranslate nohighlight">\(11\)</span>, note also that <span class="math notranslate nohighlight">\(|0\rangle\)</span> is shorthand for <span class="math notranslate nohighlight">\(|00...0\rangle\)</span> i.e. the state with all <span class="math notranslate nohighlight">\(n\)</span> qubits in state <span class="math notranslate nohighlight">\(|0\rangle\)</span>.</p>
+<ol class="arabic simple" start="2">
+<li><p>We apply the unitary <span class="math notranslate nohighlight">\(U|x\rangle|y\rangle=|x\rangle|y \oplus f(x) \rangle\)</span> getting the state</p></li>
+</ol>
 <div class="math notranslate nohighlight">
 \[
 \frac{1}{2^{n/2}} \sum_x |x\rangle |f(x)\rangle.
 \]</div>
-<p>Next we measure the qubits in the second register. Suppose we measured <span class="math notranslate nohighlight">\(f(z)\)</span>, where recall <span class="math notranslate nohighlight">\(f(z)\)</span> is an n-bit string, then we know that qubits in the first register must either be in <span class="math notranslate nohighlight">\(z\)</span> or <span class="math notranslate nohighlight">\(z \oplus c\)</span> and hence the qubits in the first register are in state</p>
+<ol class="arabic simple" start="3">
+<li><p>We measure the qubits in the second register. Suppose we measured <span class="math notranslate nohighlight">\(f(z)\)</span>, where recall <span class="math notranslate nohighlight">\(f(z)\)</span> is an n-bit string, then we know that qubits in the first register must either be in <span class="math notranslate nohighlight">\(z\)</span> or <span class="math notranslate nohighlight">\(z \oplus c\)</span> and hence the qubits in the first register are in state</p></li>
+</ol>
 <div class="math notranslate nohighlight">
 \[
 \frac{|z\rangle + |z \oplus c\rangle}{\sqrt 2}
 \]</div>
-<p>Now we apply a Hadamard gate again to each qubit in the first register producing the state</p>
+<ol class="arabic simple" start="4">
+<li><p>We apply a Hadamard gate again to each qubit in the first register producing the state</p></li>
+</ol>
 <div class="math notranslate nohighlight">
 \[\begin{split}
  \frac{1}{2^{(n+1)/2}} \sum_x [(-1)^{x\cdot z} + (-1)^{x\cdot (z \oplus c)}|x\rangle \\
@@ -511,7 +632,9 @@ Our task is to find <span class="math notranslate nohighlight">\(c\)</span>.</p>
 \frac{1}{2^{(n+1)/2}} \sum_{x|x\cdot c \in\, \text{even}} (-1)^{x\cdot z} |x\rangle
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(x\cdot c \in\, \text{even}\)</span> means we only sum over bit strings for which <span class="math notranslate nohighlight">\(x\cdot c\)</span> is an even number.</p>
-<p>Thus running the above circuit once, the first register gives us a value of <span class="math notranslate nohighlight">\(x\)</span> for which <span class="math notranslate nohighlight">\(x\cdot c\)</span> is even. If we repeat this <span class="math notranslate nohighlight">\(n\)</span> times we will end up with <span class="math notranslate nohighlight">\(n\)</span> independent equations (assuming we don’t get duplicate values of <span class="math notranslate nohighlight">\(x\)</span>) for which we can easily solve for <span class="math notranslate nohighlight">\(c\)</span>.</p>
+<ol class="arabic simple" start="7">
+<li><p>Thus running the above circuit once, the first register gives us a value of <span class="math notranslate nohighlight">\(x\)</span> for which <span class="math notranslate nohighlight">\(x\cdot c\)</span> is even. If we repeat this <span class="math notranslate nohighlight">\(n\)</span> times we will end up with <span class="math notranslate nohighlight">\(n\)</span> independent equations (assuming we don’t get duplicate values of <span class="math notranslate nohighlight">\(x\)</span>) for which we can easily solve for <span class="math notranslate nohighlight">\(c\)</span>.</p></li>
+</ol>
 <p>Note that any measurements performed midway through a circuit may be moved to the end. As we don’t need to record the measurements of the second register, we don’t in practice need to perform these measurements.</p>
 <figure class="align-center" id="id2">
 <img alt="../_images/simons_circuit_4.png" src="../_images/simons_circuit_4.png" />
@@ -519,6 +642,108 @@ Our task is to find <span class="math notranslate nohighlight">\(c\)</span>.</p>
 <p><span class="caption-number">Fig. 60 </span><span class="caption-text">The circuit for Simon’s algorithm for <span class="math notranslate nohighlight">\(n=3\)</span>.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
+</section>
+<section id="simons-circuit-2-bit-example">
+<h2>Simon’s circuit 2 Bit example<a class="headerlink" href="#simons-circuit-2-bit-example" title="Link to this heading">#</a></h2>
+<p>Let’s redo the steps with the particular 2-bit example considered above.
+We start in state <span class="math notranslate nohighlight">\(|00\rangle|00\rangle\)</span>, after applying Hadamard gates to the qubits in the first register we get</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{2} \sum_x |x\rangle|00\rangle=\frac{1}{2} (|00\rangle|00\rangle+|01\rangle|00\rangle+|10\rangle|00\rangle+|11\rangle|00\rangle)\]</div>
+<p>We then apply the unitary getting:</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{2} \sum_x |x\rangle|f(x)\rangle=\frac{1}{2} (|00\rangle|f(00)\rangle+|01\rangle|f(01)\rangle+|10\rangle|f(10)\rangle+|11\rangle|f(11)\rangle)\]</div>
+<p>But recall for this example we know <span class="math notranslate nohighlight">\(f(00)=f(10)\)</span> and <span class="math notranslate nohighlight">\(f(01)=f(11)\)</span> and thus we can write this as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{split}
+\frac{1}{2} \sum_x |x\rangle|f(x)\rangle &amp;=\frac{1}{2} (|00\rangle|f(00)\rangle+|01\rangle|f(01)\rangle+|10\rangle|f(00)\rangle+|11\rangle|f(01)\rangle) \\
+&amp;=\frac{1}{2} [(|00\rangle+|10\rangle)|f(00)\rangle+(|01\rangle+|11\rangle)|f(01)\rangle] \\
+\end{split}
+\end{split}\]</div>
+<p>When we measure the second register, we will either measure <span class="math notranslate nohighlight">\(f(00)\)</span> or <span class="math notranslate nohighlight">\(f(01)\)</span>, suppose we measure <span class="math notranslate nohighlight">\(f(01)\)</span>, then we know the first register is in state</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{\sqrt 2}(|01\rangle+|11\rangle) \]</div>
+<p>Next we apply Hadamard gates again to the first register, we know that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{split}
+H^{\otimes 2}|01\rangle &amp;= \frac{1}{2} (|00\rangle-|01\rangle+|10\rangle-|11\rangle) \\
+H^{\otimes 2}|11\rangle &amp;= \frac{1}{2} (|00\rangle-|01\rangle-|10\rangle+|11\rangle) \\
+\end{split}
+\end{split}\]</div>
+<p>thus when we apply Hadamard gates again to the first register we will get the state</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{\sqrt 2} (H^{\otimes 2}|01\rangle+H^{\otimes 2}|11\rangle) = \frac{1}{\sqrt 2} (|00\rangle+|01\rangle).
+\]</div>
+<p>On the other hand if when we measured the second register we got <span class="math notranslate nohighlight">\(f(00)\)</span>, then we would know the first register is in state</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{\sqrt 2}(|00\rangle+|10\rangle) \]</div>
+<p>and after applying Hadamard gates to this state we get</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{\sqrt 2}(H^{\otimes 2}|00\rangle+H^{\otimes 2}|10\rangle) =\frac{1}{\sqrt 2}(|00\rangle+|01\rangle) \]</div>
+<p>i.e. in this case we get the same state in the first register no matter what we measure in the second. Recall that in this case <span class="math notranslate nohighlight">\(c\)</span> was <span class="math notranslate nohighlight">\(10\)</span>, we see that <span class="math notranslate nohighlight">\(00\cdot 10=0\)</span> and <span class="math notranslate nohighlight">\(01 \cdot 10=0\)</span>, and hence when we measure the first register we’ll get a bitstring whose dot product with <span class="math notranslate nohighlight">\(c\)</span> is zero mod 2.</p>
+</section>
+<section id="simons-circuit-3-bit-example">
+<h2>Simon’s circuit 3 Bit example<a class="headerlink" href="#simons-circuit-3-bit-example" title="Link to this heading">#</a></h2>
+<p>Finally let’s consider a 3 bit example, suppose <span class="math notranslate nohighlight">\(c\)</span> was <span class="math notranslate nohighlight">\(110\)</span>, as <span class="math notranslate nohighlight">\(n=3\)</span> we have <span class="math notranslate nohighlight">\(2^3=8\)</span> possible inputs, let’s compute the XOR’s with <span class="math notranslate nohighlight">\(c\)</span></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\(x\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(x\oplus c\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(000\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(110\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(001\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(111\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(010\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(100\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(011\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(101\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(100\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(010\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(101\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(011\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(110\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(000\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(111\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(001\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The circuit starts in state <span class="math notranslate nohighlight">\(|000\rangle|000\rangle\)</span>, we apply Hadamard gates to the first register getting:</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{2^{3/2}}\sum_x |x\rangle|000\rangle=\frac{1}{2^{3/2}}(|000\rangle|000\rangle+|001\rangle|000\rangle +|010\rangle|000\rangle +...)\]</div>
+<p>We apply the unitary getting:</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{2^{3/2}}\sum_x |x\rangle|f(x)\rangle=\frac{1}{2^{3/2}}(|000\rangle|f(000)\rangle+|001\rangle|f(001)\rangle +|010\rangle|f(010)\rangle +...)\]</div>
+<p>again we can rewrite this as we know <span class="math notranslate nohighlight">\(f(000)=f(110)\)</span>, <span class="math notranslate nohighlight">\(f(001)=f(111)\)</span>, <span class="math notranslate nohighlight">\(f(010)=f(100)\)</span> and <span class="math notranslate nohighlight">\(f(011)=f(101)\)</span>, we get:</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{2^{3/2}}\sum_x |x\rangle|f(x)\rangle=\frac{1}{2^{3/2}} \left[(|000\rangle+|110\rangle)|f(000)\rangle+(|001\rangle+|111\rangle)|f(001)\rangle +...) \right]\]</div>
+<p>We measure the second register, suppose we get <span class="math notranslate nohighlight">\(f(010)\)</span>, then we know the first register is in state:</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{\sqrt 2}(|010\rangle+|100\rangle)\]</div>
+<p>Now we apply Hadamard gates to this state:</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{\sqrt 2}(H^{\otimes 3}|010\rangle+H^{\otimes 3}|100\rangle)=\frac{1}{2}(|000\rangle+|001\rangle+|110\rangle+|111\rangle)\]</div>
+<p>We’ll get the same state no matter what we would measure in the second register (this follows from the general derivation above). Thus running the full circuit we would either measure <span class="math notranslate nohighlight">\(000\)</span>, <span class="math notranslate nohighlight">\(001\)</span>, <span class="math notranslate nohighlight">\(110\)</span> or <span class="math notranslate nohighlight">\(111\)</span> in the first register. We know that <span class="math notranslate nohighlight">\(x\cdot c\mod 2=0\)</span> for all of these bitstrings, so we get the equations (letting <span class="math notranslate nohighlight">\(c=(c_1, c_2, c_3)\)</span>):</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x=000\)</span>, <span class="math notranslate nohighlight">\(x\cdot c \mod 2=0\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(x=001\)</span>, <span class="math notranslate nohighlight">\(x\cdot c \mod 2= c_3 \mod 2=0\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(x=110\)</span>, <span class="math notranslate nohighlight">\(x\cdot c \mod 2=(c_1+c_2)\mod 2=0\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(x=111\)</span>, <span class="math notranslate nohighlight">\(x\cdot c \mod 2=(c_1+c_2+c_3)\mod 2=0\)</span></p></li>
+</ul>
+<p>From this we see <span class="math notranslate nohighlight">\(c_3=0\)</span> and <span class="math notranslate nohighlight">\(c_1=c_2\)</span>, as we know <span class="math notranslate nohighlight">\(c\)</span> can’t be <span class="math notranslate nohighlight">\((0,0,0)\)</span> (since then the function wouldn’t be 2-1), it must be <span class="math notranslate nohighlight">\(c=(1,1,0)\)</span>, which is indeed correct.</p>
 </section>
 <section id="simons-algorithm-conclusions">
 <h2>Simon’s Algorithm Conclusions<a class="headerlink" href="#simons-algorithm-conclusions" title="Link to this heading">#</a></h2>
@@ -658,9 +883,13 @@ m = E(m)^d \,\text{mod}\, n.
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#focus-of-lecture">Focus of Lecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xor">XOR</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-algorithm">Simon’s Algorithm</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-problem">Simon’s Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-2-bit-example">Simple 2 Bit Example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-circuit">Simon’s Circuit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-circuit-2-bit-example">Simon’s circuit 2 Bit example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-circuit-3-bit-example">Simon’s circuit 3 Bit example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-algorithm-conclusions">Simon’s Algorithm Conclusions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shors-algorithm">Shor’s Algorithm</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-shors-algorithm">Overview of Shor’s Algorithm</a></li>
