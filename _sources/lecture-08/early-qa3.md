@@ -39,36 +39,74 @@ $$
 
 Our goal is to find a solution, which is a binary string $x\in\{0,1\}^n$ for which $f(x)=1$.
 
+As an example consider the 2-bit function F given by the following table:
+
+| $x$    | $F(x)$ |
+| -------- | ------- |
+| 00  | 0    |
+| 01 | 0     |
+| 10    | 1    |
+| 11    | 0    |
+
+- This function has only one bitstring, 10, for which we get the output 1.
+- Our job is to find this bitstring 10 when we have access to the function as a circuit or a blackbox.
+- While this may seem abstract, in the real world searching through databases is a very common task.
+
 Classically we can solve this by iterating through all $x$ and evaluating $f$ on each one and stopping when we find $f(x)=1$.
 If there are $N$ elements in the list and only one solution then on average we will have to evaluate $N/2$ elements.
 
-## Circuit
+## Grover's Operator
+
 For a database of size $N=2^n$ we require $n$ qubits. 
 We define the oracle, $O$, which performs the operation
 
 $$
-O|x\rangle = (-1)^{f(x)}|x\rangle.
+O|x\rangle = (-1)^{f(x)}|x\rangle
 $$
 
-We also define the Diffusion operator which performs the operation
+thus if $|x\rangle$ is a solution, $O|x\rangle=-|x\rangle$.
+
+We also define the phase shift which applies the follow transformation:
+
+$$ |x\rangle \rightarrow 
+\begin{cases}
+|0^n\rangle & \text{if } \, x=0^n \\
+-|x\rangle & \text{otherwise} \\
+\end{cases}
+$$
+
+where here $|0^n\rangle$ is the state with all $n$ qubits in $|0\rangle$, e.g. for $n=4$, $|0^4\rangle=|0000\rangle$.
+The phase shift corresponds to the following unitary:
+
+$$2|0^n\rangle\langle 0^n|-I$$
+
+To see this, note that it correctly transforms $|0^n\rangle\rightarrow |0^n\rangle$
+and for $x\ne 0^n$, $|x\rangle\rightarrow -|x\rangle$.
+
+**Grover's operator** consists in the following steps:
+1. Apply the oracle $O$
+2. Apply a Hadamard gate to each qubit
+3. Apply the phase shift
+4. Apply a Hadamard gate to each qubit
+
+Steps 2-4 are called diffusion and can be combined together into unitary
 
 $$
-2|\psi\rangle\langle \psi|-I 
+H^{\otimes n}(2|0^n\rangle\langle 0^n|-I)H^{\otimes n}=2|\psi\rangle\langle\psi|-I 
 $$
 
-where $|\psi\rangle$ is the uniform superposition state given by
+where $I$ is the identity matrix and we have defined the uniform superposition state:
 
-$$
-|\psi\rangle = \frac{1}{2^{n/2}} \sum_x |x\rangle 
-$$
+$$|\psi\rangle=\frac{1}{2^{n/2}}\sum_x|x\rangle$$ 
 
-(note that the sum is over all $n$ bit strings $x$) and $I$ is the identity matrix.
+e.g. for $n=2$, $|\psi\rangle=\frac{1}{2}(|00\rangle+|01\rangle+|10\rangle+|11\rangle)$
 
-Grover’s operator, $G$, is defined as
+Thus we can define **Grover’s operator**, G, as
 
-$$
-G = (2|\psi\rangle\langle \psi|-I)O
-$$
+$$ G = (\color{red} 2|\psi\rangle\langle\psi|-I \color{black})\color{blue} O$$
+which comprises $\color{red}\text{Diffusion}$ and an $\color{blue}\text{Oracle}$.
+
+## Grover's Circuit
 
 Grover's algorithm consists in
 1. Apply a Hadamard gate to each qubit (creating a uniform superposition state)
@@ -77,7 +115,13 @@ Grover's algorithm consists in
 
 with a probability of at least $1/2$ a solution will be measured. 
 
-## WHy does Grover's algorithm work?
+```{figure} ./images/grovers_circuit_full.png
+:align: center
+
+Grover's circuit for $n=3$, here we apply Grover's operator twice.
+```
+
+## Why does Grover's algorithm work?
 We define $M$ to be the number of solutions (i.e. values of $x$ for which $f(x)=1$).
 
 We define an equal superposition of solutions
@@ -161,7 +205,7 @@ $$
 
 In the 2-D plane with $|A_0\rangle$ being the x-axis and $|A_1\rangle$ being the y-axis, this corresponds to an anti-clockwise rotation of angle $\theta$.
 
-```{figure} ./images/grover_rotation.png
+```{figure} ./images/grover_rotation.drawio.svg
 :align: center
 
 Applying Grover's operator to state $|\alpha\rangle$ results in an anti-clockwise rotation.
@@ -197,11 +241,19 @@ For the simplest random walk we are restricted to move in a 1-dimensional line. 
 If we start at the origin where will we be after $n$ steps? Let $p_n(x)$ be the probability of being at position $x$ after $n$ steps.
 
 After $1$ step we either have taken a single step left or right, so the possible paths are 
-L and R and hence $p_1(-1)=1/2$ and $p_1(1)=1/2$.
+L and R and hence:
+- $p_1(-1)=1/2$
+- $p_1(1)=1/2$
 
-After $2$ steps the possible paths are LL, LR, RL and RR and hence $p_2(-2)=1/4$, $p_2(0)=1/2$ and $p_2(2)=1/4$.
+After $2$ steps the possible paths are LL, LR, RL and RR and hence: 
+- $p_2(-2)=1/4$
+- $p_2(0)=1/2$
+- $p_2(2)=1/4$
 
-After $3$ steps the possible paths are LLL, LLR, LRL, LRR, RLL, RLR, RRL and RRR and hence $p_3(-3)=1/8$, $p_3(-1)=3/8$, $p_3(1)=3/8$ and $p_3(3)=1/8$.
+After $3$ steps the possible paths are LLL, LLR, LRL, LRR, RLL, RLR, RRL and RRR and hence: - $p_3(-3)=1/8$
+- $p_3(-1)=3/8$
+- $p_3(1)=3/8$
+- $p_3(3)=1/8$
 
 It can be shown that $p_n(x)$ has the following properties
 - The mean is zero, $\mu=\sum_x p_n(x) x=0$
@@ -209,5 +261,148 @@ It can be shown that $p_n(x)$ has the following properties
 
 Additionally when $n$ is large the distribution tends towards a bell curve.
 
-## Quantum Random Walks
+```{figure} ./images/random_walk_paths.png
+:align: center
 
+Some random walk trajectories after 1000 steps.
+```
+
+
+## Quantum Random Walks - Introduction
+
+Firstly we need a way of encoding position into a set of qubits.
+If we have $n$ qubits then each basis state can serve as a position by converting the binary string into an integer. E.g. the state $|0110\rangle$ would be position 6, $|6\rangle$.
+
+For $n=2$ the positions would be:
+
+| Basis State    | Position |
+| -------- | ------- |
+| 00  | 0    |
+| 01 | 1     |
+| 10    | 2    |
+| 11    | 3    |
+
+Consider two unitaries; one for a 'step' to the left and another for a 'step' to the right
+
+$$
+\begin{split}
+U_L|j\rangle &= |j-1\rangle \\
+U_R|j\rangle &= |j+1\rangle \\
+\end{split}
+$$
+
+Note that since $U_LU_R=I$ the two are hermitian conjugates of each other: $U_L=U_R^\dagger$, $U_R=U_L^\dagger$ 
+i.e. $U_L$ undoes $U_R$.
+
+Thus in $n=2$ case 
+
+$$
+U_R |01\rangle = |10\rangle
+$$
+
+i.e. a step from position 1 to 2.
+
+We have an issue though, what will happen when we apply $U_L$ on the lowest position ($0$)? Or $U_R$ to the highest position ($2^n-1$)?
+
+I.e. in the $n=2$ case what is
+
+$$
+\begin{split}
+U_L|0\rangle &=? \\
+U_R|3\rangle &=? \\
+\end{split}
+$$
+
+To ensure the operators are unitary we need the positions to be on a circle, i.e.
+
+$$
+\begin{split}
+U_L|0\rangle &= |2^n-1\rangle \\
+U_R|2^n-1\rangle &= |0\rangle \\
+\end{split}
+$$
+
+```{figure} ./images/ring-quantum-walk.drawio.svg
+:align: center
+
+The $U_L$ and $U_R$ operators on a circle.
+```
+
+
+We want to find a unitary that does a 'walk' similar to the classical random walk.
+
+Here's one way to implement a quantum walk. We need a circuit composed of two registers $|x,y\rangle$ where 
+- The first register comprises a single qubit.
+- The second register encodes position (as before).
+
+Consider the unitary $U$ where
+
+$$
+\begin{split}
+U|0, j\rangle &= (I\otimes U_L)|0, j\rangle = |0,j-1\rangle \\
+U|1, j\rangle &= (I\otimes U_R)|1, j\rangle = |1,j+1\rangle \\
+\end{split}
+
+$$
+i.e. if the qubit in the first register is 0 (1) we step to the left (right).
+
+By itself, this unitary doesn't do anything very interesting. For example if we start in the state $|0,j\rangle$ then applying $U$ $k$ times results in state
+$|0,j-k\rangle$.
+
+Instead, we combine with unitary with a Hadamard gate on the first register: $U(H\otimes I)$
+
+$$
+U(H\otimes I)|0, j\rangle = \frac{1}{\sqrt 2} \left(U|0, j\rangle + U|1, j\rangle \right) = \frac{1}{\sqrt 2} \left(|0, j-1\rangle + |1, j+1\rangle \right)
+$$
+
+i.e. $50\%$ in position $j-1$ and $50\%$ in $j+1$. This looks like a random walk!
+
+</v-click>
+
+
+## Quantum Random Walks - Circuit
+
+The Quantum random walk algorithm is
+- Prepare an initial state, e.g. $|0,j\rangle$
+- Apply $U(H\otimes I)$ for a given number of steps
+- Measure the second register 
+- Find the position by converting the measurement to an integer
+
+```{figure} ./images/random_walk_circuit.png
+:align: center
+
+The circuit for Quantum random walks.
+```
+
+This looks very similar to Grover's algorithm!
+
+## Quantum Random Walks - Results
+
+```{figure} ./images/q_walk_asym.png
+:align: center
+
+Results for initial state: $|0,0\rangle$
+```
+
+```{figure} ./images/q_walk_sym.png
+:align: center
+
+Results for initial state: $\frac{1}{\sqrt 2}(|0,0\rangle+i|1,0\rangle)$
+```
+
+Thus we see important differences between classical and quantum random walks (recall $n$ is the number of steps):
+
+| | Classical    | Quantum |
+|- | -------- | ------- |
+| Distribution Symmetric | Always | Sometimes     |
+| Distribution Shape | Gaussian | Non-Gaussian     |
+| Variance ($\sigma^2$) | $n$ | $\propto n^2$   |
+
+- The fact that the variance of the Quantum distibution is $n^2$ means the Quantum walks are 'faster' than the classical
+- The $n^2$ variance can be seen by the fact that there are peaks far from the origin.
+- The differences between the classical and quantum cases are caused by interference.
+- Thus we see that for this simple classical algorithm the quantum version displays very different phenomena.
+
+Use cases of quantum random walks include:
+- Finding **marked items** on a graph faster than classical search (similar to Grover's algorithm but adapted to spatial structures like grids).
+- Evaluating whether a set of **elements are distinct** faster than classical algorithms.

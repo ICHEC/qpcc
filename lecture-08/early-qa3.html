@@ -73,6 +73,8 @@
     <script src="../_static/stern-gerlach.js?v=4e52aa77"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Mathematical Structure" href="../topics/math-la.html" />
+    <link rel="prev" title="Lecture 7: Early Quantum Algorithms II" href="../lecture-07/early-qa2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -174,8 +176,6 @@
       
       
       
-        
-      
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
@@ -268,6 +268,10 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 7</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../lecture-07/early-qa2.html">Lecture 7: Early Quantum Algorithms II</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 8</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 8: Early Quantum Algorithms III</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous Topics</span></p>
 <ul class="nav bd-sidenav">
@@ -420,10 +424,13 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#focus-of-lecture">Focus of Lecture</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grovers-algorithm">Grover’s Algorithm</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unstructured-search">Unstructured search</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#circuit">Circuit</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-does-grovers-algorithm-work">WHy does Grover’s algorithm work?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grovers-operator">Grover’s Operator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grovers-circuit">Grover’s Circuit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-does-grovers-algorithm-work">Why does Grover’s algorithm work?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-random-walks">Classical Random Walks</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-random-walks">Quantum Random Walks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-random-walks-introduction">Quantum Random Walks - Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-random-walks-circuit">Quantum Random Walks - Circuit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-random-walks-results">Quantum Random Walks - Results</a></li>
 </ul>
             </nav>
         </div>
@@ -462,33 +469,83 @@ Suppose we’re given a function</p>
 f:\{0,1\}^n \rightarrow \{0,1\}
 \]</div>
 <p>Our goal is to find a solution, which is a binary string <span class="math notranslate nohighlight">\(x\in\{0,1\}^n\)</span> for which <span class="math notranslate nohighlight">\(f(x)=1\)</span>.</p>
+<p>As an example consider the 2-bit function F given by the following table:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\(x\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(F(x)\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>00</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>01</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>10</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>11</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p>This function has only one bitstring, 10, for which we get the output 1.</p></li>
+<li><p>Our job is to find this bitstring 10 when we have access to the function as a circuit or a blackbox.</p></li>
+<li><p>While this may seem abstract, in the real world searching through databases is a very common task.</p></li>
+</ul>
 <p>Classically we can solve this by iterating through all <span class="math notranslate nohighlight">\(x\)</span> and evaluating <span class="math notranslate nohighlight">\(f\)</span> on each one and stopping when we find <span class="math notranslate nohighlight">\(f(x)=1\)</span>.
 If there are <span class="math notranslate nohighlight">\(N\)</span> elements in the list and only one solution then on average we will have to evaluate <span class="math notranslate nohighlight">\(N/2\)</span> elements.</p>
 </section>
-<section id="circuit">
-<h2>Circuit<a class="headerlink" href="#circuit" title="Link to this heading">#</a></h2>
+<section id="grovers-operator">
+<h2>Grover’s Operator<a class="headerlink" href="#grovers-operator" title="Link to this heading">#</a></h2>
 <p>For a database of size <span class="math notranslate nohighlight">\(N=2^n\)</span> we require <span class="math notranslate nohighlight">\(n\)</span> qubits.
 We define the oracle, <span class="math notranslate nohighlight">\(O\)</span>, which performs the operation</p>
 <div class="math notranslate nohighlight">
 \[
-O|x\rangle = (-1)^{f(x)}|x\rangle.
+O|x\rangle = (-1)^{f(x)}|x\rangle
 \]</div>
-<p>We also define the Diffusion operator which performs the operation</p>
+<p>thus if <span class="math notranslate nohighlight">\(|x\rangle\)</span> is a solution, <span class="math notranslate nohighlight">\(O|x\rangle=-|x\rangle\)</span>.</p>
+<p>We also define the phase shift which applies the follow transformation:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} |x\rangle \rightarrow 
+\begin{cases}
+|0^n\rangle &amp; \text{if } \, x=0^n \\
+-|x\rangle &amp; \text{otherwise} \\
+\end{cases}
+\end{split}\]</div>
+<p>where here <span class="math notranslate nohighlight">\(|0^n\rangle\)</span> is the state with all <span class="math notranslate nohighlight">\(n\)</span> qubits in <span class="math notranslate nohighlight">\(|0\rangle\)</span>, e.g. for <span class="math notranslate nohighlight">\(n=4\)</span>, <span class="math notranslate nohighlight">\(|0^4\rangle=|0000\rangle\)</span>.
+The phase shift corresponds to the following unitary:</p>
+<div class="math notranslate nohighlight">
+\[2|0^n\rangle\langle 0^n|-I\]</div>
+<p>To see this, note that it correctly transforms <span class="math notranslate nohighlight">\(|0^n\rangle\rightarrow |0^n\rangle\)</span>
+and for <span class="math notranslate nohighlight">\(x\ne 0^n\)</span>, <span class="math notranslate nohighlight">\(|x\rangle\rightarrow -|x\rangle\)</span>.</p>
+<p><strong>Grover’s operator</strong> consists in the following steps:</p>
+<ol class="arabic simple">
+<li><p>Apply the oracle <span class="math notranslate nohighlight">\(O\)</span></p></li>
+<li><p>Apply a Hadamard gate to each qubit</p></li>
+<li><p>Apply the phase shift</p></li>
+<li><p>Apply a Hadamard gate to each qubit</p></li>
+</ol>
+<p>Steps 2-4 are called diffusion and can be combined together into unitary</p>
 <div class="math notranslate nohighlight">
 \[
-2|\psi\rangle\langle \psi|-I 
+H^{\otimes n}(2|0^n\rangle\langle 0^n|-I)H^{\otimes n}=2|\psi\rangle\langle\psi|-I 
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> is the uniform superposition state given by</p>
+<p>where <span class="math notranslate nohighlight">\(I\)</span> is the identity matrix and we have defined the uniform superposition state:</p>
 <div class="math notranslate nohighlight">
-\[
-|\psi\rangle = \frac{1}{2^{n/2}} \sum_x |x\rangle 
-\]</div>
-<p>(note that the sum is over all <span class="math notranslate nohighlight">\(n\)</span> bit strings <span class="math notranslate nohighlight">\(x\)</span>) and <span class="math notranslate nohighlight">\(I\)</span> is the identity matrix.</p>
-<p>Grover’s operator, <span class="math notranslate nohighlight">\(G\)</span>, is defined as</p>
+\[|\psi\rangle=\frac{1}{2^{n/2}}\sum_x|x\rangle\]</div>
+<p>e.g. for <span class="math notranslate nohighlight">\(n=2\)</span>, <span class="math notranslate nohighlight">\(|\psi\rangle=\frac{1}{2}(|00\rangle+|01\rangle+|10\rangle+|11\rangle)\)</span></p>
+<p>Thus we can define <strong>Grover’s operator</strong>, G, as</p>
 <div class="math notranslate nohighlight">
-\[
-G = (2|\psi\rangle\langle \psi|-I)O
-\]</div>
+\[ G = (\color{red} 2|\psi\rangle\langle\psi|-I \color{black})\color{blue} O\]</div>
+<p>which comprises <span class="math notranslate nohighlight">\(\color{red}\text{Diffusion}\)</span> and an <span class="math notranslate nohighlight">\(\color{blue}\text{Oracle}\)</span>.</p>
+</section>
+<section id="grovers-circuit">
+<h2>Grover’s Circuit<a class="headerlink" href="#grovers-circuit" title="Link to this heading">#</a></h2>
 <p>Grover’s algorithm consists in</p>
 <ol class="arabic simple">
 <li><p>Apply a Hadamard gate to each qubit (creating a uniform superposition state)</p></li>
@@ -496,9 +553,15 @@ G = (2|\psi\rangle\langle \psi|-I)O
 <li><p>Meaure the qubits</p></li>
 </ol>
 <p>with a probability of at least <span class="math notranslate nohighlight">\(1/2\)</span> a solution will be measured.</p>
+<figure class="align-center" id="id1">
+<img alt="../_images/grovers_circuit_full.png" src="../_images/grovers_circuit_full.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 61 </span><span class="caption-text">Grover’s circuit for <span class="math notranslate nohighlight">\(n=3\)</span>, here we apply Grover’s operator twice.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="why-does-grovers-algorithm-work">
-<h2>WHy does Grover’s algorithm work?<a class="headerlink" href="#why-does-grovers-algorithm-work" title="Link to this heading">#</a></h2>
+<h2>Why does Grover’s algorithm work?<a class="headerlink" href="#why-does-grovers-algorithm-work" title="Link to this heading">#</a></h2>
 <p>We define <span class="math notranslate nohighlight">\(M\)</span> to be the number of solutions (i.e. values of <span class="math notranslate nohighlight">\(x\)</span> for which <span class="math notranslate nohighlight">\(f(x)=1\)</span>).</p>
 <p>We define an equal superposition of solutions</p>
 <div class="math notranslate nohighlight">
@@ -569,10 +632,10 @@ a_0\\ a_1\\
 \end{pmatrix}.
 \end{split}\]</div>
 <p>In the 2-D plane with <span class="math notranslate nohighlight">\(|A_0\rangle\)</span> being the x-axis and <span class="math notranslate nohighlight">\(|A_1\rangle\)</span> being the y-axis, this corresponds to an anti-clockwise rotation of angle <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
-<figure class="align-center" id="id1">
-<img alt="lecture-08/images/grover_rotation.png" src="lecture-08/images/grover_rotation.png" />
+<figure class="align-center" id="id2">
+<img alt="../_images/grover_rotation.drawio.svg" src="../_images/grover_rotation.drawio.svg" />
 <figcaption>
-<p><span class="caption-text">Applying Grover’s operator to state <span class="math notranslate nohighlight">\(|\alpha\rangle\)</span> results in an anti-clockwise rotation.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 62 </span><span class="caption-text">Applying Grover’s operator to state <span class="math notranslate nohighlight">\(|\alpha\rangle\)</span> results in an anti-clockwise rotation.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Let’s suppose that the number of solutions <span class="math notranslate nohighlight">\(M\)</span> is small, then <span class="math notranslate nohighlight">\(\phi=M/N\)</span> must also be small.
@@ -601,18 +664,192 @@ k = \frac{\pi}{2 \theta} = \frac{\pi}{4} \sqrt{\frac{N}{M}}.
 <p>For the simplest random walk we are restricted to move in a 1-dimensional line. At each time step we randomly take a step left or right with equal probability.</p>
 <p>If we start at the origin where will we be after <span class="math notranslate nohighlight">\(n\)</span> steps? Let <span class="math notranslate nohighlight">\(p_n(x)\)</span> be the probability of being at position <span class="math notranslate nohighlight">\(x\)</span> after <span class="math notranslate nohighlight">\(n\)</span> steps.</p>
 <p>After <span class="math notranslate nohighlight">\(1\)</span> step we either have taken a single step left or right, so the possible paths are
-L and R and hence <span class="math notranslate nohighlight">\(p_1(-1)=1/2\)</span> and <span class="math notranslate nohighlight">\(p_1(1)=1/2\)</span>.</p>
-<p>After <span class="math notranslate nohighlight">\(2\)</span> steps the possible paths are LL, LR, RL and RR and hence <span class="math notranslate nohighlight">\(p_2(-2)=1/4\)</span>, <span class="math notranslate nohighlight">\(p_2(0)=1/2\)</span> and <span class="math notranslate nohighlight">\(p_2(2)=1/4\)</span>.</p>
-<p>After <span class="math notranslate nohighlight">\(3\)</span> steps the possible paths are LLL, LLR, LRL, LRR, RLL, RLR, RRL and RRR and hence <span class="math notranslate nohighlight">\(p_3(-3)=1/8\)</span>, <span class="math notranslate nohighlight">\(p_3(-1)=3/8\)</span>, <span class="math notranslate nohighlight">\(p_3(1)=3/8\)</span> and <span class="math notranslate nohighlight">\(p_3(3)=1/8\)</span>.</p>
+L and R and hence:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(p_1(-1)=1/2\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(p_1(1)=1/2\)</span></p></li>
+</ul>
+<p>After <span class="math notranslate nohighlight">\(2\)</span> steps the possible paths are LL, LR, RL and RR and hence:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(p_2(-2)=1/4\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(p_2(0)=1/2\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(p_2(2)=1/4\)</span></p></li>
+</ul>
+<p>After <span class="math notranslate nohighlight">\(3\)</span> steps the possible paths are LLL, LLR, LRL, LRR, RLL, RLR, RRL and RRR and hence: - <span class="math notranslate nohighlight">\(p_3(-3)=1/8\)</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(p_3(-1)=3/8\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(p_3(1)=3/8\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(p_3(3)=1/8\)</span></p></li>
+</ul>
 <p>It can be shown that <span class="math notranslate nohighlight">\(p_n(x)\)</span> has the following properties</p>
 <ul class="simple">
 <li><p>The mean is zero, <span class="math notranslate nohighlight">\(\mu=\sum_x p_n(x) x=0\)</span></p></li>
 <li><p>The variance is <span class="math notranslate nohighlight">\(n\)</span>, <span class="math notranslate nohighlight">\(\sigma^2=\sum_x p_n(x) (x-\mu)^2=n\)</span></p></li>
 </ul>
 <p>Additionally when <span class="math notranslate nohighlight">\(n\)</span> is large the distribution tends towards a bell curve.</p>
+<figure class="align-center" id="id3">
+<img alt="../_images/random_walk_paths.png" src="../_images/random_walk_paths.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 63 </span><span class="caption-text">Some random walk trajectories after 1000 steps.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
-<section id="quantum-random-walks">
-<h2>Quantum Random Walks<a class="headerlink" href="#quantum-random-walks" title="Link to this heading">#</a></h2>
+<section id="quantum-random-walks-introduction">
+<h2>Quantum Random Walks - Introduction<a class="headerlink" href="#quantum-random-walks-introduction" title="Link to this heading">#</a></h2>
+<p>Firstly we need a way of encoding position into a set of qubits.
+If we have <span class="math notranslate nohighlight">\(n\)</span> qubits then each basis state can serve as a position by converting the binary string into an integer. E.g. the state <span class="math notranslate nohighlight">\(|0110\rangle\)</span> would be position 6, <span class="math notranslate nohighlight">\(|6\rangle\)</span>.</p>
+<p>For <span class="math notranslate nohighlight">\(n=2\)</span> the positions would be:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Basis State</p></th>
+<th class="head"><p>Position</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>00</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>01</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>10</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>11</p></td>
+<td><p>3</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Consider two unitaries; one for a ‘step’ to the left and another for a ‘step’ to the right</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{split}
+U_L|j\rangle &amp;= |j-1\rangle \\
+U_R|j\rangle &amp;= |j+1\rangle \\
+\end{split}
+\end{split}\]</div>
+<p>Note that since <span class="math notranslate nohighlight">\(U_LU_R=I\)</span> the two are hermitian conjugates of each other: <span class="math notranslate nohighlight">\(U_L=U_R^\dagger\)</span>, <span class="math notranslate nohighlight">\(U_R=U_L^\dagger\)</span>
+i.e. <span class="math notranslate nohighlight">\(U_L\)</span> undoes <span class="math notranslate nohighlight">\(U_R\)</span>.</p>
+<p>Thus in <span class="math notranslate nohighlight">\(n=2\)</span> case</p>
+<div class="math notranslate nohighlight">
+\[
+U_R |01\rangle = |10\rangle
+\]</div>
+<p>i.e. a step from position 1 to 2.</p>
+<p>We have an issue though, what will happen when we apply <span class="math notranslate nohighlight">\(U_L\)</span> on the lowest position (<span class="math notranslate nohighlight">\(0\)</span>)? Or <span class="math notranslate nohighlight">\(U_R\)</span> to the highest position (<span class="math notranslate nohighlight">\(2^n-1\)</span>)?</p>
+<p>I.e. in the <span class="math notranslate nohighlight">\(n=2\)</span> case what is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{split}
+U_L|0\rangle &amp;=? \\
+U_R|3\rangle &amp;=? \\
+\end{split}
+\end{split}\]</div>
+<p>To ensure the operators are unitary we need the positions to be on a circle, i.e.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{split}
+U_L|0\rangle &amp;= |2^n-1\rangle \\
+U_R|2^n-1\rangle &amp;= |0\rangle \\
+\end{split}
+\end{split}\]</div>
+<figure class="align-center" id="id4">
+<img alt="../_images/ring-quantum-walk.drawio.svg" src="../_images/ring-quantum-walk.drawio.svg" />
+<figcaption>
+<p><span class="caption-number">Fig. 64 </span><span class="caption-text">The <span class="math notranslate nohighlight">\(U_L\)</span> and <span class="math notranslate nohighlight">\(U_R\)</span> operators on a circle.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>We want to find a unitary that does a ‘walk’ similar to the classical random walk.</p>
+<p>Here’s one way to implement a quantum walk. We need a circuit composed of two registers <span class="math notranslate nohighlight">\(|x,y\rangle\)</span> where</p>
+<ul class="simple">
+<li><p>The first register comprises a single qubit.</p></li>
+<li><p>The second register encodes position (as before).</p></li>
+</ul>
+<p>Consider the unitary <span class="math notranslate nohighlight">\(U\)</span> where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{split}
+U|0, j\rangle &amp;= (I\otimes U_L)|0, j\rangle = |0,j-1\rangle \\
+U|1, j\rangle &amp;= (I\otimes U_R)|1, j\rangle = |1,j+1\rangle \\
+\end{split}\end{split}\]</div>
+<p>i.e. if the qubit in the first register is 0 (1) we step to the left (right).</p>
+<p>By itself, this unitary doesn’t do anything very interesting. For example if we start in the state <span class="math notranslate nohighlight">\(|0,j\rangle\)</span> then applying <span class="math notranslate nohighlight">\(U\)</span> <span class="math notranslate nohighlight">\(k\)</span> times results in state
+<span class="math notranslate nohighlight">\(|0,j-k\rangle\)</span>.</p>
+<p>Instead, we combine with unitary with a Hadamard gate on the first register: <span class="math notranslate nohighlight">\(U(H\otimes I)\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+U(H\otimes I)|0, j\rangle = \frac{1}{\sqrt 2} \left(U|0, j\rangle + U|1, j\rangle \right) = \frac{1}{\sqrt 2} \left(|0, j-1\rangle + |1, j+1\rangle \right)
+\]</div>
+<p>i.e. <span class="math notranslate nohighlight">\(50\%\)</span> in position <span class="math notranslate nohighlight">\(j-1\)</span> and <span class="math notranslate nohighlight">\(50\%\)</span> in <span class="math notranslate nohighlight">\(j+1\)</span>. This looks like a random walk!</p>
+</v-click>
+</section>
+<section id="quantum-random-walks-circuit">
+<h2>Quantum Random Walks - Circuit<a class="headerlink" href="#quantum-random-walks-circuit" title="Link to this heading">#</a></h2>
+<p>The Quantum random walk algorithm is</p>
+<ul class="simple">
+<li><p>Prepare an initial state, e.g. <span class="math notranslate nohighlight">\(|0,j\rangle\)</span></p></li>
+<li><p>Apply <span class="math notranslate nohighlight">\(U(H\otimes I)\)</span> for a given number of steps</p></li>
+<li><p>Measure the second register</p></li>
+<li><p>Find the position by converting the measurement to an integer</p></li>
+</ul>
+<figure class="align-center" id="id5">
+<img alt="../_images/random_walk_circuit.png" src="../_images/random_walk_circuit.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 65 </span><span class="caption-text">The circuit for Quantum random walks.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>This looks very similar to Grover’s algorithm!</p>
+</section>
+<section id="quantum-random-walks-results">
+<h2>Quantum Random Walks - Results<a class="headerlink" href="#quantum-random-walks-results" title="Link to this heading">#</a></h2>
+<figure class="align-center" id="id6">
+<img alt="../_images/q_walk_asym.png" src="../_images/q_walk_asym.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 66 </span><span class="caption-text">Results for initial state: <span class="math notranslate nohighlight">\(|0,0\rangle\)</span></span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id7">
+<img alt="../_images/q_walk_sym.png" src="../_images/q_walk_sym.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 67 </span><span class="caption-text">Results for initial state: <span class="math notranslate nohighlight">\(\frac{1}{\sqrt 2}(|0,0\rangle+i|1,0\rangle)\)</span></span><a class="headerlink" href="#id7" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Thus we see important differences between classical and quantum random walks (recall <span class="math notranslate nohighlight">\(n\)</span> is the number of steps):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Classical</p></th>
+<th class="head"><p>Quantum</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Distribution Symmetric</p></td>
+<td><p>Always</p></td>
+<td><p>Sometimes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Distribution Shape</p></td>
+<td><p>Gaussian</p></td>
+<td><p>Non-Gaussian</p></td>
+</tr>
+<tr class="row-even"><td><p>Variance (<span class="math notranslate nohighlight">\(\sigma^2\)</span>)</p></td>
+<td><p><span class="math notranslate nohighlight">\(n\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\propto n^2\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p>The fact that the variance of the Quantum distibution is <span class="math notranslate nohighlight">\(n^2\)</span> means the Quantum walks are ‘faster’ than the classical</p></li>
+<li><p>The <span class="math notranslate nohighlight">\(n^2\)</span> variance can be seen by the fact that there are peaks far from the origin.</p></li>
+<li><p>The differences between the classical and quantum cases are caused by interference.</p></li>
+<li><p>Thus we see that for this simple classical algorithm the quantum version displays very different phenomena.</p></li>
+</ul>
+<p>Use cases of quantum random walks include:</p>
+<ul class="simple">
+<li><p>Finding <strong>marked items</strong> on a graph faster than classical search (similar to Grover’s algorithm but adapted to spatial structures like grids).</p></li>
+<li><p>Evaluating whether a set of <strong>elements are distinct</strong> faster than classical algorithms.</p></li>
+</ul>
 </section>
 </section>
 
@@ -646,6 +883,24 @@ L and R and hence <span class="math notranslate nohighlight">\(p_1(-1)=1/2\)</sp
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="../lecture-07/early-qa2.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 7: Early Quantum Algorithms II</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../topics/math-la.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Mathematical Structure</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -667,10 +922,13 @@ L and R and hence <span class="math notranslate nohighlight">\(p_1(-1)=1/2\)</sp
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#focus-of-lecture">Focus of Lecture</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grovers-algorithm">Grover’s Algorithm</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unstructured-search">Unstructured search</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#circuit">Circuit</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-does-grovers-algorithm-work">WHy does Grover’s algorithm work?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grovers-operator">Grover’s Operator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grovers-circuit">Grover’s Circuit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-does-grovers-algorithm-work">Why does Grover’s algorithm work?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-random-walks">Classical Random Walks</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-random-walks">Quantum Random Walks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-random-walks-introduction">Quantum Random Walks - Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-random-walks-circuit">Quantum Random Walks - Circuit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-random-walks-results">Quantum Random Walks - Results</a></li>
 </ul>
   </nav></div>
 
