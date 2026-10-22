@@ -498,7 +498,7 @@ f:\{0,1\}^n \rightarrow \{0,1\}
 <li><p>While this may seem abstract, in the real world searching through databases is a very common task.</p></li>
 </ul>
 <p>Classically we can solve this by iterating through all <span class="math notranslate nohighlight">\(x\)</span> and evaluating <span class="math notranslate nohighlight">\(f\)</span> on each one and stopping when we find <span class="math notranslate nohighlight">\(f(x)=1\)</span>.
-If there are <span class="math notranslate nohighlight">\(N\)</span> elements in the list and only one solution then on average we will have to evaluate <span class="math notranslate nohighlight">\(N/2\)</span> elements.</p>
+If there are <span class="math notranslate nohighlight">\(N\)</span> elements in the list and only one solution then on average we will have to evaluate <span class="math notranslate nohighlight">\(N/2\)</span> elements. Thus classically this problem is <span class="math notranslate nohighlight">\(O(N)\)</span>.</p>
 </section>
 <section id="grovers-operator">
 <h2>Grover’s Operator<a class="headerlink" href="#grovers-operator" title="Link to this heading">#</a></h2>
@@ -521,7 +521,7 @@ O|x\rangle = (-1)^{f(x)}|x\rangle
 The phase shift corresponds to the following unitary:</p>
 <div class="math notranslate nohighlight">
 \[2|0^n\rangle\langle 0^n|-I\]</div>
-<p>To see this, note that it correctly transforms <span class="math notranslate nohighlight">\(|0^n\rangle\rightarrow |0^n\rangle\)</span>
+<p>where <span class="math notranslate nohighlight">\(I\)</span> is the identity matrix. To see this, note that it correctly transforms <span class="math notranslate nohighlight">\(|0^n\rangle\rightarrow |0^n\rangle\)</span>
 and for <span class="math notranslate nohighlight">\(x\ne 0^n\)</span>, <span class="math notranslate nohighlight">\(|x\rangle\rightarrow -|x\rangle\)</span>.</p>
 <p><strong>Grover’s operator</strong> consists in the following steps:</p>
 <ol class="arabic simple">
@@ -535,7 +535,7 @@ and for <span class="math notranslate nohighlight">\(x\ne 0^n\)</span>, <span cl
 \[
 H^{\otimes n}(2|0^n\rangle\langle 0^n|-I)H^{\otimes n}=2|\psi\rangle\langle\psi|-I 
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(I\)</span> is the identity matrix and we have defined the uniform superposition state:</p>
+<p>where we have defined the uniform superposition state:</p>
 <div class="math notranslate nohighlight">
 \[|\psi\rangle=\frac{1}{2^{n/2}}\sum_x|x\rangle\]</div>
 <p>e.g. for <span class="math notranslate nohighlight">\(n=2\)</span>, <span class="math notranslate nohighlight">\(|\psi\rangle=\frac{1}{2}(|00\rangle+|01\rangle+|10\rangle+|11\rangle)\)</span></p>
@@ -675,8 +675,10 @@ L and R and hence:</p>
 <li><p><span class="math notranslate nohighlight">\(p_2(0)=1/2\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(p_2(2)=1/4\)</span></p></li>
 </ul>
-<p>After <span class="math notranslate nohighlight">\(3\)</span> steps the possible paths are LLL, LLR, LRL, LRR, RLL, RLR, RRL and RRR and hence: - <span class="math notranslate nohighlight">\(p_3(-3)=1/8\)</span></p>
+<p>After <span class="math notranslate nohighlight">\(3\)</span> steps the possible paths are LLL, LLR, LRL, LRR, RLL, RLR, RRL and RRR
+and hence:</p>
 <ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(p_3(-3)=1/8\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(p_3(-1)=3/8\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(p_3(1)=3/8\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(p_3(3)=1/8\)</span></p></li>
@@ -731,12 +733,7 @@ U_R|j\rangle &amp;= |j+1\rangle \\
 \end{split}\]</div>
 <p>Note that since <span class="math notranslate nohighlight">\(U_LU_R=I\)</span> the two are hermitian conjugates of each other: <span class="math notranslate nohighlight">\(U_L=U_R^\dagger\)</span>, <span class="math notranslate nohighlight">\(U_R=U_L^\dagger\)</span>
 i.e. <span class="math notranslate nohighlight">\(U_L\)</span> undoes <span class="math notranslate nohighlight">\(U_R\)</span>.</p>
-<p>Thus in <span class="math notranslate nohighlight">\(n=2\)</span> case</p>
-<div class="math notranslate nohighlight">
-\[
-U_R |01\rangle = |10\rangle
-\]</div>
-<p>i.e. a step from position 1 to 2.</p>
+<p>Thus for example in <span class="math notranslate nohighlight">\(n=2\)</span> case <span class="math notranslate nohighlight">\(U_R |01\rangle = |10\rangle\)</span>, i.e. a step from position 1 to 2.</p>
 <p>We have an issue though, what will happen when we apply <span class="math notranslate nohighlight">\(U_L\)</span> on the lowest position (<span class="math notranslate nohighlight">\(0\)</span>)? Or <span class="math notranslate nohighlight">\(U_R\)</span> to the highest position (<span class="math notranslate nohighlight">\(2^n-1\)</span>)?</p>
 <p>I.e. in the <span class="math notranslate nohighlight">\(n=2\)</span> case what is</p>
 <div class="math notranslate nohighlight">

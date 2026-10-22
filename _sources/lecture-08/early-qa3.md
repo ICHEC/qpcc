@@ -53,7 +53,7 @@ As an example consider the 2-bit function F given by the following table:
 - While this may seem abstract, in the real world searching through databases is a very common task.
 
 Classically we can solve this by iterating through all $x$ and evaluating $f$ on each one and stopping when we find $f(x)=1$.
-If there are $N$ elements in the list and only one solution then on average we will have to evaluate $N/2$ elements.
+If there are $N$ elements in the list and only one solution then on average we will have to evaluate $N/2$ elements. Thus classically this problem is $O(N)$.
 
 ## Grover's Operator
 
@@ -80,7 +80,7 @@ The phase shift corresponds to the following unitary:
 
 $$2|0^n\rangle\langle 0^n|-I$$
 
-To see this, note that it correctly transforms $|0^n\rangle\rightarrow |0^n\rangle$
+where $I$ is the identity matrix. To see this, note that it correctly transforms $|0^n\rangle\rightarrow |0^n\rangle$
 and for $x\ne 0^n$, $|x\rangle\rightarrow -|x\rangle$.
 
 **Grover's operator** consists in the following steps:
@@ -95,7 +95,7 @@ $$
 H^{\otimes n}(2|0^n\rangle\langle 0^n|-I)H^{\otimes n}=2|\psi\rangle\langle\psi|-I 
 $$
 
-where $I$ is the identity matrix and we have defined the uniform superposition state:
+where we have defined the uniform superposition state:
 
 $$|\psi\rangle=\frac{1}{2^{n/2}}\sum_x|x\rangle$$ 
 
@@ -250,7 +250,9 @@ After $2$ steps the possible paths are LL, LR, RL and RR and hence:
 - $p_2(0)=1/2$
 - $p_2(2)=1/4$
 
-After $3$ steps the possible paths are LLL, LLR, LRL, LRR, RLL, RLR, RRL and RRR and hence: - $p_3(-3)=1/8$
+After $3$ steps the possible paths are LLL, LLR, LRL, LRR, RLL, RLR, RRL and RRR 
+and hence: 
+- $p_3(-3)=1/8$
 - $p_3(-1)=3/8$
 - $p_3(1)=3/8$
 - $p_3(3)=1/8$
@@ -294,13 +296,7 @@ $$
 Note that since $U_LU_R=I$ the two are hermitian conjugates of each other: $U_L=U_R^\dagger$, $U_R=U_L^\dagger$ 
 i.e. $U_L$ undoes $U_R$.
 
-Thus in $n=2$ case 
-
-$$
-U_R |01\rangle = |10\rangle
-$$
-
-i.e. a step from position 1 to 2.
+Thus for example in $n=2$ case $U_R |01\rangle = |10\rangle$, i.e. a step from position 1 to 2.
 
 We have an issue though, what will happen when we apply $U_L$ on the lowest position ($0$)? Or $U_R$ to the highest position ($2^n-1$)?
 
