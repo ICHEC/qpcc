@@ -30,9 +30,9 @@ parts:
   - caption: Topic 8
     chapters:
     - file: lecture-08/early-qa3.md
-#  - caption: Topic 9
-#    chapters:
-#    - file: lecture-09/nisq-algo1.md
+  - caption: Topic 9
+    chapters:
+    - file: lecture-09/nisq-algo1.md
 #  - caption: Topic 10
 #    chapters:
 #    - file: lecture-10/nisq-algo2.md
