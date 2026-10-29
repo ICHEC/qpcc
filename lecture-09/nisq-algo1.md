@@ -13,7 +13,7 @@ mystnb:
     render_markdown_format: myst
 ---
 
-(lecture-8)=
+(lecture-9)=
 # Lecture 9: NISQ Algorithms I
 
 ```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture.
@@ -21,9 +21,125 @@ mystnb:
 
 ## Focus of Lecture
 
+### Learning Outcomes
+
+- What is the NISQ era?
+- Why do we need NISQ algorithms?
+- Example of NISQ algorithm: Variational Quantum Eigensolver (VQE)
+
+### Contents
+
+- NISQ Era
+- Classical optimisation
+- Expectation Values
+- VQE
+- VQE Ansatzes
+- Introduction to Hamiltonians
+- VQE for chemistry
+
 ## The NISQ Era
 
+### Drawbacks of early quantum algorithms
+
+Implementing algorithms like Shor’s or Grover’s requires:
+
+- Large amounts of qubits
+- Long circuits
+- Error correction (to be robust in the presence of noise), further increasing the number of required qubits.
+
+```{figure} ./images/GroverCircuit.png
+:align: center
+
+Grover's circuit requires many gates, which becomes infeasible on current quantum computers when we scale to larger instances.
+```
+
+```{figure} ./images/GroverHistNoise.png
+:align: center
+
+Noise in the circuit leads to a loss of the expected output distribution, as shown here in the difference between ideal simulation and noisy reality. The more gates we have, the more noise is introduced.
+```
+
+
+### Variational Quantum Algorithms
+
+```{figure} ./images/VarAlg.png
+:align: center
+
+Variational quantum algorithms use classical optimisation to find the best parameters for a quantum circuit.
+```
+
 ## Classical optimisation
+
+Given a **cost function** $f(x)$, find the input $x$ that makes $f$ as small as possible:
+
+$$ x^* = \underset{x}{\arg\min}\; f(x) $$
+
+- $x$ can be a single number or a list of many parameters.
+- We can usually **evaluate** $f(x)$ for any chosen $x$, but we can't see the whole function at once.
+- So we search **iteratively**: start from a guess, evaluate, improve the guess, repeat.
+- Stop when $f$ stops decreasing (**convergence**).
+
+```{admonition} Hiker analogy
+:class: info
+
+Think of a hiker in thick fog trying to reach the lowest point of a valley. They can only measure the height where they stand, so they try a few nearby steps and keep moving downhill.
+```
+
+```{figure} ./images/local-vs-global-minimum.png
+:align: center
+
+Classical optimisation can get stuck in local minima, where the function is lower than all nearby points, but not the lowest point overall (the global minimum).
+```
+
+### How does an optimiser improve its guess?
+
+#### Gradient-based
+
+The gradient $\nabla f$ points uphill, so step the opposite way:
+
+$$ x_{\text{new}} = x - \eta\,\nabla f(x) $$
+
+- $\eta$ is the **step size** (learning rate)
+- Too large: overshoots the minimum
+- Too small: very slow progress
+
+```{figure} ./images/GradDesc.png
+:align: center
+
+Gradient descent repeatedly steps in the direction of steepest decrease. The step size $\eta$ controls how far each step goes.
+```
+
+#### Gradient-free
+
+- Only compare values of $f$ at several trial points and move towards the better ones
+- e.g. Nelder-Mead, COBYLA
+
+```{figure} ./images/NelderMead.jpg
+:align: center
+
+The Nelder-Mead method evaluates $f$ at the corners of a simplex (a triangle in two dimensions), then reflects, expands or shrinks it towards better values.
+```
+
+### Things that can go wrong
+
+- **Local minima**: the optimiser settles in a valley that isn't the lowest one
+- **Flat regions**: the gradient is almost zero, so progress stalls
+- **Noisy evaluations**: if $f(x)$ is only known approximately, comparisons and gradients become unreliable
+- **Cost per evaluation**: methods that need fewer evaluations are preferred when each one is expensive
+
+```{figure} ./images/BarrenPlateau.png
+:align: center
+
+A barren plateau: a region where the cost function is almost flat, so the gradient is close to zero and the optimiser has no useful direction to follow. Source: https://arxiv.org/pdf/2511.22861
+```
+
+## NISQ Algorithms on Real Hardware
+
+```{figure} ./images/VQEonHardware.png
+:align: center
+
+Variational quantum algorithms (e.g. VQE, the variational quantum eigensolver) have already been run on real quantum hardware.
+```
 
 ## Expectation Values
 
@@ -73,7 +189,7 @@ We run the circuit $N$ times
 - $N_0$: the number of $0$'s measured
 - $N_1$: the number of $1$'s measured
 
-Then we can then estimate the probabilities
+Then we can estimate the probabilities
 
 $$
 P(+1) \approx N_0/N \qquad 
@@ -86,7 +202,7 @@ $$\langle \psi|Z|\psi\rangle\approx \frac{N_0-N_1}{N}$$
 
 # Expectation value of X & Y
 
-How do we measure the expection value of $X$?
+How do we measure the expectation value of $X$?
 
 The eigenvalues and eigenstates of $X$ are:
 - $+1$ for $|+\rangle=(|0\rangle+|1\rangle)/\sqrt{2}$
@@ -129,7 +245,7 @@ Repeating steps 1, 2 and 3 for $N$ shots we can use
 
 $$\langle\psi|X|\psi\rangle\approx \frac{N_0-N_1}{N}$$
 
-For the expection value of $Y$, the eigenvalues and eigenstates of $Y$ are:
+For the expectation value of $Y$, the eigenvalues and eigenstates of $Y$ are:
 - $+1$ for $|i+\rangle=(|0\rangle+i|1\rangle)/\sqrt{2}$
 - $-1$ for $|i-\rangle=(|0\rangle-i|1\rangle)/\sqrt{2}$
 
@@ -177,7 +293,7 @@ Thus to measure
 - $Y$ we apply a $S^\dagger$ gate then a $H$ gate
 - $Z$ we don't need to add extra gates
 
-When measuring $X$ or $Y$ the addition of the extra gates ensures that we a measruing in the correct basis.
+When measuring $X$ or $Y$ the addition of the extra gates ensures that we are measuring in the correct basis.
 
 We execute the circuit for $N$ shots and estimate the expectation as 
 
@@ -205,9 +321,176 @@ $$\frac{\sum_x N_x P_x}{N}$$
 
 
 
-## The Variational Quantum Eigensolver
+## Variational Quantum Eigensolver
+
+### Concept of VQE
+
+```{admonition} Why the ground state matters
+:class: success
+
+In physics the ground state is very important. It determines a system's stable configuration and low-energy properties (e.g. a molecule's bond length, reactivity, stability).
+```
+
+```{mermaid}
+flowchart LR
+    A["Ansatz (parameterized circuit)"]:::red --> B["Measure ⟨H⟩"]
+    B --> C["Classical optimizer"]
+    C -->|"Update parameters"| A
+    C --> D["Ground state energy ≈ min⟨H⟩"]
+
+    classDef red fill:#f4cccc,stroke:#cc0000,stroke-width:1px,color:#000;
+```
+
+- Parameterized quantum circuit (**ansatz**) to prepare trial state
+- Measure expectation value of Hamiltonian with respect to this state
+- Optimise circuit parameters classically to minimise energy to find approximate ground state
+
+```{admonition} What does "ansatz" mean?
+:class: info
+
+**Ansatz** is German for "approach". In physics/maths it means an educated **guess** used as a starting point to solve a problem.
+```
+
+### Variational Principle
+
+1. If we **guess** a state $|\psi(\theta)\rangle$, its energy $E$ is **at least** the ground state energy $E_0$:
+
+   $$ E = {\langle\psi(\theta)|H|\psi(\theta)\rangle}\geq E_0 $$
+
+2. We can get closer to the ground state energy by optimising the parameters $\theta$ of the trial state $|\psi(\theta)\rangle$.
+
+3. A good choice of $|\psi(\theta)\rangle$ can lead to higher accuracy.
+
+This raises the question: how do we create the parametrised circuit (ansatz)?
 
 ## VQE Ansatzes
+
+### Recap: Rotation Gates
+
+The rotation gates are parameterised rotations about the X, Y, Z axes of the Bloch sphere.
+
+```{admonition} Definition
+:class: success
+
+$$
+\begin{split}
+R_X(\theta) &= \begin{pmatrix} \cos({\theta}/{2}) & -i\sin({\theta}/{2}) \\ -i\sin({\theta}/{2}) & \cos({\theta}/{2}) \end{pmatrix}\\
+R_Y(\theta) &= \begin{pmatrix} \cos({\theta}/{2}) & -\sin({\theta}/{2}) \\ \sin({\theta}/{2}) & \cos({\theta}/{2}) \end{pmatrix}\\
+R_Z(\theta) &= \begin{pmatrix} e^{-i\theta/2} & 0 \\ 0 & e^{i\theta/2} \end{pmatrix}\\
+\end{split}
+$$
+```
+
+```{admonition} Compact form
+:class: info
+
+They can all be written in the form
+
+$$
+R_A(\theta) = \cos(\theta/2) I -i\sin(\theta/2) A
+$$
+
+where $I$ is the identity matrix and $A\in\{X,Y,Z\}$.
+```
+
+Unlike the Pauli gates, which are strict $180^{\circ}$ flips, these act as continuous tuning dials. For example:
+
+$$R_X(\theta)|0\rangle=\cos(\theta/2)|0\rangle -i\sin(\theta/2) |1\rangle$$
+
+### Simple "hardware-efficient" ansatz
+
+- Alternates layers of **single-qubit rotations** ($R_y$) with layers of **CNOTs**
+- Native gates for superconducting qubits and trapped ions
+- Rotations depend on tunable parameters $\theta_i$
+- CNOTs generate the **entanglement**
+- Repeating this block $d$ times ("depth") increases the **expressibility** of the ansatz
+- However, greater depth means:
+  - Longer circuits
+  - More noise on real hardware
+
+```{figure} ./images/SimpleAnsatz.png
+:align: center
+
+A hardware-efficient ansatz: layers of parameterised single-qubit $R_y$ rotations alternating with layers of CNOT gates.
+```
+
+```{admonition} Expressibility
+:class: info
+
+**Expressibility** is the ability of a circuit to generate a wide variety of states. A more expressible circuit can represent a larger set of states.
+```
+
+### Chemistry-inspired ansatz
+
+- Built from **physically motivated operators** rather than generic gates
+- Encodes knowledge of the **structure of the problem** into the circuit
+- More **parameter-efficient** and physically meaningful for chemistry problems
+- Typically requires **deeper circuits** to implement
+- Example: **Unitary Coupled Cluster (UCC) Ansatz**:
+
+```{figure} ./images/UCCansatz.png
+:align: center
+
+A Unitary Coupled Cluster (UCC) ansatz circuit.
+```
+
+## VQE Workflow
+
+```{mermaid}
+flowchart TD
+    A["Problem"]:::red -->|"Encode"| B["Hamiltonian form H"]:::orange
+    B --> VQE
+
+    subgraph VQE["VQE"]
+        direction TB
+        C["Vary quantum state |ψ(θ)⟩ <br/>with parametrised circuit"]:::blue
+        D["Classical optimiser<br/>updates θ so 𝐸 decreases"]:::blue
+        C -->|"Measure 𝐸 = ⟨ψ(θ)|H|ψ(θ)⟩"| D
+        D -->|"Update Parameters"| C
+    end
+
+    VQE -->|"repeat until 𝐸 converges"| E["Solution"]:::green
+
+    style VQE fill:#e9d8fd,stroke:#6a3ea1,stroke-width:1px,opacity:1
+
+    classDef red fill:#f4cccc,stroke:#cc0000,stroke-width:1px,color:#000;
+    classDef orange fill:#fce5cd,stroke:#b45f06,stroke-width:1px,color:#000;
+    classDef blue fill:#cfe2f3,stroke:#1155cc,stroke-width:1px,color:#000;
+    classDef green fill:#d9ead3,stroke:#38761d,stroke-width:1px,color:#000;
+```
+
+1. Generate normalised ansatz state $|\psi(\theta)\rangle$ on quantum computer
+2. Measure $E = \langle\psi(\theta)|H|\psi(\theta)\rangle$
+3. Optimise $\theta$ on a classical computer so that $E$ decreases
+4. Repeat until $E$ converges to obtain an approximate ground state
+
+
+
+### VQE on NISQ Hardware
+
+```{admonition} Hybrid algorithm
+:class: info
+
+- Quantum computer prepares parameterised trial state (ansatz) and measures the energy
+- Classical optimiser updates parameters to minimise energy
+- Loop repeats until convergence
+```
+
+```{admonition} Why it suits NISQ
+:class: success
+
+- Classical optimiser reduces workload for QPU: only use quantum for the part that is inherently quantum
+- Flexible ansatz can be tailored to hardware connectivity
+```
+
+```{admonition} Limitations
+:class: error
+
+- **Long circuits, many gates**: decoherence and gate errors dominate
+- **Accuracy bar is high**: to compete with classical methods
+- **Barren plateaux**: gradients vanish exponentially with system size, stalling optimisation
+- **Measurement overhead**: many circuit repetitions needed per energy evaluation, and per optimisation step
+```
 
 ## Introduction to Hamiltonians
 
@@ -251,7 +534,7 @@ For two qubits we get
 
 $$H = -BX_0 - BX_1 - J Z_0 Z_1$$
 
-This model is known is the Ising model, for $n$ atoms (qubits) arranged in a chain it is
+This model is known as the Ising model, for $n$ atoms (qubits) arranged in a chain it is
 
 $$
 H = -B \sum_{i=0}^{n-1}X_i - J \sum_{i=0}^{n-2} Z_i Z_{i+1}
