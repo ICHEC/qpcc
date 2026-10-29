@@ -62,13 +62,15 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-09/nisq-algo1';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/bloch-path.js?v=fbcfb0fb"></script>
     <script src="../_static/parallel-sg.js?v=fc6e2f92"></script>
     <script src="../_static/stern-gerlach.js?v=4e52aa77"></script>
     <script src="../_static/logic-gate.js?v=1548f47a"></script>
     <script src="../_static/quantum-circuit.js?v=8c43a845"></script>
-    <script src="../_static/bloch-path.js?v=fbcfb0fb"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Mathematical Structure" href="../topics/math-la.html" />
@@ -274,6 +276,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 9</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 9: NISQ Algorithms I</a></li>
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous Topics</span></p>
 <ul class="nav bd-sidenav">
@@ -423,15 +426,25 @@
             </div>
             <nav aria-label="Page">
                 <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lecture 9: NISQ Algorithms I</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#focus-of-lecture">Focus of Lecture</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-nisq-era">The NISQ Era</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-optimisation">Classical optimisation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-values">Expectation Values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-value-of-z">Expectation value of Z</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-value-of-x-y">Expectation value of X &amp; Y</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-single-qubit-expectation-values">Summary of single Qubit Expectation values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-values-of-multiple-qubits">Expectation Values of Multiple Qubits</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-variational-quantum-eigensolver">The Variational Quantum Eigensolver</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vqe-ansatzes">VQE Ansatzes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-hamiltonians">Introduction to Hamiltonians</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vqe-for-chemistry">VQE for chemistry</a></li>
 </ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -459,6 +472,200 @@
 </section>
 <section id="expectation-values">
 <h2>Expectation Values<a class="headerlink" href="#expectation-values" title="Link to this heading">#</a></h2>
+<p>First some recap on expectation values. A single measurement gives one random outcome — but if we repeat the experiment many times, the <strong>average</strong> outcome is well-defined and predictable. For an observable represented by a Hermitian operator <span class="math notranslate nohighlight">\(\hat{O}\)</span> and a state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span>, the expectation value is</p>
+<div class="math notranslate nohighlight">
+\[
+\langle \hat{O} \rangle = \langle\psi|\hat{O}|\psi\rangle
+\]</div>
+<p>This is the average result you’d get measuring <span class="math notranslate nohighlight">\(\hat{O}\)</span> on <strong>many identically prepared copies</strong> of <span class="math notranslate nohighlight">\(|\psi\rangle\)</span>.</p>
+<ul class="simple">
+<li><p>Individual measurement outcomes are eigenvalues of <span class="math notranslate nohighlight">\(\hat{O}\)</span>, denoted <span class="math notranslate nohighlight">\(\lambda_i\)</span>.</p></li>
+<li><p>Hence we can equivalently calculate the average as a sum over all these outcomes weighted by probability:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\langle \hat{O} \rangle = \sum_i \lambda_i \, P(\lambda_i)= \sum_i \lambda_i |\langle \lambda_i|\psi\rangle|^2
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(|\lambda_i \rangle\)</span> are the eigenvectors of <span class="math notranslate nohighlight">\(\hat{O}\)</span>
+and <span class="math notranslate nohighlight">\(P(\lambda_i)\)</span> is the probability of measuring <span class="math notranslate nohighlight">\(\lambda_i\)</span>.</p>
+</section>
+<section id="expectation-value-of-z">
+<h2>Expectation value of Z<a class="headerlink" href="#expectation-value-of-z" title="Link to this heading">#</a></h2>
+<p>Suppose we wish to measure the expectation of <span class="math notranslate nohighlight">\(Z\)</span> for single qubits state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span>. Recall that states <span class="math notranslate nohighlight">\(\color{blue} |0\rangle\)</span> and <span class="math notranslate nohighlight">\(\color{red} |1\rangle\)</span> are eigenstates of <span class="math notranslate nohighlight">\(Z\)</span> with eigenvalues <span class="math notranslate nohighlight">\(\color{blue}+1\)</span> and <span class="math notranslate nohighlight">\(\color{red}-1\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+Z\color{blue} |0\rangle \color{black} = \color{blue} +|0\rangle\color{black} \qquad Z \color{red} |1\rangle \color{black} = \color{red}-|1\rangle
+\]</div>
+<p>The expected value of <span class="math notranslate nohighlight">\(Z\)</span> is simply:</p>
+<div class="math notranslate nohighlight">
+\[\langle \psi|Z|\psi\rangle
+= \sum_i \lambda_i \, P(\lambda_i) = \color{blue}+\color{black} P(\color{blue}+1\color{black})\color{red}-\color{black}P(\color{red}-1\color{black})
+\]</div>
+<p>We know from the Born rule the probability of each outcome is:</p>
+<div class="math notranslate nohighlight">
+\[
+P(\color{blue}+1\color{black}) = |\color{blue}\langle 0| \color{black}\psi\rangle|^2 \qquad 
+P(\color{red}-1\color{black}) = |\color{red}\langle 1|\color{black}\psi\rangle|^2
+\]</div>
+<ul class="simple">
+<li><p>On a simulator we can compute the Born rule probabilities exactly.</p></li>
+<li><p>On a real machine we can only make measurements of 0 or 1 for each qubit.</p></li>
+</ul>
+<p>On hardware to estimate the expectation value of <span class="math notranslate nohighlight">\(Z\)</span> for a state we must run the circuit (that prepares the state) many times and average.</p>
+<p>We run the circuit <span class="math notranslate nohighlight">\(N\)</span> times
+(<span class="math notranslate nohighlight">\(N\)</span> is called the number of <strong>shots</strong>) and record:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(N_0\)</span>: the number of <span class="math notranslate nohighlight">\(0\)</span>’s measured</p></li>
+<li><p><span class="math notranslate nohighlight">\(N_1\)</span>: the number of <span class="math notranslate nohighlight">\(1\)</span>’s measured</p></li>
+</ul>
+<p>Then we can then estimate the probabilities</p>
+<div class="math notranslate nohighlight">
+\[
+P(+1) \approx N_0/N \qquad 
+P(-1) \approx N_1/N
+\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\langle \psi|Z|\psi\rangle\approx \frac{N_0-N_1}{N}\]</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="expectation-value-of-x-y">
+<h1>Expectation value of X &amp; Y<a class="headerlink" href="#expectation-value-of-x-y" title="Link to this heading">#</a></h1>
+<p>How do we measure the expection value of <span class="math notranslate nohighlight">\(X\)</span>?</p>
+<p>The eigenvalues and eigenstates of <span class="math notranslate nohighlight">\(X\)</span> are:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(+1\)</span> for <span class="math notranslate nohighlight">\(|+\rangle=(|0\rangle+|1\rangle)/\sqrt{2}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(-1\)</span> for <span class="math notranslate nohighlight">\(|-\rangle=(|0\rangle-|1\rangle)/\sqrt{2}\)</span></p></li>
+</ul>
+<p>We know</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{split}
+P(+1) &amp;= |\langle +|\psi\rangle|^2\\
+P(-1) &amp;= |\langle -|\psi\rangle|^2\\
+\end{split}
+\end{split}\]</div>
+<p>but note</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{split}
+|+\rangle &amp;= H|0\rangle \\
+|-\rangle &amp;= H|1\rangle \\
+\end{split}
+\end{split}\]</div>
+<p>Thus</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{split}
+P(+1) &amp;= |\langle 0|H^\dagger|\psi\rangle|^2=|\langle 0|H|\psi\rangle|^2\\
+P(-1) &amp;= |\langle 1|H^\dagger|\psi\rangle|^2= |\langle 1|H|\psi\rangle|^2\\
+\end{split}
+\end{split}\]</div>
+<p>Therefore to measure <span class="math notranslate nohighlight">\(\langle\psi|X|\psi\rangle\)</span></p>
+<ul class="simple">
+<li><ol class="arabic simple">
+<li><p>Prepare the state</p></li>
+</ol>
+</li>
+<li><ol class="arabic simple" start="2">
+<li><p><strong>Apply a Hadamard gate</strong></p></li>
+</ol>
+</li>
+<li><ol class="arabic simple" start="3">
+<li><p>Measure whether the qubit is in state 0 or 1</p></li>
+</ol>
+</li>
+</ul>
+<p>Repeating steps 1, 2 and 3 for <span class="math notranslate nohighlight">\(N\)</span> shots we can use</p>
+<div class="math notranslate nohighlight">
+\[\langle\psi|X|\psi\rangle\approx \frac{N_0-N_1}{N}\]</div>
+<p>For the expection value of <span class="math notranslate nohighlight">\(Y\)</span>, the eigenvalues and eigenstates of <span class="math notranslate nohighlight">\(Y\)</span> are:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(+1\)</span> for <span class="math notranslate nohighlight">\(|i+\rangle=(|0\rangle+i|1\rangle)/\sqrt{2}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(-1\)</span> for <span class="math notranslate nohighlight">\(|i-\rangle=(|0\rangle-i|1\rangle)/\sqrt{2}\)</span></p></li>
+</ul>
+<p>using</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{split}
+|i+\rangle &amp;= SH|0\rangle \\
+|i-\rangle &amp;= SH|1\rangle \\
+\end{split}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(S\)</span> is the phase gate</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}S=\sqrt{Z}=
+\begin{pmatrix}
+1 &amp; 0\\0 &amp; i\\
+\end{pmatrix}
+\end{split}\]</div>
+<p>we get</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{split}
+P(+1) &amp;= |\langle 0|H^\dagger S^\dagger|\psi\rangle|^2=|\langle 0|H S^\dagger|\psi\rangle|^2\\
+P(-1) &amp;= |\langle 1|H^\dagger S^\dagger|\psi\rangle|^2= |\langle 1|H S^\dagger|\psi\rangle|^2\\
+\end{split}
+\end{split}\]</div>
+<p>Therefore to measure <span class="math notranslate nohighlight">\(\langle\psi|Y|\psi\rangle\)</span></p>
+<ul class="simple">
+<li><ol class="arabic simple">
+<li><p>Prepare the state</p></li>
+</ol>
+</li>
+<li><ol class="arabic simple" start="2">
+<li><p><strong>Apply a <span class="math notranslate nohighlight">\(S^\dagger\)</span> gate</strong></p></li>
+</ol>
+</li>
+<li><ol class="arabic simple" start="3">
+<li><p><strong>Apply a Hadamard gate</strong></p></li>
+</ol>
+</li>
+<li><ol class="arabic simple" start="4">
+<li><p>Measure whether the qubit is in state 0 or 1</p></li>
+</ol>
+</li>
+</ul>
+<p>Repeating steps 1, 2 and 3 for <span class="math notranslate nohighlight">\(N\)</span> shots we can use</p>
+<div class="math notranslate nohighlight">
+\[\langle\psi|Y|\psi\rangle\approx \frac{N_0-N_1}{N}\]</div>
+<section id="summary-of-single-qubit-expectation-values">
+<h2>Summary of single Qubit Expectation values<a class="headerlink" href="#summary-of-single-qubit-expectation-values" title="Link to this heading">#</a></h2>
+<p>Thus to measure</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(X\)</span> we apply a <span class="math notranslate nohighlight">\(H\)</span> gate</p></li>
+<li><p><span class="math notranslate nohighlight">\(Y\)</span> we apply a <span class="math notranslate nohighlight">\(S^\dagger\)</span> gate then a <span class="math notranslate nohighlight">\(H\)</span> gate</p></li>
+<li><p><span class="math notranslate nohighlight">\(Z\)</span> we don’t need to add extra gates</p></li>
+</ul>
+<p>When measuring <span class="math notranslate nohighlight">\(X\)</span> or <span class="math notranslate nohighlight">\(Y\)</span> the addition of the extra gates ensures that we a measruing in the correct basis.</p>
+<p>We execute the circuit for <span class="math notranslate nohighlight">\(N\)</span> shots and estimate the expectation as</p>
+<div class="math notranslate nohighlight">
+\[\frac{N_0-N_1}{N}\]</div>
+<p>where</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(N_0\)</span> is the number of times we measure <span class="math notranslate nohighlight">\(0\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(N_1\)</span> is the number of times we measure <span class="math notranslate nohighlight">\(1\)</span></p></li>
+</ul>
+</section>
+<section id="expectation-values-of-multiple-qubits">
+<h2>Expectation Values of Multiple Qubits<a class="headerlink" href="#expectation-values-of-multiple-qubits" title="Link to this heading">#</a></h2>
+<p>To measure multiple qubit expectation values:</p>
+<ul class="simple">
+<li><p>Add any necessary additional gates to measure in correct basis</p></li>
+<li><p>Execute the circuit <span class="math notranslate nohighlight">\(N\)</span> times and record the bitstrings of the measured qubits <span class="math notranslate nohighlight">\(x\)</span></p></li>
+<li><p>The expectation value is then:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\frac{\sum_x N_x P_x}{N}\]</div>
+<ul class="simple">
+<li><p>where <span class="math notranslate nohighlight">\(N_x\)</span> is the number of times bitstring <span class="math notranslate nohighlight">\(x\)</span> was measured</p></li>
+<li><p><span class="math notranslate nohighlight">\(P_x\)</span> is the parity of bitstring <span class="math notranslate nohighlight">\(x\)</span> which is +1 when there’s an even number of <span class="math notranslate nohighlight">\(1\)</span>’s and -1 when there’s an odd number.</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(P_{101}=1\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(P_{10011}=-1\)</span></p></li>
+</ul>
+</li>
+</ul>
 </section>
 <section id="the-variational-quantum-eigensolver">
 <h2>The Variational Quantum Eigensolver<a class="headerlink" href="#the-variational-quantum-eigensolver" title="Link to this heading">#</a></h2>
@@ -468,6 +675,10 @@
 </section>
 <section id="introduction-to-hamiltonians">
 <h2>Introduction to Hamiltonians<a class="headerlink" href="#introduction-to-hamiltonians" title="Link to this heading">#</a></h2>
+<p>In Quantum Physics the energy is represented by an operator, called the Hamiltonian, <span class="math notranslate nohighlight">\(H\)</span>. The expected energy of a given state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> is the expectation value of the Hamiltonian</p>
+<div class="math notranslate nohighlight">
+\[E=\langle \psi|H|\psi\rangle.\]</div>
+<p>The ground state of a quantum system is the state with the lowest energy. To find the ground state we find the state that minimizes the expected Energy. The ground state is very important as it is the state of system at zero temperature (and at low temperatures the system will be at approximately the ground-state). Thus if we are interested in the properties of a molecule at room temperature, a starting place is to investigate the ground-state properties.</p>
 </section>
 <section id="vqe-for-chemistry">
 <h2>VQE for chemistry<a class="headerlink" href="#vqe-for-chemistry" title="Link to this heading">#</a></h2>
@@ -540,15 +751,25 @@
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lecture 9: NISQ Algorithms I</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#focus-of-lecture">Focus of Lecture</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-nisq-era">The NISQ Era</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-optimisation">Classical optimisation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-values">Expectation Values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-value-of-z">Expectation value of Z</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-value-of-x-y">Expectation value of X &amp; Y</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-single-qubit-expectation-values">Summary of single Qubit Expectation values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-values-of-multiple-qubits">Expectation Values of Multiple Qubits</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-variational-quantum-eigensolver">The Variational Quantum Eigensolver</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vqe-ansatzes">VQE Ansatzes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-hamiltonians">Introduction to Hamiltonians</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vqe-for-chemistry">VQE for chemistry</a></li>
 </ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>
