@@ -27,16 +27,13 @@ mystnb:
 
 ## Expectation Values
 
-First some recap on expectation values. A single measurement gives one random outcome — but if we repeat the experiment many times, the **average** outcome is well-defined and predictable. For an observable represented by a Hermitian operator $\hat{O}$ and a state $|\psi\rangle$, the expectation value is
+First some recap on expectation values. A single measurement gives one random outcome, but if we repeat the experiment many times, the **average** outcome is well-defined and predictable. For an observable represented by a Hermitian operator $\hat{O}$ and a state $|\psi\rangle$, the expectation value is
 
 $$
 \langle \hat{O} \rangle = \langle\psi|\hat{O}|\psi\rangle
 $$
 
-This is the average result you'd get measuring $\hat{O}$ on **many identically prepared copies** of $|\psi\rangle$.
-
-- Individual measurement outcomes are eigenvalues of $\hat{O}$, denoted $\lambda_i$.
-- Hence we can equivalently calculate the average as a sum over all these outcomes weighted by probability:
+This is the average result you'd get measuring $\hat{O}$ on **many identically prepared copies** of $|\psi\rangle$. Recall that individual measurement outcomes are eigenvalues of $\hat{O}$, denoted $\lambda_i$. Hence we can equivalently calculate the average as a sum over all these outcomes weighted by probability:
 
 $$
 \langle \hat{O} \rangle = \sum_i \lambda_i \, P(\lambda_i)= \sum_i \lambda_i |\langle \lambda_i|\psi\rangle|^2
@@ -219,6 +216,48 @@ In Quantum Physics the energy is represented by an operator, called the Hamilton
 $$E=\langle \psi|H|\psi\rangle.$$
 
 The ground state of a quantum system is the state with the lowest energy. To find the ground state we find the state that minimizes the expected Energy. The ground state is very important as it is the state of system at zero temperature (and at low temperatures the system will be at approximately the ground-state). Thus if we are interested in the properties of a molecule at room temperature, a starting place is to investigate the ground-state properties.
+
+## The Ising Model
+
+Let's look at a simple physics model to get a feel for Hamiltonians.
+We consider a single electron bound to an atom. 
+Recall that electrons have a property called spin which can interact with external magnetic fields. The spin can be either up or down (or in a superposition of both).
+We'll denote the up spin state as $|0\rangle$ and the down spin state as $|1\rangle$.
+
+If a magnetic field, $B$, is applied along the x-axis the Hamiltonian is 
+
+$$H=-BX$$ 
+
+with ground state
+
+$$|+\rangle=(|0\rangle+|1\rangle)/\sqrt 2.$$
+
+Electrons can interact with each other via their spins. 
+A two electron state is represented as $|ij\rangle$, here the electron at atom 1 has spin $i$ and the electron at atom 2 has spin $j$. So for example $|01\rangle$ would mean the electron at atom $1$ has spin up and the electron at atom $2$ has spin down.
+
+A common way spins interact is through the Hamiltonian
+
+$$H=- J Z \otimes Z =- J Z_1 Z_2$$
+
+For this Hamiltonian
+- If $J>0$: The ground-states are $\{|00\rangle, |11\rangle\}$, i.e. both electrons are aligned in spin
+- If $J<0$: The ground-states are $\{|01\rangle, |10\rangle\}$, i.e. both electrons are anti-aligned in spin
+
+Now let's put both pieces together:
+- A magnetic field in the x-axis
+- Neighbouring interactions between electrons
+
+For two qubits we get
+
+$$H = -BX_0 - BX_1 - J Z_0 Z_1$$
+
+This model is known is the Ising model, for $n$ atoms (qubits) arranged in a chain it is
+
+$$
+H = -B \sum_{i=0}^{n-1}X_i - J \sum_{i=0}^{n-2} Z_i Z_{i+1}
+$$
+
+where we note that the interactions are only between electrons on neighbouring atoms.
 
 
 ## VQE for chemistry

@@ -440,6 +440,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-variational-quantum-eigensolver">The Variational Quantum Eigensolver</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vqe-ansatzes">VQE Ansatzes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-hamiltonians">Introduction to Hamiltonians</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-ising-model">The Ising Model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vqe-for-chemistry">VQE for chemistry</a></li>
 </ul>
 </li>
@@ -472,16 +473,12 @@
 </section>
 <section id="expectation-values">
 <h2>Expectation Values<a class="headerlink" href="#expectation-values" title="Link to this heading">#</a></h2>
-<p>First some recap on expectation values. A single measurement gives one random outcome — but if we repeat the experiment many times, the <strong>average</strong> outcome is well-defined and predictable. For an observable represented by a Hermitian operator <span class="math notranslate nohighlight">\(\hat{O}\)</span> and a state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span>, the expectation value is</p>
+<p>First some recap on expectation values. A single measurement gives one random outcome, but if we repeat the experiment many times, the <strong>average</strong> outcome is well-defined and predictable. For an observable represented by a Hermitian operator <span class="math notranslate nohighlight">\(\hat{O}\)</span> and a state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span>, the expectation value is</p>
 <div class="math notranslate nohighlight">
 \[
 \langle \hat{O} \rangle = \langle\psi|\hat{O}|\psi\rangle
 \]</div>
-<p>This is the average result you’d get measuring <span class="math notranslate nohighlight">\(\hat{O}\)</span> on <strong>many identically prepared copies</strong> of <span class="math notranslate nohighlight">\(|\psi\rangle\)</span>.</p>
-<ul class="simple">
-<li><p>Individual measurement outcomes are eigenvalues of <span class="math notranslate nohighlight">\(\hat{O}\)</span>, denoted <span class="math notranslate nohighlight">\(\lambda_i\)</span>.</p></li>
-<li><p>Hence we can equivalently calculate the average as a sum over all these outcomes weighted by probability:</p></li>
-</ul>
+<p>This is the average result you’d get measuring <span class="math notranslate nohighlight">\(\hat{O}\)</span> on <strong>many identically prepared copies</strong> of <span class="math notranslate nohighlight">\(|\psi\rangle\)</span>. Recall that individual measurement outcomes are eigenvalues of <span class="math notranslate nohighlight">\(\hat{O}\)</span>, denoted <span class="math notranslate nohighlight">\(\lambda_i\)</span>. Hence we can equivalently calculate the average as a sum over all these outcomes weighted by probability:</p>
 <div class="math notranslate nohighlight">
 \[
 \langle \hat{O} \rangle = \sum_i \lambda_i \, P(\lambda_i)= \sum_i \lambda_i |\langle \lambda_i|\psi\rangle|^2
@@ -680,6 +677,43 @@ P(-1) &amp;= |\langle 1|H^\dagger S^\dagger|\psi\rangle|^2= |\langle 1|H S^\dagg
 \[E=\langle \psi|H|\psi\rangle.\]</div>
 <p>The ground state of a quantum system is the state with the lowest energy. To find the ground state we find the state that minimizes the expected Energy. The ground state is very important as it is the state of system at zero temperature (and at low temperatures the system will be at approximately the ground-state). Thus if we are interested in the properties of a molecule at room temperature, a starting place is to investigate the ground-state properties.</p>
 </section>
+<section id="the-ising-model">
+<h2>The Ising Model<a class="headerlink" href="#the-ising-model" title="Link to this heading">#</a></h2>
+<p>Let’s look at a simple physics model to get a feel for Hamiltonians.
+We consider a single electron bound to an atom.
+Recall that electrons have a property called spin which can interact with external magnetic fields. The spin can be either up or down (or in a superposition of both).
+We’ll denote the up spin state as <span class="math notranslate nohighlight">\(|0\rangle\)</span> and the down spin state as <span class="math notranslate nohighlight">\(|1\rangle\)</span>.</p>
+<p>If a magnetic field, <span class="math notranslate nohighlight">\(B\)</span>, is applied along the x-axis the Hamiltonian is</p>
+<div class="math notranslate nohighlight">
+\[H=-BX\]</div>
+<p>with ground state</p>
+<div class="math notranslate nohighlight">
+\[|+\rangle=(|0\rangle+|1\rangle)/\sqrt 2.\]</div>
+<p>Electrons can interact with each other via their spins.
+A two electron state is represented as <span class="math notranslate nohighlight">\(|ij\rangle\)</span>, here the electron at atom 1 has spin <span class="math notranslate nohighlight">\(i\)</span> and the electron at atom 2 has spin <span class="math notranslate nohighlight">\(j\)</span>. So for example <span class="math notranslate nohighlight">\(|01\rangle\)</span> would mean the electron at atom <span class="math notranslate nohighlight">\(1\)</span> has spin up and the electron at atom <span class="math notranslate nohighlight">\(2\)</span> has spin down.</p>
+<p>A common way spins interact is through the Hamiltonian</p>
+<div class="math notranslate nohighlight">
+\[H=- J Z \otimes Z =- J Z_1 Z_2\]</div>
+<p>For this Hamiltonian</p>
+<ul class="simple">
+<li><p>If <span class="math notranslate nohighlight">\(J&gt;0\)</span>: The ground-states are <span class="math notranslate nohighlight">\(\{|00\rangle, |11\rangle\}\)</span>, i.e. both electrons are aligned in spin</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(J&lt;0\)</span>: The ground-states are <span class="math notranslate nohighlight">\(\{|01\rangle, |10\rangle\}\)</span>, i.e. both electrons are anti-aligned in spin</p></li>
+</ul>
+<p>Now let’s put both pieces together:</p>
+<ul class="simple">
+<li><p>A magnetic field in the x-axis</p></li>
+<li><p>Neighbouring interactions between electrons</p></li>
+</ul>
+<p>For two qubits we get</p>
+<div class="math notranslate nohighlight">
+\[H = -BX_0 - BX_1 - J Z_0 Z_1\]</div>
+<p>This model is known is the Ising model, for <span class="math notranslate nohighlight">\(n\)</span> atoms (qubits) arranged in a chain it is</p>
+<div class="math notranslate nohighlight">
+\[
+H = -B \sum_{i=0}^{n-1}X_i - J \sum_{i=0}^{n-2} Z_i Z_{i+1}
+\]</div>
+<p>where we note that the interactions are only between electrons on neighbouring atoms.</p>
+</section>
 <section id="vqe-for-chemistry">
 <h2>VQE for chemistry<a class="headerlink" href="#vqe-for-chemistry" title="Link to this heading">#</a></h2>
 </section>
@@ -765,6 +799,7 @@ P(-1) &amp;= |\langle 1|H^\dagger S^\dagger|\psi\rangle|^2= |\langle 1|H S^\dagg
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-variational-quantum-eigensolver">The Variational Quantum Eigensolver</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vqe-ansatzes">VQE Ansatzes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-hamiltonians">Introduction to Hamiltonians</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-ising-model">The Ising Model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vqe-for-chemistry">VQE for chemistry</a></li>
 </ul>
 </li>
