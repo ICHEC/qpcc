@@ -333,10 +333,10 @@ In physics the ground state is very important. It determines a system's stable c
 
 ```{mermaid}
 flowchart LR
-    A["Ansatz\n(parameterized circuit)"]:::red --> B["Measure ⟨H⟩"]
-    B --> C["Classical\noptimizer"]
+    A["Ansatz (parameterized circuit)"]:::red --> B["Measure ⟨H⟩"]
+    B --> C["Classical optimizer"]
     C -->|"Update parameters"| A
-    C --> D["Ground state\nenergy ≈ min⟨H⟩"]
+    C --> D["Ground state energy ≈ min⟨H⟩"]
 
     classDef red fill:#f4cccc,stroke:#cc0000,stroke-width:1px,color:#000;
 ```
@@ -438,12 +438,12 @@ A Unitary Coupled Cluster (UCC) ansatz circuit.
 
 ```{mermaid}
 flowchart TD
-    A["Problem"]:::red -->|"Encode"| B["Hamiltonian form <br/> H"]:::orange
+    A["Problem"]:::red -->|"Encode"| B["Hamiltonian form H"]:::orange
     B --> VQE
 
     subgraph VQE["VQE"]
         direction TB
-        C["Vary quantum state |ψ(θ)⟩ <br/>with parametrised<br/>circuit<br/>"]:::blue
+        C["Vary quantum state |ψ(θ)⟩ <br/>with parametrised circuit"]:::blue
         D["Classical optimiser<br/>updates θ so 𝐸 decreases"]:::blue
         C -->|"Measure 𝐸 = ⟨ψ(θ)|H|ψ(θ)⟩"| D
         D -->|"Update Parameters"| C
