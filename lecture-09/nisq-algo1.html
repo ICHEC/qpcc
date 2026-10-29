@@ -64,6 +64,364 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
+
+
+
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = "pre.mermaid {\n    /* Same as .mermaid-container > pre */\n    display: block;\n    width: 100%;\n}\n\npre.mermaid > svg {\n    /* Same as .mermaid-container > pre > svg */\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}";
+    document.head.appendChild(defaultStyle);
+
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = ".mermaid-container {\n    position: relative;\n    display: flex;\n    flex-direction: row;\n    width: 100%;\n}\n\n.mermaid-container > pre {\n    display: block;\n    width: 100%;\n}\n\n.mermaid-container > pre > svg {\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}\n\n.mermaid-fullscreen-btn {\n    position: absolute;\n    width: 28px;\n    height: 28px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.3);\n    border-radius: 4px;\n    cursor: pointer;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    transition: all 0.2s;\n    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);\n    font-size: 14px;\n    line-height: 1;\n    padding: 0;\n    color: #333;\n}\n\n.mermaid-fullscreen-btn:hover {\n    opacity: 100% !important;\n    background: rgba(255, 255, 255, 1);\n    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-btn.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.3);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-btn.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal {\n    display: none;\n    position: fixed !important;\n    top: 0 !important;\n    left: 0 !important;\n    width: 95vw;\n    height: 100vh;\n    background: rgba(255, 255, 255, 0.98);\n    z-index: 9999;\n    padding: 20px;\n    overflow: auto;\n}\n\n.mermaid-fullscreen-modal.dark-theme {\n    background: rgba(0, 0, 0, 0.98);\n}\n\n.mermaid-fullscreen-modal.active {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen {\n    position: relative;\n    width: 95vw;\n    height: 90vh;\n    max-width: 95vw;\n    max-height: 90vh;\n    background: white;\n    border-radius: 8px;\n    padding: 20px;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);\n    overflow: auto;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen.dark-theme {\n    background: #1a1a1a;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);\n}\n\n.mermaid-container-fullscreen pre.mermaid {\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen .mermaid svg {\n    height: 100% !important;\n    width: 100% !important;\n    cursor: grab;\n}\n\n.mermaid-fullscreen-close {\n    position: fixed !important;\n    top: 20px !important;\n    right: 20px !important;\n    width: 40px;\n    height: 40px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.2);\n    border-radius: 50%;\n    cursor: pointer;\n    z-index: 10000;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);\n    transition: all 0.2s;\n    font-size: 24px;\n    line-height: 1;\n    color: #333;\n}\n\n.mermaid-fullscreen-close:hover {\n    background: white;\n    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-close.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.2);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-close.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal .mermaid-fullscreen-btn {\n    display: none !important;\n}";
+    document.head.appendChild(fullscreenStyle);
+}
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
+        return brightness < 128;
+    }
+    // console.log("No dark or light theme detected, defaulting to light theme");
+    return false;
+};
+
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
+let _lazyObserver = null;
+let _renderQueue = Promise.resolve();
+let closeModal = () => {};
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal?.classList.contains('active')) {
+        closeModal();
+    }
+});
+
+// Apply d3 zoom to each SVG. Idempotent: an SVG already wrapped is skipped,
+// so this is safe to call both for the initial batch and for diagrams that
+// render lazily once they become visible.
+const addZoomToSvgs = (svgs) => {
+    svgs.each(function() {
+        if (this.getAttribute('data-zoom-applied') === 'true') return;
+        var svg = d3.select(this);
+        svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+        var inner = svg.select("g");
+        var zoom = d3.zoom().on("zoom", function(event) {
+            inner.attr("transform", event.transform);
+        });
+        svg.call(zoom);
+        this.setAttribute('data-zoom-applied', 'true');
+    });
+};
+
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        // Disconnect any previous lazy rendering observer
+        if (_lazyObserver) {
+            _lazyObserver.disconnect();
+            _lazyObserver = null;
+        }
+
+        all_mermaids.forEach((el) => {
+            el.removeAttribute('data-mermaid-deferred');
+            el.removeAttribute('data-mermaid-render-failed');
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+
+        // Separate visible and hidden elements. Mermaid's layout engine measures
+        // text dimensions via the DOM, which fails for elements hidden by a parent
+        // (e.g., Reveal.js non-active slides, sphinx-design unopened tabs),
+        // producing broken SVGs. Render visible elements now, defer hidden ones.
+        const visible = [];
+        const hidden = [];
+        all_mermaids.forEach((el) => {
+            // offsetParent is null for display:none ancestors.
+            // getClientRects().length > 0 catches position:fixed elements
+            // (which also have null offsetParent but are still visible).
+            if (el.offsetParent !== null || el.getClientRects().length > 0) {
+                visible.push(el);
+            } else {
+                hidden.push(el);
+                el.setAttribute('data-mermaid-deferred', 'true');
+            }
+        });
+
+        if (visible.length > 0) {
+            try {
+                await mermaid.run({ nodes: visible });
+            } catch (e) {
+                console.error("Mermaid rendering failed:", e);
+            }
+        }
+
+        // Lazily render hidden elements when they become visible.
+        // Uses a promise chain (_renderQueue) to serialize rendering,
+        // since IntersectionObserver may report multiple entries at once
+        // and mermaid.run() is not safe to call concurrently.
+        if (hidden.length > 0) {
+            if (typeof IntersectionObserver === 'undefined') {
+                console.warn("IntersectionObserver not available; hidden mermaid diagrams will not render.");
+            } else {
+                _renderQueue = Promise.resolve();
+                _lazyObserver = new IntersectionObserver((entries) => {
+                    for (const entry of entries) {
+                        if (entry.isIntersecting && entry.target.getAttribute("data-processed") !== "true") {
+                            _lazyObserver.unobserve(entry.target);
+                            const el = entry.target;
+                            _renderQueue = _renderQueue.then(async () => {
+                                try {
+                                    await mermaid.run({ nodes: [el] });
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    // Apply zoom to the now-rendered diagram, matching
+                                    // the decoration visible diagrams receive.
+                                    if (false) {
+                                        addZoomToSvgs(d3.selectAll("").select(function() {
+                                            return this.querySelector("svg");
+                                        }));
+                                    }
+                                } catch (e) {
+                                    console.error("Mermaid deferred rendering failed:", e);
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    el.setAttribute('data-mermaid-render-failed', 'true');
+                                }
+                            });
+                        }
+                    }
+                });
+                hidden.forEach((el) => _lazyObserver.observe(el));
+            }
+        }
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
+    // Exclude deferred (hidden) and render-failed elements from completion checks
+    const mermaids_active = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])");
+    const mermaids_processed = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])[data-processed='true']");
+
+    if (false) {
+        const mermaids_to_add_zoom = 0 === -1 ? mermaids_active.length : 0;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll("").select(function() {
+                return this.querySelector("svg");
+            });
+            // Wait until every active (visible) diagram has rendered. Deferred
+            // diagrams are excluded, so a fixed d3_node_count that counts a
+            // hidden diagram no longer loops forever waiting for its SVG.
+            if(mermaids_active.length !== mermaids_processed.length) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            }
+            addZoomToSvgs(svgs);
+        }
+    } else if(mermaids_active.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(() => runMermaid(false), 200);
+        return;
+    }
+
+    // Stop here if not adding fullscreen capability
+    if (!true) return;
+
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = "\u26f6";
+        fullscreenBtn.style.opacity = "50%";
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scrollX, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.display = 'block';
+
+                if (false) {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        container.appendChild(fullscreenBtn);
+    });
+};
+
+
+
+const load = async () => {
+    initStyles();
+
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...{"startOnLoad": false},
+                ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...{"startOnLoad": false},
+    ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+    }
+);
+
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-09/nisq-algo1';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <script src="../_static/bloch-path.js?v=fbcfb0fb"></script>
@@ -427,9 +785,26 @@
             <nav aria-label="Page">
                 <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lecture 9: NISQ Algorithms I</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#focus-of-lecture">Focus of Lecture</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-nisq-era">The NISQ Era</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-optimisation">Classical optimisation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#focus-of-lecture">Focus of Lecture</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-outcomes">Learning Outcomes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contents">Contents</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-nisq-era">The NISQ Era</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#drawbacks-of-early-quantum-algorithms">Drawbacks of early quantum algorithms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variational-quantum-algorithms">Variational Quantum Algorithms</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-optimisation">Classical optimisation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-does-an-optimiser-improve-its-guess">How does an optimiser improve its guess?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-based">Gradient-based</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-free">Gradient-free</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#things-that-can-go-wrong">Things that can go wrong</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nisq-algorithms-on-real-hardware">NISQ Algorithms on Real Hardware</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-values">Expectation Values</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-value-of-z">Expectation value of Z</a></li>
 </ul>
@@ -437,8 +812,21 @@
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-value-of-x-y">Expectation value of X &amp; Y</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-single-qubit-expectation-values">Summary of single Qubit Expectation values</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-values-of-multiple-qubits">Expectation Values of Multiple Qubits</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-variational-quantum-eigensolver">The Variational Quantum Eigensolver</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vqe-ansatzes">VQE Ansatzes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variational-quantum-eigensolver">Variational Quantum Eigensolver</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concept-of-vqe">Concept of VQE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variational-principle">Variational Principle</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vqe-ansatzes">VQE Ansatzes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-rotation-gates">Recap: Rotation Gates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-hardware-efficient-ansatz">Simple “hardware-efficient” ansatz</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chemistry-inspired-ansatz">Chemistry-inspired ansatz</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vqe-workflow">VQE Workflow</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vqe-on-nisq-hardware">VQE on NISQ Hardware</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-hamiltonians">Introduction to Hamiltonians</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-ising-model">The Ising Model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vqe-for-chemistry">VQE for chemistry</a></li>
@@ -457,19 +845,145 @@
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lecture-9-nisq-algorithms-i">
-<span id="lecture-8"></span><h1>Lecture 9: NISQ Algorithms I<a class="headerlink" href="#lecture-9-nisq-algorithms-i" title="Link to this heading">#</a></h1>
+<span id="lecture-9"></span><h1>Lecture 9: NISQ Algorithms I<a class="headerlink" href="#lecture-9-nisq-algorithms-i" title="Link to this heading">#</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>These lecture notes are a work in progress and are not a replacement for watching the lecture video, it’s intended to be a supplementary reading after watching the lecture.</p>
 </div>
 <section id="focus-of-lecture">
 <h2>Focus of Lecture<a class="headerlink" href="#focus-of-lecture" title="Link to this heading">#</a></h2>
+<section id="learning-outcomes">
+<h3>Learning Outcomes<a class="headerlink" href="#learning-outcomes" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>What is the NISQ era?</p></li>
+<li><p>Why do we need NISQ algorithms?</p></li>
+<li><p>Example of NISQ algorithm: Variational Quantum Eigensolver (VQE)</p></li>
+</ul>
+</section>
+<section id="contents">
+<h3>Contents<a class="headerlink" href="#contents" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>NISQ Era</p></li>
+<li><p>Classical optimisation</p></li>
+<li><p>Expectation Values</p></li>
+<li><p>VQE</p></li>
+<li><p>VQE Ansatzes</p></li>
+<li><p>Introduction to Hamiltonians</p></li>
+<li><p>VQE for chemistry</p></li>
+</ul>
+</section>
 </section>
 <section id="the-nisq-era">
 <h2>The NISQ Era<a class="headerlink" href="#the-nisq-era" title="Link to this heading">#</a></h2>
+<section id="drawbacks-of-early-quantum-algorithms">
+<h3>Drawbacks of early quantum algorithms<a class="headerlink" href="#drawbacks-of-early-quantum-algorithms" title="Link to this heading">#</a></h3>
+<p>Implementing algorithms like Shor’s or Grover’s requires:</p>
+<ul class="simple">
+<li><p>Large amounts of qubits</p></li>
+<li><p>Long circuits</p></li>
+<li><p>Error correction (to be robust in the presence of noise), further increasing the number of required qubits.</p></li>
+</ul>
+<figure class="align-center" id="id1">
+<img alt="../_images/GroverCircuit.png" src="../_images/GroverCircuit.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 68 </span><span class="caption-text">Grover’s circuit requires many gates, which becomes infeasible on current quantum computers when we scale to larger instances.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id2">
+<img alt="../_images/GroverHistNoise.png" src="../_images/GroverHistNoise.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 69 </span><span class="caption-text">Noise in the circuit leads to a loss of the expected output distribution, as shown here in the difference between ideal simulation and noisy reality. The more gates we have, the more noise is introduced.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="variational-quantum-algorithms">
+<h3>Variational Quantum Algorithms<a class="headerlink" href="#variational-quantum-algorithms" title="Link to this heading">#</a></h3>
+<figure class="align-center" id="id3">
+<img alt="../_images/VarAlg.png" src="../_images/VarAlg.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 70 </span><span class="caption-text">Variational quantum algorithms use classical optimisation to find the best parameters for a quantum circuit.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
 </section>
 <section id="classical-optimisation">
 <h2>Classical optimisation<a class="headerlink" href="#classical-optimisation" title="Link to this heading">#</a></h2>
+<p>Given a <strong>cost function</strong> <span class="math notranslate nohighlight">\(f(x)\)</span>, find the input <span class="math notranslate nohighlight">\(x\)</span> that makes <span class="math notranslate nohighlight">\(f\)</span> as small as possible:</p>
+<div class="math notranslate nohighlight">
+\[ x^* = \underset{x}{\arg\min}\; f(x) \]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x\)</span> can be a single number or a list of many parameters.</p></li>
+<li><p>We can usually <strong>evaluate</strong> <span class="math notranslate nohighlight">\(f(x)\)</span> for any chosen <span class="math notranslate nohighlight">\(x\)</span>, but we can’t see the whole function at once.</p></li>
+<li><p>So we search <strong>iteratively</strong>: start from a guess, evaluate, improve the guess, repeat.</p></li>
+<li><p>Stop when <span class="math notranslate nohighlight">\(f\)</span> stops decreasing (<strong>convergence</strong>).</p></li>
+</ul>
+<div class="info admonition">
+<p class="admonition-title">Hiker analogy</p>
+<p>Think of a hiker in thick fog trying to reach the lowest point of a valley. They can only measure the height where they stand, so they try a few nearby steps and keep moving downhill.</p>
+</div>
+<figure class="align-center" id="id4">
+<img alt="../_images/local-vs-global-minimum.png" src="../_images/local-vs-global-minimum.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 71 </span><span class="caption-text">Classical optimisation can get stuck in local minima, where the function is lower than all nearby points, but not the lowest point overall (the global minimum).</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="how-does-an-optimiser-improve-its-guess">
+<h3>How does an optimiser improve its guess?<a class="headerlink" href="#how-does-an-optimiser-improve-its-guess" title="Link to this heading">#</a></h3>
+<section id="gradient-based">
+<h4>Gradient-based<a class="headerlink" href="#gradient-based" title="Link to this heading">#</a></h4>
+<p>The gradient <span class="math notranslate nohighlight">\(\nabla f\)</span> points uphill, so step the opposite way:</p>
+<div class="math notranslate nohighlight">
+\[ x_{\text{new}} = x - \eta\,\nabla f(x) \]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\eta\)</span> is the <strong>step size</strong> (learning rate)</p></li>
+<li><p>Too large: overshoots the minimum</p></li>
+<li><p>Too small: very slow progress</p></li>
+</ul>
+<figure class="align-center" id="id5">
+<img alt="../_images/GradDesc.png" src="../_images/GradDesc.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 72 </span><span class="caption-text">Gradient descent repeatedly steps in the direction of steepest decrease. The step size <span class="math notranslate nohighlight">\(\eta\)</span> controls how far each step goes.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="gradient-free">
+<h4>Gradient-free<a class="headerlink" href="#gradient-free" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Only compare values of <span class="math notranslate nohighlight">\(f\)</span> at several trial points and move towards the better ones</p></li>
+<li><p>e.g. Nelder-Mead, COBYLA</p></li>
+</ul>
+<figure class="align-center" id="id6">
+<img alt="../_images/NelderMead.jpg" src="../_images/NelderMead.jpg" />
+<figcaption>
+<p><span class="caption-number">Fig. 73 </span><span class="caption-text">The Nelder-Mead method evaluates <span class="math notranslate nohighlight">\(f\)</span> at the corners of a simplex (a triangle in two dimensions), then reflects, expands or shrinks it towards better values.</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="things-that-can-go-wrong">
+<h3>Things that can go wrong<a class="headerlink" href="#things-that-can-go-wrong" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Local minima</strong>: the optimiser settles in a valley that isn’t the lowest one</p></li>
+<li><p><strong>Flat regions</strong>: the gradient is almost zero, so progress stalls</p></li>
+<li><p><strong>Noisy evaluations</strong>: if <span class="math notranslate nohighlight">\(f(x)\)</span> is only known approximately, comparisons and gradients become unreliable</p></li>
+<li><p><strong>Cost per evaluation</strong>: methods that need fewer evaluations are preferred when each one is expensive</p></li>
+</ul>
+<figure class="align-center" id="id7">
+<img alt="../_images/BarrenPlateau.png" src="../_images/BarrenPlateau.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 74 </span><span class="caption-text">A barren plateau: a region where the cost function is almost flat, so the gradient is close to zero and the optimiser has no useful direction to follow. Source: <a class="reference external" href="https://arxiv.org/pdf/2511.22861">https://arxiv.org/pdf/2511.22861</a></span><a class="headerlink" href="#id7" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="nisq-algorithms-on-real-hardware">
+<h2>NISQ Algorithms on Real Hardware<a class="headerlink" href="#nisq-algorithms-on-real-hardware" title="Link to this heading">#</a></h2>
+<figure class="align-center" id="id8">
+<img alt="../_images/VQEonHardware.png" src="../_images/VQEonHardware.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 75 </span><span class="caption-text">Variational quantum algorithms (e.g. VQE, the variational quantum eigensolver) have already been run on real quantum hardware.</span><a class="headerlink" href="#id8" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="expectation-values">
 <h2>Expectation Values<a class="headerlink" href="#expectation-values" title="Link to this heading">#</a></h2>
@@ -515,7 +1029,7 @@ P(\color{red}-1\color{black}) = |\color{red}\langle 1|\color{black}\psi\rangle|^
 <li><p><span class="math notranslate nohighlight">\(N_0\)</span>: the number of <span class="math notranslate nohighlight">\(0\)</span>’s measured</p></li>
 <li><p><span class="math notranslate nohighlight">\(N_1\)</span>: the number of <span class="math notranslate nohighlight">\(1\)</span>’s measured</p></li>
 </ul>
-<p>Then we can then estimate the probabilities</p>
+<p>Then we can estimate the probabilities</p>
 <div class="math notranslate nohighlight">
 \[
 P(+1) \approx N_0/N \qquad 
@@ -528,7 +1042,7 @@ P(-1) \approx N_1/N
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="expectation-value-of-x-y">
 <h1>Expectation value of X &amp; Y<a class="headerlink" href="#expectation-value-of-x-y" title="Link to this heading">#</a></h1>
-<p>How do we measure the expection value of <span class="math notranslate nohighlight">\(X\)</span>?</p>
+<p>How do we measure the expectation value of <span class="math notranslate nohighlight">\(X\)</span>?</p>
 <p>The eigenvalues and eigenstates of <span class="math notranslate nohighlight">\(X\)</span> are:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(+1\)</span> for <span class="math notranslate nohighlight">\(|+\rangle=(|0\rangle+|1\rangle)/\sqrt{2}\)</span></p></li>
@@ -576,7 +1090,7 @@ P(-1) &amp;= |\langle 1|H^\dagger|\psi\rangle|^2= |\langle 1|H|\psi\rangle|^2\\
 <p>Repeating steps 1, 2 and 3 for <span class="math notranslate nohighlight">\(N\)</span> shots we can use</p>
 <div class="math notranslate nohighlight">
 \[\langle\psi|X|\psi\rangle\approx \frac{N_0-N_1}{N}\]</div>
-<p>For the expection value of <span class="math notranslate nohighlight">\(Y\)</span>, the eigenvalues and eigenstates of <span class="math notranslate nohighlight">\(Y\)</span> are:</p>
+<p>For the expectation value of <span class="math notranslate nohighlight">\(Y\)</span>, the eigenvalues and eigenstates of <span class="math notranslate nohighlight">\(Y\)</span> are:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(+1\)</span> for <span class="math notranslate nohighlight">\(|i+\rangle=(|0\rangle+i|1\rangle)/\sqrt{2}\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(-1\)</span> for <span class="math notranslate nohighlight">\(|i-\rangle=(|0\rangle-i|1\rangle)/\sqrt{2}\)</span></p></li>
@@ -634,7 +1148,7 @@ P(-1) &amp;= |\langle 1|H^\dagger S^\dagger|\psi\rangle|^2= |\langle 1|H S^\dagg
 <li><p><span class="math notranslate nohighlight">\(Y\)</span> we apply a <span class="math notranslate nohighlight">\(S^\dagger\)</span> gate then a <span class="math notranslate nohighlight">\(H\)</span> gate</p></li>
 <li><p><span class="math notranslate nohighlight">\(Z\)</span> we don’t need to add extra gates</p></li>
 </ul>
-<p>When measuring <span class="math notranslate nohighlight">\(X\)</span> or <span class="math notranslate nohighlight">\(Y\)</span> the addition of the extra gates ensures that we a measruing in the correct basis.</p>
+<p>When measuring <span class="math notranslate nohighlight">\(X\)</span> or <span class="math notranslate nohighlight">\(Y\)</span> the addition of the extra gates ensures that we are measuring in the correct basis.</p>
 <p>We execute the circuit for <span class="math notranslate nohighlight">\(N\)</span> shots and estimate the expectation as</p>
 <div class="math notranslate nohighlight">
 \[\frac{N_0-N_1}{N}\]</div>
@@ -664,11 +1178,173 @@ P(-1) &amp;= |\langle 1|H^\dagger S^\dagger|\psi\rangle|^2= |\langle 1|H S^\dagg
 </li>
 </ul>
 </section>
-<section id="the-variational-quantum-eigensolver">
-<h2>The Variational Quantum Eigensolver<a class="headerlink" href="#the-variational-quantum-eigensolver" title="Link to this heading">#</a></h2>
+<section id="variational-quantum-eigensolver">
+<h2>Variational Quantum Eigensolver<a class="headerlink" href="#variational-quantum-eigensolver" title="Link to this heading">#</a></h2>
+<section id="concept-of-vqe">
+<h3>Concept of VQE<a class="headerlink" href="#concept-of-vqe" title="Link to this heading">#</a></h3>
+<div class="success admonition">
+<p class="admonition-title">Why the ground state matters</p>
+<p>In physics the ground state is very important. It determines a system’s stable configuration and low-energy properties (e.g. a molecule’s bond length, reactivity, stability).</p>
+</div>
+<pre  class="mermaid">
+        flowchart LR
+    A[&quot;Ansatz (parameterized circuit)&quot;]:::red --&gt; B[&quot;Measure ⟨H⟩&quot;]
+    B --&gt; C[&quot;Classical optimizer&quot;]
+    C --&gt;|&quot;Update parameters&quot;| A
+    C --&gt; D[&quot;Ground state energy ≈ min⟨H⟩&quot;]
+
+    classDef red fill:#f4cccc,stroke:#cc0000,stroke-width:1px,color:#000;
+    </pre><ul class="simple">
+<li><p>Parameterized quantum circuit (<strong>ansatz</strong>) to prepare trial state</p></li>
+<li><p>Measure expectation value of Hamiltonian with respect to this state</p></li>
+<li><p>Optimise circuit parameters classically to minimise energy to find approximate ground state</p></li>
+</ul>
+<div class="info admonition">
+<p class="admonition-title">What does “ansatz” mean?</p>
+<p><strong>Ansatz</strong> is German for “approach”. In physics/maths it means an educated <strong>guess</strong> used as a starting point to solve a problem.</p>
+</div>
+</section>
+<section id="variational-principle">
+<h3>Variational Principle<a class="headerlink" href="#variational-principle" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>If we <strong>guess</strong> a state <span class="math notranslate nohighlight">\(|\psi(\theta)\rangle\)</span>, its energy <span class="math notranslate nohighlight">\(E\)</span> is <strong>at least</strong> the ground state energy <span class="math notranslate nohighlight">\(E_0\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ E = {\langle\psi(\theta)|H|\psi(\theta)\rangle}\geq E_0 \]</div>
+</li>
+<li><p>We can get closer to the ground state energy by optimising the parameters <span class="math notranslate nohighlight">\(\theta\)</span> of the trial state <span class="math notranslate nohighlight">\(|\psi(\theta)\rangle\)</span>.</p></li>
+<li><p>A good choice of <span class="math notranslate nohighlight">\(|\psi(\theta)\rangle\)</span> can lead to higher accuracy.</p></li>
+</ol>
+<p>This raises the question: how do we create the parametrised circuit (ansatz)?</p>
+</section>
 </section>
 <section id="vqe-ansatzes">
 <h2>VQE Ansatzes<a class="headerlink" href="#vqe-ansatzes" title="Link to this heading">#</a></h2>
+<section id="recap-rotation-gates">
+<h3>Recap: Rotation Gates<a class="headerlink" href="#recap-rotation-gates" title="Link to this heading">#</a></h3>
+<p>The rotation gates are parameterised rotations about the X, Y, Z axes of the Bloch sphere.</p>
+<div class="success admonition">
+<p class="admonition-title">Definition</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{split}
+R_X(\theta) &amp;= \begin{pmatrix} \cos({\theta}/{2}) &amp; -i\sin({\theta}/{2}) \\ -i\sin({\theta}/{2}) &amp; \cos({\theta}/{2}) \end{pmatrix}\\
+R_Y(\theta) &amp;= \begin{pmatrix} \cos({\theta}/{2}) &amp; -\sin({\theta}/{2}) \\ \sin({\theta}/{2}) &amp; \cos({\theta}/{2}) \end{pmatrix}\\
+R_Z(\theta) &amp;= \begin{pmatrix} e^{-i\theta/2} &amp; 0 \\ 0 &amp; e^{i\theta/2} \end{pmatrix}\\
+\end{split}
+\end{split}\]</div>
+</div>
+<div class="info admonition">
+<p class="admonition-title">Compact form</p>
+<p>They can all be written in the form</p>
+<div class="math notranslate nohighlight">
+\[
+R_A(\theta) = \cos(\theta/2) I -i\sin(\theta/2) A
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(I\)</span> is the identity matrix and <span class="math notranslate nohighlight">\(A\in\{X,Y,Z\}\)</span>.</p>
+</div>
+<p>Unlike the Pauli gates, which are strict <span class="math notranslate nohighlight">\(180^{\circ}\)</span> flips, these act as continuous tuning dials. For example:</p>
+<div class="math notranslate nohighlight">
+\[R_X(\theta)|0\rangle=\cos(\theta/2)|0\rangle -i\sin(\theta/2) |1\rangle\]</div>
+</section>
+<section id="simple-hardware-efficient-ansatz">
+<h3>Simple “hardware-efficient” ansatz<a class="headerlink" href="#simple-hardware-efficient-ansatz" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Alternates layers of <strong>single-qubit rotations</strong> (<span class="math notranslate nohighlight">\(R_y\)</span>) with layers of <strong>CNOTs</strong></p></li>
+<li><p>Native gates for superconducting qubits and trapped ions</p></li>
+<li><p>Rotations depend on tunable parameters <span class="math notranslate nohighlight">\(\theta_i\)</span></p></li>
+<li><p>CNOTs generate the <strong>entanglement</strong></p></li>
+<li><p>Repeating this block <span class="math notranslate nohighlight">\(d\)</span> times (“depth”) increases the <strong>expressibility</strong> of the ansatz</p></li>
+<li><p>However, greater depth means:</p>
+<ul>
+<li><p>Longer circuits</p></li>
+<li><p>More noise on real hardware</p></li>
+</ul>
+</li>
+</ul>
+<figure class="align-center" id="id9">
+<img alt="../_images/SimpleAnsatz.png" src="../_images/SimpleAnsatz.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 76 </span><span class="caption-text">A hardware-efficient ansatz: layers of parameterised single-qubit <span class="math notranslate nohighlight">\(R_y\)</span> rotations alternating with layers of CNOT gates.</span><a class="headerlink" href="#id9" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="info admonition">
+<p class="admonition-title">Expressibility</p>
+<p><strong>Expressibility</strong> is the ability of a circuit to generate a wide variety of states. A more expressible circuit can represent a larger set of states.</p>
+</div>
+</section>
+<section id="chemistry-inspired-ansatz">
+<h3>Chemistry-inspired ansatz<a class="headerlink" href="#chemistry-inspired-ansatz" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Built from <strong>physically motivated operators</strong> rather than generic gates</p></li>
+<li><p>Encodes knowledge of the <strong>structure of the problem</strong> into the circuit</p></li>
+<li><p>More <strong>parameter-efficient</strong> and physically meaningful for chemistry problems</p></li>
+<li><p>Typically requires <strong>deeper circuits</strong> to implement</p></li>
+<li><p>Example: <strong>Unitary Coupled Cluster (UCC) Ansatz</strong>:</p></li>
+</ul>
+<figure class="align-center" id="id10">
+<img alt="../_images/UCCansatz.png" src="../_images/UCCansatz.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 77 </span><span class="caption-text">A Unitary Coupled Cluster (UCC) ansatz circuit.</span><a class="headerlink" href="#id10" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="vqe-workflow">
+<h2>VQE Workflow<a class="headerlink" href="#vqe-workflow" title="Link to this heading">#</a></h2>
+<pre  class="mermaid">
+        flowchart TD
+    A[&quot;Problem&quot;]:::red --&gt;|&quot;Encode&quot;| B[&quot;Hamiltonian form H&quot;]:::orange
+    B --&gt; VQE
+
+    subgraph VQE[&quot;VQE&quot;]
+        direction TB
+        C[&quot;Vary quantum state |ψ(θ)⟩ &lt;br/&gt;with parametrised circuit&quot;]:::blue
+        D[&quot;Classical optimiser&lt;br/&gt;updates θ so 𝐸 decreases&quot;]:::blue
+        C --&gt;|&quot;Measure 𝐸 = ⟨ψ(θ)|H|ψ(θ)⟩&quot;| D
+        D --&gt;|&quot;Update Parameters&quot;| C
+    end
+
+    VQE --&gt;|&quot;repeat until 𝐸 converges&quot;| E[&quot;Solution&quot;]:::green
+
+    style VQE fill:#e9d8fd,stroke:#6a3ea1,stroke-width:1px,opacity:1
+
+    classDef red fill:#f4cccc,stroke:#cc0000,stroke-width:1px,color:#000;
+    classDef orange fill:#fce5cd,stroke:#b45f06,stroke-width:1px,color:#000;
+    classDef blue fill:#cfe2f3,stroke:#1155cc,stroke-width:1px,color:#000;
+    classDef green fill:#d9ead3,stroke:#38761d,stroke-width:1px,color:#000;
+    </pre><ol class="arabic simple">
+<li><p>Generate normalised ansatz state <span class="math notranslate nohighlight">\(|\psi(\theta)\rangle\)</span> on quantum computer</p></li>
+<li><p>Measure <span class="math notranslate nohighlight">\(E = \langle\psi(\theta)|H|\psi(\theta)\rangle\)</span></p></li>
+<li><p>Optimise <span class="math notranslate nohighlight">\(\theta\)</span> on a classical computer so that <span class="math notranslate nohighlight">\(E\)</span> decreases</p></li>
+<li><p>Repeat until <span class="math notranslate nohighlight">\(E\)</span> converges to obtain an approximate ground state</p></li>
+</ol>
+<section id="vqe-on-nisq-hardware">
+<h3>VQE on NISQ Hardware<a class="headerlink" href="#vqe-on-nisq-hardware" title="Link to this heading">#</a></h3>
+<div class="info admonition">
+<p class="admonition-title">Hybrid algorithm</p>
+<ul class="simple">
+<li><p>Quantum computer prepares parameterised trial state (ansatz) and measures the energy</p></li>
+<li><p>Classical optimiser updates parameters to minimise energy</p></li>
+<li><p>Loop repeats until convergence</p></li>
+</ul>
+</div>
+<div class="success admonition">
+<p class="admonition-title">Why it suits NISQ</p>
+<ul class="simple">
+<li><p>Classical optimiser reduces workload for QPU: only use quantum for the part that is inherently quantum</p></li>
+<li><p>Flexible ansatz can be tailored to hardware connectivity</p></li>
+</ul>
+</div>
+<div class="error admonition">
+<p class="admonition-title">Limitations</p>
+<ul class="simple">
+<li><p><strong>Long circuits, many gates</strong>: decoherence and gate errors dominate</p></li>
+<li><p><strong>Accuracy bar is high</strong>: to compete with classical methods</p></li>
+<li><p><strong>Barren plateaux</strong>: gradients vanish exponentially with system size, stalling optimisation</p></li>
+<li><p><strong>Measurement overhead</strong>: many circuit repetitions needed per energy evaluation, and per optimisation step</p></li>
+</ul>
+</div>
+</section>
 </section>
 <section id="introduction-to-hamiltonians">
 <h2>Introduction to Hamiltonians<a class="headerlink" href="#introduction-to-hamiltonians" title="Link to this heading">#</a></h2>
@@ -707,7 +1383,7 @@ A two electron state is represented as <span class="math notranslate nohighlight
 <p>For two qubits we get</p>
 <div class="math notranslate nohighlight">
 \[H = -BX_0 - BX_1 - J Z_0 Z_1\]</div>
-<p>This model is known is the Ising model, for <span class="math notranslate nohighlight">\(n\)</span> atoms (qubits) arranged in a chain it is</p>
+<p>This model is known as the Ising model, for <span class="math notranslate nohighlight">\(n\)</span> atoms (qubits) arranged in a chain it is</p>
 <div class="math notranslate nohighlight">
 \[
 H = -B \sum_{i=0}^{n-1}X_i - J \sum_{i=0}^{n-2} Z_i Z_{i+1}
@@ -826,9 +1502,26 @@ H = &amp;− 0.807 I + 0.175 Z_0 Z_2
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lecture 9: NISQ Algorithms I</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#focus-of-lecture">Focus of Lecture</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-nisq-era">The NISQ Era</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-optimisation">Classical optimisation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#focus-of-lecture">Focus of Lecture</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-outcomes">Learning Outcomes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contents">Contents</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-nisq-era">The NISQ Era</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#drawbacks-of-early-quantum-algorithms">Drawbacks of early quantum algorithms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variational-quantum-algorithms">Variational Quantum Algorithms</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-optimisation">Classical optimisation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-does-an-optimiser-improve-its-guess">How does an optimiser improve its guess?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-based">Gradient-based</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-free">Gradient-free</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#things-that-can-go-wrong">Things that can go wrong</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nisq-algorithms-on-real-hardware">NISQ Algorithms on Real Hardware</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-values">Expectation Values</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-value-of-z">Expectation value of Z</a></li>
 </ul>
@@ -836,8 +1529,21 @@ H = &amp;− 0.807 I + 0.175 Z_0 Z_2
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-value-of-x-y">Expectation value of X &amp; Y</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-single-qubit-expectation-values">Summary of single Qubit Expectation values</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-values-of-multiple-qubits">Expectation Values of Multiple Qubits</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-variational-quantum-eigensolver">The Variational Quantum Eigensolver</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vqe-ansatzes">VQE Ansatzes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variational-quantum-eigensolver">Variational Quantum Eigensolver</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concept-of-vqe">Concept of VQE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variational-principle">Variational Principle</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vqe-ansatzes">VQE Ansatzes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-rotation-gates">Recap: Rotation Gates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-hardware-efficient-ansatz">Simple “hardware-efficient” ansatz</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chemistry-inspired-ansatz">Chemistry-inspired ansatz</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vqe-workflow">VQE Workflow</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vqe-on-nisq-hardware">VQE on NISQ Hardware</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-hamiltonians">Introduction to Hamiltonians</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-ising-model">The Ising Model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vqe-for-chemistry">VQE for chemistry</a></li>
