@@ -261,3 +261,41 @@ where we note that the interactions are only between electrons on neighbouring a
 
 
 ## VQE for chemistry
+
+In quantum chemistry we are interested in solving the electronic structure problem, this means to solve the Schrödinger equation for the electrons in a given molecule. This can given us information on a range of quantities including: a molecule's bond length'smolecules, the energy required to remove an electron from a molecule or the structure of a molecule at low temperature.
+
+It's an amazing and surprising fact that many systems in both phsyics and chemistry can be described by Hamiltonians composed of Pauli operators.
+To give one example the Hamiltonian for a hydrogen molecule (two Hydrogen atoms) is approximately
+
+$$
+\begin{split}
+H = &− 0.807 I + 0.175 Z_0 Z_2
++ 0.169 Z_1Z_3
+− 0.230 (Z_2 + Z_0)
++ 0.173 (Z_3 + Z_1) \\
+&+ 0.045 (Y_0 Y_1 Y_2 Y_3 + X_0 X_1 Y_2 Y_3 )
++ 0.045 (Y_0Y_1X_2X_3 + X_0 X_1 X_2X_3) \\
+&+ 0.166 (X_0 Z_3 + Z_1Z_2)
++ 0.121 (Z_0 Z_1 + Z_2 Z_3)
+\end{split}
+$$
+
+Here the basis states are slightly different than before
+- 0 represents spin up on atom 1 
+- 1 represents spin up on atom 2 
+- 2 represents spin down on atom 1 
+- 3 represents spin down on atom 2 
+
+Thus for example:
+- $|0000\rangle$ represents the state with no electrons
+- $|0111\rangle$ represents the state with one electron spin up on atom 1, and two electrons on atom 2 (spin up and down).
+
+For computing the ground-state energy of molecules we can use the VQE workflow as previously described. We just have to add an extra step of mapping the molecule to the qubits of the quantum computer. We can do this by associating each molecular orbitas (a possible spatial configuration for an electron in the molecule) with two qubits:
+  - $|00\rangle$ = empty orbital
+  - $|01\rangle$ = one electron (spin down)
+  - $|10\rangle$ = one electron (spin up)
+  - $|11\rangle$ = two electrons (paired i.e. opposite spins)
+
+When running the VQE for quantum chemistry we often benchmark our results against:
+- **Hartree-Fock (HF)**: An approximate way of solving the Schrödinger equation. It uses an  average of the electron interactions. An efficient method but with limited accuracy.
+- **Full Configuration Interaction (FCI)**: An exact way of solving the Schrödinger equation. It considers all possible electron configurations. The computational cost of FCI scales exponentially with molecule size, so it can only be used for small molecules.
