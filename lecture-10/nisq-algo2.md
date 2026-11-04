@@ -1,315 +1,303 @@
 ---
-title: Early Quantum Algorithms
-layout: post
+title: NISQ Algorithms II
+jupytext:
+    formats: md:myst
+    text_representation:
+        extension: .md
+        format_name: myst
+kernelspec:
+    display_name: Python 3
+    language: python
+    name: python3
+mystnb:
+    render_markdown_format: myst
 ---
 
-(lecture-10)=
-# Lecture 10: Nisq Algorithms 2
+(lecture-11)=
+# Lecture 11: NISQ Quantum Algorithms II
 
 ```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture 
 ```
 
 ```{admonition} Learning Outcomes
 :class: tip
-In this learning we will continue with our exporation of early quantum algorithms. Specially we'll discuss:
-- Simon's Algorithm.
-- Shor's Algorithm.
-- Grover's Algorithm.
+
+In this lecture we will be continuing our discussion on Noisy Intermediate Scale Quantum (NISQ) algorithms. The learning outcomes are: 
+- Understanding the landscape of NISQ era algorithms
+- Understanding the requirements for the practical application of NISQ era algorithms
 ```
 
-## Simon's Algorithm
+```{admonition} Contents
+:class: tip
 
-Simon's algorithm was the first proposed quantum algorithm to demonstrate an exponential speed up over classical computers. While it doesn't have a known practical use, it served as an inspiration for many other quantum algorithms.
+- Quadratic Unconstrained Binary Optimization (QUBO)
+- Quantum Approximate Optimisation Algorithm (QAOA)
+```
 
-### Simon's Problem
 
-Let $f:\{0, 1\}^n \rightarrow \{0,1\}^n$ be a function that is 2-1 (for every $x$ there is a $y$ such that $f(x)=f(y)$) and where $f(x\,\text{XOR}\, c)=f(x)$. 
-Our task is to find $c$. 
+## Recap: NISQ era algorithms
 
-```{figure} ./images/two-one-func.png
+- NISQ stands for Noisy Intermediate Scale Quantum. This describes the current state of quantum hardware, with the largest quantum computers having between a few hundred and a few thousand qubits, all subject to noise.
+
+- To work with these systems, shallow quantum algorithms with a low number of qubits are needed. In most cases, these algorithms are embbeded into a classical algorithm, resulting in _hybrid classical-quantum algorithms_.
+
+- The most common type of NISQ algorithms are the variational quantum circuits (VQCs), which are quantum circuits that contain classical parameters that need to be classically optimised.
+
+
+
+### Max-cut problem
+
+- A graph is a structure made up of various nodes that have weighted connections (edges) between them. They can be used to model different problems and scenarios. For example social media users can be modelled using a graph, where its edges represent the influence between different users.
+
+- The Max-cut problem aims to do a binary partition of the nodes of the graph so that the sum of the weights of the connections between the two sets is maximised. In the image below we can see how the graph's nodes were divided in two sets: one conatining nodes 0,3 and the other containing nodes 1,2.
+```{image} ./images/max_cut.jpg
+:align: center
+```
+
+- The Max-cut problem can be easily mapped to what is called an Ising Hamiltonian, which can be easily encoded and optimised on quantum computers.
+
+- The Max-cut problem has applications in many areas including clustering, or graph and electrical design. It is often used as benchmnarking for evaluating optimisation techniques.
+
+### Travelling-salesman problem
+
+- The travelling-salesman problem is another famous optimisation problem. Given a list of cities represented with nodes on a graph, and its distances represented by the weighted edges, the objective of this problem is to find the shortest possible route, so that each city is visited just once, and the starting and ending point of the route is the same.
+
+- Similarly to Max-cut, this problem can be easily mapped to an Ising hamiltonian and optimised in a quantum computer. In the image below we can see the graph representing the problem (left) and the shortest optimal route (right).
+```{image} ./images/travelling_salesman.jpg
+:align: center
+```
+
+- This problem has different applications in many areas, being finance and marketing among the most notable ones.
+
+
+
+
+
+## QUBO problem
+
+Quadratic Unconstrained Binary Optimisation, or **QUBO** is a class of mathematical problem, that has rather vast and diverse applications. The QUBO problem seeks minimization of a real valued function of several binary variables. More formally, one looks for minimization of the following function $f$ of $N$ variables -
+
+$$
+f({\bf x}) = {\bf x}^T Q {\bf x} + {\bf v}^T {\bf x} + c
+$$
+
+or equivalently
+
+$$
+f({\bf x}) = \sum_{ij} x_i Q_{ij} x_j + \sum_i v_i x_i + c
+$$
+
+where, $Q$ is real symmetric matrix of size $N\times N$ with entries $Q_{ij}$, ${\bf v}$ is real valued vector of length $N$, and $c$ is a constant number. The function $f$ is a function of $N$ binary variable ${\bf x} = (x_1, x_2, x_3, \dots, x_N)$, i.e., $x_i = 0, 1$. The matrix, vector and scalar $({\bf Q}, {\bf v}, c)$ define the optimization problem.
+
+The variables being binary is what makes minimization of $f(x)$ interesting and difficult. Note that the minimization would have been easy if ${\bf x}$ was vector of continuous variables, as this would allow the use of gradient descent methods. However in the case where ${\bf x}$ is a vector of binary variables (0s and 1s), the function $f$ is not differentiable (not smooth). Therefore we cannot calculate its gradient, and one has to resort to other methods for minimization.
+
+### QUBO example: Set partitioning.
+
+To get a better feel about how and what kind of problems get mapped to QUBO, let us look at the following problem.
+We have a set of $N$ numbers $U = \{n_1, n_2, n_3, \dots, n_N\}$, and we need to partition the set into two **disjoint** subsets $A$ and $B$ such that the sum of numbers in both the sets is as close to each other as possible. 
+
+```{admonition} Definition
+:class: tip
+
+**Disjoint** sets do not have any elements in common.
+```
+
+More formally, if
+
+$$
+S_A = \sum_{i\in A} n_i \quad \text{and} \quad S_B = \sum_{i\in B} n_i
+$$
+
+The we need to construct the sets $A$ and $B$ such that $f_{\bf n} = (S_A - S_B)^2$ is minimum. Here ${\bf n} = (n_1, n_2, \dots, n_N)$ is the vector of numbers in the set. The function $f_{\bf n}$ is the cost function.
+
+
+```{tip}
+An example of such problem in daily life can be partitioning a class of students into two sections, such that average grade of students in each section is almost same.
+```
+
+The process of finding optimal solution involves finding different partitionings of the the set $U$ into $A$ and $B$, and computing the cost function, to seek minima using some algorithm. The cost function can be better formalised if we can define a definite set of variables for our problem.
+
+For partitioning the set, we each of the numbers $n_i$ in only one of the two sets $A$, $B$, so we can associate a binary variable $x_i$ to $n_i$, such that if $x_i = 1$ if we put $n_i$ into $A$, and $x_i = 0$ if we put $n_i$ into $B$. Then a vector ${\bf x} = (x1, x_2,\dots, x_N)$ of binary variables encapsulated the set partitioning, and different configurations of the vector ${\bf x}$ correspond to different ways of partitioning the set into $A$ and $B$.
+
+With ${\bf x}$, we can also write the set sums as follows -
+
+$$
+S_A = \sum_i n_i x_i \quad \text{and} \quad S_B = \sum_i n_i (1 - x_i)
+$$
+
+We can also define $S = \sum_i n_i$ as sum of all the numbers in the set $U$. Using the above expressions, we can compute the cost function as follows
+
+$$
+\begin{align}
+f_{\bf n}({\bf x}) &= (S_A - S_B)^2 = S_A^2 + S_B^2 - 2 S_A S_B \\
+&= \left(
+    \sum_i n_i x_i 
+\right)^2 + 
+\left(
+    \sum_i n_i (1 - x_i)
+\right)^2 - 2
+\left(
+    \sum_i n_i x_i 
+\right)
+\left(
+    \sum_i n_i (1 - x_i)
+\right)\\
+&= \sum_{ij}\left(
+    n_i n_j x_i x_j + n_i n_j (1 - x_i) (1 - x_j) - 2 n_i n_j x_i (1 - x_j)
+\right)\\
+& = 4\sum_{ij} n_i n_j x_i x_j -4S\sum_i n_i x_i + S^2
+\end{align}
+$$
+
+If we define $Q_{ij} = n_i n_j, v_i = -4S n_i$, and $c = S^2$, then the cost function can be written in the matrix form as follows -
+
+$$
+f_{\bf n}({\bf x}) = {\bf x}^T Q {\bf x} + {\bf v}^T {\bf x} + c = \sum_{ij} Q_ij x_i x_j + \sum_i v_i x_i + c
+$$
+
+### QUBO example: partitioning a set
+
+Let's illustrate QUBO with an example. Consider a set of $N$ numbers
+
+$$
+U = \{n_1, n_2, n_3, \dots, n_N\}
+$$
+
+Our goal is to divide this set $U$ into two **disjoint** sets $A$ and $B$ such that the sums of the numbers in $A$ and $B$ are as close to each other as possible. So, if
+
+$$
+S_A = \sum_{i\in A} n_i \quad \text{and} \quad S_B = \sum_{i\in B} n_i
+$$
+
+then we need to minimise the following cost function:
+
+$$
+f({\bf n}) = (S_A - S_B)^2
+$$
+
+```{figure} ./images/SetPartition.png
 :align: center
 
-A 2-1 function, here for every output there are two inputs that map to it.
+Partitioning a set of numbers into two groups. Aiming to minimize the cost function means we want their sums as close as possible, like balancing the scales.
 ```
 
-Here $x\,\text{XOR}\, c$ means to take the component-wise XOR between the n-bit strings $x$ and $c$. If $x=1011$ and $c=0101$ then we would get $x\,\text{XOR}\, c=1110$.
+### QUBO: set partitioning examples
 
-Classically this can be solved with an average of $O(2^{n/2})$ evaluations. While on a quantum computer on average we will require only $O(n)$ evaluations.
+```{admonition} Optimise shipping
+:class: info
 
-### Quantum Speed up
-With $2n$ qubits split into 2 n-bit registers, Simon's algorithm consists in the following steps:
-
-Firstly we apply a Hadamard gate to each qubit in the first register, creating the state
-
-$$
-\frac{1}{2^{n/2}} \sum_x |x\rangle |0\rangle.
-$$ 
-
-Note that the sum is over all n-bit strings, so for $n=2$ we sum over $00$, $01$, $10$ and $11$.
-
-Then we apply the unitary $U|x\rangle|y\rangle=|x\rangle|y \,\text{XOR}\, f(x) \rangle$ getting the state
-
-$$
-\frac{1}{2^{n/2}} \sum_x |x\rangle |f(x)\rangle.
-$$
-
-Next we measure the qubits in the second register. Suppose we measured $f(z)$, where recall $f(z)$ is an n-bit string, then we know that qubits in the first register must either be in $z$ or $z \,\text{XOR}\, c$ and hence the qubits in the first register are in state
-
-$$
-\frac{|z\rangle + |z \,\text{XOR}\, c\rangle}{\sqrt 2}
-$$
-
-Now we apply a Hadamard gate again to each qubit in the first register producing the state
-
-$$
- \frac{1}{2^{(n+1)/2}} \sum_x [(-1)^{x\cdot z} + (-1)^{x\cdot (z \,\text{XOR}\, c)}|x\rangle \\
-$$
-
-where $x\cdot z=x_1 z_1 + x_2 z_2 + ... + x_n z_n$. Using the fact that $(-1)^{a \,\text{XOR}\, b}=(-1)^{a+b}$ where $a,b\in\{0,1\}$ we can rewrite this as
-
-$$
-\begin{split} 
-& \frac{1}{2^{(n+1)/2}} \sum_x [(-1)^{x\cdot z} + (-1)^{x\cdot z} (-1)^{x\cdot c}|x\rangle \\
-=& \frac{1}{2^{(n+1)/2}} \sum_x (-1)^{x\cdot z}[1 + (-1)^{x\cdot c}|x\rangle .\\
-\end{split}
-$$
-
-When $x\cdot c$ is an odd number $1 + (-1)^{x\cdot c}$ will be zero, thus we can simplify this as
-
-$$ 
-\frac{1}{2^{(n+1)/2}} \sum_{x|x\cdot c \in\, \text{even}} (-1)^{x\cdot z} |x\rangle
-$$
-
-where $x\cdot c \in\, \text{even}$ means we only sum over bit strings for which $x\cdot c$ is an even number.
-
-Thus running the above circuit once, the first register gives us a value of $x$ for which $x\cdot c$ is even. If we repeat this $n$ times we will end up with $n$ independent equations (assuming we don't get duplicate values of $x$) for which we can easily solve for $c$.
-
-```{figure} ./images/simons_circuit.png
-:align: center
-
-The circuit for Simon's algorithm for $n=3$.
+Imagine you have **several boxes** for shipping, and you want to put them on **two delivery trucks**.
 ```
 
-## Shor's Algorithm
+```{admonition} Picking fair teams
+:class: success
 
-The [fundamental theorem of arithmetic](https://en.wikipedia.org/wiki/Fundamental_theorem_of_arithmetic) states that every integer can be unique written as a product of primes. For example the number $42$ can be written as $2*3*7$, all of which are prime.
-Shor's algorithm can find the prime factors of a given integer exponentially faster than the best known classical algorithms.
-
-### Overview
-Shor's algorithm consists of two steps:
-- Reduce the factoring problem to an order finding problem
-- Efficiently solve the order finding problem using the QPE algorihm
-
-```{figure} ./images/shor_workflow.png
-:align: center
-
-The workflow for Shor's algorithm.
+In a classroom of students, you want to pick **fair teams for a maths competition**, and divide students based on their **maths score**.
 ```
 
-The order finding problem is to find a value of $r$ such that
+```{admonition} Minimise scrappage
+:class: success
 
-$$
-x^r = 1\, \text{mod}\, N
-$$
-
-where $0<x<N$. Here $\text{mod}\, N$ means we divide by $N$ and keep the remainder.
-It turns out that if we have a fast method for order finding, then we also have a fast method for factoring numbers.
-
-Order finding can be efficiently run on a quantum computer using the QPE algorithm with unitary
-
-$$
-U|y\rangle=|xy\,\text{mod}\,N\rangle.
-$$
-
-### Implications for crytography
-In public-key cryptography one party is able to to securely share information to another, by using a public key (available to anyone) to encrypt a message and a private key (kept private by the party receiving the message) to decryt the message.
-
-A common way to generate the public and private keys is to use the RSA algorithm.
-Here the protocal is as follows:
- 1. Choose two random prime numbers $p$ and $q$
- 1. Compute $n=pq$
- 1. Compute $\phi=(p-1)(q-1)$
- 1. Select a random number $e$ whose greatest common factor with $\phi$ is 1
- 1. Find $d$ where $de=1\,\text{mod}\,\phi$ 
-
-The public keys are $(e, n)$ and the private key is $d$.
-A message $m$ can be encrypted using 
-
-$$
-E(m) = m^e \,\text{mod}\, n
-$$
-
-and decrypted using
-
-$$
-m = E(m)^d \,\text{mod}\, n.
-$$
-
-The security of RSA relies on the assumption that factoring is difficult and can't be done efficiently, as far as we know this is true on classical computers, but Shor's algorithm shows it's not the case for quanutm computers. Currently quantum computers are not large enough to run Shor's algorithm, but post quantum cryptography protocals are already being adopted.
-
-## Grover's Algorithm
-Grover's algorithm is an algorithm for searching through an unstructed database. It ofters a quadratic speed-up over classical approaches.
-
-### Unstructured search
-We can formulate the search problem more formally as follows:
-Suppose we’re given a function
-
-$$
-f:\{0,1\}^n \rightarrow \{0,1\}
-$$
-
-Our goal is to find a solution, which is a binary string $x\in\{0,1\}^n$ for which $f(x)=1$.
-
-Classically we can solve this by iterating through all $x$ and evaluating $f$ on each one and stopping when we find $f(x)=1$.
-If there are $N$ elements in the list and only one solution then on average we will have to evaluate $N/2$ elements.
-
-### Circuit
-For a database of size $N=2^n$ we require $n$ qubits. 
-We define the oracle, $O$, which performs the operation
-
-$$
-O|x\rangle = (-1)^{f(x)}|x\rangle.
-$$
-
-We also define the Diffusion operator which performs the operation
-
-$$
-2|\psi\rangle\langle \psi|-I 
-$$
-
-where $|\psi\rangle$ is the uniform superposition state given by
-
-$$
-|\psi\rangle = \frac{1}{2^{n/2}} \sum_x |x\rangle 
-$$
-
-(note that the sum is over all $n$ bit strings $x$) and $I$ is the identity matrix.
-
-Grover’s operator, $G$, is defined as
-
-$$
-G = (2|\psi\rangle\langle \psi|-I)O
-$$
-
-Grover's algorithm consists in
-1. Apply a Hadamard gate to each qubit (creating a uniform superposition state)
-1. Apply Grover's operator $\sim\sqrt{N}$ times
-1. Meaure the qubits
-
-with a probability of at least $1/2$ a solution will be measured. 
-
-### WHy does Grover's algorithm work?
-We define $M$ to be the number of solutions (i.e. values of $x$ for which $f(x)=1$).
-
-We define an equal superposition of solutions
-
-$$
-|A_1\rangle = \frac{1}{\sqrt M} \sum_{x \,|\, f(x)=1}|x\rangle
-$$
-
-where we some over all bit strings $x$ which have $f(x)=1$, and an equal superposition of non-solutions
-
-$$
-|A_0\rangle = \frac{1}{\sqrt{N-M}} \sum_{x \,|\, f(x)=0}|x\rangle.
-$$
-
-Note that we can write the uniform superposition state $|\psi\rangle$ in terms of these two states
-
-$$
-\begin{split}
-|\psi\rangle &= \frac{1}{\sqrt N} \sum_x |x\rangle \\ 
-&= \frac{1}{\sqrt N} \sum_{x \,|\, f(x)=0} |x\rangle + \frac{1}{\sqrt N} \sum_{x \,|\, f(x)=1} |x\rangle \\
-&= \sqrt{\frac{N-M}{N}} |A_0\rangle + \sqrt{\frac{M}{N}} |A_1\rangle \\
-&= \sqrt{1-\phi} |A_0\rangle + \sqrt{\phi} |A_1\rangle \\
-\end{split}
-$$
-
-where we have defined $\phi=M / N$.
-
-Consider a linear combination of $|A_0\rangle$ and $|A_1\rangle$
-
-$$
-|\alpha\rangle = a_0 |A_0\rangle + a_1 |A_1\rangle
-$$
-
-note that the state the circuit is in before the first application of Grover's application is $|\psi\rangle$ and hence is in the form of $|\alpha\rangle$.
-
-If we apply Grover's operator to $|\alpha\rangle$ we get
-
-$$
-\begin{split}
-G|\alpha\rangle &= (2|\psi\rangle\langle \psi|-I)O (a_0 |A_0\rangle + a_1 |A_1\rangle) \\ 
-&= (2|\psi\rangle\langle \psi|-I)(a_0 |A_0\rangle - a_1 |A_1\rangle) \\ 
-&= 2a_0 |\psi\rangle\langle \psi|A_0\rangle - 2 a_1 |\psi\rangle\langle \psi|A_1\rangle - a_0 |A_0\rangle + a_1 |A_1\rangle \\ 
-&= 2a_0 \sqrt{1-\phi} |\psi\rangle - 2 a_1 \sqrt{\phi} |\psi\rangle - a_0 |A_0\rangle + a_1 |A_1\rangle \\ 
-&= \left[a_0(1-2\phi) - 2 a_1 \sqrt{\phi(1-\phi)} \right] |A_0\rangle  + \left[a_1(1- 2\phi) + 2a_0 \sqrt{\phi(1-\phi)} \right] |A_1\rangle .\\ 
-\end{split}
-$$
-
-Note that $0 \le \phi \le 1$ and hence $-1 \le 1-2\phi \le 1$, this means we can write 
-
-$$
-1-2\phi = \cos \theta
-$$
-
-and hence
-
-$$
-\sin \theta = \sqrt{1 - \cos^2 \theta} = \sqrt{1 - (1-2\phi )^2} = 2\sqrt{\phi(1-\phi)}.
-$$
-
-Thus using this new $\theta$ variable we get
-
-$$
-G|\alpha\rangle = \left[a_0\cos \theta - 2 a_1 \sin \theta \right] |A_0\rangle  + \left[a_1\cos \theta + 2a_0 \sin \theta \right] |A_1\rangle .\\ 
-$$
-
-In terms of the coefficients $a_0$ and $a_1$, applying Grover's operator to $|\alpha\rangle$ results in the transformation
-
-$$
-\begin{pmatrix}
-a_0\\ a_1\\
-\end{pmatrix}
-\rightarrow
-\begin{pmatrix}
-\cos\theta & -\sin\theta \\
-\sin\theta & \cos\theta \\
-\end{pmatrix}
-\begin{pmatrix}
-a_0\\ a_1\\
-\end{pmatrix}.
-$$
-
-In the 2-D plane with $|A_0\rangle$ being the x-axis and $|A_1\rangle$ being the y-axis, this corresponds to an anti-clockwise rotation of angle $\theta$.
-
-```{figure} ./images/grover_rotation.png
-:align: center
-
-Applying Grover's operator to state $|\alpha\rangle$ results in an anti-clockwise rotation.
+A construction crew has **two standard 10 metre steel beams**. They need to cut out several **smaller, specific lengths of steel** requested by the architect. The goal is to group the lengths into two piles so that the scrap metal left over is minimised.
 ```
 
-Let's suppose that the number of solutions $M$ is small, then $\phi=M/N$ must also be small. 
-Thus we can approximate $\phi(1-\phi)\approx \phi$ and hence 
-$\sin \theta = 2\sqrt{\phi(1-\phi)} \approx 2\sqrt{\phi}$.
-But if $\phi$ is small then we can approximate $\sin \theta\approx \theta$ and hence we end up with
+### How does the vector ${\bf x}$ partition the set of numbers?
 
-$$
-\theta \approx 2\sqrt{\phi} = 2\sqrt{\frac{M}{N}}.
-$$
+- Let's take example: $U = \{n_1, n_2, n_3, n_4\}$.
 
-Recall that the first step of Grover's algorithm is to apply a Hadamard gate to each qubit, creating the uniform superposition state $|\psi\rangle$, if $M$ is small then $|\psi\rangle\approx |A_0\rangle$. Thus we start very close to the $|A_0\rangle$ state, recall that Grover's operator rotates anticlockwise by angle $\theta$, if we wish to end up near the $|A_1\rangle$ we need to rotate by $90$ degrees or $\pi/2$ radians. Thus the number of rotations we require, $k$, is
+- Below are few examples of how ${\bf x}$ divides the set.
 
-$$
-k = \frac{\pi}{2 \theta} = \frac{\pi}{4} \sqrt{\frac{N}{M}}.
-$$
+| ${\bf x}$   | $S_A$               | $S_B$                    |
+| ----------- | ------------------  | ------------------------ |
+| $(1,1,1,0)$ | $\{n_1, n_2, n_3\}$ | $\{n_4\}$                |
+| $(1,0,1,0)$ | $\{n_1, n_3\}$      | $\{n_2, n_4\}$           |
+| $(0,0,1,1)$ | $\{n_3, n_4\}$      | $\{n_1, n_2\}$           |
+| $(0,1,0,0)$ | $\{n_2\}$           | $\{n_1, n_3, n_4\}$      |
+| $(0,0,0,0)$ | $\{\}$              | $\{n_1, n_2, n_3, n_4\}$ |
 
-Thus we have derived the $O(\sqrt N)$ scaling of Grover's algorithm.
+### QUBO: classical algorithms
+
+Three classical approaches to the partitioning problem, in increasing order of sophistication:
+
+```{admonition} Pick me first
+:class: info
+
+A heuristic algorithm, where one puts a sorted list of numbers into two subsets $A$ and $B$, always adding the next number to whichever subset is currently lighter.
+```
+
+```{admonition} Greedy search (the blindfolded hiker)
+:class: success
+
+This is where one divides the set randomly, and swaps the element that lowers the cost function by the maximum amount. It only moves strictly "downhill", meaning it easily gets trapped in small ditches (local minima).
+```
+
+```{admonition} Simulated annealing (the bumpy tray)
+:class: warning
+
+This algorithm leverages the natural phenomenon of cooling. By pretending the cost function is the energy of a system, it starts by "shaking" the system to bounce out of bad solutions, slowly cooling until it settles in the deepest basin.
+```
+
+#### Heuristic approach: pick me first
+
+1. **Sort items**: Arrange the entire set of numbers in descending order, from largest to smallest.
+2. **Evaluate totals**: Compare the current accumulated sum of subset $A$ against subset $B$.
+3. **Assign item**: Place the next available number into whichever subset is currently lighter.
+4. **Terminate**: Repeat the evaluation and assignment until the sorted list is empty.
+
+```{mermaid}
+flowchart TD
+    A([Start]) --> B["Sort items largest to smallest.<br/>Put first number in A"]
+    B --> C[Take out an item]
+    C --> D{"Is sum of A < sum of B?"}
+    D -- Yes --> E[Assign item to A]
+    D -- No --> F[Assign item to B]
+    E --> H{Items remaining?}
+    F --> H
+    H -- Yes --> C
+    H -- No --> G([End: assignment complete])
+```
+
+#### Greedy search
+
+1. **Initialise state**: Begin with an arbitrary or pre-existing distribution of items across the subsets.
+2. **Evaluate neighbours**: Calculate the exact energy change for every possible single-item swap.
+3. **Execute best**: Identify and perform the one swap that yields the maximum energy reduction.
+4. **Terminate**: Repeat the search until no single move can further reduce the total energy.
+
+```{mermaid}
+flowchart TD
+    A([Start]) --> B["Divide the set<br/>randomly into A and B"]
+    B --> C["Evaluate all possible<br/>single swaps"]
+    C --> D{"Does best swap<br/>lower energy?"}
+    D -- Yes --> E[Execute the best swap]
+    E --> C
+    D -- No --> F([End: stuck in a local minimum])
+```
+
+#### Simulated annealing
+
+1. **Initialise system**: Define a starting temperature that allows high volatility, and a cooling rate.
+2. **Evaluate random**: Select one random item and calculate the exact energy change if it switched sides.
+3. **Accept or reject**: Swap immediately if the energy improves, or with a probability that depends on the temperature if it worsens.
+4. **Terminate**: Repeat the cycle, lowering the temperature each time, until the system freezes.
+
+```{mermaid}
+flowchart TD
+    A([Start]) --> B[Set temperature T]
+    B --> C[Select one random swap]
+    C --> D{Does it lower energy?}
+    D -- Yes --> E[Execute swap]
+    D -- No --> F{"Random() < exp(-ΔE/T)?"}
+    F -- Yes --> E
+    F -- No --> G[Reject swap]
+    E --> H[Lower temperature T]
+    G --> H
+    H --> C
+```
 
 
-## Limiations of early quantum algorithms
-Most early quantum algorithms require:
-- Large amounts of qubits
-- Long circuits
-- Error correction (to be robust in the present of noise), further increasing the number of required qubits
+## Wrap-up
 
-As current hardware is unable to meet these requirements, they are rarely used currently, with NISQ (Noisy Intermediate Scale Quantum) algorithms being developed and used instead.
+- We covered two common NISQ algorithms:
+    - QUBO
+    - QAOA
