@@ -295,6 +295,117 @@ flowchart TD
     H --> C
 ```
 
+### Small-size heuristics: limitations
+
+- Heuristic approaches work well for small sets (small problem sizes), but they don't scale well.
+- They also assume that the optimal solution divides the set into subsets $A$ and $B$ of nearly equal size.
+
+The figures below show histograms of the cost function over all possible partitions of a set. The $x$-axis shows the cost function value $f$, and the $y$-axis shows the number of partitions that have that same value of $f$, called the **degeneracy** of $f$.
+
+```{figure} ./images/Degeneracy_SmallNums.png
+:align: center
+
+Histogram of the cost function over all partitions of a balanced set of small numbers. Many partitions share the same cost, so the degeneracy is high.
+```
+
+```{figure} ./images/Degeneracy_BigNum.png
+:align: center
+
+The same set after adding a single large element, 100. The distribution changes completely and the degeneracy is gone.
+```
+
+- A "balanced" set has high degeneracy.
+- Adding a single element, 100, completely changes the distribution, and the degeneracy disappears.
+- The larger degeneracy makes the problem harder.
+- An imbalanced set usually results in optimal subsets that are imbalanced as well.
+
+### Aspects of QUBO
+
+- For QUBO, since the vector components are binary, there is no directional or visual guidance for the optimisation.
+- The search must explore brutal combinatorics: there are $2^N$ possibilities for the binary vector ${\bf x}$.
+- For the set partitioning problem, the complexity depends on the distribution of the numbers.
+- In a balanced, uniform set, the number of combinatorial options explodes.
+
+```{admonition} Definition: degeneracy
+:class: success
+
+A function is degenerate if different independent variables, or configurations, produce an identical result.
+
+Formally, a function $f({\bf x})$ is degenerate at ${\bf x}$ if there is at least one ${\bf x}' \ne {\bf x}$ such that
+
+$$f({\bf x}) = f({\bf x}')$$
+
+For a function of discrete variables, degeneracy is best viewed as the number of configurations that share a given value of the function.
+```
+
+Next we look at how this affects the complexity of QUBO, and what the distribution looks like.
+
+### Scaling in QUBO
+
+As the size $N$ increases, the discrete landscape of possible set partitions scales as follows. We can partition the set into $A$ and $B$ containing $(1, N-1)$ elements, $(2, N-2)$ elements, and so on up to $(\frac{N}{2}, \frac{N}{2})$ elements.
+
+| in $A$ | in $B$ | Combinations |
+| --- | --- | --- |
+| 0 | $N$ | $\binom{N}{0}$ |
+| 1 | $N - 1$ | $\binom{N}{1}$ |
+| 2 | $N - 2$ | $\binom{N}{2}$ |
+| 3 | $N - 3$ | $\binom{N}{3}$ |
+| ⋮ | ⋮ | ⋮ |
+| $k$ | $N - k$ | $\binom{N}{k}$ |
+| ⋮ | ⋮ | ⋮ |
+| $N/2$ | $N/2$ | $\tfrac{1}{2}\binom{N}{N/2}$ |
+
+```{admonition} Binomial coefficient
+:class: note
+
+The symbol $\binom{N}{k}$ denotes the number of ways to choose $k$ objects from a list of $N$:
+
+$$
+\binom{N}{k} = \frac{N!}{k!\,(N-k)!}
+$$
+```
+
+For even $N$, the total number of distinct partitions is
+
+$$
+\binom{N}{0} + \binom{N}{1} + \dots + \binom{N}{N/2 - 1} + \frac{1}{2}\binom{N}{N/2} = 2^{N-1}
+$$
+
+This grows exponentially, which is why we need specialised methods for finding QUBO solutions.
+
+```{figure} ./images/Scaling_SmallNums.png
+:align: center
+
+Scaling for the balanced set of small numbers.
+```
+
+```{figure} ./images/Scaling_BigNum.png
+:align: center
+
+Scaling for the set containing the single large element.
+```
+
+### Key aspects of QUBO
+
+```{admonition} Quadratic objective mapping
+:class: info
+
+QUBO encodes complex combinatorial optimisation problems into a unified mathematical structure of linear biases (diagonal elements) and pairwise interactions (off-diagonal elements):
+
+$$
+f({\bf x}) = {\bf x}^T Q {\bf x}
+$$
+
+- The components are binary: $x_i \in \{0, 1\}$. One can use $x_i^2 = x_i$ to absorb linear terms into the diagonal of $Q$.
+- However, we have no **visual** or **directional** insight into the **landscape** of the cost function.
+```
+
+```{admonition} Structural degeneracy
+:class: success
+
+QUBO problems can have broad, flat energy landscapes, where multiple distinct binary configurations yield the exact same global minimum. This heavily impacts solver trajectories and optimisation dynamics.
+```
+
 
 ## Wrap-up
 
