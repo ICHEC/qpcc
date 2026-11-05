@@ -406,6 +406,266 @@ $$
 QUBO problems can have broad, flat energy landscapes, where multiple distinct binary configurations yield the exact same global minimum. This heavily impacts solver trajectories and optimisation dynamics.
 ```
 
+### The quantum advantage
+
+Classical algorithms explore the $2^N$ possible configurations **sequentially**. A quantum processor can instead encode the problem and prepare a superposition over all $2^N$ basis states at once.
+
+Using the Quantum Approximate Optimisation Algorithm (QAOA), we steer the amplitudes with interference so that low-cost configurations become more likely to be measured.
+
+This raises the next question: how do we map a classical QUBO matrix into a quantum circuit?
+
+
+## QAOA
+
+### QAOA: the hybrid approach
+
+The Quantum Approximate Optimisation Algorithm (QAOA) is a technique for finding approximate solutions to combinatorial optimisation problems like QUBO.
+
+It is a **hybrid quantum-classical variational algorithm**, which splits the workload into a continuous feedback loop:
+
+- **The quantum device** runs a parameterised circuit to prepare a state and measure the expected QUBO cost.
+- **The classical device** takes that measurement and runs a classical optimisation (e.g. gradient descent) to update the circuit's parameters for the next iteration.
+
+```{figure} ./images/OptAlg.png
+:align: center
+
+The variational quantum-classical loop.
+```
+
+
+
+```{figure} ./images/OptMap.png
+:align: center
+
+Optimisation map.
+```
+
+### QUBO in quantum: the Ising bridge
+
+Classical algorithms evaluate the landscape blindly, one configuration ${\bf x}$ at a time. If we map the variables onto a quantum system, we can prepare a superposition of all configurations and use interference to favour the low-cost ones.
+
+To do this, we map the binary variables $x_i \in \{0, 1\}$ to Ising variables $z_i \in \{+1, -1\}$:
+
+$$
+z_i = 1 - 2x_i \qquad\Longleftrightarrow\qquad x_i = \frac{1}{2}(1 - z_i)
+$$
+
+so $x_i = 0$ corresponds to $z_i = +1$ and $x_i = 1$ to $z_i = -1$. Substituting $z_i$ for $x_i$ turns the QUBO cost function into the Ising model:
+
+$$
+f(x) \quad\Longrightarrow\quad H_C = \sum_{i\neq j} J_{ij} z_i z_j + \sum_i h_i z_i + c
+$$
+
+where the parameters $J_{ij}$ and $h_i$ depend on the classical $Q$ matrix of the QUBO problem. Solving the QUBO is now equivalent to finding the **ground state** of the Ising model, which we can set up on a quantum computer and tackle with an iterative scheme like VQE.
+
+#### Deriving the Ising coefficients
+
+Take a pure quadratic cost function, with the linear terms already absorbed into the diagonal and $Q'$ symmetric:
+
+$$f(x) = \sum_{ij} Q'_{ij} x_i x_j$$
+
+Substituting $x_i = \frac{1}{2}(1 - z_i)$ gives
+
+$$
+\begin{align*}
+f(z) &= \sum_{ij} \frac{Q'_{ij}}{4}(1 - z_i)(1 - z_j) = \sum_{ij} \frac{Q'_{ij}}{4} \left( 1 - z_i - z_j + z_i z_j \right)\\
+&= \sum_{ij} \frac{Q'_{ij}}{4} - \sum_{i}\left(\frac{1}{2}\sum_{j} Q'_{ij}\right) z_i + \sum_{ij} \frac{Q'_{ij}}{4}\, z_i z_j
+\end{align*}
+$$
+
+Grouping terms, we have:
+
+- **Couplings** $J_{ij}$: the Ising couplings are one quarter of the classical ones, $J_{ij} = \dfrac{Q'_{ij}}{4}$.
+- **Local fields** $h_i$: there is an additional linear term, $h_i = -\dfrac{1}{2} \sum_{j} Q'_{ij}$.
+- **Constant shift** $c$: a constant that we can ignore, since it does not change which state has the lowest energy.
+
+```{admonition} Diagonal terms
+:class: note
+
+Since $z_i^2 = 1$, the $i = j$ terms in the quadratic sum are also constants. We therefore take the coupling sum over $i \neq j$ and include those terms in $c$, so that $c = \sum_{ij} \frac{Q'_{ij}}{4} + \sum_{i} \frac{Q'_{ii}}{4}$.
+```
+
+#### The cost Hamiltonian
+
+Once we have the Ising form, replacing the numbers $z_i$ with Pauli-$Z$ operators is straightforward. This gives the **cost Hamiltonian** for our QUBO problem, turning the cost function into a physical energy landscape:
+
+$$
+f(x) \quad\Longrightarrow\quad H_C = \sum_{i\neq j} J_{ij} Z_i Z_j + \sum_i h_i Z_i
+$$
+
+Finding the optimal partition is now equivalent to finding the **ground state** (lowest energy state) of this quantum system.
+
+### The QAOA engine
+
+QAOA guides the superposition towards the correct answer using two alternating quantum operators, applied $p$ times.
+
+```{admonition} 1. The cost operator
+:class: info
+
+$$U_C(\gamma) = e^{-i \gamma H_C}$$
+
+- Evaluates the QUBO energy of every state in the superposition.
+- It doesn't change the probabilities, but it rotates the phase of each state according to how "good" the solution is.
+```
+
+```{admonition} 2. The mixer operator
+:class: info
+
+$$U_M(\beta) = e^{-i \beta H_M}$$
+
+- Creates quantum interference (Pauli-$X$ rotations).
+- It uses the phase differences created by the cost operator to amplify the probabilities of good solutions and suppress the bad ones.
+```
+
+The resulting ansatz is
+
+$$|\psi(\vec\gamma, \vec\beta)\rangle = \prod_{k=1}^{p} U_M(\beta_k) U_C(\gamma_k) |+\rangle^{\otimes n}$$
+
+### Constructing QAOA: cost and mixer
+
+1. **Equal superposition.** We start from an equal superposition of all possible set partitions, prepared with Hadamard gates:
+
+   $$|\psi_0\rangle = |+\rangle^{\otimes N} = \frac{1}{\sqrt{2^N}} \sum_{x=0}^{2^N-1} |x\rangle$$
+
+2. **The cost operator (scoring).** We apply $H_C$ for an angle $\gamma$. This imparts a *phase* to each state based on its QUBO energy. Crucially, phase alone does not change the measurement probabilities.
+
+   $$U_C(\gamma) = e^{-i \gamma H_C}$$
+
+3. **The mixer operator (interference).** We apply the mixer Hamiltonian for an angle $\beta$. This creates quantum interference, amplifying good partitions and suppressing bad ones.
+
+   $$ H_M = \sum_{j=0}^{N-1} X_j \quad\Longrightarrow\quad U_M(\beta) = e^{-i \beta H_M}$$
+
+4. **Full QAOA ansatz.** Repeat steps 2 and 3 for $p$ layers:
+
+   $$|\psi(\vec{\gamma}, \vec{\beta})\rangle = \prod_{k=1}^p U_M(\beta_k) U_C(\gamma_k) |+\rangle^{\otimes N}$$
+
+### Compiling to quantum gates
+
+Here is how a single QAOA layer ($p=1$) is executed on hardware.
+
+1. **Initialisation (superposition).** Apply a Hadamard gate to every qubit starting in $|0\rangle$, creating $|+\rangle^{\otimes N}$.
+2. **The cost layer ($ZZ$ couplings).** Each phase operator $e^{-i \gamma J Z_i Z_j}$ is compiled into an entangling block: `CNOT` $\rightarrow$ `RZ` $\rightarrow$ `CNOT`.
+3. **The mixer layer ($X$ rotations).** The transverse-field term $e^{-i \beta X}$ maps directly to single-qubit `RX` rotations, applied independently to every qubit.
+
+```{figure} ./images/qaoa_circuit.png
+:align: center
+
+A single QAOA layer ($p=1$): Hadamards, then `CNOT`–`RZ`–`CNOT` blocks for the cost layer, then `RX` rotations for the mixer.
+```
+
+### The hybrid variational loop
+
+The goal is to iteratively optimise the angles $(\vec\gamma, \vec\beta)$ so that low-cost partitions are the most likely measurement outcomes.
+
+1. **Quantum initialisation (QPU).** Initialise $N$ qubits in the equal superposition $|+\rangle^{\otimes N}$ with a layer of Hadamard gates.
+2. **Apply the QAOA ansatz (QPU).** Apply $p$ alternating layers of the cost operator $U_C(\gamma)$ and mixer operator $U_M(\beta)$. The hardware is now in the parameterised state $|\psi(\vec\gamma, \vec\beta)\rangle$.
+3. **Measurement and expectation (QPU → CPU).** Measure the qubits in the computational basis. Estimate the expected cost $E(\vec\gamma, \vec\beta) = \langle \psi | H_C | \psi \rangle$ by repeating the circuit many times (shots).
+4. **Classical optimisation (CPU).** Use a classical optimiser to suggest new angles $(\vec\gamma, \vec\beta)$ that lower the cost. Loop back to step 1 with the new angles until $E(\vec\gamma, \vec\beta)$ converges to a minimum.
+
+### Illustrative example: 3 qubits
+
+Let's partition the set $S = \{2, 3, 5\}$.
+
+- We need exactly 3 classical bits ($x_0, x_1, x_2$) to assign each number to one of the two subsets.
+- The optimal partition splits the set perfectly, with zero energy: $\{2, 3\}$ and $\{5\}$.
+
+#### Building the QUBO
+
+**1. The cost function.** The cost function is $f(x) = (S_A - S_B)^2$, where
+
+$$S_A = 2x_0 + 3x_1 + 5x_2, \qquad S_B = 2(1-x_0) + 3(1-x_1) + 5(1-x_2)$$
+
+which gives
+
+$$f(x) = 4(2x_0 + 3x_1 + 5x_2 - 5)^2$$
+
+**2. Algebraic expansion.** Ignoring the overall factor of 4, expanding the square gives constants, linear terms and quadratic pairs:
+
+$$
+\begin{align*}
+f(x) &= 25 - 20x_0 - 30x_1 - 50x_2 \\
+&\quad + 4x_0^2 + 9x_1^2 + 25x_2^2 \\
+&\quad + 12x_0x_1 + 20x_0x_2 + 30x_1x_2
+\end{align*}
+$$
+
+**3. The pure quadratic $Q$ matrix.** Since $x_i \in \{0,1\}$, we have $x_i^2 = x_i$, so we can absorb the linear terms into the diagonal:
+
+- $x_0$: $-20 + 4 = -16$
+- $x_1$: $-30 + 9 = -21$
+- $x_2$: $-50 + 25 = -25$
+
+The resulting $Q$ matrix (ignoring the $+25$ offset) is
+
+$$Q = \begin{pmatrix}
+-16 & 12 & 20 \\
+0 & -21 & 30 \\
+0 & 0 & -25
+\end{pmatrix}$$
+
+If we want to use $Q$ in an unrestricted sum $\sum_{ij}$, the off-diagonal entries are halved and the symmetric form is used:
+
+$$Q = \begin{pmatrix}
+-16 & 6 & 10 \\
+6 & -21 & 15 \\
+10 & 15 & -25
+\end{pmatrix}$$
+
+Next, we convert the classical $Q$ matrix into the quantum cost Hamiltonian $H_C$.
+
+#### The Ising Hamiltonian
+
+**1. The physical energy landscape.** Substituting $x_i = \frac{1 - z_i}{2}$, the cost function becomes
+
+$$H_C = (2Z_0 + 3Z_1 + 5Z_2)^2$$
+
+after replacing $z_i$ with Pauli-$Z$ operators. The factor of 4 in $f$ cancels the factor of $\frac14$ from the substitution, so $H_C$ is equal to the original cost function.
+
+**2. Expanding the quantum operators.** Just as before, we expand the square. In this case $Z_i^2 = I$ (the identity):
+
+$$H_C = 4Z_0^2 + 9Z_1^2 + 25Z_2^2 + 12Z_0Z_1 + 20Z_0Z_2 + 30Z_1Z_2$$
+
+**3. The final hardware parameters.** The $Z^2$ terms collapse into a constant ($4 + 9 + 25 = 38$):
+
+$$H_C = 38 + 12Z_0Z_1 + 20Z_0Z_2 + 30Z_1Z_2$$
+
+Notice that the linear biases $h_i$ have vanished. The quantum computer only needs to apply pairwise couplings $J_{ij}$ of strength $12$, $20$ and $30$ (up to the constant offset, which we can drop).
+
+#### Execution and outcome
+
+**1. The cost circuit.** Because there are no linear $h_i$ terms, we only need three entangling blocks to represent the three couplings in $U_C = e^{-i \gamma H_C}$:
+
+- `CNOT` $\to R_z(24\gamma) \to$ `CNOT` (for $12Z_0Z_1$)
+- `CNOT` $\to R_z(40\gamma) \to$ `CNOT` (for $20Z_0Z_2$)
+- `CNOT` $\to R_z(60\gamma) \to$ `CNOT` (for $30Z_1Z_2$)
+
+**2. The mixer circuit.** $U_M$ is applied immediately after the cost layer. It is a single $R_x(2\beta)$ rotation on every qubit, which lets the algorithm explore new partitions.
+
+**3. The variational handoff (QPU → CPU).**
+
+- **Sample (QPU):** run the circuit many times ("shots") to measure a frequency distribution of classical bitstrings.
+- **Score (CPU):** calculate the classical QUBO cost of each measured bitstring and compute the weighted average (the expectation value).
+- **Optimise (CPU):** a classical optimiser (e.g. COBYLA) adjusts $\gamma$ and $\beta$ to lower this average, repeating until convergence.
+
+The optimal solutions are $|110\rangle$ or $|001\rangle$, which are the two ways of assigning $\{2,3\}$ to one subset and $\{5\}$ to the other.
+
+### QAOA vs. VQE
+
+Both are hybrid quantum-classical algorithms with a parameterised loop, but they target different problems and use different circuit architectures.
+
+| | **VQE** (Variational Quantum Eigensolver) | **QAOA** (Quantum Approximate Optimisation Algorithm) |
+| --- | --- | --- |
+| **Goal** | Find the lowest-energy state (ground state) of a quantum physical system, such as a molecule's electron configuration | Find the maximum or minimum of a classical combinatorial cost function |
+| **Ansatz (circuit)** | Physically inspired circuits (e.g. UCCSD) or "hardware-efficient" templates; the gate structure is relatively rigid | A strictly "problem-inspired" alternating circuit ($p$ layers of cost and mixer operators); the depth $p$ controls the approximation quality |
+| **Primary domain** | Quantum chemistry, materials science, condensed matter physics | Logistics, finance, routing, set partitioning (QUBO) |
+
+### Wrap-up
+
+- **QUBO:** we learnt the formulation, its applications, and the difficulties caused by its discrete quadratic energy landscape.
+- **The Ising bridge:** we translate classical bits into quantum spins.
+- **The QAOA ansatz:** we alternate scoring partitions (cost layer) with driving quantum interference (mixer layer).
+- **The hybrid loop:** the QPU samples probabilities, and the CPU calculates the average cost and optimises the angles.
+
 
 ## Wrap-up
 
