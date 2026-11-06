@@ -450,13 +450,7 @@ Grouping terms, we have:
 
 - **Couplings** $J_{ij}$: the Ising couplings are one quarter of the classical ones, $J_{ij} = \dfrac{Q'_{ij}}{4}$.
 - **Local fields** $h_i$: there is an additional linear term, $h_i = -\dfrac{1}{2} \sum_{j} Q'_{ij}$.
-- **Constant shift** $c$: a constant that we can ignore, since it does not change which state has the lowest energy.
-
-```{admonition} Diagonal terms
-:class: note
-
-Since $z_i^2 = 1$, the $i = j$ terms in the quadratic sum are also constants. We therefore take the coupling sum over $i \neq j$ and include those terms in $c$, so that $c = \sum_{ij} \frac{Q'_{ij}}{4} + \sum_{i} \frac{Q'_{ii}}{4}$.
-```
+- **Constant shift** $c$: a constant that we can ignore, since it does not change which state has the lowest energy, $c = \sum_{ij} \dfrac{Q'_{ij}}{4}$.
 
 #### The cost Hamiltonian
 
@@ -525,6 +519,7 @@ Here is how a single QAOA layer ($p=1$) is executed on hardware.
 
 A single QAOA layer ($p=1$): Hadamards, then `CNOT`–`RZ`–`CNOT` blocks for the cost layer, then `RX` rotations for the mixer.
 ```
+
 
 ### The hybrid variational loop
 
@@ -638,10 +633,3 @@ Both are hybrid quantum-classical algorithms with a parameterised loop, but they
 - **The Ising bridge:** we translate classical bits into quantum spins.
 - **The QAOA ansatz:** we alternate scoring partitions (cost layer) with driving quantum interference (mixer layer).
 - **The hybrid loop:** the QPU samples probabilities, and the CPU calculates the average cost and optimises the angles.
-
-
-## Wrap-up
-
-- We covered two common NISQ algorithms:
-    - QUBO
-    - QAOA
