@@ -13,8 +13,8 @@ mystnb:
     render_markdown_format: myst
 ---
 
-(lecture-11)=
-# Lecture 11: NISQ Quantum Algorithms II
+(lecture-10)=
+# Lecture 10: NISQ Quantum Algorithms II
 
 ```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture 
 ```
@@ -42,33 +42,6 @@ In this lecture we will be continuing our discussion on Noisy Intermediate Scale
 - To work with these systems, shallow quantum algorithms with a low number of qubits are needed. In most cases, these algorithms are embbeded into a classical algorithm, resulting in _hybrid classical-quantum algorithms_.
 
 - The most common type of NISQ algorithms are the variational quantum circuits (VQCs), which are quantum circuits that contain classical parameters that need to be classically optimised.
-
-
-
-### Max-cut problem
-
-- A graph is a structure made up of various nodes that have weighted connections (edges) between them. They can be used to model different problems and scenarios. For example social media users can be modelled using a graph, where its edges represent the influence between different users.
-
-- The Max-cut problem aims to do a binary partition of the nodes of the graph so that the sum of the weights of the connections between the two sets is maximised. In the image below we can see how the graph's nodes were divided in two sets: one conatining nodes 0,3 and the other containing nodes 1,2.
-```{image} ./images/max_cut.jpg
-:align: center
-```
-
-- The Max-cut problem can be easily mapped to what is called an Ising Hamiltonian, which can be easily encoded and optimised on quantum computers.
-
-- The Max-cut problem has applications in many areas including clustering, or graph and electrical design. It is often used as benchmnarking for evaluating optimisation techniques.
-
-### Travelling-salesman problem
-
-- The travelling-salesman problem is another famous optimisation problem. Given a list of cities represented with nodes on a graph, and its distances represented by the weighted edges, the objective of this problem is to find the shortest possible route, so that each city is visited just once, and the starting and ending point of the route is the same.
-
-- Similarly to Max-cut, this problem can be easily mapped to an Ising hamiltonian and optimised in a quantum computer. In the image below we can see the graph representing the problem (left) and the shortest optimal route (right).
-```{image} ./images/travelling_salesman.jpg
-:align: center
-```
-
-- This problem has different applications in many areas, being finance and marketing among the most notable ones.
-
 
 
 
