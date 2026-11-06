@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Lecture 10: Nisq Algorithms 2 &#8212; Lecture Notes for CT4106</title>
+    <title>Lecture 10: NISQ Quantum Algorithms II &#8212; Lecture Notes for CT4106</title>
   
   
   
@@ -64,6 +64,364 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
+
+
+
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = "pre.mermaid {\n    /* Same as .mermaid-container > pre */\n    display: block;\n    width: 100%;\n}\n\npre.mermaid > svg {\n    /* Same as .mermaid-container > pre > svg */\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}";
+    document.head.appendChild(defaultStyle);
+
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = ".mermaid-container {\n    position: relative;\n    display: flex;\n    flex-direction: row;\n    width: 100%;\n}\n\n.mermaid-container > pre {\n    display: block;\n    width: 100%;\n}\n\n.mermaid-container > pre > svg {\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}\n\n.mermaid-fullscreen-btn {\n    position: absolute;\n    width: 28px;\n    height: 28px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.3);\n    border-radius: 4px;\n    cursor: pointer;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    transition: all 0.2s;\n    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);\n    font-size: 14px;\n    line-height: 1;\n    padding: 0;\n    color: #333;\n}\n\n.mermaid-fullscreen-btn:hover {\n    opacity: 100% !important;\n    background: rgba(255, 255, 255, 1);\n    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-btn.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.3);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-btn.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal {\n    display: none;\n    position: fixed !important;\n    top: 0 !important;\n    left: 0 !important;\n    width: 95vw;\n    height: 100vh;\n    background: rgba(255, 255, 255, 0.98);\n    z-index: 9999;\n    padding: 20px;\n    overflow: auto;\n}\n\n.mermaid-fullscreen-modal.dark-theme {\n    background: rgba(0, 0, 0, 0.98);\n}\n\n.mermaid-fullscreen-modal.active {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen {\n    position: relative;\n    width: 95vw;\n    height: 90vh;\n    max-width: 95vw;\n    max-height: 90vh;\n    background: white;\n    border-radius: 8px;\n    padding: 20px;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);\n    overflow: auto;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen.dark-theme {\n    background: #1a1a1a;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);\n}\n\n.mermaid-container-fullscreen pre.mermaid {\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen .mermaid svg {\n    height: 100% !important;\n    width: 100% !important;\n    cursor: grab;\n}\n\n.mermaid-fullscreen-close {\n    position: fixed !important;\n    top: 20px !important;\n    right: 20px !important;\n    width: 40px;\n    height: 40px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.2);\n    border-radius: 50%;\n    cursor: pointer;\n    z-index: 10000;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);\n    transition: all 0.2s;\n    font-size: 24px;\n    line-height: 1;\n    color: #333;\n}\n\n.mermaid-fullscreen-close:hover {\n    background: white;\n    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-close.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.2);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-close.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal .mermaid-fullscreen-btn {\n    display: none !important;\n}";
+    document.head.appendChild(fullscreenStyle);
+}
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
+        return brightness < 128;
+    }
+    // console.log("No dark or light theme detected, defaulting to light theme");
+    return false;
+};
+
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
+let _lazyObserver = null;
+let _renderQueue = Promise.resolve();
+let closeModal = () => {};
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal?.classList.contains('active')) {
+        closeModal();
+    }
+});
+
+// Apply d3 zoom to each SVG. Idempotent: an SVG already wrapped is skipped,
+// so this is safe to call both for the initial batch and for diagrams that
+// render lazily once they become visible.
+const addZoomToSvgs = (svgs) => {
+    svgs.each(function() {
+        if (this.getAttribute('data-zoom-applied') === 'true') return;
+        var svg = d3.select(this);
+        svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+        var inner = svg.select("g");
+        var zoom = d3.zoom().on("zoom", function(event) {
+            inner.attr("transform", event.transform);
+        });
+        svg.call(zoom);
+        this.setAttribute('data-zoom-applied', 'true');
+    });
+};
+
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        // Disconnect any previous lazy rendering observer
+        if (_lazyObserver) {
+            _lazyObserver.disconnect();
+            _lazyObserver = null;
+        }
+
+        all_mermaids.forEach((el) => {
+            el.removeAttribute('data-mermaid-deferred');
+            el.removeAttribute('data-mermaid-render-failed');
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+
+        // Separate visible and hidden elements. Mermaid's layout engine measures
+        // text dimensions via the DOM, which fails for elements hidden by a parent
+        // (e.g., Reveal.js non-active slides, sphinx-design unopened tabs),
+        // producing broken SVGs. Render visible elements now, defer hidden ones.
+        const visible = [];
+        const hidden = [];
+        all_mermaids.forEach((el) => {
+            // offsetParent is null for display:none ancestors.
+            // getClientRects().length > 0 catches position:fixed elements
+            // (which also have null offsetParent but are still visible).
+            if (el.offsetParent !== null || el.getClientRects().length > 0) {
+                visible.push(el);
+            } else {
+                hidden.push(el);
+                el.setAttribute('data-mermaid-deferred', 'true');
+            }
+        });
+
+        if (visible.length > 0) {
+            try {
+                await mermaid.run({ nodes: visible });
+            } catch (e) {
+                console.error("Mermaid rendering failed:", e);
+            }
+        }
+
+        // Lazily render hidden elements when they become visible.
+        // Uses a promise chain (_renderQueue) to serialize rendering,
+        // since IntersectionObserver may report multiple entries at once
+        // and mermaid.run() is not safe to call concurrently.
+        if (hidden.length > 0) {
+            if (typeof IntersectionObserver === 'undefined') {
+                console.warn("IntersectionObserver not available; hidden mermaid diagrams will not render.");
+            } else {
+                _renderQueue = Promise.resolve();
+                _lazyObserver = new IntersectionObserver((entries) => {
+                    for (const entry of entries) {
+                        if (entry.isIntersecting && entry.target.getAttribute("data-processed") !== "true") {
+                            _lazyObserver.unobserve(entry.target);
+                            const el = entry.target;
+                            _renderQueue = _renderQueue.then(async () => {
+                                try {
+                                    await mermaid.run({ nodes: [el] });
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    // Apply zoom to the now-rendered diagram, matching
+                                    // the decoration visible diagrams receive.
+                                    if (false) {
+                                        addZoomToSvgs(d3.selectAll("").select(function() {
+                                            return this.querySelector("svg");
+                                        }));
+                                    }
+                                } catch (e) {
+                                    console.error("Mermaid deferred rendering failed:", e);
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    el.setAttribute('data-mermaid-render-failed', 'true');
+                                }
+                            });
+                        }
+                    }
+                });
+                hidden.forEach((el) => _lazyObserver.observe(el));
+            }
+        }
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
+    // Exclude deferred (hidden) and render-failed elements from completion checks
+    const mermaids_active = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])");
+    const mermaids_processed = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])[data-processed='true']");
+
+    if (false) {
+        const mermaids_to_add_zoom = 0 === -1 ? mermaids_active.length : 0;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll("").select(function() {
+                return this.querySelector("svg");
+            });
+            // Wait until every active (visible) diagram has rendered. Deferred
+            // diagrams are excluded, so a fixed d3_node_count that counts a
+            // hidden diagram no longer loops forever waiting for its SVG.
+            if(mermaids_active.length !== mermaids_processed.length) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            }
+            addZoomToSvgs(svgs);
+        }
+    } else if(mermaids_active.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(() => runMermaid(false), 200);
+        return;
+    }
+
+    // Stop here if not adding fullscreen capability
+    if (!true) return;
+
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = "\u26f6";
+        fullscreenBtn.style.opacity = "50%";
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scrollX, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.display = 'block';
+
+                if (false) {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        container.appendChild(fullscreenBtn);
+    });
+};
+
+
+
+const load = async () => {
+    initStyles();
+
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...{"startOnLoad": false},
+                ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...{"startOnLoad": false},
+    ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+    }
+);
+
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-10/nisq-algo2';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <script src="../_static/bloch-path.js?v=fbcfb0fb"></script>
@@ -73,6 +431,8 @@
     <script src="../_static/quantum-circuit.js?v=8c43a845"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Mathematical Structure" href="../topics/math-la.html" />
+    <link rel="prev" title="Lecture 9: NISQ Algorithms I" href="../lecture-09/nisq-algo1.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -173,8 +533,6 @@
     <div class="bd-container__inner bd-page-width">
       
       
-      
-        
       
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
@@ -277,6 +635,10 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../lecture-09/nisq-algo1.html">Lecture 9: NISQ Algorithms I</a></li>
 
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Topic 10</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 10: NISQ Quantum Algorithms II</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous Topics</span></p>
 <ul class="nav bd-sidenav">
@@ -416,7 +778,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Lecture 10: Nisq Algorithms 2</h1>
+    <h1>Lecture 10: NISQ Quantum Algorithms II</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -426,23 +788,46 @@
             </div>
             <nav aria-label="Page">
                 <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-algorithm">Simon’s Algorithm</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-problem">Simon’s Problem</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-speed-up">Quantum Speed up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-nisq-era-algorithms">Recap: NISQ era algorithms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qubo-problem">QUBO problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qubo-example-set-partitioning">QUBO example: Set partitioning.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qubo-example-partitioning-a-set">QUBO example: partitioning a set</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qubo-set-partitioning-examples">QUBO: set partitioning examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-does-the-vector-bf-x-partition-the-set-of-numbers">How does the vector <span class="math notranslate nohighlight">\({\bf x}\)</span> partition the set of numbers?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qubo-classical-algorithms">QUBO: classical algorithms</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#heuristic-approach-pick-me-first">Heuristic approach: pick me first</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#greedy-search">Greedy search</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#simulated-annealing">Simulated annealing</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shors-algorithm">Shor’s Algorithm</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implications-for-crytography">Implications for crytography</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#small-size-heuristics-limitations">Small-size heuristics: limitations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aspects-of-qubo">Aspects of QUBO</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scaling-in-qubo">Scaling in QUBO</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-aspects-of-qubo">Key aspects of QUBO</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-quantum-advantage">The quantum advantage</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grovers-algorithm">Grover’s Algorithm</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unstructured-search">Unstructured search</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#circuit">Circuit</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-does-grovers-algorithm-work">WHy does Grover’s algorithm work?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qaoa">QAOA</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qaoa-the-hybrid-approach">QAOA: the hybrid approach</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qubo-in-quantum-the-ising-bridge">QUBO in quantum: the Ising bridge</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deriving-the-ising-coefficients">Deriving the Ising coefficients</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cost-hamiltonian">The cost Hamiltonian</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limiations-of-early-quantum-algorithms">Limiations of early quantum algorithms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-qaoa-engine">The QAOA engine</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#constructing-qaoa-cost-and-mixer">Constructing QAOA: cost and mixer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compiling-to-quantum-gates">Compiling to quantum gates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-hybrid-variational-loop">The hybrid variational loop</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#illustrative-example-3-qubits">Illustrative example: 3 qubits</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-qubo">Building the QUBO</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-ising-hamiltonian">The Ising Hamiltonian</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#execution-and-outcome">Execution and outcome</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qaoa-vs-vqe">QAOA vs. VQE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wrap-up">Wrap-up</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -454,290 +839,649 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="lecture-10-nisq-algorithms-2">
-<span id="lecture-10"></span><h1>Lecture 10: Nisq Algorithms 2<a class="headerlink" href="#lecture-10-nisq-algorithms-2" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-10-nisq-quantum-algorithms-ii">
+<span id="lecture-10"></span><h1>Lecture 10: NISQ Quantum Algorithms II<a class="headerlink" href="#lecture-10-nisq-quantum-algorithms-ii" title="Link to this heading">#</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>These lecture notes are a work in progress and are not a replacement for watching the lecture video, it’s intended to be a supplementary reading after watching the lecture</p>
 </div>
 <div class="tip admonition">
 <p class="admonition-title">Learning Outcomes</p>
-<p>In this learning we will continue with our exporation of early quantum algorithms. Specially we’ll discuss:</p>
+<p>In this lecture we will be continuing our discussion on Noisy Intermediate Scale Quantum (NISQ) algorithms. The learning outcomes are:</p>
 <ul class="simple">
-<li><p>Simon’s Algorithm.</p></li>
-<li><p>Shor’s Algorithm.</p></li>
-<li><p>Grover’s Algorithm.</p></li>
+<li><p>Understanding the landscape of NISQ era algorithms</p></li>
+<li><p>Understanding the requirements for the practical application of NISQ era algorithms</p></li>
 </ul>
 </div>
-<section id="simons-algorithm">
-<h2>Simon’s Algorithm<a class="headerlink" href="#simons-algorithm" title="Link to this heading">#</a></h2>
-<p>Simon’s algorithm was the first proposed quantum algorithm to demonstrate an exponential speed up over classical computers. While it doesn’t have a known practical use, it served as an inspiration for many other quantum algorithms.</p>
-<section id="simons-problem">
-<h3>Simon’s Problem<a class="headerlink" href="#simons-problem" title="Link to this heading">#</a></h3>
-<p>Let <span class="math notranslate nohighlight">\(f:\{0, 1\}^n \rightarrow \{0,1\}^n\)</span> be a function that is 2-1 (for every <span class="math notranslate nohighlight">\(x\)</span> there is a <span class="math notranslate nohighlight">\(y\)</span> such that <span class="math notranslate nohighlight">\(f(x)=f(y)\)</span>) and where <span class="math notranslate nohighlight">\(f(x\,\text{XOR}\, c)=f(x)\)</span>.
-Our task is to find <span class="math notranslate nohighlight">\(c\)</span>.</p>
+<div class="tip admonition">
+<p class="admonition-title">Contents</p>
+<ul class="simple">
+<li><p>Quadratic Unconstrained Binary Optimization (QUBO)</p></li>
+<li><p>Quantum Approximate Optimisation Algorithm (QAOA)</p></li>
+</ul>
+</div>
+<section id="recap-nisq-era-algorithms">
+<h2>Recap: NISQ era algorithms<a class="headerlink" href="#recap-nisq-era-algorithms" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>NISQ stands for Noisy Intermediate Scale Quantum. This describes the current state of quantum hardware, with the largest quantum computers having between a few hundred and a few thousand qubits, all subject to noise.</p></li>
+<li><p>To work with these systems, shallow quantum algorithms with a low number of qubits are needed. In most cases, these algorithms are embbeded into a classical algorithm, resulting in <em>hybrid classical-quantum algorithms</em>.</p></li>
+<li><p>The most common type of NISQ algorithms are the variational quantum circuits (VQCs), which are quantum circuits that contain classical parameters that need to be classically optimised.</p></li>
+</ul>
+</section>
+<section id="qubo-problem">
+<h2>QUBO problem<a class="headerlink" href="#qubo-problem" title="Link to this heading">#</a></h2>
+<p>Quadratic Unconstrained Binary Optimisation, or <strong>QUBO</strong> is a class of mathematical problem, that has rather vast and diverse applications. The QUBO problem seeks minimization of a real valued function of several binary variables. More formally, one looks for minimization of the following function <span class="math notranslate nohighlight">\(f\)</span> of <span class="math notranslate nohighlight">\(N\)</span> variables -</p>
+<div class="math notranslate nohighlight">
+\[
+f({\bf x}) = {\bf x}^T Q {\bf x} + {\bf v}^T {\bf x} + c
+\]</div>
+<p>or equivalently</p>
+<div class="math notranslate nohighlight">
+\[
+f({\bf x}) = \sum_{ij} x_i Q_{ij} x_j + \sum_i v_i x_i + c
+\]</div>
+<p>where, <span class="math notranslate nohighlight">\(Q\)</span> is real symmetric matrix of size <span class="math notranslate nohighlight">\(N\times N\)</span> with entries <span class="math notranslate nohighlight">\(Q_{ij}\)</span>, <span class="math notranslate nohighlight">\({\bf v}\)</span> is real valued vector of length <span class="math notranslate nohighlight">\(N\)</span>, and <span class="math notranslate nohighlight">\(c\)</span> is a constant number. The function <span class="math notranslate nohighlight">\(f\)</span> is a function of <span class="math notranslate nohighlight">\(N\)</span> binary variable <span class="math notranslate nohighlight">\({\bf x} = (x_1, x_2, x_3, \dots, x_N)\)</span>, i.e., <span class="math notranslate nohighlight">\(x_i = 0, 1\)</span>. The matrix, vector and scalar <span class="math notranslate nohighlight">\(({\bf Q}, {\bf v}, c)\)</span> define the optimization problem.</p>
+<p>The variables being binary is what makes minimization of <span class="math notranslate nohighlight">\(f(x)\)</span> interesting and difficult. Note that the minimization would have been easy if <span class="math notranslate nohighlight">\({\bf x}\)</span> was vector of continuous variables, as this would allow the use of gradient descent methods. However in the case where <span class="math notranslate nohighlight">\({\bf x}\)</span> is a vector of binary variables (0s and 1s), the function <span class="math notranslate nohighlight">\(f\)</span> is not differentiable (not smooth). Therefore we cannot calculate its gradient, and one has to resort to other methods for minimization.</p>
+<section id="qubo-example-set-partitioning">
+<h3>QUBO example: Set partitioning.<a class="headerlink" href="#qubo-example-set-partitioning" title="Link to this heading">#</a></h3>
+<p>To get a better feel about how and what kind of problems get mapped to QUBO, let us look at the following problem.
+We have a set of <span class="math notranslate nohighlight">\(N\)</span> numbers <span class="math notranslate nohighlight">\(U = \{n_1, n_2, n_3, \dots, n_N\}\)</span>, and we need to partition the set into two <strong>disjoint</strong> subsets <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> such that the sum of numbers in both the sets is as close to each other as possible.</p>
+<div class="tip admonition">
+<p class="admonition-title">Definition</p>
+<p><strong>Disjoint</strong> sets do not have any elements in common.</p>
+</div>
+<p>More formally, if</p>
+<div class="math notranslate nohighlight">
+\[
+S_A = \sum_{i\in A} n_i \quad \text{and} \quad S_B = \sum_{i\in B} n_i
+\]</div>
+<p>The we need to construct the sets <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> such that <span class="math notranslate nohighlight">\(f_{\bf n} = (S_A - S_B)^2\)</span> is minimum. Here <span class="math notranslate nohighlight">\({\bf n} = (n_1, n_2, \dots, n_N)\)</span> is the vector of numbers in the set. The function <span class="math notranslate nohighlight">\(f_{\bf n}\)</span> is the cost function.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>An example of such problem in daily life can be partitioning a class of students into two sections, such that average grade of students in each section is almost same.</p>
+</div>
+<p>The process of finding optimal solution involves finding different partitionings of the the set <span class="math notranslate nohighlight">\(U\)</span> into <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>, and computing the cost function, to seek minima using some algorithm. The cost function can be better formalised if we can define a definite set of variables for our problem.</p>
+<p>For partitioning the set, we each of the numbers <span class="math notranslate nohighlight">\(n_i\)</span> in only one of the two sets <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span>, so we can associate a binary variable <span class="math notranslate nohighlight">\(x_i\)</span> to <span class="math notranslate nohighlight">\(n_i\)</span>, such that if <span class="math notranslate nohighlight">\(x_i = 1\)</span> if we put <span class="math notranslate nohighlight">\(n_i\)</span> into <span class="math notranslate nohighlight">\(A\)</span>, and <span class="math notranslate nohighlight">\(x_i = 0\)</span> if we put <span class="math notranslate nohighlight">\(n_i\)</span> into <span class="math notranslate nohighlight">\(B\)</span>. Then a vector <span class="math notranslate nohighlight">\({\bf x} = (x1, x_2,\dots, x_N)\)</span> of binary variables encapsulated the set partitioning, and different configurations of the vector <span class="math notranslate nohighlight">\({\bf x}\)</span> correspond to different ways of partitioning the set into <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>.</p>
+<p>With <span class="math notranslate nohighlight">\({\bf x}\)</span>, we can also write the set sums as follows -</p>
+<div class="math notranslate nohighlight">
+\[
+S_A = \sum_i n_i x_i \quad \text{and} \quad S_B = \sum_i n_i (1 - x_i)
+\]</div>
+<p>We can also define <span class="math notranslate nohighlight">\(S = \sum_i n_i\)</span> as sum of all the numbers in the set <span class="math notranslate nohighlight">\(U\)</span>. Using the above expressions, we can compute the cost function as follows</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+f_{\bf n}({\bf x}) &amp;= (S_A - S_B)^2 = S_A^2 + S_B^2 - 2 S_A S_B \\
+&amp;= \left(
+    \sum_i n_i x_i 
+\right)^2 + 
+\left(
+    \sum_i n_i (1 - x_i)
+\right)^2 - 2
+\left(
+    \sum_i n_i x_i 
+\right)
+\left(
+    \sum_i n_i (1 - x_i)
+\right)\\
+&amp;= \sum_{ij}\left(
+    n_i n_j x_i x_j + n_i n_j (1 - x_i) (1 - x_j) - 2 n_i n_j x_i (1 - x_j)
+\right)\\
+&amp; = 4\sum_{ij} n_i n_j x_i x_j -4S\sum_i n_i x_i + S^2
+\end{align}
+\end{split}\]</div>
+<p>If we define <span class="math notranslate nohighlight">\(Q_{ij} = n_i n_j, v_i = -4S n_i\)</span>, and <span class="math notranslate nohighlight">\(c = S^2\)</span>, then the cost function can be written in the matrix form as follows -</p>
+<div class="math notranslate nohighlight">
+\[
+f_{\bf n}({\bf x}) = {\bf x}^T Q {\bf x} + {\bf v}^T {\bf x} + c = \sum_{ij} Q_ij x_i x_j + \sum_i v_i x_i + c
+\]</div>
+</section>
+<section id="qubo-example-partitioning-a-set">
+<h3>QUBO example: partitioning a set<a class="headerlink" href="#qubo-example-partitioning-a-set" title="Link to this heading">#</a></h3>
+<p>Let’s illustrate QUBO with an example. Consider a set of <span class="math notranslate nohighlight">\(N\)</span> numbers</p>
+<div class="math notranslate nohighlight">
+\[
+U = \{n_1, n_2, n_3, \dots, n_N\}
+\]</div>
+<p>Our goal is to divide this set <span class="math notranslate nohighlight">\(U\)</span> into two <strong>disjoint</strong> sets <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> such that the sums of the numbers in <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are as close to each other as possible. So, if</p>
+<div class="math notranslate nohighlight">
+\[
+S_A = \sum_{i\in A} n_i \quad \text{and} \quad S_B = \sum_{i\in B} n_i
+\]</div>
+<p>then we need to minimise the following cost function:</p>
+<div class="math notranslate nohighlight">
+\[
+f({\bf n}) = (S_A - S_B)^2
+\]</div>
 <figure class="align-center" id="id1">
-<img alt="../_images/two-one-func.png" src="../_images/two-one-func.png" />
+<img alt="../_images/SetPartition.png" src="../_images/SetPartition.png" />
 <figcaption>
-<p><span class="caption-text">A 2-1 function, here for every output there are two inputs that map to it.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 78 </span><span class="caption-text">Partitioning a set of numbers into two groups. Aiming to minimize the cost function means we want their sums as close as possible, like balancing the scales.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<p>Here <span class="math notranslate nohighlight">\(x\,\text{XOR}\, c\)</span> means to take the component-wise XOR between the n-bit strings <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(c\)</span>. If <span class="math notranslate nohighlight">\(x=1011\)</span> and <span class="math notranslate nohighlight">\(c=0101\)</span> then we would get <span class="math notranslate nohighlight">\(x\,\text{XOR}\, c=1110\)</span>.</p>
-<p>Classically this can be solved with an average of <span class="math notranslate nohighlight">\(O(2^{n/2})\)</span> evaluations. While on a quantum computer on average we will require only <span class="math notranslate nohighlight">\(O(n)\)</span> evaluations.</p>
 </section>
-<section id="quantum-speed-up">
-<h3>Quantum Speed up<a class="headerlink" href="#quantum-speed-up" title="Link to this heading">#</a></h3>
-<p>With <span class="math notranslate nohighlight">\(2n\)</span> qubits split into 2 n-bit registers, Simon’s algorithm consists in the following steps:</p>
-<p>Firstly we apply a Hadamard gate to each qubit in the first register, creating the state</p>
-<div class="math notranslate nohighlight">
-\[
-\frac{1}{2^{n/2}} \sum_x |x\rangle |0\rangle.
-\]</div>
-<p>Note that the sum is over all n-bit strings, so for <span class="math notranslate nohighlight">\(n=2\)</span> we sum over <span class="math notranslate nohighlight">\(00\)</span>, <span class="math notranslate nohighlight">\(01\)</span>, <span class="math notranslate nohighlight">\(10\)</span> and <span class="math notranslate nohighlight">\(11\)</span>.</p>
-<p>Then we apply the unitary <span class="math notranslate nohighlight">\(U|x\rangle|y\rangle=|x\rangle|y \,\text{XOR}\, f(x) \rangle\)</span> getting the state</p>
-<div class="math notranslate nohighlight">
-\[
-\frac{1}{2^{n/2}} \sum_x |x\rangle |f(x)\rangle.
-\]</div>
-<p>Next we measure the qubits in the second register. Suppose we measured <span class="math notranslate nohighlight">\(f(z)\)</span>, where recall <span class="math notranslate nohighlight">\(f(z)\)</span> is an n-bit string, then we know that qubits in the first register must either be in <span class="math notranslate nohighlight">\(z\)</span> or <span class="math notranslate nohighlight">\(z \,\text{XOR}\, c\)</span> and hence the qubits in the first register are in state</p>
-<div class="math notranslate nohighlight">
-\[
-\frac{|z\rangle + |z \,\text{XOR}\, c\rangle}{\sqrt 2}
-\]</div>
-<p>Now we apply a Hadamard gate again to each qubit in the first register producing the state</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
- \frac{1}{2^{(n+1)/2}} \sum_x [(-1)^{x\cdot z} + (-1)^{x\cdot (z \,\text{XOR}\, c)}|x\rangle \\
-\end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(x\cdot z=x_1 z_1 + x_2 z_2 + ... + x_n z_n\)</span>. Using the fact that <span class="math notranslate nohighlight">\((-1)^{a \,\text{XOR}\, b}=(-1)^{a+b}\)</span> where <span class="math notranslate nohighlight">\(a,b\in\{0,1\}\)</span> we can rewrite this as</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{split} 
-&amp; \frac{1}{2^{(n+1)/2}} \sum_x [(-1)^{x\cdot z} + (-1)^{x\cdot z} (-1)^{x\cdot c}|x\rangle \\
-=&amp; \frac{1}{2^{(n+1)/2}} \sum_x (-1)^{x\cdot z}[1 + (-1)^{x\cdot c}|x\rangle .\\
-\end{split}
-\end{split}\]</div>
-<p>When <span class="math notranslate nohighlight">\(x\cdot c\)</span> is an odd number <span class="math notranslate nohighlight">\(1 + (-1)^{x\cdot c}\)</span> will be zero, thus we can simplify this as</p>
-<div class="math notranslate nohighlight">
-\[ 
-\frac{1}{2^{(n+1)/2}} \sum_{x|x\cdot c \in\, \text{even}} (-1)^{x\cdot z} |x\rangle
-\]</div>
-<p>where <span class="math notranslate nohighlight">\(x\cdot c \in\, \text{even}\)</span> means we only sum over bit strings for which <span class="math notranslate nohighlight">\(x\cdot c\)</span> is an even number.</p>
-<p>Thus running the above circuit once, the first register gives us a value of <span class="math notranslate nohighlight">\(x\)</span> for which <span class="math notranslate nohighlight">\(x\cdot c\)</span> is even. If we repeat this <span class="math notranslate nohighlight">\(n\)</span> times we will end up with <span class="math notranslate nohighlight">\(n\)</span> independent equations (assuming we don’t get duplicate values of <span class="math notranslate nohighlight">\(x\)</span>) for which we can easily solve for <span class="math notranslate nohighlight">\(c\)</span>.</p>
+<section id="qubo-set-partitioning-examples">
+<h3>QUBO: set partitioning examples<a class="headerlink" href="#qubo-set-partitioning-examples" title="Link to this heading">#</a></h3>
+<div class="info admonition">
+<p class="admonition-title">Optimise shipping</p>
+<p>Imagine you have <strong>several boxes</strong> for shipping, and you want to put them on <strong>two delivery trucks</strong>.</p>
+</div>
+<div class="success admonition">
+<p class="admonition-title">Picking fair teams</p>
+<p>In a classroom of students, you want to pick <strong>fair teams for a maths competition</strong>, and divide students based on their <strong>maths score</strong>.</p>
+</div>
+<div class="success admonition">
+<p class="admonition-title">Minimise scrappage</p>
+<p>A construction crew has <strong>two standard 10 metre steel beams</strong>. They need to cut out several <strong>smaller, specific lengths of steel</strong> requested by the architect. The goal is to group the lengths into two piles so that the scrap metal left over is minimised.</p>
+</div>
+</section>
+<section id="how-does-the-vector-bf-x-partition-the-set-of-numbers">
+<h3>How does the vector <span class="math notranslate nohighlight">\({\bf x}\)</span> partition the set of numbers?<a class="headerlink" href="#how-does-the-vector-bf-x-partition-the-set-of-numbers" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Let’s take example: <span class="math notranslate nohighlight">\(U = \{n_1, n_2, n_3, n_4\}\)</span>.</p></li>
+<li><p>Below are few examples of how <span class="math notranslate nohighlight">\({\bf x}\)</span> divides the set.</p></li>
+</ul>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\({\bf x}\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(S_A\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(S_B\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\((1,1,1,0)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\{n_1, n_2, n_3\}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\{n_4\}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\((1,0,1,0)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\{n_1, n_3\}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\{n_2, n_4\}\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\((0,0,1,1)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\{n_3, n_4\}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\{n_1, n_2\}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\((0,1,0,0)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\{n_2\}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\{n_1, n_3, n_4\}\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\((0,0,0,0)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\{\}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\{n_1, n_2, n_3, n_4\}\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="qubo-classical-algorithms">
+<h3>QUBO: classical algorithms<a class="headerlink" href="#qubo-classical-algorithms" title="Link to this heading">#</a></h3>
+<p>Three classical approaches to the partitioning problem, in increasing order of sophistication:</p>
+<div class="info admonition">
+<p class="admonition-title">Pick me first</p>
+<p>A heuristic algorithm, where one puts a sorted list of numbers into two subsets <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>, always adding the next number to whichever subset is currently lighter.</p>
+</div>
+<div class="success admonition">
+<p class="admonition-title">Greedy search (the blindfolded hiker)</p>
+<p>This is where one divides the set randomly, and swaps the element that lowers the cost function by the maximum amount. It only moves strictly “downhill”, meaning it easily gets trapped in small ditches (local minima).</p>
+</div>
+<div class="warning admonition">
+<p class="admonition-title">Simulated annealing (the bumpy tray)</p>
+<p>This algorithm leverages the natural phenomenon of cooling. By pretending the cost function is the energy of a system, it starts by “shaking” the system to bounce out of bad solutions, slowly cooling until it settles in the deepest basin.</p>
+</div>
+<section id="heuristic-approach-pick-me-first">
+<h4>Heuristic approach: pick me first<a class="headerlink" href="#heuristic-approach-pick-me-first" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p><strong>Sort items</strong>: Arrange the entire set of numbers in descending order, from largest to smallest.</p></li>
+<li><p><strong>Evaluate totals</strong>: Compare the current accumulated sum of subset <span class="math notranslate nohighlight">\(A\)</span> against subset <span class="math notranslate nohighlight">\(B\)</span>.</p></li>
+<li><p><strong>Assign item</strong>: Place the next available number into whichever subset is currently lighter.</p></li>
+<li><p><strong>Terminate</strong>: Repeat the evaluation and assignment until the sorted list is empty.</p></li>
+</ol>
+<pre  class="mermaid">
+        flowchart TD
+    A([Start]) --&gt; B[&quot;Sort items largest to smallest.&lt;br/&gt;Put first number in A&quot;]
+    B --&gt; C[Take out an item]
+    C --&gt; D{&quot;Is sum of A &lt; sum of B?&quot;}
+    D -- Yes --&gt; E[Assign item to A]
+    D -- No --&gt; F[Assign item to B]
+    E --&gt; H{Items remaining?}
+    F --&gt; H
+    H -- Yes --&gt; C
+    H -- No --&gt; G([End: assignment complete])
+    </pre></section>
+<section id="greedy-search">
+<h4>Greedy search<a class="headerlink" href="#greedy-search" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p><strong>Initialise state</strong>: Begin with an arbitrary or pre-existing distribution of items across the subsets.</p></li>
+<li><p><strong>Evaluate neighbours</strong>: Calculate the exact energy change for every possible single-item swap.</p></li>
+<li><p><strong>Execute best</strong>: Identify and perform the one swap that yields the maximum energy reduction.</p></li>
+<li><p><strong>Terminate</strong>: Repeat the search until no single move can further reduce the total energy.</p></li>
+</ol>
+<pre  class="mermaid">
+        flowchart TD
+    A([Start]) --&gt; B[&quot;Divide the set&lt;br/&gt;randomly into A and B&quot;]
+    B --&gt; C[&quot;Evaluate all possible&lt;br/&gt;single swaps&quot;]
+    C --&gt; D{&quot;Does best swap&lt;br/&gt;lower energy?&quot;}
+    D -- Yes --&gt; E[Execute the best swap]
+    E --&gt; C
+    D -- No --&gt; F([End: stuck in a local minimum])
+    </pre></section>
+<section id="simulated-annealing">
+<h4>Simulated annealing<a class="headerlink" href="#simulated-annealing" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p><strong>Initialise system</strong>: Define a starting temperature that allows high volatility, and a cooling rate.</p></li>
+<li><p><strong>Evaluate random</strong>: Select one random item and calculate the exact energy change if it switched sides.</p></li>
+<li><p><strong>Accept or reject</strong>: Swap immediately if the energy improves, or with a probability that depends on the temperature if it worsens.</p></li>
+<li><p><strong>Terminate</strong>: Repeat the cycle, lowering the temperature each time, until the system freezes.</p></li>
+</ol>
+<pre  class="mermaid">
+        flowchart TD
+    A([Start]) --&gt; B[Set temperature T]
+    B --&gt; C[Select one random swap]
+    C --&gt; D{Does it lower energy?}
+    D -- Yes --&gt; E[Execute swap]
+    D -- No --&gt; F{&quot;Random() &lt; exp(-ΔE/T)?&quot;}
+    F -- Yes --&gt; E
+    F -- No --&gt; G[Reject swap]
+    E --&gt; H[Lower temperature T]
+    G --&gt; H
+    H --&gt; C
+    </pre></section>
+</section>
+<section id="small-size-heuristics-limitations">
+<h3>Small-size heuristics: limitations<a class="headerlink" href="#small-size-heuristics-limitations" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Heuristic approaches work well for small sets (small problem sizes), but they don’t scale well.</p></li>
+<li><p>They also assume that the optimal solution divides the set into subsets <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> of nearly equal size.</p></li>
+</ul>
+<p>The figures below show histograms of the cost function over all possible partitions of a set. The <span class="math notranslate nohighlight">\(x\)</span>-axis shows the cost function value <span class="math notranslate nohighlight">\(f\)</span>, and the <span class="math notranslate nohighlight">\(y\)</span>-axis shows the number of partitions that have that same value of <span class="math notranslate nohighlight">\(f\)</span>, called the <strong>degeneracy</strong> of <span class="math notranslate nohighlight">\(f\)</span>.</p>
 <figure class="align-center" id="id2">
-<img alt="../_images/simons_circuit.png" src="../_images/simons_circuit.png" />
+<img alt="../_images/Degeneracy_SmallNums.png" src="../_images/Degeneracy_SmallNums.png" />
 <figcaption>
-<p><span class="caption-text">The circuit for Simon’s algorithm for <span class="math notranslate nohighlight">\(n=3\)</span>.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 79 </span><span class="caption-text">Histogram of the cost function over all partitions of a balanced set of small numbers. Many partitions share the same cost, so the degeneracy is high.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-</section>
-</section>
-<section id="shors-algorithm">
-<h2>Shor’s Algorithm<a class="headerlink" href="#shors-algorithm" title="Link to this heading">#</a></h2>
-<p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Fundamental_theorem_of_arithmetic">fundamental theorem of arithmetic</a> states that every integer can be unique written as a product of primes. For example the number <span class="math notranslate nohighlight">\(42\)</span> can be written as <span class="math notranslate nohighlight">\(2*3*7\)</span>, all of which are prime.
-Shor’s algorithm can find the prime factors of a given integer exponentially faster than the best known classical algorithms.</p>
-<section id="overview">
-<h3>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h3>
-<p>Shor’s algorithm consists of two steps:</p>
-<ul class="simple">
-<li><p>Reduce the factoring problem to an order finding problem</p></li>
-<li><p>Efficiently solve the order finding problem using the QPE algorihm</p></li>
-</ul>
 <figure class="align-center" id="id3">
-<img alt="../_images/shor_workflow.png" src="../_images/shor_workflow.png" />
+<img alt="../_images/Degeneracy_BigNum.png" src="../_images/Degeneracy_BigNum.png" />
 <figcaption>
-<p><span class="caption-text">The workflow for Shor’s algorithm.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 80 </span><span class="caption-text">The same set after adding a single large element, 100. The distribution changes completely and the degeneracy is gone.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<p>The order finding problem is to find a value of <span class="math notranslate nohighlight">\(r\)</span> such that</p>
-<div class="math notranslate nohighlight">
-\[
-x^r = 1\, \text{mod}\, N
-\]</div>
-<p>where <span class="math notranslate nohighlight">\(0&lt;x&lt;N\)</span>. Here <span class="math notranslate nohighlight">\(\text{mod}\, N\)</span> means we divide by <span class="math notranslate nohighlight">\(N\)</span> and keep the remainder.
-It turns out that if we have a fast method for order finding, then we also have a fast method for factoring numbers.</p>
-<p>Order finding can be efficiently run on a quantum computer using the QPE algorithm with unitary</p>
-<div class="math notranslate nohighlight">
-\[
-U|y\rangle=|xy\,\text{mod}\,N\rangle.
-\]</div>
-</section>
-<section id="implications-for-crytography">
-<h3>Implications for crytography<a class="headerlink" href="#implications-for-crytography" title="Link to this heading">#</a></h3>
-<p>In public-key cryptography one party is able to to securely share information to another, by using a public key (available to anyone) to encrypt a message and a private key (kept private by the party receiving the message) to decryt the message.</p>
-<p>A common way to generate the public and private keys is to use the RSA algorithm.
-Here the protocal is as follows:</p>
-<ol class="arabic simple">
-<li><p>Choose two random prime numbers <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(q\)</span></p></li>
-<li><p>Compute <span class="math notranslate nohighlight">\(n=pq\)</span></p></li>
-<li><p>Compute <span class="math notranslate nohighlight">\(\phi=(p-1)(q-1)\)</span></p></li>
-<li><p>Select a random number <span class="math notranslate nohighlight">\(e\)</span> whose greatest common factor with <span class="math notranslate nohighlight">\(\phi\)</span> is 1</p></li>
-<li><p>Find <span class="math notranslate nohighlight">\(d\)</span> where <span class="math notranslate nohighlight">\(de=1\,\text{mod}\,\phi\)</span></p></li>
-</ol>
-<p>The public keys are <span class="math notranslate nohighlight">\((e, n)\)</span> and the private key is <span class="math notranslate nohighlight">\(d\)</span>.
-A message <span class="math notranslate nohighlight">\(m\)</span> can be encrypted using</p>
-<div class="math notranslate nohighlight">
-\[
-E(m) = m^e \,\text{mod}\, n
-\]</div>
-<p>and decrypted using</p>
-<div class="math notranslate nohighlight">
-\[
-m = E(m)^d \,\text{mod}\, n.
-\]</div>
-<p>The security of RSA relies on the assumption that factoring is difficult and can’t be done efficiently, as far as we know this is true on classical computers, but Shor’s algorithm shows it’s not the case for quanutm computers. Currently quantum computers are not large enough to run Shor’s algorithm, but post quantum cryptography protocals are already being adopted.</p>
-</section>
-</section>
-<section id="grovers-algorithm">
-<h2>Grover’s Algorithm<a class="headerlink" href="#grovers-algorithm" title="Link to this heading">#</a></h2>
-<p>Grover’s algorithm is an algorithm for searching through an unstructed database. It ofters a quadratic speed-up over classical approaches.</p>
-<section id="unstructured-search">
-<h3>Unstructured search<a class="headerlink" href="#unstructured-search" title="Link to this heading">#</a></h3>
-<p>We can formulate the search problem more formally as follows:
-Suppose we’re given a function</p>
-<div class="math notranslate nohighlight">
-\[
-f:\{0,1\}^n \rightarrow \{0,1\}
-\]</div>
-<p>Our goal is to find a solution, which is a binary string <span class="math notranslate nohighlight">\(x\in\{0,1\}^n\)</span> for which <span class="math notranslate nohighlight">\(f(x)=1\)</span>.</p>
-<p>Classically we can solve this by iterating through all <span class="math notranslate nohighlight">\(x\)</span> and evaluating <span class="math notranslate nohighlight">\(f\)</span> on each one and stopping when we find <span class="math notranslate nohighlight">\(f(x)=1\)</span>.
-If there are <span class="math notranslate nohighlight">\(N\)</span> elements in the list and only one solution then on average we will have to evaluate <span class="math notranslate nohighlight">\(N/2\)</span> elements.</p>
-</section>
-<section id="circuit">
-<h3>Circuit<a class="headerlink" href="#circuit" title="Link to this heading">#</a></h3>
-<p>For a database of size <span class="math notranslate nohighlight">\(N=2^n\)</span> we require <span class="math notranslate nohighlight">\(n\)</span> qubits.
-We define the oracle, <span class="math notranslate nohighlight">\(O\)</span>, which performs the operation</p>
-<div class="math notranslate nohighlight">
-\[
-O|x\rangle = (-1)^{f(x)}|x\rangle.
-\]</div>
-<p>We also define the Diffusion operator which performs the operation</p>
-<div class="math notranslate nohighlight">
-\[
-2|\psi\rangle\langle \psi|-I 
-\]</div>
-<p>where <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> is the uniform superposition state given by</p>
-<div class="math notranslate nohighlight">
-\[
-|\psi\rangle = \frac{1}{2^{n/2}} \sum_x |x\rangle 
-\]</div>
-<p>(note that the sum is over all <span class="math notranslate nohighlight">\(n\)</span> bit strings <span class="math notranslate nohighlight">\(x\)</span>) and <span class="math notranslate nohighlight">\(I\)</span> is the identity matrix.</p>
-<p>Grover’s operator, <span class="math notranslate nohighlight">\(G\)</span>, is defined as</p>
-<div class="math notranslate nohighlight">
-\[
-G = (2|\psi\rangle\langle \psi|-I)O
-\]</div>
-<p>Grover’s algorithm consists in</p>
-<ol class="arabic simple">
-<li><p>Apply a Hadamard gate to each qubit (creating a uniform superposition state)</p></li>
-<li><p>Apply Grover’s operator <span class="math notranslate nohighlight">\(\sim\sqrt{N}\)</span> times</p></li>
-<li><p>Meaure the qubits</p></li>
-</ol>
-<p>with a probability of at least <span class="math notranslate nohighlight">\(1/2\)</span> a solution will be measured.</p>
-</section>
-<section id="why-does-grovers-algorithm-work">
-<h3>WHy does Grover’s algorithm work?<a class="headerlink" href="#why-does-grovers-algorithm-work" title="Link to this heading">#</a></h3>
-<p>We define <span class="math notranslate nohighlight">\(M\)</span> to be the number of solutions (i.e. values of <span class="math notranslate nohighlight">\(x\)</span> for which <span class="math notranslate nohighlight">\(f(x)=1\)</span>).</p>
-<p>We define an equal superposition of solutions</p>
-<div class="math notranslate nohighlight">
-\[
-|A_1\rangle = \frac{1}{\sqrt M} \sum_{x \,|\, f(x)=1}|x\rangle
-\]</div>
-<p>where we some over all bit strings <span class="math notranslate nohighlight">\(x\)</span> which have <span class="math notranslate nohighlight">\(f(x)=1\)</span>, and an equal superposition of non-solutions</p>
-<div class="math notranslate nohighlight">
-\[
-|A_0\rangle = \frac{1}{\sqrt{N-M}} \sum_{x \,|\, f(x)=0}|x\rangle.
-\]</div>
-<p>Note that we can write the uniform superposition state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> in terms of these two states</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{split}
-|\psi\rangle &amp;= \frac{1}{\sqrt N} \sum_x |x\rangle \\ 
-&amp;= \frac{1}{\sqrt N} \sum_{x \,|\, f(x)=0} |x\rangle + \frac{1}{\sqrt N} \sum_{x \,|\, f(x)=1} |x\rangle \\
-&amp;= \sqrt{\frac{N-M}{N}} |A_0\rangle + \sqrt{\frac{M}{N}} |A_1\rangle \\
-&amp;= \sqrt{1-\phi} |A_0\rangle + \sqrt{\phi} |A_1\rangle \\
-\end{split}
-\end{split}\]</div>
-<p>where we have defined <span class="math notranslate nohighlight">\(\phi=M / N\)</span>.</p>
-<p>Consider a linear combination of <span class="math notranslate nohighlight">\(|A_0\rangle\)</span> and <span class="math notranslate nohighlight">\(|A_1\rangle\)</span></p>
-<div class="math notranslate nohighlight">
-\[
-|\alpha\rangle = a_0 |A_0\rangle + a_1 |A_1\rangle
-\]</div>
-<p>note that the state the circuit is in before the first application of Grover’s application is <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> and hence is in the form of <span class="math notranslate nohighlight">\(|\alpha\rangle\)</span>.</p>
-<p>If we apply Grover’s operator to <span class="math notranslate nohighlight">\(|\alpha\rangle\)</span> we get</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{split}
-G|\alpha\rangle &amp;= (2|\psi\rangle\langle \psi|-I)O (a_0 |A_0\rangle + a_1 |A_1\rangle) \\ 
-&amp;= (2|\psi\rangle\langle \psi|-I)(a_0 |A_0\rangle - a_1 |A_1\rangle) \\ 
-&amp;= 2a_0 |\psi\rangle\langle \psi|A_0\rangle - 2 a_1 |\psi\rangle\langle \psi|A_1\rangle - a_0 |A_0\rangle + a_1 |A_1\rangle \\ 
-&amp;= 2a_0 \sqrt{1-\phi} |\psi\rangle - 2 a_1 \sqrt{\phi} |\psi\rangle - a_0 |A_0\rangle + a_1 |A_1\rangle \\ 
-&amp;= \left[a_0(1-2\phi) - 2 a_1 \sqrt{\phi(1-\phi)} \right] |A_0\rangle  + \left[a_1(1- 2\phi) + 2a_0 \sqrt{\phi(1-\phi)} \right] |A_1\rangle .\\ 
-\end{split}
-\end{split}\]</div>
-<p>Note that <span class="math notranslate nohighlight">\(0 \le \phi \le 1\)</span> and hence <span class="math notranslate nohighlight">\(-1 \le 1-2\phi \le 1\)</span>, this means we can write</p>
-<div class="math notranslate nohighlight">
-\[
-1-2\phi = \cos \theta
-\]</div>
-<p>and hence</p>
-<div class="math notranslate nohighlight">
-\[
-\sin \theta = \sqrt{1 - \cos^2 \theta} = \sqrt{1 - (1-2\phi )^2} = 2\sqrt{\phi(1-\phi)}.
-\]</div>
-<p>Thus using this new <span class="math notranslate nohighlight">\(\theta\)</span> variable we get</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-G|\alpha\rangle = \left[a_0\cos \theta - 2 a_1 \sin \theta \right] |A_0\rangle  + \left[a_1\cos \theta + 2a_0 \sin \theta \right] |A_1\rangle .\\ 
-\end{split}\]</div>
-<p>In terms of the coefficients <span class="math notranslate nohighlight">\(a_0\)</span> and <span class="math notranslate nohighlight">\(a_1\)</span>, applying Grover’s operator to <span class="math notranslate nohighlight">\(|\alpha\rangle\)</span> results in the transformation</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{pmatrix}
-a_0\\ a_1\\
-\end{pmatrix}
-\rightarrow
-\begin{pmatrix}
-\cos\theta &amp; -\sin\theta \\
-\sin\theta &amp; \cos\theta \\
-\end{pmatrix}
-\begin{pmatrix}
-a_0\\ a_1\\
-\end{pmatrix}.
-\end{split}\]</div>
-<p>In the 2-D plane with <span class="math notranslate nohighlight">\(|A_0\rangle\)</span> being the x-axis and <span class="math notranslate nohighlight">\(|A_1\rangle\)</span> being the y-axis, this corresponds to an anti-clockwise rotation of angle <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
-<figure class="align-center" id="id4">
-<img alt="../_images/grover_rotation.png" src="../_images/grover_rotation.png" />
-<figcaption>
-<p><span class="caption-text">Applying Grover’s operator to state <span class="math notranslate nohighlight">\(|\alpha\rangle\)</span> results in an anti-clockwise rotation.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
-<p>Let’s suppose that the number of solutions <span class="math notranslate nohighlight">\(M\)</span> is small, then <span class="math notranslate nohighlight">\(\phi=M/N\)</span> must also be small.
-Thus we can approximate <span class="math notranslate nohighlight">\(\phi(1-\phi)\approx \phi\)</span> and hence
-<span class="math notranslate nohighlight">\(\sin \theta = 2\sqrt{\phi(1-\phi)} \approx 2\sqrt{\phi}\)</span>.
-But if <span class="math notranslate nohighlight">\(\phi\)</span> is small then we can approximate <span class="math notranslate nohighlight">\(\sin \theta\approx \theta\)</span> and hence we end up with</p>
-<div class="math notranslate nohighlight">
-\[
-\theta \approx 2\sqrt{\phi} = 2\sqrt{\frac{M}{N}}.
-\]</div>
-<p>Recall that the first step of Grover’s algorithm is to apply a Hadamard gate to each qubit, creating the uniform superposition state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span>, if <span class="math notranslate nohighlight">\(M\)</span> is small then <span class="math notranslate nohighlight">\(|\psi\rangle\approx |A_0\rangle\)</span>. Thus we start very close to the <span class="math notranslate nohighlight">\(|A_0\rangle\)</span> state, recall that Grover’s operator rotates anticlockwise by angle <span class="math notranslate nohighlight">\(\theta\)</span>, if we wish to end up near the <span class="math notranslate nohighlight">\(|A_1\rangle\)</span> we need to rotate by <span class="math notranslate nohighlight">\(90\)</span> degrees or <span class="math notranslate nohighlight">\(\pi/2\)</span> radians. Thus the number of rotations we require, <span class="math notranslate nohighlight">\(k\)</span>, is</p>
-<div class="math notranslate nohighlight">
-\[
-k = \frac{\pi}{2 \theta} = \frac{\pi}{4} \sqrt{\frac{N}{M}}.
-\]</div>
-<p>Thus we have derived the <span class="math notranslate nohighlight">\(O(\sqrt N)\)</span> scaling of Grover’s algorithm.</p>
-</section>
-</section>
-<section id="limiations-of-early-quantum-algorithms">
-<h2>Limiations of early quantum algorithms<a class="headerlink" href="#limiations-of-early-quantum-algorithms" title="Link to this heading">#</a></h2>
-<p>Most early quantum algorithms require:</p>
 <ul class="simple">
-<li><p>Large amounts of qubits</p></li>
-<li><p>Long circuits</p></li>
-<li><p>Error correction (to be robust in the present of noise), further increasing the number of required qubits</p></li>
+<li><p>A “balanced” set has high degeneracy.</p></li>
+<li><p>Adding a single element, 100, completely changes the distribution, and the degeneracy disappears.</p></li>
+<li><p>The larger degeneracy makes the problem harder.</p></li>
+<li><p>An imbalanced set usually results in optimal subsets that are imbalanced as well.</p></li>
 </ul>
-<p>As current hardware is unable to meet these requirements, they are rarely used currently, with NISQ (Noisy Intermediate Scale Quantum) algorithms being developed and used instead.</p>
+</section>
+<section id="aspects-of-qubo">
+<h3>Aspects of QUBO<a class="headerlink" href="#aspects-of-qubo" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>For QUBO, since the vector components are binary, there is no directional or visual guidance for the optimisation.</p></li>
+<li><p>The search must explore brutal combinatorics: there are <span class="math notranslate nohighlight">\(2^N\)</span> possibilities for the binary vector <span class="math notranslate nohighlight">\({\bf x}\)</span>.</p></li>
+<li><p>For the set partitioning problem, the complexity depends on the distribution of the numbers.</p></li>
+<li><p>In a balanced, uniform set, the number of combinatorial options explodes.</p></li>
+</ul>
+<div class="success admonition">
+<p class="admonition-title">Definition: degeneracy</p>
+<p>A function is degenerate if different independent variables, or configurations, produce an identical result.</p>
+<p>Formally, a function <span class="math notranslate nohighlight">\(f({\bf x})\)</span> is degenerate at <span class="math notranslate nohighlight">\({\bf x}\)</span> if there is at least one <span class="math notranslate nohighlight">\({\bf x}' \ne {\bf x}\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[f({\bf x}) = f({\bf x}')\]</div>
+<p>For a function of discrete variables, degeneracy is best viewed as the number of configurations that share a given value of the function.</p>
+</div>
+<p>Next we look at how this affects the complexity of QUBO, and what the distribution looks like.</p>
+</section>
+<section id="scaling-in-qubo">
+<h3>Scaling in QUBO<a class="headerlink" href="#scaling-in-qubo" title="Link to this heading">#</a></h3>
+<p>As the size <span class="math notranslate nohighlight">\(N\)</span> increases, the discrete landscape of possible set partitions scales as follows. We can partition the set into <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> containing <span class="math notranslate nohighlight">\((1, N-1)\)</span> elements, <span class="math notranslate nohighlight">\((2, N-2)\)</span> elements, and so on up to <span class="math notranslate nohighlight">\((\frac{N}{2}, \frac{N}{2})\)</span> elements.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>in <span class="math notranslate nohighlight">\(A\)</span></p></th>
+<th class="head"><p>in <span class="math notranslate nohighlight">\(B\)</span></p></th>
+<th class="head"><p>Combinations</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p><span class="math notranslate nohighlight">\(N\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\binom{N}{0}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p><span class="math notranslate nohighlight">\(N - 1\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\binom{N}{1}\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p><span class="math notranslate nohighlight">\(N - 2\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\binom{N}{2}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p><span class="math notranslate nohighlight">\(N - 3\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\binom{N}{3}\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>⋮</p></td>
+<td><p>⋮</p></td>
+<td><p>⋮</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(k\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(N - k\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\binom{N}{k}\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>⋮</p></td>
+<td><p>⋮</p></td>
+<td><p>⋮</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(N/2\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(N/2\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\tfrac{1}{2}\binom{N}{N/2}\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Binomial coefficient</p>
+<p>The symbol <span class="math notranslate nohighlight">\(\binom{N}{k}\)</span> denotes the number of ways to choose <span class="math notranslate nohighlight">\(k\)</span> objects from a list of <span class="math notranslate nohighlight">\(N\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\binom{N}{k} = \frac{N!}{k!\,(N-k)!}
+\]</div>
+</div>
+<p>For even <span class="math notranslate nohighlight">\(N\)</span>, the total number of distinct partitions is</p>
+<div class="math notranslate nohighlight">
+\[
+\binom{N}{0} + \binom{N}{1} + \dots + \binom{N}{N/2 - 1} + \frac{1}{2}\binom{N}{N/2} = 2^{N-1}
+\]</div>
+<p>This grows exponentially, which is why we need specialised methods for finding QUBO solutions.</p>
+<figure class="align-center" id="id4">
+<img alt="../_images/Scaling_SmallNums.png" src="../_images/Scaling_SmallNums.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 81 </span><span class="caption-text">Scaling for the balanced set of small numbers.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id5">
+<img alt="../_images/Scaling_BigNum.png" src="../_images/Scaling_BigNum.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 82 </span><span class="caption-text">Scaling for the set containing the single large element.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="key-aspects-of-qubo">
+<h3>Key aspects of QUBO<a class="headerlink" href="#key-aspects-of-qubo" title="Link to this heading">#</a></h3>
+<div class="info admonition">
+<p class="admonition-title">Quadratic objective mapping</p>
+<p>QUBO encodes complex combinatorial optimisation problems into a unified mathematical structure of linear biases (diagonal elements) and pairwise interactions (off-diagonal elements):</p>
+<div class="math notranslate nohighlight">
+\[
+f({\bf x}) = {\bf x}^T Q {\bf x}
+\]</div>
+<ul class="simple">
+<li><p>The components are binary: <span class="math notranslate nohighlight">\(x_i \in \{0, 1\}\)</span>. One can use <span class="math notranslate nohighlight">\(x_i^2 = x_i\)</span> to absorb linear terms into the diagonal of <span class="math notranslate nohighlight">\(Q\)</span>.</p></li>
+<li><p>However, we have no <strong>visual</strong> or <strong>directional</strong> insight into the <strong>landscape</strong> of the cost function.</p></li>
+</ul>
+</div>
+<div class="success admonition">
+<p class="admonition-title">Structural degeneracy</p>
+<p>QUBO problems can have broad, flat energy landscapes, where multiple distinct binary configurations yield the exact same global minimum. This heavily impacts solver trajectories and optimisation dynamics.</p>
+</div>
+</section>
+<section id="the-quantum-advantage">
+<h3>The quantum advantage<a class="headerlink" href="#the-quantum-advantage" title="Link to this heading">#</a></h3>
+<p>Classical algorithms explore the <span class="math notranslate nohighlight">\(2^N\)</span> possible configurations <strong>sequentially</strong>. A quantum processor can instead encode the problem and prepare a superposition over all <span class="math notranslate nohighlight">\(2^N\)</span> basis states at once.</p>
+<p>Using the Quantum Approximate Optimisation Algorithm (QAOA), we steer the amplitudes with interference so that low-cost configurations become more likely to be measured.</p>
+<p>This raises the next question: how do we map a classical QUBO matrix into a quantum circuit?</p>
+</section>
+</section>
+<section id="qaoa">
+<h2>QAOA<a class="headerlink" href="#qaoa" title="Link to this heading">#</a></h2>
+<section id="qaoa-the-hybrid-approach">
+<h3>QAOA: the hybrid approach<a class="headerlink" href="#qaoa-the-hybrid-approach" title="Link to this heading">#</a></h3>
+<p>The Quantum Approximate Optimisation Algorithm (QAOA) is a technique for finding approximate solutions to combinatorial optimisation problems like QUBO.</p>
+<p>It is a <strong>hybrid quantum-classical variational algorithm</strong>, which splits the workload into a continuous feedback loop:</p>
+<ul class="simple">
+<li><p><strong>The quantum device</strong> runs a parameterised circuit to prepare a state and measure the expected QUBO cost.</p></li>
+<li><p><strong>The classical device</strong> takes that measurement and runs a classical optimisation (e.g. gradient descent) to update the circuit’s parameters for the next iteration.</p></li>
+</ul>
+<figure class="align-center" id="id6">
+<img alt="../_images/OptAlg.png" src="../_images/OptAlg.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 83 </span><span class="caption-text">The variational quantum-classical loop.</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id7">
+<img alt="../_images/OptMap.png" src="../_images/OptMap.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 84 </span><span class="caption-text">Optimisation map.</span><a class="headerlink" href="#id7" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="qubo-in-quantum-the-ising-bridge">
+<h3>QUBO in quantum: the Ising bridge<a class="headerlink" href="#qubo-in-quantum-the-ising-bridge" title="Link to this heading">#</a></h3>
+<p>Classical algorithms evaluate the landscape blindly, one configuration <span class="math notranslate nohighlight">\({\bf x}\)</span> at a time. If we map the variables onto a quantum system, we can prepare a superposition of all configurations and use interference to favour the low-cost ones.</p>
+<p>To do this, we map the binary variables <span class="math notranslate nohighlight">\(x_i \in \{0, 1\}\)</span> to Ising variables <span class="math notranslate nohighlight">\(z_i \in \{+1, -1\}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+z_i = 1 - 2x_i \qquad\Longleftrightarrow\qquad x_i = \frac{1}{2}(1 - z_i)
+\]</div>
+<p>so <span class="math notranslate nohighlight">\(x_i = 0\)</span> corresponds to <span class="math notranslate nohighlight">\(z_i = +1\)</span> and <span class="math notranslate nohighlight">\(x_i = 1\)</span> to <span class="math notranslate nohighlight">\(z_i = -1\)</span>. Substituting <span class="math notranslate nohighlight">\(z_i\)</span> for <span class="math notranslate nohighlight">\(x_i\)</span> turns the QUBO cost function into the Ising model:</p>
+<div class="math notranslate nohighlight">
+\[
+f(x) \quad\Longrightarrow\quad H_C = \sum_{i\neq j} J_{ij} z_i z_j + \sum_i h_i z_i + c
+\]</div>
+<p>where the parameters <span class="math notranslate nohighlight">\(J_{ij}\)</span> and <span class="math notranslate nohighlight">\(h_i\)</span> depend on the classical <span class="math notranslate nohighlight">\(Q\)</span> matrix of the QUBO problem. Solving the QUBO is now equivalent to finding the <strong>ground state</strong> of the Ising model, which we can set up on a quantum computer and tackle with an iterative scheme like VQE.</p>
+<section id="deriving-the-ising-coefficients">
+<h4>Deriving the Ising coefficients<a class="headerlink" href="#deriving-the-ising-coefficients" title="Link to this heading">#</a></h4>
+<p>Take a pure quadratic cost function, with the linear terms already absorbed into the diagonal and <span class="math notranslate nohighlight">\(Q'\)</span> symmetric:</p>
+<div class="math notranslate nohighlight">
+\[f(x) = \sum_{ij} Q'_{ij} x_i x_j\]</div>
+<p>Substituting <span class="math notranslate nohighlight">\(x_i = \frac{1}{2}(1 - z_i)\)</span> gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+f(z) &amp;= \sum_{ij} \frac{Q'_{ij}}{4}(1 - z_i)(1 - z_j) = \sum_{ij} \frac{Q'_{ij}}{4} \left( 1 - z_i - z_j + z_i z_j \right)\\
+&amp;= \sum_{ij} \frac{Q'_{ij}}{4} - \sum_{i}\left(\frac{1}{2}\sum_{j} Q'_{ij}\right) z_i + \sum_{ij} \frac{Q'_{ij}}{4}\, z_i z_j
+\end{align*}
+\end{split}\]</div>
+<p>Grouping terms, we have:</p>
+<ul class="simple">
+<li><p><strong>Couplings</strong> <span class="math notranslate nohighlight">\(J_{ij}\)</span>: the Ising couplings are one quarter of the classical ones, <span class="math notranslate nohighlight">\(J_{ij} = \dfrac{Q'_{ij}}{4}\)</span>.</p></li>
+<li><p><strong>Local fields</strong> <span class="math notranslate nohighlight">\(h_i\)</span>: there is an additional linear term, <span class="math notranslate nohighlight">\(h_i = -\dfrac{1}{2} \sum_{j} Q'_{ij}\)</span>.</p></li>
+<li><p><strong>Constant shift</strong> <span class="math notranslate nohighlight">\(c\)</span>: a constant that we can ignore, since it does not change which state has the lowest energy, <span class="math notranslate nohighlight">\(c = \sum_{ij} \dfrac{Q'_{ij}}{4}\)</span>.</p></li>
+</ul>
+</section>
+<section id="the-cost-hamiltonian">
+<h4>The cost Hamiltonian<a class="headerlink" href="#the-cost-hamiltonian" title="Link to this heading">#</a></h4>
+<p>Once we have the Ising form, replacing the numbers <span class="math notranslate nohighlight">\(z_i\)</span> with Pauli-<span class="math notranslate nohighlight">\(Z\)</span> operators is straightforward. This gives the <strong>cost Hamiltonian</strong> for our QUBO problem, turning the cost function into a physical energy landscape:</p>
+<div class="math notranslate nohighlight">
+\[
+f(x) \quad\Longrightarrow\quad H_C = \sum_{i\neq j} J_{ij} Z_i Z_j + \sum_i h_i Z_i
+\]</div>
+<p>Finding the optimal partition is now equivalent to finding the <strong>ground state</strong> (lowest energy state) of this quantum system.</p>
+</section>
+</section>
+<section id="the-qaoa-engine">
+<h3>The QAOA engine<a class="headerlink" href="#the-qaoa-engine" title="Link to this heading">#</a></h3>
+<p>QAOA guides the superposition towards the correct answer using two alternating quantum operators, applied <span class="math notranslate nohighlight">\(p\)</span> times.</p>
+<div class="info admonition">
+<p class="admonition-title">1. The cost operator</p>
+<div class="math notranslate nohighlight">
+\[U_C(\gamma) = e^{-i \gamma H_C}\]</div>
+<ul class="simple">
+<li><p>Evaluates the QUBO energy of every state in the superposition.</p></li>
+<li><p>It doesn’t change the probabilities, but it rotates the phase of each state according to how “good” the solution is.</p></li>
+</ul>
+</div>
+<div class="info admonition">
+<p class="admonition-title">2. The mixer operator</p>
+<div class="math notranslate nohighlight">
+\[U_M(\beta) = e^{-i \beta H_M}\]</div>
+<ul class="simple">
+<li><p>Creates quantum interference (Pauli-<span class="math notranslate nohighlight">\(X\)</span> rotations).</p></li>
+<li><p>It uses the phase differences created by the cost operator to amplify the probabilities of good solutions and suppress the bad ones.</p></li>
+</ul>
+</div>
+<p>The resulting ansatz is</p>
+<div class="math notranslate nohighlight">
+\[|\psi(\vec\gamma, \vec\beta)\rangle = \prod_{k=1}^{p} U_M(\beta_k) U_C(\gamma_k) |+\rangle^{\otimes n}\]</div>
+</section>
+<section id="constructing-qaoa-cost-and-mixer">
+<h3>Constructing QAOA: cost and mixer<a class="headerlink" href="#constructing-qaoa-cost-and-mixer" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p><strong>Equal superposition.</strong> We start from an equal superposition of all possible set partitions, prepared with Hadamard gates:</p>
+<div class="math notranslate nohighlight">
+\[|\psi_0\rangle = |+\rangle^{\otimes N} = \frac{1}{\sqrt{2^N}} \sum_{x=0}^{2^N-1} |x\rangle\]</div>
+</li>
+<li><p><strong>The cost operator (scoring).</strong> We apply <span class="math notranslate nohighlight">\(H_C\)</span> for an angle <span class="math notranslate nohighlight">\(\gamma\)</span>. This imparts a <em>phase</em> to each state based on its QUBO energy. Crucially, phase alone does not change the measurement probabilities.</p>
+<div class="math notranslate nohighlight">
+\[U_C(\gamma) = e^{-i \gamma H_C}\]</div>
+</li>
+<li><p><strong>The mixer operator (interference).</strong> We apply the mixer Hamiltonian for an angle <span class="math notranslate nohighlight">\(\beta\)</span>. This creates quantum interference, amplifying good partitions and suppressing bad ones.</p>
+<div class="math notranslate nohighlight">
+\[ H_M = \sum_{j=0}^{N-1} X_j \quad\Longrightarrow\quad U_M(\beta) = e^{-i \beta H_M}\]</div>
+</li>
+<li><p><strong>Full QAOA ansatz.</strong> Repeat steps 2 and 3 for <span class="math notranslate nohighlight">\(p\)</span> layers:</p>
+<div class="math notranslate nohighlight">
+\[|\psi(\vec{\gamma}, \vec{\beta})\rangle = \prod_{k=1}^p U_M(\beta_k) U_C(\gamma_k) |+\rangle^{\otimes N}\]</div>
+</li>
+</ol>
+</section>
+<section id="compiling-to-quantum-gates">
+<h3>Compiling to quantum gates<a class="headerlink" href="#compiling-to-quantum-gates" title="Link to this heading">#</a></h3>
+<p>Here is how a single QAOA layer (<span class="math notranslate nohighlight">\(p=1\)</span>) is executed on hardware.</p>
+<ol class="arabic simple">
+<li><p><strong>Initialisation (superposition).</strong> Apply a Hadamard gate to every qubit starting in <span class="math notranslate nohighlight">\(|0\rangle\)</span>, creating <span class="math notranslate nohighlight">\(|+\rangle^{\otimes N}\)</span>.</p></li>
+<li><p><strong>The cost layer (<span class="math notranslate nohighlight">\(ZZ\)</span> couplings).</strong> Each phase operator <span class="math notranslate nohighlight">\(e^{-i \gamma J Z_i Z_j}\)</span> is compiled into an entangling block: <code class="docutils literal notranslate"><span class="pre">CNOT</span></code> <span class="math notranslate nohighlight">\(\rightarrow\)</span> <code class="docutils literal notranslate"><span class="pre">RZ</span></code> <span class="math notranslate nohighlight">\(\rightarrow\)</span> <code class="docutils literal notranslate"><span class="pre">CNOT</span></code>.</p></li>
+<li><p><strong>The mixer layer (<span class="math notranslate nohighlight">\(X\)</span> rotations).</strong> The transverse-field term <span class="math notranslate nohighlight">\(e^{-i \beta X}\)</span> maps directly to single-qubit <code class="docutils literal notranslate"><span class="pre">RX</span></code> rotations, applied independently to every qubit.</p></li>
+</ol>
+<figure class="align-center" id="id8">
+<img alt="../_images/qaoa_circuit.png" src="../_images/qaoa_circuit.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 85 </span><span class="caption-text">A single QAOA layer (<span class="math notranslate nohighlight">\(p=1\)</span>): Hadamards, then <code class="docutils literal notranslate"><span class="pre">CNOT</span></code>–<code class="docutils literal notranslate"><span class="pre">RZ</span></code>–<code class="docutils literal notranslate"><span class="pre">CNOT</span></code> blocks for the cost layer, then <code class="docutils literal notranslate"><span class="pre">RX</span></code> rotations for the mixer.</span><a class="headerlink" href="#id8" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="the-hybrid-variational-loop">
+<h3>The hybrid variational loop<a class="headerlink" href="#the-hybrid-variational-loop" title="Link to this heading">#</a></h3>
+<p>The goal is to iteratively optimise the angles <span class="math notranslate nohighlight">\((\vec\gamma, \vec\beta)\)</span> so that low-cost partitions are the most likely measurement outcomes.</p>
+<ol class="arabic simple">
+<li><p><strong>Quantum initialisation (QPU).</strong> Initialise <span class="math notranslate nohighlight">\(N\)</span> qubits in the equal superposition <span class="math notranslate nohighlight">\(|+\rangle^{\otimes N}\)</span> with a layer of Hadamard gates.</p></li>
+<li><p><strong>Apply the QAOA ansatz (QPU).</strong> Apply <span class="math notranslate nohighlight">\(p\)</span> alternating layers of the cost operator <span class="math notranslate nohighlight">\(U_C(\gamma)\)</span> and mixer operator <span class="math notranslate nohighlight">\(U_M(\beta)\)</span>. The hardware is now in the parameterised state <span class="math notranslate nohighlight">\(|\psi(\vec\gamma, \vec\beta)\rangle\)</span>.</p></li>
+<li><p><strong>Measurement and expectation (QPU → CPU).</strong> Measure the qubits in the computational basis. Estimate the expected cost <span class="math notranslate nohighlight">\(E(\vec\gamma, \vec\beta) = \langle \psi | H_C | \psi \rangle\)</span> by repeating the circuit many times (shots).</p></li>
+<li><p><strong>Classical optimisation (CPU).</strong> Use a classical optimiser to suggest new angles <span class="math notranslate nohighlight">\((\vec\gamma, \vec\beta)\)</span> that lower the cost. Loop back to step 1 with the new angles until <span class="math notranslate nohighlight">\(E(\vec\gamma, \vec\beta)\)</span> converges to a minimum.</p></li>
+</ol>
+</section>
+<section id="illustrative-example-3-qubits">
+<h3>Illustrative example: 3 qubits<a class="headerlink" href="#illustrative-example-3-qubits" title="Link to this heading">#</a></h3>
+<p>Let’s partition the set <span class="math notranslate nohighlight">\(S = \{2, 3, 5\}\)</span>.</p>
+<ul class="simple">
+<li><p>We need exactly 3 classical bits (<span class="math notranslate nohighlight">\(x_0, x_1, x_2\)</span>) to assign each number to one of the two subsets.</p></li>
+<li><p>The optimal partition splits the set perfectly, with zero energy: <span class="math notranslate nohighlight">\(\{2, 3\}\)</span> and <span class="math notranslate nohighlight">\(\{5\}\)</span>.</p></li>
+</ul>
+<section id="building-the-qubo">
+<h4>Building the QUBO<a class="headerlink" href="#building-the-qubo" title="Link to this heading">#</a></h4>
+<p><strong>1. The cost function.</strong> The cost function is <span class="math notranslate nohighlight">\(f(x) = (S_A - S_B)^2\)</span>, where</p>
+<div class="math notranslate nohighlight">
+\[S_A = 2x_0 + 3x_1 + 5x_2, \qquad S_B = 2(1-x_0) + 3(1-x_1) + 5(1-x_2)\]</div>
+<p>which gives</p>
+<div class="math notranslate nohighlight">
+\[f(x) = 4(2x_0 + 3x_1 + 5x_2 - 5)^2\]</div>
+<p><strong>2. Algebraic expansion.</strong> Ignoring the overall factor of 4, expanding the square gives constants, linear terms and quadratic pairs:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+f(x) &amp;= 25 - 20x_0 - 30x_1 - 50x_2 \\
+&amp;\quad + 4x_0^2 + 9x_1^2 + 25x_2^2 \\
+&amp;\quad + 12x_0x_1 + 20x_0x_2 + 30x_1x_2
+\end{align*}
+\end{split}\]</div>
+<p><strong>3. The pure quadratic <span class="math notranslate nohighlight">\(Q\)</span> matrix.</strong> Since <span class="math notranslate nohighlight">\(x_i \in \{0,1\}\)</span>, we have <span class="math notranslate nohighlight">\(x_i^2 = x_i\)</span>, so we can absorb the linear terms into the diagonal:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x_0\)</span>: <span class="math notranslate nohighlight">\(-20 + 4 = -16\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(x_1\)</span>: <span class="math notranslate nohighlight">\(-30 + 9 = -21\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(x_2\)</span>: <span class="math notranslate nohighlight">\(-50 + 25 = -25\)</span></p></li>
+</ul>
+<p>The resulting <span class="math notranslate nohighlight">\(Q\)</span> matrix (ignoring the <span class="math notranslate nohighlight">\(+25\)</span> offset) is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Q = \begin{pmatrix}
+-16 &amp; 12 &amp; 20 \\
+0 &amp; -21 &amp; 30 \\
+0 &amp; 0 &amp; -25
+\end{pmatrix}\end{split}\]</div>
+<p>If we want to use <span class="math notranslate nohighlight">\(Q\)</span> in an unrestricted sum <span class="math notranslate nohighlight">\(\sum_{ij}\)</span>, the off-diagonal entries are halved and the symmetric form is used:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Q = \begin{pmatrix}
+-16 &amp; 6 &amp; 10 \\
+6 &amp; -21 &amp; 15 \\
+10 &amp; 15 &amp; -25
+\end{pmatrix}\end{split}\]</div>
+<p>Next, we convert the classical <span class="math notranslate nohighlight">\(Q\)</span> matrix into the quantum cost Hamiltonian <span class="math notranslate nohighlight">\(H_C\)</span>.</p>
+</section>
+<section id="the-ising-hamiltonian">
+<h4>The Ising Hamiltonian<a class="headerlink" href="#the-ising-hamiltonian" title="Link to this heading">#</a></h4>
+<p><strong>1. The physical energy landscape.</strong> Substituting <span class="math notranslate nohighlight">\(x_i = \frac{1 - z_i}{2}\)</span>, the cost function becomes</p>
+<div class="math notranslate nohighlight">
+\[H_C = (2Z_0 + 3Z_1 + 5Z_2)^2\]</div>
+<p>after replacing <span class="math notranslate nohighlight">\(z_i\)</span> with Pauli-<span class="math notranslate nohighlight">\(Z\)</span> operators. The factor of 4 in <span class="math notranslate nohighlight">\(f\)</span> cancels the factor of <span class="math notranslate nohighlight">\(\frac14\)</span> from the substitution, so <span class="math notranslate nohighlight">\(H_C\)</span> is equal to the original cost function.</p>
+<p><strong>2. Expanding the quantum operators.</strong> Just as before, we expand the square. In this case <span class="math notranslate nohighlight">\(Z_i^2 = I\)</span> (the identity):</p>
+<div class="math notranslate nohighlight">
+\[H_C = 4Z_0^2 + 9Z_1^2 + 25Z_2^2 + 12Z_0Z_1 + 20Z_0Z_2 + 30Z_1Z_2\]</div>
+<p><strong>3. The final hardware parameters.</strong> The <span class="math notranslate nohighlight">\(Z^2\)</span> terms collapse into a constant (<span class="math notranslate nohighlight">\(4 + 9 + 25 = 38\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[H_C = 38 + 12Z_0Z_1 + 20Z_0Z_2 + 30Z_1Z_2\]</div>
+<p>Notice that the linear biases <span class="math notranslate nohighlight">\(h_i\)</span> have vanished. The quantum computer only needs to apply pairwise couplings <span class="math notranslate nohighlight">\(J_{ij}\)</span> of strength <span class="math notranslate nohighlight">\(12\)</span>, <span class="math notranslate nohighlight">\(20\)</span> and <span class="math notranslate nohighlight">\(30\)</span> (up to the constant offset, which we can drop).</p>
+</section>
+<section id="execution-and-outcome">
+<h4>Execution and outcome<a class="headerlink" href="#execution-and-outcome" title="Link to this heading">#</a></h4>
+<p><strong>1. The cost circuit.</strong> Because there are no linear <span class="math notranslate nohighlight">\(h_i\)</span> terms, we only need three entangling blocks to represent the three couplings in <span class="math notranslate nohighlight">\(U_C = e^{-i \gamma H_C}\)</span>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CNOT</span></code> <span class="math notranslate nohighlight">\(\to R_z(24\gamma) \to\)</span> <code class="docutils literal notranslate"><span class="pre">CNOT</span></code> (for <span class="math notranslate nohighlight">\(12Z_0Z_1\)</span>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CNOT</span></code> <span class="math notranslate nohighlight">\(\to R_z(40\gamma) \to\)</span> <code class="docutils literal notranslate"><span class="pre">CNOT</span></code> (for <span class="math notranslate nohighlight">\(20Z_0Z_2\)</span>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CNOT</span></code> <span class="math notranslate nohighlight">\(\to R_z(60\gamma) \to\)</span> <code class="docutils literal notranslate"><span class="pre">CNOT</span></code> (for <span class="math notranslate nohighlight">\(30Z_1Z_2\)</span>)</p></li>
+</ul>
+<p><strong>2. The mixer circuit.</strong> <span class="math notranslate nohighlight">\(U_M\)</span> is applied immediately after the cost layer. It is a single <span class="math notranslate nohighlight">\(R_x(2\beta)\)</span> rotation on every qubit, which lets the algorithm explore new partitions.</p>
+<p><strong>3. The variational handoff (QPU → CPU).</strong></p>
+<ul class="simple">
+<li><p><strong>Sample (QPU):</strong> run the circuit many times (“shots”) to measure a frequency distribution of classical bitstrings.</p></li>
+<li><p><strong>Score (CPU):</strong> calculate the classical QUBO cost of each measured bitstring and compute the weighted average (the expectation value).</p></li>
+<li><p><strong>Optimise (CPU):</strong> a classical optimiser (e.g. COBYLA) adjusts <span class="math notranslate nohighlight">\(\gamma\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> to lower this average, repeating until convergence.</p></li>
+</ul>
+<p>The optimal solutions are <span class="math notranslate nohighlight">\(|110\rangle\)</span> or <span class="math notranslate nohighlight">\(|001\rangle\)</span>, which are the two ways of assigning <span class="math notranslate nohighlight">\(\{2,3\}\)</span> to one subset and <span class="math notranslate nohighlight">\(\{5\}\)</span> to the other.</p>
+</section>
+</section>
+<section id="qaoa-vs-vqe">
+<h3>QAOA vs. VQE<a class="headerlink" href="#qaoa-vs-vqe" title="Link to this heading">#</a></h3>
+<p>Both are hybrid quantum-classical algorithms with a parameterised loop, but they target different problems and use different circuit architectures.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p><strong>VQE</strong> (Variational Quantum Eigensolver)</p></th>
+<th class="head"><p><strong>QAOA</strong> (Quantum Approximate Optimisation Algorithm)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Goal</strong></p></td>
+<td><p>Find the lowest-energy state (ground state) of a quantum physical system, such as a molecule’s electron configuration</p></td>
+<td><p>Find the maximum or minimum of a classical combinatorial cost function</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Ansatz (circuit)</strong></p></td>
+<td><p>Physically inspired circuits (e.g. UCCSD) or “hardware-efficient” templates; the gate structure is relatively rigid</p></td>
+<td><p>A strictly “problem-inspired” alternating circuit (<span class="math notranslate nohighlight">\(p\)</span> layers of cost and mixer operators); the depth <span class="math notranslate nohighlight">\(p\)</span> controls the approximation quality</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Primary domain</strong></p></td>
+<td><p>Quantum chemistry, materials science, condensed matter physics</p></td>
+<td><p>Logistics, finance, routing, set partitioning (QUBO)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="wrap-up">
+<h3>Wrap-up<a class="headerlink" href="#wrap-up" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>QUBO:</strong> we learnt the formulation, its applications, and the difficulties caused by its discrete quadratic energy landscape.</p></li>
+<li><p><strong>The Ising bridge:</strong> we translate classical bits into quantum spins.</p></li>
+<li><p><strong>The QAOA ansatz:</strong> we alternate scoring partitions (cost layer) with driving quantum interference (mixer layer).</p></li>
+<li><p><strong>The hybrid loop:</strong> the QPU samples probabilities, and the CPU calculates the average cost and optimises the angles.</p></li>
+</ul>
+</section>
 </section>
 </section>
 
@@ -771,6 +1515,24 @@ k = \frac{\pi}{2 \theta} = \frac{\pi}{4} \sqrt{\frac{N}{M}}.
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="../lecture-09/nisq-algo1.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 9: NISQ Algorithms I</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../topics/math-la.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Mathematical Structure</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -789,23 +1551,46 @@ k = \frac{\pi}{2 \theta} = \frac{\pi}{4} \sqrt{\frac{N}{M}}.
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-algorithm">Simon’s Algorithm</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simons-problem">Simon’s Problem</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-speed-up">Quantum Speed up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-nisq-era-algorithms">Recap: NISQ era algorithms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qubo-problem">QUBO problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qubo-example-set-partitioning">QUBO example: Set partitioning.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qubo-example-partitioning-a-set">QUBO example: partitioning a set</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qubo-set-partitioning-examples">QUBO: set partitioning examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-does-the-vector-bf-x-partition-the-set-of-numbers">How does the vector <span class="math notranslate nohighlight">\({\bf x}\)</span> partition the set of numbers?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qubo-classical-algorithms">QUBO: classical algorithms</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#heuristic-approach-pick-me-first">Heuristic approach: pick me first</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#greedy-search">Greedy search</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#simulated-annealing">Simulated annealing</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shors-algorithm">Shor’s Algorithm</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implications-for-crytography">Implications for crytography</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#small-size-heuristics-limitations">Small-size heuristics: limitations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aspects-of-qubo">Aspects of QUBO</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scaling-in-qubo">Scaling in QUBO</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-aspects-of-qubo">Key aspects of QUBO</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-quantum-advantage">The quantum advantage</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grovers-algorithm">Grover’s Algorithm</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unstructured-search">Unstructured search</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#circuit">Circuit</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-does-grovers-algorithm-work">WHy does Grover’s algorithm work?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qaoa">QAOA</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qaoa-the-hybrid-approach">QAOA: the hybrid approach</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qubo-in-quantum-the-ising-bridge">QUBO in quantum: the Ising bridge</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deriving-the-ising-coefficients">Deriving the Ising coefficients</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cost-hamiltonian">The cost Hamiltonian</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limiations-of-early-quantum-algorithms">Limiations of early quantum algorithms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-qaoa-engine">The QAOA engine</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#constructing-qaoa-cost-and-mixer">Constructing QAOA: cost and mixer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compiling-to-quantum-gates">Compiling to quantum gates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-hybrid-variational-loop">The hybrid variational loop</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#illustrative-example-3-qubits">Illustrative example: 3 qubits</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-qubo">Building the QUBO</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-ising-hamiltonian">The Ising Hamiltonian</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#execution-and-outcome">Execution and outcome</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qaoa-vs-vqe">QAOA vs. VQE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wrap-up">Wrap-up</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
