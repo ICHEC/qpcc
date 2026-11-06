@@ -33,9 +33,9 @@ parts:
   - caption: Topic 9
     chapters:
     - file: lecture-09/nisq-algo1.md
-#  - caption: Topic 10
-#    chapters:
-#    - file: lecture-10/nisq-algo2.md
+  - caption: Topic 10
+    chapters:
+    - file: lecture-10/nisq-algo2.md
 #  - caption: Topic 11
 #    chapters:
 #    - file: lecture-11/future-quantum-guest.md
