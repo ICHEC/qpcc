@@ -1,39 +1,34 @@
 ---
 title: NISQ Algorithms II
-jupytext:
-    formats: md:myst
-    text_representation:
-        extension: .md
-        format_name: myst
-kernelspec:
-    display_name: Python 3
-    language: python
-    name: python3
-mystnb:
-    render_markdown_format: myst
+layout: post
 ---
+
 
 (lecture-10)=
 # Lecture 10: NISQ Quantum Algorithms II
 
-```{warning} These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture 
+
+```{warning}
+
+These lecture notes are a work in progress and are not a replacement for watching the lecture video, it's intended to be a supplementary reading after watching the lecture
+
 ```
 
 ```{admonition} Learning Outcomes
+
 :class: tip
 
-In this lecture we will be continuing our discussion on Noisy Intermediate Scale Quantum (NISQ) algorithms. The learning outcomes are: 
-- Understanding the landscape of NISQ era algorithms
-- Understanding the requirements for the practical application of NISQ era algorithms
-```
-
-```{admonition} Contents
-:class: tip
+In this lecture we will be continuing our discussion on Noisy Intermediate Scale Quantum (NISQ) algorithms. The learning outcomes are:
 
 - Quadratic Unconstrained Binary Optimization (QUBO)
+  - Relevance, Formulation, Difficulties
+
 - Quantum Approximate Optimisation Algorithm (QAOA)
+  - Overview, Structure, and Application to QUBO
+
 ```
 
+---
 
 ## Recap: NISQ era algorithms
 
@@ -64,10 +59,12 @@ where, $Q$ is real symmetric matrix of size $N\times N$ with entries $Q_{ij}$, $
 
 The variables being binary is what makes minimization of $f(x)$ interesting and difficult. Note that the minimization would have been easy if ${\bf x}$ was vector of continuous variables, as this would allow the use of gradient descent methods. However in the case where ${\bf x}$ is a vector of binary variables (0s and 1s), the function $f$ is not differentiable (not smooth). Therefore we cannot calculate its gradient, and one has to resort to other methods for minimization.
 
+
 ### QUBO example: Set partitioning.
 
 To get a better feel about how and what kind of problems get mapped to QUBO, let us look at the following problem.
-We have a set of $N$ numbers $U = \{n_1, n_2, n_3, \dots, n_N\}$, and we need to partition the set into two **disjoint** subsets $A$ and $B$ such that the sum of numbers in both the sets is as close to each other as possible. 
+We have a set of $N$ numbers $U = \{n_1, n_2, n_3, \dots, n_N\}$, and we need to partition the set into two **disjoint** subsets $A$ and $B$ such that the sum of numbers in both the sets is as close to each other as possible.
+
 
 ```{admonition} Definition
 :class: tip
@@ -104,13 +101,13 @@ $$
 \begin{align}
 f_{\bf n}({\bf x}) &= (S_A - S_B)^2 = S_A^2 + S_B^2 - 2 S_A S_B \\
 &= \left(
-    \sum_i n_i x_i 
-\right)^2 + 
+    \sum_i n_i x_i
+\right)^2 +
 \left(
     \sum_i n_i (1 - x_i)
 \right)^2 - 2
 \left(
-    \sum_i n_i x_i 
+    \sum_i n_i x_i
 \right)
 \left(
     \sum_i n_i (1 - x_i)
@@ -153,6 +150,14 @@ $$
 
 Partitioning a set of numbers into two groups. Aiming to minimize the cost function means we want their sums as close as possible, like balancing the scales.
 ```
+
+```{raw} html
+<qubo-balance set="3, 8, 9, 5, 7, 12" left="3" scale="2"></qubo-balance>
+```
+
+The clickable animation above lets you arrange swap the weights or number on the other side by clicking it.
+It also updates the cost function as the weights rearrange.
+
 
 ### QUBO: set partitioning examples
 
@@ -217,6 +222,7 @@ This algorithm leverages the natural phenomenon of cooling. By pretending the co
 3. **Assign item**: Place the next available number into whichever subset is currently lighter.
 4. **Terminate**: Repeat the evaluation and assignment until the sorted list is empty.
 
+
 ```{mermaid}
 flowchart TD
     A([Start]) --> B["Sort items largest to smallest.<br/>Put first number in A"]
@@ -267,6 +273,19 @@ flowchart TD
     G --> H
     H --> C
 ```
+
+
+Below is a comparative animation of the three methods -
+
+```{raw} html
+
+<br>
+
+<qubo-solver set="3, 4, 5, 8, 12, 10, 8, 4, 3, 6, 4, 3, 6, 3, 2, 8, 10, 12, 5, 4, 6, 20" scale="1.0" left="1"></qubo-solver>
+
+<br>
+```
+
 
 ### Small-size heuristics: limitations
 
@@ -406,6 +425,15 @@ The variational quantum-classical loop.
 ```
 
 
+Several other algorithms such as VQE, and Grover Adaptive Search share the structure of iterative classical to quantum and back to classical until convergence. These are applicable in areas of Max-Cut, Routing, and Knapsack problem.
+
+**Max-Cut:** is the problem of partitioning the nodes of a graph into two distinct sets to maximise the number of edges that cross the boundary between them. It naturally maps to QUBO.
+
+**Routing:** problem seeks the shortest possible sequence to visit a set of nodes exactly once, similar to travelling salesman problem. This comes with equlity constraints.
+
+**Knapsack:** problem selects a subset of items froma set to maximise the total value without exceeding a strict maximum weight capacity C.
+
+These are generic applications, which can be mapped to real world applications in the industris such as **Finance** where one does portfolio optimisation and option pricing, **Tech sector** where several problems of database analysis can be mapped, or **Logistics** where one often does route optimisation.
 
 ```{figure} ./images/OptMap.png
 :align: center

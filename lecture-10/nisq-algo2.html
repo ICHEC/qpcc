@@ -424,10 +424,12 @@ window.addEventListener("load", load);
 window.runMermaid = runMermaid;</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-10/nisq-algo2';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../_static/bloch-path.js?v=fbcfb0fb"></script>
+    <script src="../_static/logic-gate.js?v=1548f47a"></script>
     <script src="../_static/parallel-sg.js?v=fc6e2f92"></script>
     <script src="../_static/stern-gerlach.js?v=4e52aa77"></script>
-    <script src="../_static/logic-gate.js?v=1548f47a"></script>
+    <script src="../_static/qubo-solver.js?v=18c7a6d9"></script>
+    <script src="../_static/qubo-balance.js?v=c2b09bad"></script>
+    <script src="../_static/bloch-path.js?v=fbcfb0fb"></script>
     <script src="../_static/quantum-circuit.js?v=8c43a845"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -845,21 +847,24 @@ window.runMermaid = runMermaid;</script>
 <p class="admonition-title">Warning</p>
 <p>These lecture notes are a work in progress and are not a replacement for watching the lecture video, it’s intended to be a supplementary reading after watching the lecture</p>
 </div>
-<div class="tip admonition">
+<div class="admonition-learning-outcomes admonition">
 <p class="admonition-title">Learning Outcomes</p>
+<p>:class: tip</p>
 <p>In this lecture we will be continuing our discussion on Noisy Intermediate Scale Quantum (NISQ) algorithms. The learning outcomes are:</p>
 <ul class="simple">
-<li><p>Understanding the landscape of NISQ era algorithms</p></li>
-<li><p>Understanding the requirements for the practical application of NISQ era algorithms</p></li>
+<li><p>Quadratic Unconstrained Binary Optimization (QUBO)</p>
+<ul>
+<li><p>Relevance, Formulation, Difficulties</p></li>
+</ul>
+</li>
+<li><p>Quantum Approximate Optimisation Algorithm (QAOA)</p>
+<ul>
+<li><p>Overview, Structure, and Application to QUBO</p></li>
+</ul>
+</li>
 </ul>
 </div>
-<div class="tip admonition">
-<p class="admonition-title">Contents</p>
-<ul class="simple">
-<li><p>Quadratic Unconstrained Binary Optimization (QUBO)</p></li>
-<li><p>Quantum Approximate Optimisation Algorithm (QAOA)</p></li>
-</ul>
-</div>
+<hr class="docutils" />
 <section id="recap-nisq-era-algorithms">
 <h2>Recap: NISQ era algorithms<a class="headerlink" href="#recap-nisq-era-algorithms" title="Link to this heading">#</a></h2>
 <ul class="simple">
@@ -913,13 +918,13 @@ S_A = \sum_i n_i x_i \quad \text{and} \quad S_B = \sum_i n_i (1 - x_i)
 \begin{align}
 f_{\bf n}({\bf x}) &amp;= (S_A - S_B)^2 = S_A^2 + S_B^2 - 2 S_A S_B \\
 &amp;= \left(
-    \sum_i n_i x_i 
-\right)^2 + 
+    \sum_i n_i x_i
+\right)^2 +
 \left(
     \sum_i n_i (1 - x_i)
 \right)^2 - 2
 \left(
-    \sum_i n_i x_i 
+    \sum_i n_i x_i
 \right)
 \left(
     \sum_i n_i (1 - x_i)
@@ -959,6 +964,8 @@ f({\bf n}) = (S_A - S_B)^2
 <p><span class="caption-number">Fig. 78 </span><span class="caption-text">Partitioning a set of numbers into two groups. Aiming to minimize the cost function means we want their sums as close as possible, like balancing the scales.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
+<qubo-balance set="3, 8, 9, 5, 7, 12" left="3" scale="2"></qubo-balance><p>The clickable animation above lets you arrange swap the weights or number on the other side by clicking it.
+It also updates the cost function as the weights rearrange.</p>
 </section>
 <section id="qubo-set-partitioning-examples">
 <h3>QUBO: set partitioning examples<a class="headerlink" href="#qubo-set-partitioning-examples" title="Link to this heading">#</a></h3>
@@ -1085,7 +1092,12 @@ f({\bf n}) = (S_A - S_B)^2
     E --&gt; H[Lower temperature T]
     G --&gt; H
     H --&gt; C
-    </pre></section>
+    </pre><p>Below is a comparative animation of the three methods -</p>
+<br>
+
+<qubo-solver set="3, 4, 5, 8, 12, 10, 8, 4, 3, 6, 4, 3, 6, 3, 2, 8, 10, 12, 5, 4, 6, 20" scale="1.0" left="1"></qubo-solver>
+
+<br></section>
 </section>
 <section id="small-size-heuristics-limitations">
 <h3>Small-size heuristics: limitations<a class="headerlink" href="#small-size-heuristics-limitations" title="Link to this heading">#</a></h3>
@@ -1246,6 +1258,11 @@ f({\bf x}) = {\bf x}^T Q {\bf x}
 <p><span class="caption-number">Fig. 83 </span><span class="caption-text">The variational quantum-classical loop.</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
+<p>Several other algorithms such as VQE, and Grover Adaptive Search share the structure of iterative classical to quantum and back to classical until convergence. These are applicable in areas of Max-Cut, Routing, and Knapsack problem.</p>
+<p><strong>Max-Cut:</strong> is the problem of partitioning the nodes of a graph into two distinct sets to maximise the number of edges that cross the boundary between them. It naturally maps to QUBO.</p>
+<p><strong>Routing:</strong> problem seeks the shortest possible sequence to visit a set of nodes exactly once, similar to travelling salesman problem. This comes with equlity constraints.</p>
+<p><strong>Knapsack:</strong> problem selects a subset of items froma set to maximise the total value without exceeding a strict maximum weight capacity C.</p>
+<p>These are generic applications, which can be mapped to real world applications in the industris such as <strong>Finance</strong> where one does portfolio optimisation and option pricing, <strong>Tech sector</strong> where several problems of database analysis can be mapped, or <strong>Logistics</strong> where one often does route optimisation.</p>
 <figure class="align-center" id="id7">
 <img alt="../_images/OptMap.png" src="../_images/OptMap.png" />
 <figcaption>

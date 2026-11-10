@@ -76,8 +76,8 @@ mindmap
 - [Lecture 7 - Early Quantum Algorithms II: Shor's Algorithm & Cryptography](./lecture-07/early-qa2.md)
 - [Lecture 8 - Early Quantum Algorithms III: Grover's Algorithm & Quantum Random Walks](./lecture-08/early-qa3.md)
 - [Lecture 9 - NISQ Algorithms I: Introduction](./lecture-09/nisq-algorithms-introduction.md)
+- [Lecture 10 - NISQ Algorithms II: QUBO Optimization](./lecture-10/nisq-algo2.md)
 <!--
-- [Lecture 10 - NISQ Algorithms II: QUBO Optimization](./lecture-10/qubo-optimization.md)
 - [Lecture 11 - The Future of Quantum](./lecture-11/future-of-quantum.md)
 -->
 
